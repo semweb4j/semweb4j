@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <parent>
+    <artifactId>semweb4j-parent</artifactId>
+    <groupId>org.semweb4j</groupId>
+    <version>4.3-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.semweb4j</groupId>
+  <artifactId>semweb4j-dist</artifactId>
+  <name>Semweb4j distribution</name>
+  <version>4.3-SNAPSHOT</version>
+  <description>This is a helper project to package the diverse modules in the semweb4j project
+	together to enable easy deployment and usage.</description>
+  <url>http://www.semweb4j.org</url>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.1</version>
+        <executions>
+          <execution>
+            <id>jar-with-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+            <configuration>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.semweb4j</groupId>
+      <artifactId>rdf2go-dist</artifactId>
+      <version>4.3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.semweb4j</groupId>
+      <artifactId>rdfreactor-dist</artifactId>
+      <version>4.3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.semweb4j</groupId>
+      <artifactId>jrest</artifactId>
+      <version>4.3-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>

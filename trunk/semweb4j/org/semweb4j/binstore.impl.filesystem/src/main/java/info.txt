@@ -1,0 +1,5 @@
+This project is left intentionally blank.
+
+It serves as an "archetype" for the quick creation of new projects.
+
+Be careful with SVN!

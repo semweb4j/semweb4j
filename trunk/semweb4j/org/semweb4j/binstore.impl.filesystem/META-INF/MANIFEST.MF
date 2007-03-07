@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.semanticdesktop.common.binstore
+Bundle-Version: 0.0.1
+Bundle-Localization: plugin
+Require-Bundle: org.semweb4j.rdf2go.api;bundle-version="4.3.0"
+Bundle-Name: Binary Store
