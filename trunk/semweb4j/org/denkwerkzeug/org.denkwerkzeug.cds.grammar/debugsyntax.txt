@@ -1,0 +1,8 @@
+cds debug syntax
+
+
+ns:s ns:a "body of a" ns:b "body of b" ns:c "body of c" 
+
+ns:b "body of b" 
+
+[named item body]

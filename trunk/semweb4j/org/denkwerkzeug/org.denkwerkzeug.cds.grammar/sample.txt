@@ -1,0 +1,14 @@
+!Heiko
+* kennt
+ * Tanja, FelixKugel, Tanh
+ * Max ::FZI,AIFB ((Person))
+  * Tel :123
+  * mail : max@am.de
+  * Karlsruhe
+
+!Heiko<-kennt->Max
+
+# apple
+# pear
+
+Last week we met at [AIFB] in [Karlsruhe]
