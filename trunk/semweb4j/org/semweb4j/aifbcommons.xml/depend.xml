@@ -1,0 +1,15 @@
+<dependencies>
+	<!-- 
+		compile or test => goes into ivy conf, so it will be copied to lib dir
+		
+		compile, run or test => goes into Eclipse build path
+		
+		run dependencies are cross-project dependencies OR lib-dependencies, depends
+		on runlibs="copy" or "ref"
+		
+		run => goes into OSGi manifest, osgi bundle will be named ${org}.${name}
+		
+	-->
+	<dependency org="dom4j" name="dom4j" rev="1.6.1" compile="true"
+		run="true" runlibs="copy" test="true" />
+</dependencies>

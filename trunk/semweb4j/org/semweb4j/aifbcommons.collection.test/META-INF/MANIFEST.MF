@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AIFBcommons collection tests
+Bundle-SymbolicName: org.semweb4j.aifbcommons.collection.test
+Bundle-Version: 4.3.0
+Bundle-Localization: plugin
+Require-Bundle: org.semweb4j.aifbcommons.collection
+Import-Package: junit.framework;version="3.8.1"

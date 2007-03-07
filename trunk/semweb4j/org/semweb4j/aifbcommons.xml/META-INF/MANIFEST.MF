@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: AIFBcommons XML
+Bundle-SymbolicName: org.semweb4j.aifbcommons.xml
+Bundle-Version: 4.3.0
+Bundle-Localization: plugin
+Export-Package: org.ontoware.aifbcommons.xml
+Import-Package: junit.framework;version="3.8.1",
+ org.apache.commons.logging,
+ org.dom4j,
+ org.dom4j.io,
+ org.jaxen,
+ org.xmlpull.v1

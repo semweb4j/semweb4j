@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<!--  aifbcommons -->
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>semweb4j-parent</artifactId>
+		<version>4.3-SNAPSHOT</version>
+	</parent>
+	<artifactId>aifbcommons-collection</artifactId>
+	<packaging>jar</packaging>
+	<name>AIFBcommons collection</name>
+<!--  
+	<url>http://semweb4j.org/aifbcommons</url>
+-->
+	<inceptionYear>2005</inceptionYear>
+	<description>
+		AIFBcommons is a small bundle of little, commonly needed tools.
+		Currently, it contains e. .g. iterators such as a
+		ClosableIterator and its corresponding ClosableIterable. Both
+		are used by RDF2Go.
+	</description>
+
+	<dependencies>
+	</dependencies>
+
+</project>
