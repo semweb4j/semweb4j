@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<project>
+	<parent>
+		<artifactId>semweb4j-parent</artifactId>
+		<groupId>org.semweb4j</groupId>
+		<version>4.3-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go-sesame2</artifactId>
+	<name>RDF2Go Sesame 2.0 adapter</name>
+	<description>
+		An implementation of the RDF2Go API which delegates to Sesame 2.0
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go</artifactId>
+			<version>4.3-SNAPSHOT</version>
+			<!--  transitive: aifbcommons.jar -->
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go-test-support</artifactId>
+			<version>4.3-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go-adapter-support</artifactId>
+			<version>4.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<!--  
+
+mvn install:install-file -Dfile=openrdf-sesame-2.0-alpha4-onejar.jar -DgroupId=org.openrdf -DartifactId=openrdf-sesame -Dversion=2.0-alpha4 -Dpackaging=jar		
+				
+			-->
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-sesame</artifactId>
+			<version>2.0-alpha4</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

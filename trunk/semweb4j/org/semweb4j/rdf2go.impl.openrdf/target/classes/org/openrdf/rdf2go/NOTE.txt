@@ -1,0 +1,2 @@
+THis is code from Aduna, for Sesame 2.0 SNAPSHOT, retrofitted
+by Max Völkel to mathc the older Sesame 2.0 alpha 4 API.

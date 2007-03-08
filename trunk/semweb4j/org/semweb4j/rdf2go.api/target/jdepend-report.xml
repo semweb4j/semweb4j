@@ -1,0 +1,500 @@
+<?xml version="1.0"?>
+<JDepend>
+    <Packages>
+
+        <Package name="java.io">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.lang">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.lang.reflect">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.net">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.util">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.util.logging">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.apache.commons.logging">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.ontoware.aifbcommons.collection">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go">
+            <Stats>
+                <TotalClasses>4</TotalClasses>
+                <ConcreteClasses>3</ConcreteClasses>
+                <AbstractClasses>1</AbstractClasses>
+                <Ca>1</Ca>
+                <Ce>6</Ce>
+                <A>0.25</A>
+                <I>0.86</I>
+                <D>0.11</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+                <Class sourceFile="ModelFactory.java">
+                    org.ontoware.rdf2go.ModelFactory
+                </Class>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="RDF2Go.java">
+                    org.ontoware.rdf2go.RDF2Go
+                </Class>
+                <Class sourceFile="Reasoning.java">
+                    org.ontoware.rdf2go.Reasoning
+                </Class>
+                <Class sourceFile="SparqlUtil.java">
+                    org.ontoware.rdf2go.SparqlUtil
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+                <Package>java.lang.reflect</Package>
+                <Package>java.util</Package>
+                <Package>org.apache.commons.logging</Package>
+                <Package>org.ontoware.rdf2go.exception</Package>
+                <Package>org.ontoware.rdf2go.model</Package>
+            </DependsUpon>
+
+            <UsedBy>
+                <Package>org.ontoware.rdf2go.osgi</Package>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.exception">
+            <Stats>
+                <TotalClasses>8</TotalClasses>
+                <ConcreteClasses>7</ConcreteClasses>
+                <AbstractClasses>1</AbstractClasses>
+                <Ca>4</Ca>
+                <Ce>1</Ce>
+                <A>0.12</A>
+                <I>0.2</I>
+                <D>0.68</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+                <Class sourceFile="AnyModelException.java">
+                    org.ontoware.rdf2go.exception.AnyModelException
+                </Class>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="LockException.java">
+                    org.ontoware.rdf2go.exception.LockException
+                </Class>
+                <Class sourceFile="MalformedQueryException.java">
+                    org.ontoware.rdf2go.exception.MalformedQueryException
+                </Class>
+                <Class sourceFile="ModelException.java">
+                    org.ontoware.rdf2go.exception.ModelException
+                </Class>
+                <Class sourceFile="ModelRuntimeException.java">
+                    org.ontoware.rdf2go.exception.ModelRuntimeException
+                </Class>
+                <Class sourceFile="QueryLanguageNotSupportedException.java">
+                    org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException
+                </Class>
+                <Class sourceFile="ReasoningNotSupportedException.java">
+                    org.ontoware.rdf2go.exception.ReasoningNotSupportedException
+                </Class>
+                <Class sourceFile="SyntaxNotSupportedException.java">
+                    org.ontoware.rdf2go.exception.SyntaxNotSupportedException
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+            </DependsUpon>
+
+            <UsedBy>
+                <Package>org.ontoware.rdf2go</Package>
+                <Package>org.ontoware.rdf2go.model</Package>
+                <Package>org.ontoware.rdf2go.model.node.impl</Package>
+                <Package>org.ontoware.rdf2go.util</Package>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.model">
+            <Stats>
+                <TotalClasses>20</TotalClasses>
+                <ConcreteClasses>1</ConcreteClasses>
+                <AbstractClasses>19</AbstractClasses>
+                <Ca>2</Ca>
+                <Ce>6</Ce>
+                <A>0.95</A>
+                <I>0.75</I>
+                <D>0.7</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+                <Class sourceFile="Diff.java">
+                    org.ontoware.rdf2go.model.Diff
+                </Class>
+                <Class sourceFile="FindableModel.java">
+                    org.ontoware.rdf2go.model.FindableModel
+                </Class>
+                <Class sourceFile="FindableModelSet.java">
+                    org.ontoware.rdf2go.model.FindableModelSet
+                </Class>
+                <Class sourceFile="Lockable.java">
+                    org.ontoware.rdf2go.model.Lockable
+                </Class>
+                <Class sourceFile="Model.java">
+                    org.ontoware.rdf2go.model.Model
+                </Class>
+                <Class sourceFile="ModelAddRemove.java">
+                    org.ontoware.rdf2go.model.ModelAddRemove
+                </Class>
+                <Class sourceFile="ModelIO.java">
+                    org.ontoware.rdf2go.model.ModelIO
+                </Class>
+                <Class sourceFile="ModelRemovePatterns.java">
+                    org.ontoware.rdf2go.model.ModelRemovePatterns
+                </Class>
+                <Class sourceFile="ModelSet.java">
+                    org.ontoware.rdf2go.model.ModelSet
+                </Class>
+                <Class sourceFile="ModelSetAddRemove.java">
+                    org.ontoware.rdf2go.model.ModelSetAddRemove
+                </Class>
+                <Class sourceFile="ModelSetIO.java">
+                    org.ontoware.rdf2go.model.ModelSetIO
+                </Class>
+                <Class sourceFile="ModelValueFactory.java">
+                    org.ontoware.rdf2go.model.ModelValueFactory
+                </Class>
+                <Class sourceFile="ModelWriter.java">
+                    org.ontoware.rdf2go.model.ModelWriter
+                </Class>
+                <Class sourceFile="QueryResultTable.java">
+                    org.ontoware.rdf2go.model.QueryResultTable
+                </Class>
+                <Class sourceFile="QueryRow.java">
+                    org.ontoware.rdf2go.model.QueryRow
+                </Class>
+                <Class sourceFile="QueryableModel.java">
+                    org.ontoware.rdf2go.model.QueryableModel
+                </Class>
+                <Class sourceFile="Sparqlable.java">
+                    org.ontoware.rdf2go.model.Sparqlable
+                </Class>
+                <Class sourceFile="Statement.java">
+                    org.ontoware.rdf2go.model.Statement
+                </Class>
+                <Class sourceFile="TriplePattern.java">
+                    org.ontoware.rdf2go.model.TriplePattern
+                </Class>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="Syntax.java">
+                    org.ontoware.rdf2go.model.Syntax
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.io</Package>
+                <Package>java.lang</Package>
+                <Package>java.util</Package>
+                <Package>org.ontoware.aifbcommons.collection</Package>
+                <Package>org.ontoware.rdf2go.exception</Package>
+                <Package>org.ontoware.rdf2go.model.node</Package>
+            </DependsUpon>
+
+            <UsedBy>
+                <Package>org.ontoware.rdf2go</Package>
+                <Package>org.ontoware.rdf2go.util</Package>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.model.node">
+            <Stats>
+                <TotalClasses>12</TotalClasses>
+                <ConcreteClasses>1</ConcreteClasses>
+                <AbstractClasses>11</AbstractClasses>
+                <Ca>3</Ca>
+                <Ce>3</Ce>
+                <A>0.92</A>
+                <I>0.5</I>
+                <D>0.42</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+                <Class sourceFile="BlankNode.java">
+                    org.ontoware.rdf2go.model.node.BlankNode
+                </Class>
+                <Class sourceFile="DatatypeLiteral.java">
+                    org.ontoware.rdf2go.model.node.DatatypeLiteral
+                </Class>
+                <Class sourceFile="LanguageTagLiteral.java">
+                    org.ontoware.rdf2go.model.node.LanguageTagLiteral
+                </Class>
+                <Class sourceFile="Literal.java">
+                    org.ontoware.rdf2go.model.node.Literal
+                </Class>
+                <Class sourceFile="Node.java">
+                    org.ontoware.rdf2go.model.node.Node
+                </Class>
+                <Class sourceFile="NodeOrVariable.java">
+                    org.ontoware.rdf2go.model.node.NodeOrVariable
+                </Class>
+                <Class sourceFile="PlainLiteral.java">
+                    org.ontoware.rdf2go.model.node.PlainLiteral
+                </Class>
+                <Class sourceFile="Resource.java">
+                    org.ontoware.rdf2go.model.node.Resource
+                </Class>
+                <Class sourceFile="ResourceOrVariable.java">
+                    org.ontoware.rdf2go.model.node.ResourceOrVariable
+                </Class>
+                <Class sourceFile="URI.java">
+                    org.ontoware.rdf2go.model.node.URI
+                </Class>
+                <Class sourceFile="UriOrVariable.java">
+                    org.ontoware.rdf2go.model.node.UriOrVariable
+                </Class>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="Variable.java">
+                    org.ontoware.rdf2go.model.node.Variable
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+                <Package>java.util</Package>
+                <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            </DependsUpon>
+
+            <UsedBy>
+                <Package>org.ontoware.rdf2go.model</Package>
+                <Package>org.ontoware.rdf2go.model.node.impl</Package>
+                <Package>org.ontoware.rdf2go.vocabulary</Package>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.model.node.impl">
+            <Stats>
+                <TotalClasses>3</TotalClasses>
+                <ConcreteClasses>2</ConcreteClasses>
+                <AbstractClasses>1</AbstractClasses>
+                <Ca>2</Ca>
+                <Ce>6</Ce>
+                <A>0.33</A>
+                <I>0.75</I>
+                <D>0.08</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+                <Class sourceFile="ResourceImpl.java">
+                    org.ontoware.rdf2go.model.node.impl.ResourceImpl
+                </Class>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="NodeUtils.java">
+                    org.ontoware.rdf2go.model.node.impl.NodeUtils
+                </Class>
+                <Class sourceFile="URIImpl.java">
+                    org.ontoware.rdf2go.model.node.impl.URIImpl
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+                <Package>java.net</Package>
+                <Package>java.util</Package>
+                <Package>org.apache.commons.logging</Package>
+                <Package>org.ontoware.rdf2go.exception</Package>
+                <Package>org.ontoware.rdf2go.model.node</Package>
+            </DependsUpon>
+
+            <UsedBy>
+                <Package>org.ontoware.rdf2go.model.node</Package>
+                <Package>org.ontoware.rdf2go.vocabulary</Package>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.osgi">
+            <Stats>
+                <TotalClasses>1</TotalClasses>
+                <ConcreteClasses>1</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>0</Ca>
+                <Ce>4</Ce>
+                <A>0</A>
+                <I>1</I>
+                <D>0</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="RDF2GoActivator.java">
+                    org.ontoware.rdf2go.osgi.RDF2GoActivator
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+                <Package>java.util.logging</Package>
+                <Package>org.ontoware.rdf2go</Package>
+                <Package>org.osgi.framework</Package>
+            </DependsUpon>
+
+            <UsedBy>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.util">
+            <Stats>
+                <TotalClasses>1</TotalClasses>
+                <ConcreteClasses>1</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>0</Ca>
+                <Ce>4</Ce>
+                <A>0</A>
+                <I>1</I>
+                <D>0</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="ModelUtils.java">
+                    org.ontoware.rdf2go.util.ModelUtils
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+                <Package>java.util</Package>
+                <Package>org.ontoware.rdf2go.exception</Package>
+                <Package>org.ontoware.rdf2go.model</Package>
+            </DependsUpon>
+
+            <UsedBy>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.ontoware.rdf2go.vocabulary">
+            <Stats>
+                <TotalClasses>4</TotalClasses>
+                <ConcreteClasses>4</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>0</Ca>
+                <Ce>3</Ce>
+                <A>0</A>
+                <I>1</I>
+                <D>0</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="OWL.java">
+                    org.ontoware.rdf2go.vocabulary.OWL
+                </Class>
+                <Class sourceFile="RDF.java">
+                    org.ontoware.rdf2go.vocabulary.RDF
+                </Class>
+                <Class sourceFile="RDFS.java">
+                    org.ontoware.rdf2go.vocabulary.RDFS
+                </Class>
+                <Class sourceFile="XSD.java">
+                    org.ontoware.rdf2go.vocabulary.XSD
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>java.lang</Package>
+                <Package>org.ontoware.rdf2go.model.node</Package>
+                <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            </DependsUpon>
+
+            <UsedBy>
+            </UsedBy>
+        </Package>
+
+        <Package name="org.osgi.framework">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+    </Packages>
+
+    <Cycles>
+        <Package Name="org.ontoware.rdf2go">
+            <Package>org.ontoware.rdf2go.model</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+        </Package>
+
+        <Package Name="org.ontoware.rdf2go.model">
+            <Package>org.ontoware.rdf2go.model.node</Package>
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+        </Package>
+
+        <Package Name="org.ontoware.rdf2go.model.node">
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+        </Package>
+
+        <Package Name="org.ontoware.rdf2go.model.node.impl">
+            <Package>org.ontoware.rdf2go.model.node</Package>
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+        </Package>
+
+        <Package Name="org.ontoware.rdf2go.osgi">
+            <Package>org.ontoware.rdf2go</Package>
+            <Package>org.ontoware.rdf2go.model</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+        </Package>
+
+        <Package Name="org.ontoware.rdf2go.util">
+            <Package>org.ontoware.rdf2go.model</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+        </Package>
+
+        <Package Name="org.ontoware.rdf2go.vocabulary">
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+            <Package>org.ontoware.rdf2go.model.node</Package>
+            <Package>org.ontoware.rdf2go.model.node.impl</Package>
+        </Package>
+
+    </Cycles>
+</JDepend>

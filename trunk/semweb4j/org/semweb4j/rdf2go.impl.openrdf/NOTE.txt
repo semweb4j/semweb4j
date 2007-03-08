@@ -1,0 +1,5 @@
+This adapter is tuned for the OpenRDF/Sesame 2.0 Alpha 4 version.
+
+The newer version(-SNAPSHOT) has another API. 
+An adapter written and maintained by Aduna is 
+available by Aduna.

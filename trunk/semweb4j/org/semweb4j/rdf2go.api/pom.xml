@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- rdf2go -->
+<!-- 
+
+
+
+
+
+  this pom was used for a while to build semweb4j components,
+  but it's currently not maintained.
+
+
+
+ -->
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>semweb4j-parent</artifactId>
+		<groupId>org.semweb4j</groupId>
+		<version>4.3-SNAPSHOT</version>
+	</parent>
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go</artifactId>
+	<name>RDF2Go API</name>
+	<description>RDF2o is an implementation-independent Java API with the design goals: portability (hence the name), performance, easy of implementation.</description>
+	<url>http://semweb4j.org/rdf2go</url>
+	<inceptionYear>2005</inceptionYear>
+
+	<contributors>
+		<contributor>
+			<name>Benjamin Heitmann</name>
+			<url>http://www.deri.ie/about/team/member/benjamin_heitmann/</url>
+		</contributor>
+		<contributor>
+			<name>Sebastian Gerke</name>
+			<url>http://www.deri.ie/about/team/member/sebastian_gerke/</url>
+		</contributor>
+		<contributor>
+			<name>Leo Sauermann</name>
+			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
+		</contributor>
+	</contributors>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>aifbcommons-collection</artifactId>
+			<version>4.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+			<optional>true</optional>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>theoretiker</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://max.theoretiker.org/repo</url>
+		</repository>
+	</repositories>
+
+</project>

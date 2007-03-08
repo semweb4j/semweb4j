@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RDF2Go abstract base classes for tests
+Bundle-SymbolicName: org.semweb4j.rdf2go.impl.base.test
+Bundle-Version: 4.3.0
+Bundle-Localization: plugin
+Require-Bundle: org.semweb4j.rdf2go.impl.base,
+ org.semweb4j.rdf2go.api,
+ org.semweb4j.aifbcommons.collection
+Import-Package: junit.framework;version="3.8.1",
+ org.apache.commons.logging
+Export-Package: org.ontoware.rdf2go,
+ org.ontoware.rdf2go.model,
+ org.ontoware.rdf2go.testdata

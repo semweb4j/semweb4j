@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: rdf2go_dist
+Bundle-SymbolicName: rdf2go_dist
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin

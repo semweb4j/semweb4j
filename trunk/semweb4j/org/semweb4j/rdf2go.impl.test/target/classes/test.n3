@@ -1,0 +1,86 @@
+#   { ... }
+#   is of
+#   paths like :a.:b.:c and :a^:b^:c
+#   @keywords
+#   => implies
+#   = equivalence
+#   @forAll
+#   @forSome
+#   <=
+
+@prefix h: <http://infomesh.net/2002/html#> .
+@prefix : <http://infomesh.net/2002/html-attrs#> .
+@prefix daml: <http://www.daml.org/2001/03/daml+oil#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix string: <http://www.w3.org/2000/10/swap/string#> .
+@prefix b: <blargh-hack#> .
+
+this log:forAll :x, :y, :z, :f, :r , :p, :u .
+
+{ :x h:html [] } log:implies { :x :xmlns "http://www.w3.org/1999/xhtml" } .
+
+{ :x daml:first [ log:rawType log:Literal ]; log:uri :u } 
+   log:implies { :x b:genID :u; a b:NoChild } .
+
+{ :x [ log:uri [ string:startsWith "http://infomesh.net/2002/html" ] ] []; 
+     log:uri :u } log:implies { :x b:genID :u } .
+
+{ :x b:genID :u . (:u "_g(\\d)$") string:scrape :y . 
+  :z string:concat ("00" :y) } log:implies { :x b:id :z } .
+
+{ :x b:genID :u . (:u "_g(\\d\\d)$") string:scrape :y . 
+  :z string:concat ("0" :y) } log:implies { :x b:id :z } .
+
+{ :x b:genID :u . (:u "_g(\\d\\d\\d)$") string:scrape :y } 
+   log:implies { :x b:id :y } .
+
+{ [] [ log:uri :p ] []; b:id :u . 
+  :p string:startsWith "http://infomesh.net/2002/html#" . # quicker
+  (:p "^http://infomesh.net/2002/html#(.+)$") string:scrape :r .
+  :f string:concat ("<" :r) } # " id=\"" :u "\""
+   log:implies { :u log:outputString :f } .
+
+{ [] [ log:uri :p ] :z; b:id :u . :x string:concat (:u "a") . 
+  :p string:startsWith "http://infomesh.net/2002/html-attrs#" . 
+  (:p "^http://infomesh.net/2002/html-attrs#(.+)$") string:scrape :r .
+  :f string:concat (" " :r "=\"" :z "\"") } 
+   log:implies { :x log:outputString :f } .
+
+{ [] [ log:uri :p ] [ log:rawType log:Other; log:uri :z ]; b:id :u . 
+  :x string:concat (:u "a") . :f string:concat (" " :r "=\"" :z "\"") . 
+  :p string:startsWith "http://infomesh.net/2002/html-attrs#" . 
+  (:p "^http://infomesh.net/2002/html-attrs#(.+)$") string:scrape :r } 
+   log:implies { :x log:outputString :f } .
+
+{ [] [ log:uri [ string:startsWith "http://infomesh.net/2002/html#" ] ] 
+   [ log:notEqualTo daml:nil ]; b:id :u . 
+  :x string:concat (:u "b") } log:implies { :x log:outputString ">" } .
+
+{ :x [ log:uri [ string:startsWith "http://infomesh.net/2002/html#" ] ] (); 
+  b:id :u . :y string:concat (:u "b") } 
+   log:implies { :x a b:NoChild . :y log:outputString " />\n" } .
+
+{ [] daml:first :x; b:id :y . :x log:rawType log:Literal } 
+   log:implies { :y log:outputString :x } .
+
+{ :x [ log:uri [string:startsWith "http://infomesh.net/2002/html#"] ] :y . 
+  :y log:notEqualTo () } log:implies { :y a b:List; b:sourceElem :x } .
+
+{ [] a b:List; b:sourceElem :x; daml:first :f; daml:rest :r . 
+  :r log:notEqualTo () } log:implies { :r a b:List; b:sourceElem :x } .
+
+{ [] a b:List, b:NoChild; b:id :y; b:sourceElem :x; daml:first :f; 
+  daml:rest () } log:implies { :x b:lastChildElementID :y } .
+
+{ [] a b:List; b:sourceElem :x; daml:first [ a b:NoChild; b:id :y ]; 
+  daml:rest () } log:implies { :x b:lastChildElementID :y } .
+
+{ [] a b:List; b:sourceElem :x; daml:first [ b:id :y; 
+         b:lastChildElementID :z ]; daml:rest () . 
+   :p string:concat (:z "e") } log:implies { :x b:lastChildElementID :p } .
+
+{ [] [log:uri :p] []; b:lastChildElementID :u . :x string:concat (:u "d") . 
+  :p string:startsWith "http://infomesh.net/2002/html#" . 
+  (:p "^http://infomesh.net/2002/html#(.+)$") string:scrape :r . 
+  :f string:concat ("</" :r ">\n") } 
+   log:implies { :x log:outputString :f } .

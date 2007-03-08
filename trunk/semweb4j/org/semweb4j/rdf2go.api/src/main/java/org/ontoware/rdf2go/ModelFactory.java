@@ -1,0 +1,120 @@
+/*
+ * LICENSE INFORMATION
+ * Copyright 2005-2007 by FZI (http://www.fzi.de).
+ * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
+ * <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
+ * <YEAR> = 2007
+ * 
+ * Project information at http://semweb4j.org/rdf2go
+ */
+package org.ontoware.rdf2go;
+
+import java.util.Properties;
+
+import org.ontoware.rdf2go.exception.ModelRuntimeException;
+import org.ontoware.rdf2go.exception.ReasoningNotSupportedException;
+import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.ModelSet;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+/**
+ * RDF2Go adapters have toi implement this interface to be able to create Models and ModelSets.
+ * 
+ * The reasoning setting is set via a property named 'Reasoning'.
+ * @author voelkel
+ *
+ */
+public interface ModelFactory
+{
+	/**
+	 * The Property key to indicate he Reasoning state in the properties.
+	 */
+	static final String REASONING  = "Reasoning";
+	
+	
+	
+    //////////////////////////////////
+	// Model
+	
+	/**
+	 * Create a default in-memory ModelSet with no inferencing.
+	 * 
+	 * @return a ModelSet implementation.
+	 * @throws ModelRuntimeException
+	 *             if the adapter could not create the model
+	 */
+    Model createModel() throws ModelRuntimeException;
+    
+	/**
+	 * Create a new Model with inferencing. Type of reasoning is passed.
+	 * 
+	 * @param reasoning
+	 *            the type of reasoning that is needed
+	 * @return a model with reasoning support
+	 * @throws ModelRuntimeException
+	 *             if the adapter could not create the Model
+	 * @throws ReasoningNotSupportedException
+	 *             if the passed kind of reasoning is not supported.
+	 */
+    Model createModel(Reasoning reasoning) throws ReasoningNotSupportedException, ModelRuntimeException;
+
+	/**
+	 * Create a Model configured by the given properties. You have to look at
+	 * the adapter documentation to see which properties do what.
+	 * 
+	 * @throws ModelRuntimeException
+	 *             if the adapter could not create the Model
+	 * @throws ReasoningNotSupportedException
+	 *             if the passed kind of reasoning is not supported.
+	 * @param properties
+	 *            configures the to-be-created Model
+	 * @return the created Model
+	 * @throws ModelRuntimeException
+	 */
+	Model createModel(Properties p) throws ModelRuntimeException;
+
+	/////////////////////////////
+	// ModelSet
+	
+    
+    /**
+     * create a default in-memory ModelSet with no inferencing.
+     * @return a ModelSet implementation.
+     * @throws NotImplementedException a RuntimeException if this method is not implemented. 
+     * Should not happen. 
+     */
+    ModelSet createModelSet() throws ModelRuntimeException;
+    
+	/**
+	 * Create a default in-memory ModelSet with given inferencing. Type of
+	 * reasoning is passed.
+	 * 
+	 * @param reasoning
+	 *            the type of reasoning that is needed
+	 * @return the created ModelSet
+	 * @throws ModelRuntimeException
+	 * @throws ReasoningNotSupportedException
+	 *             if the passed kind of reasoning is not supported.
+	 * @throws ModelRuntimeException
+	 *             if the adapter could not create the model
+	 */
+    ModelSet createModelSet(Reasoning reasoning) throws ReasoningNotSupportedException, ModelRuntimeException;
+    
+	/**
+	 * Create a ModelSet configured by the given properties. You have to look at
+	 * the adapter documentation to see which properties do what.
+	 * 
+	 * @param properties -
+	 *            configures the model creation
+	 * @return the created ModelSet
+	 * @throws ModelRuntimeException
+	 *             if the adapter could not create the Model
+	 * @throws ReasoningNotSupportedException
+	 *             if the passed kind of reasoning is not supported.
+	 */
+	ModelSet createModelSet(Properties p) throws ModelRuntimeException;
+	
+
+}

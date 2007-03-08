@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>semweb4j - Inheritance Hierarchy</title>
+    <style type="text/css" media="all">
+      @import url("./css/maven-base.css");
+      @import url("./css/maven-theme.css");
+      @import url("./css/site.css");
+    </style>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Max Völkel" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                            <?xml version="1.0" encoding="UTF-8"?>
+<meta content="semweb4j, mv2178imnetz" name="keywords"></meta>
+                                <?xml version="1.0" encoding="UTF-8"?>
+<link href="doap.rdf" type="application/rdf+xml" title="DOAP" rel="meta"></link>
+                                <?xml version="1.0" encoding="UTF-8"?>
+<script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
+                                <?xml version="1.0" encoding="UTF-8"?>
+<script type="text/javascript" src="http://www.google-analytics.com/urchin.js">_uacct = "UA-271022-2"; urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="../" id="bannerLeft">
+    
+                                            <img src="images/logos/semweb4j.png" alt="" />
+    
+            </a>
+                    <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+            <div class="xleft">
+        Last Published: 2007-02-11
+                      </div>
+            <div class="xright">      <a href="http://www.fzi.de/">FZI</a>
+          |
+          <a href="http://aifb.uni-karlsruhe.de/">AIFB</a>
+          |
+          <a href="http://xam.de">Xam.de</a>
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+                   <h5>Semweb4j</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="http://www.semweb4j.org/index.html">Home</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://www.semweb4j.org/bin">Distribution Downloads</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://ontoworld.org/wiki/Semweb4j">Semweb4j @ Ontoworld</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://www.semweb4j.org/doap.rdf">DOAP file</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://www.semweb4j.org/rdf2go/index.html">:: RDF2Go</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://www.semweb4j.org/rdfreactor-dist/index.html">:: RDFReactor</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://www.semweb4j.org/jrest/index.html">:: jREST</a>
+        </li>
+          </ul>
+          <h5>RDF2Go</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="bin">Downloads</a>
+        </li>
+              
+    <li class="none">
+              <a href="http://ontoworld.org/wiki/RDF2Go">RDF2Go @ Ontoworld</a>
+        </li>
+              
+    <li class="none">
+              <a href="doap.rdf">DOAP file</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-info.html">Project Information</a>
+              </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-reports.html">Project Reports</a>
+              </li>
+          </ul>
+                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
+            <img alt="Built by Maven" src="./images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+  
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Syntax note</h2><p>If B is a sub-item of A in a list, then &quot;A extends B&quot;.</p></div><div class="section"><h2>Inheritance hierarchy for Model</h2><ul><li>ModelFactory</li><li>Model * ModelValueFactory - create org.ontoware.rdf2go.model.node.* instances * ModelAddRemove - remove statements, diffs, locks * ClosableIterable<i>Statement</i> - read statements * ModelWriter - add statements * Lockable - lock/unlock * ModelRemovePatterns - remove statements matching a given pattern * QueryableModel - * ClosableIterable<i>Statement</i> - what can be queried, can also be read * Sparqlable - SPARQL and other queries * FindableModel - find and count by triple patterns * ModelIO - read/write to/from readers/writers/streams </li><li>ModelSet * Sparqlable * ModelSetIO * FindableModelSet * ModelSetAddRemove</li></ul></div><div class="section"><h2>Helper classes for adapter implementations</h2><ul><li>AbstractModelFactory</li><li>AbstractModel implements Model * AbstractModelRemovePatterns implements ModelRemovePatterns * AbstractModelAddRemove implements ModelAddRemove * AbstractModelWriter implements ModelWriter</li></ul></div>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2005-2007
+    
+          FZI - Forschungszentrum Informatik | Karlsruhe | Germany
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?><project>
+  <parent>
+    <artifactId>semweb4j-parent</artifactId>
+    <groupId>org.semweb4j</groupId>
+    <version>4.3-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.semweb4j</groupId>
+  <artifactId>rdf2go-test-support</artifactId>
+  <name>RDF2Go test-support</name>
+  <description>Abstract base classes for model testing</description>
+  <dependencies>
+    <dependency>
+      <groupId>org.semweb4j</groupId>
+      <artifactId>rdf2go</artifactId>
+      <version>4.3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.semweb4j</groupId>
+      <artifactId>rdf2go-adapter-support</artifactId>
+      <version>4.3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+  </dependencies>
+</project>

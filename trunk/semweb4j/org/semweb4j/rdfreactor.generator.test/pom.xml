@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project>
+	<parent>
+		<artifactId>semweb4j-parent</artifactId>
+		<groupId>org.semweb4j</groupId>
+		<version>4.3-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdfreactor-test-generator</artifactId>
+	<name>RDFReactor test generator</name>
+	<description>Mini helper to generate test classes to be used by the RDFReactor tests. 
+Maybe this project is never needed again, but who knows?</description>
+	<dependencies>
+		<dependency>
+			<!--  org.apache.tools.ant -->
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdfreactor-generator</artifactId>
+			<version>4.3-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>
