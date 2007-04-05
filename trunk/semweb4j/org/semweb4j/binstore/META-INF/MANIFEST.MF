@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-SymbolicName: org.semanticdesktop.common.binstore
-Bundle-Version: 0.0.1
-Bundle-Localization: plugin
-Bundle-Name: Binary Store API
-Export-Package: org.semanticdesktop.common.binstore

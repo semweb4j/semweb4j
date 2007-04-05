@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Archetype for new org.semweb4j.* projects
-Bundle-SymbolicName: org.semweb4j.archetype
-Bundle-Version: 0.0.1
-Bundle-Localization: plugin
