@@ -14,7 +14,6 @@ import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.node.NodeOrVariable;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
-import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 
 /**
@@ -91,7 +90,7 @@ public interface FindableModelSet {
 	 * @param object
 	 * @return a QuadPattern
 	 */
-	public QuadPattern createQuadPattern(URI context, ResourceOrVariable subject, UriOrVariable predicate,
+	public QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object);
 
 }

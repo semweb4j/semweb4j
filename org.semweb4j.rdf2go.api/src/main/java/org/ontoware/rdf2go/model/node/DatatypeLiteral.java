@@ -17,13 +17,14 @@ import java.util.Date;
  * 
  * Implementations are expected to have valid implementations of equals( Object )
  * and hashCode()
+ * 
  * @author mvo
- *
+ * 
  */
 public interface DatatypeLiteral extends Literal {
 
 	/**
-	 * the URI normally is an URI for a xml schema datatype (xsd) 
+	 * the URI normally is an URI for a xml schema datatype (xsd)
 	 * 
 	 * @return the URI of the datatype
 	 */
@@ -36,6 +37,9 @@ public interface DatatypeLiteral extends Literal {
 	 *             if the literal value could not be parsed
 	 * @throws ClassCastException
 	 *             if the Literal is not an xsd:integer or a subtype of it
+	 * @deprecated this should be part of a utility, not the core API. Use
+	 *             org.ontoware.rdf2go.util.TypeConverter from rdf2go.base.impl
+	 *             instead
 	 */
 	public int asInt() throws NumberFormatException, ClassCastException;
 
@@ -46,14 +50,21 @@ public interface DatatypeLiteral extends Literal {
 	 * @throws ClassCastException
 	 *             is the literal is not a DatatypeLiteral with a datatype of
 	 *             xsd:boolean.
+	 * @deprecated this should be part of a utility, not the core API. Use
+	 *             org.ontoware.rdf2go.util.TypeConverter from rdf2go.base.impl
+	 *             instead
 	 */
 	public boolean asBoolean() throws ClassCastException;
 
 	/**
 	 * @return a java.util.Date representing the literal value
-	 * @throws ClassCastException if the Literals is not a DatatypeLiteral with datatype of xsd:dateTime, xsd:date or xsd:time.
-	 * @deprecated this should be part of a utility, not the core API
+	 * @throws ClassCastException
+	 *             if the Literals is not a DatatypeLiteral with datatype of
+	 *             xsd:dateTime, xsd:date or xsd:time.
+	 * @deprecated this should be part of a utility, not the core API. Use
+	 *             org.ontoware.rdf2go.util.TypeConverter from rdf2go.base.impl
+	 *             instead
 	 */
 	public Date asDate() throws ClassCastException;
-	
+
 }

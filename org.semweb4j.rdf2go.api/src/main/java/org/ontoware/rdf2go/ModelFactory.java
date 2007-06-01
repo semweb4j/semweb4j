@@ -19,24 +19,43 @@ import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.node.URI;
 
 /**
- * RDF2Go adapters have toi implement this interface to be able to create Models and ModelSets.
+ * RDF2Go adapters have toi implement this interface to be able to create Models
+ * and ModelSets.
  * 
- * The reasoning setting is set via a property named 'Reasoning'.
+ * Property keys are defined in this interface (Reasoning, Storage).
+ * 
  * @author voelkel
- *
+ * 
  */
-public interface ModelFactory
-{
+public interface ModelFactory {
+
 	/**
-	 * The Property key to indicate he Reasoning state in the properties.
+	 * The Property key to indicate the Reasoning state in the properties. Legal
+	 * values are:
+	 * <ul>
+	 * <li>NONE (default)
+	 * <li>RDFS
+	 * <li>OWL
+	 * </ul>
 	 */
-	static final String REASONING  = "Reasoning";
+	static final String REASONING = "Reasoning";
+
+	/**
+	 * The Property key to indicate where to store the model or modelset. Legal
+	 * values are:
+	 * <ul>
+	 * <li>MEMORY (default, stores in-memory)
+	 * <li>any absolute or relative path, in Java syntax ("/")
+	 * </ul>
+	 */
+	static final String STORAGE = "Storage";
+
+	static final String STORAGE_VALUE_MEMORY = "MEMORY";
+
 	
-	
-	
-    //////////////////////////////////
+	// ////////////////////////////////
 	// Model
-	
+
 	/**
 	 * Create a default in-memory ModelSet with no inferencing.
 	 * 
@@ -44,18 +63,20 @@ public interface ModelFactory
 	 * @throws ModelRuntimeException
 	 *             if the adapter could not create the model
 	 */
-    Model createModel() throws ModelRuntimeException;
-    
+	Model createModel() throws ModelRuntimeException;
+
 	/**
-	 * Create a default in-memory ModelSet with no inferencing and the given context URI.
-	 * All statements added to this model will have this context as the context of each statement. 
+	 * Create a default in-memory ModelSet with no inferencing and the given
+	 * context URI. All statements added to this model will have this context as
+	 * the context of each statement.
+	 * 
 	 * @return a Model implementation bound to the given context URI.
 	 * @throws ModelRuntimeException
 	 *             if the adapter could not create the model
 	 */
-    Model createModel( URI contextURI ) throws ModelRuntimeException;
+	Model createModel(URI contextURI) throws ModelRuntimeException;
 
-    /**
+	/**
 	 * Create a new Model with inferencing. Type of reasoning is passed.
 	 * 
 	 * @param reasoning
@@ -66,7 +87,8 @@ public interface ModelFactory
 	 * @throws ReasoningNotSupportedException
 	 *             if the passed kind of reasoning is not supported.
 	 */
-    Model createModel(Reasoning reasoning) throws ReasoningNotSupportedException, ModelRuntimeException;
+	Model createModel(Reasoning reasoning)
+			throws ReasoningNotSupportedException, ModelRuntimeException;
 
 	/**
 	 * Create a Model configured by the given properties. You have to look at
@@ -83,18 +105,19 @@ public interface ModelFactory
 	 */
 	Model createModel(Properties p) throws ModelRuntimeException;
 
-	/////////////////////////////
+	// ///////////////////////////
 	// ModelSet
-	
-    
-    /**
-     * create a default in-memory ModelSet with no inferencing.
-     * @return a ModelSet implementation.
-     * @throws NotImplementedException a RuntimeException if this method is not implemented. 
-     * Should not happen. 
-     */
-    ModelSet createModelSet() throws ModelRuntimeException;
-    
+
+	/**
+	 * create a default in-memory ModelSet with no inferencing.
+	 * 
+	 * @return a ModelSet implementation.
+	 * @throws NotImplementedException
+	 *             a RuntimeException if this method is not implemented. Should
+	 *             not happen.
+	 */
+	ModelSet createModelSet() throws ModelRuntimeException;
+
 	/**
 	 * Create a default in-memory ModelSet with given inferencing. Type of
 	 * reasoning is passed.
@@ -108,8 +131,9 @@ public interface ModelFactory
 	 * @throws ModelRuntimeException
 	 *             if the adapter could not create the model
 	 */
-    ModelSet createModelSet(Reasoning reasoning) throws ReasoningNotSupportedException, ModelRuntimeException;
-    
+	ModelSet createModelSet(Reasoning reasoning)
+			throws ReasoningNotSupportedException, ModelRuntimeException;
+
 	/**
 	 * Create a ModelSet configured by the given properties. You have to look at
 	 * the adapter documentation to see which properties do what.
@@ -123,6 +147,5 @@ public interface ModelFactory
 	 *             if the passed kind of reasoning is not supported.
 	 */
 	ModelSet createModelSet(Properties p) throws ModelRuntimeException;
-	
 
 }
