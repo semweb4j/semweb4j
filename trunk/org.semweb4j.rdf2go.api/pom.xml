@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -13,7 +11,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<name>RDF2Go API</name>
-	<version>4.4.3-SNAPSHOT</version>
+	<version>4.4.3</version>
 	<description>
 		RDF2go is an implementation-independent Java API with the design
 		goals: portability (hence the name), performance, easy of
@@ -62,13 +60,9 @@
  -->
 
 	<scm>
-		<connection>
-			scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api
-		</connection>
-		<developerConnection>
-			scm:svn:https://semweb4j.googlecode.com/svn/org.semweb4j.rdf2go.api
-		</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/tags/rdf2go.api-4.4.3</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.4.3</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/trunk/tags/rdf2go.api-4.4.3</url>
 	</scm>
 
 
