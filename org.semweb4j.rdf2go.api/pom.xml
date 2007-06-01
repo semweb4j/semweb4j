@@ -49,6 +49,7 @@
 		<svn.projectname>org.semweb4j.rdf2go.api</svn.projectname>
 	</properties>
 
+<!-- 
 	<scm>
 		<connection>
 			scm:svn:${svn.user}/trunk/${svn.projectname}
@@ -58,6 +59,18 @@
 		</developerConnection>
 		<url>${svn.user}/${svn.projectname}</url>
 	</scm>
+ -->
+
+	<scm>
+		<connection>
+			scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api
+		</connection>
+		<developerConnection>
+			scm:svn:https://semweb4j.googlecode.com/svn/org.semweb4j.rdf2go.api
+		</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api</url>
+	</scm>
+
 
 	<dependencies>
 
