@@ -1,0 +1,42 @@
+
+
+Leo Sauermann on Auto-closable iterators.
+The RDF2Go team supports his view.
+------------------------------------------
+You should *require* it, because in Sesame, you will get serious chaos 
+when you don't,
+we had deadly deadlocks from hell because the Iterators didn't auto-close,
+race conditions in JUnit tests and other bad karma happening.
+
+(race conditions in JUnit tests: some tests suddenly worked when you 
+insert a sleep(1000) inside the code somewhere, because the 
+GarbageCollector will then free the Iterators and close them)
+
+the option of "then the developer has to call "close()" after using the 
+iterator" is bad, look at this example:
+
+Typical use, seen a million times:
+
+for (Iterator i=m.listStatements(x,y,z); i.hasNext(); )
+{
+    Statement s = i.next();
+    // do stuff
+}
+
+without Auto-Close on end (which you don't require now) this would have 
+to be programmed lik ethis:
+
+Iterator i=m.listStatements(x,y,z);   // Note: you cannot use the 
+variable "i" now easily, because the next use would be:  i = m.list.... 
+and not Iterator i....
+while (i.hasNext())
+{
+    Statement s = i.next();
+    // do stuff
+}
+i.close();
+
+without Auto-Close we have 7 lines of code compared to 5 lines above.
+
+and having "i" lying around in this method after the loop attracts bugs, 
+somebody may call i.next() accidentally

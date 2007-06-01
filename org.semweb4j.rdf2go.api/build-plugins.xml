@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<!-- maps the environment variables to env.* -->
+	<property environment="env" />
+
+	<target name="plugin_export" description="Generate OSGi bundle (a JAR) 
+		into the directory specified by system property BUNDLE">
+		<pde.exportPlugins destination="${env.BUNDLES}" 
+			exportSource="true" 
+			exportType="directory" 
+			plugins="org.semweb4j.rdf2go.api"
+			useJARFormat="true"	/>
+	</target>
+
+	<target name="local-build" description="Generate OSGi bundle (a JAR)
+		into this project root folder">
+		<pde.exportPlugins destination="target" 
+			exportSource="true" 
+			exportType="directory" 
+			plugins="org.semweb4j.rdf2go.api"
+			useJARFormat="true"	/>
+	</target>
+
+</project>
