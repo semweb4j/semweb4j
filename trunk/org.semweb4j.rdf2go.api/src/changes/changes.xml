@@ -11,6 +11,13 @@
 			</release>
 		-->
 
+		<release version="4.4.4" date="2007-06-01">
+			<action dev="xamde" type="add">
+				Added property key for ModfelFactory to indicate storage
+				dir (or in-memory).
+			</action>
+		</release>
+
 		<release version="4.4.3" date="2007-06-01">
 			<action dev="xamde" type="update">
 				THIS LIST CONTAINS ALL CHANGES FROM 4.4 to 4.4.3
