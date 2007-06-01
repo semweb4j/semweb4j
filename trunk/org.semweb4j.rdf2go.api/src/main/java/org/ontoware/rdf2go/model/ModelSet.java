@@ -29,7 +29,7 @@ import org.ontoware.rdf2go.model.node.URI;
  * <code>ModelSet</code> can be read from a named graph aware serialization
  * such as TRIG or TRIX using the read/write methods. If you read a
  * serialization that supports only one graph (like RDF/XML), a default model
- * will be created. 
+ * will be created.
  * </p>
  * 
  * The context URI of the default modell is 'null'.
@@ -44,7 +44,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * Open connection to defined, unterlying implementation
 	 */
 	public void open();
-	
+
 	/**
 	 * @return true if ModelSet is open
 	 */
@@ -94,8 +94,8 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * Get the Model with the passed URI. If the model does not exist yet, an
 	 * empty model will be created and returned.
 	 * 
-	 * Note that the returned model is tied to this modelset, 
-	 * and any changes in the model will be reflected here.  
+	 * Note that the returned model is tied to this modelset, and any changes in
+	 * the model will be reflected here.
 	 * 
 	 * @param contextURI
 	 *            the URI of the context. This is the same as the name of the
@@ -115,16 +115,17 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	public boolean removeModel(URI contextURI);
 
 	/**
-	 * Adds a model to this ModelSet. 
-	 * Creating the named-graph if needed, adding the triples to it if not.
+	 * Adds a model to this ModelSet. Creating the named-graph if needed, adding
+	 * the triples to it if not.
 	 * 
-	 * This method might be much quicker than addAll(model.iterator()) depending on the implementation.
-	 *  
+	 * This method might be much quicker than addAll(model.iterator()) depending
+	 * on the implementation.
+	 * 
 	 * @param model
 	 * @return true if successful
 	 */
-	public boolean addModel(Model model); 
-	
+	public boolean addModel(Model model);
+
 	/**
 	 * @param contextURI
 	 * @return true if a Model (NamedGraph) named 'contextURI' is known. The
@@ -153,13 +154,20 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	/**
 	 * @return an Interator over <em>all</em> models within this ModelSet.
 	 *         Some models might be empty.
-	 *         
-	 *         Models are closed.
+	 * 
+	 * Models are closed.
+	 * 
+	 * For some implementations: While you read the iterator you may not WRITE
+	 * to the models.
+	 * 
 	 */
 	public ClosableIterator<? extends Model> getModels();
 
 	/**
 	 * @return an iterator over all URIs used as model URIs.
+	 * 
+	 * For some implementations: While you read the iterator you may not WRITE
+	 * to the models.
 	 */
 	public ClosableIterator<URI> getModelURIs();
 
@@ -175,7 +183,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 *         the main API.
 	 */
 	public Object getUnderlyingModelSetImplementation();
-	
+
 	/**
 	 * Print the whole content of this ModelSet to System.out.
 	 */
