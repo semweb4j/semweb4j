@@ -1,0 +1,29 @@
+<assembly
+	xsi:noSchemaLocation="http://maven.apache.org/xsd/assembly-1.1.0-SNAPSHOT.xsd">
+	<id>all</id>
+	<formats>
+		<format>dir</format>
+		<format>zip</format>
+		<format>tar.bz2</format>
+	</formats>
+	
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<repositories>
+		<repository>
+			<outputDirectory>repository</outputDirectory>
+			<includeMetadata>true</includeMetadata>
+		</repository>
+	</repositories>
+	<moduleSets>
+		<moduleSet>
+			<sources>
+				<outputDirectory>sources/${artifactId}</outputDirectory>
+			</sources>
+			<binaries>
+				<outputDirectory>bin/${artifactId}</outputDirectory>
+			</binaries>
+
+		</moduleSet>
+	</moduleSets>
+
+</assembly>
