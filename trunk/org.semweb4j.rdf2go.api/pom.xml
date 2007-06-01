@@ -40,7 +40,23 @@
 			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
 		</contributor>
 	</contributors>
+	
+		<properties>
+		<!--  user access, no trailing slash -->
+		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
+		<!--  developer access, no trailing slash -->
+		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
+	</properties>
 
+	<scm>
+		<connection>
+			scm:svn:${svn.user}/trunk/${groupId}.${artifactId}
+		</connection>
+		<developerConnection>
+			scm:svn:${svn.dev}/${groupId}.${artifactId}
+		</developerConnection>
+		<url>${svn.user}/${groupId}.${artifactId}</url>
+	</scm>
 
 	<dependencies>
 
@@ -79,15 +95,5 @@
 
 	</dependencies>
 
-	<scm>
-		<connection>
-			scm:svn:svn+ssh://ontoware.org/svnroot/semweb4j/tags/rdf2go.api-4.4.3
-		</connection>
-		<developerConnection>
-			scm:svn:svn+ssh://ontoware.org/svnroot/semweb4j/tags/rdf2go.api-4.4.3
-		</developerConnection>
-		<url>
-			svn+ssh://ontoware.org/svnroot/semweb4j/tags/rdf2go.api-4.4.3
-		</url>
-	</scm>
+
 </project>
