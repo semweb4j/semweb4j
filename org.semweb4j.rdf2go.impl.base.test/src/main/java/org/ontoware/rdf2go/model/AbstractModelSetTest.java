@@ -284,12 +284,6 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertTrue(it.hasNext());
 	}
 
-	public void testGetUnderlyingModelImplementation() {
-		modelset = getModelFactory().createModelSet();
-		modelset.open();
-		assertNotNull(modelset.getUnderlyingModelImplementation());
-	}
-
 	public void testGetUnderlyingModelSetImplementation() {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
