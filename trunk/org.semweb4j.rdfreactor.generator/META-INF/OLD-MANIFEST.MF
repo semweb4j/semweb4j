@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RDFReactor code generator
+Bundle-SymbolicName: org.semweb4j.rdfreactor.generator
+Bundle-Version: 4.4.1.SNAPSHOT
+Bundle-Localization: plugin
+Bundle-Vendor: FZI.de
+Import-Package: com.hp.hpl.jena.rdf.model,
+ com.hp.hpl.jena.reasoner,
+ org.apache.commons.logging,
+ org.apache.velocity,
+ org.apache.velocity.app,
+ org.apache.velocity.context,
+ org.apache.velocity.exception,
+ org.apache.velocity.runtime
+Require-Bundle: org.semweb4j.rdf2go.api,
+ org.semweb4j.rdfreactor.runtime,
+ org.semweb4j.rdf2go.impl.jena24,
+ org.semweb4j.rdf2go.impl.base,
+ org.semweb4j.aifbcommons.collection
+Export-Package: org.ontoware.rdfreactor.generator,
+ org.ontoware.rdfreactor.generator.java
