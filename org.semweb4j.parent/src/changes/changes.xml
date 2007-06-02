@@ -6,6 +6,13 @@
 		<author email="dev@xam.de">Max Völkel</author>
 	</properties>
 	<body>
+		<release version="4.7" date="2007-06-01"
+			description="Merged config and parent">
+			<action dev="xamde" type="update">
+				Merged config and parent into a single parent pom.
+			</action>
+		</release>
+
 		<release version="4.3" date="2007-01-01"
 			description="Public release">
 			<action dev="xamde" type="update">
