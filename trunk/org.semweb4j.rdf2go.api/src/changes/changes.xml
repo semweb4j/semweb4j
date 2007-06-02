@@ -11,6 +11,12 @@
 			</release>
 		-->
 
+		<release version="4.4.5" date="2007-06-02">
+			<action dev="xamde" type="update">
+				Change reference to stable, released parent pom.
+			</action>
+		</release>
+
 		<release version="4.4.4" date="2007-06-01">
 			<action dev="xamde" type="add">
 				Added property key for ModfelFactory to indicate storage
