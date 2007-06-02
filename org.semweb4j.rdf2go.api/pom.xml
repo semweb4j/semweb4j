@@ -4,8 +4,8 @@
 	<parent>
 		<artifactId>semweb4j.parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.6</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<version>4.7</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -38,33 +38,6 @@
 			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
 		</contributor>
 	</contributors>
-
-	<properties>
-		<!--  user access, no trailing slash -->
-		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
-		<!--  developer access, no trailing slash -->
-		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.projectname>org.semweb4j.rdf2go.api</svn.projectname>
-	</properties>
-
-<!-- 
-	<scm>
-		<connection>
-			scm:svn:${svn.user}/trunk/${svn.projectname}
-		</connection>
-		<developerConnection>
-			scm:svn:${svn.dev}/${svn.projectname}
-		</developerConnection>
-		<url>${svn.user}/${svn.projectname}</url>
-	</scm>
- -->
-
-	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/org.semweb4j.rdf2go.api</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api</url>
-	</scm>
-
 
 	<dependencies>
 
