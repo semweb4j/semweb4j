@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="semweb4j"
+	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
+
+	<bannerLeft>
+		<src>images/logos/semweb4j.png</src>
+		<href>http://semweb4j.org/</href>
+	</bannerLeft>
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>semweb4j-skin</artifactId>
+		<version>1.0</version>
+	</skin>
+	<publishDate format="yyyy-MM-dd" />
+	<body>
+		<head>
+			<meta name="keywords" content="semweb4j, mv2178imnetz" />
+			<link rel="meta" title="DOAP" type="application/rdf+xml"
+				href="doap.rdf" />
+			<script src="http://www.google-analytics.com/urchin.js"
+				type="text/javascript">
+			</script>
+			<script type="text/javascript">
+				_uacct = "UA-271022-2"; urchinTracker();
+			</script>
+		</head>
+
+		<menu name="RDFReactor">
+			<item name="Downloads" href="bin" />
+			<item name="RDFReactor @ Ontoworld"
+				href="http://ontoworld.org/wiki/RDFReactor" />
+			<item name="DOAP file" href="doap.rdf" />
+			<item name="Issues" href="issues.html" />
+			<item name="JModel" href="jmodel.html" />
+			<item name="Dev notes" href="thoughts" />
+		</menu>
+		<menu ref="reports" />
+		<menu ref="modules" />
+	</body>
+</project>

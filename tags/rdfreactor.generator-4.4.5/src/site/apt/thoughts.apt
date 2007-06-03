@@ -1,0 +1,57 @@
+
+                                    ------
+                                    Thoughts on developing RDFReactor
+                                    ------
+                                    Max Völkel
+                                    ------
+                                   06.01.2007
+
+Notation
+
+  My thoughts are written down using the <<issue-based argumentation in a wiki>>-notation,
+  or IBAW for short. @@link IBAW
+  
+Thoughts
+
++-----------------------------------------------+
+syntax:
+? issue
+* idea
+" evidence
++ pro
+- con
+
+----
+existing code, like the RDFBase classes?
+
+? generated classes should not overwrite existing methods
+  " type for CDS overwrote type from RDF
+    * 
+    
+    
+? deal with multiple namespace/multiple ontologies
+ * load them all, threat them as one rdf model
+  ? if different ontology languages?
+   * could map to the same internal model
+   * rare case
+  ? how to deal with different namespaces?
+   * prefix generated classes like 'getRdfType' 'getCdsType'
+    ? longer names, bad. 'getType' would be nicer
+     * make all internal method names long      
+     
+? multiple domains?
+ * no problem
+ 
+? multiple ranges
+ * fall back to resource
+  ? weak typing, error prone
+ * use 'getFriend' and 'getFriend_asPerson' 
+   and 'addFriend(Person p)' and 'addFriend(Dog p)
+  + easy to implement
+   ? how
+    * model multiple ranges in JModel
+ * generate common type 'PersonAndDog'
+  + can be combined with '_asYYY'
+  ? should inherit from Person and Dog
+   - nobody cares      
++-----------------------------------------------+
