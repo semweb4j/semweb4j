@@ -1,8 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.semweb4j</groupId>
-	<artifactId>semweb4j.parent</artifactId>
+	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
 	<version>4.8-SNAPSHOT</version>
 
@@ -132,21 +134,22 @@
 		</site>
 	</distributionManagement>
 
-
+	<!-- @@ edit these properties for children -->
 	<properties>
 		<!--  user access, no trailing slash -->
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
 		<!--  developer access, no trailing slash -->
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.projectname>${groupId}.${artifactId}</svn.projectname>
+		<svn.name>${groupId}.${artifactId}</svn.name>
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.semweb4j.parent</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/org.semweb4j.semweb4j.parent</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.semweb4j.parent</url>
+		<connection>scm:svn:${svn.user}/trunk/${svn.name}</connection>
+		<developerConnection>
+			scm:svn:${svn.dev}/trunk/${svn.name}
+		</developerConnection>
+		<url>${svn.user}/${svn.name}</url>
 	</scm>
-
 
 	<build>
 		<plugins>
@@ -512,6 +515,7 @@
 		Remote repositories and connections  
 		######################################################### -->
 
+	<!--  must be present in every project -->
 	<repositories>
 		<repository>
 			<id>theoretiker-repo</id>
