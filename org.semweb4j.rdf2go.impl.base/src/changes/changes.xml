@@ -6,6 +6,11 @@
 	</properties>
 	<body>
 
+		<release version="4.4.5" date="2007-06-03">
+			<action dev="xamde" type="update">
+				Change reference to a stable, released parent POM
+			</action>
+		</release>
 		<release version="4.4.4" date="2007-06-02">
 			<action dev="xamde" type="add">
 				AbstractModelFactory: Setting property for in-memory.
@@ -62,7 +67,8 @@
 				conversion of DatatypeLiterals to Java types.
 			</action>
 			<action dev="xamde" type="removed">
-				Removed deprecated method AbstractModelSetImpl.getUnderlyingModelImplementation
+				Removed deprecated method
+				AbstractModelSetImpl.getUnderlyingModelImplementation
 			</action>
 		</release>
 
