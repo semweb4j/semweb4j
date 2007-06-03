@@ -41,7 +41,7 @@
 			<plugin>
 				<groupId>org.apache.maven.scm</groupId>
 				<artifactId>maven-scm-manager-plexus</artifactId>
-				<version>1.0</version>
+				<version>1.0-alpha-4-SNAPSHOT</version>
 			</plugin>
 		</plugins>
 	</build>
