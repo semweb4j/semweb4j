@@ -38,6 +38,11 @@
 					<tagBase>${svn.dev}/tags</tagBase>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.scm</groupId>
+				<artifactId>maven-scm-manager-plexus</artifactId>
+				<version>1.0</version>
+			</plugin>
 		</plugins>
 	</build>
 
