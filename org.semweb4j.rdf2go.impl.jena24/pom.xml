@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>semweb4j.parent</artifactId>
+		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
 		<version>4.8</version>
 		<relativePath>../parent/pom.xml</relativePath>
