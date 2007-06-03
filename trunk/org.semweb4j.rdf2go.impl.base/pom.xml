@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -13,7 +11,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base</artifactId>
 	<name>RDF2Go Base</name>
-	<version>4.4.5-SNAPSHOT</version>
+	<version>4.4.5</version>
 	<description>
 		Abstract base classes to ease implementing adaptors for RDF2go.
 	</description>
@@ -32,16 +30,11 @@
 			<!-- configure tag base -->
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0-beta-6</version>
+				<version>2.0-beta-5</version>
 				<configuration>
 					<!--  tag base MAY NOT contain scm:svn: prefix -->
 					<tagBase>${svn.dev}/tags</tagBase>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.scm</groupId>
-				<artifactId>maven-scm-manager-plexus</artifactId>
-				<version>1.0-alpha-4-SNAPSHOT</version>
 			</plugin>
 		</plugins>
 	</build>
@@ -107,4 +100,10 @@
 
 	</repositories>
 
+
+  <scm>
+    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</developerConnection>
+    <url>https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</url>
+  </scm>
 </project>
