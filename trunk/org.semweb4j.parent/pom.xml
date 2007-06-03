@@ -4,7 +4,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.8</version>
+	<version>4.9-SNAPSHOT</version>
 
 	<!--  #######################################################
 		Administrative settings  
@@ -142,9 +142,9 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/parent-4.8</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.8</developerConnection>
-		<url>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.8</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent</url>
 	</scm>
 
 	<build>
