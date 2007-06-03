@@ -4,7 +4,10 @@
 		<author email="max@xam.de">Max Völkel</author>
 	</properties>
 	<body>
-		<release version="4.3.1" date="2007-02-12" description="Not yet release">
+		<release version="4.4.5" date="2007-06-03" >
+			<action dev="xamde" type="update">
+				Aligned to RDF2Go releaes 4.4.5.
+			</action>
 			<action dev="xamde" type="add">
 				Implemented support for delete()
 			</action>
