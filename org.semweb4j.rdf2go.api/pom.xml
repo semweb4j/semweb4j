@@ -2,9 +2,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>semweb4j.parent</artifactId>
+		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.7</version>
+		<version>4.8-SNAPSHOT</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
@@ -38,6 +38,15 @@
 			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
 		</contributor>
 	</contributors>
+
+	<!-- @@ edit these properties for children -->
+	<properties>
+		<!--  user access, no trailing slash -->
+		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
+		<!--  developer access, no trailing slash -->
+		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
+		<svn.name>${groupId}.${artifactId}</svn.name>
+	</properties>
 
 	<dependencies>
 
@@ -75,6 +84,35 @@
 		</dependency>
 
 	</dependencies>
+
+	<!--  must be present in every project -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>theoretiker-snapshots</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+		</repository>
+
+	</repositories>
 
 
 </project>
