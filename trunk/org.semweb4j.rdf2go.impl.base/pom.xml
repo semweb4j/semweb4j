@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -25,6 +27,19 @@
 		<svn.name>${groupId}.${artifactId}</svn.name>
 	</properties>
 
+	<build>
+		<plugins>
+			<!-- configure tag base -->
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-6</version>
+				<configuration>
+					<!--  tag base MAY NOT contain scm:svn: prefix -->
+					<tagBase>${svn.dev}/tags</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -49,7 +64,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
-		
+
 		<dependency>
 			<scope>test</scope>
 			<groupId>junit</groupId>
