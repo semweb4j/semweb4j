@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>parent</artifactId>
+		<groupId>org.semweb4j</groupId>
+		<version>4.8</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.impl.jena24</artifactId>
+	<name>RDF2Go Jena 2.4 Adapter</name>
+	<version>4.4.5</version>
+	<description>
+		An implementation of the RDF2Go API which delegates to Jena 2.4
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.4.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base</artifactId>
+			<version>4.4.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base.test</artifactId>
+			<version>4.4.5</version>
+		</dependency>
+
+		<dependency>
+			<!--  mvn install:install-file -Dfile=jena.jar -DgroupId=net.sourceforge.jena -DartifactId=jena -Dversion=2.4 -Dpackaging=jar		
+				
+				mvn install:install-file -DgroupId=net.sourceforge.jena -DartifactId=arq -Dversion=2.4 -Dpackaging=jar -Dfile=/path/to/file
+				mvn install:install-file -DgroupId=icu4j -DartifactId=icu4j -Dversion=3.4 -Dpackaging=jar -Dfile=/path/to/file
+				mvn install:install-file -DgroupId=net.sourceforge.jena -DartifactId=iri -Dversion=2.4 -Dpackaging=jar -Dfile=/path/to/file
+			-->
+			<groupId>net.sourceforge.jena</groupId>
+			<artifactId>jena</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.7.1</version>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+  <scm>
+    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.4.5</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.4.5</developerConnection>
+    <url>https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.4.5</url>
+  </scm>
+</project>
