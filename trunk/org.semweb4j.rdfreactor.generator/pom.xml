@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.4.5</version>
+	<version>4.4.6-SNAPSHOT</version>
 	<name>RDFReactor code generator</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -42,10 +42,4 @@
 			<version>4.3.1</version>
 		</dependency>
 	</dependencies>
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.5</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.5</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.5</url>
-  </scm>
 </project>
