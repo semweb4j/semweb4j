@@ -34,8 +34,8 @@ public class MicroBridgeTest extends TestCase {
 
 	public void testAdd() throws Exception {
 		log.debug("----------------------");
-		URI resource = URIImpl.create("data://r1");
-		URI prop = URIImpl.create("data://p1");
+		URI resource = new URIImpl("data://r1");
+		URI prop = new URIImpl("data://p1");
 		Bridge.addValue(m, resource, prop, "Jim");
 		m.dump();
 
@@ -45,18 +45,18 @@ public class MicroBridgeTest extends TestCase {
 
 	public void testEqual() throws Exception {
 
-		Person p = new Person(m, URIImpl.create("data://p1"), true);
-		Person q = new Person(m, URIImpl.create("data://p1"), true);
-		URI u = URIImpl.create("data://p1");
+		Person p = new Person(m, new URIImpl("data://p1"), true);
+		Person q = new Person(m, new URIImpl("data://p1"), true);
+		URI u = new URIImpl("data://p1");
 
 		assertTrue(p.equals(q));
 		assertTrue(p.equals(u));
 	}
 
 	public void testSet() throws Exception {
-		URI resource = URIImpl.create("data://r1");
-		URI prop1 = URIImpl.create("data://p1");
-		URI prop2 = URIImpl.create("data://p1");
+		URI resource = new URIImpl("data://r1");
+		URI prop1 = new URIImpl("data://p1");
+		URI prop2 = new URIImpl("data://p1");
 		Bridge.addValue(m, resource, prop1, "Jon");
 		Bridge.setValue(m, resource, prop2, "Jim");
 		m.dump();
@@ -65,8 +65,8 @@ public class MicroBridgeTest extends TestCase {
 	}
 
 	public void testRemove() throws Exception {
-		URI resource = URIImpl.create("data://r1");
-		URI prop = URIImpl.create("data://p1");
+		URI resource = new URIImpl("data://r1");
+		URI prop = new URIImpl("data://p1");
 
 		m.addStatement(resource, prop, "Jim");
 		assertTrue(m.iterator().hasNext());
@@ -90,16 +90,18 @@ public class MicroBridgeTest extends TestCase {
 	}
 
 	public void testSparqlSelect() throws Exception {
+		
+		// test
+		
+		File fileA = new File(m, new URIImpl("file://a"));
+		File fileB = new File(m, new URIImpl("file://b"));
 
-		File fileA = new File(m, URIImpl.create("file://a"));
-		File fileB = new File(m, URIImpl.create("file://b"));
+		Tag tagSemweb = new Tag(m, new URIImpl("tag://semweb"));
+		Tag tagPaper = new Tag(m, new URIImpl("tag://paper"));
 
-		Tag tagSemweb = new Tag(m, URIImpl.create("tag://semweb"));
-		Tag tagPaper = new Tag(m, URIImpl.create("tag://paper"));
-
-		TagAssignment ass1 = new TagAssignment(m, URIImpl.create("ass://1"));
-		TagAssignment ass2 = new TagAssignment(m, URIImpl.create("ass://2"));
-		TagAssignment ass3 = new TagAssignment(m, URIImpl.create("ass://3"));
+		TagAssignment ass1 = new TagAssignment(m, new URIImpl("ass://1"));
+		TagAssignment ass2 = new TagAssignment(m, new URIImpl("ass://2"));
+		TagAssignment ass3 = new TagAssignment(m, new URIImpl("ass://3"));
 
 		// a = 'paper'
 		ass1.setTag(tagPaper);

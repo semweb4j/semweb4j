@@ -11,11 +11,11 @@ public class PersonWithWrapperNoClassRewriting {
 
 	// property uris
 
-	public static final URI AGE = URIImpl.createURIWithoutChecking("schema://age");
+	public static final URI AGE = new URIImpl("schema://age");
 
-	public static final URI NAME = URIImpl.createURIWithoutChecking("schema://name");
+	public static final URI NAME = new URIImpl("schema://name");
 
-	public static final URI HAS_FRIEND = URIImpl.createURIWithoutChecking("schema://hasFriend");
+	public static final URI HAS_FRIEND = new URIImpl("schema://hasFriend");
 
 	public int getAge() throws RDFDataException {
 		return (Integer) FORD.get(this, AGE, int.class);

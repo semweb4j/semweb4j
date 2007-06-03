@@ -18,11 +18,11 @@ public class PersonTest extends TestCase {
 	public void setUp() throws Exception {
 		model = AllTests.m;
 		model.removeAll();
-		instanceURI = URIImpl.create("data://person-1");
+		instanceURI = new URIImpl("data://person-1");
 	}
 
 	public void testTyping() throws Exception {
-		Person p = new Person(model, URIImpl.create("data://jim"), true);
+		Person p = new Person(model, new URIImpl("data://jim"), true);
 		System.out.println("------------------------- 1 ------");
 model.dump();
 		System.out.println("- - - - - - ");
@@ -47,7 +47,7 @@ model.dump();
 	public void testHashCode() throws ModelRuntimeException {
 		Person p1 = new Person(model, instanceURI, true);
 		Person p2 = new Person(model, instanceURI, true);
-		Person p3 = new Person(model, URIImpl.create("test://otheruri"), true);
+		Person p3 = new Person(model, new URIImpl("test://otheruri"), true);
 		assertEquals(p1.hashCode(), p2.hashCode());
 		assertNotSame(p1.hashCode(), p3.hashCode());
 	}
@@ -61,7 +61,7 @@ model.dump();
 	public void testEqualsObject() throws ModelRuntimeException {
 		Person p1 = new Person(model, instanceURI, true);
 		Person p2 = new Person(model, instanceURI, true);
-		Person p3 = new Person(model, URIImpl.create("test://otheruri"), true);
+		Person p3 = new Person(model, new URIImpl("test://otheruri"), true);
 		assertEquals(p1, p2);
 		assertNotSame(p1, p3);
 	}
@@ -107,7 +107,7 @@ model.dump();
 
 	public void testAdd() throws Exception {
 		// create Person p
-		Person p = new Person(model, URIImpl.create("data://jim"), true);
+		Person p = new Person(model, new URIImpl("data://jim"), true);
 		assertTrue("model contains a Person after add", model.contains(p.getResource(), RDF.type,
 				Person.PERSON));
 
@@ -119,9 +119,9 @@ model.dump();
 		assert model.contains(p.getResource(), Person.NAME, "Jim");
 
 		// create Persons q1 and q2
-		Person q1 = new Person(model, URIImpl.create("data://jon"), true);
+		Person q1 = new Person(model, new URIImpl("data://jon"), true);
 		q1.setName("Jon");
-		Person q2 = new Person(model, URIImpl.create("data://joe"), true);
+		Person q2 = new Person(model, new URIImpl("data://joe"), true);
 		q2.setName("Joe");
 
 		// add friends
@@ -145,8 +145,8 @@ model.dump();
 
 	public void testRemove() throws ModelRuntimeException {
 		Person p = new Person(model, instanceURI, true);
-		Person q = new Person(model, URIImpl.create("data://p1"), true);
-		Person q2 = new Person(model, URIImpl.create("data://p2"), true);
+		Person q = new Person(model, new URIImpl("data://p1"), true);
+		Person q2 = new Person(model, new URIImpl("data://p2"), true);
 		p.addFriend(q);
 		p.addFriend(q2);
 		assertEquals(2, p.getAllFriend().length);
