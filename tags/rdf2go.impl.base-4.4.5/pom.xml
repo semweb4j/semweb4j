@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>parent</artifactId>
+		<groupId>org.semweb4j</groupId>
+		<version>4.8</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.impl.base</artifactId>
+	<name>RDF2Go Base</name>
+	<version>4.4.5</version>
+	<description>
+		Abstract base classes to ease implementing adaptors for RDF2go.
+	</description>
+
+	<!-- @@ edit these properties for children -->
+	<properties>
+		<!--  user access, no trailing slash -->
+		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
+		<!--  developer access, no trailing slash -->
+		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
+		<svn.name>${groupId}.${artifactId}</svn.name>
+	</properties>
+
+	<build>
+		<plugins>
+			<!-- configure tag base -->
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-5</version>
+				<configuration>
+					<!--  tag base MAY NOT contain scm:svn: prefix -->
+					<tagBase>${svn.dev}/tags</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.4.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+
+		<dependency>
+			<scope>test</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+	</dependencies>
+
+	<!--  must be present in every project -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>theoretiker-snapshots</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+		</repository>
+
+	</repositories>
+
+
+  <scm>
+    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</developerConnection>
+    <url>https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</url>
+  </scm>
+</project>
