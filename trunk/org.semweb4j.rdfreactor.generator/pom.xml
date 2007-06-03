@@ -2,15 +2,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>semweb4j.parent</artifactId>
+		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.5</version>
+		<version>4.8</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.4.2-SNAPSHOT</version>
+	<version>4.4.5-SNAPSHOT</version>
 	<name>RDFReactor code generator</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -23,12 +23,12 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.4.2-SNAPSHOT</version>
+			<version>4.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.4</version>
+			<version>4.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>velocity</groupId>
