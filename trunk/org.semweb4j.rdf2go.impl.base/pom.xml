@@ -11,7 +11,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base</artifactId>
 	<name>RDF2Go Base</name>
-	<version>4.4.5</version>
+	<version>4.4.6-SNAPSHOT</version>
 	<description>
 		Abstract base classes to ease implementing adaptors for RDF2go.
 	</description>
@@ -99,11 +99,4 @@
 		</repository>
 
 	</repositories>
-
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.base-4.4.5</url>
-  </scm>
 </project>
