@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>semweb4j.parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.6</version>
+		<version>4.9</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
@@ -16,25 +16,21 @@
 		Abstract base classes to ease implementing adaptors for RDF2go.
 	</description>
 
+	<!-- @@ edit these properties for children -->
 	<properties>
 		<!--  user access, no trailing slash -->
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
 		<!--  developer access, no trailing slash -->
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.projectname>org.semweb4j.rdf2go.api</svn.projectname>
+		<svn.name>${groupId}.${artifactId}</svn.name>
 	</properties>
 
-	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.rdf2go.api</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/org.semweb4j.rdf2go.api</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.rdf2go.api</url>
-	</scm>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.4.4</version>
+			<version>4.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
