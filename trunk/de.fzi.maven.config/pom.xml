@@ -1,10 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
   
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Common Maven Config</name>
 	<inceptionYear>2005</inceptionYear>
 	<description>
@@ -23,10 +24,18 @@
 		<svn.name>${groupId}.${artifactId}</svn.name>
 	</properties>
 
+	<!-- maven release seems to overwrite this values, so we keep them 
+	     in a comment 	
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent</url>
+		<connection>scm:svn:${svn.user}/trunk/{$svn.name}</connection>
+		<developerConnection>scm:svn:${svn.dev}/trunk/{$svn.name}</developerConnection>
+		<url>${svn.user}/{$svn.name}</url>
+	</scm>
+	-->
+	<scm>
+		<connection>scm:svn:${svn.user}/trunk/{$svn.name}</connection>
+		<developerConnection>scm:svn:${svn.dev}/trunk/{$svn.name}</developerConnection>
+		<url>${svn.user}/{$svn.name}</url>
 	</scm>
 
 	<!-- repository settings -->
@@ -120,7 +129,7 @@
 			<!-- release project with Maven -->
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
-				<!-- TEMPORARY! (xam, 04.06.07) version 2.0-beta-6 has a bug when rewriting POMs -->
+				<!-- @@ TEMPORARY! (xam, 04.06.07) version 2.0-beta-6 has a bug when rewriting POMs -->
 				<version>2.0-beta-5</version>
 				<configuration>
 					<!-- configure tag base. MAY NOT contain scm:svn: prefix -->
@@ -160,14 +169,13 @@
 				<version>2.3</version>
 			</plugin>
 
-			<!-- builds a zip release that contains all dependency libraries -->
+			<!-- builds a zip release that contains all dependency libraries 
+			     they are copied after compile is executed -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.1</version>
 				<executions>
-					<!--  hack: after compile, copy all dependencies for later 
-					      distribution -->
 					<execution>
 						<id>lib</id>
 						<phase>integration-test</phase>
@@ -411,6 +419,4 @@
 		</plugins>
 	</reporting>
 	
-	<dependencies>
-	</dependencies>
 </project>
