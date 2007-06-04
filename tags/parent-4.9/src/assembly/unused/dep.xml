@@ -1,0 +1,27 @@
+<assembly>
+	<!--  xsi:schemaLocation="http://maven.apache.org/xsd/assembly-1.1.0-SNAPSHOT.xsd"  -->
+	<!-- TODO: a jarjar format would be better -->
+	<id>dep</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<includeSiteDirectory></includeSiteDirectory>
+	<moduleSets>
+		<moduleSet>
+			<includes>
+				<include>org.semweb4j:aifbcommons</include>
+				<include>org.semweb4j:rdf2go</include>
+				<include>org.semweb4j:rdfreactor</include>
+				<include>org.semweb4j:jrest</include>
+			</includes>
+			<sources>
+				<outputDirectory>target/dist/src</outputDirectory>
+			</sources>
+			<binaries>
+				<unpack>false</unpack>
+				<outputDirectory>target/dist/bin</outputDirectory>
+			</binaries>
+		</moduleSet>
+	</moduleSets>
+</assembly>
