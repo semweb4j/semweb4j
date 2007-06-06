@@ -17,6 +17,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
@@ -103,25 +104,23 @@ public abstract class AbstractModelSetTest extends TestCase {
 	 * 
 	 */
 	protected void addTestDataToModelSet() throws Exception {
-		assertNotNull("should be initialised by test method already",modelset);
+		assertNotNull("should be initialised by test method already", modelset);
 		// add two models
 		Model foaf = TestData.loadFoafBuffered(getModelFactory());
 		Model m = modelset.getModel(graphuri1);
 		m.open();
-		m.addAll(
-				foaf.iterator());
-		Model ical = TestData.loadICALBuffered(getModelFactory()); 
+		m.addAll(foaf.iterator());
+		Model ical = TestData.loadICALBuffered(getModelFactory());
 		m = modelset.getModel(graphuri2);
 		m.open();
-		m.addAll(
-				ical.iterator());
+		m.addAll(ical.iterator());
 		assertTrue("the test data works", foaf.size() > 10);
 		assertTrue("the test data works", ical.size() > 10);
 		assertTrue("the modelset contains some triples", modelset.size() > 20);
-		assertEquals(foaf.size() + ical.size(), modelset.size() );
+		assertEquals(foaf.size() + ical.size(), modelset.size());
 		// never close them when you loaded them buffered
-		//foaf.close();
-		//ical.close();
+		// foaf.close();
+		// ical.close();
 	}
 
 	/**
@@ -193,6 +192,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals(TESTGRAPHCOUNT, m.size());
 	}
 
+	/** test find with (c,x,y,z) on contained model */
 	public void testFindStatements() throws ModelRuntimeException {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
@@ -204,6 +204,30 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertTrue(it.hasNext());
 		it.next();
 		assertFalse(it.hasNext());
+		it.close();
+		m.close();
+	}
+
+	/**
+	 * Test find with (*,x,y,z) on modelset
+	 * 
+	 * @throws ModelRuntimeException
+	 */
+	public void testFindStatements2() throws ModelRuntimeException {
+		modelset = getModelFactory().createModelSet();
+		modelset.open();
+		URI a = new URIImpl("urn:test:a");
+		URI b = new URIImpl("urn:test:b");
+		URI c = new URIImpl("urn:test:c");
+		URI d = new URIImpl("urn:test:d");
+		modelset.addStatement(a, b, c, d);
+
+		ClosableIterator<? extends Statement> it = modelset.findStatements(
+				Variable.ANY, b, c, d);
+		Statement stmt = it.next();
+		Assert.assertNotNull(stmt.getContext());
+		Assert.assertEquals(a, stmt.getContext());
+		it.close();
 	}
 
 	public void testContainsStatements() throws ModelRuntimeException {
@@ -263,6 +287,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertTrue(it.hasNext());
 		it.next();
 		assertFalse(it.hasNext());
+		it.close();
 	}
 
 	public void testSparqlSelectFOAF() throws ModelRuntimeException,
@@ -282,6 +307,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertTrue(it.hasNext());
 		it.next();
 		assertTrue(it.hasNext());
+		it.close();
 	}
 
 	public void testGetUnderlyingModelSetImplementation() {
@@ -301,7 +327,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
 
- 		// TODO write test here
+		// TODO write test here
 	}
 
 	public void testClose() {
@@ -315,7 +341,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
 		addTestDataToModelSet();
-		Iterator<URI> l = modelset.getModelURIs();
+		ClosableIterator<URI> l = modelset.getModelURIs();
 		ArrayList<URI> test = new ArrayList<URI>();
 		test.add(graphuri1);
 		test.add(graphuri2);
@@ -324,6 +350,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals(2, uris.size());
 		test.removeAll(uris);
 		assertEquals(0, test.size());
+		l.close();		
 	}
 
 	public void testOpen() {
@@ -357,7 +384,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 	public void testReadFromReaderSyntax() {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
-		
+
 		// TODO write test here
 	}
 
@@ -396,12 +423,13 @@ public abstract class AbstractModelSetTest extends TestCase {
 		m.open();
 		assertEquals("the default model has foaf", 536, m.size());
 
-		Iterator i = m.iterator();
+		ClosableIterator i = m.iterator();
 		int sizeByIterator = ModelUtils.size(i);
 		assertEquals("the default model can use an iterator", 536,
 				sizeByIterator);
+		i.close();
 	}
-	
+
 	public void testReadFromInputStreamIntoNamedModel() throws Exception {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
@@ -409,38 +437,43 @@ public abstract class AbstractModelSetTest extends TestCase {
 		m.open();
 		m.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
 		m.close();
-		
+
 		// add data to second graph
 		m = modelset.getModel(graphuri2);
 		m.open();
 		m.readFrom(TestData.getICALAsStream(), Syntax.RdfXml);
 		m.close();
-		
-		//assertEquals("The modelset contains exactly loaded triples.", TestData.FOAF_SIZE + TestData.ICALSIZE,				 modelset.size());
+
+		// assertEquals("The modelset contains exactly loaded triples.",
+		// TestData.FOAF_SIZE + TestData.ICALSIZE, modelset.size());
 		// the modelset loads into the named graph
 		int modelcount = ModelUtils.size(modelset.getModels());
-		assertEquals(
-				"there are two models",
-				2, modelcount);
+		assertEquals("there are two models", 2, modelcount);
 		// no default model
 		m = modelset.getDefaultModel();
 		m.open();
 		assertEquals("nothing in default model", 0, m.size());
+		m.close();
 
 		// get the named model1
 		m = modelset.getModel(graphuri1);
 		m.open();
-		assertEquals("the named graph model has foaf", TestData.FOAFSIZE, m.size());
+		assertEquals("the named graph model has foaf", TestData.FOAFSIZE, m
+				.size());
 		// at some point, iterators were broken here, so test if it returns one
-		Iterator i = m.iterator();
+		ClosableIterator i = m.iterator();
 		int sizeByIterator = ModelUtils.size(i);
 		assertEquals("the model supports iterators", TestData.FOAFSIZE,
 				sizeByIterator);
-		
+		i.close();
+		m.close();
+
 		// get the named model2
 		m = modelset.getModel(graphuri2);
 		m.open();
-		assertEquals("the named graph model has ical", TestData.ICALSIZE, m.size());
+		assertEquals("the named graph model has ical", TestData.ICALSIZE, m
+				.size());
+		m.close();
 
 	}
 
@@ -471,13 +504,13 @@ public abstract class AbstractModelSetTest extends TestCase {
 		} catch (IOException e) {
 			fail();
 		}
-		assertTrue( sw.getBuffer().toString().length() > 1000);
+		assertTrue(sw.getBuffer().toString().length() > 1000);
 	}
 
 	public void testWriteToWriterSyntax() {
 		modelset = getModelFactory().createModelSet();
 		modelset.open();
-		
+
 		// TODO write test
 	}
 
@@ -517,7 +550,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		// check default model
 		Model def = modelset.getDefaultModel();
 		def.open();
-		assertTrue( def.isOpen() );
+		assertTrue(def.isOpen());
 		assertNotNull(def);
 		assertTrue("default model has something", def.size() > 10);
 		ArrayList<URI> uris = new ArrayList<URI>();
@@ -547,7 +580,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		modelset.open();
 		modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
 		assertTrue(modelset.size() > 0);
-		
+
 		ModelSet target = getModelFactory().createModelSet();
 		target.open();
 
@@ -580,10 +613,10 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals("the default model can use an iterator", 536,
 				sizeByIterator);
 		m.close();
-		
+
 		ModelSet target = getModelFactory().createModelSet();
 		target.open();
-		
+
 		// Es liegt also daran, das modelset.read die daten in irgendein nicht
 		// mehr
 		// zugreifbared modell mit dem context "null" steckt. Aber wenn man ein
