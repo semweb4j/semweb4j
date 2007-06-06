@@ -3,18 +3,21 @@ package org.ontoware.rdf2go;
 import java.io.IOException;
 import java.io.InputStream;
 
+import junit.framework.Assert;
+
+import org.junit.Test;
 import org.ontoware.rdf2go.testdata.TestData;
 
-import junit.framework.TestCase;
-
-public class TestTestData extends TestCase {
+public class TestTestData {
 	
+	@Test
 	public void testTestData() {
 		InputStream in = TestData.getFoafAsStream();
+		Assert.assertNotNull(in);
 		try {
-			assertTrue( in.read() != -1);
+			Assert.assertTrue( in.read() != -1);
 		} catch (IOException e) {
-			fail();
+			Assert.fail();
 		}
 	}
 
