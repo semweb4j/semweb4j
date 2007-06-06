@@ -23,12 +23,12 @@ import org.ontoware.rdf2go.model.Model;
  * @author sauermann
  */
 public class TestData {
-	
+
 	/**
 	 * triples in foaf
 	 */
 	public static final long FOAFSIZE = 536;
-	
+
 	/**
 	 * triples in ical
 	 */
@@ -85,7 +85,10 @@ public class TestData {
 	 * @return as RDF/XML
 	 */
 	public static InputStream getFoafAsStream() {
-		return TestData.class.getResourceAsStream("foaf.xml");
+		ClassLoader classloader = Thread.currentThread()
+				.getContextClassLoader();
+		return classloader
+				.getResourceAsStream("org/ontoware/rdf2go/testdata/foaf.xml");
 	}
 
 	/**
@@ -131,7 +134,7 @@ public class TestData {
 	 * @return icaltzd.rdfs as an InputStream
 	 */
 	public static InputStream getICALAsStream() {
-		return TestData.class.getResourceAsStream("icaltzd.rdfs");
+		return TestData.class.getResourceAsStream("org/ontoware/rdf2go/testdata/icaltzd.rdfs");
 	}
 
 	/**
