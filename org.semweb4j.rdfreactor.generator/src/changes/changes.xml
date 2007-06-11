@@ -4,6 +4,12 @@
 		<author email="max@xam.de">Max Völkel</author>
 	</properties>
 	<body>
+
+		<release version="4.4.6">
+			<action dev="xamde" type="update">
+				Ability to handle multiple comments
+			</action>
+		</release>
 		<release version="4.4.5">
 			<action dev="xamde" type="update">
 				Aligned with RDF2Go/RDFReactor runtime 4.4.5 releases.
