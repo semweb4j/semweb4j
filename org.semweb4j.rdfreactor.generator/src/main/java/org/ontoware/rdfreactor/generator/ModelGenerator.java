@@ -249,6 +249,17 @@ public class ModelGenerator {
 
 	}
 
+	private static String toJavaComment(String[] rdfComments) {
+		StringBuffer buf = new StringBuffer();
+		for (int i = 0; i < rdfComments.length; i++) {
+			buf.append(rdfComments[i]);
+			if (i + 1 < rdfComments.length) {
+				buf.append("\n");
+			}
+		}
+		return buf.toString();
+	}
+
 	/** create from RDF2Go model */
 	public static JModel createFromRDFS(Model m, String packagename,
 			boolean skipbuiltins) throws Exception {
@@ -308,7 +319,8 @@ public class ModelGenerator {
 						+ rc.getResource() + " ...");
 				assert rc.getResource() instanceof URI : "A Class with a blank node ID makes not much sense";
 				JClass jc = new JClass(jp, classname, (URI) rc.getResource());
-				jc.setComment(rc.getComment()); // might be null, ok.
+				jc.setComment(toJavaComment(rc.getAllComment())); // might be
+																	// null, ok.
 				jm.addMapping(rc.getResource(), jc);
 			}
 		}
@@ -337,8 +349,8 @@ public class ModelGenerator {
 						+ rp.getResource().asURI().toSPARQL());
 			} else if (DeprecatedProperty.hasInstance(rp.getModel(), rp
 					.getResource().asURI())) {
-				log
-						.info("Skipping deprecated property "+rp+"(as indicated by owl:DeprecatedProperty)");
+				log.info("Skipping deprecated property " + rp
+						+ "(as indicated by owl:DeprecatedProperty)");
 			} else {
 				// inspect domains
 				Resource[] domains = rp.getAllDomain();
@@ -683,7 +695,8 @@ public class ModelGenerator {
 		assert propertyName != null;
 		JProperty jprop = new JProperty(domainClass, propertyName, (URI) rp
 				.getResource());
-		jprop.setComment(rp.getComment()); // might be null,
+		jprop.setComment(toJavaComment(rp.getAllComment())); // might be
+																// null,
 		// wire
 		log.debug("Adding property '" + jprop.getName() + "' to '"
 				+ domainClass.getName() + "'");
