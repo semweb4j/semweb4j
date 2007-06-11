@@ -20,10 +20,11 @@ public class InternalRuntimeGenerator {
 	public static void main(String[] args) throws Exception {
 
 		//generateRDFS();
-		generateOWL();
+		//generateOWL();
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void generateOWL() throws Exception {
 		Model owl = (Model) IOUtils.read(
 				new URL("http://www.w3.org/2002/07/owl#"))
@@ -34,6 +35,7 @@ public class InternalRuntimeGenerator {
 				false, false, "");
 	}
 
+	@SuppressWarnings("unused")
 	private static void generateRDFS() throws Exception {
 		Model rdf = (Model) IOUtils.read(
 				new URL("http://www.w3.org/1999/02/22-rdf-syntax-ns#"))
