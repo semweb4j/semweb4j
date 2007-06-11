@@ -6,6 +6,13 @@
 	</properties>
 	<body>
 
+		<release version="4.4.6">
+			<action dev="xamde" type="add">
+				Added LanguageTools which allos to reduce an RDF model
+				to literals in a desired language.
+			</action>
+		</release>
+
 		<release version="4.4.5" date="2007-06-03">
 			<action dev="xamde" type="update">
 				Change reference to a stable, released parent POM
