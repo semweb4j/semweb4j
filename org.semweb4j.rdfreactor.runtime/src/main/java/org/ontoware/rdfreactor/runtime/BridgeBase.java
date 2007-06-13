@@ -953,9 +953,29 @@ public class BridgeBase {
 			// TODO: enhance XSD data type mapping
 		} else if (reactorType instanceof Integer) {
 			return new DatatypeLiteralImpl(reactorType + "", XSD._int);
+		} else if (reactorType instanceof Byte) {
+			return new DatatypeLiteralImpl(reactorType + "", XSD._byte);
+		} else if (reactorType instanceof Boolean) {
+			return new DatatypeLiteralImpl(reactorType + "", XSD._boolean);
 		} else if (reactorType instanceof Long) {
 			return new DatatypeLiteralImpl(reactorType + "", XSD._long);
+		} else if (reactorType instanceof Float) {
+			return new DatatypeLiteralImpl(reactorType + "", XSD._float);
+		} else if (reactorType instanceof Double) {
+			return new DatatypeLiteralImpl(reactorType + "", XSD._double);
 		} else if (reactorType instanceof Date) {
+			// IMPROVE date handling
+////			 date and time -> Date.class
+//			jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL, Date.class
+//					.getName()
+//					+ "", XSD._dateTime));
+//			jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL, Date.class
+//					.getName()
+//					+ "", XSD._date));
+//			jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL, Date.class
+//					.getName()
+//					+ "", XSD._time));
+			
 			return new DatatypeLiteralImpl(((Date) reactorType).getTime() + "",
 					XSD._date);
 		} else {
