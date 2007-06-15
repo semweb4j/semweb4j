@@ -124,7 +124,7 @@ public class RDF2Go {
 
 	public static final void register(String modelFactoryClassname)
 			throws ModelRuntimeException {
-		Class c;
+		Class<?> c;
 		try {
 			c = Class.forName(modelFactoryClassname);
 			Constructor constructor;
@@ -159,7 +159,7 @@ public class RDF2Go {
 		// approach, like the one used by SL4J.org
 		if (modelFactory == null) {
 			try {
-				Class clazz = Class
+				Class<?> clazz = Class
 						.forName("org.ontoware.rdf2go.impl.StaticBinding");
 				Method method = clazz.getMethod("getModelFactory",
 						new Class[] {});
