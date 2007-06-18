@@ -69,6 +69,19 @@
 				<checksumPolicy>warn</checksumPolicy>
 			</snapshots>
 		</repository>
+
+		<repository>
+			<id>codehaus-release-repo</id>
+			<name>Codehaus Release Repo</name>
+			<url>http://repository.codehaus.org</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
 	</repositories>
 	
 	<!-- the deploy repositories: normal/snapshot/site generation 
