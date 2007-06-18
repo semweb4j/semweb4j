@@ -10,7 +10,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.10-SNAPSHOT</version>
+	<version>4.10</version>
 	<name>Semweb4j parent</name>
 	<url>http://www.semweb4j.org</url>
 	<inceptionYear>2005</inceptionYear>
@@ -104,4 +104,10 @@
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
 		<svn.name>${groupId}.${artifactId}</svn.name>
 	</properties>
+
+  <scm>
+    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.10</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.10</developerConnection>
+    <url>https://semweb4j.googlecode.com/svn/tags/parent-4.10</url>
+  </scm>
 </project>
