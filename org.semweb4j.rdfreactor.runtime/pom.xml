@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.8</version>
+		<version>4.10</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
@@ -21,6 +21,22 @@
 	</description>
 	<url>http://semweb4.org/rdfreactor</url>
 	<inceptionYear>2005</inceptionYear>
+
+
+	<!--  must be present in every project -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
