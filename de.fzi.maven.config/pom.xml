@@ -4,7 +4,7 @@
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>Common Maven Config</name>
 	<inceptionYear>2005</inceptionYear>
 	<description>
@@ -32,9 +32,9 @@
 	</scm>
 	-->
 	<scm>
-		<connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.2</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.2</developerConnection>
-		<url>https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.2</url>
+		<connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</developerConnection>
+		<url>https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</url>
 	</scm>
 
 	<!-- repository settings -->
