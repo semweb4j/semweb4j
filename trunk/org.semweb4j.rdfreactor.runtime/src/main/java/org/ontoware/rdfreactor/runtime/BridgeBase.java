@@ -348,7 +348,9 @@ public class BridgeBase {
 		synchronized (model) {
 			ModelAddRemoveMemoryImpl toBeDeleted = new ModelAddRemoveMemoryImpl();
 			toBeDeleted.addAll(model.findStatements(r, p, Variable.ANY));
-			model.removeAll(toBeDeleted.iterator());
+			ClosableIterator<Statement> it = toBeDeleted.iterator();
+			model.removeAll(it);
+			it.close();
 			return toBeDeleted.size() > 0;
 		}
 	}
