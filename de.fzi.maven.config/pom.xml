@@ -50,7 +50,7 @@
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
+				<checksumPolicy>warn</checksumPolicy>
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>
