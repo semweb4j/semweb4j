@@ -14,7 +14,6 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.RDF;
-import org.ontoware.rdfreactor.ReactorException;
 
 /**
  * 
@@ -33,7 +32,8 @@ public class FORD {
 
 	private static WeakHashMap<Object, Model> o2m = new WeakHashMap<Object, Model>();
 
-	public static Object create(Model model, Class returnType, Resource name, boolean write) {
+	public static Object create(Model model, Class returnType, Resource name,
+			boolean write) {
 
 		try {
 			Object o = returnType.newInstance();
@@ -73,19 +73,15 @@ public class FORD {
 			return Bridge.getValue(o2m.get(obj), o2r.get(obj), p, returnType);
 		} catch (RDFDataException e) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException( e );
+			throw new RuntimeException(e);
 		} catch (ModelRuntimeException e) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException( e );
+			throw new RuntimeException(e);
 		}
 	}
 
-	public static void set(Object obj, URI p, Object value) throws ReactorException {
-		try {
-			Bridge.setValue(o2m.get(obj), o2r.get(obj), p, toNode(value));
-		} catch (ModelRuntimeException e) {
-			throw new ReactorException( e );
-		}
+	public static void set(Object obj, URI p, Object value) {
+		Bridge.setValue(o2m.get(obj), o2r.get(obj), p, toNode(value));
 	}
 
 	public static void add(Object obj, URI p, Object value) {
@@ -120,7 +116,7 @@ public class FORD {
 	public static boolean removeAll(Object obj, URI p) {
 		Resource r = o2r.get(obj);
 		Model m = o2m.get(r);
-		
+
 		try {
 			return Bridge.removeAllValues(m, r, p);
 		} catch (Exception e) {
@@ -167,31 +163,31 @@ public class FORD {
 	public Statement getStatement(Object obj, URI p, Object o) {
 		return Bridge.getStatement(o2m.get(obj), o2r.get(obj), p, o);
 	}
-	
-	
-	public boolean equals( Object obj, Object other) {
-		
+
+	public boolean equals(Object obj, Object other) {
+
 		if (obj instanceof ResourceEntity) {
 			ResourceEntity resourceEntity = (ResourceEntity) obj;
 			if (other instanceof URI)
 				return resourceEntity.getResource().equals(other);
 			else if (other instanceof ResourceEntity)
-				return resourceEntity.getResource().equals( ((ResourceEntity) other).getResource());
+				return resourceEntity.getResource().equals(
+						((ResourceEntity) other).getResource());
 			else
 				return false;
 		} else if (obj instanceof URI) {
 			// return true if o has same uri
 			if (other instanceof ResourceEntity) {
 				return ((ResourceEntity) other).getResource().equals(obj);
-			} else if (other instanceof URI){
+			} else if (other instanceof URI) {
 				return obj.equals(other);
-			}
-			else
+			} else
 				return false;
 		} else if (obj instanceof String) {
 			// return true if o has same value
 			return obj.toString().equals(other.toString());
-		} else if(obj instanceof LanguageTagLiteral || obj instanceof DatatypeLiteral) {
+		} else if (obj instanceof LanguageTagLiteral
+				|| obj instanceof DatatypeLiteral) {
 			// IMPROVE: better literal handling
 			return obj.equals(other);
 		} else

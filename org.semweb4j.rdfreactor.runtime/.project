@@ -4,7 +4,7 @@
 	<comment>RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
 
-		This library needs to be shipped togehter with generated
+		This library needs to be shipped together with generated
 		classes.</comment>
 	<projects>
 	</projects>

@@ -6,8 +6,6 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.URI;
@@ -18,11 +16,13 @@ import org.ontoware.rdfreactor.runtime.example.Person;
 import org.ontoware.rdfreactor.test.tag.File;
 import org.ontoware.rdfreactor.test.tag.Tag;
 import org.ontoware.rdfreactor.test.tag.TagAssignment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("unused")
 public class MicroBridgeTest extends TestCase {
 
-	private static Log log = LogFactory.getLog(MicroBridgeTest.class);
+	private static Logger log = LoggerFactory.getLogger(MicroBridgeTest.class);
 
 	Model m;
 

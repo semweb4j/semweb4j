@@ -5,8 +5,6 @@ package org.ontoware.rdfreactor.runtime;
 
 import java.util.Iterator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Model;
@@ -18,6 +16,8 @@ import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.vocabulary.RDF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Runtime model for a java bean property
@@ -45,7 +45,7 @@ import org.ontoware.rdf2go.vocabulary.RDF;
 public class Bridge extends BridgeBase {
 
 	@SuppressWarnings("unused")
-	private static Log log = LogFactory.getLog(Bridge.class);
+	private static Logger log = LoggerFactory.getLogger(Bridge.class);
 
 	/**
 	 * Add a value to the property of an object after checking if the object
@@ -69,7 +69,7 @@ public class Bridge extends BridgeBase {
 		assert propertyURI != null;
 		assert value != null;
 
-		boolean contains = containsValue(model, o, propertyURI, value);
+		boolean contains = containsGivenValue(model, o, propertyURI, value);
 		add(model, o, propertyURI, value);
 		return contains;
 	}
@@ -86,11 +86,9 @@ public class Bridge extends BridgeBase {
 	 *            URI of the resource
 	 * @param value -
 	 *            value(s) of the property, may be an array
-	 * @throws ModelRuntimeException
-	 * @throws Exception
+	 * @throws ModelRuntimeException 
 	 */
-	public static void setValue(Model model, Resource resourceObject, URI propertyURI, Object value)
-			throws ModelRuntimeException {
+	public static void setValue(Model model, Resource resourceObject, URI propertyURI, Object value) {
 		assert value != null;
 		// remove all current values
 		removeAllValues(model, resourceObject, propertyURI);
