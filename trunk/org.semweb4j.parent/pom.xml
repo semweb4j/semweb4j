@@ -9,7 +9,7 @@
 	
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>4.12-SNAPSHOT</version>
+	<version>4.11-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
