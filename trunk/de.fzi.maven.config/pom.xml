@@ -49,6 +49,8 @@
 			<url>http://semweb4j.org/repo/</url>
 			<releases>
 				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>
@@ -189,7 +191,6 @@
 				<version>2.1</version>
 				<executions>
 					<execution>
-						<id>lib</id>
 						<phase>integration-test</phase>
 						<goals>
 							<goal>attached</goal>
@@ -216,7 +217,6 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>xam</id>
 						<goals>
 							<goal>site</goal>
 						</goals>
@@ -252,7 +252,6 @@
 				<artifactId>maven-doap-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>xam</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
