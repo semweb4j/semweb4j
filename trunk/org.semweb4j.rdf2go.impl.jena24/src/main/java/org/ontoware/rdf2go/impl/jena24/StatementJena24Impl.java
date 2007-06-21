@@ -1,13 +1,14 @@
 package org.ontoware.rdf2go.impl.jena24;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.impl.AbstractStatement;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
@@ -16,7 +17,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 public class StatementJena24Impl extends AbstractStatement implements Statement {
 
 	@SuppressWarnings("unused")
-	private static Log log = LogFactory.getLog( StatementJena24Impl.class); 
+	private static Logger log = LoggerFactory.getLogger( StatementJena24Impl.class); 
 	
 	private Node s, p, o;
 
