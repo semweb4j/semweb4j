@@ -9,7 +9,7 @@
 	
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>4.11</version>
+	<version>4.12-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -162,11 +162,4 @@
 									
 		</dependencies>
 	</dependencyManagement>
-	
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.11</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.11</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/parent-4.11</url>
-  </scm>
 </project>
