@@ -11,6 +11,9 @@
 				Added LanguageTools which allos to reduce an RDF model
 				to literals in a desired language.
 			</action>
+			<action dev="xamde" type="add">
+				Added support for file conversion to ModelUtils.
+			</action>
 		</release>
 
 		<release version="4.4.5" date="2007-06-03">
