@@ -67,7 +67,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
+				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
 		</repository>
 
