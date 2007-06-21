@@ -13,8 +13,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Model;
@@ -35,6 +33,8 @@ import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.XSD;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <b>BridgeBase</b> provides methods for adding, querying and deleting
@@ -63,7 +63,7 @@ import org.ontoware.rdf2go.vocabulary.XSD;
 
 public class BridgeBase {
 
-	private static Log log = LogFactory.getLog(BridgeBase.class);
+	private static Logger log = LoggerFactory.getLogger(BridgeBase.class);
 
 	// /////////////////////////
 	// true implementations
@@ -83,48 +83,12 @@ public class BridgeBase {
 	 * @return true if value is among values for the property
 	 * @throws Exception
 	 */
-	public static boolean containsValue(Model model, Resource resource,
+	@Patrolled
+	public static boolean containsGivenValue(Model model, Resource resource,
 			URI propertyURI, Object value) throws ModelRuntimeException {
 
-		synchronized (model) {
-			ClosableIterator<? extends Statement> it = model.findStatements(resource,
-					propertyURI, Variable.ANY);
-			while (it.hasNext()) {
-				Node objectNode = it.next().getObject();
-				// compare rdfnode to value
-				if (toRDF2GoNode(value).equals(objectNode)) {
-				it.close();
-					return true;
-				}
-			}
-			it.close();
-		}
-		return false;
-	}
-
-	/**
-	 * Check if the resource identified by resourceID, has a property
-	 * identidified by propertyURI which has any value.
-	 * 
-	 * @param model -
-	 *            the underlying RDF2Go model
-	 * @param resource -
-	 *            must be an URI or a BlankNode
-	 * @param propertyURI -
-	 *            URI of the property
-	 * @return true if the property has at least one value defined
-	 * @throws Exception
-	 */
-	public static boolean containsValue(Model model, Resource resource,
-			URI propertyURI) throws ModelRuntimeException {
-
-		synchronized (model) {
-			ClosableIterator<? extends Statement> it = model.findStatements(resource,
-					propertyURI, Variable.ANY);
-			boolean result = it.hasNext();
-			it.close();
-			return result;
-		}
+		Node objectNode = toRDF2GoNode(value);
+		return model.contains(resource, propertyURI, objectNode);
 	}
 
 	/**
@@ -291,6 +255,7 @@ public class BridgeBase {
 	 *            value of the property which is to be added to the resource
 	 * @throws Exception
 	 */
+	@Patrolled
 	public static void add(Model model, Resource subject, URI property,
 			Object object) throws ModelRuntimeException {
 		addStatementGeneric(model, subject, property, toRDF2GoType(object));
@@ -382,7 +347,7 @@ public class BridgeBase {
 
 	/**
 	 * Delete a resource from the model, meaning: delete all (resource,
-	 * rdf:type, *) triples from the model
+	 * *, *) triples from the model
 	 * 
 	 * @param model -
 	 *            the underlying RDF2Go model
@@ -390,21 +355,23 @@ public class BridgeBase {
 	 *            URI or BlankNode of the resource
 	 * @throws Exception
 	 */
+	@Patrolled
 	public static void delete(Model model, Resource resource)
 			throws ModelRuntimeException {
-		// delete triple (this.uri, rdf:type, ANY )
+		// delete triple (this.uri, ANY, ANY )
 		synchronized (model) {
-
-			Iterator<? extends Statement> it = model.findStatements(resource,
-					RDF.type, Variable.ANY);
+			ClosableIterator<? extends Statement> it = model.findStatements(resource,
+					Variable.ANY, Variable.ANY);
 			Set<Statement> temp = new HashSet<Statement>();
-			while (it.hasNext())
+			while (it.hasNext()) {
 				temp.add(it.next());
-
+			}
+			it.close();
 			// now, delete
-			it = temp.iterator();
-			while (it.hasNext())
-				model.removeStatement(it.next());
+			Iterator<Statement> tempIterator = temp.iterator();
+			while (tempIterator.hasNext()) {
+				model.removeStatement(tempIterator.next());
+			}
 		}
 	}
 
@@ -601,6 +568,7 @@ public class BridgeBase {
 	 * @return converted object
 	 * @throws ModelRuntimeException
 	 */
+	@Patrolled
 	public static Object datatypedLiteral2java(DatatypeLiteral dataLit,
 			java.lang.Class<?> targetType) throws ModelRuntimeException {
 		if (targetType.equals(DatatypeLiteral.class)) {
@@ -608,16 +576,26 @@ public class BridgeBase {
 		}
 
 		if (targetType.equals(String.class)) {
-			log.debug("Ignoring data type");
+			log.debug("A String, ignoring data type");
 			return dataLit.getValue();
 		}
 
-		// FIXME experimental: ignore all data types
-		return string2java(dataLit.getValue(), targetType);
+		if (targetType.equals(Calendar.class)) {
+			String litValue = dataLit.getValue();
+			Calendar cal = DatatypeUtils.parseXSDDateTime_toCalendar(litValue);
+			log.debug("Converting '" + litValue + "' to java.util.Calendar");
+			return cal;
+		}
 
-		// throw new RuntimeException("cannot convert DatatypeLiteral
-		// "+dataLit+" to "
-		// + targetType);
+		if (targetType.equals(Date.class)) {
+			String litValue = dataLit.getValue();
+			Calendar cal = DatatypeUtils.parseXSDDateTime_toCalendar(litValue);
+			log.debug("Converting '" + litValue + "' to java.util.Date");
+			return cal.getTime();
+		}
+
+		throw new RuntimeException("cannot convert DatatypeLiteral" + dataLit
+				+ " to " + targetType);
 
 	}
 
@@ -709,10 +687,6 @@ public class BridgeBase {
 			throw new RuntimeException("no support here yet");
 		}
 
-		if (targetType.equals(Date.class)) {
-			return DatatypeUtils.parseXSDDateTime_toDate(s);
-		}
-
 		if (targetType.equals(Calendar.class)) {
 			return DatatypeUtils.parseXSDDateTime_toCalendar(s);
 		}
@@ -751,8 +725,8 @@ public class BridgeBase {
 		Set<Object> result = new HashSet<Object>();
 		synchronized (model) {
 
-			Iterator<? extends Statement> it = model.findStatements(
-					tp.getSubject(), tp.getPredicate(), tp.getObject());
+			Iterator<? extends Statement> it = model.findStatements(tp
+					.getSubject(), tp.getPredicate(), tp.getObject());
 			// eliminates duplicates
 			while (it.hasNext()) {
 				log.debug("got a result");
@@ -812,93 +786,58 @@ public class BridgeBase {
 	 * because a lot of type casting is necessary if generic objects are allowed
 	 * as arguments).
 	 * 
-	 * @param m -
+	 * @param model -
 	 *            the underlying RDF2Go model
 	 * @param subject -
 	 *            subject of the statement has to be an URI or BlankNode
 	 * @param property -
 	 *            predicate of the statement has to be an URI
-	 * @param o -
+	 * @param object -
 	 *            object of the statement can be an URI, URI[], String,
 	 *            DatatypeLiteral, LanguageTagLiteral or generic Object[]
 	 * @throws Exception
 	 */
-	private static void addStatementGeneric(Model m, Resource subject,
-			URI property, Object o) throws ModelRuntimeException {
+	@Patrolled
+	private static void addStatementGeneric(Model model, Resource subject,
+			URI property, Object object) throws ModelRuntimeException {
 		assert subject != null;
 		assert property != null;
-		assert o != null;
-		assert subject instanceof URI || subject instanceof BlankNode;
-		log.debug("add (" + subject + "," + property + "," + o + ")");
+		assert object != null;
+		log.debug("add (" + subject + "," + property + "," + object + ")");
 
-		if (subject instanceof URI) {
-			// URI P O
-			if (o instanceof URI) {
-				log
-						.debug("subject is an instanceof URI, so will add as single resource");
+		if (object.getClass().isArray()) {
+			// handle each component
+			log.debug("object is an instanceof some Array");
+			Object[] values = (Object[]) object;
+			for (int i = 0; i < values.length; i++) {
+				addStatementGeneric_singleValue(model, subject, property,
+						values[i]);
+			}
+		} else {
+			// handle once
+			addStatementGeneric_singleValue(model, subject, property, object);
+		}
+	}
 
-				m.addStatement((URI) subject, property, (URI) o);
-
-			} else if (o instanceof URI[]) {
-				log
-						.debug("object is an instanceof URI[], so will add as multiple resources");
-				for (URI u : (URI[]) o)
-					m.addStatement((URI) subject, property, u);
-			} else if (o instanceof String) {
-				m.addStatement((URI) subject, property, (String) o);
-			} else if (o instanceof PlainLiteral) {
-				m.addStatement((URI) subject, property, (PlainLiteral) o);
-			} else if (o instanceof DatatypeLiteral) {
-				m.addStatement((URI) subject, property, (DatatypeLiteral) o);
-			} else if (o instanceof LanguageTagLiteral) {
-				m.addStatement((URI) subject, property, (LanguageTagLiteral) o);
-			} else if (o.getClass().isArray()) {
-				log
-						.debug("object is an instanceof some Array, so will add as multiple Literals using toString()");
-				Object[] values = (Object[]) o;
-				for (int i = 0; i < values.length; i++) {
-					// add as literal
-					m.addStatement((URI) subject, property, values[i]
-							.toString());
-				}
-			} else if (o instanceof BlankNode) {
-				m.addStatement((URI) subject, property, (Node) o);
-			} else
-				throw new RuntimeException("unknown object type "
-						+ o.getClass());
-		} else if (subject instanceof BlankNode) {
-			// Blank P O
-			if (o instanceof URI) {
-				m.addStatement((Resource) subject, property, (URI) o);
-			} else if (o instanceof URI[]) {
-				for (URI u : (URI[]) o)
-					m.addStatement((Resource) subject, property, u);
-			} else if (o instanceof String) {
-				m.addStatement((Resource) subject, property, (String) o);
-			} else if (o instanceof DatatypeLiteral) {
-				m.addStatement((Resource) subject, property,
-						(DatatypeLiteral) o);
-			} else if (o instanceof LanguageTagLiteral) {
-				m.addStatement((Resource) subject, property,
-						(LanguageTagLiteral) o);
-			} else if (o.getClass().isArray()) {
-				log
-						.debug("object is an instanceof some Array, so will add as multiple Literals using toString()");
-				Object[] values = (Object[]) o;
-				for (int i = 0; i < values.length; i++) {
-					// add as literal
-					m.addStatement((Resource) subject, property, values[i]
-							.toString());
-				}
-			} else if (o instanceof BlankNode) {
-				m.addStatement((Resource) subject, property, (BlankNode) o);
-			} else
-				throw new RuntimeException("unknown type for object in spo "
-						+ o.getClass());
+	
+	/**
+	 * Add a single statement.
+	 * @param model
+	 * @param subject
+	 * @param property
+	 * @param object - handles rdf2go nodes and strings 
+	 */
+	@Patrolled
+	private static void addStatementGeneric_singleValue(Model model, Resource subject, URI property, Object object) {
+		if (object instanceof Node) {
+			log
+					.debug("object is an instance of an Rdf2go Node (URI, Literal, ...) , so will add as single resource");
+			model.addStatement(subject, property, (Node) object);
+		} else if (object instanceof String) {
+			model.addStatement(subject, property, (String) object);
 		} else
-			throw new RuntimeException("unknown subject type: "
-					+ subject.getClass());
-
+			throw new RuntimeException("unknown object type "
+					+ object.getClass());
 	}
 
 	/**
@@ -922,9 +861,10 @@ public class BridgeBase {
 				javatype[i] = ((ResourceEntity) values[i]).getResource();
 			}
 			return javatype;
-		} else
+		} else {
+			log.debug("object is simple, converting to rdf2go node...");
 			return toRDF2GoNode(reactorType);
-
+		}
 	}
 
 	private static Node toRDF2GoNode(Object reactorType)
@@ -965,21 +905,32 @@ public class BridgeBase {
 			return new DatatypeLiteralImpl(reactorType + "", XSD._float);
 		} else if (reactorType instanceof Double) {
 			return new DatatypeLiteralImpl(reactorType + "", XSD._double);
-		} else if (reactorType instanceof Date) {
+		} else if (reactorType instanceof Calendar) {
 			// IMPROVE date handling
-////			 date and time -> Date.class
-//			jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL, Date.class
-//					.getName()
-//					+ "", XSD._dateTime));
-//			jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL, Date.class
-//					.getName()
-//					+ "", XSD._date));
-//			jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL, Date.class
-//					.getName()
-//					+ "", XSD._time));
-			
-			return new DatatypeLiteralImpl(((Date) reactorType).getTime() + "",
-					XSD._date);
+			// // date and time -> Date.class
+			// jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL,
+			// Date.class
+			// .getName()
+			// + "", XSD._dateTime));
+			// jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL,
+			// Date.class
+			// .getName()
+			// + "", XSD._date));
+			// jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL,
+			// Date.class
+			// .getName()
+			// + "", XSD._time));
+			String xsdDateTime = DatatypeUtils
+					.encodeCalendar_toXSDDateTime((Calendar) reactorType);
+			return new DatatypeLiteralImpl(xsdDateTime, XSD._dateTime);
+		} else if (reactorType instanceof Date) {
+			// IMPORVE this is in local time zone
+			Calendar cal = Calendar.getInstance();
+			cal.setTime((Date) reactorType);
+			String xsdDateTime = DatatypeUtils
+					.encodeCalendar_toXSDDateTime(cal);
+			return new DatatypeLiteralImpl(xsdDateTime, XSD._dateTime);
+
 		} else {
 			throw new RuntimeException(
 					"Cannot handle instances of "

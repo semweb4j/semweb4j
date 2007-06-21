@@ -9,6 +9,12 @@
 				Added support for handling primitive types Byte,
 				Boolean, Double, Float.
 			</action>
+			<action dev="xamde" type="update">
+				Fixed handling of conversion Calendar -- xsd:dateTime.
+			</action>
+			<action dev="xamde" type="update">
+				Switched to slf4j for logging.
+			</action>
 		</release>
 		<release version="4.4.5" date="2007-06-03">
 			<action dev="xamde" type="update">

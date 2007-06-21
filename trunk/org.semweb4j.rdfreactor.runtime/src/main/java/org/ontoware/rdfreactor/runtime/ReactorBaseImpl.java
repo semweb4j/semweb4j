@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Model;
@@ -19,6 +17,8 @@ import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.vocabulary.RDF;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <b>ReactorBaseImpl</b> is the base class for instances of classes from the
@@ -54,7 +54,7 @@ import org.ontoware.rdf2go.vocabulary.RDF;
  */
 public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 
-	private static Log log = LogFactory.getLog(ReactorBaseImpl.class);
+	private static Logger log = LoggerFactory.getLogger(ReactorBaseImpl.class);
 
 	/**
 	 * the underlying RDF2Go model in which the triples representing the
@@ -531,7 +531,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 */
 	public boolean hasValue(URI prop, Object value) {
 		try {
-			return Bridge.containsValue(model, instanceIdentifier, prop, value);
+			return Bridge.containsGivenValue(model, instanceIdentifier, prop, value);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
 		}
@@ -543,7 +543,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 */
 	public boolean hasValue(URI prop ) {
 		try {
-			return Bridge.containsValue(model, instanceIdentifier, prop);
+			return ResourceUtils.containsAnyValue(model, instanceIdentifier, prop);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
 		}
@@ -564,7 +564,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 			return Bridge.addValue(this.model, this.instanceIdentifier,
 					property, object);
 		} catch (Exception e) {
-			log.error(e);
+			log.error("",e);
 			throw new RuntimeException(e);
 		}
 	}
