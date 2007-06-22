@@ -245,11 +245,11 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 */
 	private static Object[] getAllInstances(Model model, Class<?> javaClass,
 			URI classURI) {
-		
+
 		// FIXME
 		if (!model.isOpen())
 			model.open();
-		
+
 		// FIXME: classURI is not used ?
 		List<Object> result = new ArrayList<Object>();
 		try {
@@ -372,17 +372,8 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 * @throws RDFDataException
 	 */
 	public Object get(URI prop, Class returnType) throws RDFDataException {
-
-		try {
-			return Bridge.getValue(this.model, this.instanceIdentifier, prop,
-					returnType);
-		} catch (RDFDataException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException(e);
-		} catch (ModelRuntimeException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException(e);
-		}
+		return Bridge.getValue(this.model, this.instanceIdentifier, prop,
+				returnType);
 	}
 
 	/**
@@ -531,7 +522,8 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 */
 	public boolean hasValue(URI prop, Object value) {
 		try {
-			return Bridge.containsGivenValue(model, instanceIdentifier, prop, value);
+			return Bridge.containsGivenValue(model, instanceIdentifier, prop,
+					value);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
 		}
@@ -541,9 +533,10 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 * @param prop
 	 * @return true if the model contains any statement (this, prop, *)
 	 */
-	public boolean hasValue(URI prop ) {
+	public boolean hasValue(URI prop) {
 		try {
-			return ResourceUtils.containsAnyValue(model, instanceIdentifier, prop);
+			return ResourceUtils.containsAnyValue(model, instanceIdentifier,
+					prop);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
 		}
@@ -564,7 +557,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 			return Bridge.addValue(this.model, this.instanceIdentifier,
 					property, object);
 		} catch (Exception e) {
-			log.error("",e);
+			log.error("", e);
 			throw new RuntimeException(e);
 		}
 	}

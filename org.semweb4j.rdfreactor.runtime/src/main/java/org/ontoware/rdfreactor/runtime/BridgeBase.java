@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,7 +21,6 @@ import org.ontoware.rdf2go.model.impl.TriplePatternImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
-import org.ontoware.rdf2go.model.node.Literal;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.PlainLiteral;
 import org.ontoware.rdf2go.model.node.Resource;
@@ -98,7 +96,7 @@ public class BridgeBase {
 	 * 
 	 * @param model -
 	 *            the underlying RDF2Go model
-	 * @param resourceObject -
+	 * @param resourceSubject -
 	 *            the URI or BlankNode of the resource
 	 * @param propertyURI -
 	 *            the URI of the property
@@ -109,39 +107,18 @@ public class BridgeBase {
 	 *             if more then one value was found
 	 * @throws ModelRuntimeException
 	 */
-	public static Object getValue(Model model, Resource resourceObject,
+	@Patrolled
+	public static Object getValue(Model model, Resource resourceSubject,
 			URI propertyURI, java.lang.Class returnType)
 			throws RDFDataException, ModelRuntimeException {
+		Node node = ResourceUtils.getSingleValue(model, resourceSubject,
+				propertyURI);
+		if (node != null) {
+			Object result = uriBlankLiteral2reactor(model, node, returnType);
+			return result;
+		} else
+			throw new RDFDataException("No value found");
 
-		log.debug("looking for ( <" + resourceObject + "> <" + propertyURI
-				+ "> *)");
-
-		synchronized (model) {
-			Iterator<? extends Statement> it;
-			try {
-				it = model.findStatements(resourceObject, propertyURI,
-						Variable.ANY);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-
-			if (it.hasNext()) {
-				Statement o = it.next();
-				if (it.hasNext())
-					throw new RDFDataException(
-							"Found more than one value for property "
-									+ propertyURI + " and resource "
-									+ resourceObject);
-
-				Object result = uriBlankLiteral2reactor(model, o.getObject(),
-						returnType);
-				return result;
-
-			} else {
-				log.debug("no matching nodes found");
-				return uriBlankLiteral2reactor(model, null, returnType);
-			}
-		}
 	}
 
 	/**
@@ -159,24 +136,18 @@ public class BridgeBase {
 	 * @return Set<Object> with each object of type 'returnType'
 	 * @throws Exception
 	 */
+	@Patrolled
 	public static Set<Object> getAllValues_asSet(Model model,
-			Resource resource, URI propertyURI, java.lang.Class returnType)
-			throws ModelRuntimeException {
-
-		assert resource instanceof URI || resource instanceof BlankNode;
-
-		log.debug("start");
+			Resource resource, URI propertyURI, java.lang.Class returnType) {
 		synchronized (model) {
-
-			Iterator<? extends Statement> it = model.findStatements(resource,
-					propertyURI, Variable.ANY);
+			ClosableIterator<? extends Statement> it = model.findStatements(
+					resource, propertyURI, Variable.ANY);
 			Set<Object> result = new HashSet<Object>();
 			while (it.hasNext()) {
-				log.debug("got a result");
 				Object rdfnode = it.next().getObject();
 				result.add(uriBlankLiteral2reactor(model, rdfnode, returnType));
 			}
-
+			it.close();
 			return result;
 		}
 	}
@@ -195,9 +166,9 @@ public class BridgeBase {
 	 * @return array of type 'returnType' with 0..n values. Never null.
 	 * @throws Exception
 	 */
+	@Patrolled
 	public static Object[] getAllValues(Model model, Resource resource,
-			URI propertyURI, java.lang.Class returnType)
-			throws ModelRuntimeException {
+			URI propertyURI, java.lang.Class returnType) {
 		return triplepattern2reactor(model, TriplePatternImpl
 				.createObjectPattern(resource, propertyURI), returnType);
 	}
@@ -216,10 +187,10 @@ public class BridgeBase {
 	 * @return array of type 'returnType' with 0..n values. Never null.
 	 * @throws Exception
 	 */
+	@Patrolled
 	public static Object[] getAllValues_Inverse(Model model, URI propertyURI,
 			Node objectNode, java.lang.Class returnType)
 			throws ModelRuntimeException {
-
 		return triplepattern2reactor(model, TriplePatternImpl
 				.createSubjectPattern(propertyURI, objectNode), returnType);
 	}
@@ -227,7 +198,7 @@ public class BridgeBase {
 	/**
 	 * Query the model with a SPARQL query.
 	 * 
-	 * @param m -
+	 * @param model -
 	 *            the underlying RDF2GO model
 	 * @param returnTypes -
 	 *            cast the values to the types in returnTypes[]
@@ -236,10 +207,11 @@ public class BridgeBase {
 	 * @return javaobjects, typed as desired by 'returnTypes'
 	 * @throws Exception
 	 */
-	public static OOQueryResultTable getSparqlSelect(Model m,
+	@Patrolled
+	public static OOQueryResultTable getSparqlSelect(Model model,
 			Map<String, Class> returnTypes, String sparqlSelectQuery)
 			throws ModelRuntimeException {
-		return new OOQueryResultTableImpl(m, returnTypes, sparqlSelectQuery);
+		return new OOQueryResultTableImpl(model, returnTypes, sparqlSelectQuery);
 	}
 
 	/**
@@ -270,6 +242,7 @@ public class BridgeBase {
 	 *            the requested Java class
 	 * @return Array of the given javaClass type instances in the model
 	 */
+	@Patrolled
 	public static Object[] getAllInstances(Model model,
 			java.lang.Class javaClass) {
 		URI rdfsClass;
@@ -343,36 +316,6 @@ public class BridgeBase {
 			model.removeStatement(resource, propertyURI, objectNode);
 		}
 		return found;
-	}
-
-	/**
-	 * Delete a resource from the model, meaning: delete all (resource,
-	 * *, *) triples from the model
-	 * 
-	 * @param model -
-	 *            the underlying RDF2Go model
-	 * @param resource -
-	 *            URI or BlankNode of the resource
-	 * @throws Exception
-	 */
-	@Patrolled
-	public static void delete(Model model, Resource resource)
-			throws ModelRuntimeException {
-		// delete triple (this.uri, ANY, ANY )
-		synchronized (model) {
-			ClosableIterator<? extends Statement> it = model.findStatements(resource,
-					Variable.ANY, Variable.ANY);
-			Set<Statement> temp = new HashSet<Statement>();
-			while (it.hasNext()) {
-				temp.add(it.next());
-			}
-			it.close();
-			// now, delete
-			Iterator<Statement> tempIterator = temp.iterator();
-			while (tempIterator.hasNext()) {
-				model.removeStatement(tempIterator.next());
-			}
-		}
 	}
 
 	// /////////////////////////////
@@ -575,54 +518,44 @@ public class BridgeBase {
 			return dataLit;
 		}
 
-		if (targetType.equals(String.class)) {
-			log.debug("A String, ignoring data type");
-			return dataLit.getValue();
-		}
-
-		if (targetType.equals(Calendar.class)) {
-			String litValue = dataLit.getValue();
-			Calendar cal = DatatypeUtils.parseXSDDateTime_toCalendar(litValue);
-			log.debug("Converting '" + litValue + "' to java.util.Calendar");
-			return cal;
-		}
-
-		if (targetType.equals(Date.class)) {
-			String litValue = dataLit.getValue();
-			Calendar cal = DatatypeUtils.parseXSDDateTime_toCalendar(litValue);
-			log.debug("Converting '" + litValue + "' to java.util.Date");
-			return cal.getTime();
-		}
-
-		throw new RuntimeException("cannot convert DatatypeLiteral" + dataLit
-				+ " to " + targetType);
-
+		return string2java(dataLit.getValue(), targetType);
 	}
 
 	/**
 	 * Convert a LanguageTagLiteral to a native Java type.
 	 * 
-	 * @param langLit -
+	 * No conversion from language tagged literals to primitive Java types is
+	 * support.
+	 * 
+	 * @param languageTagLiteral -
 	 *            LanguageTagLiteral to be converted convert to this type.
 	 *            currently supported: String only.
 	 * @return converted object
 	 */
+	@Patrolled
 	public static Object languageTagggedLiteral2java(
-			LanguageTagLiteral langLit, java.lang.Class<?> targetType) {
-		if (targetType.equals(LanguageTagLiteral.class)) {
-			return langLit;
+			LanguageTagLiteral languageTagLiteral, java.lang.Class<?> returnType) {
+		if (returnType.equals(LanguageTagLiteral.class)) {
+			return languageTagLiteral;
 		}
 
-		if (targetType.equals(String.class)) {
+		if (returnType.equals(String.class)) {
 			log.debug("Ignoring language");
-			return langLit.getValue();
+			return languageTagLiteral.getValue();
 		}
 
 		throw new RuntimeException("cannot convert LanguageTagLiteral to "
-				+ targetType);
+				+ returnType);
 
 	}
 
+	/**
+	 * @param plainLit
+	 * @param targetType
+	 * @return string converted to desired java return type
+	 * @throws ModelRuntimeException
+	 */
+	@Patrolled
 	public static Object plainLiteral2java(PlainLiteral plainLit,
 			java.lang.Class<?> targetType) throws ModelRuntimeException {
 		if (targetType.equals(PlainLiteral.class)) {
@@ -630,7 +563,6 @@ public class BridgeBase {
 		}
 
 		if (targetType.equals(String.class)) {
-			log.debug("Ignoring language");
 			return plainLit.getValue();
 		}
 
@@ -640,68 +572,80 @@ public class BridgeBase {
 	/**
 	 * Interpret s as a String, and convert it to the given targetType
 	 * 
-	 * @param s -
+	 * @param string -
 	 *            convert this string
 	 * @param targetType -
 	 *            convert into this type. supported: all primitive Java types
 	 * @return object of type targetType with contents of String s
-	 * @throws ModelRuntimeException
+	 * @throws RuntimeException
+	 *             if conversion is not supported or goes wrong
 	 */
-	public static Object string2java(String s, java.lang.Class<?> targetType)
-			throws ModelRuntimeException {
-
-		if (targetType.equals(URI.class)) {
-			return new URIImpl(s);
-		}
+	@Patrolled
+	public static Object string2java(String string,
+			java.lang.Class<?> targetType) throws RuntimeException {
 
 		if (targetType.equals(String.class))
-			return s;
+			return string;
+
+		if (targetType.equals(URI.class)) {
+			return new URIImpl(string);
+		}
 
 		if (targetType.equals(int.class) || targetType.equals(Integer.class))
-			return new Integer(Integer.parseInt(s));
+			return new Integer(Integer.parseInt(string));
 
 		if (targetType.equals(boolean.class)
 				|| targetType.equals(Boolean.class))
-			return new Boolean(Boolean.parseBoolean(s));
+			return new Boolean(Boolean.parseBoolean(string));
 
 		if (targetType.equals(byte.class) || targetType.equals(Byte.class))
-			return new Byte(Byte.parseByte(s));
+			return new Byte(Byte.parseByte(string));
 
 		if (targetType.equals(short.class) || targetType.equals(Short.class))
-			return new Short(Short.parseShort(s));
+			return new Short(Short.parseShort(string));
 
 		if (targetType.equals(long.class) || targetType.equals(Long.class))
-			return new Long(Long.parseLong(s));
+			return new Long(Long.parseLong(string));
 
 		if (targetType.equals(char.class) || targetType.equals(Character.class))
-			return new Character(s.charAt(0));
+			return new Character(string.charAt(0));
 
 		if (targetType.equals(float.class) || targetType.equals(Float.class))
-			return new Float(Float.parseFloat(s));
+			return new Float(Float.parseFloat(string));
 
 		if (targetType.equals(double.class) || targetType.equals(Double.class))
-			return new Double(Double.parseDouble(s));
+			return new Double(Double.parseDouble(string));
 
-		if (targetType.equals(Literal.class)) {
-			// use jena to parse it
-			throw new RuntimeException("no support here yet");
+		// IMPROVE is this ever going to be used?
+		if (targetType.equals(PlainLiteral.class)) {
+			return new PlainLiteralImpl(string);
 		}
 
 		if (targetType.equals(Calendar.class)) {
-			return DatatypeUtils.parseXSDDateTime_toCalendar(s);
+			return DatatypeUtils.parseXSDDateTime_toCalendar(string);
 		}
 
 		if (targetType.equals(URL.class)) {
 			try {
-				return new URL(s);
+				return new URL(string);
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				throw new RuntimeException(e);
 			}
 		}
 
-		throw new RuntimeException("cannot convert String to " + targetType);
+		if (targetType.equals(Calendar.class)) {
+			Calendar cal = DatatypeUtils.parseXSDDateTime_toCalendar(string);
+			log.debug("Converting '" + string + "' to java.util.Calendar");
+			return cal;
+		}
 
+		if (targetType.equals(Date.class)) {
+			Calendar cal = DatatypeUtils.parseXSDDateTime_toCalendar(string);
+			log.debug("Converting '" + string + "' to java.util.Date");
+			return cal.getTime();
+		}
+
+		throw new RuntimeException("cannot convert String to " + targetType);
 	}
 
 	/**
@@ -710,42 +654,30 @@ public class BridgeBase {
 	 * 
 	 * @param model -
 	 *            the underlying RDF2Go model
-	 * @param tp -
+	 * @param triplePattern -
 	 *            TriplePattern for which matches are searched
 	 * @param returnType -
 	 *            convert all found instances to this type
 	 * @return array with 0..n instances (never null) typed as 'returnType'
 	 * @throws Exception
 	 */
+	@Patrolled
 	private static Object[] triplepattern2reactor(Model model,
-			org.ontoware.rdf2go.model.impl.TriplePatternImpl tp,
-			Class<?> returnType) throws ModelRuntimeException {
-
-		log.debug("looking for " + tp);
+			org.ontoware.rdf2go.model.impl.TriplePatternImpl triplePattern,
+			Class<?> returnType) {
+		log.debug("looking for " + triplePattern);
 		Set<Object> result = new HashSet<Object>();
 		synchronized (model) {
-
-			Iterator<? extends Statement> it = model.findStatements(tp
-					.getSubject(), tp.getPredicate(), tp.getObject());
+			ClosableIterator<? extends Statement> it = model
+					.findStatements(triplePattern);
 			// eliminates duplicates
 			while (it.hasNext()) {
 				log.debug("got a result");
-				Object rdfnode = null;
-				switch (tp.extract) {
-				case SUBJECT:
-					rdfnode = it.next().getSubject();
-					break;
-				case PREDICATE:
-					rdfnode = it.next().getPredicate();
-					break;
-				case OBJECT:
-					rdfnode = it.next().getObject();
-					break;
-				default:
-					assert false;
-				}
+				Statement statement = it.next();
+				Node rdfnode = triplePattern.getExtract(statement);
 				result.add(uriBlankLiteral2reactor(model, rdfnode, returnType));
 			}
+			it.close();
 		}
 		log.debug("Found " + result.size() + " results");
 		// IMPROVE: quite complicated array creation
@@ -760,26 +692,25 @@ public class BridgeBase {
 		return resultAsArray;
 	}
 
-	// /**
-	// * convert ReactorBase instances to URI or BlankNode
-	// *
-	// * @param o -
-	// * should be an instance of ReactorBase
-	// * @return
-	// * URI or BlankNode which represents o
-	// */
-	// private static Object reactor2rdf2go(Object o) {
-	// if (TypeUtils.isLegalObjectType(o))
-	// return o;
-	// else {
-	// if (o instanceof ReactorBase) {
-	// ReactorBase rb = (ReactorBase) o;
-	// return rb.getResource();
-	// } else
-	// throw new IllegalArgumentException("Cannot handle " + o.getClass());
-	//
-	// }
-	// }
+	@Patrolled
+	private static Object triplepattern2reactor_singleValue(Model model,
+			org.ontoware.rdf2go.model.impl.TriplePatternImpl triplePattern,
+			Class<?> returnType) {
+		log.debug("looking for *the* single value of " + triplePattern);
+		Object result = null;
+		synchronized (model) {
+			ClosableIterator<? extends Statement> it = model
+					.findStatements(triplePattern);
+			while (it.hasNext()) {
+				Statement statement = it.next();
+				Node rdfnode = triplePattern.getExtract(statement);
+				result = uriBlankLiteral2reactor(model, rdfnode, returnType);
+			}
+			it.close();
+		}
+
+		return result;
+	}
 
 	/**
 	 * Add a statement (subject, property, o) to the given model. ("generic"
@@ -819,16 +750,18 @@ public class BridgeBase {
 		}
 	}
 
-	
 	/**
 	 * Add a single statement.
+	 * 
 	 * @param model
 	 * @param subject
 	 * @param property
-	 * @param object - handles rdf2go nodes and strings 
+	 * @param object -
+	 *            handles rdf2go nodes and strings
 	 */
 	@Patrolled
-	private static void addStatementGeneric_singleValue(Model model, Resource subject, URI property, Object object) {
+	private static void addStatementGeneric_singleValue(Model model,
+			Resource subject, URI property, Object object) {
 		if (object instanceof Node) {
 			log
 					.debug("object is an instance of an Rdf2go Node (URI, Literal, ...) , so will add as single resource");
@@ -844,99 +777,98 @@ public class BridgeBase {
 	 * convert a ReactorBase or primitive Java object to a type used in the
 	 * RDF2GO model
 	 * 
-	 * @param reactorType
+	 * @param reactorValue
 	 * @return URI, String and Blank nodes are passed through, ReactorBase
 	 *         instances have their identifier returned.
 	 * @throws ModelRuntimeException
 	 */
-	private static Object toRDF2GoType(Object reactorType)
-			throws ModelRuntimeException {
-		assert reactorType != null;
-		if (reactorType instanceof ResourceEntity[]) {
-			log
-					.debug("object is an instanceof ReactorBase[], so will add as multiple resources");
-			ResourceEntity[] values = (ResourceEntity[]) reactorType;
-			Resource[] javatype = new Resource[values.length];
-			for (int i = 0; i < values.length; i++) {
-				javatype[i] = ((ResourceEntity) values[i]).getResource();
+	private static Object toRDF2GoType(Object reactorValue) {
+		if (reactorValue == null) {
+			throw new IllegalArgumentException("Argument may not be null");
+		}
+
+		// array in, array out
+
+		if (reactorValue.getClass().isArray()) {
+			log.debug("object is an array");
+			Object[] reactorValues = (Object[]) reactorValue;
+			Node[] nodes = new Node[reactorValues.length];
+			for (int i = 0; i < reactorValues.length; i++) {
+				nodes[i] = toRDF2GoNode(reactorValues[i]);
 			}
-			return javatype;
-		} else {
+			return nodes;
+		}
+
+//		if (reactorValue instanceof ResourceEntity[]) {
+//			log
+//					.debug("object is an instanceof ReactorBase[], so will add as multiple resources");
+//			ResourceEntity[] values = (ResourceEntity[]) reactorValue;
+//			Resource[] javatype = new Resource[values.length];
+//			for (int i = 0; i < values.length; i++) {
+//				javatype[i] = ((ResourceEntity) values[i]).getResource();
+//			}
+//			return javatype;
+//		} 
+		else {
 			log.debug("object is simple, converting to rdf2go node...");
-			return toRDF2GoNode(reactorType);
+			// value in, value out
+			return toRDF2GoNode(reactorValue);
 		}
 	}
 
-	private static Node toRDF2GoNode(Object reactorType)
-			throws ModelRuntimeException {
-		assert reactorType != null;
+	@Patrolled
+	private static Node toRDF2GoNode(Object reactorValue) {
+		if (reactorValue == null) {
+			throw new IllegalArgumentException("Argument may not be null");
+		}
+
 		// convert value to rdfnode
-		log.debug("value is " + reactorType.getClass().getName());
-		if (reactorType instanceof ResourceEntity) {
+		log.debug("value is instance of " + reactorValue.getClass().getName());
+		if (reactorValue instanceof ResourceEntity) {
 			log
 					.debug("object is an instanceof ReactorBase, so will add as single resource");
 			// add as resource
-			Resource objectID = ((ResourceEntity) reactorType).getResource();
+			Resource objectID = ((ResourceEntity) reactorValue).getResource();
 			return objectID;
-		} else if (reactorType instanceof URI
-				|| reactorType instanceof BlankNode
-				|| reactorType instanceof LanguageTagLiteral
-				|| reactorType instanceof PlainLiteral
-				|| reactorType instanceof DatatypeLiteral) {
-			return (Node) reactorType;
-		} else if (reactorType instanceof String) {
-			return new PlainLiteralImpl((String) reactorType);
-		} else if (reactorType instanceof URL) {
+		} else if (reactorValue instanceof Node) {
+			return (Node) reactorValue;
+		} else if (reactorValue instanceof String) {
+			return new PlainLiteralImpl((String) reactorValue);
+		} else if (reactorValue instanceof URL) {
 			try {
-				return new URIImpl(((URL) reactorType).toURI() + "");
+				return new URIImpl(((URL) reactorValue).toURI() + "");
 			} catch (URISyntaxException e) {
 				throw new RuntimeException(e);
 			}
 			// TODO: enhance XSD data type mapping
-		} else if (reactorType instanceof Integer) {
-			return new DatatypeLiteralImpl(reactorType + "", XSD._int);
-		} else if (reactorType instanceof Byte) {
-			return new DatatypeLiteralImpl(reactorType + "", XSD._byte);
-		} else if (reactorType instanceof Boolean) {
-			return new DatatypeLiteralImpl(reactorType + "", XSD._boolean);
-		} else if (reactorType instanceof Long) {
-			return new DatatypeLiteralImpl(reactorType + "", XSD._long);
-		} else if (reactorType instanceof Float) {
-			return new DatatypeLiteralImpl(reactorType + "", XSD._float);
-		} else if (reactorType instanceof Double) {
-			return new DatatypeLiteralImpl(reactorType + "", XSD._double);
-		} else if (reactorType instanceof Calendar) {
-			// IMPROVE date handling
-			// // date and time -> Date.class
-			// jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL,
-			// Date.class
-			// .getName()
-			// + "", XSD._dateTime));
-			// jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL,
-			// Date.class
-			// .getName()
-			// + "", XSD._date));
-			// jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL,
-			// Date.class
-			// .getName()
-			// + "", XSD._time));
+		} else if (reactorValue instanceof Boolean) {
+			return new DatatypeLiteralImpl(reactorValue + "", XSD._boolean);
+		} else if (reactorValue instanceof Byte) {
+			return new DatatypeLiteralImpl(reactorValue + "", XSD._byte);
+		} else if (reactorValue instanceof Integer) {
+			return new DatatypeLiteralImpl(reactorValue + "", XSD._int);
+		} else if (reactorValue instanceof Long) {
+			return new DatatypeLiteralImpl(reactorValue + "", XSD._long);
+		} else if (reactorValue instanceof Float) {
+			return new DatatypeLiteralImpl(reactorValue + "", XSD._float);
+		} else if (reactorValue instanceof Double) {
+			return new DatatypeLiteralImpl(reactorValue + "", XSD._double);
+		} else if (reactorValue instanceof Calendar) {
 			String xsdDateTime = DatatypeUtils
-					.encodeCalendar_toXSDDateTime((Calendar) reactorType);
+					.encodeCalendar_toXSDDateTime((Calendar) reactorValue);
 			return new DatatypeLiteralImpl(xsdDateTime, XSD._dateTime);
-		} else if (reactorType instanceof Date) {
+		} else if (reactorValue instanceof Date) {
 			// IMPORVE this is in local time zone
 			Calendar cal = Calendar.getInstance();
-			cal.setTime((Date) reactorType);
+			cal.setTime((Date) reactorValue);
 			String xsdDateTime = DatatypeUtils
 					.encodeCalendar_toXSDDateTime(cal);
 			return new DatatypeLiteralImpl(xsdDateTime, XSD._dateTime);
-
 		} else {
 			throw new RuntimeException(
 					"Cannot handle instances of "
-							+ reactorType.getClass()
+							+ reactorValue.getClass()
 							+ " which are neither instance of Reactorbase nor Reactorbase[]");
-			// return reactorType;
 		}
 	}
 }

@@ -147,22 +147,22 @@ public class FORD {
 	 */
 	public void delete(Object obj) {
 		try {
-			Bridge.delete(o2m.get(obj), o2r.get(obj));
+			ResourceUtils.delete(o2m.get(obj), o2r.get(obj));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	/**
-	 * @param prop
-	 *            property URI
-	 * @param o
-	 * @return a statement (this, uri, object) and thus bridges the gap between
-	 *         the OO and RDF worlds.
-	 */
-	public Statement getStatement(Object obj, URI p, Object o) {
-		return Bridge.getStatement(o2m.get(obj), o2r.get(obj), p, o);
-	}
+//	/**
+//	 * @param prop
+//	 *            property URI
+//	 * @param o
+//	 * @return a statement (this, uri, object) and thus bridges the gap between
+//	 *         the OO and RDF worlds.
+//	 */
+//	public Statement getStatement(Object obj, URI p, Object o) {
+//		return Bridge.getStatement(o2m.get(obj), o2r.get(obj), p, o);
+//	}
 
 	public boolean equals(Object obj, Object other) {
 

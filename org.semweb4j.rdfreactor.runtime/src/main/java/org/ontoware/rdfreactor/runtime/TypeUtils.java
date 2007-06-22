@@ -1,4 +1,4 @@
-package org.ontoware.rdfreactor.model;
+package org.ontoware.rdfreactor.runtime;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -10,7 +10,6 @@ import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.OWL;
-import org.ontoware.rdfreactor.runtime.ResourceEntity;
 import org.ontoware.rdfreactor.schema.owl.Restriction;
 import org.ontoware.rdfreactor.schema.rdfschema.Property;
 import org.slf4j.Logger;

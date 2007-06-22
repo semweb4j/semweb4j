@@ -2,6 +2,7 @@ package org.ontoware.rdfreactor.runtime;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.RDF;
@@ -24,7 +25,7 @@ public class PersonTest extends TestCase {
 	public void testTyping() throws Exception {
 		Person p = new Person(model, new URIImpl("data://jim"), true);
 		System.out.println("------------------------- 1 ------");
-model.dump();
+		model.dump();
 		System.out.println("- - - - - - ");
 	}
 
@@ -79,8 +80,11 @@ model.dump();
 
 	public void testGet() throws RDFDataException {
 		Person p1 = new Person(model, instanceURI, true);
-		int a = p1.getAge();
-		assertEquals(-1, a);
+		try {
+			int a = p1.getAge();
+			Assert.fail();
+		} catch (RDFDataException e) {
+		}
 		p1.setAge(21);
 		assertEquals(21, p1.getAge());
 	}
@@ -108,8 +112,8 @@ model.dump();
 	public void testAdd() throws Exception {
 		// create Person p
 		Person p = new Person(model, new URIImpl("data://jim"), true);
-		assertTrue("model contains a Person after add", model.contains(p.getResource(), RDF.type,
-				Person.PERSON));
+		assertTrue("model contains a Person after add", model.contains(p
+				.getResource(), RDF.type, Person.PERSON));
 
 		// set name
 		p.setName("Jim");
@@ -150,10 +154,11 @@ model.dump();
 		p.addFriend(q);
 		p.addFriend(q2);
 		assertEquals(2, p.getAllFriend().length);
-		
-		assertTrue( model.contains(p.getResource(), Person.HAS_FRIEND, q2.getResource()) );
-		
-		assertTrue( p.removeFriend(q2) );
+
+		assertTrue(model.contains(p.getResource(), Person.HAS_FRIEND, q2
+				.getResource()));
+
+		assertTrue(p.removeFriend(q2));
 		assertEquals(1, p.getAllFriend().length);
 	}
 
