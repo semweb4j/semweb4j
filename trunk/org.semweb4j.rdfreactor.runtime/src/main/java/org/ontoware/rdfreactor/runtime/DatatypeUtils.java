@@ -1,6 +1,7 @@
 package org.ontoware.rdfreactor.runtime;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import org.slf4j.Logger;
@@ -26,7 +27,12 @@ public class DatatypeUtils {
 	/** return all normalized to UTC */
 	public static String encodeCalendar_toXSDDateTime(Calendar cal) {
 
-		XSDDateTime x = new XSDDateTime(cal);
+		// convert cal to UTC
+		
+	    Calendar utcCalendar = new GregorianCalendar( TimeZone.getTimeZone("UTC"));
+	    utcCalendar.setTimeInMillis(cal.getTimeInMillis());
+
+		XSDDateTime x = new XSDDateTime(utcCalendar);
 
 		StringBuffer buff = new StringBuffer();
 
@@ -44,9 +50,9 @@ public class DatatypeUtils {
 		buff.append(x.getDays());
 		buff.append("T");
 
-		if (x.getHours()+1 < 10)
+		if (x.getHours() < 10)
 			buff.append("0");
-		buff.append(x.getHours()+1);
+		buff.append(x.getHours());
 
 		buff.append(":");
 		if (x.getMinutes() < 10)
@@ -69,7 +75,7 @@ public class DatatypeUtils {
 
 	public static Calendar parseXSDDateTime_toCalendar(String s)
 			throws RDFDataException {
-		log.debug("Trying to parse '"+s+"' ans an xsd:dateTime");
+		log.debug("Trying to parse '"+s+"' as an xsd:dateTime");
 		
 		XSDDateTime xsddate = (XSDDateTime) XSDDatatype.XSDdateTime.parse(s);
 
@@ -88,7 +94,8 @@ public class DatatypeUtils {
 
 		log.debug("Hour = " + xsddate.getHours());
 
-		c.set(Calendar.HOUR_OF_DAY, xsddate.getHours() - 1);
+		// FIXME hour .- 1 ?
+		c.set(Calendar.HOUR_OF_DAY, xsddate.getHours());
 		c.set(Calendar.MINUTE, xsddate.getMinutes());
 		c.set(Calendar.SECOND, (int) xsddate.getSeconds());
 		// IMPROVE ... c.set(Calendar.MILLISECOND, ) currently we have only

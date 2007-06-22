@@ -241,9 +241,9 @@ public class Bridge extends BridgeBase {
 
 	}
 
-	public static Statement getStatement(Model model, Resource resource, URI p, Object o) {
-		return new StatementImpl(model.getContextURI(), resource, p, FORD.toNode(o));
-	}
+//	public static Statement getStatement(Model model, Resource resource, URI p, Object o) {
+//		return new StatementImpl(model.getContextURI(), resource, p, FORD.toNode(o));
+//	}
 
 
 

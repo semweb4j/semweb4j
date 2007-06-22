@@ -15,7 +15,6 @@ import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
-import org.ontoware.rdfreactor.model.TypeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

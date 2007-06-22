@@ -14,6 +14,7 @@ import org.ontoware.rdf2go.model.node.Resource;
  * @author mvo
  * 
  */
+@Patrolled
 public interface ResourceEntity {
 
 	/**
