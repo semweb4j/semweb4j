@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="semweb4j"
 	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
-
+	
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
@@ -12,7 +12,7 @@
 		<src>images/logos/semweb4j.png</src>
 		<href>http://semweb4j.org/</href>
 	</bannerLeft>
-
+	
 	<publishDate format="yyyy-MM-dd" />
 	<body>
 		<head>
@@ -27,14 +27,20 @@
 			</script>
 		</head>
 
-		<menu name="RDFReactor Generator">
+		<!--  links are inherited -->
+		<links>
+			<item name="FZI" href="http://www.fzi.de/" />
+			<item name="AIFB" href="http://aifb.uni-karlsruhe.de/" />
+			<item name="Xam.de" href="http://xam.de" />
+		</links>
+
+		<menu name="RDFReactor">
 			<item name="Semweb4j Home" href="../project/index.html" />
 			<item name="RDFReactor Home" href="../rdfreactor/index.html" />
 			<item name="RDFReactor @ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
 			<item name="Runtime" href="../rdfreactor.runtime/index.html" />
 			<item name="Generator" href="../rdfreactor.generator/index.html" />
 		</menu>
-		<menu ref="reports" />
-		<menu ref="modules" />
+
 	</body>
 </project>
