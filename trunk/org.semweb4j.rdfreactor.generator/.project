@@ -1,7 +1,9 @@
 <projectDescription>
   <name>rdfreactor.generator</name>
   <comment>RDFReactor creates domain-specific, type-safe Java classes which
-		act as a view over domain-free, loosely typed RDF instances.</comment>
+		act as a view over domain-free, loosely typed RDF instances.
+		
+		This package generates the Java classes form an RDF vocabulary.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

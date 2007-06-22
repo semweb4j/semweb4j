@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.10</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<artifactId>parent</artifactId>
+		<version>4.11</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -21,22 +23,6 @@
 	</description>
 	<url>http://semweb4.org/rdfreactor</url>
 	<inceptionYear>2005</inceptionYear>
-
-
-	<!--  must be present in every project -->
-	<repositories>
-		<repository>
-			<id>theoretiker-repo</id>
-			<name>Semweb4j.org maven repo</name>
-			<url>http://semweb4j.org/repo/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -57,10 +43,62 @@
 			<version>2.4</version>
 		</dependency>
 		<dependency>
+			<scope>test</scope>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
 			<version>4.4.5</version>
-			<scope>test</scope>
 		</dependency>
+		
+		<!-- logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- testing dependencies -->						
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		
 	</dependencies>
+
+	<!-- to avoid folded site uris -->
+	<distributionManagement>
+		<site>
+			<id>theoretiker-site</id>
+			<name>RDFReactor site</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdfreactor.runtime
+			</url>
+		</site>
+	</distributionManagement>
+
+	<!-- to find the parent -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
 </project>

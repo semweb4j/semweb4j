@@ -1,24 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.8</version>
+		<version>4.11</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.project</artifactId>
+	<version>4.4.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<version>4.4-SNAPSHOT</version>
 	
-	<name>Semweb4j RDFReactor project</name>
-	<url>@@ stimmt das? http://www.semweb4j.org/rdfreactor</url>
+	<name>RDFReactor</name>
+	<url>http://www.semweb4j.org/rdfreactor</url>
 	<inceptionYear>2004</inceptionYear>
 	<description>
-		This is a umbrella maven POM which aggregates the modules for RDF2go. 
-		Generic maven settings considered good are in org.semweb4j:maven.config.
+		RDFReactor creates domain-specific, type-safe Java classes which
+		act as a view over domain-free, loosely typed RDF instances.
 	</description>
 
 	<modules>
@@ -26,6 +28,19 @@
 		<module>../org.semweb4j.rdfreactor.runtime</module>
 	</modules>
 
+	<!-- to avoid folded site uris -->
+	<distributionManagement>
+		<site>
+			<id>theoretiker-site</id>
+			<name>RDFReactor site</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdfreactor
+			</url>
+		</site>
+	</distributionManagement>
+
+	<!-- to find the parent -->
 	<repositories>
 		<repository>
 			<id>theoretiker-repo</id>
@@ -33,6 +48,8 @@
 			<url>http://semweb4j.org/repo/</url>
 			<releases>
 				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>

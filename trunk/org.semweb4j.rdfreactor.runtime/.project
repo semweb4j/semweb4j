@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.semweb4j.rdfreactor.runtime</name>
-	<comment>RDFReactor creates domain-specific, type-safe Java classes which
+  <name>rdfreactor.runtime</name>
+  <comment>RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
 
-		This library needs to be shipped together with generated
+		This library needs to be shipped togehter with generated
 		classes.</comment>
-	<projects>
-	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
-	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-	</natures>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
 </projectDescription>
