@@ -82,13 +82,34 @@ public class TriplePatternImpl implements TriplePattern {
 		return subject;
 	}
 
+	/**
+	 * @param statement
+	 *            an RDF2Go statement
+	 * @return the part of the statement which should be extracted according to
+	 *         this pattern
+	 */
+	public Node getExtract(Statement statement) {
+		switch (extract) {
+		case SUBJECT:
+			return statement.getSubject();
+		case PREDICATE:
+			return statement.getPredicate();
+		case OBJECT:
+			return statement.getObject();
+		default: {
+			assert false;
+			throw new RuntimeException();
+		}
+		}
+	}
+
 	public boolean equals(Object o) {
 		return ((o instanceof Statement)
 				&& (this.getSubject().equals(((Statement) o).getSubject()))
 				&& (this.getPredicate().equals(((Statement) o).getPredicate())) && (this
 				.getObject().equals(((Statement) o).getObject())));
 	}
-	
+
 	public int hashCode() {
 		return object.hashCode() + predicate.hashCode() + object.hashCode();
 	}
