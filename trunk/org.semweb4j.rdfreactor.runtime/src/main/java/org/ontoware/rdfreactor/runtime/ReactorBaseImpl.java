@@ -666,8 +666,10 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 		return false;
 	}
 
-	public Map<URI, Object> map() {
-		return new ReactorMap(model, instanceIdentifier);
-	}
+	// TODO re-enable after cleanup is complete
+	//	
+	// public Map<URI, Object> map() {
+	// return new ReactorMap(model, instanceIdentifier);
+	// }
 
 }
