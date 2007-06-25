@@ -1,7 +1,7 @@
                          --------
                          semweb4j
                          --------
-                        03.01.2007
+                        21.06.2007
                          --------
                         Max Völkel
                          --------
@@ -17,17 +17,17 @@ Architecture
 
   Semweb4j consists of three pillars:
 
-  * <<{{{rdf2go/index.html}RDF2Go}}>>
+  * <<{{{../rdf2go/index.html}RDF2Go}}>>
 
   A universal wrapper API for different Java triple stores. 
   Use Jena today and switch to Sesame tomorrow, 
   without a line of source code changed (only a line in a property file).
 
-  * <<{{{rdfreactor-dist/index.html}RDFReactor}}>>
+  * <<{{{../rdfreactor/index.html}RDFReactor}}>>
 
-  Generate convenient Java classed from an RDF Schema.
+  Generate convenient Java classed from a RDF Schema.
 
-  * <<{{{jrest/index.html}jREST}}>>  
+  * <<{{{../jrest/index.html}jREST (not available)}}>>  
 
   Build a simple web application in minutes without ever seeing servlet source code.
 
