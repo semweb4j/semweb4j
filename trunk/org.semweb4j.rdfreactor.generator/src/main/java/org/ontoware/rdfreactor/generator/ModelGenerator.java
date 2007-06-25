@@ -25,7 +25,7 @@ import org.ontoware.rdfreactor.generator.java.JClass;
 import org.ontoware.rdfreactor.generator.java.JModel;
 import org.ontoware.rdfreactor.generator.java.JPackage;
 import org.ontoware.rdfreactor.generator.java.JProperty;
-import org.ontoware.rdfreactor.model.TypeUtils;
+import org.ontoware.rdfreactor.runtime.TypeUtils;
 import org.ontoware.rdfreactor.schema.owl.DeprecatedProperty;
 import org.ontoware.rdfreactor.schema.owl.Restriction;
 import org.ontoware.rdfreactor.schema.rdfschema.Class;
