@@ -4,20 +4,19 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;
 
-
 /**
- * <b>ReactorBase</b> is the Interface which has to be implemented by 
- * all classes used to represent the RDFS or OWL ontology.
+ * <b>ReactorBase</b> is the Interface which has to be implemented by all
+ * classes used to represent the RDFS or OWL ontology.
  * 
- * @author mvo 
+ * @author mvo
  */
-public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
+public interface ReactorBase extends ResourceEntity, Mappable<URI, Object> {
 
 	/**
 	 * @return the model for which this instance acts as a view
 	 */
 	public Model getModel();
-	
+
 	/**
 	 * This method is useful for functional properties.
 	 * 
@@ -27,10 +26,11 @@ public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
 	 * @throws RDFDataException
 	 *             if multiple values are present
 	 */
-	public Object get(URI prop, java.lang.Class returnType) throws RDFDataException;
+	public Object get(URI prop, java.lang.Class returnType)
+			throws RDFDataException;
 
 	/**
-	 * Get all predicates x of triples matching (this, prop, x) 
+	 * Get all predicates x of triples matching (this, prop, x)
 	 * 
 	 * @param prop
 	 * @return an array of x with (this, prop, x) if such statements are in the
@@ -58,17 +58,20 @@ public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
 
 	/**
 	 * Removes all statements (this, prop, x) and sets anew: (this, prop, o[0]),
-	 * (this, prop, o[1]), ...
-	 * But only if the number of objects in o[] is less than or equal to maxCard
+	 * (this, prop, o[1]), ... But only if the number of objects in o[] is less
+	 * than or equal to maxCard
 	 * 
 	 * 
 	 * @param prop
 	 * @param o
-	 * @param maxCard is the maximum number of triples allowed to match (this, prop, x) 
+	 * @param maxCard
+	 *            is the maximum number of triples allowed to match (this, prop,
+	 *            x)
 	 * @throws Exception
 	 * @throws CardinalityException
 	 */
-	public void setAll(URI prop, Object[] o, int maxCard) throws ModelRuntimeException, CardinalityException;
+	public void setAll(URI prop, Object[] o, int maxCard)
+			throws ModelRuntimeException, CardinalityException;
 
 	/**
 	 * Looks for a statement (this, prop, oldValue) and replaces it by a new
@@ -81,7 +84,8 @@ public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
 	 * @return true, if old value was found in the model
 	 * @throws Exception
 	 */
-	public boolean update(URI prop, Object oldValue, Object newValue) throws ModelRuntimeException;
+	public boolean update(URI prop, Object oldValue, Object newValue)
+			throws ModelRuntimeException;
 
 	/**
 	 * Adds a statement (this, prop, o).
@@ -94,17 +98,19 @@ public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
 	public boolean add(URI prop, Object o) throws ModelRuntimeException;
 
 	/**
-	 * Adds a statement (this, prop, o) if the number of statements matching (this, prop, x) 
-	 * is less then maxCard
+	 * Adds a statement (this, prop, o) if the number of statements matching
+	 * (this, prop, x) is less then maxCard
 	 * 
 	 * @param property
 	 * @param object
-	 * @param maxCard, number of occurences of (this, prop, x) allowed in the model 
+	 * @param maxCard,
+	 *            number of occurences of (this, prop, x) allowed in the model
 	 * @return true if value was already preset
 	 * @throws CardinalityException
 	 */
 
-	public boolean add(URI prop, Object o, int maxCard) throws CardinalityException, ModelRuntimeException;
+	public boolean add(URI prop, Object o, int maxCard)
+			throws CardinalityException, ModelRuntimeException;
 
 	/**
 	 * Tries to remove a statement (this, prop, o).
@@ -116,38 +122,51 @@ public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
 	public boolean remove(URI prop, Object o);
 
 	/**
-	 * Tries to remove a statement (this, prop, o) if the number of 
-	 * statements matching (this, prop, x) in the model is less then minCard
+	 * Tries to remove a statement (this, prop, o) if the number of statements
+	 * matching (this, prop, x) in the model is less then minCard
 	 * 
 	 * @param prop
 	 * @param o
-	 * @param minCard, number of occurences of (this, prop, x) needed in the model
+	 * @param minCard,
+	 *            number of occurences of (this, prop, x) needed in the model
 	 * @return true if value was found
 	 * @throws CardinalityException
 	 */
-	public boolean remove(URI prop, Object o, int minCard) throws CardinalityException;
+	public boolean remove(URI prop, Object o, int minCard)
+			throws CardinalityException;
 
-//	/**
-//	 * @deprecated not needed
-//	 * @param uri
-//	 *            property URI
-//	 * @param o
-//	 *            must be an instance of RDFBase (thus has a URI)
-//	 * @return a statement (this, uri, object) and thus bridges the gap between
-//	 *         the OO and RDF worlds.
-//	 */
-//	public Statement getStatement(URI uri, ReactorBase o);
-//
-//	/**
-//	 * @deprecated not needed
-//	 * @param uri
-//	 *            property URI
-//	 * @param o
-//	 *            must be a unique literal
-//	 * @return a statement (this, uri, object) and thus bridges the gap between
-//	 *         the OO and RDF worlds.
-//	 */
-//	public Statement getStatement(URI uri, String o);
+	/**
+	 * Remove all values of this property (same as remove(this, prop, *)
+	 * 
+	 * @param prop
+	 *            the URI to be removed
+	 * @return true if at least on value was found and removed
+	 */
+	public boolean removeAll(URI prop);
+
+	// /**
+	// * @deprecated not needed
+	// * @param uri
+	// * property URI
+	// * @param o
+	// * must be an instance of RDFBase (thus has a URI)
+	// * @return a statement (this, uri, object) and thus bridges the gap
+	// between
+	// * the OO and RDF worlds.
+	// */
+	// public Statement getStatement(URI uri, ReactorBase o);
+	//
+	// /**
+	// * @deprecated not needed
+	// * @param uri
+	// * property URI
+	// * @param o
+	// * must be a unique literal
+	// * @return a statement (this, uri, object) and thus bridges the gap
+	// between
+	// * the OO and RDF worlds.
+	// */
+	// public Statement getStatement(URI uri, String o);
 
 	/**
 	 * remove all (this, rdf:type, ANY) statements
@@ -170,7 +189,8 @@ public interface ReactorBase extends ResourceEntity, Mappable<URI,Object> {
 	 * @return true iff the given Object is of type javaClass
 	 * @throws Exception
 	 */
-	public boolean isInstanceof(java.lang.Class javaClass) throws ModelRuntimeException;
+	public boolean isInstanceof(java.lang.Class javaClass)
+			throws ModelRuntimeException;
 
 	/**
 	 * 

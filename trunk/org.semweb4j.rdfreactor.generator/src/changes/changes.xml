@@ -9,6 +9,10 @@
 			<action dev="xamde" type="update">
 				Ability to handle multiple comments
 			</action>
+			<action dev="xamde" type="add">
+				Added removeAllPROPNAME and removePROPNAME to generated
+				code
+			</action>
 		</release>
 		<release version="4.4.5">
 			<action dev="xamde" type="update">
