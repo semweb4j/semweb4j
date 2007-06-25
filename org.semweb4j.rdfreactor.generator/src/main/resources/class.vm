@@ -254,6 +254,15 @@ public class $class.name extends $class.superclass {
 		set(#uppercase($prop.name), value);
 	}
 
+	/**
+	 * removes current value(s)
+#if($prop.getComment())
+     * Schema Comment: ${prop.getComment()}
+#end
+	 */
+	public void remove${methodnameprefix}#mixedcase( $prop.name )() {
+		removeAll(#uppercase($prop.name));
+	}
 #end ####if($prop.maxCardinality == -1 || $prop.maxCardinality == 1)
 #if($prop.minCardinality != -1)
 	/**
@@ -269,6 +278,7 @@ public class $class.name extends $class.superclass {
 	throws CardinalityException {
 		remove(#uppercase($prop.name), value, $prop.minCardinality);
 	}
+
 #else		
 	/**
 	 * removes a value
@@ -279,6 +289,16 @@ public class $class.name extends $class.superclass {
 	 */
 	public void remove${methodnameprefix}#mixedcase( $prop.name )( ${classname} value  ) {
 		remove(#uppercase($prop.name), value);
+	}
+
+	/**
+	 * removes all values
+#if($prop.getComment())
+     * Schema Comment: ${prop.getComment()}
+#end
+	 */
+	public void removeAll${methodnameprefix}#mixedcase( $prop.name )() {
+		removeAll(#uppercase($prop.name));
 	}
 #end ## if
 
