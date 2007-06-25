@@ -10,7 +10,9 @@ import org.ontoware.rdf2go.model.node.URI;
  * 
  * @author mvo
  */
-public interface ReactorBase extends ResourceEntity, Mappable<URI, Object> {
+public interface ReactorBase extends ResourceEntity {
+	// TODO re-enable after refactoring, Mappable<URI, Object> {
+
 
 	/**
 	 * @return the model for which this instance acts as a view
