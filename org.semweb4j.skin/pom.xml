@@ -12,7 +12,7 @@
 	
 	<groupId>org.semweb4j</groupId>
 	<artifactId>skin</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<name>maven skin for semweb4j</name>
 	<description>A Maven2 skin, based on maven-stylus-skin.</description>
 	
