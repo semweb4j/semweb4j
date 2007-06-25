@@ -2,15 +2,17 @@
 <project name="semweb4j"
 	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
 
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>1.2.0</version>
+	</skin>
+
 	<bannerLeft>
 		<src>images/logos/semweb4j.png</src>
 		<href>http://semweb4j.org/</href>
 	</bannerLeft>
-	<skin>
-		<groupId>org.semweb4j</groupId>
-		<artifactId>semweb4j-skin</artifactId>
-		<version>1.0</version>
-	</skin>
+
 	<publishDate format="yyyy-MM-dd" />
 	<body>
 		<head>
@@ -25,11 +27,14 @@
 			</script>
 		</head>
 
-		<menu name="RDF2Go Jena 2.4 adapter">
-			<item name="Downloads" href="bin" />
-			<item name="RDF2Go @ Ontoworld"
-				href="http://ontoworld.org/wiki/RDF2Go" />
-			<item name="DOAP file" href="doap.rdf" />
+		<menu name="RDF2Go impl.jena24">
+			<item name="Semweb4j Home" href="../project/index.html" />
+			<item name="RDF2Go Home" href="../rdf2go/index.html" />
+			<item name="RDF2Go @ Ontoworld" href="http://ontoworld.org/wiki/RDF2Go" />
+			<item name="api" href="../rdf2go.api/index.html" />
+			<item name="impl.base" href="../rdf2go.impl.base/index.html" />
+			<item name="impl.base.test" href="../rdf2go.impl.base.test/index.html" />
+			<item name="impl.jena24" href="../rdf2go.impl.jena24/index.html" />			
 		</menu>
 		<menu ref="reports" />
 		<menu ref="modules" />
