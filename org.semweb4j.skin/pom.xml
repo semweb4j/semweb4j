@@ -9,7 +9,7 @@
 	
 	<groupId>org.semweb4j</groupId>
 	<artifactId>skin</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1-SNAPSHOT</version>
 	<name>maven skin for semweb4j</name>
 	<description>A Maven2 skin, based on maven-stylus-skin.</description>
 	
@@ -29,11 +29,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/skin-1.2.0</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/skin-1.2.0</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/skin-1.2.0</url>
-  </scm>
 </project>
