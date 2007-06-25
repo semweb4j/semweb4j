@@ -84,20 +84,18 @@
 			<!-- The timezone the contributor is in. This is a number in the range -11 to 12.  -->
 			<timezone>1</timezone>
 		</developer>
-	</developers>
-
-	<contributors>
-		<contributor>
+		<developer>
+			<id>wth</id>
 			<name>Werner Thiemann</name>
 			<organization>blue-age</organization>
 			<organizationUrl>http://www.blue-age.de</organizationUrl>
 			<timezone>1</timezone>
 			<roles>
-				<role>POM wrangler</role>
+				<role>POM Manager</role>
 				<role>Documentation Doctor</role>
-			</roles>
-		</contributor>
-	</contributors>
+			</roles>		
+		</developer>
+	</developers>
 
 	<!-- to find the parent -->
 	<repositories>
