@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.semweb4j.maven.skin</name>
+	<name>org.semweb4j.skin</name>
 	<comment>A Maven2 skin, based on maven-stylus-skin.</comment>
 	<projects>
 	</projects>
