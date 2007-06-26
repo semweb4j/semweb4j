@@ -5,6 +5,7 @@
 	<artifactId>maven.config</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.5-SNAPSHOT</version>
+	
 	<name>Common Maven Config</name>
 	<inceptionYear>2005</inceptionYear>
 	<description>
