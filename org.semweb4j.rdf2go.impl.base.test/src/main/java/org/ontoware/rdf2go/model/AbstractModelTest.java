@@ -10,17 +10,16 @@
  */
 package org.ontoware.rdf2go.model;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.RDF2Go;
@@ -821,59 +820,6 @@ public abstract class AbstractModelTest extends TestCase {
 		m.close();
 	}
 
-	/**
-	 * This code works ok if I use a one-argument version of readFrom method
-	 * (without Syntax.RdfXml argument). With it the second argument it
-	 * generates an exception:
-	 * 
-	 * @throws Exception
-	 */
-	// this will not work because the file on the web has a bad syntax
-	public void testReadFromURL() throws Exception {
-		Model model = getModelFactory().createModel(Reasoning.none);
-		model.open();
-
-		URL url = new URL("http://www.w3.org/1999/02/22-rdf-syntax-ns");
-		BufferedReader in = new BufferedReader(new InputStreamReader(url
-				.openStream()));
-
-		model.readFrom(in, Syntax.RdfXml);
-
-		// Exception in thread "main" java.lang.RuntimeException:
-		// java.io.IOException: Stream closed
-		// at
-		// org.ontoware.rdf2go.impl.sesame2.ModelImplSesame.readFrom(ModelImplSesame.java:461)
-		// at ReaderTest.main(ReaderTest.java:12)
-		// Caused by: java.io.IOException: Stream closed
-		// at sun.nio.cs.StreamDecoder.ensureOpen(StreamDecoder.java:38)
-		// at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:153)
-		// at sun.nio.cs.StreamDecoder.read0(StreamDecoder.java:132)
-		// at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:118)
-		// at java.io.InputStreamReader.read(InputStreamReader.java:151)
-		// at
-		// org.openrdf.rio.ntriples.NTriplesParser.parse(NTriplesParser.java:158)
-		// at
-		// org.openrdf.repository.ConnectionImpl._addInputStreamOrReader(ConnectionImpl.java:304)
-		// at
-		// org.openrdf.repository.ConnectionImpl.add(ConnectionImpl.java:274)
-		// at
-		// org.ontoware.rdf2go.impl.sesame2.ModelImplSesame.readFrom(ModelImplSesame.java:454)
-		// ... 1 more
-
-		// It seems that NTriplesParser is somehow invoked somewhere.
-		// This example
-		// file is an icaltzd ontology available at
-		// http:// www.w3.org/2002/12/cal/icaltzd
-		// I use a local file, because the online version contains
-		// multiply-defined
-		// id's, that cause RIO parser to fail... I manually removed
-		// those multiple
-		// definitions. The result is attached to this email.
-		//	
-		// This is not the only file I get this result with...
-		model.close();
-	}
-
 	public void testReadFromFile() throws ModelRuntimeException, IOException {
 		Model model = getModelFactory().createModel(Reasoning.none);
 		model.open();
@@ -884,6 +830,29 @@ public abstract class AbstractModelTest extends TestCase {
 		assertNotNull(rdfxml);
 		model.readFrom(reader, rdfxml);
 		model.close();
+	}
+	
+	@Test
+	public void testStringEncoding() {
+		Model model = getModelFactory().createModel(Reasoning.none);
+		model.open();
+
+		log.debug("create a String that contains each possible unicode value once. May take a while.");
+	    char[] allchars = new char[Character.MAX_VALUE];
+	    for (char i = 0; i < allchars.length; i++) {
+			allchars[i] = i;
+		}
+		String inString = new String( allchars );
+
+		model.addStatement(a, b, inString );
+
+		ClosableIterator<Statement> it = model.iterator();
+		Statement stmt = it.next();
+		it.close();
+		
+		Assert.assertEquals(a, stmt.getSubject());
+		Assert.assertEquals(b, stmt.getPredicate());
+		Assert.assertEquals(inString, stmt.getObject().asLiteral().getValue());
 	}
 
 	
