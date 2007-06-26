@@ -6,10 +6,11 @@
 	</properties>
 	<body>
 
-		<!--  
-			<release version="4.5-SNAPSHOT" description="SNAPSHOT">
-			</release>
-		-->
+		<release version="4.4.6" date="not yet"> 
+			<action dev="xamde" type="update">
+				Further maven updates, code not affected.
+			</action>
+		</release>
 
 		<release version="4.4.5" date="2007-06-02">
 			<action dev="xamde" type="update">
