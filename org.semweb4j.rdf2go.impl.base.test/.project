@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>org.semweb4j.rdf2go.impl.base.test</name>
+  <name>rdf2go.impl.base.test</name>
   <comment>Abstract base test classes to ease implementing adaptors for RDF2go.
 		Most tests cannot run without an RDF2Go-adapter implementation in
 		the classpath.</comment>
