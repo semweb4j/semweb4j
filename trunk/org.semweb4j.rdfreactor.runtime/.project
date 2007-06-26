@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>rdfreactor.runtime</name>
+  <name>org.semweb4j.rdfreactor.runtime</name>
   <comment>RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
 
