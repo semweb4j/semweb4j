@@ -26,7 +26,8 @@ public class AutopersistsTest extends TestCase {
 		testdata.mkdirs();
 		File f = new File(testdata, "modelimplautopersist.test");
 		f.delete();
-		@SuppressWarnings("unused") ModelImplAutoPersist miap = new ModelImplAutoPersist( RDF2Go.getModelFactory().createModel(), f, 100);
+		@SuppressWarnings("unused") 
+		ModelImplAutoPersist miap = new ModelImplAutoPersist( RDF2Go.getModelFactory().createModel(), f, 100);
 	}
 
 	/*
@@ -38,21 +39,19 @@ public class AutopersistsTest extends TestCase {
 		File testdata = new File("./target/temp/test-data");
 		testdata.mkdirs();
 		File f = new File(testdata, "modelimplautopersist.test");
-		File tmp = new File(testdata, "modelimplautopersist.test.tmp");
 		ModelImplAutoPersist miap = new ModelImplAutoPersist(RDF2Go.getModelFactory().createModel(), f, 1);
-		tmp.delete();
 		miap.addStatement("urn:test:s", new URIImpl("urn:test:p"), "Test");
 		assertEquals(1, miap.openchanges());
-		assertFalse( tmp.exists() );
+		assertFalse( f.exists() );
 		miap.addStatement("urn:test:s", new URIImpl("urn:test:p"), "Test2");
 		assertEquals(0, miap.openchanges());
-		assertTrue( tmp.exists() );
-		long fModified = tmp.length();
+		assertTrue( f.exists() );
+		long fModified = f.length();
 		miap.addStatement("urn:test:s", new URIImpl("urn:test:p"), "Test3");
 		assertEquals(1, miap.openchanges());
 		miap.addStatement("urn:test:s", new URIImpl("urn:test:p"), "Test4");
 		assertEquals(0, miap.openchanges());
-		long f2Modified = tmp.length();
+		long f2Modified = f.length();
 		assertNotSame(fModified, f2Modified);
 	}
 
