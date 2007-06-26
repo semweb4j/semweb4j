@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>org.semweb4j.rdf2go.impl.base</name>
+  <name>rdf2go.impl.base</name>
   <comment>Abstract base classes to ease implementing adaptors for RDF2go.</comment>
   <projects/>
   <buildSpec>
