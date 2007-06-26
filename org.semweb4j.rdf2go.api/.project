@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>org.semweb4j.rdf2go.api</name>
+  <name>rdf2go.api</name>
   <comment>RDF2go is an implementation-independent Java API with the design
 		goals: portability (hence the name), performance, easy of
 		implementation.</comment>
