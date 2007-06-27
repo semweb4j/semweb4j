@@ -14,7 +14,11 @@
 	<version>4.4.6-SNAPSHOT</version>
 	<name>RDF2Go Autopersistent Layer</name>
 	<description>
-		An RDF2Go layer which saves after n open writes.
+		An RDF2Go layer which saves after 'n' open writes to a file.
+		When crashing while writing, the model recovers as it uses temp
+		files. When starting, the model loads old state.
+		
+		This is useful to turn an in-memory into an on-disk model.
 	</description>
 	<inceptionYear>2005</inceptionYear>
 
