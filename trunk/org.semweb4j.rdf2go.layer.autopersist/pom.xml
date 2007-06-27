@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.layer.autopersist</artifactId>
-	<version>4.4.6</version>
+	<version>4.4.7-SNAPSHOT</version>
 	<name>RDF2Go Autopersistent Layer</name>
 	<description>
 		An RDF2Go layer which saves after 'n' open writes to a file.
@@ -92,10 +92,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.layer.autopersist-4.4.6</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.layer.autopersist-4.4.6</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/rdf2go.layer.autopersist-4.4.6</url>
-  </scm>
 </project>
