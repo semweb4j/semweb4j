@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,9 +15,9 @@
 	<name>RDF2Go Test Base</name>
 	<version>4.4.6-SNAPSHOT</version>
 	<description>
-		Abstract base test classes to ease implementing adaptors for RDF2go.
-		Most tests cannot run without an RDF2Go-adapter implementation in
-		the classpath.
+		Abstract base test classes to ease implementing adaptors for
+		RDF2go. Most tests cannot run without an RDF2Go-adapter
+		implementation in the classpath.
 	</description>
 
 	<dependencies>
@@ -48,9 +48,9 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 
-		<!-- testing dependencies -->						
+		<!-- testing dependencies -->
 		<dependency>
-		    <scope>compile</scope>
+			<scope>compile</scope>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
@@ -68,7 +68,7 @@
 			</url>
 		</site>
 	</distributionManagement>
-	
+
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
@@ -85,5 +85,5 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 </project>
