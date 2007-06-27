@@ -88,7 +88,7 @@ public class TestData {
 
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		InputStream in = cl
-				.getResourceAsStream("./org/ontoware/rdf2go/testdata/foaf.xml");
+				.getResourceAsStream("org/ontoware/rdf2go/testdata/foaf.xml");
 		return in;
 	}
 
@@ -137,7 +137,7 @@ public class TestData {
 	public static InputStream getICALAsStream() {
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		InputStream in = cl
-				.getResourceAsStream("./org/ontoware/rdf2go/testdata/icaltzd.rdfs");
+				.getResourceAsStream("org/ontoware/rdf2go/testdata/icaltzd.rdfs");
 		return in;
 	}
 
