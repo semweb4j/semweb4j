@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.4.5</version>
+			<version>4.4.6</version>
 		</dependency>
 
 		<!-- logging dependencies -->
