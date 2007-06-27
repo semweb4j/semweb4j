@@ -1,0 +1,21 @@
+<document>
+	<properties>
+		<title>RDF2Go Jena 2.4 Adapter</title>
+		<author email="dev@xam.de">Max Völkel</author>
+	</properties>
+	<body>
+
+		<release version="4.4.6">
+			<action dev="xamde" type="add">
+				Introduced this changelog
+			</action>
+			<action dev="xamde" type="remove">
+				Removed tests requiring a network connection
+			</action>
+			<action dev="xamde" type="add">
+				Added test for string encoding
+			</action>
+		</release>
+
+	</body>
+</document>
