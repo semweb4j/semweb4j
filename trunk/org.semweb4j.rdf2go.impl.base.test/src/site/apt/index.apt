@@ -1,36 +1,15 @@
                                     ------
-                                    Known Test Results
+                                    Welcome
                                     ------
                                     Max Völkel
                                     ------
                                      7.1.2007
 
-Note
+About
 
-  The information here might be out of date.
+  rdf2go.impl.base.test is a project containing base classes to bu used in tests.
   
-Overview over failed JUnit tests
+More Information
 
-* jena22.DatatypeTesting:
-
-  testDataTypesWithUnknownType() failed
-
-* yars.ModelImplYarsTest:
-
-  LanguageTaggedLiteral doesn't work
-
-  Queries don't work
-
-* yars.ContextModelImplYarsTest:
-
-  Queries don't work
-
-* ng4j.ContextModelImplNG4JTest:
-  
-  Queries don't work
-
-* sesame.ContextModelSesame2Impl:
-
-  Context URL cannot be retrieved -> bug in sesame2
-
-  Queries don't work
+  For more up-to-the minute infiromation look at the wiki page:
+  http://rdf2go.semweb4j.org  
