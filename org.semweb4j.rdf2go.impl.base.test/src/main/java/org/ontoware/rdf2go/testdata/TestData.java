@@ -85,8 +85,11 @@ public class TestData {
 	 * @return as RDF/XML
 	 */
 	public static InputStream getFoafAsStream() {
-		InputStream in = TestData.class
-				.getResourceAsStream("/org/ontoware/rdf2go/testdata/foaf.xml");
+
+		
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		InputStream in = cl
+				.getResourceAsStream("./org/ontoware/rdf2go/testdata/foaf.xml");
 		return in;
 	}
 
@@ -152,3 +155,32 @@ public class TestData {
 	}
 
 }
+
+//ClassLoader[] cloader = new ClassLoader[] {
+//		 Thread.currentThread().getContextClassLoader(),
+//		 TestData.class.getClassLoader(),
+//		 ClassLoader.getSystemClassLoader()
+//		 };
+//		 String[] path = new String[] {
+//		 "./org/ontoware/rdf2go/testdata/foaf.xml",
+//		 "/org/ontoware/rdf2go/testdata/foaf.xml",
+//		 "org/ontoware/rdf2go/testdata/foaf.xml",
+//		 ".org.ontoware.rdf2go.testdata.foaf.xml",
+//		 "/org.ontoware.rdf2go.testdata.foaf.xml",
+//		 "org.ontoware.rdf2go.testdata.foaf.xml",
+//		 "foaf.xml"
+//		 };
+//		
+//		 StringBuffer buf = new StringBuffer();
+//		 for(String s : path ) {
+//		 for( ClassLoader cl : cloader) {
+//		 InputStream in = cl.getResourceAsStream(s);
+//		 buf.append((in!=null)+" for path "+s+" via "+cl.toString()+"\n");
+//		 }
+//		
+//		 }
+//		
+//		 throw new RuntimeException(buf.toString());
+//		
+//		
+
