@@ -1,0 +1,54 @@
+<document>
+	<properties>
+		<title>RDF2Go Jena 2.4 Adapter</title>
+		<author email="dev@xam.de">Max Völkel</author>
+	</properties>
+	<body>
+
+		<release version="4.4.6" description="RDF2Go adaption">
+			<action dev="xamde" type="update">
+				Adapted to latest RDF2Go API 4.4.6
+			</action>
+		</release>
+
+		<release version="4.3.1" description="Bug fixes">
+			<action dev="xamde" type="update">
+				Fixed bugs in RDFS inferencing
+			</action>
+		</release>
+
+		<release version="4.3.0" description="semweb4j alignment">
+			<action dev="xamde" type="update">
+				Updated to match RDF2Go 4.3.0
+			</action>
+		</release>
+
+		<release version="0.4" date="2006-07-10"
+			description="next release">
+			<action dev="xamde" type="update">
+				methods throws now a ModelException, not a generic
+				Exception any longer
+			</action>
+		</release>
+
+		<release version="0.3" date="2006-04-11"
+			description="next release">
+			<action dev="xamde" type="add">
+				Autopersistent Model saves after n changes automatically
+			</action>
+		</release>
+
+		<release version="0.2" date="2006-02-27"
+			description="next release">
+			<action dev="xamde" type="update">
+				converted into separate eclipse project with it's own
+				build file
+			</action>
+		</release>
+
+		<release version="0.1" date="2005-01-01"
+			description="First release">
+			<action dev="xamde" type="update">Start</action>
+		</release>
+	</body>
+</document>
