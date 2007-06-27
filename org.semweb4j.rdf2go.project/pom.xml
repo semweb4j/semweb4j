@@ -17,8 +17,8 @@ wth: you might use it for site deployment thought
 		<version>4.11</version>
 	</parent>
 
-	<groupId>org.semweb4j.rdf2go</groupId>
-	<artifactId>project</artifactId>
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.project</artifactId>
 	<version>4.4.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
