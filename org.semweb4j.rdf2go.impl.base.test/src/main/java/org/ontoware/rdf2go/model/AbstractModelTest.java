@@ -255,7 +255,6 @@ public abstract class AbstractModelTest extends TestCase {
 			assertTrue("literalObject is if type: " + literalObject.getClass(),
 					literalObject instanceof DatatypeLiteral);
 			DatatypeLiteral rdflit = (DatatypeLiteral) s.getObject();
-			//System.err.println(rdflit);
 			assertEquals("Test", rdflit.getValue());
 			assertEquals(dt, rdflit.getDatatype());
 		}
@@ -484,7 +483,6 @@ public abstract class AbstractModelTest extends TestCase {
 		model.open();
 		String query = "PREFIX \t:\t<test://test/>\n"
 				+ "CONSTRUCT { ?s ?p \"Test2\" } WHERE { ?s ?p \"Test2\" }";
-		// System.out.println(query);
 		BlankNode bNode = model.createBlankNode();
 		model.addStatement(subject, predicate, "Test1");
 		model.addStatement(subject, predicate, "Test2");
@@ -510,7 +508,6 @@ public abstract class AbstractModelTest extends TestCase {
 		model.open();
 		String query = "PREFIX \t:\t<test://test/>\n" + "SELECT  ?s ?p \n"
 				+ "WHERE { ?s ?p \"Test2\" }";
-		// System.out.println(query);
 		BlankNode bNode = model.createBlankNode();
 		model.addStatement(subject, predicate, "Test1");
 		model.addStatement(subject, predicate, "Test2");
@@ -592,9 +589,6 @@ public abstract class AbstractModelTest extends TestCase {
 		model.addStatement(a,b,c);
 		ClosableIterator<? extends Statement> it = model.findStatements(a, b, c);
 		assertTrue( it.hasNext() );
-		//while (it.hasNext()) {
-		//	System.out.println(it.next());
-		//}
 		it.close();
 		model.close();
 	}
@@ -610,9 +604,6 @@ public abstract class AbstractModelTest extends TestCase {
 		
 		ClosableIterator<? extends Statement> it = m.findStatements(Variable.ANY, b, c);
 		assertTrue( it.hasNext() );
-		//while (it.hasNext()) {
-		//	System.out.println(it.next());
-		//}
 		it.close();
 		m.close();
 	}
@@ -825,7 +816,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.open();
 		assertNotNull(model);
 		InputStream reader = TestData.getFoafAsStream();
-		assertNotNull(reader);
+		assertNotNull("testdata stream should not be null",reader);
 		Syntax rdfxml = Syntax.RdfXml;
 		assertNotNull(rdfxml);
 		model.readFrom(reader, rdfxml);
@@ -854,8 +845,5 @@ public abstract class AbstractModelTest extends TestCase {
 		Assert.assertEquals(b, stmt.getPredicate());
 		Assert.assertEquals(inString, stmt.getObject().asLiteral().getValue());
 	}
-
-	
-	
 	
 }
