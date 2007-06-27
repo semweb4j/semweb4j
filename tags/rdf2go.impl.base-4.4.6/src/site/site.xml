@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="semweb4j"
+	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
+
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>1.2.0</version>
+	</skin>
+
+	<bannerLeft>
+		<src>images/logos/semweb4j.png</src>
+		<href>http://semweb4j.org/</href>
+	</bannerLeft>
+	
+	<publishDate format="yyyy-MM-dd" />
+	<body>
+		<head>
+			<meta name="keywords" content="semweb4j, mv2178imnetz" />
+			<link rel="meta" title="DOAP" type="application/rdf+xml"
+				href="doap.rdf" />
+			<script src="http://www.google-analytics.com/urchin.js"
+				type="text/javascript">
+			</script>
+			<script type="text/javascript">
+				_uacct = "UA-271022-2"; urchinTracker();
+			</script>
+		</head>
+
+		<menu name="RDF2Go impl.base">
+			<item name="Semweb4j Home" href="../project/index.html" />
+			<item name="RDF2Go Home" href="../rdf2go/index.html" />
+			<item name="RDF2Go @ Ontoworld" href="http://ontoworld.org/wiki/RDF2Go" />
+			<item name="api" href="../rdf2go.api/index.html" />
+			<item name="impl.base" href="../rdf2go.impl.base/index.html" />
+			<item name="impl.base.test" href="../rdf2go.impl.base.test/index.html" />
+			<item name="impl.jena24" href="../rdf2go.impl.jena24/index.html" />			
+		</menu>
+		<menu ref="reports" />
+		<menu ref="modules" />
+	</body>
+</project>
