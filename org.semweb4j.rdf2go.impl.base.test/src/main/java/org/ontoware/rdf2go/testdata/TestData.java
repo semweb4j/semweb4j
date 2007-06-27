@@ -85,10 +85,9 @@ public class TestData {
 	 * @return as RDF/XML
 	 */
 	public static InputStream getFoafAsStream() {
-		ClassLoader classloader = Thread.currentThread()
-				.getContextClassLoader();
-		return classloader
-				.getResourceAsStream("org/ontoware/rdf2go/testdata/foaf.xml");
+		InputStream in = TestData.class
+				.getResourceAsStream("/org/ontoware/rdf2go/testdata/foaf.xml");
+		return in;
 	}
 
 	/**
@@ -134,7 +133,8 @@ public class TestData {
 	 * @return icaltzd.rdfs as an InputStream
 	 */
 	public static InputStream getICALAsStream() {
-		return TestData.class.getResourceAsStream("org/ontoware/rdf2go/testdata/icaltzd.rdfs");
+		return TestData.class
+				.getResourceAsStream("org/ontoware/rdf2go/testdata/icaltzd.rdfs");
 	}
 
 	/**
