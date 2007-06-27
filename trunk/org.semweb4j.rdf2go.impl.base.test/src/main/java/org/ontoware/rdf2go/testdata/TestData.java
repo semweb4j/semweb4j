@@ -86,7 +86,6 @@ public class TestData {
 	 */
 	public static InputStream getFoafAsStream() {
 
-		
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		InputStream in = cl
 				.getResourceAsStream("./org/ontoware/rdf2go/testdata/foaf.xml");
@@ -136,8 +135,10 @@ public class TestData {
 	 * @return icaltzd.rdfs as an InputStream
 	 */
 	public static InputStream getICALAsStream() {
-		return TestData.class
-				.getResourceAsStream("org/ontoware/rdf2go/testdata/icaltzd.rdfs");
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		InputStream in = cl
+				.getResourceAsStream("./org/ontoware/rdf2go/testdata/icaltzd.rdfs");
+		return in;
 	}
 
 	/**
@@ -156,31 +157,31 @@ public class TestData {
 
 }
 
-//ClassLoader[] cloader = new ClassLoader[] {
-//		 Thread.currentThread().getContextClassLoader(),
-//		 TestData.class.getClassLoader(),
-//		 ClassLoader.getSystemClassLoader()
-//		 };
-//		 String[] path = new String[] {
-//		 "./org/ontoware/rdf2go/testdata/foaf.xml",
-//		 "/org/ontoware/rdf2go/testdata/foaf.xml",
-//		 "org/ontoware/rdf2go/testdata/foaf.xml",
-//		 ".org.ontoware.rdf2go.testdata.foaf.xml",
-//		 "/org.ontoware.rdf2go.testdata.foaf.xml",
-//		 "org.ontoware.rdf2go.testdata.foaf.xml",
-//		 "foaf.xml"
-//		 };
+// ClassLoader[] cloader = new ClassLoader[] {
+// Thread.currentThread().getContextClassLoader(),
+// TestData.class.getClassLoader(),
+// ClassLoader.getSystemClassLoader()
+// };
+// String[] path = new String[] {
+// "./org/ontoware/rdf2go/testdata/foaf.xml",
+// "/org/ontoware/rdf2go/testdata/foaf.xml",
+// "org/ontoware/rdf2go/testdata/foaf.xml",
+// ".org.ontoware.rdf2go.testdata.foaf.xml",
+// "/org.ontoware.rdf2go.testdata.foaf.xml",
+// "org.ontoware.rdf2go.testdata.foaf.xml",
+// "foaf.xml"
+// };
 //		
-//		 StringBuffer buf = new StringBuffer();
-//		 for(String s : path ) {
-//		 for( ClassLoader cl : cloader) {
-//		 InputStream in = cl.getResourceAsStream(s);
-//		 buf.append((in!=null)+" for path "+s+" via "+cl.toString()+"\n");
-//		 }
+// StringBuffer buf = new StringBuffer();
+// for(String s : path ) {
+// for( ClassLoader cl : cloader) {
+// InputStream in = cl.getResourceAsStream(s);
+// buf.append((in!=null)+" for path "+s+" via "+cl.toString()+"\n");
+// }
 //		
-//		 }
+// }
 //		
-//		 throw new RuntimeException(buf.toString());
+// throw new RuntimeException(buf.toString());
 //		
 //		
 
