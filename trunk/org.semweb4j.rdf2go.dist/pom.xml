@@ -60,10 +60,10 @@
 	<distributionManagement>
 		<site>
 			<id>theoretiker-site</id>
-			<name>RDFReactor site</name>
+			<name>RDF2Go</name>
 			<!--  mvn creates new dirs if necessary -->
 			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.dist
 			</url>
 		</site>
 	</distributionManagement>
