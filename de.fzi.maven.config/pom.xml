@@ -32,12 +32,20 @@
 		<url>${svn.user}/{$svn.name}</url>
 	</scm>
 	-->
+ 
+	<scm>
+		<connection>scm:svn:${svn.user}/trunk/{$svn.name}</connection>
+		<developerConnection>scm:svn:${svn.dev}/trunk/{$svn.name}</developerConnection>
+		<url>${svn.user}/{$svn.name}</url>
+	</scm>
+
+<!-- 
 	<scm>
 		<connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</connection>
 		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</developerConnection>
 		<url>https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</url>
 	</scm>
-
+ -->
 	<!-- repository settings -->
 	<!-- ################### -->
 
