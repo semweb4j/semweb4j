@@ -32,6 +32,14 @@
 			<version>4.4.6</version>
 		</dependency>
 
+		<!--  any rdf2go impl is ok -->
+		<dependency>
+			<scope>test</scope>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.jena24</artifactId>
+			<version>4.4.6</version>
+		</dependency>
+
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -53,14 +61,6 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
-		<!--  any rdf2go impl is ok -->
-		<dependency>
-			<scope>test</scope>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.4.6</version>
-		</dependency>
-
 	</dependencies>
 
 	<!-- to avoid folded site uris -->
@@ -74,7 +74,6 @@
 			</url>
 		</site>
 	</distributionManagement>
-
 
 	<!-- to find the parent -->
 	<repositories>
