@@ -15,6 +15,10 @@
 			<action dev="xamde" type="update">
 				Switched to slf4j for logging.
 			</action>
+			<action dev="xamde" type="remove">
+				Removed support for using an RDFReactor object as a
+				java.util.Map.
+			</action>
 		</release>
 		<release version="4.4.5" date="2007-06-03">
 			<action dev="xamde" type="update">
