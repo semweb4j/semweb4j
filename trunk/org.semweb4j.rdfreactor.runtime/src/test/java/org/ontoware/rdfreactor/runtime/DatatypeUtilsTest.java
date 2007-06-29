@@ -55,15 +55,6 @@ public class DatatypeUtilsTest extends TestCase {
 
 		log.debug("as xsd:date: " + encoded);
 
-		Calendar localCal = Calendar.getInstance(TimeZone
-				.getTimeZone("Europe/Berlin"));
-		Assert.assertNotSame(cal.get(Calendar.HOUR_OF_DAY), localCal
-				.get(Calendar.HOUR_OF_DAY));
-		log.debug(" localCal = "
-				+ SimpleDateFormat.getInstance().format(localCal.getTime()));
-		String localEncoded = DatatypeUtils
-				.encodeCalendar_toXSDDateTime(localCal);
-		log.debug("as xsd:date: " + localEncoded);
 
 		Calendar returnCal = DatatypeUtils.parseXSDDateTime_toCalendar(encoded);
 		log.debug("returnCal = "

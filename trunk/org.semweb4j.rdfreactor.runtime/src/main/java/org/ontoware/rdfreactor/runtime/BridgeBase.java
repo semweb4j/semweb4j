@@ -692,25 +692,25 @@ public class BridgeBase {
 		return resultAsArray;
 	}
 
-	@Patrolled
-	private static Object triplepattern2reactor_singleValue(Model model,
-			org.ontoware.rdf2go.model.impl.TriplePatternImpl triplePattern,
-			Class<?> returnType) {
-		log.debug("looking for *the* single value of " + triplePattern);
-		Object result = null;
-		synchronized (model) {
-			ClosableIterator<? extends Statement> it = model
-					.findStatements(triplePattern);
-			while (it.hasNext()) {
-				Statement statement = it.next();
-				Node rdfnode = triplePattern.getExtract(statement);
-				result = uriBlankLiteral2reactor(model, rdfnode, returnType);
-			}
-			it.close();
-		}
-
-		return result;
-	}
+//	@Patrolled
+//	private static Object triplepattern2reactor_singleValue(Model model,
+//			org.ontoware.rdf2go.model.impl.TriplePatternImpl triplePattern,
+//			Class<?> returnType) {
+//		log.debug("looking for *the* single value of " + triplePattern);
+//		Object result = null;
+//		synchronized (model) {
+//			ClosableIterator<? extends Statement> it = model
+//					.findStatements(triplePattern);
+//			while (it.hasNext()) {
+//				Statement statement = it.next();
+//				Node rdfnode = triplePattern.getExtract(statement);
+//				result = uriBlankLiteral2reactor(model, rdfnode, returnType);
+//			}
+//			it.close();
+//		}
+//
+//		return result;
+//	}
 
 	/**
 	 * Add a statement (subject, property, o) to the given model. ("generic"
