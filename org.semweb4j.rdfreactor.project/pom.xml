@@ -23,6 +23,12 @@
 		act as a view over domain-free, loosely typed RDF instances.
 	</description>
 
+	<!--  added 2007-07-02 by xamde -->
+	<issueManagement>
+		<system>JIRA</system>
+		<url>keks.fzi.de/projects/browse/REAC</url>
+	</issueManagement>
+
 	<modules>
 		<module>../org.semweb4j.rdfreactor.generator</module>
 		<module>../org.semweb4j.rdfreactor.runtime</module>
