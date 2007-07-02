@@ -2,8 +2,7 @@ package org.ontoware.rdfreactor.generator;
 
 import java.io.File;
 
-import junit.framework.TestCase;
-
+import org.junit.Test;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdfreactor.generator.java.JClass;
 import org.ontoware.rdfreactor.generator.java.JModel;
@@ -16,8 +15,9 @@ import org.ontoware.rdfreactor.generator.java.JProperty;
  * @author voelkel
  * 
  */
-public class SourceCodeWriterTest extends TestCase {
+public class SourceCodeWriterTest  {
 
+	@Test
 	public void testWrite() throws Exception {
 		JModel jm = new JModel(JClass.RDFS_CLASS, true);
 		JPackage jp = new JPackage("test");

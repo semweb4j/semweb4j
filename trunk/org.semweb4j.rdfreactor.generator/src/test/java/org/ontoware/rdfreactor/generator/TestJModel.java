@@ -1,15 +1,16 @@
 package org.ontoware.rdfreactor.generator;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdfreactor.generator.java.JClass;
 import org.ontoware.rdfreactor.generator.java.JModel;
 import org.ontoware.rdfreactor.generator.java.JPackage;
 
-public class TestJModel extends TestCase {
+public class TestJModel {
 	
+	@Test
 	public void testMapping() {
 		
 		JPackage jp = new JPackage("Package");
@@ -21,7 +22,7 @@ public class TestJModel extends TestCase {
 		
 		jm.addMapping( testURI, testClass );
 		
-		assertNotNull(jm.getMapping(testURI));
+		Assert.assertNotNull(jm.getMapping(testURI));
 	}
 
 }
