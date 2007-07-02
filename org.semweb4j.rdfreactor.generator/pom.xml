@@ -20,12 +20,6 @@
 	<url>http://semweb4.org/rdfreactor</url>
 	<inceptionYear>2005</inceptionYear>
 	
-	<!--  added 2007-07-02 by xamde -->
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://keks.fzi.de/browse/REAC</url>
-	</issueManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
