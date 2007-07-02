@@ -4,7 +4,10 @@
 		<author email="max@xam.de">Max Völkel</author>
 	</properties>
 	<body>
-		<release version="4.4.6">
+		<release version="4.4.7">
+			<action dev="xamde" type="fix" issue="REAC-1" />
+		</release>
+		<release version="4.4.6" date="2007-06-30">
 			<action dev="xamde" type="add">
 				Added support for handling primitive types Byte,
 				Boolean, Double, Float.
