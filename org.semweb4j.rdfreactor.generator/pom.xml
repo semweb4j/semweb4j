@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.4.7</version>
+	<version>4.4.8-SNAPSHOT</version>
 	<name>RDFReactor code generator</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -94,10 +94,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.7</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.7</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.7</url>
-  </scm>
 </project>
