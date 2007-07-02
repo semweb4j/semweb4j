@@ -20,7 +20,6 @@ public class GenCode { // aka Step0
 		boolean alwaysWriteToModel = true;
 		String prefix = "";
 		CodeGenerator.generate(rdfsFile, outDir, targetPackage, semantics, skipBuiltins, alwaysWriteToModel, prefix);
-		//TODO there is still a bug in RDFReactor: the generated code uses old ModelException
 	}
 
 }

@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>org.semweb4j.tutorial</name>
+  <name>tutorial</name>
   <comment>A beginners tutorial to the semantic web for Java developers.</comment>
   <projects/>
   <buildSpec>
