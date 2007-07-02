@@ -1,0 +1,31 @@
+
+                                    ------
+                                    Issues
+                                    ------
+                                    Max Völkel
+                                    ------
+                                   06.01.2007
+
+Issues
+
+  How to handle remote blank nodes? if the identity of an object is based 
+  on a bnode, it cannot be used to get/set/anything.
+
+  Idea: 
+  
+  use a CompletelyDescribedBlankNode, which is a blank node plus 
+  a set of statements to describe the blank node (like a MSG)
+  
+  
+  
+Velocity
+
+  If the template is not in the root of the JAR, velocity ClassResourceLoader 
+  cannot find it. 
+
+  If it's not in a source path, the classload cannot find it when 
+  executed stand-alone.
+
+  See {{http://jakarta.apache.org/velocity/docs/api/org/apache/velocity/runtime/resource/loader/ClasspathResourceLoader.html}}
+  
+  
