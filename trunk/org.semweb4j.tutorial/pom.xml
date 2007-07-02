@@ -1,15 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.semweb4j</groupId>
-		<artifactId>semweb4j.parent</artifactId>
-		<version>4.5</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<artifactId>parent</artifactId>
+		<version>4.11</version>
 	</parent>
 	<groupId>org.semweb4j</groupId>
 	<artifactId>tutorial</artifactId>
-	<version>4.5-SNAPSHOT</version>
+	<version>4.4.7-SNAPSHOT</version>
 	<name>Semweb4j Tutorial</name>
 	<description>
 		A beginners tutorial to the semantic web for Java developers.
