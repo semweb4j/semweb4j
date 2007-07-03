@@ -3,14 +3,14 @@ package org.ontoware.aifbcommons.xml;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
-import org.ontoware.aifbcommons.xml.DocumentComposer;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class DocumentComposerTest extends TestCase {
+public class DocumentComposerTest {
 
+	@Test
 	public void testComposing() {
 		Document master = DocumentHelper.createDocument();
 		master.addElement("master").addElement("replace").addAttribute("key", "a");
@@ -22,8 +22,8 @@ public class DocumentComposerTest extends TestCase {
 
 		Document composed = DocumentComposer.compose(master, mapping);
 		
-		assertTrue( composed.selectNodes("//bbb") != null );
-		assertEquals( 1, composed.selectNodes("//bbb").size() );
+		Assert.assertTrue( composed.selectNodes("//bbb") != null );
+		Assert.assertEquals( 1, composed.selectNodes("//bbb").size() );
 		
 	}
 

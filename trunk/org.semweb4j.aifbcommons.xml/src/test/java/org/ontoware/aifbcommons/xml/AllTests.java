@@ -1,17 +1,11 @@
 package org.ontoware.aifbcommons.xml;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+@RunWith(Suite.class)
+@Suite.SuiteClasses( { XMLUtilsTest.class, DocumentComposerTest.class })
 public class AllTests {
-
-	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.ontoware.aifbcommons");
-		//$JUnit-BEGIN$
-		suite.addTestSuite(XMLUtilsTest.class);
-		suite.addTestSuite(DocumentComposerTest.class);
-		//$JUnit-END$
-		return suite;
-	}
-
+	// the class remains completely empty,
+	// being used only as a holder for the above annotations
 }
