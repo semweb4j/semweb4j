@@ -9,7 +9,7 @@
 	
     <artifactId>aifbcommons.xml</artifactId>
 	<packaging>jar</packaging>
-	<version>4.5-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
     <name>AIFBcommons XML</name>
 	<!--  
 		<url>http://semweb4j.org/aifbcommons</url>

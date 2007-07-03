@@ -4,7 +4,13 @@
 		<author email="dev@xam.de">Max Völkel</author>
 	</properties>
 	<body>
-	
+
+		<release version="1.2">
+			<action dev="xamde" type="update">
+				Migrated to slf4j and Junit 4
+			</action>
+		</release>
+
 		<release version="1.1" date="2006-12-13"
 			description="Minor additions">
 			<action dev="xamde" type="add">Added some Iterators</action>
