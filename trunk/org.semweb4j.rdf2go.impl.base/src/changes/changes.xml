@@ -5,6 +5,13 @@
 		<author email="dev@xam.de">Max Völkel</author>
 	</properties>
 	<body>
+<!-- 
+		<release>
+			<action dev="xamde" type="add">
+				Implemented NotifyingModelSetLayer
+			</action>
+		</release>
+ -->
 
 		<release version="4.4.6">
 			<action dev="xamde" type="add">
