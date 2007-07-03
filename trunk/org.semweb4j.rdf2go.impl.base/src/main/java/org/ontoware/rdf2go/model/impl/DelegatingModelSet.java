@@ -40,6 +40,14 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		this.baseModelSet = baseModelSet;
 	}
 
+	public boolean addModel(Model model) {
+		return baseModelSet.addModel(model);
+	}
+
+	public void addStatement(Statement statement) throws ModelRuntimeException {
+		baseModelSet.addStatement(statement);
+	}
+
 	public void close() {
 		baseModelSet.close();
 	}
@@ -48,6 +56,13 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 		return baseModelSet.containsStatements(contextURI, subject, predicate,
+				object);
+	}
+
+	public QuadPattern createQuadPattern(UriOrVariable context,
+			ResourceOrVariable subject, UriOrVariable predicate,
+			NodeOrVariable object) {
+		return baseModelSet.createQuadPattern(context, subject, predicate,
 				object);
 	}
 
@@ -63,6 +78,25 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 				object);
 	}
 
+	public Model getDefaultModel() {
+		return baseModelSet.getDefaultModel();
+	}
+
+	/**
+	 * @return the modelset to which this instances delegates everything.
+	 */
+	public ModelSet getDelegatedModelSet() {
+		return this.baseModelSet;
+	}
+
+	public Model getModel(URI contextURI) {
+		return baseModelSet.getModel(contextURI);
+	}
+
+	public ClosableIterator<? extends Model> getModels() {
+		return baseModelSet.getModels();
+	}
+
 	public ClosableIterator<URI> getModelURIs() {
 		return baseModelSet.getModelURIs();
 	}
@@ -72,31 +106,16 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return baseModelSet.getUnderlyingModelImplementation();
 	}
 
+	public Object getUnderlyingModelSetImplementation() {
+		return baseModelSet.getUnderlyingModelSetImplementation();
+	}
+
+	public boolean isOpen() {
+		return baseModelSet.isOpen();
+	}
+
 	public void open() {
 		baseModelSet.open();
-	}
-
-	public long size() throws ModelRuntimeException {
-		return baseModelSet.size();
-	}
-
-	public void writeTo(Writer out) throws IOException, ModelRuntimeException {
-		baseModelSet.writeTo(out);
-	}
-
-	public void writeTo(Writer out, Syntax syntax) throws IOException,
-			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.writeTo(out, syntax);
-	}
-
-	public void writeTo(OutputStream out) throws IOException,
-			ModelRuntimeException {
-		baseModelSet.writeTo(out);
-	}
-
-	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
-			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.writeTo(out, syntax);
 	}
 
 	public ClosableIterable<? extends Statement> queryConstruct(String query,
@@ -109,6 +128,34 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 			throws QueryLanguageNotSupportedException, MalformedQueryException,
 			ModelRuntimeException {
 		return baseModelSet.querySelect(query, querylanguage);
+	}
+
+	public void readFrom(InputStream in) throws IOException,
+			ModelRuntimeException {
+		baseModelSet.readFrom(in);
+	}
+
+	public void readFrom(InputStream in, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		baseModelSet.readFrom(in, syntax);
+	}
+
+	public void readFrom(Reader in) throws IOException, ModelRuntimeException {
+		baseModelSet.readFrom(in);
+	}
+
+	public void readFrom(Reader in, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		baseModelSet.readFrom(in, syntax);
+	}
+
+	public void removeStatement(Statement statement)
+			throws ModelRuntimeException {
+		baseModelSet.removeStatement(statement);
+	}
+
+	public long size() throws ModelRuntimeException {
+		return baseModelSet.size();
 	}
 
 	public boolean sparqlAsk(String query) throws ModelRuntimeException,
@@ -131,67 +178,27 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return baseModelSet.sparqlSelect(queryString);
 	}
 
-	public Model getDefaultModel() {
-		return baseModelSet.getDefaultModel();
-	}
-
-	public Model getModel(URI contextURI) {
-		return baseModelSet.getModel(contextURI);
-	}
-
-	public ClosableIterator<? extends Model> getModels() {
-		return baseModelSet.getModels();
-	}
-
-	public void readFrom(Reader in) throws IOException, ModelRuntimeException {
-		baseModelSet.readFrom(in);
-	}
-
-	public void readFrom(Reader in, Syntax syntax) throws IOException,
-			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.readFrom(in, syntax);
-	}
-
-	public void readFrom(InputStream in) throws IOException,
-			ModelRuntimeException {
-		baseModelSet.readFrom(in);
-	}
-
-	public void readFrom(InputStream in, Syntax syntax) throws IOException,
-			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.readFrom(in, syntax);
-	}
-
-	public void addStatement(Statement statement) throws ModelRuntimeException {
-		baseModelSet.addStatement(statement);
-	}
-
-	public void removeStatement(Statement statement)
-			throws ModelRuntimeException {
-		baseModelSet.removeStatement(statement);
-	}
-
 	public void update(Diff diff) throws ModelRuntimeException {
 		baseModelSet.update(diff);
 	}
 
-	public boolean addModel(Model model) {
-		return baseModelSet.addModel(model);
+	public void writeTo(OutputStream out) throws IOException,
+			ModelRuntimeException {
+		baseModelSet.writeTo(out);
 	}
 
-	public boolean isOpen() {
-		return baseModelSet.isOpen();
+	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		baseModelSet.writeTo(out, syntax);
 	}
 
-	public Object getUnderlyingModelSetImplementation() {
-		return baseModelSet.getUnderlyingModelSetImplementation();
+	public void writeTo(Writer out) throws IOException, ModelRuntimeException {
+		baseModelSet.writeTo(out);
 	}
 
-	public QuadPattern createQuadPattern(UriOrVariable context,
-			ResourceOrVariable subject, UriOrVariable predicate,
-			NodeOrVariable object) {
-		return baseModelSet.createQuadPattern(context, subject, predicate,
-				object);
+	public void writeTo(Writer out, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		baseModelSet.writeTo(out, syntax);
 	}
 
 }
