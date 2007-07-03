@@ -9,10 +9,10 @@ package org.ontoware.rdf2go.model;
  * 
  * Note that not all models support listening, for example a model hosted on a
  * remote server may not support notifications of operations done on the model
- * to remote clients. Get the capabilities of this model via
- * getNotifyingCapabilities()
+ * to remote clients.
  * 
  * @author sauermann
+ * @author voelkel
  */
 public interface NotifyingModelSet {
 
