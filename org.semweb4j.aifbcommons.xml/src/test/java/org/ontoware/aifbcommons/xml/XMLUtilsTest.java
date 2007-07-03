@@ -3,10 +3,10 @@ package org.ontoware.aifbcommons.xml;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.TestCase;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.junit.Assert;
+import org.junit.Test;
 import org.xmlpull.v1.XmlPullParserException;
 
 
@@ -14,8 +14,9 @@ import org.xmlpull.v1.XmlPullParserException;
  * @author mvo
  *
  */
-public class XMLUtilsTest extends TestCase {
+public class XMLUtilsTest {
 
+	@Test
 	public void testXmldecode() throws DocumentException, IOException, XmlPullParserException {
 		
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -29,7 +30,7 @@ public class XMLUtilsTest extends TestCase {
 		
 		String decoded = XMLUtils.xmldecode( encoded );
 		
-		assertEquals( xml, decoded );
+		Assert.assertEquals( xml, decoded );
 	}
 
 }

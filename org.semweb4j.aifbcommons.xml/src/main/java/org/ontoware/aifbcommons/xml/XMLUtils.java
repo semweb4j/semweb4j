@@ -26,8 +26,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.DOMReader;
@@ -37,6 +35,8 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.io.XPP3Reader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
@@ -47,7 +47,7 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class XMLUtils {
 
-	private static Log log = LogFactory.getLog(XMLUtils.class);
+	private static Logger log = LoggerFactory.getLogger(XMLUtils.class);
 
 	public static String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
