@@ -23,10 +23,8 @@ import org.ontoware.rdf2go.model.node.URI;
 public class NotifyingModelLayer extends DelegatingModel implements
 		NotifyingModel {
 
-	private Model model;
-	
 	public NotifyingModelLayer( Model model ) {
-		this.model = model;
+		super(model);
 	}
 
 	// /////////////////////////////////
@@ -53,7 +51,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
-		this.addStatement(model.createStatement(subject, predicate, object));
+		this.addStatement(super.getDelegatedModel().createStatement(subject, predicate, object));
 	}
 
 	/*
@@ -65,7 +63,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
-		this.addStatement(model.createStatement(subject, predicate, model
+		this.addStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
 				.createLanguageTagLiteral(literal, languageTag)));
 	}
 
@@ -78,7 +76,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
-		this.addStatement(subject, predicate, model
+		this.addStatement(subject, predicate, getDelegatedModel()
 				.createDatatypeLiteral(literal, datatypeURI));
 	}
 
@@ -90,7 +88,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
-		this.addStatement(model.createStatement(subject, predicate, model
+		this.addStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
 				.createPlainLiteral(literal)));
 	}
 
@@ -106,7 +104,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 				listener.addedStatement(statement);
 			}
 		}
-		model.addStatement(statement);
+		getDelegatedModel().addStatement(statement);
 	}
 
 	/*
@@ -118,8 +116,8 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		this.addStatement(model.createStatement(model
-				.createURI(subjectURIString), predicate, model
+		this.addStatement(getDelegatedModel().createStatement(getDelegatedModel()
+				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createLanguageTagLiteral(literal, languageTag)));
 	}
 
@@ -132,8 +130,8 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		this.addStatement(model.createStatement(model
-				.createURI(subjectURIString), predicate, model
+		this.addStatement(getDelegatedModel().createStatement(getDelegatedModel()
+				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createDatatypeLiteral(literal, datatypeURI)));
 	}
 
@@ -145,8 +143,8 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
-		this.addStatement(model.createStatement(model
-				.createURI(subjectURIString), predicate, model
+		this.addStatement(getDelegatedModel().createStatement(getDelegatedModel()
+				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createPlainLiteral(literal)));
 	}
 
@@ -173,7 +171,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
-		this.removeStatement(model.createStatement(subject, predicate, object));
+		this.removeStatement(getDelegatedModel().createStatement(subject, predicate, object));
 	}
 
 	/*
@@ -185,7 +183,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
-		this.removeStatement(model.createStatement(subject, predicate, model
+		this.removeStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
 				.createLanguageTagLiteral(literal, languageTag)));
 	}
 
@@ -198,7 +196,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
-		this.removeStatement(subject, predicate, model
+		this.removeStatement(subject, predicate, getDelegatedModel()
 				.createDatatypeLiteral(literal, datatypeURI));
 	}
 
@@ -210,7 +208,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
-		this.removeStatement(model.createStatement(subject, predicate, model
+		this.removeStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
 				.createPlainLiteral(literal)));
 	}
 
@@ -226,7 +224,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 				listener.removedStatement(statement);
 			}
 		}
-		model.removeStatement(statement);
+		getDelegatedModel().removeStatement(statement);
 	}
 
 	/*
@@ -238,8 +236,8 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		this.removeStatement(model.createStatement(model
-				.createURI(subjectURIString), predicate, model
+		this.removeStatement(getDelegatedModel().createStatement(getDelegatedModel()
+				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createLanguageTagLiteral(literal, languageTag)));
 	}
 
@@ -252,8 +250,8 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		this.removeStatement(model.createStatement(model
-				.createURI(subjectURIString), predicate, model
+		this.removeStatement(getDelegatedModel().createStatement(getDelegatedModel()
+				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createDatatypeLiteral(literal, datatypeURI)));
 	}
 
@@ -265,8 +263,8 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 */
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
-		this.removeStatement(model.createStatement(model
-				.createURI(subjectURIString), predicate, model
+		this.removeStatement(getDelegatedModel().createStatement(getDelegatedModel()
+				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createPlainLiteral(literal)));
 	}
 
@@ -276,7 +274,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 		for (ModelChangedListener listener : modelChangeListener.keySet()) {
 				listener.performedUpdate(diff);
 		}
-		model.update(diff);
+		getDelegatedModel().update(diff);
 	}
 
 	
