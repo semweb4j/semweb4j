@@ -172,11 +172,6 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	public ClosableIterator<URI> getModelURIs();
 
 	/**
-	 * @deprecated name was wrong, use getUnderlyingModelSetImplementation
-	 */
-	public Object getUnderlyingModelImplementation();
-
-	/**
 	 * @return the native implementation (e.g. a Jena Model). Using this method
 	 *         breaks strict triple store independence, but exposes the full
 	 *         power and <b>reduces</b> API dependence. This method is part of
