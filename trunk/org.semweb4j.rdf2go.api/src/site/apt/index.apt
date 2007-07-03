@@ -1,0 +1,25 @@
+                                    ------
+                                    RDF2Go
+                                    ------
+                                    Max Völkel
+                                    ------
+                                     03.07.2007
+                                    ------ 
+
+Documentation
+
+  Most stuff ist on the left side in "project reports".
+  
+JavaDoc
+
+  can be found at {{http://semweb4j.org/site/rdf2go.api/apidocs/}}.  
+
+Releases
+
+  Latest release is 4.4.6, you can get it here:
+  
+  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.zip}}including all libs}
+  
+  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.jar}}jar only}
+  
+  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.pom}}Maven2 pom}

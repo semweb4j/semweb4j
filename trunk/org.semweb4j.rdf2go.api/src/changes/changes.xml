@@ -6,26 +6,29 @@
 	</properties>
 	<body>
 
-		<release version="4.4.6" date="not yet"> 
+<!-- 
+ -->
+
+		<release version="4.4.6" date="2007-06-29" description="No API changes"> 
 			<action dev="xamde" type="update">
 				Further maven updates, code not affected.
 			</action>
 		</release>
 
-		<release version="4.4.5" date="2007-06-02">
+		<release version="4.4.5" date="2007-06-02" description="No API changes">
 			<action dev="xamde" type="update">
 				Change reference to stable, released parent pom.
 			</action>
 		</release>
 
-		<release version="4.4.4" date="2007-06-01">
+		<release version="4.4.4" date="2007-06-01" description="API extension">
 			<action dev="xamde" type="add">
 				Added property key for ModfelFactory to indicate storage
 				dir (or in-memory).
 			</action>
 		</release>
 
-		<release version="4.4.3" date="2007-06-01">
+		<release version="4.4.3" date="2007-06-01" description="API changes">
 			<action dev="xamde" type="update">
 				THIS LIST CONTAINS ALL CHANGES FROM 4.4 to 4.4.3
 			</action>
@@ -46,7 +49,7 @@
 				Added URI.asJavaURI() - which returns a java.net.URI.
 			</action>
 			<action dev="xamde" type="update">
-				Model/ModelSet.size() now returns long (not int).
+				API change: Model/ModelSet.size() now returns long (not int).
 			</action>
 			<action dev="xamde" type="add">
 				public boolean TriplePattern.matches(Statement
@@ -61,7 +64,7 @@
 				commons-logging).
 			</action>
 			<action dev="xamde" type="update">
-				Renamed getUnderlyingModelImplementation to
+				API change: Renamed getUnderlyingModelImplementation to
 				getUnderlyingModelSetImplementation.
 			</action>
 			<action dev="xamde" type="remove">
