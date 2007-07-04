@@ -39,13 +39,6 @@
 		<url>${svn.user}/{$svn.name}</url>
 	</scm>
 
-<!-- 
-	<scm>
-		<connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</developerConnection>
-		<url>https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.1</url>
-	</scm>
- -->
 	<!-- repository settings -->
 	<!-- ################### -->
 
@@ -192,33 +185,6 @@
 				<version>2.3</version>
 			</plugin>
 
-			<!-- builds a zip release that contains all dependency libraries 
-			     they are copied after compile is executed -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>attached</goal>
-						</goals>
-						<configuration>
-							<finalName>
-								site/bin/${project.name}-${version}
-							</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
-							<descriptors>
-								<descriptor>
-									${basedir}/src/assembly/lib.xml
-								</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 			<!-- configure site:stage and some display parameters for site
 			     generation -->
 			<plugin>
@@ -255,7 +221,7 @@
 			</plugin>
 
 			<!-- generate a DOAP file  
-			     usage: http://maven.apache.org/plugins/maven-doap-plugin/usage.html -->
+			     usage: http://maven.apache.org/plugins/maven-doap-plugin/generate-mojo.html -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-doap-plugin</artifactId>
