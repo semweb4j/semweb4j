@@ -116,9 +116,9 @@ public class BridgeBase {
 		if (node != null) {
 			Object result = uriBlankLiteral2reactor(model, node, returnType);
 			return result;
-		} else
-			throw new RDFDataException("No value found");
-
+		} else {
+			return null;
+		}
 	}
 
 	/**
