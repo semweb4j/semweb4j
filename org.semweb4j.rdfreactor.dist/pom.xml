@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -35,18 +38,38 @@
 		</dependency>
 	</dependencies>
 	
-	<!-- to avoid folded site uris -->
-	<distributionManagement>
-		<site>
-			<id>theoretiker-site</id>
-			<name>RDF2Go</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdfreactor.dist
-			</url>
-		</site>
-	</distributionManagement>
-
+	<!-- create a distribution -->
+	<build>
+		<plugins>
+			<!-- builds a zip release that contains all dependency libraries 
+			     they are copied after compile is executed -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<finalName>
+								site/rdfreactor/dist/${project.name}-${version}
+							</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>
+									${basedir}/src/assembly/lib.xml
+								</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>	
+	</build>
+	
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
