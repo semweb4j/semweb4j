@@ -20,6 +20,38 @@
 	<dependencies>
 	  <!-- define which bundles belong to the distribution -->
 	</dependencies>
+
+	<!-- create a distribution -->
+	<build>
+		<plugins>
+			<!-- builds a zip release that contains all dependency libraries 
+			     they are copied after compile is executed -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<finalName>
+								site/dist/${project.name}-${version}
+							</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>
+									${basedir}/src/assembly/lib.xml
+								</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>	
+	</build>
 		
 	<!-- to find the parent -->
 	<repositories>
