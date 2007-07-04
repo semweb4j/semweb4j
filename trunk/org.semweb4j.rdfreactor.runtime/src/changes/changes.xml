@@ -4,6 +4,12 @@
 		<author email="max@xam.de">Max Völkel</author>
 	</properties>
 	<body>
+		<release version="4.4.8">
+			<action dev="xamde" type="update">
+				Now return null, if no value is found instead of an
+				RDFDataException.
+			</action>
+		</release>
 		<release version="4.4.7">
 			<action dev="xamde" type="fix" issue="REAC-1" />
 		</release>
