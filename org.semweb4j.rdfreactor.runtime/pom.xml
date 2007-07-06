@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.4.8</version>
+	<version>4.4.9-SNAPSHOT</version>
 	<name>RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -103,10 +103,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.runtime-4.4.8</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.runtime-4.4.8</developerConnection>
-    <url>https://semweb4j.googlecode.com/svn/tags/rdfreactor.runtime-4.4.8</url>
-  </scm>
 </project>
