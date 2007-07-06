@@ -5,6 +5,17 @@
 	</properties>
 	<body>
 
+		<release version="4.4.8">
+			<action dev="xamde" type="update">
+				Switched to and adapted to runtime 4.4.8.
+			</action>
+			<action dev="xamde" type="add">Added tests.</action>
+		</release>
+		<release version="4.4.7">
+			<action dev="xamde" type="update">
+				Switched to runtime 4.4.7 to propagate bugfix.
+			</action>
+		</release>
 		<release version="4.4.6">
 			<action dev="xamde" type="update">
 				Ability to handle multiple comments
