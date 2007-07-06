@@ -1,4 +1,4 @@
-package org.ontoware.rdfreactor.runtime;
+package org.ontoware.rdfreactor.runtime.converter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,12 +12,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdfreactor.runtime.converter.CalendarConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DatatypeUtilsTest extends TestCase {
+public class CalendarConverterTest extends TestCase {
 
-	Logger log = LoggerFactory.getLogger(DatatypeUtils.class);
+	Logger log = LoggerFactory.getLogger(CalendarConverterTest.class);
 
 	/*
 	 * Test method for
@@ -48,7 +49,7 @@ public class DatatypeUtilsTest extends TestCase {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UCT"));
 		cal.set(year, month - 1, date, hrs, min, sec);
 
-		String encoded = DatatypeUtils.encodeCalendar_toXSDDateTime(cal);
+		String encoded = CalendarConverter.encodeCalendar_toXSDDateTime(cal);
 		log.info("Cal = " + formatDate(cal)+" encoded as "+encoded);
 
 		assertDate(encoded, year, month, date, hrs, min, sec);
@@ -56,7 +57,7 @@ public class DatatypeUtilsTest extends TestCase {
 		log.debug("as xsd:date: " + encoded);
 
 
-		Calendar returnCal = DatatypeUtils.parseXSDDateTime_toCalendar(encoded);
+		Calendar returnCal = CalendarConverter.parseXSDDateTime_toCalendar(encoded);
 		log.debug("returnCal = "
 				+ SimpleDateFormat.getInstance().format(returnCal.getTime()));
 
@@ -85,7 +86,7 @@ public class DatatypeUtilsTest extends TestCase {
 
 	public void assertDate(String datestring, int year, int month, int day,
 			int h, int m, int s) {
-		Calendar c = DatatypeUtils.parseXSDDateTime_toCalendar(datestring);
+		Calendar c = CalendarConverter.parseXSDDateTime_toCalendar(datestring);
 		log.info("Parsed '" + datestring + "' to " + formatDate(c));
 
 		assertEquals("year", year, c.get(Calendar.YEAR));

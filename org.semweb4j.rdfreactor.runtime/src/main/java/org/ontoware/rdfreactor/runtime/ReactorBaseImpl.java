@@ -225,7 +225,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	public static ReactorBase getInstance(Model model, URI uri,
 			Class<?> javaClass) throws Exception {
 		if (model.contains(uri, RDF.type, getClassURI(javaClass))) {
-			return Bridge.uriBlank2reactor(model, uri, javaClass);
+			return RDFReactorRuntime.resource2reactorbase(model, uri, javaClass);
 		} else
 			return null;
 	}
@@ -259,7 +259,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 				Resource o = it.next().getSubject();
 				// log.debug("found instance " + o + " of class "
 				// + javaClass.getName());
-				result.add(Bridge.uriBlankLiteral2reactor(model, o, javaClass));
+				result.add(RDFReactorRuntime.node2javatype(model, o, javaClass));
 			}
 			it.close();
 
@@ -352,7 +352,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 	 * @return converted object
 	 */
 	public Object castTo(Class targetType) {
-		return Bridge.uriBlank2reactor(model, this.getResource(), targetType);
+		return RDFReactorRuntime.node2javatype(model, this.getResource(), targetType);
 	}
 
 	// FIXME new

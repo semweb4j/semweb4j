@@ -53,7 +53,7 @@ public class ObjectResultIterator<E> implements Iterator<E> {
 		Node node = it.next();
 		Object typedObject;
 		try {
-			typedObject = Bridge.uriBlankLiteral2reactor(this.m, node, returnType);
+			typedObject = RDFReactorRuntime.node2javatype(this.m, node, returnType);
 			// TODO: can this be done better in Java 1.5?
 			return (E) typedObject;
 		} catch (ModelRuntimeException e) {

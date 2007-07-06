@@ -6,6 +6,10 @@
 	<body>
 		<release version="4.4.8">
 			<action dev="xamde" type="update">
+				Refactored type conversion: Now pluggable converters can
+				be used. Code cleaner!
+			</action>
+			<action dev="xamde" type="update">
 				Now return null, if no value is found instead of an
 				RDFDataException.
 			</action>

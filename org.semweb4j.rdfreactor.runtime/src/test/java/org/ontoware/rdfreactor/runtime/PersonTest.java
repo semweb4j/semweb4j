@@ -80,13 +80,10 @@ public class PersonTest extends TestCase {
 
 	public void testGet() throws RDFDataException {
 		Person p1 = new Person(model, instanceURI, true);
-		try {
-			int a = p1.getAge();
-			Assert.fail();
-		} catch (RDFDataException e) {
-		}
+		Integer a = p1.getAge();
+		Assert.assertNull(a);
 		p1.setAge(21);
-		assertEquals(21, p1.getAge());
+		assertEquals(21, (int) p1.getAge());
 	}
 
 	public void testGetAll() {

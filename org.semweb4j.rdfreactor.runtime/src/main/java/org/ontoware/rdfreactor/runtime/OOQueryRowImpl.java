@@ -18,7 +18,7 @@ public class OOQueryRowImpl implements OOQueryRow {
 	}
 
 	public Object getValue(String varname) {
-		return BridgeBase.uriBlank2reactor(ooQueryResultTable.getModel(), row.getValue(varname),
+		return RDFReactorRuntime.node2javatype(ooQueryResultTable.getModel(), row.getValue(varname),
 				ooQueryResultTable.getReturnType(varname));
 	}
 
