@@ -265,11 +265,11 @@ public class Restriction extends Class {
 	 *             if the property has multiple values
 	 */
 	public int getMaxCardinality() {
-		try {
-			return (Integer) get(MAXCARDINALITY, Integer.class);
-		} catch (RDFDataException e) {
+		Integer maxCardinality = (Integer) get(MAXCARDINALITY, Integer.class);
+		if (maxCardinality == null)
 			return -1;
-		}
+		else
+			return maxCardinality;
 	}
 
 	/**
@@ -393,11 +393,11 @@ public class Restriction extends Class {
 	 *             if the property has multiple values
 	 */
 	public int getMinCardinality() {
-		try {
-			return (Integer) get(MINCARDINALITY, Integer.class);
-		} catch (RDFDataException e) {
+		Integer minCardinality = (Integer) get(MINCARDINALITY, Integer.class);
+		if (minCardinality == null)
 			return -1;
-		}
+		else
+			return minCardinality;
 	}
 
 	/**
@@ -521,11 +521,11 @@ public class Restriction extends Class {
 	 *             if the property has multiple values
 	 */
 	public int getCardinality() {
-		try {
-			return (Integer) get(CARDINALITY, Integer.class);
-		} catch (RDFDataException e) {
+		Integer cardinality = (Integer) get(CARDINALITY, Integer.class);
+		if (cardinality == null)
 			return -1;
-		}
+		else
+			return cardinality;
 	}
 
 	/**
