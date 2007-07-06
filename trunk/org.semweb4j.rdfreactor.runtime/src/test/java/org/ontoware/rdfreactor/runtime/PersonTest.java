@@ -3,7 +3,9 @@ package org.ontoware.rdfreactor.runtime;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
+import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdfreactor.AllTests;
@@ -17,16 +19,16 @@ public class PersonTest extends TestCase {
 	protected org.ontoware.rdf2go.model.Model model;
 
 	public void setUp() throws Exception {
-		model = AllTests.m;
+		model = RDF2Go.getModelFactory().createModel();
+		model.open();
 		model.removeAll();
 		instanceURI = new URIImpl("data://person-1");
 	}
 
 	public void testTyping() throws Exception {
-		Person p = new Person(model, new URIImpl("data://jim"), true);
-		System.out.println("------------------------- 1 ------");
-		model.dump();
-		System.out.println("- - - - - - ");
+		URI jim = new URIImpl("data://jim");
+		Person p = new Person(model, jim, true);
+		Assert.assertTrue(model.contains(jim, RDF.type, Person.PERSON));
 	}
 
 	// //////////////
@@ -99,11 +101,8 @@ public class PersonTest extends TestCase {
 	}
 
 	public void testTwoStatements() throws Exception {
-		model.dump();
-
 		model.addStatement(instanceURI, instanceURI, "a");
 		model.addStatement(instanceURI, instanceURI, "b");
-		model.dump();
 	}
 
 	public void testAdd() throws Exception {
@@ -114,7 +113,6 @@ public class PersonTest extends TestCase {
 
 		// set name
 		p.setName("Jim");
-		model.dump();
 
 		assert model.contains(p.getResource(), RDF.type, Person.PERSON);
 		assert model.contains(p.getResource(), Person.NAME, "Jim");
@@ -131,17 +129,6 @@ public class PersonTest extends TestCase {
 		assertEquals(1, p.getAllFriend().length);
 		p.addFriend(q2);
 		assertEquals(2, p.getAllFriend().length);
-
-		System.out.println("----------------------- 3 ------");
-		model.dump();
-
-		System.out.println("- - - - - - ");
-
-		for (Person a : p.getAllFriend()) {
-			System.out.println(p.getName() + " knows " + a.getName());
-		}
-		assertEquals(2, p.getAllFriend().length);
-
 	}
 
 	public void testRemove() throws ModelRuntimeException {

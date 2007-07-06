@@ -1,48 +1,16 @@
 package org.ontoware.rdfreactor;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.ontoware.rdf2go.RDF2Go;
-import org.ontoware.rdf2go.Reasoning;
-import org.ontoware.rdf2go.exception.ModelRuntimeException;
-import org.ontoware.rdf2go.exception.ReasoningNotSupportedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.ontoware.rdfreactor.runtime.MicroBridgeTest;
 import org.ontoware.rdfreactor.runtime.PersonTest;
+import org.ontoware.rdfreactor.runtime.ReflectionUtilsTest;
 import org.ontoware.rdfreactor.runtime.converter.CalendarConverterTest;
 
-/**
- * This is a superclass for Test Suites. Different ModelImpls can be tested.
- * @author voelkel
- * 
- */
+@RunWith(Suite.class)
+@Suite.SuiteClasses( { MicroBridgeTest.class, CalendarConverterTest.class,
+		PersonTest.class, ReflectionUtilsTest.class })
 public class AllTests {
-	
-	static {
-		try {
-			AllTests.m = RDF2Go.getModelFactory().createModel(Reasoning.rdfs);
-			AllTests.m.open();
-		} catch (ReasoningNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ModelRuntimeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public static org.ontoware.rdf2go.model.Model m;
-
-	public static TestSuite suite;
-
-	public static Test suite() throws Exception {
-
-		suite = new TestSuite("RDFReactor runtime");
-
-		suite.addTestSuite(MicroBridgeTest.class);
-		suite.addTestSuite(CalendarConverterTest.class);
-		suite.addTestSuite(PersonTest.class);
-
-		return suite;
-	}
+	// the class remains completely empty,
+	// being used only as a holder for the above annotations
 }
