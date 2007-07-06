@@ -17,7 +17,13 @@ public class RangeXsdAnyUri {
 
 	@Test
 	public void testRangeXsdAnyUri() throws Exception {
-		CodeGenerator.generate("./src/test/java/org/ontoware/rdfreactor/generator/bug001.n3", 
+		CodeGenerator.generate("./src/test/resources/test001.n3", 
 				"./src/test/java", "gen.rangexsdanyuri", Reasoning.rdfs, true, true);
+	}
+
+	@Test
+	public void testRangeXsdInt() throws Exception {
+		CodeGenerator.generate("./src/test/resources/test002.n3", 
+				"./src/test/java", "gen.rangexsdint", Reasoning.rdfs, true, true);
 	}
 }
