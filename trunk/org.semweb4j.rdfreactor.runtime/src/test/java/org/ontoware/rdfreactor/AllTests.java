@@ -7,9 +7,9 @@ import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.ReasoningNotSupportedException;
-import org.ontoware.rdfreactor.runtime.DatatypeUtilsTest;
 import org.ontoware.rdfreactor.runtime.MicroBridgeTest;
 import org.ontoware.rdfreactor.runtime.PersonTest;
+import org.ontoware.rdfreactor.runtime.converter.CalendarConverterTest;
 
 /**
  * This is a superclass for Test Suites. Different ModelImpls can be tested.
@@ -40,7 +40,7 @@ public class AllTests {
 		suite = new TestSuite("RDFReactor runtime");
 
 		suite.addTestSuite(MicroBridgeTest.class);
-		suite.addTestSuite(DatatypeUtilsTest.class);
+		suite.addTestSuite(CalendarConverterTest.class);
 		suite.addTestSuite(PersonTest.class);
 
 		return suite;

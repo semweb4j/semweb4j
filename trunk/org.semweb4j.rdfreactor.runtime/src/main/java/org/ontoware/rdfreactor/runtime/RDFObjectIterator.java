@@ -20,7 +20,7 @@ public class RDFObjectIterator<T> implements ClosableIterator<T> {
 	@SuppressWarnings("unchecked")
 	public T next() {
 		try {
-			return (T) Bridge.uriBlankLiteral2reactor( it.getModel(), it.next(), returnType);
+			return (T) RDFReactorRuntime.node2javatype( it.getModel(), it.next(), returnType);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException( e );
 		}

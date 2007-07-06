@@ -31,11 +31,11 @@ public class Person extends ReactorBaseImpl {
 		super(model, PERSON, uri, write);
 	}
 
-	public int getAge() throws RDFDataException {
-		return (Integer) get(AGE, int.class);
+	public Integer getAge() throws RDFDataException {
+		return (Integer) get(AGE, Integer.class);
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		set(AGE, age);
 	}
 
