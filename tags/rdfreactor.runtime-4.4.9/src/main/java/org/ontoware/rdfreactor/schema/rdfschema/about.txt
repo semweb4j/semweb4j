@@ -1,0 +1,14 @@
+Nil.java has to created manually.
+
+List.java is also largely manually crafted.
+
+Ontology is from owl, delete it from here.
+
+Resource DOES NOT extend Class but ReactorBaseNamed - manual fix
+
+in Resource:
+
+manual change from getAllLabel to getAllRdfLabel, same for comments
+
+
+Literal.java can be delted an replaced with java.lang.String
