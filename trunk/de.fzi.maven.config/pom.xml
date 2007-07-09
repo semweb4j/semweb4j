@@ -393,6 +393,19 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
+
+				<!-- for JIRA report -->
+				<!-- 
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>jira-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				-->
+
+				<!-- for changes.xml file report-->				
 				<reportSets>
 					<reportSet>
 						<reports>
