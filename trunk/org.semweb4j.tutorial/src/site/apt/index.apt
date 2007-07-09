@@ -1,16 +1,13 @@
                                    ------
-                                    Semweb4j Tutorial
+                                    RDFReactor
                                     ------
                                     Max Völkel
                                     ------
-                                     6.1.2007
+                                     9.7.2007
 
-Tutorial
+Download
 
-  The tutorial is currently located in the Ontoworld wiki.
+  Latest release is 4.4.8 and can be downloaded from here:
   
-  So please go to {{http://ontoworld.org/wiki/Semweb4j}}.
-
-  Source code for the lessons is in SVN.
-  
-  See also in downloads.
+  http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/4.4.8/rdfreactor.dist-4.4.8.zip 
+ 
