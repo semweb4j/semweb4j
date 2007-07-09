@@ -13,6 +13,7 @@ import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdfreactor.runtime.converter.BooleanConverter;
 import org.ontoware.rdfreactor.runtime.converter.ByteConverter;
+import org.ontoware.rdfreactor.runtime.converter.CalendarConverter;
 import org.ontoware.rdfreactor.runtime.converter.DoubleConverter;
 import org.ontoware.rdfreactor.runtime.converter.FloatConverter;
 import org.ontoware.rdfreactor.runtime.converter.IntegerConverter;
@@ -50,6 +51,7 @@ public class RDFReactorRuntime {
 		registerConverter(Double.class, new DoubleConverter());
 		registerConverter(java.net.URI.class, new JavaNetUriConverter());
 		registerConverter(java.net.URL.class, new UrlConverter());
+		registerConverter(java.util.Calendar.class, new CalendarConverter());
 	}
 
 	public static void registerConverter(Class type, INodeConverter<?> converter) {
@@ -209,7 +211,9 @@ public class RDFReactorRuntime {
 			return objectID;
 		} else {
 			for (Class clazz : map.keySet()) {
+				log.debug("Can a "+reactorValue.getClass()+" be converted as "+clazz+" ?");
 				if (clazz.isInstance(reactorValue)) {
+					log.debug("Yes");
 					return getConverter(clazz).toNode(model, reactorValue);
 				}
 			}
