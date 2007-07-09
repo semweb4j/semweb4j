@@ -3,10 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<!--  aifbcommons -->
 	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.11</version>
+		<version>4.12</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -47,6 +48,7 @@
 			<artifactId>saxpath</artifactId>
 			<version>1.0-FCS</version>
 		</dependency>
+		
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
