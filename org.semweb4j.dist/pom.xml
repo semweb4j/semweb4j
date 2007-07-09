@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.11</version>
+		<version>4.12</version>
 	</parent>
 
 	<groupId>org.semweb4j.dist</groupId>
@@ -18,7 +18,19 @@
 	<url>http://semweb4j.org</url>
 
 	<dependencies>
-	  <!-- define which bundles belong to the distribution -->
+		<!-- define which bundles belong to the distribution -->
+		<dependency>
+		 	<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.dist</artifactId>
+			<version>4.4.6</version>
+		</dependency>
+		
+		<dependency>
+		 	<groupId>org.semweb4j</groupId>
+			<artifactId>rdfreactor.dist</artifactId>
+			<version>4.4.7</version>
+		</dependency>
+		
 	</dependencies>
 
 	<!-- create a distribution -->
