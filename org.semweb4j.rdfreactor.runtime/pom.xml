@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.11</version>
+		<version>4.12</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.4.9-SNAPSHOT</version>
+	<version>4.4.9</version>
 	<name>RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -103,4 +103,10 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+  <scm>
+    <connection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.runtime-4.4.9</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.runtime-4.4.9</developerConnection>
+    <url>https://semweb4j.googlecode.com/svn/tags/rdfreactor.runtime-4.4.9</url>
+  </scm>
 </project>
