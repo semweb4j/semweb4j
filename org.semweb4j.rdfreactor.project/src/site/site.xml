@@ -27,19 +27,22 @@
 			</script>
 		</head>
 
-		<!--  links are inherited -->
-		<links>
-			<item name="FZI" href="http://www.fzi.de/" />
-			<item name="AIFB" href="http://aifb.uni-karlsruhe.de/" />
-			<item name="Xam.de" href="http://xam.de" />
-		</links>
+		<breadcrumbs>
+			<item name="Semweb4j" href="../project/index.html" />
+			<item name="RDFReactor" href="../rdfreactor/index.html" />
+		</breadcrumbs>
+		
+		<!-- the links are inherited from the parent -->
+
+		<!-- menu Semweb4j is inherited from the parent -->
 
 		<menu name="RDFReactor">
-			<item name="Semweb4j Home" href="../project/index.html" />
-			<item name="RDFReactor Home" href="../rdfreactor/index.html" />
-			<item name="RDFReactor @ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
-			<item name="Runtime" href="../rdfreactor.runtime/index.html" />
-			<item name="Generator" href="../rdfreactor.generator/index.html" />
+			<item name="Home" href="../rdfreactor/index.html" />
+			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
+			<item name="Download" href="../rdfreactor/download.html" />
+			<item name="API Documentation" href="../rdfreactor/apidocs/index.html" />
+			<item name="&gt; Runtime" href="../rdfreactor.runtime/index.html" />
+			<item name="&gt; Generator" href="../rdfreactor.generator/index.html" />
 		</menu>
 
 	</body>
