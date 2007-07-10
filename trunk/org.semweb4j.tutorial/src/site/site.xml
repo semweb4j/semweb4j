@@ -2,15 +2,17 @@
 <project name="semweb4j"
 	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
 
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>1.2.0</version>
+	</skin>
+
 	<bannerLeft>
 		<src>images/logos/semweb4j.png</src>
 		<href>http://semweb4j.org/</href>
 	</bannerLeft>
-	<skin>
-		<groupId>org.semweb4j</groupId>
-		<artifactId>semweb4j-skin</artifactId>
-		<version>1.0</version>
-	</skin>
+
 	<publishDate format="yyyy-MM-dd" />
 	<body>
 		<head>
@@ -25,12 +27,15 @@
 			</script>
 		</head>
 
-		<menu name="Semweb4j Tutorial">
-			<item name="On Semweb4j" href="index.html" />
-			<item name="On Maven2" href="maven/index.html" />
-			<item name="Downloads" href="bin" />
-			<item name="DOAP file" href="doap.rdf" />
-		</menu>
+		<breadcrumbs>
+			<item name="Semweb4j" href="../project/index.html" />
+			<item name="Tutorial" href="../tutorial/index.html" />
+		</breadcrumbs>
+
+		<!-- the links are inherited from the parent -->
+
+		<!-- menu Semweb4j is inherited from the parent -->
+
 		<menu ref="reports" />
 		<menu ref="modules" />
 	</body>
