@@ -27,14 +27,25 @@
 			</script>
 		</head>
 
-		<menu name="RDF2Go impl.base.test">
-			<item name="Semweb4j Home" href="../project/index.html" />
-			<item name="RDF2Go Home" href="../rdf2go/index.html" />
-			<item name="RDF2Go @ Ontoworld" href="http://ontoworld.org/wiki/RDF2Go" />
-			<item name="api" href="../rdf2go.api/index.html" />
-			<item name="impl.base" href="../rdf2go.impl.base/index.html" />
-			<item name="impl.base.test" href="../rdf2go.impl.base.test/index.html" />
-			<item name="impl.jena24" href="../rdf2go.impl.jena24/index.html" />			
+		<breadcrumbs>
+			<item name="Semweb4j" href="../project/index.html" />
+			<item name="RDF2Go" href="../rdf2go/index.html" />
+			<item name="RDF2Go Impl.Base.Test" href="../rdf2go.impl.base.test/index.html" />			
+		</breadcrumbs>
+
+		<!-- the links are inherited from the parent -->
+
+		<!-- menu Semweb4j is inherited from the parent -->
+
+		<menu name="RDF2Go">
+		  	<item name="Home" href="../rdf2go/index.html" />
+			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDF2Go" />
+			<item name="Download" href="../rdf2go/download.html" />
+			<item name="API Documentation" href="../rdf2go/apidocs/index.html" />
+			<item name="&gt; API" href="../rdf2go.api/index.html" />
+			<item name="&gt; Impl.Base" href="../rdf2go.impl.base/index.html" />
+			<item name="&gt; Impl.Base.Test" href="../rdf2go.impl.base.test/index.html" />
+			<item name="&gt; Impl.Jena24" href="../rdf2go.impl.jena24/index.html" />			
 		</menu>
 		<menu ref="reports" />
 		<menu ref="modules" />
