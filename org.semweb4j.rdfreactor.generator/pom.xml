@@ -1,10 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.11</version>
+		<version>4.13</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -14,12 +16,12 @@
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
-		
+
 		This package generates the Java classes form an RDF vocabulary.
 	</description>
 	<url>http://semweb4.org/rdfreactor</url>
 	<inceptionYear>2005</inceptionYear>
-	
+
 	<!--  added 2007-07-02 by xamde -->
 	<issueManagement>
 		<system>JIRA</system>
@@ -42,7 +44,7 @@
 			<artifactId>velocity</artifactId>
 			<version>1.4</version>
 		</dependency>
-		
+
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -58,14 +60,14 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 
-		<!-- testing dependencies -->						
+		<!-- testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		
+
 	</dependencies>
-	
+
 	<!-- to avoid folded site uri -->
 	<distributionManagement>
 		<site>
@@ -77,7 +79,7 @@
 			</url>
 		</site>
 	</distributionManagement>
-	
+
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
