@@ -1,10 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.11</version>
+		<version>4.13</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -13,7 +15,7 @@
 	<version>4.4.7-SNAPSHOT</version>
 	<description>
 		RDF2go is an implementation-independent Java API with the design
-		goals: portability (hence the name), performance, easy of
+		goals: portability (hence the name), performance and ease of
 		implementation.
 	</description>
 	<url>http://semweb4j.org/rdf2go</url>
@@ -46,6 +48,11 @@
 		<svn.name>${groupId}.${artifactId}</svn.name>
 	</properties>
 
+	<build>
+		<plugins>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<!-- OSGi -->
 		<dependency>
@@ -69,7 +76,7 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 
-		<!-- testing dependencies -->						
+		<!-- testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
