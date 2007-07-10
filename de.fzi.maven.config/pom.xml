@@ -4,7 +4,7 @@
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 
 	<name>Common Maven Config</name>
 	<inceptionYear>2005</inceptionYear>
@@ -434,13 +434,6 @@
 						</reports>
 					</reportSet>
 				</reportSets>
-			</plugin>
-
-			<!-- computes metrics to evaluate the code comment quantity and 
-			     quality -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>javancss-maven-plugin</artifactId>
 			</plugin>
 
 		</plugins>
