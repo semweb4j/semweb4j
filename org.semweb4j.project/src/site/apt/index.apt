@@ -37,11 +37,13 @@ More Information
   
   The wiki page of semweb4j can be found at {{http://www.ontoworld.org/wiki/semweb4j}}. 
   
-  * <<{{{tutorial/index.html}Tutorial}}>>
+  * <<{{{../tutorial/index.html}Tutorial}}>>
 
   A tutorial covering RDF2Go, RDFReactor and jREST is currently
   developed in the {{{tutorial/index.html}tutorial project}}.
   
-  * <<{{{about.html}About}}>> this project    
+  * <<{{{../project/doap.rdf}DOAP File}}>>
   
+  Get the {{{../project/doap.rdf}Description of a Project (DOAP) file}} for semweb4j.
+    
 ~~ http://maven.apache.org/guides/mini/guide-apt-format.html
