@@ -25,12 +25,23 @@
 			</script>
 		</head>
 
-		<menu name="RDFReactor Runtime">
-			<item name="Semweb4j Home" href="../project/index.html" />
-			<item name="RDFReactor Home" href="../rdfreactor/index.html" />
-			<item name="RDFReactor @ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
-			<item name="Runtime" href="../rdfreactor.runtime/index.html" />
-			<item name="Generator" href="../rdfreactor.generator/index.html" />
+		<breadcrumbs>
+			<item name="Semweb4j" href="../project/index.html" />
+			<item name="RDFReactor" href="../rdfreactor/index.html" />
+			<item name="RDFReactor Runtime" href="../rdfreactor.runtime/index.html" />			
+		</breadcrumbs>
+		
+		<!-- the links are inherited from the parent -->
+
+		<!-- menu Semweb4j is inherited from the parent -->
+
+		<menu name="RDFReactor">
+			<item name="Home" href="../rdfreactor/index.html" />
+			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
+			<item name="Download" href="../rdfreactor/download.html" />
+			<item name="API Documentation" href="../rdfreactor/apidocs/index.html" />
+			<item name="&gt; Runtime" href="../rdfreactor.runtime/index.html" />
+			<item name="&gt; Generator" href="../rdfreactor.generator/index.html" />
 		</menu>
 		<menu ref="reports" />
 		<menu ref="modules" />
