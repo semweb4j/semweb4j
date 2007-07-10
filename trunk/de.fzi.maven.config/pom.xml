@@ -1,12 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.6</version>
 
 	<name>Common Maven Config</name>
 	<inceptionYear>2005</inceptionYear>
@@ -36,13 +34,9 @@
 	-->
 
 	<scm>
-		<connection>
-			scm:svn:http://semweb4j.googlecode.com/svn/trunk/{$svn.name}
-		</connection>
-		<developerConnection>
-			scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}
-		</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/maven.config-0.0.6</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.0.6</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/maven.config-0.0.6</url>
 	</scm>
 
 	<!-- repository settings -->
