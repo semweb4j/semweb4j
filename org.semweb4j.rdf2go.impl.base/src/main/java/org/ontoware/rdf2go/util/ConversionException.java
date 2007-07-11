@@ -28,12 +28,15 @@ public class ConversionException extends RuntimeException {
     Class targetClass;
 
     /**
-     * 
+     * default constructor
      */
     public ConversionException() {
+    	//empty default constructor
     }
 
     /**
+     * constructor, with an injected message
+     * 
      * @param message
      */
     public ConversionException(String message) {
@@ -85,7 +88,7 @@ public class ConversionException extends RuntimeException {
      * @return the source object that could not be converted.
      */
     public Object getSourceObject() {
-        return sourceObject;
+        return this.sourceObject;
     }
 
     /**
@@ -93,7 +96,7 @@ public class ConversionException extends RuntimeException {
      * @return the target class that should be converted to
      */
     public Class getTargetClass() {
-        return targetClass;
+        return this.targetClass;
     }
 
 }

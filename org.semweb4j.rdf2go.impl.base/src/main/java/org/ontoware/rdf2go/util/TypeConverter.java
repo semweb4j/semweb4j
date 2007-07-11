@@ -37,8 +37,8 @@ public class TypeConverter {
 	public static char toChar( DatatypeLiteral datatypeLiteral) {
 		if (datatypeLiteral.getValue().length() == 1)
 			return datatypeLiteral.getValue().charAt(0);
-		else
-			throw new IllegalArgumentException("\"" + datatypeLiteral.getValue()
+		//else
+		throw new IllegalArgumentException("\"" + datatypeLiteral.getValue()
 					+ "\" is not a single char!");
 	}
 

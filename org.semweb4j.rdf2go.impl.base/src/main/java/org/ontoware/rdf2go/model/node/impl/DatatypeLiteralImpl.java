@@ -73,10 +73,12 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 	 * 
 	 * @see org.ontoware.rdf2go.RDFLiteral#getValue()
 	 */
+	@Override
 	public String getValue() {
 		return this.value;
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return ((o instanceof DatatypeLiteralImpl)
 				&& (this.getValue()
@@ -84,6 +86,7 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 				.getDatatype().equals(((DatatypeLiteralImpl) o).getDatatype())));
 	}
 
+	@Override
 	public String toString() {
 		return getValue() + "^^" + getDatatype();
 	}
@@ -103,10 +106,10 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 				|| getDatatype().equals(XSD._unsignedShort)
 				|| getDatatype().equals(XSD._positiveInteger)) {
 			return Integer.parseInt(getValue());
-		} else {
-			throw new ClassCastException("Datatype is " + getDatatype()
-					+ " which is not derrived from xsd:integer");
-		}
+		} 
+		//else
+		throw new ClassCastException("Datatype is " + getDatatype()
+			+ " which is not derrived from xsd:integer");
 	}
 
 	public boolean asBoolean() throws ClassCastException {
@@ -126,8 +129,9 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 		throw new RuntimeException("Not implemented yet");
 	}
 
+	@Override
 	public int hashCode() {
-		return datatype.hashCode() + value.hashCode();
+		return this.datatype.hashCode() + this.value.hashCode();
 	}
 
 	public int compareTo(Node other) {
@@ -137,17 +141,15 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 			int diff = this.getValue().compareTo(oLit.getValue());
 			if (diff != 0)
 				return diff;
-			else {
-				return this.getDatatype().compareTo(oLit.getDatatype());
-			}
-		} else {
-			// sort by type
-			return NodeUtils.compareByType(this, other);
-		}
+			//else
+			return this.getDatatype().compareTo(oLit.getDatatype());
+		} 
+		//else sort by type
+		return NodeUtils.compareByType(this, other);
 	}
 
 	public String toSPARQL()  {
-		return "\"" + SparqlUtil.sparqlEncode(value) + "\"^^<" + datatype + ">";
+		return "\"" + SparqlUtil.sparqlEncode(this.value) + "\"^^<" + this.datatype + ">";
 	}
 
 }

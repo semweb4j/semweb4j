@@ -36,6 +36,7 @@ public abstract class AbstractStatement implements Statement {
 			log.debug(s);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Statement) {
 			Statement oStmt = (Statement) o;
@@ -46,10 +47,12 @@ public abstract class AbstractStatement implements Statement {
 			boolean objects = this.getObject().equals( oStmt.getObject() );
 			if (!objects) log.debug("Objects differ: "+this.getObject()+" vs "+oStmt.getObject());			
 			return subjects && predicates && objects;
-		} else
-			return false;
+		} 
+		//else
+		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		return this.getSubject().hashCode() + this.getPredicate().hashCode() + this.getObject().hashCode();
 	}
@@ -57,22 +60,17 @@ public abstract class AbstractStatement implements Statement {
 	public int compareTo(Statement o) {
 		log.debug("Comparing "+this+" to "+o);
 		if( this.getSubject().equals(o.getSubject())) {
-			if (this.getPredicate().equals(o.getPredicate())) {
+			if (this.getPredicate().equals(o.getPredicate()))
 				// only objects differ (maybe)
 				return this.getObject().compareTo( o.getObject());
-			}
-			else {
-				// difference is in prediactes (maybe objects, too)
-				return this.getPredicate().compareTo(o.getPredicate());
-			}
-		} else {
-			// subjects differ
-			return this.getSubject().compareTo(o.getSubject());
+			// else: difference is in prediactes (maybe objects, too)
+			return this.getPredicate().compareTo(o.getPredicate());
 		}
+		//else: subjects differ
+		return this.getSubject().compareTo(o.getSubject());
 	}
 
 	public boolean matches(Statement statement) {
 		return equals(statement);
 	}
-
 }

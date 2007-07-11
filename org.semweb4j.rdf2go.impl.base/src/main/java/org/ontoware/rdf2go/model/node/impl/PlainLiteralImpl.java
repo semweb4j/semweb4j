@@ -24,10 +24,12 @@ public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 		this.value = value;
 	}
 
+	@Override
 	public String getValue() {
 		return this.value;
 	}
 
+	@Override
 	public String toString() {
 		return this.value;
 	}
@@ -40,31 +42,31 @@ public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 		throw new ClassCastException("Cannot call this on a plain literal");
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if (other instanceof PlainLiteral) {
-			return ((PlainLiteral) other).getValue().equals(value);
+			return ((PlainLiteral) other).getValue().equals(this.value);
 		} else if (other instanceof String) {
-			return value.equals(other);
+			return this.value.equals(other);
 		} else
 			return false;
 	}
 
+	@Override
 	public int hashCode() {
-		return value.hashCode();
+		return this.value.hashCode();
 	}
 	
 	public int compareTo( Node other ) {
 		if (other instanceof PlainLiteral) {
 			return this.value.compareTo( ((PlainLiteral) other).getValue() ); 
 		}
-		else {
-			// sort by type
-			return NodeUtils.compareByType(this, other);
-		}
+		//else sort by type
+		return NodeUtils.compareByType(this, other);
 	}
 
 	public String toSPARQL() {
-		return "\""+SparqlUtil.sparqlEncode(value)+"\"";
+		return "\""+SparqlUtil.sparqlEncode(this.value)+"\"";
 	}
 
 

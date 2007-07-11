@@ -29,14 +29,14 @@ import org.ontoware.rdf2go.model.node.URI;
  */
 public class StatementWriter extends AbstractModelWriter implements ModelWriter {
 
-	private Writer w;
+	private Writer writer;
 
 	/**
 	 * @param w
 	 * @throws IOException
 	 */
 	public StatementWriter(Writer w, URI graphName) throws IOException {
-		this.w = w;
+		this.writer = w;
 
 		w.write("<TriX xmlns=\"http://www.w3.org/2004/03/trix/trix-1/\">\n" + // .
 				"  <graph>\n" + // .
@@ -44,17 +44,18 @@ public class StatementWriter extends AbstractModelWriter implements ModelWriter 
 	}
 
 	public void close() throws IOException {
-		w.write("  </graph>\n" + "</TriX>");
+		this.writer.write("  </graph>\n" + "</TriX>");
 	}
 
+	@Override
 	public void addStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException {
 
 		try {
-			w.write("    <triple>\n");
+			this.writer.write("    <triple>\n");
 			writeNode(subject);
 			writeNode(predicate);
 			writeNode(object);
-			w.write("    </triple>\n");
+			this.writer.write("    </triple>\n");
 		} catch (IOException e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -63,18 +64,18 @@ public class StatementWriter extends AbstractModelWriter implements ModelWriter 
 
 	private void writeNode(Object node) throws IOException {
 		if (node instanceof URI) {
-			w.write("      <uri>" + ((URI) node).toString() + "</uri>\n");
+			this.writer.write("      <uri>" + ((URI) node).toString() + "</uri>\n");
 		} else if (node instanceof BlankNode) {
-			w.write("      <id>" + ((BlankNode) node).toString() + "</id>\n");
+			this.writer.write("      <id>" + ((BlankNode) node).toString() + "</id>\n");
 		} else if (node instanceof DatatypeLiteral) {
-			w.write("      <typedLiteral datatype=\"" + ((DatatypeLiteral) node).getDatatype()
+			this.writer.write("      <typedLiteral datatype=\"" + ((DatatypeLiteral) node).getDatatype()
 					+ "\">" + ((DatatypeLiteral) node).getValue() + "</typedLiteral>\n");
 		} else if (node instanceof LanguageTagLiteral) {
-			w.write("      <plainLiteral xml:lang=\""
+			this.writer.write("      <plainLiteral xml:lang=\""
 					+ ((LanguageTagLiteral) node).getLanguageTag() + "\">"
 					+ ((LanguageTagLiteral) node).toString() + "</plainLiteral>\n");
 		} else if (node instanceof PlainLiteral) {
-			w.write("      <plainLiteral>" + ((PlainLiteral) node).getValue() + "</plainLiteral>\n");
+			this.writer.write("      <plainLiteral>" + ((PlainLiteral) node).getValue() + "</plainLiteral>\n");
 		} else
 			throw new RuntimeException("Cannot write to RDF: " + node.getClass());
 	}

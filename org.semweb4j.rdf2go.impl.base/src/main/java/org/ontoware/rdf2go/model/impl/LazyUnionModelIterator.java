@@ -44,16 +44,16 @@ public class LazyUnionModelIterator implements ClosableIterator<Statement> {
 	private void getNonEmptyStmtIterator() {
 		// make sure we have a statement iterator
 		if (this.stmtit == null) {
-			Model m = modelit.next();
+			Model m = this.modelit.next();
 			m.open();
-			this.stmtit = m.findStatements(pattern);
+			this.stmtit = m.findStatements(this.pattern);
 		}
 		// make sure we have a statement iterator, which contains statements
-		while (modelit.hasNext() && !this.stmtit.hasNext()) {
+		while (this.modelit.hasNext() && !this.stmtit.hasNext()) {
 			this.stmtit.close();
-			Model m = modelit.next();
+			Model m = this.modelit.next();
 			m.open();
-			this.stmtit = m.findStatements(pattern);
+			this.stmtit = m.findStatements(this.pattern);
 		}
 	}
 

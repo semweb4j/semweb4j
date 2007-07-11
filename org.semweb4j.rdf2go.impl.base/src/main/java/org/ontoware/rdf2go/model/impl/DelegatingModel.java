@@ -52,7 +52,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	public Model getDelegatedModel() {
-		return model;
+		return this.model;
 	}
 
 	protected void setDelegatedModel(Model model) {
@@ -64,9 +64,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
+	@Override
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		model.addAll(other);
+		this.model.addAll(other);
 	}
 
 	/*
@@ -76,9 +77,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI,
 	 *      org.ontoware.rdf2go.core.node.Node)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
-		model.addStatement(subject, predicate, object);
+		this.model.addStatement(subject, predicate, object);
 	}
 
 	/*
@@ -88,9 +90,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
-		model.addStatement(subject, predicate, literal, languageTag);
+		this.model.addStatement(subject, predicate, literal, languageTag);
 	}
 
 	/*
@@ -100,9 +103,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
-		model.addStatement(subject, predicate, literal, datatypeURI);
+		this.model.addStatement(subject, predicate, literal, datatypeURI);
 	}
 
 	/*
@@ -111,9 +115,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(org.ontoware.rdf2go.core.node.Resource,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
-		model.addStatement(subject, predicate, literal);
+		this.model.addStatement(subject, predicate, literal);
 	}
 
 	/*
@@ -121,8 +126,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addStatement(S)
 	 */
+	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
-		model.addStatement(statement);
+		this.model.addStatement(statement);
 	}
 
 	/*
@@ -132,9 +138,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		model.addStatement(subjectURIString, predicate, literal, languageTag);
+		this.model.addStatement(subjectURIString, predicate, literal, languageTag);
 	}
 
 	/*
@@ -144,9 +151,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		model.addStatement(subjectURIString, predicate, literal, datatypeURI);
+		this.model.addStatement(subjectURIString, predicate, literal, datatypeURI);
 	}
 
 	/*
@@ -155,9 +163,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
-		model.addStatement(subjectURIString, predicate, literal);
+		this.model.addStatement(subjectURIString, predicate, literal);
 	}
 
 	/*
@@ -166,10 +175,11 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.triple.Model#contains(java.lang.Object,
 	 *      java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public boolean contains(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		return model.contains(subject, predicate, object);
+		return this.model.contains(subject, predicate, object);
 	}
 
 	/*
@@ -177,8 +187,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#createBlankNode()
 	 */
+	@Override
 	public BlankNode createBlankNode() {
-		return model.createBlankNode();
+		return this.model.createBlankNode();
 	}
 
 	/*
@@ -186,8 +197,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#createURI(java.lang.String)
 	 */
+	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
-		return model.createURI(uriString);
+		return this.model.createURI(uriString);
 	}
 
 	/*
@@ -195,8 +207,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#getProperty(org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public Object getProperty(URI propertyURI) {
-		return model.getProperty(propertyURI);
+		return this.model.getProperty(propertyURI);
 	}
 
 	/*
@@ -208,7 +221,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	public ClosableIterator<? extends Statement> findStatements(
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
-		return model.findStatements(subject, predicate, object);
+		return this.model.findStatements(subject, predicate, object);
 	}
 
 	/*
@@ -216,8 +229,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#getUnderlyingModelImplementation()
 	 */
+	@Override
 	public Object getUnderlyingModelImplementation() {
-		return model.getUnderlyingModelImplementation();
+		return this.model.getUnderlyingModelImplementation();
 	}
 
 	/*
@@ -226,7 +240,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.common.CommonModelReader#iterator()
 	 */
 	public ClosableIterator<Statement> iterator() {
-		return model.iterator();
+		return this.model.iterator();
 	}
 
 	/*
@@ -234,8 +248,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#newRandomUniqueURI()
 	 */
+	@Override
 	public URI newRandomUniqueURI() {
-		return model.newRandomUniqueURI();
+		return this.model.newRandomUniqueURI();
 	}
 
 	/*
@@ -243,8 +258,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeAll()
 	 */
+	@Override
 	public void removeAll() throws ModelRuntimeException {
-		model.removeAll();
+		this.model.removeAll();
 	}
 
 	/*
@@ -252,9 +268,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
+	@Override
 	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		model.removeAll(other);
+		this.model.removeAll(other);
 	}
 
 	/*
@@ -262,8 +279,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeStatement(S)
 	 */
+	@Override
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
-		model.removeStatement(statement);
+		this.model.removeStatement(statement);
 	}
 
 	/*
@@ -272,8 +290,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#setProperty(org.ontoware.rdf2go.core.node.URI,
 	 *      java.lang.Object)
 	 */
+	@Override
 	public void setProperty(URI propertyURI, Object value) {
-		model.setProperty(propertyURI, value);
+		this.model.setProperty(propertyURI, value);
 	}
 
 	/*
@@ -281,8 +300,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModel#size()
 	 */
+	@Override
 	public long size() throws ModelRuntimeException {
-		return model.size();
+		return this.model.size();
 	}
 
 	/*
@@ -292,7 +312,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	public ClosableIterable<? extends Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException {
-		return model.sparqlConstruct(query);
+		return this.model.sparqlConstruct(query);
 	}
 
 	/*
@@ -303,7 +323,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	public QueryResultTable sparqlSelect(String queryString)
 			throws ModelRuntimeException {
 		log.debug("SPARQL query: " + queryString);
-		return model.sparqlSelect(queryString);
+		return this.model.sparqlSelect(queryString);
 	}
 
 	/*
@@ -313,9 +333,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI,
 	 *      org.ontoware.rdf2go.core.node.Node)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
-		model.removeStatement(subject, predicate, object);
+		this.model.removeStatement(subject, predicate, object);
 	}
 
 	/*
@@ -325,9 +346,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		model.removeStatement(subject, predicate, literal, languageTag);
+		this.model.removeStatement(subject, predicate, literal, languageTag);
 	}
 
 	/*
@@ -337,9 +359,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		model.removeStatement(subject, predicate, literal, datatypeURI);
+		this.model.removeStatement(subject, predicate, literal, datatypeURI);
 	}
 
 	/*
@@ -348,9 +371,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(org.ontoware.rdf2go.core.node.Resource,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
-		model.removeStatement(subject, predicate, literal);
+		this.model.removeStatement(subject, predicate, literal);
 	}
 
 	/*
@@ -360,9 +384,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		model
+		this.model
 				.removeStatement(subjectURIString, predicate, literal,
 						languageTag);
 	}
@@ -374,9 +399,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		model
+		this.model
 				.removeStatement(subjectURIString, predicate, literal,
 						datatypeURI);
 	}
@@ -387,127 +413,136 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
-		model.removeStatement(subjectURIString, predicate, literal);
+		this.model.removeStatement(subjectURIString, predicate, literal);
 	}
 
+	@Override
 	public Diff getDiff(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		return model.getDiff(other);
+		return this.model.getDiff(other);
 	}
 
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
-		boolean result = model.sparqlAsk(query);
+		boolean result = this.model.sparqlAsk(query);
 		return result;
 	}
 
 	public ClosableIterable<? extends Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException {
-		return model.sparqlDescribe(query);
+		return this.model.sparqlDescribe(query);
 	}
 
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
-		model.update(diff);
+		this.model.update(diff);
 	}
 
 	public void lock() throws LockException {
-		model.lock();
+		this.model.lock();
 	}
 
 	public boolean isLocked() {
-		return model.isLocked();
+		return this.model.isLocked();
 	}
 
 	public void unlock() {
-		model.unlock();
+		this.model.unlock();
 	}
 
 	public URI getContextURI() {
-		return model.getContextURI();
+		return this.model.getContextURI();
 	}
 
 	public void readFrom(Reader r) throws IOException, ModelRuntimeException {
-		model.readFrom(r);
+		this.model.readFrom(r);
 	}
 
 	public void writeTo(Writer w) throws IOException, ModelRuntimeException {
-		model.writeTo(w);
+		this.model.writeTo(w);
 	}
 
 	public void dump() {
-		model.dump();
+		this.model.dump();
 	}
 
+	@Override
 	public ClosableIterator<? extends Statement> findStatements(
 			TriplePattern pattern) throws ModelRuntimeException {
-		return model.findStatements(pattern);
+		return this.model.findStatements(pattern);
 	}
 
+	@Override
 	public void removeStatements(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		model.removeStatements(subject, predicate, object);
+		this.model.removeStatements(subject, predicate, object);
 	}
 
 	public void readFrom(Reader reader, Syntax syntax) throws ModelRuntimeException, IOException {
-		model.readFrom(reader, syntax);
+		this.model.readFrom(reader, syntax);
 	}
 
 	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException, IOException {
-		model.writeTo(writer, syntax);
+		this.model.writeTo(writer, syntax);
 	}
 
+	@Override
 	public void readFrom(InputStream reader, Syntax syntax) throws IOException,
 			ModelRuntimeException {
-		model.readFrom(reader, syntax);
+		this.model.readFrom(reader, syntax);
 	}
 
 	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
-		model.readFrom(in);
+		this.model.readFrom(in);
 	}
 
+	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException {
-		model.writeTo(out, syntax);
+		this.model.writeTo(out, syntax);
 	}
 
 	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
-		model.writeTo(out);
+		this.model.writeTo(out);
 	}
 
+	@Override
 	public ClosableIterable<? extends Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			ModelRuntimeException {
-		return model.queryConstruct(query, querylanguage);
+		return this.model.queryConstruct(query, querylanguage);
 	}
 
+	@Override
 	public QueryResultTable querySelect(String query, String querylanguage)
 			throws QueryLanguageNotSupportedException, ModelRuntimeException {
-		return model.querySelect(query, querylanguage);
+		return this.model.querySelect(query, querylanguage);
 	}
 	
 	@Override
 	public boolean isOpen() {
-		return model.isOpen();
+		return this.model.isOpen();
 	}
 	
 	@Override
 	public void open() {
-		model.open();
+		this.model.open();
 	}
 	
 	@Override
 	public void close() {
-		model.close();
+		this.model.close();
 	}
 
 	public boolean isIsomorphicWith(Model other) {
-		return model.isIsomorphicWith(other);
+		return this.model.isIsomorphicWith(other);
 	}
 
 	public boolean isValidURI(String uriString) {
-		return model.isValidURI(uriString);
+		return this.model.isValidURI(uriString);
 	}
 
 }

@@ -35,6 +35,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
+	@Override
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
@@ -49,6 +50,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI,
 	 *      org.ontoware.rdf2go.core.node.Node)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
 		this.addStatement(super.getDelegatedModel().createStatement(subject, predicate, object));
@@ -61,6 +63,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
 		this.addStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
@@ -74,6 +77,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
 		this.addStatement(subject, predicate, getDelegatedModel()
@@ -86,6 +90,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(org.ontoware.rdf2go.core.node.Resource,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		this.addStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
@@ -97,9 +102,10 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addStatement(S)
 	 */
+	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
-		for (ModelChangedListener listener : modelChangeListener.keySet()) {
-			TriplePattern pattern = modelChangeListener.get(listener);
+		for (ModelChangedListener listener : this.modelChangeListener.keySet()) {
+			TriplePattern pattern = this.modelChangeListener.get(listener);
 			if (pattern == null || pattern.matches(statement)) {
 				listener.addedStatement(statement);
 			}
@@ -114,6 +120,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		this.addStatement(getDelegatedModel().createStatement(getDelegatedModel()
@@ -128,6 +135,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		this.addStatement(getDelegatedModel().createStatement(getDelegatedModel()
@@ -141,6 +149,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		this.addStatement(getDelegatedModel().createStatement(getDelegatedModel()
@@ -155,6 +164,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#removeAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
+	@Override
 	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
@@ -169,6 +179,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI,
 	 *      org.ontoware.rdf2go.core.node.Node)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
 		this.removeStatement(getDelegatedModel().createStatement(subject, predicate, object));
@@ -181,6 +192,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
 		this.removeStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
@@ -194,6 +206,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
 		this.removeStatement(subject, predicate, getDelegatedModel()
@@ -206,6 +219,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#removeStatement(org.ontoware.rdf2go.core.node.Resource,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		this.removeStatement(getDelegatedModel().createStatement(subject, predicate, getDelegatedModel()
@@ -217,9 +231,10 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * 
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#removeStatement(S)
 	 */
+	@Override
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
-		for (ModelChangedListener listener : modelChangeListener.keySet()) {
-			TriplePattern pattern = modelChangeListener.get(listener);
+		for (ModelChangedListener listener : this.modelChangeListener.keySet()) {
+			TriplePattern pattern = this.modelChangeListener.get(listener);
 			if (pattern == null || pattern.matches(statement)) {
 				listener.removedStatement(statement);
 			}
@@ -234,6 +249,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		this.removeStatement(getDelegatedModel().createStatement(getDelegatedModel()
@@ -248,6 +264,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI)
 	 */
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		this.removeStatement(getDelegatedModel().createStatement(getDelegatedModel()
@@ -261,6 +278,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#removeStatement(java.lang.String,
 	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
 	 */
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		this.removeStatement(getDelegatedModel().createStatement(getDelegatedModel()
@@ -270,8 +288,9 @@ public class NotifyingModelLayer extends DelegatingModel implements
 
 	//////////// diff
 	
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
-		for (ModelChangedListener listener : modelChangeListener.keySet()) {
+		for (ModelChangedListener listener : this.modelChangeListener.keySet()) {
 				listener.performedUpdate(diff);
 		}
 		getDelegatedModel().update(diff);
@@ -285,15 +304,15 @@ public class NotifyingModelLayer extends DelegatingModel implements
 
 	public void addModelChangedListener(ModelChangedListener listener,
 			TriplePattern pattern) {
-		modelChangeListener.put(listener, pattern);
+		this.modelChangeListener.put(listener, pattern);
 	}
 
 	public void addModelChangedListener(ModelChangedListener listener) {
-		modelChangeListener.put(listener, null);
+		this.modelChangeListener.put(listener, null);
 	}
 
 	public void removeModelChangedListener(ModelChangedListener listener) {
-		modelChangeListener.remove(listener);
+		this.modelChangeListener.remove(listener);
 	}
 
 }

@@ -127,8 +127,9 @@ public class RDFTool {
 			Statement s = i.next();
 			i.close();
 			return s;
-		} else
-			return null;
+		}
+		// else
+		return null;
 	}
 
 	/**
@@ -179,11 +180,11 @@ public class RDFTool {
 			if (rdfslabel != null) {
 				if (rdfslabel instanceof Literal)
 					return ((Literal) rdfslabel).getValue();
-				else
-					return rdfslabel.toString();
-			} else {
-				return RDFTool.getShortName(o.toString());
+				// else
+				return rdfslabel.toString();
 			}
+			// else
+			return RDFTool.getShortName(o.toString());
 		} else if (o instanceof Literal)
 			return ((Literal) o).getValue();
 		else
@@ -248,8 +249,9 @@ public class RDFTool {
 		try {
 			if (i.hasNext()) {
 				return i.next().getObject();
-			} else
-				return null;
+			} 
+			//else
+			return null;
 		} finally {
 			i.close();
 		}

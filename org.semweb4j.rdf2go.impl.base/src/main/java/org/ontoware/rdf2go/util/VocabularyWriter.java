@@ -71,19 +71,19 @@ public class VocabularyWriter {
 
 	String packageName = null;
 
-	Model myModel = null;
+	Model model = null;
 
 	// output stream
 	PrintStream outP;
 
 	// transform variables
-	File inputRdfF;
+	File inputRdfFile;
 
 	File outputDirFile;
 
 	File outputFile;
 
-	Boolean namespacestrict = false;
+	boolean namespacestrict = false;
 
 	// avoid duplicates
 	HashMap<String, String> uriToLocalName = new HashMap<String, String>();
@@ -100,35 +100,35 @@ public class VocabularyWriter {
 
 	private void loadOnt() throws Exception {
 		// read
-		Syntax syntax = RDFTool.guessSyntax(inputRdfF.toString());
-		myModel = RDF2Go.getModelFactory().createModel(Reasoning.none);
-		myModel.open();
-		System.out.println("reading from " + inputRdfF.getAbsolutePath()
+		Syntax syntax = RDFTool.guessSyntax(this.inputRdfFile.toString());
+		this.model = RDF2Go.getModelFactory().createModel(Reasoning.none);
+		this.model.open();
+		System.out.println("reading from " + this.inputRdfFile.getAbsolutePath()
 				+ " in format " + syntax);
-		Reader reader = new BufferedReader(new FileReader(inputRdfF));
-		myModel.readFrom(reader, syntax);
+		Reader reader = new BufferedReader(new FileReader(this.inputRdfFile));
+		this.model.readFrom(reader, syntax);
 		reader.close();
 	}
 
 	private void writeVocab() throws Exception {
 
 		// prepare output
-		outP = new PrintStream(outputFile);
+		this.outP = new PrintStream(this.outputFile);
 		try {
 			// preamble
-			outP.println("package " + packageName + ";\n");
-			outP.println("import org.ontoware.rdf2go.model.node.URI;");
-			outP
+			this.outP.println("package " + this.packageName + ";\n");
+			this.outP.println("import org.ontoware.rdf2go.model.node.URI;");
+			this.outP
 					.println("import org.ontoware.rdf2go.model.node.impl.URIImpl;\n");
-			outP.println("/**");
-			outP.println(" * Vocabulary File. Created by "
+			this.outP.println("/**");
+			this.outP.println(" * Vocabulary File. Created by "
 					+ VocabularyWriter.class.getName() + " on " + new Date());
-			outP.println(" * input file: " + inputRdf);
-			outP.println(" * namespace: " + ns);
-			outP.println(" */");
-			outP.println("public interface " + outputFileName + " {");
-			outP.println("	public static final URI NS_" + outputFileName
-					+ " = new URIImpl(\"" + ns + "\",false);\n");
+			this.outP.println(" * input file: " + this.inputRdf);
+			this.outP.println(" * namespace: " + this.ns);
+			this.outP.println(" */");
+			this.outP.println("public interface " + this.outputFileName + " {");
+			this.outP.println("	public static final URI NS_" + this.outputFileName
+					+ " = new URIImpl(\"" + this.ns + "\",false);\n");
 
 			// iterate through classes
 			generateElement(RDFS.Class, false);
@@ -140,15 +140,15 @@ public class VocabularyWriter {
 			generateElement(OWL.ObjectProperty, true);
 
 			// end
-			outP.println("}");
+			this.outP.println("}");
 		} finally {
-			outP.close();
+			this.outP.close();
 		}
-		System.out.println("successfully wrote file to " + outputFile);
+		System.out.println("successfully wrote file to " + this.outputFile);
 	}
 
 	public void generateElement(URI type, boolean isProperty) throws Exception {
-		ClosableIterator<? extends Statement> queryC = myModel
+		ClosableIterator<? extends Statement> queryC = this.model
 		.findStatements(Variable.ANY, RDF.type, type);
 		try {
 			while (queryC.hasNext()) {
@@ -160,24 +160,24 @@ public class VocabularyWriter {
 				URI vx = (URI) rx;
 				String uri = vx.toString();
 				// check URI once and for all
-				boolean valid = myModel.isValidURI(uri);
+				boolean valid = this.model.isValidURI(uri);
 				if (!valid)
 				{
-					outP.println("    /* cannot export "+uri+", not a valid URI */");
+					this.outP.println("    /* cannot export "+uri+", not a valid URI */");
 				} else 
 				{
 					String localName = getLocalName(vx);
 					String javalocalName = asLegalJavaID(localName, !isProperty);
-					if (uriToLocalName.containsKey(uri))
+					if (this.uriToLocalName.containsKey(uri))
 						continue;
-					uriToLocalName.put(uri, javalocalName);
+					this.uriToLocalName.put(uri, javalocalName);
 					// check namespace strict?
-					if (namespacestrict && !uri.startsWith(ns))
+					if (this.namespacestrict && !uri.startsWith(this.ns))
 						continue;
-					outP.println("    /**");
+					this.outP.println("    /**");
 					printCommentAndLabel(vx);
-					outP.println("     */");
-					outP.println("    public static final URI " + javalocalName
+					this.outP.println("     */");
+					this.outP.println("    public static final URI " + javalocalName
 							+ " = new URIImpl(\"" + uri
 							+ "\", false);\n");
 				}
@@ -216,7 +216,7 @@ public class VocabularyWriter {
 	 */
 	public void printCommentAndLabel(URI uri) throws Exception {
 
-		ClosableIterator<? extends Statement> queryC = myModel
+		ClosableIterator<? extends Statement> queryC = this.model
 		.findStatements(uri, RDFS.label, Variable.ANY);
 		try {
 			String l = "";
@@ -226,12 +226,12 @@ public class VocabularyWriter {
 				l += vl.toString() + " ";
 			}
 			if (l.length() > 0)
-				outP.println("     * Label: " + l);
+				this.outP.println("     * Label: " + l);
 		} finally {
 			queryC.close();
 		}
 
-		queryC = myModel.findStatements(uri, RDFS.comment, Variable.ANY);
+		queryC = this.model.findStatements(uri, RDFS.comment, Variable.ANY);
 		try {
 			String l = "";
 			while (queryC.hasNext()) {
@@ -240,12 +240,12 @@ public class VocabularyWriter {
 				l += vl.toString() + " ";
 			}
 			if (l.length() > 0)
-				outP.println("     * Comment: " + l);
+				this.outP.println("     * Comment: " + l);
 		} finally {
 			queryC.close();
 		}
 
-		queryC = myModel.findStatements(uri, RDFS.domain, Variable.ANY);
+		queryC = this.model.findStatements(uri, RDFS.domain, Variable.ANY);
 		try {
 			String l = "";
 			while (queryC.hasNext()) {
@@ -254,12 +254,12 @@ public class VocabularyWriter {
 				l += vl.toString() + " ";
 			}
 			if (l.length() > 0)
-				outP.println("     * Comment: " + l);
+				this.outP.println("     * Comment: " + l);
 		} finally {
 			queryC.close();
 		}
 
-		queryC = myModel.findStatements(uri, RDFS.range, Variable.ANY);
+		queryC = this.model.findStatements(uri, RDFS.range, Variable.ANY);
 		try {
 			String l = "";
 			while (queryC.hasNext()) {
@@ -268,7 +268,7 @@ public class VocabularyWriter {
 				l += vl.toString() + " ";
 			}
 			if (l.length() > 0)
-				outP.println("     * Range: " + l);
+				this.outP.println("     * Range: " + l);
 		} finally {
 			queryC.close();
 		}
@@ -284,26 +284,26 @@ public class VocabularyWriter {
 		while ((i < args.length) && args[i].startsWith("-")) {
 			if (args[i].equals("-i")) {
 				i++;
-				inputRdf = args[i];
+				this.inputRdf = args[i];
 			} else if (args[i].equals("-o")) {
 				i++;
-				outputDirName = args[i];
+				this.outputDirName = args[i];
 			} else if (args[i].equals("-a")) {
 				i++;
-				ns = args[i];
+				this.ns = args[i];
 			} else if (args[i].equals("-n")) {
 				i++;
-				outputFileName = args[i];
+				this.outputFileName = args[i];
 			} else if (args[i].equals("--package")) {
 				i++;
-				packageName = args[i];
+				this.packageName = args[i];
 			} else if (args[i].equals("-namespacestrict")) {
 				i++;
 				String s = args[i];
 				if ("false".equals(s))
-					namespacestrict = false;
+					this.namespacestrict = false;
 				else if ("true".equals(s))
-					namespacestrict = true;
+					this.namespacestrict = true;
 				else
 					throw new Exception(
 							"namespacestrict only allows 'true' or 'false', not '"
@@ -314,21 +314,21 @@ public class VocabularyWriter {
 			i++;
 		}
 
-		if (inputRdf == null)
+		if (this.inputRdf == null)
 			usage("no input file given");
-		if (outputDirName == null)
+		if (this.outputDirName == null)
 			usage("no output dir given");
-		if (ns == null)
+		if (this.ns == null)
 			usage("no namespace given");
-		if (outputFileName == null)
+		if (this.outputFileName == null)
 			usage("no output classname given");
-		if (packageName == null)
+		if (this.packageName == null)
 			usage("no package name given");
 
 		// transform variables
-		inputRdfF = new File(inputRdf);
-		outputDirFile = new File(outputDirName);
-		outputFile = new File(outputDirFile, outputFileName + ".java");
+		this.inputRdfFile = new File(this.inputRdf);
+		this.outputDirFile = new File(this.outputDirName);
+		this.outputFile = new File(this.outputDirFile, this.outputFileName + ".java");
 	}
 
 	private void help() {
@@ -356,6 +356,8 @@ public class VocabularyWriter {
 		// ID, may have to upcase
 		try {
 			for (; !Character.isJavaIdentifierStart(s.charAt(i)); i++) {
+				// TODO (xamde from wth, 11.07.2007) WHY IS THIS BLOCK EMPTY?  
+				//if this is fine, please document why
 			}
 		} catch (StringIndexOutOfBoundsException e) {
 			System.err

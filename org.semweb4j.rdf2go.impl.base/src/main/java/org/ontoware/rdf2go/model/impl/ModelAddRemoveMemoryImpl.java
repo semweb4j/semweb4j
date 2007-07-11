@@ -32,14 +32,14 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 	public void addStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException {
 		// TODO: is it ok to set the context to null?
 		Statement s = new StatementImpl(null, subject, predicate, object);
-		set.add(s);
+		this.set.add(s);
 	}
 
 	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException {
 		// TODO: is it ok to set the context to null?
 		Statement s = new StatementImpl(null, subject, predicate, object);
-		set.remove(s);
+		this.set.remove(s);
 	}
 	
 	public Set<Statement> getSet() {
@@ -74,13 +74,13 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 	}
 
 	public ClosableIterator<Statement> iterator() {
-		Iterator<Statement> it = set.iterator();
+		Iterator<Statement> it = this.set.iterator();
 		assert it != null;
 		return new PseudoClosableIterator<Statement>( it );
 	}
 
 	public long size() {
-		return set.size();
+		return this.set.size();
 	}
 
 }

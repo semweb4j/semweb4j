@@ -35,16 +35,16 @@ public abstract class DirtyAbstractModel extends AbstractModel {
 						}
 					}
 					return true;
-				} else {
-					log.debug("Models do not have the same size");
-					return false;
-				}
-
-			} else {
-				log.debug("object is not an instance of ModelAdapter, it's "
-						+ other.getClass());
+				} 
+				//else 
+				log.debug("Models do not have the same size");
 				return false;
-			}
+
+			} 
+			//else 
+			log.debug("object is not an instance of ModelAdapter, it's "
+					+ other.getClass());
+			return false;
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
 		}
@@ -53,7 +53,9 @@ public abstract class DirtyAbstractModel extends AbstractModel {
 	/**
 	 * You should overrride this method!
 	 */
-	public boolean isValidURI(String uriString) {
+	public boolean isValidURI(@SuppressWarnings("unused")
+	String uriString) {
+		log.warn("You used method isValidURI() from DirtyAbstractModel, which always returns TRUE");
 		return true;
 	}
 

@@ -65,11 +65,13 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		return this.removed;
 	}
 
+	@Override
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
-		removed.remove(statement);
+		this.removed.remove(statement);
 	}
 
+	@Override
 	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
@@ -77,6 +79,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		}
 	}
 
+	@Override
 	public void removeAll() throws ModelRuntimeException {
 		throw new UnsupportedOperationException(
 				"It doesn't make sense to 'remove all' on a Diff");
@@ -87,10 +90,12 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 				"Please iterate over getAdded or getRemoved instead");
 	}
 
+	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
-		added.add(statement);
+		this.added.add(statement);
 	}
 
+	@Override
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
@@ -103,6 +108,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}
 
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
 		addAll(diff.getAdded().iterator());
 		removeAll(diff.getRemoved().iterator());
@@ -163,9 +169,9 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 					return false;
 			}
 			return true;
-
-		} else
-			return false;
+		} 
+		//else
+		return false;
 	}
 
 	@Override
@@ -183,31 +189,32 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 				ModelAddRemoveMemoryImpl otherRemoved = new ModelAddRemoveMemoryImpl();
 				otherRemoved.addAll(diff.getRemoved().iterator());
 
-				log.debug("This diff: " + added.size() + " added and "
-						+ removed.size() + " removed");
+				log.debug("This diff: " + this.added.size() + " added and "
+						+ this.removed.size() + " removed");
 				log.debug("Other diff: " + otherAdded.set.size()
 						+ " added and " + otherRemoved.set.size() + " removed");
 
 				// now compare the sets of statements
 
-				return equals(added, otherAdded.getSet())
-						&& equals(removed, otherRemoved.getSet());
+				return equals(this.added, otherAdded.getSet())
+						&& equals(this.removed, otherRemoved.getSet());
 
 			} catch (ModelRuntimeException e) {
 				throw new RuntimeException(e);
 			}
+		} 
+		//else 
+		if (other == null) {
+			log.debug("other is null, but not a DiffImpl");
 		} else {
-			if (other == null) {
-				log.debug("other is null, but not a DiffImpl");
-			} else {
-				log.debug("other is not a diff but " + other.getClass());
-			}
-			return false;
+			log.debug("other is not a diff but " + other.getClass());
 		}
+		return false;
 	}
 
+	@Override
 	public int hashCode() {
-		return added.hashCode() + removed.hashCode();
+		return this.added.hashCode() + this.removed.hashCode();
 	}
 
 }

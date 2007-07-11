@@ -17,22 +17,22 @@ import org.ontoware.aifbcommons.collection.ClosableIterator;
 
 public class PseudoClosableIterator<T> implements ClosableIterator<T> {
 
-	private Iterator<T> it;
+	private Iterator<T> iterator;
 
 	public PseudoClosableIterator(Iterator<T> it) {
-		this.it = it;
+		this.iterator = it;
 	}
 
 	public boolean hasNext() {
-		return it.hasNext();
+		return this.iterator.hasNext();
 	}
 
 	public T next() {
-		return it.next();
+		return this.iterator.next();
 	}
 
 	public void remove() {
-		it.remove();
+		this.iterator.remove();
 	}
 
 	public void close() {

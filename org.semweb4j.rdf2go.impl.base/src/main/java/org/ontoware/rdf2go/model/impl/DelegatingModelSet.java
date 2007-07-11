@@ -40,46 +40,50 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		this.baseModelSet = baseModelSet;
 	}
 
+	@Override
 	public boolean addModel(Model model) {
-		return baseModelSet.addModel(model);
+		return this.baseModelSet.addModel(model);
 	}
 
 	public void addStatement(Statement statement) throws ModelRuntimeException {
-		baseModelSet.addStatement(statement);
+		this.baseModelSet.addStatement(statement);
 	}
 
 	public void close() {
-		baseModelSet.close();
+		this.baseModelSet.close();
 	}
 
+	@Override
 	public boolean containsStatements(UriOrVariable contextURI,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
-		return baseModelSet.containsStatements(contextURI, subject, predicate,
+		return this.baseModelSet.containsStatements(contextURI, subject, predicate,
 				object);
 	}
 
 	public QuadPattern createQuadPattern(UriOrVariable context,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) {
-		return baseModelSet.createQuadPattern(context, subject, predicate,
+		return this.baseModelSet.createQuadPattern(context, subject, predicate,
 				object);
 	}
 
+	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
-		return baseModelSet.createURI(uriString);
+		return this.baseModelSet.createURI(uriString);
 	}
 
+	@Override
 	public ClosableIterator<? extends Statement> findStatements(
 			UriOrVariable contextURI, ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		return baseModelSet.findStatements(contextURI, subject, predicate,
+		return this.baseModelSet.findStatements(contextURI, subject, predicate,
 				object);
 	}
 
 	public Model getDefaultModel() {
-		return baseModelSet.getDefaultModel();
+		return this.baseModelSet.getDefaultModel();
 	}
 
 	/**
@@ -90,115 +94,120 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 	}
 
 	public Model getModel(URI contextURI) {
-		return baseModelSet.getModel(contextURI);
+		return this.baseModelSet.getModel(contextURI);
 	}
 
 	public ClosableIterator<? extends Model> getModels() {
-		return baseModelSet.getModels();
+		return this.baseModelSet.getModels();
 	}
 
 	public ClosableIterator<URI> getModelURIs() {
-		return baseModelSet.getModelURIs();
+		return this.baseModelSet.getModelURIs();
 	}
 
 	@Deprecated
 	public Object getUnderlyingModelImplementation() {
-		return baseModelSet.getUnderlyingModelImplementation();
+		return this.baseModelSet.getUnderlyingModelImplementation();
 	}
 
 	public Object getUnderlyingModelSetImplementation() {
-		return baseModelSet.getUnderlyingModelSetImplementation();
+		return this.baseModelSet.getUnderlyingModelSetImplementation();
 	}
 
 	public boolean isOpen() {
-		return baseModelSet.isOpen();
+		return this.baseModelSet.isOpen();
 	}
 
 	public void open() {
-		baseModelSet.open();
+		this.baseModelSet.open();
 	}
 
 	public ClosableIterable<? extends Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			MalformedQueryException, ModelRuntimeException {
-		return baseModelSet.queryConstruct(query, querylanguage);
+		return this.baseModelSet.queryConstruct(query, querylanguage);
 	}
 
 	public QueryResultTable querySelect(String query, String querylanguage)
 			throws QueryLanguageNotSupportedException, MalformedQueryException,
 			ModelRuntimeException {
-		return baseModelSet.querySelect(query, querylanguage);
+		return this.baseModelSet.querySelect(query, querylanguage);
 	}
 
 	public void readFrom(InputStream in) throws IOException,
 			ModelRuntimeException {
-		baseModelSet.readFrom(in);
+		this.baseModelSet.readFrom(in);
 	}
 
+	@Override
 	public void readFrom(InputStream in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.readFrom(in, syntax);
+		this.baseModelSet.readFrom(in, syntax);
 	}
 
 	public void readFrom(Reader in) throws IOException, ModelRuntimeException {
-		baseModelSet.readFrom(in);
+		this.baseModelSet.readFrom(in);
 	}
 
+	@Override
 	public void readFrom(Reader in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.readFrom(in, syntax);
+		this.baseModelSet.readFrom(in, syntax);
 	}
 
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
-		baseModelSet.removeStatement(statement);
+		this.baseModelSet.removeStatement(statement);
 	}
 
 	public long size() throws ModelRuntimeException {
-		return baseModelSet.size();
+		return this.baseModelSet.size();
 	}
 
 	public boolean sparqlAsk(String query) throws ModelRuntimeException,
 			MalformedQueryException {
-		return baseModelSet.sparqlAsk(query);
+		return this.baseModelSet.sparqlAsk(query);
 	}
 
 	public ClosableIterable<? extends Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException, MalformedQueryException {
-		return baseModelSet.sparqlConstruct(query);
+		return this.baseModelSet.sparqlConstruct(query);
 	}
 
 	public ClosableIterable<? extends Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException {
-		return baseModelSet.sparqlDescribe(query);
+		return this.baseModelSet.sparqlDescribe(query);
 	}
 
 	public QueryResultTable sparqlSelect(String queryString)
 			throws MalformedQueryException, ModelRuntimeException {
-		return baseModelSet.sparqlSelect(queryString);
+		return this.baseModelSet.sparqlSelect(queryString);
 	}
 
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
-		baseModelSet.update(diff);
+		this.baseModelSet.update(diff);
 	}
 
 	public void writeTo(OutputStream out) throws IOException,
 			ModelRuntimeException {
-		baseModelSet.writeTo(out);
+		this.baseModelSet.writeTo(out);
 	}
 
+	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.writeTo(out, syntax);
+		this.baseModelSet.writeTo(out, syntax);
 	}
 
 	public void writeTo(Writer out) throws IOException, ModelRuntimeException {
-		baseModelSet.writeTo(out);
+		this.baseModelSet.writeTo(out);
 	}
 
+	@Override
 	public void writeTo(Writer out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
-		baseModelSet.writeTo(out, syntax);
+		this.baseModelSet.writeTo(out, syntax);
 	}
 
 }
