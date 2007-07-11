@@ -41,7 +41,7 @@ public class RDF2GoTest extends TestCase {
 			// TODO Auto-generated method stub
 			return null;
 		}
-	};
+	}
 
 	private static class RDF2GoTestAdapterTwo extends AbstractModelFactory {
 
@@ -59,7 +59,7 @@ public class RDF2GoTest extends TestCase {
 			// TODO Auto-generated method stub
 			return null;
 		}
-	};
+	}
 
 	/**
 	 * Testing the RDF2Go default class
