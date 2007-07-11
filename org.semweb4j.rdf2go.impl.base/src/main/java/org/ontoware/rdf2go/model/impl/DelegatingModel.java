@@ -38,7 +38,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 
 	private static final Logger log = LoggerFactory.getLogger(DelegatingModel.class);
 
-	private Model model;
+	private Model delegatedModel;
 
 	/**
 	 * Please set model!
@@ -48,15 +48,15 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	public DelegatingModel(Model model) {
-		this.model = model;
+		this.delegatedModel = model;
 	}
 
 	public Model getDelegatedModel() {
-		return this.model;
+		return this.delegatedModel;
 	}
 
 	protected void setDelegatedModel(Model model) {
-		this.model = model;
+		this.delegatedModel = model;
 	}
 
 	/*
@@ -67,7 +67,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		this.model.addAll(other);
+		this.delegatedModel.addAll(other);
 	}
 
 	/*
@@ -80,7 +80,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
-		this.model.addStatement(subject, predicate, object);
+		this.delegatedModel.addStatement(subject, predicate, object);
 	}
 
 	/*
@@ -93,7 +93,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
-		this.model.addStatement(subject, predicate, literal, languageTag);
+		this.delegatedModel.addStatement(subject, predicate, literal, languageTag);
 	}
 
 	/*
@@ -106,7 +106,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
-		this.model.addStatement(subject, predicate, literal, datatypeURI);
+		this.delegatedModel.addStatement(subject, predicate, literal, datatypeURI);
 	}
 
 	/*
@@ -118,7 +118,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
-		this.model.addStatement(subject, predicate, literal);
+		this.delegatedModel.addStatement(subject, predicate, literal);
 	}
 
 	/*
@@ -128,7 +128,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
-		this.model.addStatement(statement);
+		this.delegatedModel.addStatement(statement);
 	}
 
 	/*
@@ -141,7 +141,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		this.model.addStatement(subjectURIString, predicate, literal, languageTag);
+		this.delegatedModel.addStatement(subjectURIString, predicate, literal, languageTag);
 	}
 
 	/*
@@ -154,7 +154,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		this.model.addStatement(subjectURIString, predicate, literal, datatypeURI);
+		this.delegatedModel.addStatement(subjectURIString, predicate, literal, datatypeURI);
 	}
 
 	/*
@@ -166,7 +166,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
-		this.model.addStatement(subjectURIString, predicate, literal);
+		this.delegatedModel.addStatement(subjectURIString, predicate, literal);
 	}
 
 	/*
@@ -179,7 +179,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	public boolean contains(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		return this.model.contains(subject, predicate, object);
+		return this.delegatedModel.contains(subject, predicate, object);
 	}
 
 	/*
@@ -189,7 +189,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public BlankNode createBlankNode() {
-		return this.model.createBlankNode();
+		return this.delegatedModel.createBlankNode();
 	}
 
 	/*
@@ -199,7 +199,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
-		return this.model.createURI(uriString);
+		return this.delegatedModel.createURI(uriString);
 	}
 
 	/*
@@ -209,7 +209,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public Object getProperty(URI propertyURI) {
-		return this.model.getProperty(propertyURI);
+		return this.delegatedModel.getProperty(propertyURI);
 	}
 
 	/*
@@ -221,7 +221,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	public ClosableIterator<? extends Statement> findStatements(
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
-		return this.model.findStatements(subject, predicate, object);
+		return this.delegatedModel.findStatements(subject, predicate, object);
 	}
 
 	/*
@@ -231,7 +231,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public Object getUnderlyingModelImplementation() {
-		return this.model.getUnderlyingModelImplementation();
+		return this.delegatedModel.getUnderlyingModelImplementation();
 	}
 
 	/*
@@ -240,7 +240,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.common.CommonModelReader#iterator()
 	 */
 	public ClosableIterator<Statement> iterator() {
-		return this.model.iterator();
+		return this.delegatedModel.iterator();
 	}
 
 	/*
@@ -250,7 +250,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public URI newRandomUniqueURI() {
-		return this.model.newRandomUniqueURI();
+		return this.delegatedModel.newRandomUniqueURI();
 	}
 
 	/*
@@ -260,7 +260,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public void removeAll() throws ModelRuntimeException {
-		this.model.removeAll();
+		this.delegatedModel.removeAll();
 	}
 
 	/*
@@ -271,7 +271,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		this.model.removeAll(other);
+		this.delegatedModel.removeAll(other);
 	}
 
 	/*
@@ -281,7 +281,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
-		this.model.removeStatement(statement);
+		this.delegatedModel.removeStatement(statement);
 	}
 
 	/*
@@ -292,7 +292,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public void setProperty(URI propertyURI, Object value) {
-		this.model.setProperty(propertyURI, value);
+		this.delegatedModel.setProperty(propertyURI, value);
 	}
 
 	/*
@@ -302,7 +302,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	@Override
 	public long size() throws ModelRuntimeException {
-		return this.model.size();
+		return this.delegatedModel.size();
 	}
 
 	/*
@@ -312,7 +312,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 */
 	public ClosableIterable<? extends Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException {
-		return this.model.sparqlConstruct(query);
+		return this.delegatedModel.sparqlConstruct(query);
 	}
 
 	/*
@@ -323,7 +323,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	public QueryResultTable sparqlSelect(String queryString)
 			throws ModelRuntimeException {
 		log.debug("SPARQL query: " + queryString);
-		return this.model.sparqlSelect(queryString);
+		return this.delegatedModel.sparqlSelect(queryString);
 	}
 
 	/*
@@ -336,7 +336,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
-		this.model.removeStatement(subject, predicate, object);
+		this.delegatedModel.removeStatement(subject, predicate, object);
 	}
 
 	/*
@@ -349,7 +349,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		this.model.removeStatement(subject, predicate, literal, languageTag);
+		this.delegatedModel.removeStatement(subject, predicate, literal, languageTag);
 	}
 
 	/*
@@ -362,7 +362,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		this.model.removeStatement(subject, predicate, literal, datatypeURI);
+		this.delegatedModel.removeStatement(subject, predicate, literal, datatypeURI);
 	}
 
 	/*
@@ -374,7 +374,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
-		this.model.removeStatement(subject, predicate, literal);
+		this.delegatedModel.removeStatement(subject, predicate, literal);
 	}
 
 	/*
@@ -387,7 +387,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
-		this.model
+		this.delegatedModel
 				.removeStatement(subjectURIString, predicate, literal,
 						languageTag);
 	}
@@ -402,7 +402,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
-		this.model
+		this.delegatedModel
 				.removeStatement(subjectURIString, predicate, literal,
 						datatypeURI);
 	}
@@ -416,133 +416,133 @@ public class DelegatingModel extends AbstractModel implements Model {
 	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
-		this.model.removeStatement(subjectURIString, predicate, literal);
+		this.delegatedModel.removeStatement(subjectURIString, predicate, literal);
 	}
 
 	@Override
 	public Diff getDiff(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		return this.model.getDiff(other);
+		return this.delegatedModel.getDiff(other);
 	}
 
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
-		boolean result = this.model.sparqlAsk(query);
+		boolean result = this.delegatedModel.sparqlAsk(query);
 		return result;
 	}
 
 	public ClosableIterable<? extends Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException {
-		return this.model.sparqlDescribe(query);
+		return this.delegatedModel.sparqlDescribe(query);
 	}
 
 	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
-		this.model.update(diff);
+		this.delegatedModel.update(diff);
 	}
 
 	public void lock() throws LockException {
-		this.model.lock();
+		this.delegatedModel.lock();
 	}
 
 	public boolean isLocked() {
-		return this.model.isLocked();
+		return this.delegatedModel.isLocked();
 	}
 
 	public void unlock() {
-		this.model.unlock();
+		this.delegatedModel.unlock();
 	}
 
 	public URI getContextURI() {
-		return this.model.getContextURI();
+		return this.delegatedModel.getContextURI();
 	}
 
 	public void readFrom(Reader r) throws IOException, ModelRuntimeException {
-		this.model.readFrom(r);
+		this.delegatedModel.readFrom(r);
 	}
 
 	public void writeTo(Writer w) throws IOException, ModelRuntimeException {
-		this.model.writeTo(w);
+		this.delegatedModel.writeTo(w);
 	}
 
 	public void dump() {
-		this.model.dump();
+		this.delegatedModel.dump();
 	}
 
 	@Override
 	public ClosableIterator<? extends Statement> findStatements(
 			TriplePattern pattern) throws ModelRuntimeException {
-		return this.model.findStatements(pattern);
+		return this.delegatedModel.findStatements(pattern);
 	}
 
 	@Override
 	public void removeStatements(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		this.model.removeStatements(subject, predicate, object);
+		this.delegatedModel.removeStatements(subject, predicate, object);
 	}
 
 	public void readFrom(Reader reader, Syntax syntax) throws ModelRuntimeException, IOException {
-		this.model.readFrom(reader, syntax);
+		this.delegatedModel.readFrom(reader, syntax);
 	}
 
 	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException, IOException {
-		this.model.writeTo(writer, syntax);
+		this.delegatedModel.writeTo(writer, syntax);
 	}
 
 	@Override
 	public void readFrom(InputStream reader, Syntax syntax) throws IOException,
 			ModelRuntimeException {
-		this.model.readFrom(reader, syntax);
+		this.delegatedModel.readFrom(reader, syntax);
 	}
 
 	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
-		this.model.readFrom(in);
+		this.delegatedModel.readFrom(in);
 	}
 
 	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException {
-		this.model.writeTo(out, syntax);
+		this.delegatedModel.writeTo(out, syntax);
 	}
 
 	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
-		this.model.writeTo(out);
+		this.delegatedModel.writeTo(out);
 	}
 
 	@Override
 	public ClosableIterable<? extends Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			ModelRuntimeException {
-		return this.model.queryConstruct(query, querylanguage);
+		return this.delegatedModel.queryConstruct(query, querylanguage);
 	}
 
 	@Override
 	public QueryResultTable querySelect(String query, String querylanguage)
 			throws QueryLanguageNotSupportedException, ModelRuntimeException {
-		return this.model.querySelect(query, querylanguage);
+		return this.delegatedModel.querySelect(query, querylanguage);
 	}
 	
 	@Override
 	public boolean isOpen() {
-		return this.model.isOpen();
+		return this.delegatedModel.isOpen();
 	}
 	
 	@Override
 	public void open() {
-		this.model.open();
+		this.delegatedModel.open();
 	}
 	
 	@Override
 	public void close() {
-		this.model.close();
+		this.delegatedModel.close();
 	}
 
 	public boolean isIsomorphicWith(Model other) {
-		return this.model.isIsomorphicWith(other);
+		return this.delegatedModel.isIsomorphicWith(other);
 	}
 
 	public boolean isValidURI(String uriString) {
-		return this.model.isValidURI(uriString);
+		return this.delegatedModel.isValidURI(uriString);
 	}
 
 }
