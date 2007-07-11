@@ -64,14 +64,14 @@ public class ConvertingIterator<FROM, TO> implements Iterator<TO> {
 	 * @see java.util.Iterator#hasNext()
 	 */
 	public boolean hasNext() {
-		return wrapped.hasNext();
+		return this.wrapped.hasNext();
 	}
 
 	/**
 	 * @see java.util.Iterator#next()
 	 */
 	public TO next() {
-		FROM next = wrapped.next();
+		FROM next = this.wrapped.next();
 		return convert(next);
 	}
 
@@ -83,10 +83,10 @@ public class ConvertingIterator<FROM, TO> implements Iterator<TO> {
 	 * @return the converted object
 	 */
 	public TO convert(FROM next) {
-		if (converter == null)
+		if (this.converter == null)
 			throw new RuntimeException(
 					"you have to override the convert() method or pass in a converter.");
-		TO result = converter.convert(next);
+		TO result = this.converter.convert(next);
 		return result;
 	}
 
@@ -94,7 +94,7 @@ public class ConvertingIterator<FROM, TO> implements Iterator<TO> {
 	 * @see java.util.Iterator#remove()
 	 */
 	public void remove() {
-		wrapped.remove();
+		this.wrapped.remove();
 	}
 
 }

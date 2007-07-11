@@ -34,6 +34,7 @@ public class QuadPatternImpl extends TriplePatternImpl implements QuadPattern {
 		return this.context;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		return ((o instanceof Statement)
 				&& (this.getContext().equals( ((Statement) o ).getContext()))
@@ -42,8 +43,9 @@ public class QuadPatternImpl extends TriplePatternImpl implements QuadPattern {
 				.getObject().equals(((Statement) o).getObject())));
 	}
 	
+	@Override
 	public int hashCode() {
-		return context.hashCode() + super.hashCode();
+		return this.context.hashCode() + super.hashCode();
 	}
 
 }

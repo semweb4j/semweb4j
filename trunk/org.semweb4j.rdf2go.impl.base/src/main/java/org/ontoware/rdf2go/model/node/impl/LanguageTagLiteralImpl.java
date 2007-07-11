@@ -40,14 +40,16 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 		this.languageTag = turtleEncoded.substring(i + 1);
 	}
 
+	@Override
 	public String getValue() {
-		return literalValue;
+		return this.literalValue;
 	}
 
 	public String getLanguageTag() {
-		return languageTag;
+		return this.languageTag;
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return ((o instanceof LanguageTagLiteralImpl)
 				&& (this.getValue().equals(((LanguageTagLiteralImpl) o)
@@ -55,6 +57,7 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 				.equals(((LanguageTagLiteralImpl) o).getLanguageTag())));
 	}
 
+	@Override
 	public String toString() {
 		return getValue() + "@" + getLanguageTag();
 	}
@@ -68,8 +71,9 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 		return this;
 	}
 
+	@Override
 	public int hashCode() {
-		return languageTag.hashCode() + literalValue.hashCode();
+		return this.languageTag.hashCode() + this.literalValue.hashCode();
 	}
 
 	public int compareTo(Node other) {
@@ -79,18 +83,16 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 			int diff = this.getValue().compareTo(oLit.getValue());
 			if (diff != 0)
 				return diff;
-			else {
-				return this.getLanguageTag().compareTo(oLit.getLanguageTag());
-			}
-		} else {
-			// sort by type
-			return NodeUtils.compareByType(this, other);
+			//else
+			return this.getLanguageTag().compareTo(oLit.getLanguageTag());
 		}
+			// else sort by type
+		return NodeUtils.compareByType(this, other);
 	}
 
 	public String toSPARQL() {
-		return "\"" + SparqlUtil.sparqlEncode(literalValue) + "\"@"
-				+ languageTag;
+		return "\"" + SparqlUtil.sparqlEncode(this.literalValue) + "\"@"
+				+ this.languageTag;
 	}
 
 }

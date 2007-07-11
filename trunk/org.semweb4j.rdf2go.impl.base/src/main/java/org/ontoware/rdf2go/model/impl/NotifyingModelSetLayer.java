@@ -38,25 +38,26 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 	private Map<ModelChangedListener, QuadPattern> modelsetChangeListener = new HashMap<ModelChangedListener, QuadPattern>();
 
 	public void addModelSetChangedListener(ModelChangedListener listener) {
-		modelsetChangeListener.put(listener, new QuadPatternImpl(Variable.ANY,
+		this.modelsetChangeListener.put(listener, new QuadPatternImpl(Variable.ANY,
 				Variable.ANY, Variable.ANY, Variable.ANY));
 	}
 
 	public void addModelSetChangedListener(ModelChangedListener listener,
 			QuadPattern pattern) {
-		modelsetChangeListener.put(listener, pattern);
+		this.modelsetChangeListener.put(listener, pattern);
 	}
 
 	public void removeModelSetChangedListener(ModelChangedListener listener) {
-		modelsetChangeListener.remove(listener);
+		this.modelsetChangeListener.remove(listener);
 	}
 
 	// //////////////////////////
 	// override ModelSet methods to enalbe listening
 
+	@Override
 	public boolean addModel(Model model) {
 		// first check for listeners
-		for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {
 			// if pattern.context matches model.context
 			if (entry.getValue().getContext() == Variable.ANY
@@ -74,9 +75,10 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		return super.addModel(model);
 	}
 
+	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
 		// inspect
-		for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {
 			if (entry.getValue().matches(statement)) {
 				entry.getKey().addedStatement(statement);
@@ -86,10 +88,11 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		super.addStatement(statement);
 	}
 
+	@Override
 	public Model getDefaultModel() {
 		Model model = super.getDefaultModel();
 		NotifyingModelLayer notifyingModel = new NotifyingModelLayer(model);
-		for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {
 			// only if listening for (*, x,y,z) changes in default model are
 			// detected
@@ -101,10 +104,11 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		return notifyingModel;
 	}
 
+	@Override
 	public Model getModel(URI contextURI) {
 		Model model = super.getModel(contextURI);
 		NotifyingModelLayer notifyingModel = new NotifyingModelLayer(model);
-		for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {
 			if (entry.getValue().getContext() == Variable.ANY
 					|| entry.getValue().getContext().equals(contextURI)) {
@@ -115,6 +119,7 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		return notifyingModel;
 	}
 
+	@Override
 	public ClosableIterator<? extends Model> getModels() {
 		List<Model> models = new ArrayList<Model>();
 		ClosableIterator<? extends Model> it = super.getModels();
@@ -122,7 +127,7 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		while (it.hasNext()) {
 			Model model = it.next();
 			NotifyingModelLayer notifyingModel = new NotifyingModelLayer(model);
-			for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+			for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 					.entrySet()) {
 				notifyingModel.addModelChangedListener(entry.getKey(), entry
 						.getValue());
@@ -133,10 +138,11 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		return new PseudoClosableIterator<Model>(models.iterator());
 	}
 
+	@Override
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
 		// inspect
-		for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {
 			if (entry.getValue().matches(statement)) {
 				entry.getKey().removedStatement(statement);
@@ -146,9 +152,10 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		super.removeStatement(statement);
 	}
 
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
 		// inspect
-		for (Map.Entry<ModelChangedListener, QuadPattern> entry : modelsetChangeListener
+		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {
 			entry.getKey().performedUpdate(diff);
 		}

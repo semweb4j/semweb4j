@@ -30,9 +30,11 @@ public class QueryRowImpl extends HashMap<String, Node> implements QueryRow {
 		Node n = super.get(varname);
 		if (n instanceof Literal)
 			return ((Literal) n).getValue();
-		else throw new ModelRuntimeException("Node is not a literal");
+		//else 
+		throw new ModelRuntimeException("Node is not a literal");
 	}
 	
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		

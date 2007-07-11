@@ -65,8 +65,8 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	protected Object model;
 
 	/**
-	 * Uses to store runtime-properties - no related to RDF at all.
-	 * You could for exmaple store a user session object here.
+	 * Uses to store runtime-properties - no related to RDF at all. You could
+	 * for exmaple store a user session object here.
 	 */
 	private Map<URI, Object> runtimeProperties = new HashMap<URI, Object>();
 
@@ -188,7 +188,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * @param value
 	 */
 	public void setProperty(URI propertyURI, Object value) {
-		runtimeProperties.put(propertyURI, value);
+		this.runtimeProperties.put(propertyURI, value);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * @return stored property value for this model or null
 	 */
 	public Object getProperty(URI propertyURI) {
-		return runtimeProperties.get(propertyURI);
+		return this.runtimeProperties.get(propertyURI);
 	}
 
 	public URI newRandomUniqueURI() {
@@ -208,7 +208,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	public Object getUnderlyingModelImplementation() {
 		// This introduces an infinite loop :)
 		// assertModel();
-		return model;
+		return this.model;
 	}
 
 	public void setUnderlyingModelImplementation(Object o) {
@@ -255,6 +255,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * Implementations with support for transactions should use them instead of
 	 * this implementation.
 	 */
+	@Override
 	public synchronized void update(Diff diff) throws ModelRuntimeException {
 		assertModel();
 		for (Statement r : diff.getRemoved()) {
@@ -315,12 +316,11 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			ModelRuntimeException {
 		assertModel();
-		if (querylanguage.equalsIgnoreCase("SPARQL")) {
+		if (querylanguage.equalsIgnoreCase("SPARQL"))
 			return sparqlConstruct(query);
-		} else {
-			throw new QueryLanguageNotSupportedException(
-					"Unsupported query language: " + querylanguage);
-		}
+		// else
+		throw new QueryLanguageNotSupportedException(
+				"Unsupported query language: " + querylanguage);
 	}
 
 	/**
@@ -329,12 +329,11 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	public QueryResultTable querySelect(String query, String querylanguage)
 			throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		assertModel();
-		if (querylanguage.equalsIgnoreCase("SPARQL")) {
+		if (querylanguage.equalsIgnoreCase("SPARQL")) 
 			return sparqlSelect(query);
-		} else {
-			throw new QueryLanguageNotSupportedException(
-					"Unsupported query language: " + querylanguage);
-		}
+		//else 
+		throw new QueryLanguageNotSupportedException(
+				"Unsupported query language: " + querylanguage);
 	}
 
 	private boolean open = false;
@@ -354,7 +353,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * Close connection to defined, unterlying implementation
 	 */
 	public void close() {
-		if(isOpen()) {
+		if (isOpen()) {
 			this.open = false;
 		} else {
 			log.debug("Model was closed already, ignored.");

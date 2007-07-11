@@ -73,22 +73,22 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 
 	class ModelIterator implements Iterator<Model> {
 
-		private Iterator<URI> it;
+		private Iterator<URI> iterator;
 
 		public ModelIterator(Iterator<URI> modelURIs) {
-			this.it = modelURIs;
+			this.iterator = modelURIs;
 		}
 
 		public boolean hasNext() {
-			return it.hasNext();
+			return this.iterator.hasNext();
 		}
 
 		public Model next() {
-			return getModel(it.next());
+			return getModel(this.iterator.next());
 		}
 
 		public void remove() {
-			it.next();
+			this.iterator.next();
 		}
 
 	}
@@ -312,27 +312,27 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 				count += m.countStatements(pattern);
 			}
 			return count;
-		} else {
-			assert pattern.getContext() instanceof URI;
-			Model m = getModel((URI) pattern.getContext());
-			return m.countStatements(pattern);
-		}
+		} 
+		//else
+		assert pattern.getContext() instanceof URI;
+		Model m = getModel((URI) pattern.getContext());
+		return m.countStatements(pattern);
 	}
 
 	/**
 	 * Inefficient: Looks into each model and asks to match the triplepattern part of the
 	 * quad pattern.
 	 */
+	// TODO (xam, 11.07.2007) change inefficient method  
 	public ClosableIterator<? extends Statement> findStatements(
 			QuadPattern pattern) throws ModelRuntimeException {
-		if (pattern.getContext() == Variable.ANY) {
+		if (pattern.getContext() == Variable.ANY)
 			// match all
 			return new LazyUnionModelIterator(this, pattern);
-		} else {
-			assert pattern.getContext() instanceof URI;
-			Model m = getModel((URI) pattern.getContext());
-			return m.findStatements(pattern);
-		}
+		//else 
+		assert pattern.getContext() instanceof URI;
+		Model m = getModel((URI) pattern.getContext());
+		return m.findStatements(pattern);
 	}
 
 	public ClosableIterator<? extends Statement> findStatements(

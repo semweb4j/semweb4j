@@ -76,18 +76,21 @@ public class StatementImpl extends AbstractStatement implements Statement {
 		return this.object;
 	}
 
+	@Override
 	public String toString() {
 		return getSubject() + " - " + getPredicate() + " - " + getObject();
 	}
 
 	public URI getContext() {
-		return context;
+		return this.context;
 	}
 
+	@Override
 	public int hashCode() {
-		return subject.hashCode() + predicate.hashCode() + object.hashCode();
+		return this.subject.hashCode() + this.predicate.hashCode() + this.object.hashCode();
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Statement) {
 			Statement o = (Statement) other;

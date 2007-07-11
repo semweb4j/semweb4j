@@ -71,15 +71,15 @@ public class TriplePatternImpl implements TriplePattern {
 	}
 
 	public NodeOrVariable getObject() {
-		return object;
+		return this.object;
 	}
 
 	public UriOrVariable getPredicate() {
-		return predicate;
+		return this.predicate;
 	}
 
 	public ResourceOrVariable getSubject() {
-		return subject;
+		return this.subject;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class TriplePatternImpl implements TriplePattern {
 	 *         this pattern
 	 */
 	public Node getExtract(Statement statement) {
-		switch (extract) {
+		switch (this.extract) {
 		case SUBJECT:
 			return statement.getSubject();
 		case PREDICATE:
@@ -103,6 +103,7 @@ public class TriplePatternImpl implements TriplePattern {
 		}
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return ((o instanceof Statement)
 				&& (this.getSubject().equals(((Statement) o).getSubject()))
@@ -110,8 +111,9 @@ public class TriplePatternImpl implements TriplePattern {
 				.getObject().equals(((Statement) o).getObject())));
 	}
 
+	@Override
 	public int hashCode() {
-		return object.hashCode() + predicate.hashCode() + object.hashCode();
+		return this.object.hashCode() + this.predicate.hashCode() + this.object.hashCode();
 	}
 
 	public static TriplePatternImpl createObjectPattern(Resource resource,

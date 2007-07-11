@@ -121,6 +121,7 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter impleme
 	 * @see org.ontoware.rdf2go.impl.ModelAddRemove#addStatement(java.lang.Object,
 	 *      java.net.URI, java.lang.Object)
 	 */
+	@Override
 	public abstract void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException;
 

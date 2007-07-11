@@ -35,17 +35,18 @@ public class BlankNodeImpl extends ResourceImpl implements BlankNode {
 		return this.underlyingBlankNode;
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		return other instanceof BlankNodeImpl
 				&& this.getUnderlyingBlankNode().equals(
 						((BlankNodeImpl) other).getUnderlyingBlankNode());
 	}
-	
-	public String toString()
-	{
-		return underlyingBlankNode.toString();
+
+	@Override
+	public String toString() {
+		return this.underlyingBlankNode.toString();
 	}
-	
+
 	public URI asURI() throws ClassCastException {
 		throw new ClassCastException("Cannot cast a BlankNode to a URI");
 
@@ -55,22 +56,21 @@ public class BlankNodeImpl extends ResourceImpl implements BlankNode {
 		return this;
 	}
 
+	@Override
 	public int hashCode() {
-		return underlyingBlankNode.hashCode();
+		return this.underlyingBlankNode.hashCode();
 	}
 
-	public int compareTo( Node other ) {
+	public int compareTo(Node other) {
 		if (other instanceof BlankNode) {
-			if (this.equals(other)) return 0;
-			else {
-				// define somehow a sorting order on blank nodes
-				return this.hashCode() - other.hashCode();
-			}
+			if (this.equals(other))
+				return 0;
+			// else somehow define a sorting order on blank nodes
+			return this.hashCode() - other.hashCode();
+
 		}
-		else {
-			// sort by type
-			return NodeUtils.compareByType(this, other);
-		}
+		// else sort by type
+		return NodeUtils.compareByType(this, other);
 	}
 
 	public String toSPARQL() throws NotImplementedException {
