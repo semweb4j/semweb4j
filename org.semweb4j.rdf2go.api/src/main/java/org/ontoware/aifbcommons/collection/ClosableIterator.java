@@ -60,5 +60,9 @@ public interface ClosableIterator<E> extends Iterator<E> {
 	     */
 	    void remove();
 	    
+	    /**
+	     * The uderlying implementation frees resources.
+	     * For some it is absolutely necessary to call this method.
+	     */
 	    void close();
 }
