@@ -190,9 +190,12 @@ public class RDFReactorRuntime {
 				throw new RuntimeException(e);
 			}
 
-		} else
-			throw new RuntimeException("cannot handle " + node.getClass()
-					+ " from " + node);
+		} else if (node == null) {
+			return null;
+		} else {
+			throw new RuntimeException("cannot convert " + node.getClass()
+					+ " from " + node + " and convert it to " + targetType);
+		}
 
 	}
 
@@ -211,7 +214,8 @@ public class RDFReactorRuntime {
 			return objectID;
 		} else {
 			for (Class clazz : map.keySet()) {
-				log.debug("Can a "+reactorValue.getClass()+" be converted as "+clazz+" ?");
+				log.debug("Can a " + reactorValue.getClass()
+						+ " be converted as " + clazz + " ?");
 				if (clazz.isInstance(reactorValue)) {
 					log.debug("Yes");
 					return getConverter(clazz).toNode(model, reactorValue);
