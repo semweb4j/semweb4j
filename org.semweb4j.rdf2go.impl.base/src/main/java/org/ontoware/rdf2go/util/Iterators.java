@@ -97,4 +97,27 @@ public class Iterators {
 			}
 		}
 	}
+	
+	/**
+	 * Runs through the iterator and returns number of items. It doesn't close it.
+	 * 
+	 * @author clemente
+	 * 
+	 * @param it Any type of iterator, not null
+	 * @returns Number of items
+	 */
+	
+	public static int count(Iterator<?> it){
+		assert it != null;
+		
+		int count = 0;
+		while (it.hasNext()) {
+			count++;
+			it.next();
+		}
+		
+		return count;
+
+	}
+		
 }
