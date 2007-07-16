@@ -109,14 +109,16 @@
 			</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
+		<!--  Note: site url is not inherited, but effective locally -->
 		<site>
 			<id>theoretiker-site</id>
 			<name>Semweb4j site</name>
 			<!--  mvn creates new dirs if necessary -->
 			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/maven.config
 			</url>
 		</site>
+				
 	</distributionManagement>
 
 	<!-- plugin configuration -->
@@ -438,5 +440,5 @@
 
 		</plugins>
 	</reporting>
-
-</project>
+	
+	</project>
