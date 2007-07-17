@@ -31,6 +31,11 @@ wth: you might use it for site deployment thought
 		implementation.
 	</description>
 
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/RTGO</url>
+	</issueManagement>
+	
 	<modules>
 		<module>../org.semweb4j.rdf2go.api</module>
 		<module>../org.semweb4j.rdf2go.impl.base</module>
