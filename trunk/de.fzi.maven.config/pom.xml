@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.fzi</groupId>
@@ -34,9 +36,11 @@
 	-->
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/{$svn.name}</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
+		<connection>scm:svn:${svn.user}/trunk/{$svn.name}</connection>
+		<developerConnection>
+			scm:svn:${svn.dev}/trunk/{$svn.name}
+		</developerConnection>
+		<url>${svn.user}/{$svn.name}</url>
 	</scm>
 
 	<!-- repository settings -->
@@ -118,7 +122,7 @@
 				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/maven.config
 			</url>
 		</site>
-				
+
 	</distributionManagement>
 
 	<!-- plugin configuration -->
@@ -420,11 +424,11 @@
 				<!-- for JIRA report -->
 				<!-- 
 					<reportSets>
-						<reportSet>
-							<reports>
-								<report>jira-report</report>
-							</reports>
-						</reportSet>
+					<reportSet>
+					<reports>
+					<report>jira-report</report>
+					</reports>
+					</reportSet>
 					</reportSets>
 				-->
 
@@ -440,5 +444,5 @@
 
 		</plugins>
 	</reporting>
-	
-	</project>
+
+</project>
