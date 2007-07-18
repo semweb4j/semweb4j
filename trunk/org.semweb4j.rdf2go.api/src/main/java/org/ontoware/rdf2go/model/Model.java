@@ -37,7 +37,8 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	public void open();
 
 	/**
-	 * Close connection to defined, unterlying implementation
+	 * Close connection to defined, unterlying implementation. commit() is
+	 * called internally.
 	 */
 	public void close();
 

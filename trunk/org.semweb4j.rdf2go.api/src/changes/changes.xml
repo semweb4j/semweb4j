@@ -8,10 +8,22 @@
 
 		<!-- 
 			<action dev="xamde" type="remove">
-				Removed
-				deprecatedModelSet.getUnderlyingModelImplementation();
+			Removed
+			deprecatedModelSet.getUnderlyingModelImplementation();
 			</action>
 		-->
+
+		<release version="4.4.7" date="2007-07-18"
+			description="No API changes (Bugfix)">
+			<action dev="xamde" type="fix" issue="RTGO-4">
+				Fixed, but not verified.
+			</action>
+			<action dev="xamde" type="add">
+				Added a Commitable-interface which helps to control when
+				and how commit() of changes is done. In the future,
+				Model and ModelSet will extend this interface.
+			</action>
+		</release>
 
 		<release version="4.4.6" date="2007-06-29"
 			description="No API changes">
