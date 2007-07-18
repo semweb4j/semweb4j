@@ -3,8 +3,8 @@
 
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
-	<packaging>pom</packaging>
 	<version>0.0.7-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<name>Common Maven Config</name>
 	<inceptionYear>2005</inceptionYear>
