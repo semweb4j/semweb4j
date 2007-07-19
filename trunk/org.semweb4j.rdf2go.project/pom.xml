@@ -7,14 +7,14 @@
 		It just garbles all POMs up but doesn't work.
 		Even with Maven 2.0.6-
 
-wth: you might use it for site deployment thought
+        wth: you might use it for site deployment thought
 	-->
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.13</version>
+		<version>4.14</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
