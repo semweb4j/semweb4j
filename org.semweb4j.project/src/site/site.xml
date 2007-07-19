@@ -53,11 +53,11 @@
 			<item name="&gt; Runtime" href="../rdfreactor.runtime/index.html" />
 			<item name="&gt; Generator" href="../rdfreactor.generator/index.html" />
 		</menu>
-		<menu name="SemVersion">
+		<!--  menu name="SemVersion">
 			<item name="Home" href="../semversion/index.html" />
 			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/semversion" />
 			<item name="Download" href="../semversion/download.html" />
 			<item name="API Documentation" href="../semversion/apidocs/index.html" />
-		</menu>
+		</menu -->
 	</body>
 </project>
