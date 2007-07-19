@@ -35,7 +35,8 @@ wth: you might use it for site deployment thought
 
 	<modules>
 		<module>../org.semweb4j.rdf2go.project</module>
-		<module>../org.semweb4j.rdfreactor.project</module>
+		<module>../org.semweb4j.rdfreactor.project</module>		
+ 		<module>../org.ontoware.semversion</module>		
  		<module>../org.semweb4j.tutorial</module>		
 	</modules>
 
@@ -46,7 +47,7 @@ wth: you might use it for site deployment thought
 			<name>RDFReactor site</name>
 			<!--  mvn creates new dirs if necessary -->
 			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/project
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/semweb4j
 			</url>
 		</site>
 	</distributionManagement>
