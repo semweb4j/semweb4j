@@ -31,6 +31,27 @@ wth: you might use it for site deployment thought
 		implementation.
 	</description>
 
+	<developers>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI Karlsruhe</organization>
+			<organizationUrl>http://fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Benjamin Heitmann</name>
+			<organization>FZI Karlsruhe</organization>
+			<organizationUrl>http://fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
 	<issueManagement>
 		<system>JIRA</system>
 		<url>http://issues.semweb4j.org/browse/RTGO</url>
