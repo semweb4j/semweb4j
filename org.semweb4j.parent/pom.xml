@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -11,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>4.14-SNAPSHOT</version>
+	<version>4.14</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -165,4 +163,10 @@
 		</site>
 	</distributionManagement>
 
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/parent-4.14</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-4.14</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/parent-4.14</url>
+  </scm>
 </project>
