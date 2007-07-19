@@ -28,7 +28,7 @@
 		</head>
 
 		<breadcrumbs>
-			<item name="Semweb4j" href="../project/index.html" />
+			<item name="Semweb4j" href="../semweb4j/index.html" />
 			<item name="RDF2Go" href="../rdf2go/index.html" />
 			<item name="RDF2Go API" href="../rdf2go.api/index.html" />			
 		</breadcrumbs>
@@ -42,10 +42,6 @@
 			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDF2Go" />
 			<item name="Download" href="../rdf2go/download.html" />
 			<item name="API Documentation" href="../rdf2go/apidocs/index.html" />
-			<item name="&gt; API" href="../rdf2go.api/index.html" />
-			<item name="&gt; Impl.Base" href="../rdf2go.impl.base/index.html" />
-			<item name="&gt; Impl.Base.Test" href="../rdf2go.impl.base.test/index.html" />
-			<item name="&gt; Impl.Jena24" href="../rdf2go.impl.jena24/index.html" />			
 		</menu>
 
 		<menu ref="reports" />
