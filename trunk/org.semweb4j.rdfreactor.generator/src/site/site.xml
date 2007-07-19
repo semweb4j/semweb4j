@@ -28,7 +28,7 @@
 		</head>
 		
 		<breadcrumbs>
-			<item name="Semweb4j" href="../project/index.html" />
+			<item name="Semweb4j" href="../semweb4j/index.html" />
 			<item name="RDFReactor" href="../rdfreactor/index.html" />
 			<item name="RDFReactor Generator" href="../rdfreactor.generator/index.html" />			
 		</breadcrumbs>
@@ -42,8 +42,6 @@
 			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
 			<item name="Download" href="../rdfreactor/download.html" />
 			<item name="API Documentation" href="../rdfreactor/apidocs/index.html" />
-			<item name="&gt; Runtime" href="../rdfreactor.runtime/index.html" />
-			<item name="&gt; Generator" href="../rdfreactor.generator/index.html" />
 		</menu>
 		<menu ref="reports" />
 		<menu ref="modules" />
