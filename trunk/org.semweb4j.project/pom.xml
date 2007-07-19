@@ -36,7 +36,7 @@ wth: you might use it for site deployment thought
 	<modules>
 		<module>../org.semweb4j.rdf2go.project</module>
 		<module>../org.semweb4j.rdfreactor.project</module>		
- 		<module>../org.ontoware.semversion</module>		
+ <!-- 		<module>../org.ontoware.semversion</module>  -->		
  		<module>../org.semweb4j.tutorial</module>		
 	</modules>
 
