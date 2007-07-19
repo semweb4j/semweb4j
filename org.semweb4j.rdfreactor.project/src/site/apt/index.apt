@@ -12,7 +12,7 @@ About RDFReactor
   act as a view over domain-free, loosely typed RDF instances.
  
  
-  It is part of {{{../project/index.html} Semweb4j}}
+  It is part of {{{../semweb4j/index.html} Semweb4j}}
 
 Documentation
 
