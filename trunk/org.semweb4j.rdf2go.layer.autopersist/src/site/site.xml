@@ -2,15 +2,17 @@
 <project name="semweb4j"
 	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
 
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>1.2.0</version>
+	</skin>
+
 	<bannerLeft>
 		<src>images/logos/semweb4j.png</src>
 		<href>http://semweb4j.org/</href>
 	</bannerLeft>
-	<skin>
-		<groupId>org.semweb4j</groupId>
-		<artifactId>semweb4j-skin</artifactId>
-		<version>1.0</version>
-	</skin>
+
 	<publishDate format="yyyy-MM-dd" />
 	<body>
 		<head>
