@@ -70,6 +70,11 @@
 		</developer>
 	</developers>
 
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/RTGO</url>
+	</issueManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
