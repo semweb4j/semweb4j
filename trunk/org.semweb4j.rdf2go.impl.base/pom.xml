@@ -18,6 +18,58 @@
 		Abstract base classes to ease implementing adaptors for RDF2go.
 	</description>
 
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>dev@xam.de</email>
+			<url>http://xam.de</url>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/sebastian_gerke/
+			</url>
+		</developer>
+		<developer>
+			<name>Benjamin Heitmann</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/benjamin_heitmann/
+			</url>
+		</developer>
+		<developer>
+			<id>wth</id>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>POM Manager</role>
+				<role>Documentation Doctor</role>
+			</roles>
+		</developer>
+	</developers>
+
 	<properties>
 		<!--  user access, no trailing slash -->
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
