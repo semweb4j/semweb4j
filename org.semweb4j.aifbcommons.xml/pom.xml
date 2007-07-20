@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<!--  aifbcommons -->
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
@@ -49,7 +49,7 @@
 			<artifactId>saxpath</artifactId>
 			<version>1.0-FCS</version>
 		</dependency>
-		
+
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -71,4 +71,34 @@
 		</dependency>
 
 	</dependencies>
+
+	<!-- to define where to put the site for this bundle -->
+	<distributionManagement>
+		<site>
+			<id>theoretiker-site</id>
+			<name>RDFReactor site</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.api
+			</url>
+		</site>
+	</distributionManagement>
+
+	<!-- to find the parent -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 </project>
