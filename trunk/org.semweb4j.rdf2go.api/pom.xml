@@ -81,6 +81,11 @@
 		</contributor>
 	</contributors>
 
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/RTGO</url>
+	</issueManagement>
+
 	<properties>
 		<!--  user access, no trailing slash -->
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
