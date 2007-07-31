@@ -30,7 +30,7 @@ public class XSD {
 	public static final String XSD_NS = "http://www.w3.org/2001/XMLSchema#";
 
 	protected static final URI toURI(String local) {
-		return new URIImpl(XSD_NS + local,false);
+		return new URIImpl(XSD_NS + local, false);
 	}
 
 	public static final URI _string = toURI("string");
@@ -43,7 +43,31 @@ public class XSD {
 
 	public static final URI _decimal = toURI("decimal");
 
+	/**
+	 * According to <a
+	 * href="http://www.w3.org/2001/sw/BestPractices/XSCH/xsch-sw-20050127/#section-duration">this</a>
+	 * SHOULD NOT be used: xsd:duration does not have a well-defined value
+	 * space.
+	 * 
+	 * Instead use {@link _yearMonthDuration} or {@link _dayTimeDuration}
+	 */
+	@Deprecated
 	public static final URI _duration = toURI("duration");
+
+	/**
+	 * As discussed in http://www.w3.org/2001/sw/BestPractices/XSCH/xsch-sw-20050127/#section-duration 
+	 */
+	public static final URI _yearMonthDuration = new URIImpl(
+			"http://www.w3.org/TR/2004/WD-xpath-functions-20041029/#dt-yearMonthDuration",
+			false);
+	
+	/**
+	 * As discussed in http://www.w3.org/2001/sw/BestPractices/XSCH/xsch-sw-20050127/#section-duration 
+	 */
+	public static final URI _dayTimeDuration = new URIImpl(
+			"http://www.w3.org/TR/2004/WD-xpath-functions-20041029/#dt-dayTimeDuration",
+			false);
+	
 
 	public static final URI _dateTime = toURI("dateTime");
 
