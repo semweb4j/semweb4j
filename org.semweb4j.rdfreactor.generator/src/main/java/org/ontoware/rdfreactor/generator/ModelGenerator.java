@@ -1,6 +1,6 @@
 package org.ontoware.rdfreactor.generator;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -170,14 +170,13 @@ public class ModelGenerator {
 				.getName()
 				+ "", XSD._float));
 
-		// date and time -> Date.class
-		jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL, Date.class
-				.getName()
-				+ "", XSD._dateTime));
-		jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL, Date.class
+		// date and time -> Calendar.class
+		jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL,
+				Calendar.class.getName() + "", XSD._dateTime));
+		jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL, Calendar.class
 				.getName()
 				+ "", XSD._date));
-		jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL, Date.class
+		jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL, Calendar.class
 				.getName()
 				+ "", XSD._time));
 
@@ -220,16 +219,7 @@ public class ModelGenerator {
 	/**
 	 * @return a JModel with the common built-ins
 	 */
-	private static JModel getbuiltIns_RDFS_AND_OWL() {
-		JModel jm = new JModel(JClass.RDFS_CLASS, true);
-		addBuiltInsCommon(jm);
-		return jm;
-	}
-
-	/**
-	 * @return a JModel with the common built-ins
-	 */
-	static JModel getbuiltIns_OWL() {
+	private static JModel getbuiltIns_OWL() {
 		JModel jm = new JModel(JClass.OWL_CLASS, true);
 		addBuiltInsCommon(jm);
 		return jm;
@@ -320,7 +310,7 @@ public class ModelGenerator {
 				assert rc.getResource() instanceof URI : "A Class with a blank node ID makes not much sense";
 				JClass jc = new JClass(jp, classname, (URI) rc.getResource());
 				jc.setComment(toJavaComment(rc.getAllComment())); // might be
-																	// null, ok.
+				// null, ok.
 				jm.addMapping(rc.getResource(), jc);
 			}
 		}
@@ -340,7 +330,7 @@ public class ModelGenerator {
 		log.info("-------------- PROPERTIES ...");
 
 		for (Property rp : Property.getAllInstances(m)) {
-			log.debug("PROPERTY " + rp.getResource());
+			log.info("PROPERTY " + rp.getResource());
 
 			if (skipbuiltins
 					&& jm.knownProperties.contains(rp.getResource().asURI())) {
@@ -354,7 +344,6 @@ public class ModelGenerator {
 			} else {
 				// inspect domains
 				Resource[] domains = rp.getAllDomain();
-				// no domain = no generated property
 				// TODO: ignore if already in higher level
 				if (domains == null || domains.length == 0) {
 					log.warn("PROPERTY " + rp.getResource()
@@ -362,7 +351,7 @@ public class ModelGenerator {
 					handleProperty(m, jm, jm.getRoot(), rp);
 				} else {
 					for (Resource domain : domains) {
-						log.debug("PROPERTY " + rp.getResource()
+						log.info("PROPERTY " + rp.getResource()
 								+ " has domain " + domain);
 						JClass domainClass = jm
 								.getMapping(domain.getResource());
@@ -373,7 +362,7 @@ public class ModelGenerator {
 						if (getbuiltIns_RDFS().classMap
 								.containsValue(domainClass)) {
 							log
-									.debug("domain "
+									.info("domain "
 											+ domainClass
 											+ " is a built-in, hence we attach the property to the root ("
 											+ jm.getRoot() + ")");
@@ -401,7 +390,7 @@ public class ModelGenerator {
 	public static JModel createFromRDFS_AND_OWL(
 			com.hp.hpl.jena.rdf.model.Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
-		JModel jm = getbuiltIns_RDFS_AND_OWL();
+		JModel jm = getbuiltIns_RDFS();
 
 		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
 				.createRDFSModel(schemaDataModel);
@@ -688,44 +677,38 @@ public class ModelGenerator {
 	 */
 	private static void handleProperty(Model m, JModel jm, JClass domainClass,
 			Property rp) {
-		// name it
+
+		// obtain a nice Java-conform name which has not yet been used
 		String propertyName = JavaNamingUtils.toBeanName(rp,
 				domainClass.usedPropertynames);
 		domainClass.usedPropertynames.add(propertyName);
 		assert propertyName != null;
 		JProperty jprop = new JProperty(domainClass, propertyName, (URI) rp
 				.getResource());
-		jprop.setComment(toJavaComment(rp.getAllComment())); // might be
-																// null,
-		// wire
-		log.debug("Adding property '" + jprop.getName() + "' to '"
+		// carry over the comment from RDF to Java, might be null
+		jprop.setComment(toJavaComment(rp.getAllComment())); 
+		log.debug("PROPERTY Adding '" + jprop.getName() + "' to '"
 				+ domainClass.getName() + "'");
 		jprop.getJClass().getProperties().add(jprop);
-		// ok.
-		log.debug("PROPERTY by domain added '" + jprop.getName() + "' to '"
-				+ domainClass.getName() + "'");
 
+		// process range information
 		log.debug("PROPERTY checking ranges...");
 		for (Class range : rp.getAllRange()) {
 			log.debug("range is " + range);
 			jprop.addType(jm.getMapping(range.getResource()));
 		}
-
 		if (rp.getAllRange().length == 0) {
-			// set to Class
+			// if no range is given, set to ontology root class (rdfs:Class or owl:Class)
 			jprop.addType(jm.getRoot());
 		}
 
-		// figure out cardinality
+		// process cardinality constraints
 		Restriction restriction = (Restriction) rp.castTo(Restriction.class);
-
 		int cardinality = restriction.getCardinality();
-
 		int min = restriction.getMinCardinality();
 		// might still be -1
 		if (min == -1)
 			min = cardinality;
-
 		if (min != -1) {
 			log.debug("Found minrestriction on " + rp + " minCard = " + min);
 			jprop.setMinCardinality(min);
@@ -738,12 +721,6 @@ public class ModelGenerator {
 			log.debug("Found maxrestriction on " + rp + " maxCard = " + max);
 			jprop.setMaxCardinality(max);
 		}
-
-		// if (jprop.getTypes().size() == 0)
-		// log.debug(jprop+ " no type defined");
-		// jprop.fixRanges(jm);
-		// if (jprop.getTypes().size() == 0)
-		// log.warn(jprop+ " has no types after fixing");
 
 	}
 

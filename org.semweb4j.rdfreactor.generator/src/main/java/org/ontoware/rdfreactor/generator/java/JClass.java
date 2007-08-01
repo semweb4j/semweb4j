@@ -15,11 +15,11 @@ import org.ontoware.rdfreactor.schema.rdfschema.Class;
 import org.ontoware.rdfreactor.schema.rdfschema.Resource;
 
 /**
- * A <b>JClass</b> represents a class in a JModel. 
+ * A <b>JClass</b> represents a class in a JModel.
  * 
- * Every JClass has a name, a comment, a List of properties and inverse properties, 
- * a List of superclasses (multiple superclasses are allowed), and an URI to which the JClass
- * is mapped.
+ * Every JClass has a name, a comment, a List of properties and inverse
+ * properties, a List of superclasses (multiple superclasses are allowed), and
+ * an URI to which the JClass is mapped.
  * 
  * Properties are represented by JProperty instances.
  * 
@@ -27,22 +27,22 @@ import org.ontoware.rdfreactor.schema.rdfschema.Resource;
  */
 public class JClass extends JMapped {
 
-	public static final JClass STRING = new JClass(JPackage.JAVA_LANG, String.class.getName(),
-			RDFS.Literal);
+	public static final JClass STRING = new JClass(JPackage.JAVA_LANG,
+			String.class.getName(), RDFS.Literal);
 
-	public static final JClass RESOURCE = new JClass(JPackage.RDFSCHEMA, Resource.class.getName(),
-			RDFS.Resource);
+	public static final JClass RESOURCE = new JClass(JPackage.RDFSCHEMA,
+			Resource.class.getName(), RDFS.Resource);
 
-	public static final JClass RDFS_CLASS = new JClass(JPackage.RDFSCHEMA, Class.class.getName(),
-			RDFS.Class);
+	public static final JClass RDFS_CLASS = new JClass(JPackage.RDFSCHEMA,
+			Class.class.getName(), RDFS.Class);
 
 	public static final JClass OWL_CLASS = new JClass(JPackage.OWL,
 			org.ontoware.rdfreactor.schema.owl.Class.class.getName(), OWL.Class);
 
 	public static final JClass REACTOR_BASE_NAMED = new JClass(new JPackage(
-			"org.ontoware.rdfreactor.runtime"), "ReactorBaseNamed", new URIImpl("urn:java:org.ontoware.rdfreactor.named"));
+			"org.ontoware.rdfreactor.runtime"), "ReactorBaseNamed",
+			new URIImpl("urn:java:org.ontoware.rdfreactor.named"));
 
-	
 	private static final Log log = LogFactory.getLog(JClass.class);
 
 	/** List of properties, represented by JProperty instances */
@@ -54,6 +54,9 @@ public class JClass extends JMapped {
 	/** List of superclasses, represented by JClass instances */
 	private List<JClass> superclasses = new ArrayList<JClass>();
 
+	/** as used for code generation */
+	private JClass javaSuperclass;
+
 	/** the JPackage, to which this JClass belongs */
 	private JPackage packagge;
 
@@ -63,11 +66,14 @@ public class JClass extends JMapped {
 	public Set<String> usedPropertynames = new HashSet<String>();
 
 	/**
-	 * creating a class adds it to the package
-	 * the only constructor: 
-	 * @param packagge is the JPackage to which this JClass belongs
-	 * @param name is the Name identyfing this JClass 
-	 * @param mappedTo is an URI to which this JClass should be mapped
+	 * creating a class adds it to the package the only constructor:
+	 * 
+	 * @param packagge
+	 *            is the JPackage to which this JClass belongs
+	 * @param name
+	 *            is the Name identyfing this JClass
+	 * @param mappedTo
+	 *            is an URI to which this JClass should be mapped
 	 */
 	public JClass(JPackage packagge, String name, URI mappedTo) {
 		super(name, mappedTo);
@@ -101,7 +107,8 @@ public class JClass extends JMapped {
 	}
 
 	/**
-	 * @return true if this JClass has a JProperty with a cardinality greater then one
+	 * @return true if this JClass has a JProperty with a cardinality greater
+	 *         then one
 	 */
 	public boolean hasMultiValuePropeties() {
 		for (JProperty jp : properties)
@@ -111,18 +118,21 @@ public class JClass extends JMapped {
 	}
 
 	/**
-	 * @return true if the template generates code that throws a RDFDataException
+	 * @return true if the template generates code that throws a
+	 *         RDFDataException
 	 */
 	public boolean throwsRDFDataException() {
 		for (JProperty jp : properties) {
-			if (jp.getMaxCardinality() == JProperty.NOT_SET || jp.getMaxCardinality() == 1)
+			if (jp.getMaxCardinality() == JProperty.NOT_SET
+					|| jp.getMaxCardinality() == 1)
 				return true;
 		}
 		return false;
 	}
 
 	/**
-	 * @return true if the template generates code that throws a CardinalityException
+	 * @return true if the template generates code that throws a
+	 *         CardinalityException
 	 */
 	public boolean throwsCardinalityException() {
 		for (JProperty jp : properties) {
@@ -141,14 +151,18 @@ public class JClass extends JMapped {
 	public void addSuperclass(JClass superclass) {
 		this.superclasses.add(superclass);
 	}
+	
+	public void setJavaSuperclass( JClass javaSuperclass ) {
+		this.javaSuperclass = javaSuperclass;
+	}
 
 	public List<JProperty> getProperties() {
 		return this.properties;
 	}
 
 	/**
-	 * apply consistency checks to this JClass and all instances 
-	 * of JProperty in it.
+	 * apply consistency checks to this JClass and all instances of JProperty in
+	 * it.
 	 * 
 	 * A JClass is not consistent if it has more then one superclass.
 	 * 
@@ -156,8 +170,8 @@ public class JClass extends JMapped {
 	 */
 	public boolean isConsistent() {
 		boolean result = true;
-		if (superclasses.size() != 1) {
-			log.warn(getName() + " has " + superclasses.size() + " superclasses");
+		if (this.javaSuperclass == null) {
+			log.warn(getName() + " has no superclass to inherit from");
 			result &= false;
 		}
 		for (JProperty jp : properties) {
@@ -170,36 +184,47 @@ public class JClass extends JMapped {
 
 	/**
 	 * @return first superclass, null if none exists
-	 */public JClass getSuperclass() {
-		return superclasses.get(0);
+	 */
+	public JClass getSuperclass() {
+		return this.javaSuperclass;
 	}
 
 	private JPackage getPackage() {
 		return this.packagge;
 	}
-	
+
 	/**
-	 * Calculate the inheritance distance of this JClass from the given root JClass.
+	 * Calculate the inheritance distance of this JClass from the given root
+	 * JClass.
 	 * 
-	 * @param root is a JClass
-	 * @return the number of classes in the inheritance tree between this JClass and the given root JClass
+	 * @param root
+	 *            is a JClass
+	 * @return the number of classes in the inheritance tree between this JClass
+	 *         and the given root JClass
 	 */
 	public int getInheritanceDistanceFrom(JClass root) {
 		return this.getInheritanceDistanceFrom(root, 0, new HashSet<JClass>());
 	}
 
 	/**
-	 * Calculate the inheritance distance of this JClass from the given root JClass.
-	 * The calculation is done through recursion.
-	 *  
-	 * @param root is the JClass from which the distance should be calculated
-	 * @param steps is passed as an argument because it is recursivly counted upwards
-	 * @param seen contains all JClasses through which this function passed as part of the recursion
-	 * @return the number of steps until the given root JClass is reached recursivly
+	 * Calculate the inheritance distance of this JClass from the given root
+	 * JClass. The calculation is done through recursion.
+	 * 
+	 * @param root
+	 *            is the JClass from which the distance should be calculated
+	 * @param steps
+	 *            is passed as an argument because it is recursivly counted
+	 *            upwards
+	 * @param seen
+	 *            contains all JClasses through which this function passed as
+	 *            part of the recursion
+	 * @return the number of steps until the given root JClass is reached
+	 *         recursivly
 	 */
-	private int getInheritanceDistanceFrom(JClass root, int steps, Set<JClass> seen) {
-		log.debug("visiting '" + this.getName() + "' step = " + steps + " seen = " + seen.size()
-				+ " root = '" + root + "'");
+	private int getInheritanceDistanceFrom(JClass root, int steps,
+			Set<JClass> seen) {
+		log.debug("visiting '" + this.getName() + "' step = " + steps
+				+ " seen = " + seen.size() + " root = '" + root + "'");
 
 		if (this.getName().equals(root.getName()))
 			return steps;
@@ -213,18 +238,13 @@ public class JClass extends JMapped {
 			// return maximum
 			int max = 0;
 			for (JClass superclass : getSuperclasses()) {
-				int current = superclass.getInheritanceDistanceFrom(root, steps + 1, localseen);
+				int current = superclass.getInheritanceDistanceFrom(root,
+						steps + 1, localseen);
 				if (current > max)
 					max = current;
 			}
 			return steps + max;
 		}
-	}
-
-	/** change the superclass of this JClass to the given one */
-	public void replaceSuperclassesWith(JClass jc) {
-		this.superclasses.clear();
-		this.superclasses.add(jc);
 	}
 
 	public List<JProperty> getInverseProperties() {
@@ -253,12 +273,15 @@ public class JClass extends JMapped {
 		return buf.toString();
 	}
 
-	/** two JClass instances are equal if they have the same name and belong to the same JPackage */
+	/**
+	 * two JClass instances are equal if they have the same name and belong to
+	 * the same JPackage
+	 */
 	public boolean equals(Object other) {
 		if (other instanceof JClass) {
 			JClass otherclass = (JClass) other;
-			return (this.getName().equals(otherclass.getName()) && this.getPackage().equals(
-					otherclass.getPackage()));
+			return (this.getName().equals(otherclass.getName()) && this
+					.getPackage().equals(otherclass.getPackage()));
 		}
 		return false;
 	}
