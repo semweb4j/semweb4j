@@ -222,7 +222,7 @@ public class ReactorBaseImpl implements ReactorBase, ResourceEntity {
 		}
 	}
 
-	public static ReactorBase getInstance(Model model, URI uri,
+	public static Object getInstance(Model model, URI uri,
 			Class<?> javaClass) throws Exception {
 		if (model.contains(uri, RDF.type, getClassURI(javaClass))) {
 			return RDFReactorRuntime.resource2reactorbase(model, uri, javaClass);
