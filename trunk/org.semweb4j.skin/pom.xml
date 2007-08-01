@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
@@ -12,7 +9,7 @@
 	
 	<groupId>org.semweb4j</groupId>
 	<artifactId>skin</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.2.1</version>
 	<packaging>jar</packaging>
 	
 	<name>maven skin for semweb4j</name>
@@ -34,4 +31,10 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/skin-1.2.1</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/skin-1.2.1</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/skin-1.2.1</url>
+  </scm>
 </project>
