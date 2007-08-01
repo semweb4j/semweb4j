@@ -91,16 +91,16 @@ public class RDFReactorRuntime {
 		INodeConverter<?> nodeConverter = RDFReactorRuntime
 				.getConverter(returnType);
 		if (nodeConverter == null) {
-			// requested an RDFReactor generated subtype?
-			if (ReflectionUtils.hasSuperClass(returnType, ReactorBase.class)) {
+	//		// requested an RDFReactor generated subtype?
+	//		if (ReflectionUtils.hasSuperClass(returnType, ReactorBase.class)) {
 				return RDFReactorRuntime.resource2reactorbase(model, n,
 						returnType);
-			} else {
-				throw new RuntimeException(
-						"RDFReactor cannot convert any RDF node to "
-								+ returnType + ". RDF node: " + n + " of type "
-								+ n.getClass());
-			}
+	//		} else {
+	//			throw new RuntimeException(
+	//					"RDFReactor cannot convert any RDF node to "
+	//							+ returnType + ". RDF node: " + n + " of type "
+	//							+ n.getClass());
+	//		}
 		} else {
 			return nodeConverter.toJava(n);
 		}
@@ -124,7 +124,7 @@ public class RDFReactorRuntime {
 	 *            <br>
 	 * @return object of the given target type with contents of given object
 	 */
-	public static ReactorBase resource2reactorbase(Model model, Node node,
+	public static Object resource2reactorbase(Model model, Node node,
 			Class<?> targetType) {
 		if (targetType.isArray())
 			throw new IllegalArgumentException("targetType may not be an array");
@@ -149,7 +149,7 @@ public class RDFReactorRuntime {
 									Model.class, Resource.class, boolean.class });
 				}
 
-				return (ReactorBase) constructor.newInstance(new Object[] {
+				return (Object) constructor.newInstance(new Object[] {
 						model, node, false });
 
 			} catch (ClassCastException cce) {
@@ -193,8 +193,8 @@ public class RDFReactorRuntime {
 		} else if (node == null) {
 			return null;
 		} else {
-			throw new RuntimeException("cannot convert " + node.getClass()
-					+ " from " + node + " and convert it to " + targetType);
+			throw new RuntimeException("cannot convert " + node+ " of class <"+node.getClass()
+					+ "> from " + node + " and convert it to " + targetType);
 		}
 
 	}
