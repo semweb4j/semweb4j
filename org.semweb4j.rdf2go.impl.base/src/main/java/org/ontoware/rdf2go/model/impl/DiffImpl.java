@@ -163,9 +163,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	public static final boolean equals(Set<Statement> a, Set<Statement> b) {
 		if (a.size() == b.size()) {
 			for (Statement s : a) {
-				if (b.contains(s)) {
-					// fine
-				} else
+				if (!b.contains(s))
 					return false;
 			}
 			return true;

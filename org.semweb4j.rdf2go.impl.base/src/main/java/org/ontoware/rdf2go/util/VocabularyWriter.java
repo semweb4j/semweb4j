@@ -219,12 +219,13 @@ public class VocabularyWriter {
 		ClosableIterator<? extends Statement> queryC = this.model
 		.findStatements(uri, RDFS.label, Variable.ANY);
 		try {
-			String l = "";
+			StringBuffer lBuf = new StringBuffer();
 			while (queryC.hasNext()) {
 				Statement answer = queryC.next();
 				Node vl = answer.getObject();
-				l += vl.toString() + " ";
+				lBuf.append(vl.toString().concat(" "));
 			}
+			String l = lBuf.toString();
 			if (l.length() > 0)
 				this.outP.println("     * Label: " + l);
 		} finally {
