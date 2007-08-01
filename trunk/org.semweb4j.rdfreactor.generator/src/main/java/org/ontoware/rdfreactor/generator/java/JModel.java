@@ -133,8 +133,8 @@ public class JModel {
 							+ " superclasses");
 			switch (jc.getSuperclasses().size()) {
 			case 0:
-				log.debug("no superclass? adding root");
-				jc.addSuperclass(root);
+				log.debug("no superclass? set inherited superclass to ontology root");
+				jc.setJavaSuperclass(root);
 				break;
 			case 1: {
 				log.debug("have 1 superclass");
@@ -142,13 +142,17 @@ public class JModel {
 				assert superclass != null;
 				if (superclass.equals(jc)) {
 					log.debug("avoid having yourself as your own superclass");
-					jc.replaceSuperclassesWith(root);
+					jc.setJavaSuperclass(root);
+				} else {
+					// use the one we have
+					jc.setJavaSuperclass(superclass);
 				}
 			}
 				break;
 			default: {
 				log.debug("found " + jc.getSuperclasses().size() + " superclasses, pruning...");
 				// prune hierarchy.
+				
 				// Alg:
 				// try to flatten superclasses to a strict hierarchy
 				// find most specific class among superclasses
@@ -178,15 +182,15 @@ public class JModel {
 				if (!mostSpecificSuperClass.equals(jc)) {
 					log.debug("most specific superclass of " + jc.getName() + " is "
 							+ mostSpecificSuperClass);
-					jc.replaceSuperclassesWith(mostSpecificSuperClass);
+					jc.setJavaSuperclass(mostSpecificSuperClass);
 				} else {
 					log.debug("most specific superclass of " + jc.getName() + " is root");
-					jc.replaceSuperclassesWith(root);
+					jc.setJavaSuperclass(root);
 				}
 			}
 				break;
 			}
-			assert jc.getSuperclasses().size() == 1;
+			assert jc.getSuperclass() != null;
 		}
 
 	}

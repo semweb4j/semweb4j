@@ -1,6 +1,6 @@
 
                                     ------
-                                    JModel documentation
+                                JModel documentation
                                     ------
                                     Max Völkel
                                     ------
@@ -44,6 +44,8 @@ JModel
 
   A UML text notation would be handy here...
   
+* Input JModel  
+  
 +------------------------------------------+
   JModel
    ( + ) JPackage 
@@ -52,6 +54,7 @@ JModel
          ( 1 ) String: name
          ( 1 ) URI: mappedTo - the rdf:Class URI
          ( + ) JClass: superclasses
+         ( ? ) JClass: javaSuperclass
          ( + ) JProperty: properties   
             ( 1 ) String: name
             ( 1 ) URI: mappedTo - the rdf:Class URI
@@ -59,5 +62,29 @@ JModel
             ( 1 ) int minCardinality
             ( 1 ) int maxCardinality
 +------------------------------------------+  
+
+* Restricted JModel ready for code generation:
+
+  * Classes have zero or one superclass only
+  
+  * Properties have exactly one type
+
++------------------------------------------+
+  JModel
+   ( + ) JPackage 
+      ( 1 ) String: name
+      ( + ) JClass < JType
+         ( 1 ) String: name
+         ( 1 ) URI: mappedTo - the rdf:Class URI
+         ( + ) JClass: superclasses
+     >>  ( 1 ) JClass: javaSuperclass
+         ( + ) JProperty: properties   
+            ( 1 ) String: name
+            ( 1 ) URI: mappedTo - the rdf:Class URI
+     >>     ( 1 ) JClass: type
+            ( 1 ) int minCardinality
+            ( 1 ) int maxCardinality
++------------------------------------------+  
+
 
     

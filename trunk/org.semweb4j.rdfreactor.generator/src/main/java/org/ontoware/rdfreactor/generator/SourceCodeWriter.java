@@ -51,7 +51,7 @@ public class SourceCodeWriter {
 
 		jm.addInverseProperties();
 		assert jm.isConsistent() : "java package is not consistent";
-		log.info("JModel model: \n" + jm.toString());
+//		log.info("JModel model: \n" + jm.toString());
 
 		System.out.println(jm.toString() + "\n>>>>>>  written to "
 				+ outdir.getAbsolutePath());
