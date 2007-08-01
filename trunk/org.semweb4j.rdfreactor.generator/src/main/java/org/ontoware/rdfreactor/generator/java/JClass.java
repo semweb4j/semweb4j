@@ -1,6 +1,8 @@
 package org.ontoware.rdfreactor.generator.java;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -151,12 +153,22 @@ public class JClass extends JMapped {
 	public void addSuperclass(JClass superclass) {
 		this.superclasses.add(superclass);
 	}
-	
-	public void setJavaSuperclass( JClass javaSuperclass ) {
+
+	public void setJavaSuperclass(JClass javaSuperclass) {
 		this.javaSuperclass = javaSuperclass;
 	}
 
 	public List<JProperty> getProperties() {
+		// sort properties
+		Collections.sort(this.properties, new Comparator<JProperty>() {
+
+			public int compare(JProperty a, JProperty b) {
+				return a.getName().compareTo(b.getName());
+			}
+
+		});
+
+		// return
 		return this.properties;
 	}
 
