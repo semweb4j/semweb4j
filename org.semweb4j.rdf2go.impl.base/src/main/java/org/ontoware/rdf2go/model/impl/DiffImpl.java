@@ -68,7 +68,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	@Override
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
-		this.removed.remove(statement);
+		removed.add(statement);
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 			return true;
 		} 
 		//else
-		return false;
+			return false;
 	}
 
 	@Override
@@ -202,13 +202,13 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 			}
 		} 
 		//else 
-		if (other == null) {
-			log.debug("other is null, but not a DiffImpl");
-		} else {
-			log.debug("other is not a diff but " + other.getClass());
+			if (other == null) {
+				log.debug("other is null, but not a DiffImpl");
+			} else {
+				log.debug("other is not a diff but " + other.getClass());
+			}
+			return false;
 		}
-		return false;
-	}
 
 	@Override
 	public int hashCode() {
