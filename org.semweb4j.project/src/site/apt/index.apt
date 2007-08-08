@@ -42,8 +42,8 @@ More Information
   A tutorial covering RDF2Go, RDFReactor and jREST is currently
   developed in the {{{tutorial/index.html}tutorial project}}.
   
-  * <<{{{../project/doap.rdf}DOAP File}}>>
+  * <<{{{../semweb4j/doap.rdf}DOAP File}}>>
   
-  Get the {{{../project/doap.rdf}Description of a Project (DOAP) file}} for semweb4j.
+  Get the {{{../semweb4j/doap.rdf}Description of a Project (DOAP) file}} for semweb4j.
     
 ~~ http://maven.apache.org/guides/mini/guide-apt-format.html
