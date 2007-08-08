@@ -12,8 +12,10 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base.test</artifactId>
-	<name>RDF2Go Test Base</name>
 	<version>4.4.7-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>RDF2Go Test Base</name>
 	<description>
 		Abstract base test classes to ease implementing adaptors for
 		RDF2go. Most tests cannot run without an RDF2Go-adapter
