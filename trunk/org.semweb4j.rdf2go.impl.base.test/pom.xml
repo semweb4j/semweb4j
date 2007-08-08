@@ -114,7 +114,7 @@
 
 	</dependencies>
 
-	<!-- to avoid folded site uris -->
+	<!-- to define where to put the site for this bundle -->
 	<distributionManagement>
 		<site>
 			<id>theoretiker-site</id>
