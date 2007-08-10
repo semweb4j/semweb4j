@@ -14,19 +14,23 @@
 			<outputDirectory>/jar</outputDirectory>
 			<unpack>false</unpack>
 			<scope>runtime</scope>
+			<!-- exclude the unnecessary dist.jar -->
+			<excludes>
+				<exclude>org.semweb4j:rdf2go.dist</exclude>
+			</excludes>
 		</dependencySet>
 	</dependencySets>
+	
 
 	<fileSets>
 		<!--  include src.zip -->
-		<fileSet>
+ 		<fileSet>
 			<directory>target</directory>
 			<includes>
 				<include>src.zip</include>
 			</includes>
 			<outputDirectory>/</outputDirectory>
 		</fileSet>
-
 		<!--  include /apidocs -->
 		<fileSet>
 			<directory>target/site/apidocs</directory>
