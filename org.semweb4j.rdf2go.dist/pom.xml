@@ -78,7 +78,6 @@
 							<finalName>
 								site/rdf2go/dist/${project.name}-${version}
 							</finalName>
-							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>
 								<descriptor>
 									${basedir}/src/assembly/lib.xml

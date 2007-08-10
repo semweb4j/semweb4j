@@ -14,6 +14,13 @@
 			<outputDirectory>/jar</outputDirectory>
 			<unpack>false</unpack>
 			<scope>runtime</scope>
+			<!-- exclude the unnecessary dist.jars -->
+			<excludes>
+				<exclude>org.semweb4j:rdfreactor.dist</exclude>
+				<exclude>org.semweb4j:rdf2go.dist</exclude>
+				<exclude>org.semweb4j:dist</exclude>				
+			</excludes>
+			
 		</dependencySet>
 	</dependencySets>
 

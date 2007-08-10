@@ -14,6 +14,11 @@
 			<outputDirectory>/jar</outputDirectory>
 			<unpack>false</unpack>
 			<scope>runtime</scope>
+			<!-- exclude the unnecessary dist.jar -->
+			<excludes>
+				<exclude>org.semweb4j:rdfreactor.dist</exclude>
+			</excludes>
+			
 		</dependencySet>
 	</dependencySets>
 
