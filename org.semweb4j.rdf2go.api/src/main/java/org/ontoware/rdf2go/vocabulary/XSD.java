@@ -54,20 +54,19 @@ public class XSD {
 	@Deprecated
 	public static final URI _duration = toURI("duration");
 
+	
 	/**
 	 * As discussed in http://www.w3.org/2001/sw/BestPractices/XSCH/xsch-sw-20050127/#section-duration 
 	 */
 	public static final URI _yearMonthDuration = new URIImpl(
-			"http://www.w3.org/TR/2004/WD-xpath-functions-20041029/#dt-yearMonthDuration",
-			false);
-	
+	      "http://www.w3.org/2004/10/xpath-datatypes#yearMonthDuration",false);
+
 	/**
 	 * As discussed in http://www.w3.org/2001/sw/BestPractices/XSCH/xsch-sw-20050127/#section-duration 
 	 */
 	public static final URI _dayTimeDuration = new URIImpl(
-			"http://www.w3.org/TR/2004/WD-xpath-functions-20041029/#dt-dayTimeDuration",
-			false);
-	
+	     "http://www.w3.org/2004/10/xpath-datatypes#dayTimeDuration",false);	
+		
 
 	public static final URI _dateTime = toURI("dateTime");
 
