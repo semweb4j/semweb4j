@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -14,7 +14,7 @@
 	<artifactId>rdfreactor.project</artifactId>
 	<version>4.4.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<name>RDFReactor</name>
 	<url>http://www.semweb4j.org/rdfreactor</url>
 	<inceptionYear>2004</inceptionYear>
@@ -27,6 +27,19 @@
 		<system>JIRA</system>
 		<url>http://issues.semweb4j.org/browse/REAC</url>
 	</issueManagement>
+
+	<mailingLists>
+		<mailingList>
+			<subscribe>
+				http://ontoware.org/mailman/listinfo/rdfreactor-devel
+			</subscribe>
+			<post>rdfreactor-devel@ontoware.org</post>
+			<name>RDFReactor devel</name>
+			<archive>
+				http://ontoware.org/pipermail/rdfreactor-devel/
+			</archive>
+		</mailingList>
+	</mailingLists>
 
 	<modules>
 		<module>../org.semweb4j.rdfreactor.generator</module>
@@ -61,5 +74,5 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 </project>
