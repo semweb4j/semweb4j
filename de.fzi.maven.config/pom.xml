@@ -343,6 +343,17 @@
 						<link>
 							http://jakarta.apache.org/velocity/api/
 						</link>
+						<!-- add our own projects: rdf2go, rdfreactor, swecr -->
+						<link>
+							http://semweb4j.org/site/rdf2go/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdfreactor/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr/apidocs/
+						</link>
+
 					</links>
 				</configuration>
 			</plugin>
