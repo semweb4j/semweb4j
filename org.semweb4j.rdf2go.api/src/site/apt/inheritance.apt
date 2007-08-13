@@ -15,22 +15,37 @@ Inheritance hierarchy for Model
     * ModelFactory
 
     * Model
+
        * ModelValueFactory - create org.ontoware.rdf2go.model.node.* instances
+
        * ModelAddRemove - remove statements, diffs, locks
+
           * ClosableIterable<Statement> - read statements
+
           * ModelWriter - add statements
+
           * Lockable - lock/unlock
+
        * ModelRemovePatterns - remove statements matching a given pattern
+
        * QueryableModel - 
+
           * ClosableIterable<Statement> - what can be queried, can also be read
+
           * Sparqlable - SPARQL and other queries
+
           * FindableModel - find and count by triple patterns      
+
        * ModelIO - read/write to/from readers/writers/streams      
        
     * ModelSet
+
        * Sparqlable
+
        * ModelSetIO
+
        * FindableModelSet
+
        * ModelSetAddRemove
           
 Helper classes for adapter implementations
@@ -38,8 +53,11 @@ Helper classes for adapter implementations
     * AbstractModelFactory
 
     * AbstractModel implements Model
+
        * AbstractModelRemovePatterns implements ModelRemovePatterns
+
           * AbstractModelAddRemove implements ModelAddRemove
+
              * AbstractModelWriter implements ModelWriter
              
              
