@@ -202,18 +202,33 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	public void removeStatements(UriOrVariable context,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
+
+		// TODO use this impl instead
+		// ClosableIterator<? extends Statement> it = findStatements(context,
+		// subject, predicate, object);
+		// while (it.hasNext()) {
+		// Statement stmt = it.next();
+		// try {
+		// it.remove();
+		// } catch (UnsupportedOperationException e) {
+		// this.removeStatement(stmt);
+		// }
+		// }
+		// it.close();
+
 		if (context == null) {
 			this.getDefaultModel().removeStatements(subject, predicate, object);
 		} else if (context == Variable.ANY) {
 			// remove from all models
-			// while you read the iterator getModels() you may not WRITE to the models
+			// while you read the iterator getModels() you may not WRITE to the
+			// models
 			ClosableIterator<? extends Model> it = this.getModels();
 			List<Model> allModels = new LinkedList<Model>();
 			while (it.hasNext()) {
-				allModels.add( it.next() );
+				allModels.add(it.next());
 			}
 			it.close();
-			for( Model m : allModels ) {
+			for (Model m : allModels) {
 				m.open();
 				m.removeStatements(subject, predicate, object);
 			}
@@ -312,24 +327,24 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 				count += m.countStatements(pattern);
 			}
 			return count;
-		} 
-		//else
+		}
+		// else
 		assert pattern.getContext() instanceof URI;
 		Model m = getModel((URI) pattern.getContext());
 		return m.countStatements(pattern);
 	}
 
 	/**
-	 * Inefficient: Looks into each model and asks to match the triplepattern part of the
-	 * quad pattern.
+	 * Inefficient: Looks into each model and asks to match the triplepattern
+	 * part of the quad pattern.
 	 */
-	// TODO (xam, 11.07.2007) change inefficient method  
+	// TODO (xam, 11.07.2007) change inefficient method
 	public ClosableIterator<? extends Statement> findStatements(
 			QuadPattern pattern) throws ModelRuntimeException {
 		if (pattern.getContext() == Variable.ANY)
 			// match all
 			return new LazyUnionModelIterator(this, pattern);
-		//else 
+		// else
 		assert pattern.getContext() instanceof URI;
 		Model m = getModel((URI) pattern.getContext());
 		return m.findStatements(pattern);
@@ -339,7 +354,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 			UriOrVariable contextURI, ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		QuadPattern quadPattern = this.createQuadPattern(contextURI, subject, predicate, object);
+		QuadPattern quadPattern = this.createQuadPattern(contextURI, subject,
+				predicate, object);
 		return findStatements(quadPattern);
 	}
 
@@ -350,6 +366,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 
 	/**
 	 * FIXME: this method will return false for empty models
+	 * 
 	 * @deprecated this method cannot be impleted correctly in AbstractModelSet
 	 */
 	@Deprecated
@@ -364,6 +381,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	/**
 	 * FIXME: this impl does not really delete models. It merely removes all
 	 * statements from the given model. Which is wrong.
+	 * 
 	 * @deprecated this method cannot be impleted correctly in AbstractModelSet
 	 */
 	@Deprecated
