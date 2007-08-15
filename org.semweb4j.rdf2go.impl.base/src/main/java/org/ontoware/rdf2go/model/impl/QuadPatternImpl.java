@@ -15,6 +15,7 @@ import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.NodeOrVariable;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
+import org.ontoware.rdf2go.model.node.Variable;
 
 /**
  * A statement with variables
@@ -46,6 +47,14 @@ public class QuadPatternImpl extends TriplePatternImpl implements QuadPattern {
 	@Override
 	public int hashCode() {
 		return this.context.hashCode() + super.hashCode();
+	}
+	
+	@Override
+	public boolean matches(Statement statement)
+	{
+		boolean matchesContext = statement.getContext().equals(this.getContext())
+			|| this.getContext() instanceof Variable;
+		return matchesContext && super.matches(statement);
 	}
 
 }
