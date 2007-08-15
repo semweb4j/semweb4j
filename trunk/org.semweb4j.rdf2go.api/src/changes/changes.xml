@@ -18,6 +18,9 @@
 			<action dev="xamde" type="fix" issue="RTGO-13">
 				Fixed namespace for xsd.
 			</action>
+			<action dev="xamde" type="update">
+				Fixed SparqlUtils.sparqlEncode of strings.
+			</action>
 		</release>
 
 		<release version="4.4.8" date="@@"
