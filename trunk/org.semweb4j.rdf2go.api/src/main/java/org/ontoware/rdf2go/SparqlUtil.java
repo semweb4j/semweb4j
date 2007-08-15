@@ -29,9 +29,9 @@ public class SparqlUtil {
 	public static String sparqlEncode( String raw )  {
 		String result = raw;
 		
-		result = result.replaceAll("\\\\","\\\\\\\\");
-		result = result.replaceAll("'","\\\\'");
-		result = result.replaceAll("\"","\\\"");
+		result = result.replace("\\","\\\\");
+		result = result.replace("'","\\'");
+		result = result.replace("\"","\\\"");
 		
 		return result;
 	}
