@@ -73,7 +73,7 @@ public class BlankNodeImpl extends ResourceImpl implements BlankNode {
 		return NodeUtils.compareByType(this, other);
 	}
 
-	public String toSPARQL() throws NotImplementedException {
+	public String toSPARQL() throws UnsupportedOperationException {
 		log.warn("Variable (Singleton) should not be used for SPARQL queries");
 		throw new NotImplementedException();
 	}
