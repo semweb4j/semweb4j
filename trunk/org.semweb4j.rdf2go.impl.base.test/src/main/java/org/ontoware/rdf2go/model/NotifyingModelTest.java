@@ -29,34 +29,6 @@ public class NotifyingModelTest extends AbstractModelTest
 	// no method of the changelistener should be called, if a method is expected
 	// to be called, this method has to be overwritten.
 
-	abstract class AbstractModelChangeListener implements ModelChangedListener
-	{
-		public void addedStatement(Statement statement)
-		{
-			assertTrue(false);
-		}
-
-		public void addedStatements(Iterator<? extends Statement> statements)
-		{
-			assertTrue(false);
-		}
-
-		public void performedUpdate(Diff diff)
-		{
-			assertTrue(false);
-		}
-
-		public void removedStatement(Statement statement)
-		{
-			assertTrue(false);
-		}
-
-		public void removedStatements(Iterator<? extends Statement> statements)
-		{
-			assertTrue(false);
-		}
-	}
-
 	NotifyingModelLayer	model;
 
 	@Override
