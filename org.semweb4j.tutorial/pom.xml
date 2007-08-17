@@ -11,7 +11,7 @@
 	</parent>
 	
 	<groupId>org.semweb4j</groupId>
-	<artifactId>tutorial</artifactId>
+	<artifactId>semweb4j.tutorial</artifactId>
 	<version>4.4.7-SNAPSHOT</version>
 	<name>Semweb4j Tutorial</name>
 	<description>
