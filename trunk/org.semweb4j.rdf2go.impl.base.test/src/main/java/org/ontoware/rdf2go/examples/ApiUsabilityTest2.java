@@ -29,6 +29,9 @@ import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.XSD;
 
+/**
+ * showcase to answer Gunnars questions
+ */
 public class ApiUsabilityTest2 extends TestCase {
 
 	/**

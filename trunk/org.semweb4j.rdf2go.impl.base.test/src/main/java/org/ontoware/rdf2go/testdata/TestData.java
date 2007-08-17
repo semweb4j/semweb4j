@@ -150,12 +150,15 @@ public class TestData {
 		if (getFoafAsStream() == null)
 			throw new RuntimeException(
 					"Could not load FOAF from internally packaged file");
-		else {
-			System.out.println("FOAF found.");
-		}
+		
+		//else
+		System.out.println("FOAF found.");
 	}
 
 }
+
+// TODO (wth, 15.08.2007) what about this commented code fragments?
+// keep, do something useful with it, throw it away (it's in the svn...)
 
 // ClassLoader[] cloader = new ClassLoader[] {
 // Thread.currentThread().getContextClassLoader(),
