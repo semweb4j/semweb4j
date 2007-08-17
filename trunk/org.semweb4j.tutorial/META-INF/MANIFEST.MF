@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: semweb4j tutorial
-Bundle-SymbolicName: org.semweb4j.tutorial
+Bundle-SymbolicName: org.semweb4j.semweb4j.tutorial
 Bundle-Version: 4.3.0
 Bundle-Localization: plugin
 Require-Bundle: org.semweb4j.aifbcommons.collection,
