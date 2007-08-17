@@ -18,7 +18,7 @@ public class UriValidationTest extends TestCase {
 
 	public void testJavaNetUri() {
 		// expect no error
-		for (String s : validURIs) {
+		for (String s : this.validURIs) {
 			try {
 				@SuppressWarnings("unused")
 				URI uri = new URI(s);
@@ -30,6 +30,8 @@ public class UriValidationTest extends TestCase {
 
 		// TODO this test doesn't work. 
 		
+		// TODO (wth, 15.08.2007)  should this test be rewritten or does noone need it?
+
 //		// expect errors
 //		for (String s : invalidURIs) {
 //			boolean error = false;

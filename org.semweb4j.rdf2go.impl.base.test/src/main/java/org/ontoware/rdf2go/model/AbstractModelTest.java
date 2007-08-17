@@ -42,7 +42,8 @@ import org.slf4j.LoggerFactory;
 
 public abstract class AbstractModelTest extends TestCase {
 
-	private static final Logger log = LoggerFactory.getLogger(AbstractModelTest.class);
+	private static final Logger log = LoggerFactory
+			.getLogger(AbstractModelTest.class);
 
 	public static URI a = new URIImpl("test://test/a", false);
 
@@ -61,9 +62,11 @@ public abstract class AbstractModelTest extends TestCase {
 	/** @return a Model to be used in the test. It must be fresh, e.g. unused */
 	public abstract ModelFactory getModelFactory();
 
+	// TODO (wth, 15.08.2007) why is super overridden? this method does nothing?
 	public void setUp() throws ModelRuntimeException {
 	}
 
+	@Test
 	public void testIsOpen() {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -75,6 +78,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Class under test for void addStatement(URI, URI, URI)
 	 */
+	@Test
 	public void testAddStatementSimple() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -97,6 +101,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Class under test for void addStatement(URI, URI, URI)
 	 */
+	@Test
 	public void testAddTwoStatements() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -121,12 +126,14 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Class under test for void removeStatement(URI, URI, URI) and void
 	 * addStatement(URI, URI, URI)
 	 */
+	@Test
 	public void testRemoveStatementSimple() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
 		model = getModelFactory().createModel();
 		model.open();
 		model.addStatement(subject, predicate, object);
+		// TODO (wth, 15.08.2007) why do we mix iterators and closeable iterators?
 		Iterator iter = model.findStatements(subject, predicate, object);
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
@@ -143,6 +150,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Class under test for void addStatement(URI, URI, String) with a Literal
 	 * without Language Tag or Data Type
 	 */
+	@Test
 	public void testAddStatementURIURIString() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -157,6 +165,8 @@ public abstract class AbstractModelTest extends TestCase {
 			Statement s = sit.next();
 			assertEquals(subject, s.getSubject());
 			assertEquals(predicate, s.getPredicate());
+
+			// TODO (wth, 15.08.2007) warum der angeblich unnötige cast?
 			assertEquals((PlainLiteral) s.getObject(), "Test");
 		}
 		sit.close();
@@ -166,6 +176,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Class under test for void removeStatement(URI, URI, String)
 	 */
+	@Test
 	public void testRemoveStatementURIURIString() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -190,15 +201,18 @@ public abstract class AbstractModelTest extends TestCase {
 	 * 
 	 * PENDING wait for yars to implement languageTags correctly
 	 */
+	@Test
+	// TODO (wth, 15.08.2007) are the languageTags in yars now implemented?
+	// TODO (wth, 15.08.2007) do we still use/impl. yars?
 	public void testAddStatementLanguageTaggedLiteral() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
 		model.addStatement(subject, predicate, "Test", "DE");
-		ClosableIterator<? extends Statement> sit = model.findStatements(subject,
-				predicate, Variable.ANY);
+		ClosableIterator<? extends Statement> sit = model.findStatements(
+				subject, predicate, Variable.ANY);
 		assertTrue(sit.hasNext());
 		Statement s = sit.next();
-		
+
 		assertEquals(subject, s.getSubject());
 		assertEquals(predicate, s.getPredicate());
 
@@ -217,6 +231,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Class under test for void removeStatement(URI, URI, String, String)
 	 */
+	@Test
 	public void testRemoveStatementLanguageTaggedLiteral() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -231,12 +246,14 @@ public abstract class AbstractModelTest extends TestCase {
 				.createLanguageTagLiteral("Test", "DE")));
 		model.close();
 	}
-	
+
 	/*
 	 * Class under test for void addStatement(URI, URI, String, URI)
 	 * 
 	 * PENDING due to an open fix in yars implementation
 	 */
+	@Test
+	// TODO (wth, 15.08.2007) is the above bug fixed in yars?
 	public void testAddStatementDatatypedLiteral() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -264,6 +281,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Class under test for void removeStatement(URI, URI, String, URI)
 	 */
+	@Test
 	public void testRemoveStatementDatatypedLiteral() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -285,6 +303,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Class under test for void addStatement(URI, URI, Object) and
 	 * removeStatement(URI, URI, Object)
 	 */
+	@Test
 	public void testAddRemoveStatementBlankNode() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -312,6 +331,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Class under test for void addStatement(Object, URI, URI) and
 	 * removeStatement(Object, URI, URI)
 	 */
+	@Test
 	public void testAddRemoveStatementBlankNode2() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -344,6 +364,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Class under test for void addStatement(Object, URI, String) and
 	 * removeStatement(Object, URI, String)
 	 */
+	@Test
 	public void testAddRemoveStatementObjectURIString() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -352,8 +373,8 @@ public abstract class AbstractModelTest extends TestCase {
 
 		model.addStatement(blankNode, predicate, "Test");
 		Iterator<? extends Statement> sit = model
-				.findStatements(new TriplePatternImpl((BlankNode) blankNode,
-						predicate, "Test"));
+				.findStatements(new TriplePatternImpl(blankNode, predicate,
+						"Test"));
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
 			// should be just one
@@ -363,10 +384,10 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(s.getObject(), "Test");
 		}
 
-		model.removeStatement((BlankNode) blankNode, predicate, "Test");
+		model.removeStatement(blankNode, predicate, "Test");
 		ClosableIterator<? extends Statement> it = model
-				.findStatements(new TriplePatternImpl((BlankNode) blankNode,
-						predicate, "Test"));
+				.findStatements(new TriplePatternImpl(blankNode, predicate,
+						"Test"));
 		assertFalse(it.hasNext());
 		it.close();
 		model.close();
@@ -376,6 +397,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Class under test for void addStatement(Object, URI, Object) and
 	 * removeStatement(Object, URI, Object)
 	 */
+	@Test
 	public void testAddRemoveStatementURIObjectURIObject() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -404,6 +426,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Test method for 'org.ontoware.rdf2go.Model.getNewBlankNode()'
 	 */
+	@Test
 	public void testGetNewBlankNode() {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -426,6 +449,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * 'org.ontoware.rdf2go.Model.getStatementWithLiteralAndNoLanguageTag(URI,
 	 * URI, String)'
 	 */
+	@Test
 	public void testGetStatementWithLiteralAndNoLanguageTagURIURIString()
 			throws Exception {
 		Model model = getModelFactory().createModel();
@@ -433,8 +457,8 @@ public abstract class AbstractModelTest extends TestCase {
 		model.addStatement(subject, predicate, "Test", "DE");
 		model.addStatement(subject, predicate, "Test");
 
-		ClosableIterator<? extends Statement> sit = model.findStatements(Variable.ANY,
-				predicate, Variable.ANY);
+		ClosableIterator<? extends Statement> sit = model.findStatements(
+				Variable.ANY, predicate, Variable.ANY);
 		assertTrue(sit.hasNext());
 		Statement s = sit.next();
 		assertEquals(s.getSubject(), subject);
@@ -453,6 +477,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * 'org.ontoware.rdf2go.Model.getStatementWithLiteralAndNoLanguageTag(Object,
 	 * URI, String)'
 	 */
+	@Test
 	public void testGetStatementWithLiteralAndNoLanguageTagObjectURIString()
 			throws Exception {
 		Model model = getModelFactory().createModel();
@@ -462,8 +487,8 @@ public abstract class AbstractModelTest extends TestCase {
 		model.addStatement(blankNodeSubject1, predicate, "Test");
 		model.addStatement(blankNodeSubject2, predicate, "Test", "DE");
 
-		ClosableIterator<? extends Statement> sit = model.findStatements(Variable.ANY,
-				predicate, Variable.ANY);
+		ClosableIterator<? extends Statement> sit = model.findStatements(
+				Variable.ANY, predicate, Variable.ANY);
 		assertTrue(sit.hasNext());
 		Statement s = sit.next();
 		// assertEquals(s.getSubject(), blankNodeSubject1);
@@ -478,6 +503,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/*
 	 * Test method for 'org.ontoware.rdf2go.Model.query(String)'
 	 */
+	@Test
 	public void testQuery() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -503,6 +529,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.close();
 	}
 
+	@Test
 	public void testSelectQuery() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -528,6 +555,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.close();
 	}
 
+	@Test
 	public void testOpenClose() {
 		Model model = RDF2Go.getModelFactory().createModel();
 		assertFalse(model.isOpen());
@@ -551,6 +579,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.close();
 	}
 
+	@Test
 	public void testRdfsReasoning() throws ReasoningNotSupportedException,
 			ModelRuntimeException {
 		Model model = getModelFactory().createModel(Reasoning.rdfs);
@@ -580,70 +609,81 @@ public abstract class AbstractModelTest extends TestCase {
 		model.close();
 	}
 
+	@Test
 	public void testSimpleQuery1() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
 		URI a = new URIImpl("test://a");
 		URI b = new URIImpl("test://b");
 		URI c = new URIImpl("test://c");
-		model.addStatement(a,b,c);
-		ClosableIterator<? extends Statement> it = model.findStatements(a, b, c);
-		assertTrue( it.hasNext() );
+		model.addStatement(a, b, c);
+		ClosableIterator<? extends Statement> it = model
+				.findStatements(a, b, c);
+		assertTrue(it.hasNext());
 		it.close();
 		model.close();
 	}
 
+	@Test
 	public void testSimpleQuery() throws Exception {
 		Model m = getModelFactory().createModel();
 		m.open();
 		URI a = new URIImpl("test://a");
 		URI b = new URIImpl("test://b");
 		URI c = new URIImpl("test://c");
-		m.addStatement(a,b,c);
-		assertEquals( 1, m.size() );
-		
-		ClosableIterator<? extends Statement> it = m.findStatements(Variable.ANY, b, c);
-		assertTrue( it.hasNext() );
+		m.addStatement(a, b, c);
+		assertEquals(1, m.size());
+
+		ClosableIterator<? extends Statement> it = m.findStatements(
+				Variable.ANY, b, c);
+		assertTrue(it.hasNext());
 		it.close();
 		m.close();
 	}
-	
+
+	@Test
 	public void testDiff_empty() throws ModelRuntimeException {
 		Model a = getModelFactory().createModel();
 		a.open();
 		Model b = getModelFactory().createModel();
 		b.open();
 		Diff diff = a.getDiff(b.iterator());
-		assertFalse( diff.getAdded().iterator().hasNext() );
-		assertFalse( diff.getRemoved().iterator().hasNext() );
+		assertFalse(diff.getAdded().iterator().hasNext());
+		assertFalse(diff.getRemoved().iterator().hasNext());
 		a.close();
 		b.close();
 	}
 
+	@Test
 	public void testDiff_different() throws ModelRuntimeException {
 		Model a = getModelFactory().createModel();
 		a.open();
 		Model b = getModelFactory().createModel();
 		b.open();
 
-		a.addStatement(new URIImpl("urn:test:a",false),new URIImpl("urn:test:b",false),new URIImpl("urn:test:c",false));
-		b.addStatement(new URIImpl("urn:test:x",false),new URIImpl("urn:test:y",false),new URIImpl("urn:test:z",false));
+		a.addStatement(new URIImpl("urn:test:a", false), new URIImpl(
+				"urn:test:b", false), new URIImpl("urn:test:c", false));
+		b.addStatement(new URIImpl("urn:test:x", false), new URIImpl(
+				"urn:test:y", false), new URIImpl("urn:test:z", false));
 		Diff diff = a.getDiff(b.iterator());
-		assertTrue( diff.getAdded().iterator().hasNext() );
-		assertTrue( diff.getRemoved().iterator().hasNext() );
+		assertTrue(diff.getAdded().iterator().hasNext());
+		assertTrue(diff.getRemoved().iterator().hasNext());
 		a.close();
 		b.close();
 	}
 
+	@Test
 	public void testDiff_same() throws ModelRuntimeException {
 		Model a = getModelFactory().createModel();
 		a.open();
 		Model b = getModelFactory().createModel();
 		b.open();
 
-		a.addStatement(new URIImpl("urn:test:a",false),new URIImpl("urn:test:b",false),new URIImpl("urn:test:c",false));
+		a.addStatement(new URIImpl("urn:test:a", false), new URIImpl(
+				"urn:test:b", false), new URIImpl("urn:test:c", false));
 
-		b.addStatement(new URIImpl("urn:test:a",false),new URIImpl("urn:test:b",false),new URIImpl("urn:test:c",false));
+		b.addStatement(new URIImpl("urn:test:a", false), new URIImpl(
+				"urn:test:b", false), new URIImpl("urn:test:c", false));
 
 		ClosableIterator<Statement> i = a.iterator();
 		Statement aStmt = i.next();
@@ -651,72 +691,81 @@ public abstract class AbstractModelTest extends TestCase {
 		i = b.iterator();
 		Statement bStmt = i.next();
 		i.close();
-		
-		assertTrue("a statement should be equal to itself",	aStmt.equals( aStmt ) );
-		assertEquals( aStmt, aStmt );
-		assertTrue(	aStmt.equals( bStmt ) );
-		assertEquals( aStmt, bStmt );
-		
-		assertEquals( aStmt.hashCode(), aStmt.hashCode() );
-		assertEquals( aStmt.getSubject().hashCode(), bStmt.getSubject().hashCode() );
-		assertEquals( aStmt.getPredicate().hashCode(), bStmt.getPredicate().hashCode() );
-		assertEquals( aStmt.getObject().hashCode(), bStmt.getObject().hashCode() );
-		assertEquals( aStmt.hashCode(), bStmt.hashCode() );
-		
+
+		assertTrue("a statement should be equal to itself", aStmt.equals(aStmt));
+		assertEquals(aStmt, aStmt);
+		assertTrue(aStmt.equals(bStmt));
+		assertEquals(aStmt, bStmt);
+
+		assertEquals(aStmt.hashCode(), aStmt.hashCode());
+		assertEquals(aStmt.getSubject().hashCode(), bStmt.getSubject()
+				.hashCode());
+		assertEquals(aStmt.getPredicate().hashCode(), bStmt.getPredicate()
+				.hashCode());
+		assertEquals(aStmt.getObject().hashCode(), bStmt.getObject().hashCode());
+		assertEquals(aStmt.hashCode(), bStmt.hashCode());
+
 		Diff diff = a.getDiff(b.iterator());
-		assertFalse( diff.getAdded().iterator().hasNext() );
-		assertFalse( diff.getRemoved().iterator().hasNext() );
-		
+		assertFalse(diff.getAdded().iterator().hasNext());
+		assertFalse(diff.getRemoved().iterator().hasNext());
+
 		a.close();
 		b.close();
 	}
-	
+
+	@Test
 	public void testComparable() throws ModelRuntimeException {
 		Model a = getModelFactory().createModel();
 		a.open();
 		Model b = getModelFactory().createModel();
 		b.open();
 
-		a.addStatement(new URIImpl("urn:test:a",false),new URIImpl("urn:test:b",false),new URIImpl("urn:test:c",false));
-		
+		a.addStatement(new URIImpl("urn:test:a", false), new URIImpl(
+				"urn:test:b", false), new URIImpl("urn:test:c", false));
+
 		ClosableIterator<Statement> i = a.iterator();
 		Statement aStmt = i.next();
 		i.close();
-		
-		assertEquals( 0, aStmt.compareTo(aStmt));
 
-		b.addStatement(new URIImpl("urn:test:a",false),new URIImpl("urn:test:b",false),new URIImpl("urn:test:c",false));
-		i=b.iterator();
+		assertEquals(0, aStmt.compareTo(aStmt));
+
+		b.addStatement(new URIImpl("urn:test:a", false), new URIImpl(
+				"urn:test:b", false), new URIImpl("urn:test:c", false));
+		i = b.iterator();
 		Statement bStmt = i.next();
 		i.close();
-		
-		assertEquals( 0, aStmt.compareTo(bStmt));
-		assertEquals( 0, bStmt.compareTo(aStmt));
-		
+
+		assertEquals(0, aStmt.compareTo(bStmt));
+		assertEquals(0, bStmt.compareTo(aStmt));
+
 		a.close();
 		b.close();
 	}
+
+	@Test
 	public void testComparableWithDifferent() throws ModelRuntimeException {
 		Model a = getModelFactory().createModel();
 		a.open();
 		Model b = getModelFactory().createModel();
 		b.open();
 
-		a.addStatement(new URIImpl("urn:test:a",false),new URIImpl("urn:test:b",false),new URIImpl("urn:test:c",false));
+		a.addStatement(new URIImpl("urn:test:a", false), new URIImpl(
+				"urn:test:b", false), new URIImpl("urn:test:c", false));
 		Statement aStmt = a.iterator().next();
-		
-		assertEquals( 0, aStmt.compareTo(aStmt));
 
-		b.addStatement(new URIImpl("urn:test:x",false),new URIImpl("urn:test:y",false),new URIImpl("urn:test:z",false));
+		assertEquals(0, aStmt.compareTo(aStmt));
+
+		b.addStatement(new URIImpl("urn:test:x", false), new URIImpl(
+				"urn:test:y", false), new URIImpl("urn:test:z", false));
 		Statement bStmt = b.iterator().next();
-		
+
 		// one should be positive, one negative, both not 0
-		assertTrue( aStmt.compareTo(bStmt) * bStmt.compareTo(aStmt) < 0);
+		assertTrue(aStmt.compareTo(bStmt) * bStmt.compareTo(aStmt) < 0);
 		a.close();
 		b.close();
 	}
-	
-	
+
+	@Test
 	public void testSparqlSelectWithURIS() throws Exception {
 		Model m = getModelFactory().createModel(Reasoning.rdfs);
 		m.open();
@@ -743,8 +792,9 @@ public abstract class AbstractModelTest extends TestCase {
 		m.addStatement(assignment3, hasTag, tagSemweb);
 		m.addStatement(assignment3, hasContent, fileB);
 
-		QueryResultTable result = m.sparqlSelect("SELECT ?f WHERE " + "{ ?a <" + hasContent
-				+ "> ?f. " + "?a <" + hasTag + "> <" + tagSemweb + "> . }");
+		QueryResultTable result = m.sparqlSelect("SELECT ?f WHERE " + "{ ?a <"
+				+ hasContent + "> ?f. " + "?a <" + hasTag + "> <" + tagSemweb
+				+ "> . }");
 
 		// expect A and B
 		ClosableIterator<QueryRow> i = result.iterator();
@@ -755,9 +805,10 @@ public abstract class AbstractModelTest extends TestCase {
 				|| firstSolution.getValue("f").equals(fileB));
 		i.close();
 		m.close();
-		
+
 	}
 
+	@Test
 	public void testSparqlSelectWithStrings() throws Exception {
 		Model m = getModelFactory().createModel(Reasoning.rdfs);
 		m.open();
@@ -782,8 +833,9 @@ public abstract class AbstractModelTest extends TestCase {
 		m.addStatement(assignment3, hasTag, tagSemweb);
 		m.addStatement(assignment3, hasContent, fileB);
 
-		QueryResultTable result = m.sparqlSelect("SELECT ?f WHERE " + "{ ?a <" + hasContent
-				+ "> ?f. " + "?a <" + hasTag + "> '" + tagSemweb + "' . }");
+		QueryResultTable result = m.sparqlSelect("SELECT ?f WHERE " + "{ ?a <"
+				+ hasContent + "> ?f. " + "?a <" + hasTag + "> '" + tagSemweb
+				+ "' . }");
 
 		// expect A and B
 		ClosableIterator<QueryRow> i = result.iterator();
@@ -796,6 +848,7 @@ public abstract class AbstractModelTest extends TestCase {
 		m.close();
 	}
 
+	@Test
 	public void testAsk() throws ModelRuntimeException {
 		Model m = getModelFactory().createModel(Reasoning.none);
 		m.open();
@@ -804,46 +857,49 @@ public abstract class AbstractModelTest extends TestCase {
 		URI c = new URIImpl("urn:test:c");
 		m.addStatement(a, b, c);
 		m.dump();
-		
-		assertTrue( m.sparqlAsk("ASK { ?s ?p ?x . }") );
-		assertTrue( m.sparqlAsk("ASK { <urn:test:a> <urn:test:b> ?x . }") );
-		assertTrue( m.sparqlAsk("ASK { <urn:test:a> <urn:test:b> <urn:test:c> . }") );
+
+		assertTrue(m.sparqlAsk("ASK { ?s ?p ?x . }"));
+		assertTrue(m.sparqlAsk("ASK { <urn:test:a> <urn:test:b> ?x . }"));
+		assertTrue(m
+				.sparqlAsk("ASK { <urn:test:a> <urn:test:b> <urn:test:c> . }"));
 		m.close();
 	}
 
+	@Test
 	public void testReadFromFile() throws ModelRuntimeException, IOException {
 		Model model = getModelFactory().createModel(Reasoning.none);
 		model.open();
 		assertNotNull(model);
 		InputStream reader = TestData.getFoafAsStream();
-		assertNotNull("testdata stream should not be null",reader);
+		assertNotNull("testdata stream should not be null", reader);
 		Syntax rdfxml = Syntax.RdfXml;
 		assertNotNull(rdfxml);
 		model.readFrom(reader, rdfxml);
 		model.close();
 	}
-	
+
 	@Test
 	public void testStringEncoding() {
 		Model model = getModelFactory().createModel(Reasoning.none);
 		model.open();
 
-		log.debug("create a String that contains each possible unicode value once. May take a while.");
-	    char[] allchars = new char[Character.MAX_VALUE];
-	    for (char i = 0; i < allchars.length; i++) {
+		log
+				.debug("create a String that contains each possible unicode value once. May take a while.");
+		char[] allchars = new char[Character.MAX_VALUE];
+		for (char i = 0; i < allchars.length; i++) {
 			allchars[i] = i;
 		}
-		String inString = new String( allchars );
+		String inString = new String(allchars);
 
-		model.addStatement(a, b, inString );
+		model.addStatement(a, b, inString);
 
 		ClosableIterator<Statement> it = model.iterator();
 		Statement stmt = it.next();
 		it.close();
-		
+
 		Assert.assertEquals(a, stmt.getSubject());
 		Assert.assertEquals(b, stmt.getPredicate());
 		Assert.assertEquals(inString, stmt.getObject().asLiteral().getValue());
 	}
-	
+
 }

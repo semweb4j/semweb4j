@@ -2,7 +2,7 @@
  * LICENSE INFORMATION
  * Copyright 2005-2007 by FZI (http://www.fzi.de).
  * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
+ * <OWNER> = Max VÃ¶lkel
  * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
  * <YEAR> = 2007
  * 
@@ -43,27 +43,27 @@ public class NotifyingModelTest extends AbstractModelTest
 		super.setUp();
 		Model plainModel = getModelFactory().createModel();
 		assertNotNull(plainModel);
-		model = new NotifyingModelLayer(plainModel);
+		this.model = new NotifyingModelLayer(plainModel);
 	}
 
 	public void testModelConnection()
 	{
-		assertNotNull(model);
-		assertNotNull(model.getDelegatedModel());
-		assertFalse(model.isOpen());
-		model.open();
-		assertTrue(model.isOpen());
-		model.close();
-		assertFalse(model.isOpen());
+		assertNotNull(this.model);
+		assertNotNull(this.model.getDelegatedModel());
+		assertFalse(this.model.isOpen());
+		this.model.open();
+		assertTrue(this.model.isOpen());
+		this.model.close();
+		assertFalse(this.model.isOpen());
 	}
 
 	public void testAddStatement()
 	{
-		model.open();
-		model.addStatement(predicate, object, subject); // this statement should
+		this.model.open();
+		this.model.addStatement(predicate, object, subject); // this statement should
 		// not cause a
 		// notification
-		model.addModelChangedListener(new AbstractModelChangeListener()
+		this.model.addModelChangedListener(new AbstractModelChangeListener()
 		{
 
 			@Override
@@ -84,16 +84,16 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertFalse(statements.hasNext());
 			}
 		});
-		model.addStatement(subject, predicate, object);
-		model.close();
+		this.model.addStatement(subject, predicate, object);
+		this.model.close();
 	}
 
 	public void testRemoveStatement()
 	{
-		model.open();
-		model.addStatement(subject, predicate, object);
+		this.model.open();
+		this.model.addStatement(subject, predicate, object);
 
-		model.addModelChangedListener(new AbstractModelChangeListener()
+		this.model.addModelChangedListener(new AbstractModelChangeListener()
 		{
 
 			@Override
@@ -115,12 +115,12 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertFalse(statements.hasNext());
 			}
 		});
-		model.close();
+		this.model.close();
 	}
 
 	public void testChangeStatement()
 	{
-		model.addModelChangedListener(new AbstractModelChangeListener()
+		this.model.addModelChangedListener(new AbstractModelChangeListener()
 		{
 			@Override
 			public void performedUpdate(Diff diff)
@@ -136,16 +136,16 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertFalse(diff.getRemoved().iterator().hasNext());
 			}
 		});
-		model.open();
+		this.model.open();
 		Diff diff = new DiffImpl();
 		diff.addStatement(subject, predicate, object);
-		model.update(diff);
-		model.close();
+		this.model.update(diff);
+		this.model.close();
 	}
 
 	public void testNotificationOnSubject()
 	{
-		model.open();
+		this.model.open();
 		ModelChangedListener listener = new AbstractModelChangeListener()
 		{
 			@Override
@@ -165,21 +165,23 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertFalse(statements.hasNext());
 			}
 		};
-		model.addModelChangedListener(listener, new TriplePatternImpl(subject,
+		this.model.addModelChangedListener(listener, new TriplePatternImpl(subject,
 				Variable.ANY, Variable.ANY));
 
-		model.addStatement(subject, predicate, "Test1");
-		model.addStatement(predicate, object, "Test2");
-		model.addStatement(predicate, subject, "Test3");
-		model.removeModelChangedListener(listener);
+		this.model.addStatement(subject, predicate, "Test1");
+		this.model.addStatement(predicate, object, "Test2");
+		this.model.addStatement(predicate, subject, "Test3");
+		this.model.removeModelChangedListener(listener);
 		listener = new AbstractModelChangeListener()
 		{
+			@Override
 			public void removedStatement(Statement statement)
 			{
 				assertEquals(subject, statement.getSubject());
 				assertEquals(predicate, statement.getPredicate());
 			}
 
+			@Override
 			public void removedStatements(
 					Iterator<? extends Statement> statements)
 			{
@@ -190,15 +192,15 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertFalse(statements.hasNext());
 			}
 		};
-		model.removeStatement(subject, predicate, "Test1");
-		model.removeStatement(predicate, object, "Test2");
-		model.removeStatement(predicate, subject, "Test3");
-		model.close();
+		this.model.removeStatement(subject, predicate, "Test1");
+		this.model.removeStatement(predicate, object, "Test2");
+		this.model.removeStatement(predicate, subject, "Test3");
+		this.model.close();
 	}
 
 	public void testNotificationOnLiteralObject()
 	{
-		model.open();
+		this.model.open();
 		ModelChangedListener listener = new AbstractModelChangeListener()
 		{
 			@Override
@@ -207,16 +209,16 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertEquals(new PlainLiteralImpl("Sebastian"), statement.getObject());
 			}
 		}; 
-		model.addModelChangedListener(listener, new TriplePatternImpl(Variable.ANY, Variable.ANY, new PlainLiteralImpl("Sebastian")));
-		model.addStatement(subject, predicate, "Sebastian Gerke");
-		model.addStatement(predicate, object, "Sebastian");
-		model.close();
+		this.model.addModelChangedListener(listener, new TriplePatternImpl(Variable.ANY, Variable.ANY, new PlainLiteralImpl("Sebastian")));
+		this.model.addStatement(subject, predicate, "Sebastian Gerke");
+		this.model.addStatement(predicate, object, "Sebastian");
+		this.model.close();
 	}
 	
 	
 	public void testNotificationOnPredicateAndObject()
 	{
-		model.open();
+		this.model.open();
 		ModelChangedListener listener = new AbstractModelChangeListener()
 		{
 			@Override
@@ -227,10 +229,10 @@ public class NotifyingModelTest extends AbstractModelTest
 				assertEquals(predicate, statement.getPredicate());
 			}
 		};
-		model.addModelChangedListener(listener, new TriplePatternImpl(Variable.ANY, predicate, new PlainLiteralImpl("Sebastian")));
-		model.addStatement(subject, predicate, "Sebastian Gerke");
-		model.addStatement(subject, predicate, "Sebastian");
-		model.addStatement(predicate, object, "Sebastian");
-		model.close();
+		this.model.addModelChangedListener(listener, new TriplePatternImpl(Variable.ANY, predicate, new PlainLiteralImpl("Sebastian")));
+		this.model.addStatement(subject, predicate, "Sebastian Gerke");
+		this.model.addStatement(subject, predicate, "Sebastian");
+		this.model.addStatement(predicate, object, "Sebastian");
+		this.model.close();
 	}
 }

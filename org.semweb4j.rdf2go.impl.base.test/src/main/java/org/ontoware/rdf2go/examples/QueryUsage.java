@@ -10,6 +10,9 @@ import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.node.Node;
 
+/**
+ * how to make simple sparql queries and cope with the results
+ */
 public class QueryUsage {
 	
 	public void testGetSelectQueryResult() throws MalformedQueryException, ModelRuntimeException {

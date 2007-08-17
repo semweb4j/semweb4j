@@ -10,6 +10,9 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.vocabulary.RDFS;
 
+/**
+ * how to write basic model usage operations
+ */
 public class ModelUsageExample {
 
 	public static void main(String[] args) throws Exception {

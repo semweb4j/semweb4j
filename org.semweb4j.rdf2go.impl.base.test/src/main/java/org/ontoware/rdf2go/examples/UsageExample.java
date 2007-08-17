@@ -2,6 +2,7 @@ package org.ontoware.rdf2go.examples;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
@@ -13,10 +14,15 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * test: write a statement and make sure sparql returns the exact result
+ * for the written statement
+ */
 public class UsageExample extends TestCase {
 
 	private static final Logger log = LoggerFactory.getLogger(UsageExample.class);
 	
+	@Test
 	public void testWriteRead() throws ModelRuntimeException {
 		
 		log.debug("Launching test");
