@@ -28,6 +28,19 @@
 		<url>http://issues.semweb4j.org/browse/REAC</url>
 	</issueManagement>
 
+	<mailingLists>
+		<mailingList>
+			<subscribe>
+				http://ontoware.org/mailman/listinfo/rdfreactor-devel
+			</subscribe>
+			<post>rdfreactor-devel@ontoware.org</post>
+			<name>RDFReactor devel</name>
+			<archive>
+				http://ontoware.org/pipermail/rdfreactor-devel/
+			</archive>
+		</mailingList>
+	</mailingLists>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
