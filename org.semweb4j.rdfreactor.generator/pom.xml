@@ -45,13 +45,16 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.4.8</version>
+			<version>4.4.10</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
 			<version>4.4.6</version>
+			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>velocity</groupId>
 			<artifactId>velocity</artifactId>
