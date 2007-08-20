@@ -352,6 +352,9 @@ public class Version extends VersionedItem {
 		return suggestions;
 	}
 
+	/**
+	 * @return all children which are valid version, i.e. no suggestions but real versions
+	 */
 	public List<Version> getValidChildren() {
 		List<Version> result = new ArrayList<Version>();
 		for (Version v : getAllChildren()) {
