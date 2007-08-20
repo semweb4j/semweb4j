@@ -5,7 +5,14 @@
 	</properties>
 	<body>
 
-		<release version="1.0.0-alpha" date="@@"
+		<release version="1.0.1-SNAPSHOT" date="2007-08-20"
+			description="API changes">
+			<action dev="xamde" type="fix" issue="SV-10">
+				Added USer.hasURI(). User is now an interface.
+			</action>
+		</release>
+
+		<release version="1.0.0-SNAPSHOT" date="2007-08-04"
 			description="API changes, Performance and Scalability">
 			<action dev="xamde" type="update">
 				Migration to SLF4j.
