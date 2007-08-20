@@ -10,7 +10,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<name>RDF2Go API</name>
-	<version>4.4.8</version>
+	<version>4.4.9-SNAPSHOT</version>
 	<description>
 		RDF2go is an implementation-independent Java API with the design
 		goals: portability (hence the name), performance and ease of
@@ -157,10 +157,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.4.8</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.4.8</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.api-4.4.8</url>
-  </scm>
 </project>
