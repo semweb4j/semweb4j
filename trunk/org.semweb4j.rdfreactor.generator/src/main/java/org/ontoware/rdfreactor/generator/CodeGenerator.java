@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.Reasoning;
+import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdfreactor.generator.java.JModel;
 
 /**
@@ -79,7 +80,7 @@ public class CodeGenerator {
 			throws Exception {
 
 		// first step
-		com.hp.hpl.jena.rdf.model.Model schemaDataModel = loadSchemaDataModel(schemafilename);
+		Model schemaDataModel = loadSchemaDataModel(schemafilename);
 		File outDir = new File(outdir);
 
 		generate(schemaDataModel, outDir, packagename, semantics, skipbuiltins,
@@ -119,7 +120,7 @@ public class CodeGenerator {
 	 * @throws Exception
 	 */
 	public static void generate(
-			com.hp.hpl.jena.rdf.model.Model jenaSchemaDataModel, File outDir,
+			Model jenaSchemaDataModel, File outDir,
 			String packagename, Reasoning semantics, boolean skipbuiltins,
 			boolean alwaysWriteToModel, String methodnamePrefix)
 			throws Exception {
@@ -132,7 +133,7 @@ public class CodeGenerator {
 		if (semantics == Reasoning.rdfs) {
 			log.info("MODEL generating RDFS into " + outDir.getAbsolutePath()
 					+ " ...");
-			jm = ModelGenerator.createFromRDFS(jenaSchemaDataModel,
+			jm = ModelGenerator.createFromRDFS_Schema(jenaSchemaDataModel,
 					packagename, skipbuiltins);
 		} else if (semantics == Reasoning.owl) {
 			log
@@ -163,12 +164,11 @@ public class CodeGenerator {
 	 * @return Jena RDF Model loaded from given filename
 	 * @throws Exception
 	 */
-	public static com.hp.hpl.jena.rdf.model.Model loadSchemaDataModel(
-			String schemafilename) throws Exception {
+	public static Model loadSchemaDataModel(String schemafilename)
+			throws Exception {
 		File schemaFile = new File(schemafilename);
 		log.info("loading from " + schemaFile.getCanonicalPath());
-		com.hp.hpl.jena.rdf.model.Model schemaDataModel = ModelReaderUtils
-				.read(schemafilename);
+		Model schemaDataModel =	ModelReaderUtils.read(schemafilename);
 		return schemaDataModel;
 
 	}

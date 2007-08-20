@@ -12,6 +12,13 @@
 				more precise.
 			</action>
 			<action dev="xamde" type="add">Added tests.</action>
+			<action dev="xamde" type="update">
+				Removed Jena compile time dependency - now any RDF2Go
+				store with RDFS support can be used.
+			</action>
+			<action dev="xamde" type="update">
+				Migration to RDFReactor.runtime 4.4.10
+			</action>
 		</release>
 		<release version="4.4.8">
 			<action dev="xamde" type="update">
