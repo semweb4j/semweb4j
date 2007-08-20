@@ -1,0 +1,1 @@
+public Model getConciseBoundedDescription(URI) in Model.java hinzufügen, wurde vorerst entfernt.

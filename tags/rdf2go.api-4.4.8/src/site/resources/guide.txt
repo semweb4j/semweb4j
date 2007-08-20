@@ -1,0 +1,34 @@
+
+
+
+
+                CommonModel
+                    |
+                   /_\
+                    |
+       +------------+-----------------+
+       |                              |
+     Model                       ContextModel   
+                  
+
+ModelReader implements ClosableIterable<Statement>
+
+
+Model implements ModelReader, ModelWriter
+
+
+
+
+
+           impl CommonModelWriter-------------------+
+   AbstractCommonModelWriter                        |    
+               |                                   /_\
+              /_\                                   | 
+               |                                    |
+               +-------------------------+          |
+               |                         |  impl ModelWriter (add(X))
+   AbstractCommonModelAddRemove   AbstractModelWriter
+   
+   
+                 AbstractModelAddRemove
+        
