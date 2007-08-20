@@ -11,23 +11,23 @@
 			Removed
 			deprecatedModelSet.getUnderlyingModelImplementation();
 			</action>
-		-->
-
 		<release version="4.4.9" date="@@"
 			description="No API changes">
-			<action dev="xamde" type="fix" issue="RTGO-13">
-				Fixed namespace for xsd.
-			</action>
-			<action dev="xamde" type="update">
-				Fixed SparqlUtils.sparqlEncode of strings.
-			</action>
 		</release>
+		-->
+
 
 		<release version="4.4.8" date="@@"
 			description="No API changes">
 			<action dev="xamde" type="fix" issue="RTGO-13">
 				Added xsd:yearMonthDuration and xsd:dayTimeDuration to
 				XSD vocabulary.
+			</action>
+			<action dev="xamde" type="fix" issue="RTGO-13">
+				Fixed namespace for xsd.
+			</action>
+			<action dev="xamde" type="update">
+				Fixed SparqlUtils.sparqlEncode of strings.
 			</action>
 		</release>
 
