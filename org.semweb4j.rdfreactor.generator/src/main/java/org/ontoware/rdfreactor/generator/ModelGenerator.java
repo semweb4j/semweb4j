@@ -9,7 +9,8 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.ontoware.rdf2go.impl.jena24.ModelImplJena24;
+import org.ontoware.rdf2go.RDF2Go;
+import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.impl.StatementImpl;
@@ -31,11 +32,6 @@ import org.ontoware.rdfreactor.schema.owl.Restriction;
 import org.ontoware.rdfreactor.schema.rdfschema.Class;
 import org.ontoware.rdfreactor.schema.rdfschema.Property;
 import org.ontoware.rdfreactor.schema.rdfschema.Resource;
-
-import com.hp.hpl.jena.rdf.model.InfModel;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.reasoner.Reasoner;
-import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 
 public class ModelGenerator {
 
@@ -225,16 +221,20 @@ public class ModelGenerator {
 		return jm;
 	}
 
-	public static JModel createFromRDFS(
-			com.hp.hpl.jena.rdf.model.Model schemaDataModel,
+	public static JModel createFromRDFS_Schema(
+			Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
 		log.info("Schema has " + schemaDataModel.size() + " triples");
 
 		// enable RDFS inferencing
-		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
-				.createRDFSModel(schemaDataModel);
-		Model m = new ModelImplJena24(null, jenaModel);
+		Model m = RDF2Go.getModelFactory().createModel( Reasoning.rdfs );
 		m.open();
+		m.addAll(schemaDataModel.iterator());
+		
+//		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
+//				.createRDFSModel(schemaDataModel);
+//		Model m = new ModelImplJena24(null, jenaModel);
+//		m.open();
 		return createFromRDFS(m, packagename, skipbuiltins);
 
 	}
@@ -388,14 +388,18 @@ public class ModelGenerator {
 	 * @throws Exception
 	 */
 	public static JModel createFromRDFS_AND_OWL(
-			com.hp.hpl.jena.rdf.model.Model schemaDataModel,
+			Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
 		JModel jm = getbuiltIns_RDFS();
 
-		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
-				.createRDFSModel(schemaDataModel);
-		Model m = new ModelImplJena24(null, jenaModel);
+		Model m = RDF2Go.getModelFactory().createModel( Reasoning.rdfsAndOwl );
 		m.open();
+		m.addAll(schemaDataModel.iterator());
+		
+//		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
+//				.createRDFSModel(schemaDataModel);
+//		Model m = new ModelImplJena24(null, jenaModel);
+//		m.open();
 
 		deanonymize(m);
 
@@ -479,7 +483,7 @@ public class ModelGenerator {
 	}
 
 	public static JModel createFromOWL(
-			com.hp.hpl.jena.rdf.model.Model schemaDataModel,
+			Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
 		// DIGReasonerFactory drf = (DIGReasonerFactory) ReasonerRegistry
 		// .theRegistry().getFactory(DIGReasonerFactory.URI);
@@ -496,11 +500,15 @@ public class ModelGenerator {
 		//
 		// Model m = new ModelImplJena22(combined);
 
-		Reasoner reasoner = ReasonerRegistry.getOWLMicroReasoner();// miniReasoner();
-		reasoner = reasoner.bindSchema(schemaDataModel);
-		InfModel jenaModel = ModelFactory.createInfModel(reasoner,
-				schemaDataModel);
-		Model m = new ModelImplJena24(null, jenaModel);
+		Model m = RDF2Go.getModelFactory().createModel(Reasoning.owl);
+		m.open();
+		m.addAll(schemaDataModel.iterator());
+		
+//		Reasoner reasoner = ReasonerRegistry.getOWLMicroReasoner();// miniReasoner();
+//		reasoner = reasoner.bindSchema(schemaDataModel);
+//		InfModel jenaModel = ModelFactory.createInfModel(reasoner,
+//				schemaDataModel);
+//		Model m = new ModelImplJena24(null, jenaModel);
 
 		log.debug("de-anonymizing");
 		deanonymize(m);

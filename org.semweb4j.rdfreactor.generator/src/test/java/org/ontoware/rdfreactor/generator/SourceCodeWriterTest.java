@@ -23,7 +23,7 @@ public class SourceCodeWriterTest  {
 		JPackage jp = new JPackage("test");
 		jm.addPackage(jp);
 		JClass jc1 = new JClass(jp, "MyClass", new URIImpl("schema://myclass"));
-		jc1.addSuperclass(JClass.REACTOR_BASE_NAMED);
+		jc1.setJavaSuperclass(JClass.REACTOR_BASE_NAMED);
 		jp.getClasses().add(jc1);
 		// deprecated
 		// JProperty jprop1 = new JProperty("age", new
