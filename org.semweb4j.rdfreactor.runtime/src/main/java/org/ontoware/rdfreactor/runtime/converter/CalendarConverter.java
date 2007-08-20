@@ -81,6 +81,7 @@ public class CalendarConverter implements INodeConverter<Calendar> {
 				.getTimeZone("UTC"));
 		utcCalendar.setTimeInMillis(cal.getTimeInMillis());
 
+		// TODO get rid of Jena dependency
 		XSDDateTime x = new XSDDateTime(utcCalendar);
 
 		StringBuffer buff = new StringBuffer();
@@ -126,6 +127,7 @@ public class CalendarConverter implements INodeConverter<Calendar> {
 			throws RDFDataException {
 		log.debug("Trying to parse '" + s + "' as an xsd:dateTime");
 
+		// TODO get rid of Jena dependency
 		XSDDateTime xsddate = (XSDDateTime) XSDDatatype.XSDdateTime.parse(s);
 
 		if (xsddate == null)
