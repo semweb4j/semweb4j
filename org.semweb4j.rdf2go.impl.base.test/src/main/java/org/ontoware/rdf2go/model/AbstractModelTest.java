@@ -133,12 +133,11 @@ public abstract class AbstractModelTest extends TestCase {
 		model = getModelFactory().createModel();
 		model.open();
 		model.addStatement(subject, predicate, object);
-		// TODO (wth, 15.08.2007) why do we mix iterators and closeable iterators?
-		Iterator iter = model.findStatements(subject, predicate, object);
+		ClosableIterator iter = model.findStatements(subject, predicate, object);
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
-
+		iter.close();
 		model.removeStatement(subject, predicate, object);
 		ClosableIterator it = model.findStatements(subject, predicate, object);
 		assertFalse(it.hasNext());
@@ -182,12 +181,12 @@ public abstract class AbstractModelTest extends TestCase {
 		model.open();
 		model.addStatement(subject, predicate, "Test");
 
-		Iterator iter = model.findStatements(subject, predicate, model
+		ClosableIterator iter = model.findStatements(subject, predicate, model
 				.createPlainLiteral("Test"));
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
-
+		iter.close();
 		model.removeStatement(subject, predicate, "Test");
 		ClosableIterator it = model.findStatements(subject, predicate, model
 				.createPlainLiteral("Test"));
@@ -259,7 +258,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.open();
 		model.addStatement(subject, predicate, "Test", dt);
 		assertEquals(1, model.size());
-		Iterator<Statement> sit = model.iterator();
+		ClosableIterator<Statement> sit = model.iterator();
 		assertNotNull(sit);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -275,6 +274,7 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals("Test", rdflit.getValue());
 			assertEquals(dt, rdflit.getDatatype());
 		}
+		sit.close();
 		model.close();
 	}
 
@@ -289,10 +289,11 @@ public abstract class AbstractModelTest extends TestCase {
 		assertTrue(model.contains(subject, predicate, model
 				.createDatatypeLiteral("Test", dt)));
 
-		Iterator iter = model.iterator();
+		ClosableIterator iter = model.iterator();
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
+		iter.close();
 		model.removeStatement(subject, predicate, "Test", dt);
 		assertFalse(model.contains(subject, predicate, model
 				.createDatatypeLiteral("Test", dt)));
@@ -311,7 +312,7 @@ public abstract class AbstractModelTest extends TestCase {
 		BlankNode blankNode = model.createBlankNode();
 
 		model.addStatement(subject, predicate, blankNode);
-		Iterator<? extends Statement> sit = model.findStatements(subject,
+		ClosableIterator<? extends Statement> sit = model.findStatements(subject,
 				predicate, blankNode);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -321,6 +322,7 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(predicate, s.getPredicate());
 			assertEquals(blankNode, s.getObject());
 		}
+		sit.close();
 
 		model.removeStatement(subject, predicate, blankNode);
 		assertFalse(model.contains(subject, predicate, blankNode));
@@ -339,7 +341,7 @@ public abstract class AbstractModelTest extends TestCase {
 		BlankNode blankNode = model.createBlankNode();
 
 		model.addStatement(blankNode, predicate, object);
-		Iterator<? extends Statement> sit = model.findStatements(blankNode,
+		ClosableIterator<? extends Statement> sit = model.findStatements(blankNode,
 				predicate, object);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -354,7 +356,7 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(predicate, s.getPredicate());
 			assertEquals(object, s.getObject());
 		}
-
+		sit.close();
 		model.removeStatement(blankNode, predicate, object);
 		assertFalse(model.contains(blankNode, predicate, object));
 		model.close();
@@ -372,9 +374,9 @@ public abstract class AbstractModelTest extends TestCase {
 		BlankNode blankNode = model.createBlankNode();
 
 		model.addStatement(blankNode, predicate, "Test");
-		Iterator<? extends Statement> sit = model
-				.findStatements(new TriplePatternImpl(blankNode, predicate,
-						"Test"));
+		ClosableIterator<? extends Statement> sit = model
+				.findStatements(new TriplePatternImpl((BlankNode) blankNode,
+						predicate, "Test"));
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
 			// should be just one
@@ -383,8 +385,8 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(predicate, s.getPredicate());
 			assertEquals(s.getObject(), "Test");
 		}
-
-		model.removeStatement(blankNode, predicate, "Test");
+		sit.close();
+		model.removeStatement((BlankNode) blankNode, predicate, "Test");
 		ClosableIterator<? extends Statement> it = model
 				.findStatements(new TriplePatternImpl(blankNode, predicate,
 						"Test"));
@@ -406,7 +408,7 @@ public abstract class AbstractModelTest extends TestCase {
 		BlankNode blankNodeObject = model.createBlankNode();
 
 		model.addStatement(blankNodeSubject, predicate, blankNodeObject);
-		Iterator<? extends Statement> sit = model.findStatements(
+		ClosableIterator<? extends Statement> sit = model.findStatements(
 				blankNodeSubject, predicate, blankNodeObject);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -416,7 +418,7 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(predicate, s.getPredicate());
 			assertEquals(blankNodeObject, s.getObject());
 		}
-
+		sit.close();
 		model.removeStatement(blankNodeSubject, predicate, blankNodeObject);
 		assertFalse(model
 				.contains(blankNodeSubject, predicate, blankNodeObject));
@@ -844,7 +846,7 @@ public abstract class AbstractModelTest extends TestCase {
 		assertEquals(1, result.getVariables().size());
 		assertTrue(firstSolution.getValue("f").equals(fileA)
 				|| firstSolution.getValue("f").equals(fileB));
-
+		i.close();
 		m.close();
 	}
 
@@ -896,7 +898,8 @@ public abstract class AbstractModelTest extends TestCase {
 		ClosableIterator<Statement> it = model.iterator();
 		Statement stmt = it.next();
 		it.close();
-
+		model.close();
+		
 		Assert.assertEquals(a, stmt.getSubject());
 		Assert.assertEquals(b, stmt.getPredicate());
 		Assert.assertEquals(inString, stmt.getObject().asLiteral().getValue());
