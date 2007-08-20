@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -124,6 +123,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		// never close them when you loaded them buffered
 		// foaf.close();
 		// ical.close();
+		m.close();
 	}
 
 	/**
@@ -139,6 +139,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertNotNull(defaultModel);
 		assertNull("the default model must have the NULL context", defaultModel
 				.getContextURI());
+		defaultModel.close();
 	}
 
 	@Test
@@ -157,6 +158,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertNotNull(m);
 		assertTrue("graph2 contains more than 10 statements, it contains: "
 				+ m.size(), m.size() > 10);
+		m.close();
 	}
 
 	@Test
@@ -169,9 +171,11 @@ public abstract class AbstractModelSetTest extends TestCase {
 		m.addStatement(a, b, c);
 		assertTrue(m.size() > 0);
 		this.modelset.removeModel(graphuri1);
+		m.close();
 		m = this.modelset.getModel(graphuri1);
 		m.open();
 		assertEquals(0, m.size());
+		m.close();
 	}
 
 	@Test
@@ -184,9 +188,11 @@ public abstract class AbstractModelSetTest extends TestCase {
 		m.addStatement(a, b, c);
 		assertTrue(m.size() > 0);
 		this.modelset.removeAll();
+		m.close();
 		m = this.modelset.getModel(graphuri1);
 		m.open();
 		assertEquals(0, m.size());
+		m.close();
 	}
 
 	@Test
@@ -194,10 +200,11 @@ public abstract class AbstractModelSetTest extends TestCase {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
 		addTestDataToModelSet();
-		Iterator<? extends Model> i = this.modelset.getModels();
+		ClosableIterator<? extends Model> i = modelset.getModels();
 		ArrayList<Model> m = new ArrayList<Model>();
 		Iterators.addAll(i, m);
 		assertEquals(TESTGRAPHCOUNT, m.size());
+		i.close();
 	}
 
 	/** test find with (c,x,y,z) on contained model */
@@ -256,6 +263,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		model.removeStatement(a, b, c);
 		//		
 		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		model.close();
 	}
 
 	@Test
@@ -545,6 +553,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 			fail();
 		}
 		assertTrue(sw.getBuffer().toString().length() > 1000);
+		sw.close();
 	}
 
 	@Test
@@ -632,6 +641,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 
 		ModelUtils.copy(this.modelset, target);
 		assertEquals(this.modelset.size(), target.size());
+		target.close();
 	}
 
 	/**
@@ -674,5 +684,4 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals(this.modelset.size(), target.size());
 		m.close();
 	}
-
 }
