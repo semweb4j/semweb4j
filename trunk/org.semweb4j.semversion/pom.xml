@@ -10,7 +10,7 @@
 		<version>4.15.2</version>
 	</parent>
 
-	<groupId>org.semanticdesktop</groupId>
+	<groupId>org.semweb4j</groupId>
 	<artifactId>semversion</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
