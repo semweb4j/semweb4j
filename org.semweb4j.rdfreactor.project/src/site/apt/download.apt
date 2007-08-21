@@ -14,6 +14,8 @@ Release
   
   * {{{http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/4.4.8/rdfreactor.dist-4.4.8.jar}jar only}}
   
+  * {{{http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/4.4.8/rdfreactor.dist-4.4.8-sources.jar}sources}}
+  
   * {{{http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/4.4.8/rdfreactor.dist-4.4.8.pom}Maven2 pom}}                         
 
   []
