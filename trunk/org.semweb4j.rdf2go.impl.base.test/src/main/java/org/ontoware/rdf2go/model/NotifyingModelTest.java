@@ -38,7 +38,7 @@ public class NotifyingModelTest extends AbstractModelTest
 	}
 
 	@Override
-	public void setUp() throws ModelRuntimeException
+	public void setUp() throws ModelRuntimeException, Exception
 	{
 		super.setUp();
 		Model plainModel = getModelFactory().createModel();
