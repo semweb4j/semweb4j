@@ -664,4 +664,15 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals(this.modelset.size(), target.size());
 		m.close();
 	}
+	
+	public void testAddRemovePatternsWithNull() {
+		modelset = getModelFactory().createModelSet();
+		modelset.open();
+		modelset.addStatement(null, a, b, c);
+		Assert.assertEquals(1, modelset.size());
+		modelset.removeStatements(null, Variable.ANY, Variable.ANY,
+				Variable.ANY);
+		Assert.assertEquals(0, modelset.size());
+	}
+
 }
