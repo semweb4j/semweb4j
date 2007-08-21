@@ -270,21 +270,15 @@ public abstract class AbstractModelSetTest extends TestCase {
 	public void testSparqlAsk() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		// TODO add test when sparql ask is availalbe fail("Not yet
-		// implemented");
+		// TODO add test when sparql ask is availalbe (not yet, as of 17.08.2007)
 		
-		// TODO (wth, 15.08.2007) IS sparql ask available now?
-
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	public void testSparqlConstruct() throws Exception {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		// TODO add test when sparql construct is availalbe fail("Not yet
-		// implemented");
-		
-		// TODO (wth, 15.08.2007) can this todo (sparql construct) be removed?
 
 		addTestDataToModelSet();
 		ClosableIterable<? extends Statement> i = this.modelset
@@ -299,9 +293,10 @@ public abstract class AbstractModelSetTest extends TestCase {
 	public void testSparqlDescribe() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		// TODO add test when sparql describe fail("Not yet implemented");
+		// TODO add test when sparql describe is available (not yet, as of 17.08.2007)
 		
-		// TODO (wth, 15.08.2007) why is this fail commented (sparql describe)?
+		//fail("Not yet implemented");
+		
 	}
 
 	@Test
@@ -357,22 +352,15 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertNotNull(u);
 	}
 
-// TODO (wth, 15.08.2007) should all this tests which state: "write test here" be written?
+// TODO (wth, 15.08.2007) should all this tests which state: "write test here" be written? yes
 	
 	@Test
-	public void testDump() {
+	public void testOpenClose() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
 
 		// TODO write test here
-	}
-
-	@Test
-	public void testClose() {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-
-		// TODO write test here
+		// tricky... a lot of things have to be considered - ask max
 	}
 
 	@Test
@@ -390,14 +378,6 @@ public abstract class AbstractModelSetTest extends TestCase {
 		test.removeAll(uris);
 		assertEquals(0, test.size());
 		l.close();		
-	}
-
-	@Test
-	public void testOpen() {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-
-		// TODO write test here
 	}
 
 	@Test
@@ -467,7 +447,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		m.open();
 		assertEquals("the default model has foaf", 536, m.size());
 
-		ClosableIterator i = m.iterator();
+		ClosableIterator<Statement> i = m.iterator();
 		int sizeByIterator = ModelUtils.size(i);
 		assertEquals("the default model can use an iterator", 536,
 				sizeByIterator);
@@ -506,7 +486,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals("the named graph model has foaf", TestData.FOAFSIZE, m
 				.size());
 		// at some point, iterators were broken here, so test if it returns one
-		ClosableIterator i = m.iterator();
+		ClosableIterator<Statement> i = m.iterator();
 		int sizeByIterator = ModelUtils.size(i);
 		assertEquals("the model supports iterators", TestData.FOAFSIZE,
 				sizeByIterator);

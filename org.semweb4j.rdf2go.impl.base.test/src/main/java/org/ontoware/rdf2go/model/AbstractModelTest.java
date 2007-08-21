@@ -30,7 +30,6 @@ import org.ontoware.rdf2go.model.impl.TriplePatternImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
-import org.ontoware.rdf2go.model.node.PlainLiteral;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
@@ -62,10 +61,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/** @return a Model to be used in the test. It must be fresh, e.g. unused */
 	public abstract ModelFactory getModelFactory();
 
-	// TODO (wth, 15.08.2007) why is super overridden? this method does nothing?
-	public void setUp() throws ModelRuntimeException {
-	}
-
+	
 	@Test
 	public void testIsOpen() {
 		Model model = getModelFactory().createModel();
@@ -133,13 +129,16 @@ public abstract class AbstractModelTest extends TestCase {
 		model = getModelFactory().createModel();
 		model.open();
 		model.addStatement(subject, predicate, object);
-		ClosableIterator iter = model.findStatements(subject, predicate, object);
+		ClosableIterator<? extends Statement> iter = model.findStatements(
+				subject, predicate, object);
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
 		iter.close();
+
 		model.removeStatement(subject, predicate, object);
-		ClosableIterator it = model.findStatements(subject, predicate, object);
+		ClosableIterator<? extends Statement> it = model.findStatements(
+				subject, predicate, object);
 		assertFalse(it.hasNext());
 		it.close();
 		model.close();
@@ -165,8 +164,7 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(subject, s.getSubject());
 			assertEquals(predicate, s.getPredicate());
 
-			// TODO (wth, 15.08.2007) warum der angeblich unnötige cast?
-			assertEquals((PlainLiteral) s.getObject(), "Test");
+			assertTrue(s.getObject().equals("Test"));
 		}
 		sit.close();
 		model.close();
@@ -181,15 +179,15 @@ public abstract class AbstractModelTest extends TestCase {
 		model.open();
 		model.addStatement(subject, predicate, "Test");
 
-		ClosableIterator iter = model.findStatements(subject, predicate, model
-				.createPlainLiteral("Test"));
+		ClosableIterator<? extends Statement> iter = model.findStatements(
+				subject, predicate, model.createPlainLiteral("Test"));
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
 		iter.close();
 		model.removeStatement(subject, predicate, "Test");
-		ClosableIterator it = model.findStatements(subject, predicate, model
-				.createPlainLiteral("Test"));
+		ClosableIterator<? extends Statement> it = model.findStatements(
+				subject, predicate, model.createPlainLiteral("Test"));
 		assertFalse(it.hasNext());
 		it.close();
 		model.close();
@@ -197,12 +195,8 @@ public abstract class AbstractModelTest extends TestCase {
 
 	/*
 	 * Class under test for void addStatement(URI, URI, String, String)
-	 * 
-	 * PENDING wait for yars to implement languageTags correctly
 	 */
 	@Test
-	// TODO (wth, 15.08.2007) are the languageTags in yars now implemented?
-	// TODO (wth, 15.08.2007) do we still use/impl. yars?
 	public void testAddStatementLanguageTaggedLiteral() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -237,7 +231,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.addStatement(subject, predicate, "Test", "DE");
 		assertTrue(model.contains(subject, predicate, model
 				.createLanguageTagLiteral("Test", "DE")));
-		ClosableIterator iter = model.iterator();
+		ClosableIterator<Statement> iter = model.iterator();
 		assertTrue(iter.hasNext());
 		iter.close();
 		model.removeStatement(subject, predicate, "Test", "DE");
@@ -248,11 +242,8 @@ public abstract class AbstractModelTest extends TestCase {
 
 	/*
 	 * Class under test for void addStatement(URI, URI, String, URI)
-	 * 
-	 * PENDING due to an open fix in yars implementation
 	 */
 	@Test
-	// TODO (wth, 15.08.2007) is the above bug fixed in yars?
 	public void testAddStatementDatatypedLiteral() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
@@ -289,11 +280,13 @@ public abstract class AbstractModelTest extends TestCase {
 		assertTrue(model.contains(subject, predicate, model
 				.createDatatypeLiteral("Test", dt)));
 
-		ClosableIterator iter = model.iterator();
+		ClosableIterator<Statement> iter = model.iterator();
 		assertTrue(iter.hasNext());
+
 		while (iter.hasNext())
 			iter.next();
 		iter.close();
+
 		model.removeStatement(subject, predicate, "Test", dt);
 		assertFalse(model.contains(subject, predicate, model
 				.createDatatypeLiteral("Test", dt)));
@@ -375,7 +368,7 @@ public abstract class AbstractModelTest extends TestCase {
 
 		model.addStatement(blankNode, predicate, "Test");
 		ClosableIterator<? extends Statement> sit = model
-				.findStatements(new TriplePatternImpl((BlankNode) blankNode,
+				.findStatements(new TriplePatternImpl(blankNode,
 						predicate, "Test"));
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -386,7 +379,7 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(s.getObject(), "Test");
 		}
 		sit.close();
-		model.removeStatement((BlankNode) blankNode, predicate, "Test");
+		model.removeStatement(blankNode, predicate, "Test");
 		ClosableIterator<? extends Statement> it = model
 				.findStatements(new TriplePatternImpl(blankNode, predicate,
 						"Test"));

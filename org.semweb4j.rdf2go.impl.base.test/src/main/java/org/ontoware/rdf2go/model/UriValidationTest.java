@@ -28,10 +28,9 @@ public class UriValidationTest extends TestCase {
 			}
 		}
 
-		// TODO this test doesn't work. 
+		// TODO (wth, 15.08.2007)  find out if this test works
+		//there was a todo that stated that it doesn't
 		
-		// TODO (wth, 15.08.2007)  should this test be rewritten or does noone need it?
-
 //		// expect errors
 //		for (String s : invalidURIs) {
 //			boolean error = false;

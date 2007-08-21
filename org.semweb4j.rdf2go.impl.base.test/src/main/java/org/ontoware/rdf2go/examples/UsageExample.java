@@ -28,7 +28,10 @@ public class UsageExample extends TestCase {
 		log.debug("Launching test");
 		
 		Model m = RDF2Go.getModelFactory().createModel();
-
+		// TODO (wth, 17.08.2007) no opened models are not allowed!
+		//fix this everywhere you find it
+		m.open();
+		
 		URI konrad = m.createURI("urn:x-example:konrad");
 		URI kennt = m.createURI("urn:x-example:kennt");
 		URI max = m.createURI("urn:x-example:max");

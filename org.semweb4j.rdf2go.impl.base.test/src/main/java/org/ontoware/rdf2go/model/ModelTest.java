@@ -5,7 +5,7 @@ import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.model.AbstractModelTest;
 
 /**
- * Tests the implementation found on the classpat
+ * Tests the implementation found on the classpath
  * @author voelkel
  *
  */
