@@ -75,18 +75,14 @@ public class RDF2GoTest extends TestCase {
 		// this is protected by design
 		RDF2Go.modelFactory = null;
 
+		// register the same twice is allowed
 		ModelFactory adapterOne = new RDF2GoTestAdapter();
 		RDF2Go.register(adapterOne);
-		// twice is allowed
 		RDF2Go.register(adapterOne); 
-		adapterOne = new RDF2GoTestAdapter(); 
 		
 		// twice is only allowed with the same class but not with a different
 		// one
-		
-		// TODO (wth, 15.08.2007) warum wird hier nun zum 3. mal der
-		//adapter 1 registriert - der ist ja schon und das will man 
-		//garnicht mehr testen
+		adapterOne = new RDF2GoTestAdapter(); 
 		RDF2Go.register(adapterOne);
 
 		ModelFactory adapterTwo = new RDF2GoTestAdapterTwo();

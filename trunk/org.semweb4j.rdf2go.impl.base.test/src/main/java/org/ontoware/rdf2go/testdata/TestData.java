@@ -156,35 +156,3 @@ public class TestData {
 	}
 
 }
-
-// TODO (wth, 15.08.2007) what about this commented code fragments?
-// keep, do something useful with it, throw it away (it's in the svn...)
-
-// ClassLoader[] cloader = new ClassLoader[] {
-// Thread.currentThread().getContextClassLoader(),
-// TestData.class.getClassLoader(),
-// ClassLoader.getSystemClassLoader()
-// };
-// String[] path = new String[] {
-// "./org/ontoware/rdf2go/testdata/foaf.xml",
-// "/org/ontoware/rdf2go/testdata/foaf.xml",
-// "org/ontoware/rdf2go/testdata/foaf.xml",
-// ".org.ontoware.rdf2go.testdata.foaf.xml",
-// "/org.ontoware.rdf2go.testdata.foaf.xml",
-// "org.ontoware.rdf2go.testdata.foaf.xml",
-// "foaf.xml"
-// };
-//		
-// StringBuffer buf = new StringBuffer();
-// for(String s : path ) {
-// for( ClassLoader cl : cloader) {
-// InputStream in = cl.getResourceAsStream(s);
-// buf.append((in!=null)+" for path "+s+" via "+cl.toString()+"\n");
-// }
-//		
-// }
-//		
-// throw new RuntimeException(buf.toString());
-//		
-//		
-
