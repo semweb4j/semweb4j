@@ -12,20 +12,24 @@ Release
   
   * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.zip}including all libs}}
   
-   * rdf2go.api-xxx, rdf2go.impl.base, rdf2go.iml.base.test  are the core RDF2Go jars 
+    * rdf2go.api-xxx, rdf2go.impl.base, rdf2go.iml.base.test  are the core RDF2Go jars 
   
-   * rdf2go.impl.jena24-xxx is the Jena implementations
+    * rdf2go.impl.jena24-xxx is the Jena implementations
+    
+    * Sesame2 implementation is here http://repository.aduna-software.org/maven2/org/openrdf/openrdf-rdf2go/ 
   
-   * rdf2go.dist is created by Maven, but not needed. Bug filed at http://octopus13.fzi.de:8080/browse/RTGO-12
+      * Make sure to read the POM to figure out, which version of RDF2Go and Sesame are compatible.
+      
+      []
   
-   * Sesame2 implementation is here http://repository.aduna-software.org/maven2/org/openrdf/openrdf-rdf2go/ 
-  
-    * Make sure to read the POM to figure out, which version of RDF2Go and Sesame are compatible.
-  
-   * most other JARs are Jena, can be deleted if Jena is not used.
+    * most other JARs are Jena, can be deleted if Jena is not used.
+
+	[]
   
   * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.jar}jar only}}
-  
+
+  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6-sources.jar}sources}}
+
   * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.pom}Maven2 pom}} - recommended                        
 
   []
@@ -34,6 +38,8 @@ Release
 
   * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.api/4.4.7/rdf2go.api-4.4.7.jar}jar only}}
   
+  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.api/4.4.7/rdf2go.api-4.4.7-sources.jar}sources}}
+
   * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.api/4.4.7/rdf2go.api-4.4.7.pom}Maven2 pom}} - recommended                        
 
   [] 
