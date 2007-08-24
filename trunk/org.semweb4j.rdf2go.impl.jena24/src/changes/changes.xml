@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="4.4.7" description="Bugfix">
+			<action dev="xamde" type="update">
+				Fixed a bug for output of rdf files: Namespace 'rdf' had
+				wrong pre-definition.
+			</action>
+		</release>
+
 		<release version="4.4.6" description="RDF2Go adaption">
 			<action dev="xamde" type="update">
 				Adapted to latest RDF2Go API 4.4.6
