@@ -393,7 +393,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	private static void registerNamespaces(
 			com.hp.hpl.jena.rdf.model.Model jenaModel) {
 		// beautify output
-		jenaModel.setNsPrefix("rdf", "http://www.w3.org/2000/01/rdf-schema#");
+		jenaModel.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 		jenaModel.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 		jenaModel.setNsPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
 		jenaModel.setNsPrefix("foaf", "http://xmlns.com/foaf/0.1/");
