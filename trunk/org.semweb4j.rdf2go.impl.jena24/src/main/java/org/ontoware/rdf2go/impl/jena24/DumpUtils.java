@@ -17,12 +17,10 @@ public class DumpUtils {
 	private static Log log = LogFactory.getLog(DumpUtils.class);
 
 	public static void addCommonPrefixesToJenaModel(com.hp.hpl.jena.rdf.model.Model jenaModel) {
-		jenaModel.setNsPrefix("wiki", "http://www.xam.de/ns/semanticwiki/2005/01#");
 		jenaModel.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 		jenaModel.setNsPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
 		jenaModel.setNsPrefix("owl", "http://www.w3.org/2002/07/owl#");
 		jenaModel.setNsPrefix("foaf", "http://xmlns.com/foaf/0.1/");
-		jenaModel.setNsPrefix("cds", "http://www.xam.de/2006/01-cds#");
 		jenaModel.setNsPrefix("rnd", "rnd://rnd/");
 
 		// SMW

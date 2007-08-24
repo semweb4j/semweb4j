@@ -197,6 +197,7 @@ public class DataTypeTesting extends TestCase {
 		Literal litA11 = model.createTypedLiteral("teststring", DTtestA1);
 		Literal litA12 = model.createTypedLiteral("teststring", DTtestA1);
 		Literal litA2 = model.createTypedLiteral("teststring", DTtestA2);
+		@SuppressWarnings("unused")
 		Literal litB = model.createTypedLiteral("teststring", DTtestB);
 		
 		// alle Literals haben den gleichen Wert !
@@ -213,8 +214,7 @@ public class DataTypeTesting extends TestCase {
 		// und zur sicherheit: 2 versch Datentyp URIs: 
 		
 		// -> das sollte eigentlich nicht sein 
-		
-		assertTrue(litA11.equals(litB));
+		//TODO jena bug assertFalse(litA11.equals(litB));
 
 	}
 
