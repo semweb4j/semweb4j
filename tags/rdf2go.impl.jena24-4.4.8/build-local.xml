@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+
+  An attempt to create a local build file - doens't work!
+
+
+-->
+<project default="plugin_export" name="build">
+
+	<property name="pluginname" value="org.semweb4j.rdf2go.impl.jena24" />
+
+	<path id="classpath">
+		<pathelement path="buildlibs/commons-httpclient.jar" />
+		<pathelement path="buildlibs/commons-logging.jar" />
+		<pathelement path="buildlibs/jakarta-slide-ant-webdav-2.1.jar" />
+		<pathelement path="buildlibs/jakarta-slide-webdavlib-2.1.jar" />
+	</path>
+
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Put" classpathref="classpath" name="davput" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Get" classpathref="classpath" name="davget" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Lock" classpathref="classpath" name="lock" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Unlock" classpathref="classpath" name="unlock" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Mkcol" classpathref="classpath" name="mkcol" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Delete" classpathref="classpath" name="davdelete" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Proppatch" classpathref="classpath" name="proppatch" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Copy" classpathref="classpath" name="davcopy" />
+	<taskdef classname="org.apache.webdav.ant.taskdefs.Move" classpathref="classpath" name="davmove" />
+
+	<!-- maps the environment variables to env.* -->
+	<property environment="env" />
+	<target name="plugin_export">
+		<pde.exportPlugins destination="${env.BUNDLES}" exportSource="true" exportType="directory" plugins="${pluginname}" useJARFormat="true" />
+	</target>
+
+	<target name="local-build">
+		<echo message="Building bundle jar to /target/build..." />
+		<mkdir dir="target/build" />
+		<delete>
+			<fileset dir="target/build">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<pde.exportPlugins destination="./target/build" exportSource="true" exportType="directory" plugins="${pluginname}" useJARFormat="true" />
+	</target>
+
+	<target name="check-scp-installed">
+		<condition property="scp-not-installed">
+			<not>
+				<available file="${ant.library.dir}/jsch-0.1.31.jar" property="scp-not-installed" />
+			</not>
+		</condition>
+	</target>
+
+	<target name="install-scp" description="install SCP task" depends="check-scp-installed" if="scp-not-installed">
+		<get dest="${ant.library.dir}/jsch-0.1.31.jar" src="http://prdownloads.sourceforge.net/jsch/jsch-0.1.31.jar?download" />
+	</target>
+
+	<target name="upload-to-repository">
+		<!-- depends="install-scp, local-build" -->
+		<!--
+		<input message="password on theoretiker?" addproperty="password" />
+		<scp todir="max:${password}@theoretiker.org:/home/max/public_html/semweb4j.org/bundles">
+			<fileset dir="target/build">
+				<include name="**/*.jar" />
+			</fileset>
+		</scp>
+-->
+
+<!--
+		<davput url="https://webdav.theoretiker.org:443/max/semweb4j.org/bundles" userid="max" password="mv21ss,." overwrite="true" encoding="UTF-8" verbose="true">
+			<fileset dir="target/build">
+				<include name="**/*.jar" />
+			</fileset>
+		</davput>
+-->
+<copy todir="target/temp">
+	<fileset dir="./target/build">
+		<include name="**/*" />
+	</fileset>
+</copy>
+		
+		<scp failonerror="true" trust="yes" verbose="true" todir="max:mv21ss,.@theoretiker.org:/home/max/public_html/semweb4j.org/bundles">
+			<fileset dir="./target/build">
+				<include name="**/*" />
+			</fileset>
+		</scp>
+	</target>
+
+</project>
