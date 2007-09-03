@@ -8,8 +8,10 @@
 
 Release
   
-  The current release is 0.92a - but we do not recommend to use it.
+  The latest release is 1.01. We recommend to no longer use 0.92.
   
-
+  Download releases from http://semweb4j.org/repo/org/semweb4j/semversion/1.0.1/
+  
+  and choose .zip to get all dependencies as well. Or use maven and get only the POM. 
     
 ~~ http://maven.apache.org/guides/mini/guide-apt-format.html
