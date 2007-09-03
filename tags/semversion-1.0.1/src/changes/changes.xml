@@ -1,0 +1,108 @@
+<document>
+	<properties>
+		<title>SemVersion Changelog</title>
+		<author email="dev@xam.de">Max Voelkel</author>
+	</properties>
+	<body>
+
+		<release version="1.0.1-SNAPSHOT" date="2007-08-20"
+			description="API changes">
+			<action dev="xamde" type="fix" issue="SV-10">
+				Added USer.hasURI(). User is now an interface.
+			</action>
+		</release>
+
+		<release version="1.0.0-SNAPSHOT" date="2007-08-04"
+			description="API changes, Performance and Scalability">
+			<action dev="xamde" type="update">
+				Migration to SLF4j.
+			</action>
+			<action dev="xamde" type="update">
+				Migration to Sesame 2 beta 4 native store. TRIX files
+				are no longer used.
+			</action>
+			<action dev="xamde" type="update">
+				Migrated to RDF2Go API 4.4.6 - now all models have to be
+				opened() explicitly.
+			</action>
+			<action dev="xamde" type="add">
+				Migrated to maven and started proper maven changelog
+				file
+			</action>
+			<action dev="xamde" type="update">
+				Design decision: Content of commited models and diffs is
+				no longer stored - thst would be redundant.
+			</action>
+			<action dev="xamde" type="update">
+				Changed handling and persistence of dates from long to
+				java.util.Calendar / xsd:dateTime.
+			</action>
+			<action dev="xamde" type="remove">
+				Removed ValidTime-concept from API.
+			</action>
+		</release>
+
+		<release version="0.94" date="2006-06-16"
+			description="Dependency update">
+			<action dev="xamde" type="update">
+				Updated to semweb4j this includes update to Jena 2.3.
+			</action>
+		</release>
+
+		<release version="0.93" date="2006-04-03"
+			description="API changes">
+			<action dev="xamde" type="update">
+				Added getVersion( URI uri) to VersionedModel
+			</action>
+		</release>
+
+		<release version="0.93" date="2006-04-01"
+			description="API changes">
+			<action dev="xamde" type="update">
+				Added getVersionedModel( URI uri ) to Session
+			</action>
+		</release>
+
+		<release version="0.91" date="2006-01-31"
+			description="Major enhancements">
+			<action dev="xamde" type="add">
+				Blank node enrichment
+			</action>
+			<action dev="xamde" type="add">
+				Persistence via NG4J in a TriX file
+			</action>
+		</release>
+
+		<release version="0.91 beta">
+			<action dev="xamde" type="add">
+				Added support to getVersionedModel by URI (thanks Pawel)
+			</action>
+		</release>
+
+		<release version="0.3 alpha" description="Improvements">
+			<action dev="xamde" type="update">
+				Using YARS as storage solution
+			</action>
+		</release>
+
+		<release version="0.2 alpha" description="Full rewrite">
+			<action dev="xamde" type="update">
+				Taking advantage of Java 5.0
+			</action>
+			<action dev="xamde" type="update">Using RDFReactor</action>
+		</release>
+
+		<release version="0.1 alpha" date="2004"
+			description="Never publically released">
+			<action dev="xamde" type="add">Initial coding.</action>
+		</release>
+
+		<!--
+			<action dev="aramirez" type="fix" issue="MPJIRA-11">
+			Enable retrieving component-specific issues.
+			</action>
+		-->
+
+
+	</body>
+</document>

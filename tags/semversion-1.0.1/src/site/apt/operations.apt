@@ -1,0 +1,28 @@
+                                    ------
+                                    Versioning Operations in SemVersion
+                                    ------
+                                    Max Völkel
+                                    ------
+                                     16.07.2007
+
+  The versioning operations are implemented as methods in 
+  org.ontoware.semversion.Version.java
+
+VersionedModel
+
+* commitRoot
+
+* removeRoot
+
+Version
+
+* commit a Model as successor
+
+* commit a Model as branch
+
+* commit a Diff as successor
+
+* commit a Diff as branch
+
+* merge with other Version
+
