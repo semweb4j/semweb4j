@@ -6,7 +6,7 @@
 	</properties>
 	<body>
 
-		<release version="@@" date="@@">
+		<release version="4.4.7" date="2007-08-21">
 			<action dev="xamde" type="add">
 				Implemented NotifyingModelSetLayer
 			</action>
@@ -15,7 +15,7 @@
 			</action>
 		</release>
 
-		<release version="4.4.6">
+		<release version="4.4.6" date="2007-06-27">
 			<action dev="xamde" type="add">
 				Added LanguageTools which allos to reduce an RDF model
 				to literals in a desired language.
