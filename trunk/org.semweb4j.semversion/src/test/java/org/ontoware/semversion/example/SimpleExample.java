@@ -47,6 +47,7 @@ public class SimpleExample {
 		// suggest to add a label
 		userSession = semVersion.login("joe", "password");
 		Version root = userSession.getVersionedModel("Gene Ontology").getRoot();
+		root.setLabel("root version");
 		Model rootModel = root.getContent();
 		rootModel.addStatement(
 				new URIImpl("http://semversion.ontoware.org"), RDFS.label,
