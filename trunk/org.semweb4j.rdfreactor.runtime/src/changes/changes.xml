@@ -4,6 +4,11 @@
 		<author email="max@xam.de">Max Völkel</author>
 	</properties>
 	<body>
+		<release version="4.4.11">
+			<action dev="xamde" type="update">
+				Fixed a bug with converting Booleans and URLs
+			</action>
+		</release>
 		<release version="4.4.10">
 			<action dev="xamde" type="update">
 				Fixed a bug with null values

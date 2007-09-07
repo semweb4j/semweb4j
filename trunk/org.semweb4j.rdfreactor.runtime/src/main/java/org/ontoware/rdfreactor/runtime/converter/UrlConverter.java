@@ -53,8 +53,7 @@ public class UrlConverter implements INodeConverter<java.net.URL> {
 	}
 
 	public URL toJava(Node node) {
-		// TODO Auto-generated method stub
-		return null;
+		return convert(node);
 	}
 
 	public Node toNode(Model model, Object javaValue) {
