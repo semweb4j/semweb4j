@@ -5,6 +5,7 @@ import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.PlainLiteral;
+import org.ontoware.rdf2go.model.node.impl.DatatypeLiteralImpl;
 import org.ontoware.rdf2go.vocabulary.XSD;
 import org.ontoware.rdfreactor.runtime.INodeConverter;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
@@ -49,7 +50,7 @@ public class BooleanConverter implements INodeConverter<Boolean>{
 	}
 
 	public Node toNode(Model model, Object javaValue) {
-		// TODO Auto-generated method stub
-		return null;
+		Boolean b = (Boolean) javaValue;
+		return new DatatypeLiteralImpl( b.toString(), XSD._boolean);
 	}	
 }

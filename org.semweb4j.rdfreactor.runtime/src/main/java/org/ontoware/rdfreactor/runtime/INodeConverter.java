@@ -14,7 +14,7 @@ public interface INodeConverter<T> {
 	T toJava( Node node );
 	
 	/**
-	 * @param model TODO
+	 * @param model an RDF2Go model
 	 * @param javaType must be of type T
 	 * @return an RDF2Go nod with the value of javaValue
 	 */
