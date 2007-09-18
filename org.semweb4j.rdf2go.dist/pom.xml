@@ -76,7 +76,7 @@
 						</goals>
 						<configuration>
 							<finalName>
-								site/rdf2go/dist/${project.name}-${version}
+								dist/${project.artifactId}-${version}
 							</finalName>
 							<descriptors>
 								<descriptor>
