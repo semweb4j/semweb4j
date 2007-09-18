@@ -6,8 +6,8 @@
 		WARNING: Do not invoke mvn release:prepare/perform on this project.
 		It just garbles all POMs up but doesn't work.
 		Even with Maven 2.0.6-
-
-        wth: you might use it for site deployment thought
+		
+		wth: you might use it for site deployment thought
 	-->
 	<modelVersion>4.0.0</modelVersion>
 
@@ -19,7 +19,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.project</artifactId>
-	<version>4.4.6-SNAPSHOT</version>
+	<version>4.4.6</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDF2go project summary</name>
@@ -31,32 +31,11 @@
 		implementation.
 	</description>
 
-	<developers>
-		<developer>
-			<name>Sebastian Gerke</name>
-			<organization>FZI Karlsruhe</organization>
-			<organizationUrl>http://fzi.de</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<name>Benjamin Heitmann</name>
-			<organization>FZI Karlsruhe</organization>
-			<organizationUrl>http://fzi.de</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
-
 	<issueManagement>
 		<system>JIRA</system>
 		<url>http://issues.semweb4j.org/browse/RTGO</url>
 	</issueManagement>
-	
+
 	<modules>
 		<module>../org.semweb4j.rdf2go.api</module>
 		<module>../org.semweb4j.rdf2go.impl.base</module>
@@ -94,32 +73,38 @@
 		</repository>
 	</repositories>
 
-	<!-- TODO (wth, 11.07.2007) test depgraph plugin -->
-	<!-- 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>elca-services</id>
-			<url>http://el4.elca-services.ch/el4j/maven2repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-	 -->
-
-	<!-- TODO (wth, 11.07.2007) test depgraph plugin -->
-	<!-- <build>
+	<!-- create a distribution -->
+	<build>
 		<plugins>
+			<!-- builds a zip release that contains all dependency libraries 
+				they are copied after compile is executed -->
 			<plugin>
-				<groupId>ch.elca.el4j.maven.plugins</groupId>
-				<artifactId>maven-depgraph-plugin</artifactId>
-				<configuration>
-					<outDir>target/site/images</outDir>
-					<outFile>${pom.artifactId}.png</outFile>
-				</configuration>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- due to a bug in maven 2.0.x we bind
+							this plugin to the integration-test phase
+							so it is made sure alle modules are already packaged
+							when we assemble
+						-->
+						<phase>integration-test</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<finalName>
+								site/sources/${project.artifactId}-${version}
+							</finalName>
+							<descriptors>
+								<descriptor>
+									${basedir}/src/assembly/modules.xml
+								</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	 -->
-	 
+
 </project>
