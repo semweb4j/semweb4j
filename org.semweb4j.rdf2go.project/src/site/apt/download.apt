@@ -1,7 +1,7 @@
 	--------
 	download distribution
 	--------
-	30.07.2007
+	30.07.2007, updated 18.09.2007 (wth)
 	--------
 	Max Voelkel
 	--------
@@ -22,14 +22,14 @@ Release
       
       []
   
-    * most other JARs are Jena, can be deleted if Jena is not used.
+    * most other JARs are from Jena. They can be deleted if Jena is not used.
+    
+    * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.zip}maven2 pom}} - recommended
 
 	[]
+
+  * You can also get the current (possibly unstable) sources from the svn repository: {{{http://semweb4j.googlecode.com/svn/trunk/}semweb4j svn}}
   
-  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.jar}jar only}}
-
-  * {{{http://semweb4j.org/repo/org/semweb4j/rdf2go.dist/4.4.6/rdf2go.dist-4.4.6.pom}Maven2 pom}} - recommended                        
-
   []
 
   Due to an OSGI bug rdf2go.api 4.4.7 has been released.
@@ -45,7 +45,6 @@ Release
   There are no older releases available. Please use the current
   version to get the most out of RDF2Go.
 
-  Here you will find the latest {{{http://semweb4j.org/site/rdf2go/sources/rdf2go.project-4.4.6-sources.zip}sources}}.
 
 Changelog
 
