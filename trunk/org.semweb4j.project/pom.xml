@@ -37,7 +37,7 @@
 		<module>../org.semweb4j.rdf2go.project</module>
 		<module>../org.semweb4j.rdfreactor.project</module>		
  <!-- 		<module>../org.ontoware.semversion</module>  -->		
- 		<module>../org.semweb4j.tutorial</module>		
+ 		<module>../org.semweb4j.semweb4j.tutorial</module>		
 	</modules>
 
 	<!-- to avoid folded site uris -->
