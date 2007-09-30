@@ -77,7 +77,7 @@ public class RDFReactorRuntime {
 	 * @param returnType -
 	 *            n is converted to this type, if it implements the needed
 	 *            constructor
-	 * @return object of returnType converted from n
+	 * @return a single object of returnType converted from n
 	 * @throws ModelRuntimeException
 	 */
 	@Patrolled
@@ -158,7 +158,7 @@ public class RDFReactorRuntime {
 				throw new RuntimeException("found no constructor " + targetType
 						+ "(Model, URI/Object, boolean) " + nsme);
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				throw new ConversionException(e);
 			}
 		} else if (node instanceof BlankNode) {
 			log.debug("BlankNode node");
@@ -179,15 +179,15 @@ public class RDFReactorRuntime {
 				return (ReactorBase) constructor.newInstance(new Object[] {
 						model, bnode });
 			} catch (NoSuchMethodException e) {
-				throw new RuntimeException(e);
+				throw new ConversionException(e);
 			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
+				throw new ConversionException(e);
 			} catch (InstantiationException e) {
-				throw new RuntimeException(e);
+				throw new ConversionException(e);
 			} catch (IllegalAccessException e) {
-				throw new RuntimeException(e);
+				throw new ConversionException(e);
 			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
+				throw new ConversionException(e);
 			}
 
 		} else if (node == null) {
@@ -199,6 +199,11 @@ public class RDFReactorRuntime {
 
 	}
 
+	/**
+	 * @param model
+	 * @param reactorValue
+	 * @return a single RDF2Go Node from a Java object
+	 */
 	protected static Node java2node(Model model, Object reactorValue) {
 		if (reactorValue == null) {
 			throw new IllegalArgumentException("Argument may not be null");
@@ -223,7 +228,7 @@ public class RDFReactorRuntime {
 			}
 		}
 
-		throw new RuntimeException(
+		throw new ConversionException(
 				"Cannot handle instances of "
 						+ reactorValue.getClass()
 						+ " which are neither instance of Reactorbase nor Reactorbase[]");
