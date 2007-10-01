@@ -17,6 +17,9 @@ import org.ontoware.rdf2go.model.node.URI;
 /**
  * Statement representation in rdf2go
  * 
+ * Implementations of Statement should have valid implementations of hashCode
+ * and equals.
+ * 
  * Compared by subject
  * 
  * @author mvo
@@ -25,10 +28,11 @@ import org.ontoware.rdf2go.model.node.URI;
 public interface Statement extends Comparable<Statement>, TriplePattern {
 
 	/**
-     * Note: this was set to be a <code>Model</code> before,
-     * but that would have caused problems, when people accesssed the
-     * model via the Statement. (compare to Jena, where graph and
-     * Model are separated. We are here on graph level)
+	 * Note: this was set to be a <code>Model</code> before, but that would
+	 * have caused problems, when people accesssed the model via the Statement.
+	 * (compare to Jena, where graph and Model are separated. We are here on
+	 * graph level)
+	 * 
 	 * @return the context, where this statement was created. Returns null when
 	 *         not in a ModelSet.
 	 */
@@ -56,11 +60,9 @@ public interface Statement extends Comparable<Statement>, TriplePattern {
 	 * @param options
 	 */
 	public void dump(String[] options);
-	
+
 	public int hashCode();
-	
-	public boolean equals( Object other );
-	
-	
+
+	public boolean equals(Object other);
 
 }
