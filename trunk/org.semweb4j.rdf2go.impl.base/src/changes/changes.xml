@@ -6,15 +6,17 @@
 	</properties>
 	<body>
 
-		<release version="4.4.8" date="2007-10-01">
+		<release version="4.4.9" date="2007-10-01">
 			<action dev="xamde" type="fix" issue="RTGO-21">
 				DiffImpl now optimizes diff: Statements that are added
 				and removed are removed from the diff.
 			</action>
 			<action dev="xamde" type="update">
-				Migration to RDF2Go API 4.4.8 (isEmpty)
+				Migration to RDF2Go API 4.4.9 (isEmpty)
 			</action>
 		</release>
+
+		<release version="4.4.8" description="skipped" />
 
 		<release version="4.4.7" date="2007-08-21">
 			<action dev="xamde" type="add">
