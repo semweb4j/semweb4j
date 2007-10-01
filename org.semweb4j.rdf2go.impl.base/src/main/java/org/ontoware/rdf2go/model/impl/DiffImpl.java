@@ -32,23 +32,29 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 
 	private static final Logger log = LoggerFactory.getLogger(DiffImpl.class);
 
-	private Set<Statement> added;
+	private Set<Statement> addedSet;
 
-	private Set<Statement> removed;
+	private Set<Statement> removedSet;
 
 	public DiffImpl() {
-		this.added = new HashSet<Statement>();
-		this.removed = new HashSet<Statement>();
+		this.addedSet = new HashSet<Statement>();
+		this.removedSet = new HashSet<Statement>();
 	}
 
 	public DiffImpl(Iterator<? extends Statement> added,
 			Iterator<? extends Statement> removed) {
 		this();
 		while (added.hasNext()) {
-			this.added.add(added.next());
+			this.addedSet.add(added.next());
 		}
 		while (removed.hasNext()) {
-			this.removed.add(removed.next()); 
+			Statement stmt = removed.next();
+			if (this.addedSet.contains(stmt)) {
+				// adding and removing the same statement is a do-nothing-operation
+				this.addedSet.remove(stmt);
+			} else {
+				this.removedSet.add(stmt);
+			}
 		}
 	}
 
@@ -58,17 +64,17 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	}
 
 	public Iterable<? extends Statement> getAdded() {
-		return this.added;
+		return this.addedSet;
 	}
 
 	public Iterable<? extends Statement> getRemoved() {
-		return this.removed;
+		return this.removedSet;
 	}
 
 	@Override
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
-		removed.add(statement);
+		removedSet.add(statement);
 	}
 
 	@Override
@@ -92,7 +98,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 
 	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
-		this.added.add(statement);
+		this.addedSet.add(statement);
 	}
 
 	@Override
@@ -167,9 +173,9 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 					return false;
 			}
 			return true;
-		} 
-		//else
-			return false;
+		}
+		// else
+		return false;
 	}
 
 	@Override
@@ -187,32 +193,32 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 				ModelAddRemoveMemoryImpl otherRemoved = new ModelAddRemoveMemoryImpl();
 				otherRemoved.addAll(diff.getRemoved().iterator());
 
-				log.debug("This diff: " + this.added.size() + " added and "
-						+ this.removed.size() + " removed");
+				log.debug("This diff: " + this.addedSet.size() + " added and "
+						+ this.removedSet.size() + " removed");
 				log.debug("Other diff: " + otherAdded.set.size()
 						+ " added and " + otherRemoved.set.size() + " removed");
 
 				// now compare the sets of statements
 
-				return equals(this.added, otherAdded.getSet())
-						&& equals(this.removed, otherRemoved.getSet());
+				return equals(this.addedSet, otherAdded.getSet())
+						&& equals(this.removedSet, otherRemoved.getSet());
 
 			} catch (ModelRuntimeException e) {
 				throw new RuntimeException(e);
 			}
-		} 
-		//else 
-			if (other == null) {
-				log.debug("other is null, but not a DiffImpl");
-			} else {
-				log.debug("other is not a diff but " + other.getClass());
-			}
-			return false;
 		}
+		// else
+		if (other == null) {
+			log.debug("other is null, but not a DiffImpl");
+		} else {
+			log.debug("other is not a diff but " + other.getClass());
+		}
+		return false;
+	}
 
 	@Override
 	public int hashCode() {
-		return this.added.hashCode() + this.removed.hashCode();
+		return this.addedSet.hashCode() + this.removedSet.hashCode();
 	}
 
 }

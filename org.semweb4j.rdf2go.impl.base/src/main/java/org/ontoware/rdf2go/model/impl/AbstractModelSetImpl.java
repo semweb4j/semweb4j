@@ -321,7 +321,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		if (pattern.getContext() == Variable.ANY) {
 			// match all
 			long count = 0;
-			Iterator it = getModels();
+			Iterator<?> it = getModels();
 			while (it.hasNext()) {
 				Model m = (Model) it.next();
 				count += m.countStatements(pattern);
@@ -427,6 +427,11 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 				this.addStatement(stmt);
 			}
 		}
+	}
+	
+	/** sublcasses should override this method for performance */
+	public boolean isEmpty() {
+		return size() == 0;
 	}
 
 }

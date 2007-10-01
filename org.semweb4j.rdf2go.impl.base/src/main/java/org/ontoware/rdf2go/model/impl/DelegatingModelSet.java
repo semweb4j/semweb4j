@@ -107,7 +107,7 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 
 	@Deprecated
 	public Object getUnderlyingModelImplementation() {
-		return this.baseModelSet.getUnderlyingModelImplementation();
+		return this.baseModelSet.getUnderlyingModelSetImplementation();
 	}
 
 	public Object getUnderlyingModelSetImplementation() {
@@ -208,6 +208,10 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 	public void writeTo(Writer out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		this.baseModelSet.writeTo(out, syntax);
+	}
+
+	public boolean isEmpty() {
+		return baseModelSet.isEmpty();
 	}
 
 }
