@@ -32,7 +32,7 @@ public interface FindableModelSet {
 	 * @return
 	 * @throws ModelRuntimeException
 	 */
-	public ClosableIterator<? extends Statement> findStatements(
+	ClosableIterator<? extends Statement> findStatements(
 			UriOrVariable contextURI, ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException;
@@ -45,7 +45,7 @@ public interface FindableModelSet {
 	 * @return
 	 * @throws ModelRuntimeException
 	 */
-	public ClosableIterator<? extends Statement> findStatements(
+	ClosableIterator<? extends Statement> findStatements(
 			QuadPattern pattern) throws ModelRuntimeException;
 
 	/**
@@ -57,7 +57,7 @@ public interface FindableModelSet {
 	 *         (s,p,o)
 	 * @throws ModelRuntimeException
 	 */
-	public boolean containsStatements(UriOrVariable contextURI,
+	boolean containsStatements(UriOrVariable contextURI,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException;
 
@@ -69,7 +69,7 @@ public interface FindableModelSet {
 	 *         default graph is checked.
 	 * @throws ModelRuntimeException
 	 */
-	public boolean contains(Statement s) throws ModelRuntimeException;
+	boolean contains(Statement s) throws ModelRuntimeException;
 
 	/**
 	 * @param pattern
@@ -79,7 +79,7 @@ public interface FindableModelSet {
 	 *         is accumulated and returned.
 	 * @throws ModelRuntimeException
 	 */
-	public long countStatements(QuadPattern pattern) throws ModelRuntimeException;
+	long countStatements(QuadPattern pattern) throws ModelRuntimeException;
 	
 	// TODO createQuadPattern()
 
@@ -90,7 +90,7 @@ public interface FindableModelSet {
 	 * @param object
 	 * @return a QuadPattern
 	 */
-	public QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject, UriOrVariable predicate,
+	QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object);
 
 }

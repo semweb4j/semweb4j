@@ -38,7 +38,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	public void addStatement(URI contextURI, Resource subject, URI predicate,
+	void addStatement(URI contextURI, Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException;
 
 	/**
@@ -49,7 +49,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	public void addStatement(Statement statement) throws ModelRuntimeException;
+	void addStatement(Statement statement) throws ModelRuntimeException;
 
 	/**
 	 * For each statement in the iterator, this method creates a Model named
@@ -60,7 +60,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	public void addAll(Iterator<? extends Statement> statement)
+	void addAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException;
 
 	/**
@@ -77,7 +77,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	public void removeStatement(URI contextURI, Resource subject,
+	void removeStatement(URI contextURI, Resource subject,
 			URI predicate, Node object) throws ModelRuntimeException;
 
 	/**
@@ -90,7 +90,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	public void removeStatement(Statement statement)
+	void removeStatement(Statement statement)
 			throws ModelRuntimeException;
 
 	/**
@@ -102,7 +102,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	public void removeAll(Iterator<? extends Statement> statement)
+	void removeAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException;
 
 	/**
@@ -112,7 +112,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @param quadPattern
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatements(QuadPattern quadPattern)
+	void removeStatements(QuadPattern quadPattern)
 			throws ModelRuntimeException;
 
 	/**
@@ -121,7 +121,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * 
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatements(UriOrVariable context,
+	void removeStatements(UriOrVariable context,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException;
 
@@ -143,6 +143,6 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 *             if a model or statement in a model to be removed does not
 	 *             exist.
 	 */
-	public void update(Diff diff) throws ModelRuntimeException;
+	void update(Diff diff) throws ModelRuntimeException;
 
 }

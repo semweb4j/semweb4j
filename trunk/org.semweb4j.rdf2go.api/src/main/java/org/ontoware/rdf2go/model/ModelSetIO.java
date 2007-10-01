@@ -48,7 +48,7 @@ public interface ModelSetIO {
 	 * @throws ModelRuntimeException
 	 *             on RDF serialization errors or model errors
 	 */
-	public void readFrom(Reader in) throws IOException, ModelRuntimeException;
+	void readFrom(Reader in) throws IOException, ModelRuntimeException;
 
 	/**
 	 * Reads assuming the given syntax. Encoding defaults to UTF8.
@@ -67,7 +67,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	public void readFrom(Reader in, Syntax syntax) throws IOException,
+	void readFrom(Reader in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -86,7 +86,7 @@ public interface ModelSetIO {
 	 * @throws ModelRuntimeException
 	 *             on RDF serialization errors or model errors
 	 */
-	public void readFrom(InputStream in) throws IOException, ModelRuntimeException;
+	void readFrom(InputStream in) throws IOException, ModelRuntimeException;
 
 	/**
 	 * Reads assuming the given syntax. Encoding defaults to UTF8.
@@ -105,7 +105,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	public void readFrom(InputStream reader, Syntax syntax) throws IOException,
+	void readFrom(InputStream reader, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -119,7 +119,7 @@ public interface ModelSetIO {
 	 * @throws ModelRuntimeException
 	 *             on RDF serialization errors or model errors
 	 */
-	public void writeTo(Writer out) throws IOException, ModelRuntimeException;
+	void writeTo(Writer out) throws IOException, ModelRuntimeException;
 
 	/**
 	 * Write the model to the passed writer, using the passed syntax.
@@ -135,7 +135,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	public void writeTo(Writer out, Syntax syntax) throws IOException,
+	void writeTo(Writer out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -149,7 +149,7 @@ public interface ModelSetIO {
 	 * @throws ModelRuntimeException
 	 *             on RDF serialization errors or model errors
 	 */
-	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException;
+	void writeTo(OutputStream out) throws IOException, ModelRuntimeException;
 
 	/**
 	 * Write the model to the passed writer, using the passed syntax.
@@ -165,7 +165,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
+	void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -174,5 +174,5 @@ public interface ModelSetIO {
 	 * @return a String, containing the ModelSet content in the given syntax.
 	 * @throws SyntaxNotSupportedException if the syntax is not supported
 	 */
-	public String serialize( Syntax syntax ) throws SyntaxNotSupportedException;
+	String serialize( Syntax syntax ) throws SyntaxNotSupportedException;
 }

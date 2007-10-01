@@ -30,7 +30,7 @@ public interface ModelValueFactory {
 	/**
 	 * @return a new blank node
 	 */
-	public BlankNode createBlankNode();
+	BlankNode createBlankNode();
 
 	/**
 	 * The model must create URIs it would accept itself.
@@ -39,19 +39,19 @@ public interface ModelValueFactory {
 	 * @throws ModelRuntimeException,
 	 *             e.g. if URI is invalid
 	 */
-	public URI createURI(String uriString) throws ModelRuntimeException;
+	URI createURI(String uriString) throws ModelRuntimeException;
 
 	/**
 	 * @param uriString
 	 * @return true if the URI is valid for the given implementation
 	 */
-	public boolean isValidURI(String uriString);
+	boolean isValidURI(String uriString);
 
 	/**
 	 * @param literal
 	 * @return a PlainLiteral
 	 */
-	public PlainLiteral createPlainLiteral(String literal);
+	PlainLiteral createPlainLiteral(String literal);
 
 	/**
 	 * @param literal
@@ -59,7 +59,7 @@ public interface ModelValueFactory {
 	 * @return a LanguageTagLiteral
 	 * @throws ModelRuntimeException e.g. if the language tag is malformed
 	 */
-	public LanguageTagLiteral createLanguageTagLiteral(String literal, String langugeTag)
+	LanguageTagLiteral createLanguageTagLiteral(String literal, String langugeTag)
 			throws ModelRuntimeException;
 
 	/**
@@ -68,7 +68,7 @@ public interface ModelValueFactory {
 	 * @return a DatatypeLiteral
 	 * @throws ModelRuntimeException e.g. if the datatype URI causes problems
 	 */
-	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
+	DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
 			throws ModelRuntimeException;
 
 	/**
@@ -77,7 +77,7 @@ public interface ModelValueFactory {
 	 * @param object
 	 * @return a Statement
 	 */
-	public Statement createStatement(Resource subject, URI predicate, Node object);
+	Statement createStatement(Resource subject, URI predicate, Node object);
 
 	/**
 	 * Implementations are free to choose if their semantics are unique within
@@ -85,6 +85,6 @@ public interface ModelValueFactory {
 	 * 
 	 * @return a new, unique URI
 	 */
-	public URI newRandomUniqueURI();
+	URI newRandomUniqueURI();
 
 }
