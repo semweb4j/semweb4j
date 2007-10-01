@@ -12,7 +12,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base.test</artifactId>
-	<version>4.4.7-SNAPSHOT</version>
+	<version>4.4.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>RDF2Go Test Base</name>
@@ -89,7 +89,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.4.7</version>
+			<version>4.4.8</version>
 		</dependency>
 
 		<!-- logging dependencies -->
