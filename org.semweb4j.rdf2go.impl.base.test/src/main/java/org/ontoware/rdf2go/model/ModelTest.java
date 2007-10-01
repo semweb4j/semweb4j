@@ -2,7 +2,6 @@ package org.ontoware.rdf2go.model;
 
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.RDF2Go;
-import org.ontoware.rdf2go.model.AbstractModelTest;
 
 /**
  * Tests the implementation found on the classpath
