@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="4.4.8" description="Dependency update"
+			date="2007-10-01">
+			<action dev="xamde" type="update">
+				Migration to rdf2go.api 4.48 and rdf2go.impl.base 4.4.7
+			</action>
+		</release>
+
 		<release version="4.4.7" description="Bugfix">
 			<action dev="xamde" type="update">
 				Fixed a bug for output of rdf files: Namespace 'rdf' had
