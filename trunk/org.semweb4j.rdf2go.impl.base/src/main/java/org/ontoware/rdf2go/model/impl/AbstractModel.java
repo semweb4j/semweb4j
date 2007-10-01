@@ -118,7 +118,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	public long countStatements(TriplePattern pattern)
 			throws ModelRuntimeException {
 		assertModel();
-		ClosableIterator it = findStatements(pattern);
+		ClosableIterator<?> it = findStatements(pattern);
 		int count = 0;
 		while (it.hasNext()) {
 			count++;
@@ -329,9 +329,9 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	public QueryResultTable querySelect(String query, String querylanguage)
 			throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		assertModel();
-		if (querylanguage.equalsIgnoreCase("SPARQL")) 
+		if (querylanguage.equalsIgnoreCase("SPARQL"))
 			return sparqlSelect(query);
-		//else 
+		// else
 		throw new QueryLanguageNotSupportedException(
 				"Unsupported query language: " + querylanguage);
 	}
@@ -375,6 +375,11 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		if (!isOpen())
 			throw new ModelRuntimeException("Model is not open");
 
+	}
+
+	/** sublcasses should override this method for performance */
+	public boolean isEmpty() {
+		return size() == 0;
 	}
 
 }

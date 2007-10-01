@@ -25,7 +25,7 @@ public class ConversionException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = -1866748054068895807L;
 	Object sourceObject;
-    Class targetClass;
+    Class<?> targetClass;
 
     /**
      * default constructor
@@ -66,7 +66,7 @@ public class ConversionException extends RuntimeException {
      * @param sourceObject
      * @param targetClass
      */
-    public ConversionException(String message, Object sourceObject, Class targetClass) {
+    public ConversionException(String message, Object sourceObject, Class<?> targetClass) {
         super(generateMessage(message, sourceObject, targetClass));
         this.sourceObject = sourceObject;
         this.targetClass = targetClass;
@@ -75,7 +75,7 @@ public class ConversionException extends RuntimeException {
     /**
      * generate the error message
      */
-    protected static String generateMessage(String message, Object sourceObject2, Class targetClass2) {
+    protected static String generateMessage(String message, Object sourceObject2, Class<?> targetClass2) {
         
         return "Could not convert '"+sourceObject2+"' "+
             ((sourceObject2 == null) ? "" : "of class "+sourceObject2.getClass().getName())
@@ -95,7 +95,7 @@ public class ConversionException extends RuntimeException {
      * 
      * @return the target class that should be converted to
      */
-    public Class getTargetClass() {
+    public Class<?> getTargetClass() {
         return this.targetClass;
     }
 

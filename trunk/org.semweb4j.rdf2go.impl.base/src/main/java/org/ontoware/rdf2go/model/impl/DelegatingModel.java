@@ -545,4 +545,8 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.isValidURI(uriString);
 	}
 
+	public boolean isEmpty() {
+		return delegatedModel.isEmpty();
+	}
+
 }

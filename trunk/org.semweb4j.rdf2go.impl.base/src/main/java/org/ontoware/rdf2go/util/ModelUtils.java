@@ -43,9 +43,9 @@ public class ModelUtils {
 	 *            the iterable
 	 * @return the size
 	 */
-	public static int size(Iterable it) {
+	public static int size(Iterable<?> it) {
 		int count = 0;
-		Iterator i = it.iterator();
+		Iterator<?> i = it.iterator();
 		while (i.hasNext()) {
 			i.next();
 			count++;
@@ -60,7 +60,7 @@ public class ModelUtils {
 	 *            the iterator
 	 * @return the size
 	 */
-	public static int size(Iterator i) {
+	public static int size(Iterator<?> i) {
 		int count = 0;
 		while (i.hasNext()) {
 			i.next();
