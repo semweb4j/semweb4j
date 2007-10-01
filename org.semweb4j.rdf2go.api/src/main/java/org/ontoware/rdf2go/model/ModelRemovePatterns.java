@@ -23,7 +23,7 @@ public interface ModelRemovePatterns extends ModelAddRemove, FindableModel {
 	 * @param triplePattern
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatements(TriplePattern triplePattern) throws ModelRuntimeException;
+	void removeStatements(TriplePattern triplePattern) throws ModelRuntimeException;
 
 	/**
 	 * remove a (subject, property ,object)-statement from the model
@@ -36,6 +36,6 @@ public interface ModelRemovePatterns extends ModelAddRemove, FindableModel {
 	 *            TypedLiteral or LanguageTagLiteral
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatements(ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException;
+	void removeStatements(ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException;
 
 }

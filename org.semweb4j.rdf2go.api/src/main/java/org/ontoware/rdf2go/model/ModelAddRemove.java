@@ -38,14 +38,14 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param diff
 	 * @throws ModelRuntimeException
 	 */
-	public void update(Diff diff) throws ModelRuntimeException;
+	void update(Diff diff) throws ModelRuntimeException;
 
 	/**
 	 * @param statements
 	 * @return a Diff between this model and the statements given in the iterator
 	 * @throws ModelRuntimeException
 	 */
-	public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException;
+	Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException;
 
 	
 	
@@ -54,7 +54,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * 
 	 * @throws ModelRuntimeException
 	 */
-	public void removeAll() throws ModelRuntimeException;
+	void removeAll() throws ModelRuntimeException;
 
 	/**
 	 * Removes all statements contained in 'other' from this model =
@@ -64,7 +64,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 *            another RDF2GO model
 	 * @throws ModelRuntimeException
 	 */
-	public void removeAll(Iterator<? extends Statement> statements) throws ModelRuntimeException;
+	void removeAll(Iterator<? extends Statement> statements) throws ModelRuntimeException;
 
 	///////////////////
 	// remove
@@ -80,11 +80,11 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 *            TypedLiteral or LanguageTagLiteral
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException;
+	void removeStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException;
 
 	
 	
-	public void removeStatement(Resource subject, URI predicate, String literal)
+	void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException;
 
 	/**
@@ -97,7 +97,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param languageTag
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatement(Resource subject, URI predicate, String literal, String languageTag)
+	void removeStatement(Resource subject, URI predicate, String literal, String languageTag)
 			throws ModelRuntimeException;
 
 	/**
@@ -111,7 +111,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param datatypeURI
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatement(Resource subject, URI predicate, String literal, URI datatypeURI)
+	void removeStatement(Resource subject, URI predicate, String literal, URI datatypeURI)
 			throws ModelRuntimeException;
 
 	/**
@@ -120,9 +120,9 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param statement
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatement(Statement statement) throws ModelRuntimeException;
+	void removeStatement(Statement statement) throws ModelRuntimeException;
 
-	public void removeStatement(String subjectURIString, URI predicate, String literal)
+	void removeStatement(String subjectURIString, URI predicate, String literal)
 			throws ModelRuntimeException;
 
 	/**
@@ -135,7 +135,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param languageTag
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatement(String subjectURIString, URI predicate, String literal,
+	void removeStatement(String subjectURIString, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException;
 
 	/**
@@ -149,7 +149,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param datatypeURI
 	 * @throws ModelRuntimeException
 	 */
-	public void removeStatement(String subjectURIString, URI predicate, String literal,
+	void removeStatement(String subjectURIString, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException;
 
 }

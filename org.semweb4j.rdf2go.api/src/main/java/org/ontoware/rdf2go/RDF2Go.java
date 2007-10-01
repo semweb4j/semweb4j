@@ -127,7 +127,7 @@ public class RDF2Go {
 		Class<?> c;
 		try {
 			c = Class.forName(modelFactoryClassname);
-			Constructor constructor;
+			Constructor<?> constructor;
 			try {
 				constructor = c.getConstructor(new Class[] {});
 				ModelFactory modelBuilder;

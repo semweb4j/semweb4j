@@ -29,23 +29,23 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	/**
 	 * @return the context URI or null
 	 */
-	public URI getContextURI();
+	URI getContextURI();
 
 	/**
 	 * Open connection to defined, unterlying implementation
 	 */
-	public void open();
+	void open();
 
 	/**
 	 * Close connection to defined, unterlying implementation. commit() is
 	 * called internally.
 	 */
-	public void close();
+	void close();
 
 	/**
 	 * @return true, if model has been opened and not yet closed.
 	 */
-	public boolean isOpen();
+	boolean isOpen();
 
 	/**
 	 * The number of explicit statements. Statements that are inferred using
@@ -57,8 +57,15 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	 * @return the number of statements in the model
 	 * @throws ModelRuntimeException
 	 */
-	public long size() throws ModelRuntimeException;
+	long size() throws ModelRuntimeException;
 
+	/**
+	 * @return true if the model is empty, i.e. contains no statements. This is
+	 *         the same as size() == 0, but might be faster.
+	 */
+	boolean isEmpty();
+	
+	
 	// //////////////
 	// Manipulate underlying impl
 
@@ -68,7 +75,7 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	 *         power and <b>reduces</b> API dependence. This method is part of
 	 *         the main API.
 	 */
-	public Object getUnderlyingModelImplementation();
+	Object getUnderlyingModelImplementation();
 
 	// ///////////////////
 	// eases integration of RDF2Go models in many settings
@@ -81,18 +88,18 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	 * @param propertyURI
 	 * @param value
 	 */
-	public void setProperty(URI propertyURI, Object value);
+	void setProperty(URI propertyURI, Object value);
 
 	/**
 	 * @param propertyURI
 	 * @return stored runtime property value or null
 	 */
-	public Object getProperty(URI propertyURI);
+	Object getProperty(URI propertyURI);
 
 	/**
 	 * Dumps the whole content of the model via System.out
 	 */
-	public void dump();
+	void dump();
 
 	/**
 	 * Two models can be equal even if they do not contain the same statements.
@@ -106,6 +113,6 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	 * @return true if the two models are isomorphic as defined in
 	 *         http://www.w3.org/TR/rdf-mt/
 	 */
-	public boolean isIsomorphicWith(Model other);
+	boolean isIsomorphicWith(Model other);
 
 }

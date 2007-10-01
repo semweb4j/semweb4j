@@ -43,17 +43,17 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	/**
 	 * Open connection to defined, unterlying implementation
 	 */
-	public void open();
+	void open();
 
 	/**
 	 * @return true if ModelSet is open
 	 */
-	public boolean isOpen();
+	boolean isOpen();
 
 	/**
 	 * Close connection to defined, unterlying implementation
 	 */
-	public void close();
+	void close();
 
 	/**
 	 * The number of explicit statements. Statements that are inferred e.g.
@@ -65,8 +65,16 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @return the number of statements in the modelset.
 	 * @throws ModelRuntimeException
 	 */
-	public long size() throws ModelRuntimeException;
+	long size() throws ModelRuntimeException;
 
+	/**
+	 * @return true if all models in this ModelSet contain zero statements. This
+	 *         method might be faster than calling size() == 0 on each model.
+	 *         Note: This method can return isEmpty == true, even if the
+	 *         ModelSet contains a number of models.
+	 */
+	boolean isEmpty();
+	
 	/**
 	 * Creates an RDF2Go URI. This allows a user to create a model via
 	 * 'getModel( URI )'.
@@ -76,7 +84,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @throws ModelRuntimeException
 	 *             if URI has not a valid URI fomat - according to the adapter
 	 */
-	public URI createURI(String uriString) throws ModelRuntimeException;
+	URI createURI(String uriString) throws ModelRuntimeException;
 
 	/**
 	 * Creates a statement with a context URI.
@@ -87,7 +95,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @param object
 	 * @return
 	 */
-	public Statement createStatement(URI context, Resource subject,
+	Statement createStatement(URI context, Resource subject,
 			URI predicate, Node object);
 
 	/**
@@ -103,7 +111,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @return the model identified by this context. May have a size of 0, if no
 	 *         data was added to it yet. Never returns null.
 	 */
-	public Model getModel(URI contextURI);
+	Model getModel(URI contextURI);
 
 	/**
 	 * Removes the Model (NamedGraph) denoted by contextURI from this modelset.
@@ -112,7 +120,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @param contextURI
 	 * @return true if successful
 	 */
-	public boolean removeModel(URI contextURI);
+	boolean removeModel(URI contextURI);
 
 	/**
 	 * Adds a model to this ModelSet. Creating the named-graph if needed, adding
@@ -124,14 +132,14 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @param model
 	 * @return true if successful
 	 */
-	public boolean addModel(Model model);
+	boolean addModel(Model model);
 
 	/**
 	 * @param contextURI
 	 * @return true if a Model (NamedGraph) named 'contextURI' is known. The
 	 *         model might be empty.
 	 */
-	public boolean containsModel(URI contextURI);
+	boolean containsModel(URI contextURI);
 
 	/**
 	 * Removes all models, which is
@@ -140,7 +148,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * 
 	 * @throws ModelRuntimeException
 	 */
-	public void removeAll() throws ModelRuntimeException;
+	void removeAll() throws ModelRuntimeException;
 
 	/**
 	 * The default model is used when the modelset is loaded from a
@@ -149,7 +157,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * 
 	 * @return the default model.
 	 */
-	public Model getDefaultModel();
+	Model getDefaultModel();
 
 	/**
 	 * @return an Interator over <em>all</em> models within this ModelSet.
@@ -161,7 +169,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * to the models.
 	 * 
 	 */
-	public ClosableIterator<? extends Model> getModels();
+	ClosableIterator<? extends Model> getModels();
 
 	/**
 	 * @return an iterator over all URIs used as model URIs.
@@ -169,7 +177,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * For some implementations: While you read the iterator you may not WRITE
 	 * to the models.
 	 */
-	public ClosableIterator<URI> getModelURIs();
+	ClosableIterator<URI> getModelURIs();
 
 	/**
 	 * @return the native implementation (e.g. a Jena Model). Using this method
@@ -177,11 +185,11 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 *         power and <b>reduces</b> API dependence. This method is part of
 	 *         the main API.
 	 */
-	public Object getUnderlyingModelSetImplementation();
+	Object getUnderlyingModelSetImplementation();
 
 	/**
 	 * Print the whole content of this ModelSet to System.out.
 	 */
-	public void dump();
+	void dump();
 
 }
