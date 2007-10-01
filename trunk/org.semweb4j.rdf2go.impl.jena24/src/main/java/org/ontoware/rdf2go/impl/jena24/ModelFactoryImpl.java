@@ -50,6 +50,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements
 		
 		if (backend == null || backend.equalsIgnoreCase(MEMORY)) {
 			model = com.hp.hpl.jena.rdf.model.ModelFactory.createDefaultModel();
+			assert model != null;
 		} else if (backend.equalsIgnoreCase(DATABASE)) {
 			String sql_drivername = p.getProperty(SQL_DRIVERNAME);
 			String db_type = p.getProperty(DB_TYPE);
