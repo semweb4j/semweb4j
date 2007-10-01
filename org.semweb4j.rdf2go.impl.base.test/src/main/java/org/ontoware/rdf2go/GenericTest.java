@@ -125,6 +125,9 @@ public class GenericTest {
 			fail("cannot register two different RDF2Go classes");
 		} catch (RuntimeException e) {
 			// ok
+		} finally
+		{
+			RDF2Go.modelFactory = null;
 		}
 
 	}
