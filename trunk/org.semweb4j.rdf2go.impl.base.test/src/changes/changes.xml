@@ -5,12 +5,15 @@
 	</properties>
 	<body>
 
-		<release version="4.4.8" date="2007-10-01"
+
+		<release version="4.4.9" date="2007-10-01"
 			description="dependency update">
 			<action dev="xamde" type="updated">
-				Now using 4.4.8 versions.
+				Now using 4.4.9 versions.
 			</action>
 		</release>
+
+		<release version="4.4.8" description="skipped" />
 
 		<release version="4.4.7" description="skipped" />
 

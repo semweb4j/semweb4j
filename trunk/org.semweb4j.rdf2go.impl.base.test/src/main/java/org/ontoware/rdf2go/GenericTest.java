@@ -1,18 +1,12 @@
-/*
- * LICENSE INFORMATION
- * Copyright 2005-2007 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2007
- * 
- * Project information at http://semweb4j.org/rdf2go
- */
 package org.ontoware.rdf2go;
 
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
-import junit.framework.TestCase;
+import junit.framework.Assert;
 
 import org.junit.Test;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
@@ -20,15 +14,49 @@ import org.ontoware.rdf2go.impl.AbstractModelFactory;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.rdf2go.testdata.TestData;
 
 /**
- * assures that the registration of different implementations of the
- * rdf2go framework are made correctly
+ * make some basic functionality tests with the model implementation
  * 
- * @author sauermann
+ * assure the implementation is found by the factory,
+ * open and close the model, insert some elements, etc.
  */
-public class RDF2GoTest extends TestCase {
+public class GenericTest {
 
+	@Test
+	public void testFindImplementation() throws ModelRuntimeException,
+			IOException {
+		
+		//test basic model functionalities
+		//grab the model factory
+		//let it create a model
+		//check if the model is closed by default
+		//and truly open if it was opened
+		ModelFactory modelFactory = RDF2Go.getModelFactory();
+		Assert.assertNotNull(modelFactory);
+		Model model = modelFactory.createModel();
+		Assert.assertNotNull(model);
+		Assert.assertFalse( model.isOpen() );
+		model.open();
+		Assert.assertTrue( model.isOpen() );
+		
+		// use the model a bit
+		//load foaf test data
+		//make sure the file is loaded
+		//assure the model form above has no entries
+		//put the foaf file into the model and make sure the model now
+		//has elements
+		//finally close the model and find out if it truly is closed
+		InputStream foafStream = TestData.getFoafAsStream();
+		Assert.assertNotNull(foafStream);
+		Assert.assertEquals(0, model.size());
+		model.readFrom(foafStream);
+		Assert.assertTrue(model.size() > 0);
+		model.close();
+		Assert.assertFalse( model.isOpen() );
+	}
+	
 	//the classes return null on purpose
 	//they are only mock implementations for testing purposes
 	
@@ -65,10 +93,15 @@ public class RDF2GoTest extends TestCase {
 	/**
 	 * Testing the RDF2Go default class
 	 * 
+	 * assures that the registration of different implementations of the
+	 * rdf2go framework are made correctly
+	 *
 	 * create two inner classes that implement the missing parts
 	 * form the abstract factory
 	 * 
 	 * register those implementation with the RDF2Go framework
+	 * 
+	 * @author sauermann
 	 */
 	@Test
 	public void testRDF2GoFactory() {
@@ -95,5 +128,22 @@ public class RDF2GoTest extends TestCase {
 		}
 
 	}
+
+	
+	/**
+	 * call this test from other code to check if the resource can be found from
+	 * within a packaged jar
+	 */
+	@Test
+	public void testTestData() {
+		InputStream in = TestData.getFoafAsStream();
+		Assert.assertNotNull(in);
+		try {
+			Assert.assertTrue(in.read() != -1);
+		} catch (IOException e) {
+			Assert.fail();
+		}
+	}
+
 
 }
