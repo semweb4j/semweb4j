@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -23,6 +24,7 @@ import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.ModelFactory;
+import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
@@ -30,6 +32,7 @@ import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.testdata.TestData;
 import org.ontoware.rdf2go.util.Iterators;
 import org.ontoware.rdf2go.util.ModelUtils;
+import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
 
 /**
@@ -675,4 +678,30 @@ public abstract class AbstractModelSetTest extends TestCase {
 		Assert.assertEquals(0, modelset.size());
 	}
 
+	/**
+	 * Gunnar: need a function that queries and removes triples from all
+	 * contexts... i.e. remove all (null, rdf:type, null) from ALL contexts...
+	 * 
+	 * Max: So basically this would mean handling of Triple-patterns not just
+	 * triples, in the add/remove methods. Ok.
+	 * 
+	 * 
+	 * @throws Exception
+	 * @throws ModelRuntimeException
+	 */
+	public void testDeleteTriplePatternInAllGraphs() throws ModelRuntimeException, Exception {
+		ModelSet set = RDF2Go.getModelFactory().createModelSet();
+
+		Iterator<? extends Model> it = set.getModels();
+		while (it.hasNext()) {
+			Model model = it.next();
+			// This line breaks really badly on sesame2...
+			// and on many other locking stores as well ..
+			// model.removeAll(model.findStatements(Variable.ANY, RDF.type,
+			// Variable.ANY).iterator());
+
+			// just added this method
+			model.removeStatements(Variable.ANY, RDF.type, Variable.ANY);
+		}
+	}
 }
