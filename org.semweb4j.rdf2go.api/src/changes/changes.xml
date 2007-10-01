@@ -16,7 +16,7 @@
 			</release>
 		-->
 
-		<release version="4.4.9" date="@@"
+		<release version="4.4.9" date="2007-10-01"
 			description="API extension">
 			<action dev="xamde" type="add">
 				Added isEmpty to Model and ModelSet.
