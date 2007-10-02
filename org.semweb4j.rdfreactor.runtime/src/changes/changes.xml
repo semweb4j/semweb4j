@@ -7,7 +7,7 @@
 
 		<release version="4.4.12" description="dependency update" date="2007-10-01">
 			<action dev="xamde" type="update">
-				Migration to rdfgo.impl.base 4.4.7
+				Migration to rdfgo.impl.base 4.4.9
 			</action>
 		</release>
 		<release version="4.4.11">
