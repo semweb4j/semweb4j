@@ -43,12 +43,12 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.4.8</version>
+			<version>4.4.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.4.6</version>
+			<version>4.4.9</version>
 		</dependency>
 
 		<!--  needed for datatype handling of xsd datetime -->
@@ -61,7 +61,7 @@
 			<scope>test</scope>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.4.6</version>
+			<version>4.4.9</version>
 		</dependency>
 
 		<!-- logging dependencies -->
