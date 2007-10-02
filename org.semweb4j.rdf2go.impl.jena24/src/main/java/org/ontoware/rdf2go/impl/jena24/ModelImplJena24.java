@@ -222,7 +222,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	public QueryResultTable sparqlSelect(String queryString)
 			throws ModelRuntimeException {
 		assertModel();
-		log.info("Query " + queryString);
+		log.debug("Query " + queryString);
 		Query query = QueryFactory.create(queryString);
 		return new QueryResultTableImpl(query, jenaModel);
 	}
