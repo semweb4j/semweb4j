@@ -370,6 +370,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<!-- interlink them with the api-doc of the project -->
+					<linkJavadoc>true</linkJavadoc>
+				</configuration>
 			</plugin>
 
 			<!-- reports the defined tags -->
