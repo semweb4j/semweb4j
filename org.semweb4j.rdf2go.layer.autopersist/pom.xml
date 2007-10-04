@@ -86,7 +86,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.4.6</version>
+			<version>4.4.9</version>
 		</dependency>
 
 		<!--  any rdf2go impl is ok -->
