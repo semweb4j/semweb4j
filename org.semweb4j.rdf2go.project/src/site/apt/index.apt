@@ -1,7 +1,7 @@
 							------
 							RDF2Go
 							------
-							Max V�lkel, Werner Thiemann
+							Max Völkel, Werner Thiemann
 							------
 							06.07.2007
 							------ 
@@ -24,9 +24,9 @@ Documentation
 
   Take a look at the {{{http://ontoworld.org/wiki/RDF2Go}RDF2Go Wiki}}.
   
-  {{{../project/overview.html}API Overview}}.
+  {{{overview.html}API Overview}}.
   
-  {{{../project/inheritance.html}Inheritance Overview}}.
+  {{{inheritance.html}Inheritance Overview}}.
   
 JavaDoc
 
