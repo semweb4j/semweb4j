@@ -30,7 +30,7 @@ public class SyntaxTest extends TestCase {
      * Test method for {@link org.ontoware.rdf2go.model.Syntax#register(org.ontoware.rdf2go.model.Syntax)}.
      */
     public void testRegister() {
-        Syntax s = new Syntax("spargel", "application/spargel");
+        Syntax s = new Syntax("spargel", "application/spargel", ".spargel");
         Syntax.register(s);
         Syntax s1 = Syntax.forMimeType("application/spargel");
         assertEquals(s, s1);
