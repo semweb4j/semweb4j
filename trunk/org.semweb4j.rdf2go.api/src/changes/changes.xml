@@ -17,14 +17,14 @@
 		-->
 
 		<release version="4.4.10" date="@@" description="API changes">
-			<action dev="xamde" type="update">
-				BLankNodeImpl became AbstractBlankNode. Interface BlankNode now has String getInternalID(). 
+			<action dev="xamde" type="fix" issue="RTGO-28">
+				BlankNodeImpl became AbstractBlankNode. Interface BlankNode now has String getInternalID(). 
 			</action>
 			<action dev="xamde" type="update">
 				Variable no longer extends Node. This was a bug, thanks
 				for spotting it Axel!
 			</action>
-			<action dev="xamde" type="remove">
+			<action dev="xamde" type="fix" issue="RTGO-25">
 				Changed all occurences of &lt;? extens Statement&gt; to
 				&lt;Statement&gt;, same for Model.
 			</action>
