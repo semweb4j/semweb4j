@@ -36,35 +36,33 @@ public class Syntax {
 	 * RDF syntax RDF XML
 	 */
 	public static final Syntax RdfXml = new Syntax("rdfxml",
-			"application/rdf+xml", true);
+			"application/rdf+xml", ".rdf", true);
 
 	/**
 	 * RDF syntax Turtle
 	 */
 	public static final Syntax Turtle = new Syntax("turtle",
-			"application/x-turtle", true);
+			"application/x-turtle", ".ttl", true);
 
 	/**
 	 * RDF syntax NTriples
 	 */
 	public static final Syntax Ntriples = new Syntax("ntriples", "text/plain",
-			true);
+			".nt", true);
 
 	/**
-	 * RDF syntax Trix
-	 * For mroe info see: http://swdev.nokia.com/trix/TriX.html
+	 * RDF syntax Trix For mroe info see: http://swdev.nokia.com/trix/TriX.html
 	 */
 	public static final Syntax Trix = new Syntax("trix", "application/trix",
-			true);
+			".trix", true);
 
 	/**
-	 * RDF Syntax Trig
-	 * For more info see http://sites.wiwiss.fu-berlin.de/suhl/bizer/TriG/
+	 * RDF Syntax Trig For more info see
+	 * http://sites.wiwiss.fu-berlin.de/suhl/bizer/TriG/
 	 */
 	public static final Syntax Trig = new Syntax("trig", "application/x-trig",
-			true);
-	
-	
+			".trig", true);
+
 	/**
 	 * register a new RDF Syntax you want to have available throughout your
 	 * application.
@@ -101,7 +99,7 @@ public class Syntax {
 	public static Syntax forMimeType(String mimeType) {
 		for (Syntax x : SYNTAXES) {
 			if (x.getMimeType().equals(mimeType))
-			    return x;
+				return x;
 		}
 		return null;
 	}
@@ -132,6 +130,8 @@ public class Syntax {
 
 	private final String mimeType;
 
+	private final String filenameExtension;
+
 	/**
 	 * return the MIME-type of this format.
 	 * 
@@ -149,6 +149,13 @@ public class Syntax {
 	}
 
 	/**
+	 * @return the suggested filename-extension, including the leading '.'
+	 */
+	public String getFilenameExtension() {
+		return filenameExtension;
+	}
+
+	/**
 	 * Generate a new Syntax
 	 * 
 	 * @param name
@@ -156,10 +163,12 @@ public class Syntax {
 	 * @param mimeType
 	 *            the MIMEtype of the RDF syntax
 	 */
-	public Syntax(final String name, final String mimeType) {
+	public Syntax(final String name, final String mimeType,
+			final String filenameExtension) {
 		super();
 		this.name = name;
 		this.mimeType = mimeType;
+		this.filenameExtension = filenameExtension;
 	}
 
 	/**
@@ -173,10 +182,8 @@ public class Syntax {
 	 *            register the new Syntax now.
 	 */
 	public Syntax(final String name, final String mimeType,
-			boolean registerItNow) {
-		super();
-		this.name = name;
-		this.mimeType = mimeType;
+			final String filenameExtension, boolean registerItNow) {
+		this(name, mimeType, filenameExtension);
 		if (registerItNow)
 			register(this);
 	}
