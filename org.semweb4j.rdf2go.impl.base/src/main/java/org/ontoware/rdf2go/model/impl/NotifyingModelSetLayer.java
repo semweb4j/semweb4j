@@ -120,7 +120,7 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 	}
 
 	@Override
-	public ClosableIterator<? extends Model> getModels() {
+	public ClosableIterator<Model> getModels() {
 		List<Model> models = new ArrayList<Model>();
 		ClosableIterator<? extends Model> it = super.getModels();
 		// wrap all into NotifyingModels

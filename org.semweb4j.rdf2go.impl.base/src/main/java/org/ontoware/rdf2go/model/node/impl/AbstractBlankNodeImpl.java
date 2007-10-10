@@ -19,14 +19,14 @@ import org.slf4j.LoggerFactory;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class BlankNodeImpl extends ResourceImpl implements BlankNode {
+public abstract class AbstractBlankNodeImpl extends ResourceImpl implements BlankNode {
 
 	private static final Logger log = LoggerFactory.getLogger(Variable.class);
 
 	private Object underlyingBlankNode;
 
 	/** This method should only be called by RDF2Go implmentations */
-	public BlankNodeImpl(Object underlyingBlankNode) {
+	public AbstractBlankNodeImpl(Object underlyingBlankNode) {
 		this.underlyingBlankNode = underlyingBlankNode;
 	}
 
@@ -37,9 +37,9 @@ public class BlankNodeImpl extends ResourceImpl implements BlankNode {
 
 	@Override
 	public boolean equals(Object other) {
-		return other instanceof BlankNodeImpl
+		return other instanceof AbstractBlankNodeImpl
 				&& this.getUnderlyingBlankNode().equals(
-						((BlankNodeImpl) other).getUnderlyingBlankNode());
+						((AbstractBlankNodeImpl) other).getUnderlyingBlankNode());
 	}
 
 	@Override
@@ -77,4 +77,6 @@ public class BlankNodeImpl extends ResourceImpl implements BlankNode {
 		log.warn("Variable (Singleton) should not be used for SPARQL queries");
 		throw new NotImplementedException();
 	}
+
+	public abstract String getInternalID();
 }

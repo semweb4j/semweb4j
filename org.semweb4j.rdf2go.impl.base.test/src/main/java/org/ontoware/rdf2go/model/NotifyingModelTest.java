@@ -75,7 +75,7 @@ public class NotifyingModelTest extends AbstractModelTest
 			}
 
 			@Override
-			public void addedStatements(Iterator<? extends Statement> statements)
+			public void addedStatements(Iterator<Statement> statements)
 			{
 				assertTrue(statements.hasNext());
 				assertEquals(
@@ -106,7 +106,7 @@ public class NotifyingModelTest extends AbstractModelTest
 
 			@Override
 			public void removedStatements(
-					Iterator<? extends Statement> statements)
+					Iterator<Statement> statements)
 			{
 				assertTrue(statements.hasNext());
 				assertEquals(
@@ -156,7 +156,7 @@ public class NotifyingModelTest extends AbstractModelTest
 			}
 
 			@Override
-			public void addedStatements(Iterator<? extends Statement> statements)
+			public void addedStatements(Iterator<Statement> statements)
 			{
 				assertTrue(statements.hasNext());
 				Statement next = statements.next();
@@ -183,7 +183,7 @@ public class NotifyingModelTest extends AbstractModelTest
 
 			@Override
 			public void removedStatements(
-					Iterator<? extends Statement> statements)
+					Iterator<Statement> statements)
 			{
 				assertTrue(statements.hasNext());
 				Statement next = statements.next();

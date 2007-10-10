@@ -60,7 +60,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	void addAll(Iterator<? extends Statement> statement)
+	void addAll(Iterator<Statement> statement)
 			throws ModelRuntimeException;
 
 	/**
@@ -102,7 +102,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             TODO
 	 */
-	void removeAll(Iterator<? extends Statement> statement)
+	void removeAll(Iterator<Statement> statement)
 			throws ModelRuntimeException;
 
 	/**

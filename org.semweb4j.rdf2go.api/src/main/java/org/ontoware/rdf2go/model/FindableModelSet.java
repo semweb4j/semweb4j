@@ -32,7 +32,7 @@ public interface FindableModelSet {
 	 * @return
 	 * @throws ModelRuntimeException
 	 */
-	ClosableIterator<? extends Statement> findStatements(
+	ClosableIterator<Statement> findStatements(
 			UriOrVariable contextURI, ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException;
@@ -45,7 +45,7 @@ public interface FindableModelSet {
 	 * @return
 	 * @throws ModelRuntimeException
 	 */
-	ClosableIterator<? extends Statement> findStatements(
+	ClosableIterator<Statement> findStatements(
 			QuadPattern pattern) throws ModelRuntimeException;
 
 	/**

@@ -38,7 +38,7 @@ public interface ModelWriter  {
 	 *            another RDF2GO model
 	 * @throws ModelRuntimeException
 	 */
-	public void addAll(Iterator<? extends Statement> other) throws ModelRuntimeException;
+	public void addAll(Iterator<Statement> other) throws ModelRuntimeException;
 
 	/**
 	 * adds a (subject, property ,object)-statement to this model

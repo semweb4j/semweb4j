@@ -34,7 +34,7 @@ public abstract class AbstractModelWriter implements ModelWriter {
 	 *            another RDF2GO model
 	 * @throws ModelRuntimeException
 	 */
-	public void addAll(Iterator<? extends Statement> other) throws ModelRuntimeException {
+	public void addAll(Iterator<Statement> other) throws ModelRuntimeException {
 		while (other.hasNext()) {
 			addStatement(other.next());
 		}

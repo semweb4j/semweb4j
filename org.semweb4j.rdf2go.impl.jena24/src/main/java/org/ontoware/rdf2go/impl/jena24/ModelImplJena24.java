@@ -27,7 +27,7 @@ import org.ontoware.rdf2go.model.node.NodeOrVariable;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
-import org.ontoware.rdf2go.model.node.impl.BlankNodeImpl;
+import org.ontoware.rdf2go.model.node.impl.AbstractBlankNodeImpl;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
@@ -38,6 +38,7 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.rdf.model.AnonId;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -107,7 +108,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void addAll(Iterator<? extends Statement> other)
+	public void addAll(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		assertModel();
 		if (other instanceof ModelImplJena24) {
@@ -141,9 +142,17 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		// this.modificationCount++;
 		// should be unique across models
 
-		return new BlankNodeImpl(com.hp.hpl.jena.graph.Node.createAnon());
+		return new JenaBlankNode(com.hp.hpl.jena.graph.Node.createAnon());
 	}
 
+	public BlankNode createBlankNode( String id) {
+		// this.modificationCount++;
+		// should be unique across models
+		AnonId anonid = AnonId.create(id);
+		return new JenaBlankNode(com.hp.hpl.jena.graph.Node.createAnon(anonid));
+	}
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -175,7 +184,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 				// subject is a BlankNode
 				{
 					s = this.jenaModel
-							.createResource(((Node) ((BlankNodeImpl) subject)
+							.createResource(((Node) ((AbstractBlankNodeImpl) subject)
 									.getUnderlyingBlankNode()).getBlankNodeId());
 				}
 
@@ -227,7 +236,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		return new QueryResultTableImpl(query, jenaModel);
 	}
 
-	public Model sparqlConstruct(String queryString)
+	public ClosableIterable<Statement> sparqlConstruct(String queryString)
 			throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
@@ -320,6 +329,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	public void unlock() {
 		assertModel();
 		jenaModel.leaveCriticalSection();
+		this.locked = false;
 	}
 
 	public void update(Diff diff) throws ModelRuntimeException {
@@ -330,7 +340,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		unlock();
 	}
 
-	public ClosableIterator<? extends Statement> findStatements(
+	public ClosableIterator<Statement> findStatements(
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 		assertModel();

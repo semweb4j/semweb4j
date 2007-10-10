@@ -12,6 +12,7 @@ package org.ontoware.rdf2go.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
+import org.ontoware.rdf2go.model.node.PlainLiteral;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
@@ -120,7 +122,6 @@ public abstract class AbstractModelTest extends TestCase {
 		}
 		assertEquals(2, count);
 		sit.close(); // redudant
-		// this.model.dump(null);
 		model.close();
 	}
 
@@ -991,6 +992,91 @@ public abstract class AbstractModelTest extends TestCase {
 		}
 		it.close();
 
+	}
+
+	@Test
+	public void testReadFromFileWithSyntaxArgument()
+			throws ModelRuntimeException, IOException {
+		InputStream stream = TestData.getICALAsStream();
+		Assert.assertNotNull(stream);
+		InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+
+		Model model = getModelFactory().createModel();
+		model.open();
+		model.readFrom(reader, Syntax.RdfXml);
+
+		reader.close();
+		stream.close();
+		model.close();
+	}
+
+	@Test
+	public void testCheckForValidURI() {
+		Model model = getModelFactory().createModel();
+		model.open();
+		assertFalse(model.isValidURI("ping"));
+		assertTrue(model.isValidURI("http://i.am.a.uri"));
+		model.close();
+	}
+
+	@Test
+	public void testAutoCommit() throws ModelRuntimeException {
+		Model model = getModelFactory().createModel();
+		model.open();
+
+		assertFalse(model.isLocked());
+		model.lock();
+		assertTrue(model.isLocked());
+
+		model.addStatement(subject, predicate, "Test", "DE");
+		model.unlock();
+		assertFalse(model.isLocked());
+
+		assertTrue(model.contains(subject, predicate, model
+				.createLanguageTagLiteral("Test", "DE")));
+
+		model.close();
+	}
+
+	/**
+	 * TODO: RDF2Go inconsistency: a Repository returns language tags not as
+	 * they where given to the Repository, but as toLowerCase(). So testing of
+	 * equalness to the original language tag fails. Maybe we should adopt this
+	 * behaviour in rdf2go.
+	 */
+	@Test
+	public void testLowerCaseLanguageTag() throws Exception {
+		Model model = getModelFactory().createModel();
+		model.open();
+
+		model.addStatement(subject, predicate, "Test", "DE");
+		model.addStatement(subject, predicate, "Test");
+
+		ClosableIterator<? extends Statement> iterator = model.findStatements(
+				Variable.ANY, predicate, Variable.ANY);
+		assertTrue(iterator.hasNext());
+
+		while (iterator.hasNext()) {
+			Statement statement = iterator.next();
+			assertEquals(statement.getSubject(), subject);
+			assertEquals(statement.getPredicate(), predicate);
+
+			if (statement.getObject() instanceof LanguageTagLiteral) {
+				assertEquals(((LanguageTagLiteral) (statement.getObject()))
+						.getValue(), "Test");
+				assertEquals(((LanguageTagLiteral) (statement.getObject()))
+						.getLanguageTag().toLowerCase(), "de");
+			} else {
+				assertTrue(statement.getObject() instanceof PlainLiteral);
+				assertTrue(((PlainLiteral) (statement.getObject())).getValue()
+						.equals("Test"));
+			}
+		}
+
+		assertFalse(iterator.hasNext());
+
+		iterator.close();
+		model.close();
 	}
 
 }

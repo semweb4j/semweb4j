@@ -11,7 +11,7 @@
 package org.ontoware.rdf2go.model.node;
 
 /**
- * subinterface of RDFLiteral that represents Language Tag Literals
+ * sub-interface of RDFLiteral that represents Language Tag Literals
  * 
  * Implementations are expected to have valid implementations of equals( Object )
  * and hashCode()
@@ -24,7 +24,7 @@ public interface LanguageTagLiteral extends Literal {
 	/**
 	 * get the language tag
 	 * 
-	 * @return The language tag
+	 * @return The language tag, always casted to lowercase
 	 */
 	public String getLanguageTag();
 

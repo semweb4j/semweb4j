@@ -65,7 +65,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
 	@Override
-	public void addAll(Iterator<? extends Statement> other)
+	public void addAll(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		this.delegatedModel.addAll(other);
 	}
@@ -218,7 +218,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.triple.Model#getStatement(java.lang.Object,
 	 *      java.lang.Object, java.lang.Object)
 	 */
-	public ClosableIterator<? extends Statement> findStatements(
+	public ClosableIterator<Statement> findStatements(
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 		return this.delegatedModel.findStatements(subject, predicate, object);
@@ -269,7 +269,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
 	@Override
-	public void removeAll(Iterator<? extends Statement> other)
+	public void removeAll(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		this.delegatedModel.removeAll(other);
 	}
@@ -310,7 +310,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	 * 
 	 * @see org.ontoware.rdf2go.core.triple.Model#sparqlConstruct(java.lang.String)
 	 */
-	public ClosableIterable<? extends Statement> sparqlConstruct(String query)
+	public ClosableIterable<Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException {
 		return this.delegatedModel.sparqlConstruct(query);
 	}
@@ -420,7 +420,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public Diff getDiff(Iterator<? extends Statement> other)
+	public Diff getDiff(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		return this.delegatedModel.getDiff(other);
 	}
@@ -430,7 +430,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return result;
 	}
 
-	public ClosableIterable<? extends Statement> sparqlDescribe(String query)
+	public ClosableIterable<Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException {
 		return this.delegatedModel.sparqlDescribe(query);
 	}
@@ -469,7 +469,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public ClosableIterator<? extends Statement> findStatements(
+	public ClosableIterator<Statement> findStatements(
 			TriplePattern pattern) throws ModelRuntimeException {
 		return this.delegatedModel.findStatements(pattern);
 	}
@@ -510,7 +510,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public ClosableIterable<? extends Statement> queryConstruct(String query,
+	public ClosableIterable<Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			ModelRuntimeException {
 		return this.delegatedModel.queryConstruct(query, querylanguage);
@@ -547,6 +547,10 @@ public class DelegatingModel extends AbstractModel implements Model {
 
 	public boolean isEmpty() {
 		return delegatedModel.isEmpty();
+	}
+
+	public BlankNode createBlankNode(String internalID) {
+		return delegatedModel.createBlankNode(internalID);
 	}
 
 }

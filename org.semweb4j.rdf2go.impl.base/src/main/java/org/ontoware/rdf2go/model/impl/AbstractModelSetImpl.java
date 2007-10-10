@@ -22,12 +22,15 @@ import java.util.List;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.LockException;
+import org.ontoware.rdf2go.exception.MalformedQueryException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
 import org.ontoware.rdf2go.model.Diff;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.QuadPattern;
+import org.ontoware.rdf2go.model.QueryResultTable;
+import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.node.BlankNode;
@@ -55,6 +58,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public void removeAll() throws ModelRuntimeException {
 		List<Model> models = new LinkedList<Model>();
 		Iterator<? extends Model> it = getModels();
@@ -62,6 +66,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 			models.add(it.next());
 		}
 		for (Model m : models) {
+			assert m.isOpen();
 			m.removeAll();
 		}
 	}
@@ -93,6 +98,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 
 	}
 
+	/* subclasses should overwrite this method to read any syntax besides TriX */
 	public void readFrom(Reader in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
@@ -105,6 +111,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
+	/* subclasses should overwrite this method to read any syntax besides TriX */
 	public void readFrom(InputStream in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
@@ -117,6 +124,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
+	/* subclasses should overwrite this method to write any syntax besides TriX */
 	public void writeTo(Writer writer, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
@@ -129,6 +137,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
+	/* subclasses should overwrite this method to write any syntax besides TriX */
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
@@ -162,24 +171,26 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return result;
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public void addStatement(URI context, Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException {
 		addStatement(createStatement(context, subject, predicate, object));
 	}
 
-	public void addAll(Iterator<? extends Statement> statement)
+	public void addAll(Iterator<Statement> statement)
 			throws ModelRuntimeException {
 		while (statement.hasNext()) {
 			addStatement(statement.next());
 		}
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public void removeStatement(URI context, Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException {
 		removeStatement(createStatement(context, subject, predicate, object));
 	}
 
-	public void removeAll(Iterator<? extends Statement> statement)
+	public void removeAll(Iterator<Statement> statement)
 			throws ModelRuntimeException {
 		while (statement.hasNext()) {
 			removeStatement(statement.next());
@@ -192,88 +203,73 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 				quadPattern.getPredicate(), quadPattern.getObject());
 	}
 
-	/**
-	 * Find all models matching the context, and remove all (subject, property
-	 * ,object)-statements from these model.
-	 * 
-	 * 
-	 * @throws ModelRuntimeException
-	 */
+	/* subclasses should overwrite this method for better performance */
 	public void removeStatements(UriOrVariable context,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 
-		// TODO use this impl instead
-		// ClosableIterator<? extends Statement> it = findStatements(context,
-		// subject, predicate, object);
-		// while (it.hasNext()) {
-		// Statement stmt = it.next();
-		// try {
-		// it.remove();
-		// } catch (UnsupportedOperationException e) {
-		// this.removeStatement(stmt);
-		// }
-		// }
-		// it.close();
-
-		if (context == null) {
-			this.getDefaultModel().removeStatements(subject, predicate, object);
-		} else if (context == Variable.ANY) {
-			// remove from all models
-			// while you read the iterator getModels() you may not WRITE to the
-			// models
-			ClosableIterator<? extends Model> it = this.getModels();
-			List<Model> allModels = new LinkedList<Model>();
-			while (it.hasNext()) {
-				allModels.add(it.next());
-			}
-			it.close();
-			for (Model m : allModels) {
-				m.open();
-				m.removeStatements(subject, predicate, object);
-			}
-		} else {
-			Model m = getModel((URI) context);
-			m.removeStatements(subject, predicate, object);
+		ClosableIterator<? extends Statement> it = findStatements(context,
+				subject, predicate, object);
+		List<Statement> stmts = new LinkedList<Statement>();
+		while (it.hasNext()) {
+			Statement stmt = it.next();
+			stmts.add(stmt);
+		}
+		it.close();
+		for (Statement stmt : stmts) {
+			this.removeStatement(stmt);
 		}
 	}
 
 	// implement value factory by delgating to default model
 
+	/* subclasses should overwrite this method for better performance */
 	public BlankNode createBlankNode() {
 		return this.getDefaultModel().createBlankNode();
 	}
 
+	/* subclasses should overwrite this method for better performance */
+	public BlankNode createBlankNode(String internalID) {
+		return this.getDefaultModel().createBlankNode(internalID);
+	}
+
+	/* subclasses should overwrite this method for better performance */
 	public URI createURI(String uriString) throws ModelRuntimeException {
 		return this.getDefaultModel().createURI(uriString);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public boolean isValidURI(String uriString) {
 		return this.getDefaultModel().isValidURI(uriString);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public PlainLiteral createPlainLiteral(String literal) {
 		return this.getDefaultModel().createPlainLiteral(literal);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public LanguageTagLiteral createLanguageTagLiteral(String literal,
 			String langugeTag) throws ModelRuntimeException {
 		return this.getDefaultModel().createLanguageTagLiteral(literal,
 				langugeTag);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
 			throws ModelRuntimeException {
 		return this.getDefaultModel().createDatatypeLiteral(literal,
 				datatypeURI);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public Statement createStatement(Resource subject, URI predicate,
 			Node object) {
 		return this.getDefaultModel().createStatement(subject, predicate,
 				object);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public URI newRandomUniqueURI() {
 		return this.getDefaultModel().newRandomUniqueURI();
 	}
@@ -282,25 +278,19 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 
 	private boolean locked = false;
 
-	/**
-	 * OVERRIDE ME!
-	 */
+	/* subclasses should overwrite this method for better performance */
 	public boolean isLocked() {
 		return this.locked;
 	}
 
-	/**
-	 * OVERRIDE ME!
-	 */
+	/* subclasses should overwrite this method for better performance */
 	public void lock() throws LockException {
 		if (isLocked())
 			throw new LockException("Already locked");
 		this.locked = true;
 	}
 
-	/**
-	 * OVERRIDE ME!
-	 */
+	/* subclasses should overwrite this method for better performance */
 	public void unlock() {
 		this.locked = false;
 	}
@@ -316,6 +306,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return result;
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public long countStatements(QuadPattern pattern)
 			throws ModelRuntimeException {
 		if (pattern.getContext() == Variable.ANY) {
@@ -338,8 +329,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * Inefficient: Looks into each model and asks to match the triplepattern
 	 * part of the quad pattern.
 	 */
-	// TODO (xam, 11.07.2007) change inefficient method
-	public ClosableIterator<? extends Statement> findStatements(
+	/* subclasses should overwrite this method for better performance */
+	public ClosableIterator<Statement> findStatements(
 			QuadPattern pattern) throws ModelRuntimeException {
 		if (pattern.getContext() == Variable.ANY)
 			// match all
@@ -350,7 +341,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return m.findStatements(pattern);
 	}
 
-	public ClosableIterator<? extends Statement> findStatements(
+	public ClosableIterator<Statement> findStatements(
 			UriOrVariable contextURI, ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
@@ -359,43 +350,13 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return findStatements(quadPattern);
 	}
 
+	/* subclasses should overwrite this method for better performance */
 	public ClosableIterator<Statement> iterator() {
 		return new LazyUnionModelIterator(this, new QuadPatternImpl(
 				Variable.ANY, Variable.ANY, Variable.ANY, Variable.ANY));
 	}
 
-	/**
-	 * FIXME: this method will return false for empty models
-	 * 
-	 * @deprecated this method cannot be impleted correctly in AbstractModelSet
-	 */
-	@Deprecated
-	public boolean containsModel(URI contextURI) {
-		ClosableIterator<? extends Statement> it = findStatements(contextURI,
-				Variable.ANY, Variable.ANY, Variable.ANY);
-		boolean result = it.hasNext();
-		it.close();
-		return result;
-	}
-
-	/**
-	 * FIXME: this impl does not really delete models. It merely removes all
-	 * statements from the given model. Which is wrong.
-	 * 
-	 * @deprecated this method cannot be impleted correctly in AbstractModelSet
-	 */
-	@Deprecated
-	public boolean removeModel(URI contextURI) {
-		boolean containsModel = containsModel(contextURI);
-		if (containsModel) {
-			this.getModel(contextURI).removeAll();
-		}
-		return containsModel;
-	}
-
-	/**
-	 * This implementation is extremely inefficient and should be overridden.
-	 */
+	/* subclasses should overwrite this method for better performance */
 	public boolean addModel(Model model) {
 		for (Statement s : model) {
 			addStatement(model.getContextURI(), s.getSubject(), s
@@ -428,10 +389,21 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 			}
 		}
 	}
-	
+
 	/** sublcasses should override this method for performance */
 	public boolean isEmpty() {
 		return size() == 0;
+	}
+
+	// work around Sesame not having this yet
+	/* subclasses should overwrite this method for better performance */
+	public boolean sparqlAsk(String query) throws ModelRuntimeException,
+			MalformedQueryException {
+		QueryResultTable table = sparqlSelect(query);
+		ClosableIterator<QueryRow> it = table.iterator();
+		boolean result = it.hasNext();
+		it.close();
+		return result;
 	}
 
 }

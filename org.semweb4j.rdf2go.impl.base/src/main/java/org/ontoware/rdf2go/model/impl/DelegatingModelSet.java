@@ -22,13 +22,14 @@ import org.ontoware.rdf2go.model.QuadPattern;
 import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
+import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.NodeOrVariable;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 
 /**
- * @author grimnes
+ * @author grimnes, voelkel
  * 
  */
 public class DelegatingModelSet extends AbstractModelSetImpl implements
@@ -74,7 +75,7 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 	}
 
 	@Override
-	public ClosableIterator<? extends Statement> findStatements(
+	public ClosableIterator<Statement> findStatements(
 			UriOrVariable contextURI, ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
@@ -97,7 +98,7 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return this.baseModelSet.getModel(contextURI);
 	}
 
-	public ClosableIterator<? extends Model> getModels() {
+	public ClosableIterator<Model> getModels() {
 		return this.baseModelSet.getModels();
 	}
 
@@ -122,7 +123,7 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		this.baseModelSet.open();
 	}
 
-	public ClosableIterable<? extends Statement> queryConstruct(String query,
+	public ClosableIterable<Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			MalformedQueryException, ModelRuntimeException {
 		return this.baseModelSet.queryConstruct(query, querylanguage);
@@ -169,12 +170,12 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return this.baseModelSet.sparqlAsk(query);
 	}
 
-	public ClosableIterable<? extends Statement> sparqlConstruct(String query)
+	public ClosableIterable<Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException, MalformedQueryException {
 		return this.baseModelSet.sparqlConstruct(query);
 	}
 
-	public ClosableIterable<? extends Statement> sparqlDescribe(String query)
+	public ClosableIterable<Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException {
 		return this.baseModelSet.sparqlDescribe(query);
 	}
@@ -212,6 +213,18 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 
 	public boolean isEmpty() {
 		return baseModelSet.isEmpty();
+	}
+
+	public boolean containsModel(URI contextURI) {
+		return baseModelSet.containsModel(contextURI);
+	}
+
+	public boolean removeModel(URI contextURI) {
+		return baseModelSet.removeModel(contextURI);
+	}
+
+	public BlankNode createBlankNode(String internalID) {
+		return baseModelSet.createBlankNode(internalID);
 	}
 
 }

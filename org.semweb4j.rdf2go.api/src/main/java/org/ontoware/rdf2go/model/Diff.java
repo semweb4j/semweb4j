@@ -16,12 +16,12 @@ import java.util.Iterator;
 
 public interface Diff extends ModelAddRemove {
 
-	public Iterable<? extends Statement> getAdded();
+	public Iterable<Statement> getAdded();
 
-	public Iterable<? extends Statement> getRemoved();
+	public Iterable<Statement> getRemoved();
 
 	/** Should also be offered by a constructor */
-	public Diff create(Iterator<? extends Statement> add, Iterator<? extends Statement> remove);
+	public Diff create(Iterator<Statement> add, Iterator<Statement> remove);
 
 	public void dump();
 }

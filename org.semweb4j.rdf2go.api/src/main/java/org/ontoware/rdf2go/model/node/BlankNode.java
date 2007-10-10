@@ -21,4 +21,6 @@ package org.ontoware.rdf2go.model.node;
  */
 public interface BlankNode extends Resource {
 	
+	String getInternalID();
+	
 }
