@@ -10,7 +10,6 @@
  */
 package org.ontoware.rdf2go.model.node;
 
-import org.ontoware.rdf2go.model.node.impl.NodeUtils;
 
 /**
  * This variable models wildcards in triple pattern queres. Only onw instance of
@@ -18,7 +17,7 @@ import org.ontoware.rdf2go.model.node.impl.NodeUtils;
  * 
  * @author voelkel
  */
-public class Variable implements Node, ResourceOrVariable, UriOrVariable,
+public class Variable implements ResourceOrVariable, UriOrVariable,
 		NodeOrVariable {
 
 	private Variable() {
@@ -68,8 +67,7 @@ public class Variable implements Node, ResourceOrVariable, UriOrVariable,
 		if (other instanceof Variable) {
 			return this.hashCode() - ((Variable) other).hashCode();
 		} else {
-			// sort by type
-			return NodeUtils.compareByType(this, other);
+			return 1;
 		}
 	}
 

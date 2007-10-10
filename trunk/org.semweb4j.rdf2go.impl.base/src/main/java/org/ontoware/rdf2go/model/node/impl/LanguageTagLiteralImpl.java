@@ -25,7 +25,7 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 	public LanguageTagLiteralImpl(String string, String languageTag) {
 		assert languageTag != null;
 		assert string != null;
-		this.languageTag = languageTag;
+		this.languageTag = languageTag.toLowerCase();
 		this.literalValue = string;
 	}
 
@@ -36,7 +36,7 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 	public LanguageTagLiteralImpl(String turtleEncoded) {
 		assert turtleEncoded.contains("@");
 		int i = turtleEncoded.lastIndexOf('@');
-		this.literalValue = turtleEncoded.substring(0, i);
+		this.literalValue = turtleEncoded.substring(0, i).toLowerCase();
 		this.languageTag = turtleEncoded.substring(i + 1);
 	}
 

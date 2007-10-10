@@ -74,7 +74,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 *         ModelSet contains a number of models.
 	 */
 	boolean isEmpty();
-	
+
 	/**
 	 * Creates an RDF2Go URI. This allows a user to create a model via
 	 * 'getModel( URI )'.
@@ -95,8 +95,8 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @param object
 	 * @return
 	 */
-	Statement createStatement(URI context, Resource subject,
-			URI predicate, Node object);
+	Statement createStatement(URI context, Resource subject, URI predicate,
+			Node object);
 
 	/**
 	 * Get the Model with the passed URI. If the model does not exist yet, an
@@ -109,7 +109,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 *            the URI of the context. This is the same as the name of the
 	 *            named graph.
 	 * @return the model identified by this context. May have a size of 0, if no
-	 *         data was added to it yet. Never returns null.
+	 *         data was added to it yet. Never returns null.  It has to be isOpen() == true.
 	 */
 	Model getModel(URI contextURI);
 
@@ -137,7 +137,8 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	/**
 	 * @param contextURI
 	 * @return true if a Model (NamedGraph) named 'contextURI' is known. The
-	 *         model might be empty.
+	 *         model might be empty. Some implementations don't manage models
+	 *         explicitly, here empty models cna never exist.
 	 */
 	boolean containsModel(URI contextURI);
 
@@ -155,7 +156,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * serialization that has no context. The default model has a context of
 	 * 'null'
 	 * 
-	 * @return the default model.
+	 * @return the default model. It has to be isOpen() == true.
 	 */
 	Model getDefaultModel();
 
@@ -163,13 +164,13 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * @return an Interator over <em>all</em> models within this ModelSet.
 	 *         Some models might be empty.
 	 * 
-	 * Models are closed.
+	 * Since 4.4.10: Each model has to be isOpen() == true.
 	 * 
 	 * For some implementations: While you read the iterator you may not WRITE
 	 * to the models.
 	 * 
 	 */
-	ClosableIterator<? extends Model> getModels();
+	ClosableIterator<Model> getModels();
 
 	/**
 	 * @return an iterator over all URIs used as model URIs.

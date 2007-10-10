@@ -9,7 +9,7 @@ import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.PlainLiteral;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
-import org.ontoware.rdf2go.model.node.impl.BlankNodeImpl;
+import org.ontoware.rdf2go.model.node.impl.AbstractBlankNodeImpl;
 import org.ontoware.rdf2go.model.node.impl.DatatypeLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.LanguageTagLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
@@ -87,9 +87,9 @@ public class TypeConversion {
 		if (o instanceof BlankNode) {
 			// blank node
 			log.debug("instanceof BlankNode");
-			assert o instanceof BlankNodeImpl : "expected a BlankNodeImpl and found a "
+			assert o instanceof AbstractBlankNodeImpl : "expected a BlankNodeImpl and found a "
 					+ o.getClass();
-			AnonId anonId = new AnonId(((BlankNodeImpl) o)
+			AnonId anonId = new AnonId(((AbstractBlankNodeImpl) o)
 					.getUnderlyingBlankNode().toString());
 			Node jenaNode = Node.createAnon(anonId);
 			return jenaNode;
@@ -156,9 +156,9 @@ public class TypeConversion {
 		if (o instanceof BlankNode) {
 			// blank node
 			log.debug("instanceof BlankNode");
-			assert o instanceof BlankNodeImpl : "expected a BlankNodeImpl and found a "
+			assert o instanceof AbstractBlankNodeImpl : "expected a BlankNodeImpl and found a "
 					+ o.getClass();
-			AnonId anonId = new AnonId(((BlankNodeImpl) o)
+			AnonId anonId = new AnonId(((AbstractBlankNodeImpl) o)
 					.getUnderlyingBlankNode().toString());
 			Node jenaNode = Node.createAnon(anonId);
 			return jenaNode;
@@ -191,7 +191,7 @@ public class TypeConversion {
 			return new URIImpl(n.getURI());
 
 		if (n.isVariable())
-			return Variable.ANY;
+			throw new RuntimeException("Cannot convert a Jena variable to an RDF2Go node");
 
 		if (n.isLiteral()) {
 			LiteralLabel lit = n.getLiteral();
@@ -211,7 +211,7 @@ public class TypeConversion {
 		}
 
 		if (n.isBlank())
-			return new BlankNodeImpl(n);
+			return new JenaBlankNode(n);
 
 		// none of the above - don't know how to transform that
 		throw new RuntimeException("no transformation defined from " + n

@@ -81,7 +81,7 @@ public interface Sparqlable {
 	 * @throws MalformedQueryException
 	 *             if the query is not a valid SPARQL CONSTRUCT query
 	 */
-	ClosableIterable<? extends Statement> sparqlConstruct(String query)
+	ClosableIterable<Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException, MalformedQueryException;
 
 	/**
@@ -104,8 +104,7 @@ public interface Sparqlable {
 	 *             if the query is not a valid construct query in the given
 	 *             query language
 	 */
-	// TODO consider replacing with ClosableIterator<? extends Statement>
-	ClosableIterable<? extends Statement> queryConstruct(String query,
+	ClosableIterable<Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			MalformedQueryException, ModelRuntimeException;
 
@@ -135,7 +134,7 @@ public interface Sparqlable {
 	 * @throws MalformedQueryException
 	 *             if the query is not a valid SPARQL DESCRIBE query
 	 */
-	ClosableIterable<? extends Statement> sparqlDescribe(String query)
+	ClosableIterable<Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException;
 
 }

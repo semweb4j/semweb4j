@@ -42,7 +42,7 @@ public interface FindableModel {
 	 * @return a statement iterator
 	 * @throws ModelRuntimeException
 	 */
-	public ClosableIterator<? extends Statement> findStatements(ResourceOrVariable subject,
+	public ClosableIterator<Statement> findStatements(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException;
 
 	/**
@@ -53,7 +53,7 @@ public interface FindableModel {
 	 *          pattern
 	 * @throws ModelRuntimeException
 	 */
-	public ClosableIterator<? extends Statement> findStatements(TriplePattern pattern) throws ModelRuntimeException;
+	public ClosableIterator<Statement> findStatements(TriplePattern pattern) throws ModelRuntimeException;
 
 	// ////////////////////////////
 	// counting

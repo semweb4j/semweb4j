@@ -22,12 +22,14 @@ import java.util.Set;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
+import org.ontoware.rdf2go.exception.MalformedQueryException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
 import org.ontoware.rdf2go.model.Diff;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.QueryResultTable;
+import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.TriplePattern;
@@ -105,7 +107,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	/**
 	 * Convenience method.
 	 */
-	public ClosableIterator<? extends Statement> findStatements(
+	public ClosableIterator<Statement> findStatements(
 			TriplePattern triplepattern) throws ModelRuntimeException {
 		assertModel();
 		return findStatements(triplepattern.getSubject(), triplepattern
@@ -218,7 +220,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	/**
 	 * Computes a Diff by using HashSets.
 	 */
-	public Diff getDiff(Iterator<? extends Statement> other)
+	public Diff getDiff(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		assertModel();
 
@@ -312,7 +314,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	/**
 	 * Throws an exception if the syntax is not SPARQL
 	 */
-	public ClosableIterable<? extends Statement> queryConstruct(String query,
+	public ClosableIterable<Statement> queryConstruct(String query,
 			String querylanguage) throws QueryLanguageNotSupportedException,
 			ModelRuntimeException {
 		assertModel();
@@ -380,6 +382,16 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	/** sublcasses should override this method for performance */
 	public boolean isEmpty() {
 		return size() == 0;
+	}
+
+	// work around Sesame not having this yet
+	public boolean sparqlAsk(String query) throws ModelRuntimeException,
+			MalformedQueryException {
+		QueryResultTable table = sparqlSelect(query);
+		ClosableIterator<QueryRow> it = table.iterator();
+		boolean result = it.hasNext();
+		it.close();
+		return result;
 	}
 
 }

@@ -30,14 +30,14 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 
 	@Override
 	public void addStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException {
-		// TODO: is it ok to set the context to null?
+		// TODO: is it OK to set the context to null?
 		Statement s = new StatementImpl(null, subject, predicate, object);
 		this.set.add(s);
 	}
 
 	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException {
-		// TODO: is it ok to set the context to null?
+		// TODO: is it OK to set the context to null?
 		Statement s = new StatementImpl(null, subject, predicate, object);
 		this.set.remove(s);
 	}
@@ -58,7 +58,7 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 		throw new UnsupportedOperationException();
 	}
 
-	public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException {
+	public Diff getDiff(Iterator<Statement> statements) throws ModelRuntimeException {
 		ModelAddRemoveMemoryImpl other = new ModelAddRemoveMemoryImpl();
 		other.addAll(statements);
 

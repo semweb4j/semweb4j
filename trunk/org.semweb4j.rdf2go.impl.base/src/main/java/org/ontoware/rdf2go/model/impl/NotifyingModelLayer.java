@@ -36,7 +36,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
 	@Override
-	public void addAll(Iterator<? extends Statement> other)
+	public void addAll(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
 			this.addStatement(other.next());
@@ -165,7 +165,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#removeAll(org.ontoware.rdf2go.core.common.CommonModelReader)
 	 */
 	@Override
-	public void removeAll(Iterator<? extends Statement> other)
+	public void removeAll(Iterator<Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
 			this.removeStatement(other.next());

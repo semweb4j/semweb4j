@@ -33,6 +33,15 @@ public interface ModelValueFactory {
 	BlankNode createBlankNode();
 
 	/**
+	 * @param internalID
+	 * @return a BlankNode with the given internal ID. The id should be one
+	 *         returned from BlankNode.getInternalID().
+	 * @throws UnsupportedOperationException
+	 *             if the underlying store cannot create BlankNodes from IDs.
+	 */
+	BlankNode createBlankNode(String internalID);
+
+	/**
 	 * The model must create URIs it would accept itself.
 	 * 
 	 * @return a new URI from the given String
@@ -57,16 +66,18 @@ public interface ModelValueFactory {
 	 * @param literal
 	 * @param langugeTag
 	 * @return a LanguageTagLiteral
-	 * @throws ModelRuntimeException e.g. if the language tag is malformed
+	 * @throws ModelRuntimeException
+	 *             e.g. if the language tag is malformed
 	 */
-	LanguageTagLiteral createLanguageTagLiteral(String literal, String langugeTag)
-			throws ModelRuntimeException;
+	LanguageTagLiteral createLanguageTagLiteral(String literal,
+			String langugeTag) throws ModelRuntimeException;
 
 	/**
 	 * @param literal
 	 * @param datatypeURI
 	 * @return a DatatypeLiteral
-	 * @throws ModelRuntimeException e.g. if the datatype URI causes problems
+	 * @throws ModelRuntimeException
+	 *             e.g. if the datatype URI causes problems
 	 */
 	DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
 			throws ModelRuntimeException;

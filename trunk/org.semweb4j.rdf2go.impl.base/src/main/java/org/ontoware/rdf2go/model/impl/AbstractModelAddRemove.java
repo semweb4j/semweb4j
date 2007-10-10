@@ -134,7 +134,7 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter impleme
 	public abstract void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException;
 
-	public void removeAll(Iterator<? extends Statement> other) throws ModelRuntimeException {
+	public void removeAll(Iterator<Statement> other) throws ModelRuntimeException {
 		while (other.hasNext()) {
 			Statement stmt = other.next();
 			removeStatement(stmt);

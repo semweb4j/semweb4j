@@ -20,7 +20,7 @@ abstract class AbstractModelChangeListener implements ModelChangedListener
 		NotifyingModelTest.fail();
 	}
 
-	public void addedStatements(Iterator<? extends Statement> statements)
+	public void addedStatements(Iterator<Statement> statements)
 	{
 		NotifyingModelTest.fail();
 	}
@@ -35,7 +35,7 @@ abstract class AbstractModelChangeListener implements ModelChangedListener
 		NotifyingModelTest.fail();
 	}
 
-	public void removedStatements(Iterator<? extends Statement> statements)
+	public void removedStatements(Iterator<Statement> statements)
 	{
 		NotifyingModelTest.fail();
 	}
