@@ -177,7 +177,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		addStatement(createStatement(context, subject, predicate, object));
 	}
 
-	public void addAll(Iterator<Statement> statement)
+	public void addAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException {
 		while (statement.hasNext()) {
 			addStatement(statement.next());
@@ -190,7 +190,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		removeStatement(createStatement(context, subject, predicate, object));
 	}
 
-	public void removeAll(Iterator<Statement> statement)
+	public void removeAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException {
 		while (statement.hasNext()) {
 			removeStatement(statement.next());

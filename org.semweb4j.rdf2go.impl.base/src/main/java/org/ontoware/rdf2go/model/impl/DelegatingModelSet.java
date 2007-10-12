@@ -227,4 +227,12 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return baseModelSet.createBlankNode(internalID);
 	}
 
+	public void commit() {
+		baseModelSet.commit();
+	}
+
+	public void setAutocommit(boolean autocommit) {
+		baseModelSet.setAutocommit(autocommit);
+	}
+
 }

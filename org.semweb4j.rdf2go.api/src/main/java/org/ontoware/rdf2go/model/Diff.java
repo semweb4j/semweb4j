@@ -21,7 +21,7 @@ public interface Diff extends ModelAddRemove {
 	public Iterable<Statement> getRemoved();
 
 	/** Should also be offered by a constructor */
-	public Diff create(Iterator<Statement> add, Iterator<Statement> remove);
+	public Diff create(Iterator<? extends Statement> add, Iterator<? extends Statement> remove);
 
 	public void dump();
 }

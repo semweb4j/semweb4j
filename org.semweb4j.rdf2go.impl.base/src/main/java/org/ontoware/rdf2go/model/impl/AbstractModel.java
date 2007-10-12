@@ -33,7 +33,6 @@ import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.TriplePattern;
-import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
@@ -68,12 +67,95 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 
 	/**
 	 * Uses to store runtime-properties - no related to RDF at all. You could
-	 * for exmaple store a user session object here.
+	 * for example store a user session object here.
 	 */
 	private Map<URI, Object> runtimeProperties = new HashMap<URI, Object>();
 
+	private boolean open = false;
+
+	public void addAll(Iterator<? extends Statement> other)
+			throws ModelRuntimeException {
+		assertModel();
+		super.addAll(other);
+	}
+
+	public void addStatement(Resource subject, URI predicate, String literal)
+			throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(subject, predicate, literal);
+	}
+
+	public void addStatement(Resource subject, URI predicate, String literal,
+			String languageTag) throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(subject, predicate, literal, languageTag);
+	}
+
+	public void addStatement(Resource subject, URI predicate, String literal,
+			URI datatypeURI) throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(subject, predicate, literal, datatypeURI);
+	}
+
+	public void addStatement(Statement statement) throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(statement);
+	}
+
+	// essential methods
+
+	// core rdf2go model methods
+	// /////////////////////////
+
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal) throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(subjectURIString, predicate, literal);
+	}
+
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(subjectURIString, predicate, literal, languageTag);
+	}
+
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException {
+		assertModel();
+		super.addStatement(subjectURIString, predicate, literal, datatypeURI);
+	}
+
 	/**
-	 * Convenience method. Might have faster implementations.
+	 * This method checks if the model is properly initialized and i.e. not
+	 * closed.
+	 */
+	protected void assertModel() {
+		if (this.getUnderlyingModelImplementation() == null) {
+			throw new ModelRuntimeException("Underlying model is null.");
+		}
+		if (!isOpen())
+			throw new ModelRuntimeException("Model is not open");
+
+	}
+
+	/**
+	 * Close connection to defined, unterlying implementation
+	 */
+	public void close() {
+		if (isOpen()) {
+			this.open = false;
+		} else {
+			log.debug("Model was closed already, ignored.");
+		}
+	}
+
+	/** OVERWRITE ME */
+	public void commit() {
+		// do nothing
+	}
+
+	/**
+	 * Convenience method. Might have faster implementations. Overwrite me!
 	 */
 	public boolean contains(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
@@ -105,17 +187,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	}
 
 	/**
-	 * Convenience method.
-	 */
-	public ClosableIterator<Statement> findStatements(
-			TriplePattern triplepattern) throws ModelRuntimeException {
-		assertModel();
-		return findStatements(triplepattern.getSubject(), triplepattern
-				.getPredicate(), triplepattern.getObject());
-	}
-
-	/**
-	 * inefficient. Please override.
+	 * Very inefficient. Please override.
 	 */
 	public long countStatements(TriplePattern pattern)
 			throws ModelRuntimeException {
@@ -130,20 +202,9 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		return count;
 	}
 
-	// essential methods
-
-	// core rdf2go model methods
-	// /////////////////////////
-
-	public abstract BlankNode createBlankNode();
-
-	public URI createURI(String uriString) throws ModelRuntimeException {
-		return new URIImpl(uriString);
-	}
-
-	public PlainLiteral createPlainLiteral(String literal)
+	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
 			throws ModelRuntimeException {
-		return new PlainLiteralImpl(literal);
+		return new DatatypeLiteralImpl(literal, datatypeURI);
 	}
 
 	public LanguageTagLiteral createLanguageTagLiteral(String literal,
@@ -151,9 +212,17 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		return new LanguageTagLiteralImpl(literal, languageTag);
 	}
 
-	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
+	public PlainLiteral createPlainLiteral(String literal)
 			throws ModelRuntimeException {
-		return new DatatypeLiteralImpl(literal, datatypeURI);
+		return new PlainLiteralImpl(literal);
+	}
+
+	// ///////////
+	// stubs
+
+	public Statement createStatement(Resource subject, URI predicate,
+			Node object) {
+		return new StatementImpl(getContextURI(), subject, predicate, object);
 	}
 
 	public TriplePattern createTriplePattern(ResourceOrVariable subject,
@@ -161,66 +230,24 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		return new TriplePatternImpl(subject, predicate, object);
 	}
 
-	public Statement createStatement(Resource subject, URI predicate,
-			Node object) {
-		return new StatementImpl(getContextURI(), subject, predicate, object);
+	public URI createURI(String uriString) throws ModelRuntimeException {
+		return new URIImpl(uriString);
 	}
 
 	/**
-	 * This is a really slow implementation, please override.
+	 * Convenience method.
 	 */
-	public long size() throws ModelRuntimeException {
+	public ClosableIterator<Statement> findStatements(
+			TriplePattern triplepattern) throws ModelRuntimeException {
 		assertModel();
-		ClosableIterator<Statement> it = iterator();
-		int count = 0;
-		while (it.hasNext()) {
-			count++;
-			it.next();
-		}
-		it.close();
-		return count;
-	}
-
-	/**
-	 * Add an arbitrary property, this will not be persisted and is only
-	 * available at runtime. This allows Model to serve as a central data model
-	 * in larger applications (like SemVersion.ontoware.org)
-	 * 
-	 * @param propertyURI
-	 * @param value
-	 */
-	public void setProperty(URI propertyURI, Object value) {
-		this.runtimeProperties.put(propertyURI, value);
-	}
-
-	/**
-	 * Note: This is a property of the model, not an RDF property
-	 * 
-	 * @param propertyURI
-	 * @return stored property value for this model or null
-	 */
-	public Object getProperty(URI propertyURI) {
-		return this.runtimeProperties.get(propertyURI);
-	}
-
-	public URI newRandomUniqueURI() {
-		return URIGenerator.createNewRandomUniqueURI();
-	}
-
-	public Object getUnderlyingModelImplementation() {
-		// This introduces an infinite loop :)
-		// assertModel();
-		return this.model;
-	}
-
-	public void setUnderlyingModelImplementation(Object o) {
-		this.model = o;
+		return findStatements(triplepattern.getSubject(), triplepattern
+				.getPredicate(), triplepattern.getObject());
 	}
 
 	/**
 	 * Computes a Diff by using HashSets.
 	 */
-	public Diff getDiff(Iterator<Statement> other)
+	public Diff getDiff(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		assertModel();
 
@@ -249,66 +276,48 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		log.debug(added.size() + " triples added, " + removed.size()
 				+ " removed.");
 
-		// The iterators ar not closable, so we don't have to close them
+		// These iterators are not closable, so we don't have to close them
 		return new DiffImpl(added.iterator(), removed.iterator());
 	}
 
 	/**
-	 * Implementations with support for transactions should use them instead of
-	 * this implementation.
+	 * Note: This is a property of the model, not an RDF property
+	 * 
+	 * @param propertyURI
+	 * @return stored property value for this model or null
 	 */
-	@Override
-	public synchronized void update(Diff diff) throws ModelRuntimeException {
-		assertModel();
-		for (Statement r : diff.getRemoved()) {
-			removeStatement(r);
-		}
-
-		for (Statement a : diff.getAdded()) {
-			addStatement(a);
-		}
+	public Object getProperty(URI propertyURI) {
+		return this.runtimeProperties.get(propertyURI);
 	}
 
-	// ///////////
-	// stubs
+	public Object getUnderlyingModelImplementation() {
+		if (!isOpen())
+			throw new ModelRuntimeException("Model is not open");
+		return this.model;
+	}
+
+	/** sublcasses should override this method for performance */
+	public boolean isEmpty() {
+		return size() == 0;
+	}
+
+	public boolean isOpen() {
+		return this.open;
+	}
+
+	public URI newRandomUniqueURI() {
+		return URIGenerator.createNewRandomUniqueURI();
+	}
 
 	/**
-	 * Throws an exception if the syntax is not SPARQL
+	 * Open connection to defined, unterlying implementation.
 	 */
-	public void readFrom(InputStream in, Syntax syntax) throws IOException,
-			ModelRuntimeException {
-		assertModel();
-		if (syntax == Syntax.RdfXml) {
-			readFrom(in);
+	public void open() {
+		if (isOpen()) {
+			log.warn("Model is already open. Ignored.");
 		} else {
-			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
+			this.open = true;
 		}
-	}
-
-	/**
-	 * Throws an exception if the syntax is not known
-	 */
-	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
-			ModelRuntimeException {
-		assertModel();
-		if (syntax == Syntax.RdfXml) {
-			writeTo(out);
-		} else {
-			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
-		}
-	}
-
-	/**
-	 * Convenience method.
-	 */
-	public String serialize(Syntax syntax) throws SyntaxNotSupportedException {
-		StringWriter sw = new StringWriter();
-		try {
-			this.writeTo(sw, syntax);
-		} catch (IOException e) {
-			throw new ModelRuntimeException(e);
-		}
-		return sw.getBuffer().toString();
 	}
 
 	/**
@@ -338,50 +347,131 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 				"Unsupported query language: " + querylanguage);
 	}
 
-	private boolean open = false;
-
 	/**
-	 * Open connection to defined, unterlying implementation.
+	 * Throws an exception if the syntax is not SPARQL
 	 */
-	public void open() {
-		if (isOpen()) {
-			log.warn("Model is already open. Ignored.");
+	public void readFrom(InputStream in, Syntax syntax) throws IOException,
+			ModelRuntimeException {
+		assertModel();
+		if (syntax == Syntax.RdfXml) {
+			readFrom(in);
 		} else {
-			this.open = true;
+			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
 		}
+	}
+
+	public void removeAll() throws ModelRuntimeException {
+		assertModel();
+		super.removeAll();
+	}
+
+	public void removeAll(Iterator<? extends Statement> statements) {
+		assertModel();
+		super.removeAll(statements);
+	}
+
+	public void removeStatement(Resource subject, URI predicate, String literal)
+			throws ModelRuntimeException {
+		assertModel();
+		super.removeStatement(subject, predicate, literal);
+	}
+
+	public void removeStatement(Resource subject, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException {
+		assertModel();
+		super.removeStatement(subject, predicate, literal, languageTag);
+	}
+
+	public void removeStatement(Resource subject, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException {
+		assertModel();
+		super.removeStatement(subject, predicate, literal, datatypeURI);
+	}
+
+	public void removeStatement(Statement statement)
+			throws ModelRuntimeException {
+		assertModel();
+		super.removeStatement(statement);
+	}
+
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal) throws ModelRuntimeException {
+		assertModel();
+		super.removeStatement(subjectURIString, predicate, literal);
+	}
+
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException {
+		assertModel();
+		super
+				.removeStatement(subjectURIString, predicate, literal,
+						languageTag);
+	}
+
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException {
+		assertModel();
+		super
+				.removeStatement(subjectURIString, predicate, literal,
+						datatypeURI);
+	}
+
+	public void removeStatements(ResourceOrVariable subject,
+			UriOrVariable predicate, NodeOrVariable object)
+			throws ModelRuntimeException {
+		assertModel();
+		super.removeStatements(subject, predicate, object);
+	}
+
+	public void removeStatements(TriplePattern triplePattern)
+			throws ModelRuntimeException {
+		assertModel();
+		super.removeStatements(triplePattern);
 	}
 
 	/**
-	 * Close connection to defined, unterlying implementation
+	 * Convenience method.
 	 */
-	public void close() {
-		if (isOpen()) {
-			this.open = false;
-		} else {
-			log.debug("Model was closed already, ignored.");
+	public String serialize(Syntax syntax) throws SyntaxNotSupportedException {
+		StringWriter sw = new StringWriter();
+		try {
+			this.writeTo(sw, syntax);
+		} catch (IOException e) {
+			throw new ModelRuntimeException(e);
 		}
+		return sw.getBuffer().toString();
 	}
 
-	public boolean isOpen() {
-		return this.open;
+	/** OVERWRITE ME */
+	public void setAutocommit(boolean autocommit) {
+		// do nothing
 	}
 
 	/**
-	 * This method checks if the model is properly initialized and i.e. not
-	 * closed.
+	 * Add an arbitrary property, this will not be persisted and is only
+	 * available at runtime. This allows Model to serve as a central data model
+	 * in larger applications (like SemVersion.ontoware.org)
+	 * 
+	 * @param propertyURI
+	 * @param value
 	 */
-	protected void assertModel() {
-		if (this.getUnderlyingModelImplementation() == null) {
-			throw new ModelRuntimeException("Underlying model is null.");
-		}
-		if (!isOpen())
-			throw new ModelRuntimeException("Model is not open");
-
+	public void setProperty(URI propertyURI, Object value) {
+		this.runtimeProperties.put(propertyURI, value);
 	}
 
-	/** sublcasses should override this method for performance */
-	public boolean isEmpty() {
-		return size() == 0;
+	/**
+	 * This is a really slow implementation, please override.
+	 */
+	public long size() throws ModelRuntimeException {
+		assertModel();
+		ClosableIterator<Statement> it = iterator();
+		int count = 0;
+		while (it.hasNext()) {
+			count++;
+			it.next();
+		}
+		it.close();
+		return count;
 	}
 
 	// work around Sesame not having this yet
@@ -392,6 +482,35 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		boolean result = it.hasNext();
 		it.close();
 		return result;
+	}
+
+	/**
+	 * Implementations with support for transactions should use them instead of
+	 * this implementation.
+	 */
+	@Override
+	public synchronized void update(Diff diff) throws ModelRuntimeException {
+		assertModel();
+		for (Statement r : diff.getRemoved()) {
+			removeStatement(r);
+		}
+
+		for (Statement a : diff.getAdded()) {
+			addStatement(a);
+		}
+	}
+
+	/**
+	 * Throws an exception if the syntax is not known
+	 */
+	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
+			ModelRuntimeException {
+		assertModel();
+		if (syntax == Syntax.RdfXml) {
+			writeTo(out);
+		} else {
+			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
+		}
 	}
 
 }

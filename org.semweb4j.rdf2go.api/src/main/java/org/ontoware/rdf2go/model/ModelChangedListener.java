@@ -17,11 +17,11 @@ public interface ModelChangedListener {
     
     public void addedStatement(Statement statement);
     
-    public void addedStatements(Iterator<Statement> statements);
+    public void addedStatements(Iterator<? extends Statement> statements);
     
     public void removedStatement(Statement statement);
     
-    public void removedStatements(Iterator<Statement> statements);
+    public void removedStatements(Iterator<? extends Statement> statements);
     
     public void performedUpdate(Diff diff);
 }

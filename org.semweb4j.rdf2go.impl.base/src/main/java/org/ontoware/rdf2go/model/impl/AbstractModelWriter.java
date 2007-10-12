@@ -23,118 +23,66 @@ import org.ontoware.rdf2go.model.node.impl.LanguageTagLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 
+/**
+ * All these methods create some RDF2Go objects before calling the base case.
+ * For high-performance reasons, adapters should override all methods here.
+ * 
+ * @author voelkel
+ */
 public abstract class AbstractModelWriter implements ModelWriter {
 
-	/**
-	 * Add all statements contained in 'other' to this model = 'union'
-	 * 
-	 * Override this method for performance reasons, to avoid object creation.
-	 * 
-	 * @param other
-	 *            another RDF2GO model
-	 * @throws ModelRuntimeException
-	 */
-	public void addAll(Iterator<Statement> other) throws ModelRuntimeException {
+	public void addAll(Iterator<? extends Statement> other) throws ModelRuntimeException {
 		while (other.hasNext()) {
 			addStatement(other.next());
 		}
 	}
 
-	// core rdf2go model methods
-	// /////////////////////////
-
-	public void addStatement(Resource subject, URI predicate, String literal) throws ModelRuntimeException {
+	public void addStatement(Resource subject, URI predicate, String literal)
+			throws ModelRuntimeException {
 		addStatement(subject, predicate, new PlainLiteralImpl(literal));
 	}
 
-	/**
-	 * Override this method for performance reasons, to avoid object creation.
-	 * 
-	 * @param subject
-	 * @param predicate
-	 * @param literal
-	 * @param languageTag
-	 * @throws ModelRuntimeException
-	 */
-	public void addStatement(Resource subject, URI predicate, String literal, String languageTag)
-			throws ModelRuntimeException {
-		addStatement(subject, predicate, new LanguageTagLiteralImpl(literal, languageTag));
-	}
-
-	/*
-	 * (wth) for information on typed literals see this very good how to
-	 * http://jena.sourceforge.net/how-to/typedLiterals.html
-	 * 
-	 * (none javadoc) Override this method for performance reasons, to avoid
-	 * object creation.
-	 * 
-	 * @see org.ontoware.rdf2go.Model#addStatement(Object, URI, String, URI)
-	 */
-	public void addStatement(Resource subject, URI predicate, String literal, URI datatypeURI)
-			throws ModelRuntimeException {
-		addStatement(subject, predicate, new DatatypeLiteralImpl(literal, datatypeURI));
-	}
-
-	public void addStatement(String subjectURIString, URI predicate, String literal)
-			throws ModelRuntimeException {
-		addStatement(new URIImpl(subjectURIString), predicate, new PlainLiteralImpl(literal));
-	}
-
-	/**
-	 * Override this method for performance reasons, to avoid object creation.
-	 * 
-	 * @param subject
-	 * @param predicate
-	 * @param literal
-	 * @param languageTag
-	 * @throws ModelRuntimeException
-	 */
-	public void addStatement(String subjectURIString, URI predicate, String literal,
+	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
-		addStatement(new URIImpl(subjectURIString), predicate, new LanguageTagLiteralImpl(
-				literal, languageTag));
+		addStatement(subject, predicate, new LanguageTagLiteralImpl(literal,
+				languageTag));
 	}
 
 	/*
 	 * (wth) for information on typed literals see this very good how to
 	 * http://jena.sourceforge.net/how-to/typedLiterals.html
-	 * 
-	 * (none javadoc) Override this method for performance reasons, to avoid
-	 * object creation.
-	 * 
-	 * @see org.ontoware.rdf2go.Model#addStatement(Object, URI, String, URI)
 	 */
-	public void addStatement(String subjectURIString, URI predicate, String literal, URI datatypeURI)
-			throws ModelRuntimeException {
-		addStatement(new URIImpl(subjectURIString), predicate, new DatatypeLiteralImpl(literal,
+	public void addStatement(Resource subject, URI predicate, String literal,
+			URI datatypeURI) throws ModelRuntimeException {
+		addStatement(subject, predicate, new DatatypeLiteralImpl(literal,
 				datatypeURI));
 	}
 
-	/*
-	 * (non-Javadoc) Override this method for performance reasons, to avoid
-	 * object creation.
-	 * 
-	 * @see org.ontoware.rdf2go.Model#addStatement(org.ontoware.rdf2go.Statement)
-	 */
-	public void addStatement(Statement statement) throws ModelRuntimeException {
-		addStatement(statement.getSubject(), statement.getPredicate(), statement.getObject());
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal) throws ModelRuntimeException {
+		addStatement(new URIImpl(subjectURIString), predicate,
+				new PlainLiteralImpl(literal));
 	}
 
-	// core rdf2go model methods
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException {
+		addStatement(new URIImpl(subjectURIString), predicate,
+				new LanguageTagLiteralImpl(literal, languageTag));
+	}
+
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException {
+		addStatement(new URIImpl(subjectURIString), predicate,
+				new DatatypeLiteralImpl(literal, datatypeURI));
+	}
+
+	public void addStatement(Statement statement) throws ModelRuntimeException {
+		addStatement(statement.getSubject(), statement.getPredicate(),
+				statement.getObject());
+	}
+
 	// /////////////////////////
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#addStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.impl.ModelAddRemove#addStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
-	 */
-	public abstract void addStatement(Resource subject, URI predicate, Node object)
-			throws ModelRuntimeException;
+	public abstract void addStatement(Resource subject, URI predicate,
+			Node object) throws ModelRuntimeException;
 }
