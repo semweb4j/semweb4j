@@ -45,7 +45,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @return a Diff between this model and the statements given in the iterator
 	 * @throws ModelRuntimeException
 	 */
-	Diff getDiff(Iterator<Statement> statements) throws ModelRuntimeException;
+	Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException;
 
 	
 	
@@ -64,7 +64,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 *            another RDF2GO model
 	 * @throws ModelRuntimeException
 	 */
-	void removeAll(Iterator<Statement> statements) throws ModelRuntimeException;
+	void removeAll(Iterator<? extends Statement> statements) throws ModelRuntimeException;
 
 	///////////////////
 	// remove

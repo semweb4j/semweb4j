@@ -58,8 +58,8 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		}
 	}
 
-	public Diff create(Iterator<Statement> added,
-			Iterator<Statement> removed) {
+	public Diff create(Iterator<? extends Statement> added,
+			Iterator<? extends Statement> removed) {
 		return new DiffImpl(added, removed);
 	}
 
@@ -78,7 +78,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	}
 
 	@Override
-	public void removeAll(Iterator<Statement> other)
+	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
 			removeStatement(other.next());
@@ -102,14 +102,14 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	}
 
 	@Override
-	public void addAll(Iterator<Statement> other)
+	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
 			addStatement(other.next());
 		}
 	}
 
-	public Diff getDiff(Iterator<Statement> statements)
+	public Diff getDiff(Iterator<? extends Statement> statements)
 			throws ModelRuntimeException {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}

@@ -108,7 +108,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void addAll(Iterator<Statement> other)
+	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		assertModel();
 		if (other instanceof ModelImplJena24) {
@@ -132,12 +132,6 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#getNewBlankNode()
-	 */
-	@Override
 	public BlankNode createBlankNode() {
 		// this.modificationCount++;
 		// should be unique across models

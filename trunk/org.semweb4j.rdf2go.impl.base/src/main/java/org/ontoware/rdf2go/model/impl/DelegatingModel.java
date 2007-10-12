@@ -59,122 +59,59 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel = model;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addAll(org.ontoware.rdf2go.core.common.CommonModelReader)
-	 */
 	@Override
-	public void addAll(Iterator<Statement> other)
+	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		this.delegatedModel.addAll(other);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI,
-	 *      org.ontoware.rdf2go.core.node.Node)
-	 */
 	@Override
 	public void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subject, predicate, object);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      java.lang.String)
-	 */
 	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subject, predicate, literal, languageTag);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI)
-	 */
 	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subject, predicate, literal, datatypeURI);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
-	 */
 	@Override
 	public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subject, predicate, literal);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModelWriter#addStatement(S)
-	 */
 	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
 		this.delegatedModel.addStatement(statement);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      java.lang.String)
-	 */
 	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subjectURIString, predicate, literal, languageTag);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI)
-	 */
 	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subjectURIString, predicate, literal, datatypeURI);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelWriter#addStatement(java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
-	 */
 	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subjectURIString, predicate, literal);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.Model#contains(java.lang.Object,
-	 *      java.lang.Object, java.lang.Object)
-	 */
 	@Override
 	public boolean contains(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
@@ -182,208 +119,101 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.contains(subject, predicate, object);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#createBlankNode()
-	 */
-	@Override
 	public BlankNode createBlankNode() {
 		return this.delegatedModel.createBlankNode();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#createURI(java.lang.String)
-	 */
 	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
 		return this.delegatedModel.createURI(uriString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#getProperty(org.ontoware.rdf2go.core.node.URI)
-	 */
 	@Override
 	public Object getProperty(URI propertyURI) {
 		return this.delegatedModel.getProperty(propertyURI);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.Model#getStatement(java.lang.Object,
-	 *      java.lang.Object, java.lang.Object)
-	 */
 	public ClosableIterator<Statement> findStatements(
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 		return this.delegatedModel.findStatements(subject, predicate, object);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#getUnderlyingModelImplementation()
-	 */
 	@Override
 	public Object getUnderlyingModelImplementation() {
 		return this.delegatedModel.getUnderlyingModelImplementation();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModelReader#iterator()
-	 */
 	public ClosableIterator<Statement> iterator() {
 		return this.delegatedModel.iterator();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#newRandomUniqueURI()
-	 */
 	@Override
 	public URI newRandomUniqueURI() {
 		return this.delegatedModel.newRandomUniqueURI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeAll()
-	 */
 	@Override
 	public void removeAll() throws ModelRuntimeException {
 		this.delegatedModel.removeAll();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeAll(org.ontoware.rdf2go.core.common.CommonModelReader)
-	 */
 	@Override
-	public void removeAll(Iterator<Statement> other)
+	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		this.delegatedModel.removeAll(other);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModelAddRemove#removeStatement(S)
-	 */
 	@Override
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
 		this.delegatedModel.removeStatement(statement);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#setProperty(org.ontoware.rdf2go.core.node.URI,
-	 *      java.lang.Object)
-	 */
 	@Override
 	public void setProperty(URI propertyURI, Object value) {
 		this.delegatedModel.setProperty(propertyURI, value);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.common.CommonModel#size()
-	 */
 	@Override
 	public long size() throws ModelRuntimeException {
 		return this.delegatedModel.size();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.Model#sparqlConstruct(java.lang.String)
-	 */
 	public ClosableIterable<Statement> sparqlConstruct(String query)
 			throws ModelRuntimeException {
 		return this.delegatedModel.sparqlConstruct(query);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.Model#sparqlSelect(java.lang.String)
-	 */
 	public QueryResultTable sparqlSelect(String queryString)
 			throws ModelRuntimeException {
 		log.debug("SPARQL query: " + queryString);
 		return this.delegatedModel.sparqlSelect(queryString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI,
-	 *      org.ontoware.rdf2go.core.node.Node)
-	 */
 	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
 		this.delegatedModel.removeStatement(subject, predicate, object);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      java.lang.String)
-	 */
 	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		this.delegatedModel.removeStatement(subject, predicate, literal, languageTag);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI)
-	 */
 	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		this.delegatedModel.removeStatement(subject, predicate, literal, datatypeURI);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(org.ontoware.rdf2go.core.node.Resource,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
-	 */
 	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		this.delegatedModel.removeStatement(subject, predicate, literal);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      java.lang.String)
-	 */
 	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
@@ -392,13 +222,6 @@ public class DelegatingModel extends AbstractModel implements Model {
 						languageTag);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI)
-	 */
 	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
@@ -407,12 +230,6 @@ public class DelegatingModel extends AbstractModel implements Model {
 						datatypeURI);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.core.triple.ModelAddRemove#removeStatement(java.lang.String,
-	 *      org.ontoware.rdf2go.core.node.URI, java.lang.String)
-	 */
 	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
@@ -420,7 +237,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public Diff getDiff(Iterator<Statement> other)
+	public Diff getDiff(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		return this.delegatedModel.getDiff(other);
 	}

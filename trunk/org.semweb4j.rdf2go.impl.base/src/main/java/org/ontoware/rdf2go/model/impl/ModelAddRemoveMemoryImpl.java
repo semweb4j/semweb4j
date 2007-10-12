@@ -58,7 +58,7 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 		throw new UnsupportedOperationException();
 	}
 
-	public Diff getDiff(Iterator<Statement> statements) throws ModelRuntimeException {
+	public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException {
 		ModelAddRemoveMemoryImpl other = new ModelAddRemoveMemoryImpl();
 		other.addAll(statements);
 

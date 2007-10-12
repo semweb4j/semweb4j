@@ -1,5 +1,7 @@
 package org.ontoware.rdf2go.model;
 
+import org.ontoware.rdf2go.exception.ModelRuntimeException;
+
 /**
  * Defining how and when changes are commit to underlying persistence layer.
  * 
@@ -11,8 +13,11 @@ public interface Commitable {
 	/**
 	 * Writes all changes to underlying persistence layer - if such a layer is
 	 * used by the implementation. Otherwise nothing happens.
+	 * 
+	 * @throws ModelRuntimeException
+	 *             if the commit could not be executed
 	 */
-	public void commit();
+	public void commit() throws ModelRuntimeException;
 
 	/**
 	 * 

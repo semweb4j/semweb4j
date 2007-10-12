@@ -29,43 +29,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * adapter that maps the rdf2go model functions to a smaller subset of methods
+ * For high-performance, adapters should override all of these methods, to avoid
+ * internal object creations, such as "new URIImpl(subjectURIString)" in
+ * "removeStatement(String subjectURIString, URI predicate, String literal)"
  * 
  * @author mvo
  * 
  */
-public abstract class AbstractModelAddRemove extends AbstractModelWriter implements ModelAddRemove {
+public abstract class AbstractModelAddRemove extends AbstractModelWriter
+		implements ModelAddRemove {
 
 	@SuppressWarnings("unused")
-	private static Logger log = LoggerFactory.getLogger(AbstractModelAddRemove.class);
+	private static Logger log = LoggerFactory
+			.getLogger(AbstractModelAddRemove.class);
 
-	public void removeStatement(String subjectURIString, URI predicate, String literal)
-			throws ModelRuntimeException {
-		removeStatement(new URIImpl(subjectURIString), predicate, new PlainLiteralImpl(literal));
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal) throws ModelRuntimeException {
+		removeStatement(new URIImpl(subjectURIString), predicate,
+				new PlainLiteralImpl(literal));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#removeStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.String, java.lang.String)
-	 */
-	public void removeStatement(String subjectURIString, URI predicate, String literal,
-			String languageTag) throws ModelRuntimeException {
-		removeStatement(new URIImpl(subjectURIString), predicate, new LanguageTagLiteralImpl(
-				literal, languageTag));
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException {
+		removeStatement(new URIImpl(subjectURIString), predicate,
+				new LanguageTagLiteralImpl(literal, languageTag));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#removeStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.String, java.net.URI)
-	 */
-	public void removeStatement(String subjectURIString, URI predicate, String literal,
-			URI datatypeURI) throws ModelRuntimeException {
-		removeStatement(new URIImpl(subjectURIString), predicate, new DatatypeLiteralImpl(
-				literal, datatypeURI));
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException {
+		removeStatement(new URIImpl(subjectURIString), predicate,
+				new DatatypeLiteralImpl(literal, datatypeURI));
 	}
 
 	public void removeStatement(Resource subject, URI predicate, String literal)
@@ -73,68 +66,28 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter impleme
 		removeStatement(subject, predicate, new PlainLiteralImpl(literal));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#removeStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.String, java.lang.String)
-	 */
-	public void removeStatement(Resource subject, URI predicate, String literal, String languageTag)
+	public void removeStatement(Resource subject, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException {
+		removeStatement(subject, predicate, new LanguageTagLiteralImpl(literal,
+				languageTag));
+	}
+
+	public void removeStatement(Resource subject, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException {
+		removeStatement(subject, predicate, new DatatypeLiteralImpl(literal,
+				datatypeURI));
+	}
+
+	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
-		removeStatement(subject, predicate, new LanguageTagLiteralImpl(literal, languageTag));
+		removeStatement(statement.getSubject(), statement.getPredicate(),
+				statement.getObject());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#removeStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.String, java.net.URI)
-	 */
-	public void removeStatement(Resource subject, URI predicate, String literal, URI datatypeURI)
+	// bulk operations
+
+	public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
-		removeStatement(subject, predicate, new DatatypeLiteralImpl(literal, datatypeURI));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#removeStatement(org.ontoware.rdf2go.Statement)
-	 */
-	public void removeStatement(Statement statement) throws ModelRuntimeException {
-		removeStatement(statement.getSubject(), statement.getPredicate(), statement.getObject());
-	}
-
-	// essential methods
-
-	// core rdf2go model methods
-	// /////////////////////////
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.Model#addStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.impl.ModelAddRemove#addStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
-	 */
-	@Override
-	public abstract void addStatement(Resource subject, URI predicate, Node object)
-			throws ModelRuntimeException;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ontoware.rdf2go.impl.ModelAddRemove#removeStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
-	 */
-	public abstract void removeStatement(Resource subject, URI predicate, Node object)
-			throws ModelRuntimeException;
-
-	public void removeAll(Iterator<Statement> other) throws ModelRuntimeException {
 		while (other.hasNext()) {
 			Statement stmt = other.next();
 			removeStatement(stmt);
@@ -158,5 +111,16 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter impleme
 		removeAll(diff.getRemoved().iterator());
 		addAll(diff.getAdded().iterator());
 	}
+
+	// core rdf2go model methods
+	// /////////////////////////
+
+	/* this method is replicated here for informational purposes only */
+	@Override
+	public abstract void addStatement(Resource subject, URI predicate,
+			Node object) throws ModelRuntimeException;
+
+	public abstract void removeStatement(Resource subject, URI predicate,
+			Node object) throws ModelRuntimeException;
 
 }
