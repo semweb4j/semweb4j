@@ -18,6 +18,10 @@ import org.ontoware.rdf2go.model.node.Node;
  */
 public interface QueryRow {
 
+	/**
+	 * @param varname without leading questionmark. E.g. use "x" not "?x".
+	 * @return the binding for the variable with the name varname
+	 */
 	public Node getValue(String varname);
 
 	/**
