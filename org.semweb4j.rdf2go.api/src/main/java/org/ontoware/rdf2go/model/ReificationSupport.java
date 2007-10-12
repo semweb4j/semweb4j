@@ -12,7 +12,7 @@ import org.ontoware.rdf2go.model.node.Resource;
  * @author voelkel
  * 
  */
-public interface ReificationSupport extends ModelValueFactory {
+public interface ReificationSupport extends ModelAddRemove, ModelValueFactory {
 
 	/**
 	 * A convenience function for createReficationOf( createBlankNode(),
@@ -48,6 +48,21 @@ public interface ReificationSupport extends ModelValueFactory {
 	 * @return the given resource
 	 */
 	Resource createReficationOf(Statement statement, Resource resource);
+
+	/**
+	 * Delete reifications made by this resource. More technically, this method
+	 * will remove the following patterns: <code>
+	 * (reificationResource) rdf:type      rdf:Statement . 
+	 * (reificationResource) rdf:subject   * .
+	 * (reificationResource) rdf:predicate * .
+	 * (reificationResource) rdf:object    * .
+	 * </code>
+	 * Note that one resource might have been used in several reifications.
+	 * Although semantic nonsense, this can happen. This method cleans up also these cases.
+	 * @return true if a reification was found and deleted
+	 * @param reificationResource
+	 */
+	boolean deleteReification(Resource reificationResource);
 
 	/**
 	 * @param statement
