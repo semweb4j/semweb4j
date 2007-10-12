@@ -48,26 +48,6 @@ public abstract class AbstractModelSetTest extends TestCase {
 
 	// TODO test new open() policies
 	
-	/**
-	 * 
-	 * @return a fresh ModelSet, to be tested
-	 */
-	public abstract ModelFactory getModelFactory();
-
-	/**
-	 * 
-	 */
-	public AbstractModelSetTest() {
-		super();
-	}
-
-	/**
-	 * @param arg0
-	 */
-	public AbstractModelSetTest(String arg0) {
-		super(arg0);
-	}
-
 	public static URI graphuri1 = new URIImpl("urn:first");
 
 	public static URI graphuri2 = new URIImpl("urn:second");
@@ -93,18 +73,18 @@ public abstract class AbstractModelSetTest extends TestCase {
 
 	protected ModelSet modelset = null;
 
-	@Override
-	public void setUp() {
-		// done by each test, to allow for different Reasoning settings
+	/**
+	 * 
+	 */
+	public AbstractModelSetTest() {
+		super();
 	}
 
-	@Override
-	public void tearDown() throws Exception {
-		if (this.modelset != null) {
-			this.modelset.close();
-			this.modelset = null;
-		}
-		System.gc();
+	/**
+	 * @param arg0
+	 */
+	public AbstractModelSetTest(String arg0) {
+		super(arg0);
 	}
 
 	/**
@@ -136,84 +116,221 @@ public abstract class AbstractModelSetTest extends TestCase {
 	}
 
 	/**
-	 * The default model as defined in the SPARQL semantics. Each data set
-	 * consisting of Models/Graphs has one default graph.
 	 * 
+	 * @return a fresh ModelSet, to be tested
+	 */
+	public abstract ModelFactory getModelFactory();
+
+	@Override
+	public void setUp() {
+		// done by each test, to allow for different Reasoning settings
+	}
+
+	@Override
+	public void tearDown() throws Exception {
+		if (this.modelset != null) {
+			this.modelset.close();
+			this.modelset = null;
+		}
+		System.gc();
+	}
+
+	@Test
+	public void testAddDataFromFileByCopying() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
+		assertTrue(this.modelset.size() > 0);
+
+		ModelSet target = getModelFactory().createModelSet();
+		target.open();
+
+		ModelUtils.copy(this.modelset, target);
+		assertEquals(this.modelset.size(), target.size());
+		target.close();
+	}
+
+	/**
+	 * above test sometimes failed, here is a trace into the details that can
+	 * happen
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testGetDefaultModel() {
+	public void testAddDataFromFileByCopyingMoreDetail() throws Exception {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		Model defaultModel = this.modelset.getDefaultModel();
-		assertNotNull(defaultModel);
-		assertNull("the default model must have the NULL context", defaultModel
-				.getContextURI());
-		defaultModel.close();
+		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
+
+		assertTrue(this.modelset.size() > 0);
+		// the modelset loads into the default model
+		assertFalse(
+				"as we loaded data only in default model, there are no other models",
+				this.modelset.getModels().hasNext());
+
+		// the default model has something
+		Model m = this.modelset.getDefaultModel();
+		m.open();
+		assertEquals("the default model has foaf", 536, m.size());
+		int sizeByIterator = ModelUtils.size(m);
+		assertEquals("the default model can use an iterator", 536,
+				sizeByIterator);
+		m.close();
+
+		ModelSet target = getModelFactory().createModelSet();
+		target.open();
+
+		// Es liegt also daran, das modelset.read die daten in irgendein nicht
+		// mehr
+		// zugreifbared modell mit dem context "null" steckt. Aber wenn man ein
+		// model
+		// mti "null" macht, ist es leer. Da stimmt was nicht mit sesame.
+		ModelUtils.copy(this.modelset, target);
+
+		assertEquals(this.modelset.size(), target.size());
+		m.close();
+	}
+
+	/**
+	 * AbstractModelSetTest does not seem to test ModelSet.addModel (RDF2Go
+	 * 4.4.1-rc1), so we do it here.
+	 */
+	public void testAddModel() {
+		ModelFactory modelFactory = getModelFactory();
+
+		// create a ModelSet holding a single Model with a single Statement
+		ModelSet modelSet = modelFactory.createModelSet();
+		modelSet.open();
+
+		Model model = modelSet.getModel(graphuri1);
+		model.open();
+		model.addStatement(a, b, c);
+
+		// some sanity checking on the ModelSet
+		assertEquals(1, modelSet.size());
+
+		// see if we can add the Model to the ModelSet: no deadlocks and nothing
+		// should change
+		modelSet.addModel(model);
+		assertEquals(1, modelSet.size());
+
+		// check that something does change when we add a different, stand-alone
+		// Model
+		Model model2 = modelFactory.createModel(graphuri2);
+		model2.open();
+		model2.addStatement(subject, predicate, object);
+		modelSet.addModel(model2);
+		assertEquals(2, modelSet.size());
+
+		// clean-up
+		model.close();
+		model2.close();
+		modelSet.close();
+	}
+
+	public void testAddRemovePatternsWithNull() {
+		modelset = getModelFactory().createModelSet();
+		modelset.open();
+		Assert.assertTrue(modelset.isOpen());
+		modelset.addStatement(null, a, b, c);
+		Assert.assertTrue(modelset.isOpen());
+		Assert.assertEquals(1, modelset.size());
+		Assert.assertTrue(modelset.isOpen());
+		modelset.removeStatements(null, Variable.ANY, Variable.ANY,
+				Variable.ANY);
+		Assert.assertTrue(modelset.isOpen());
+		Assert.assertEquals(0, modelset.size());
+		modelset.close();
 	}
 
 	@Test
-	public void testGetModel() throws Exception {
+	public void testContainsStatements() throws ModelRuntimeException {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		Model model = this.modelset.getModel(graphuri1);
+		model.open();
+		model.addStatement(a, b, c);
+		assertTrue(this.modelset.containsStatements(graphuri1, a, b, c));
+
+		// also with wildcard
+		assertTrue(this.modelset.containsStatements(Variable.ANY, a, b, c));
+
+		model.removeStatement(a, b, c);
+		//		
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		model.close();
+	}
+
+	@Test
+	public void testCopyModelSets() throws Exception {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
 		addTestDataToModelSet();
-		this.modelset.close();
-		Model m = this.modelset.getModel(graphuri1);
+		// add a statement in the default context
+		Model model = this.modelset.getDefaultModel();
+		model.open();
+		model.addStatement(subject, predicate, object);
+		ModelSet m = getModelFactory().createModelSet();
 		m.open();
-		assertNotNull(m);
-		assertTrue("graph1 contains less than 10 statements, it contains: "
-				+ m.size(), m.size() > 10);
-		m = this.modelset.getModel(graphuri2);
-		m.open();
-		assertNotNull(m);
-		assertTrue("graph2 contains more than 10 statements, it contains: "
-				+ m.size(), m.size() > 10);
+		ModelUtils.copy(this.modelset, m);
+		assertEquals("copied all from source to target", this.modelset.size(),
+				m.size());
 		m.close();
 	}
 
 	@Test
-	public void testRemoveModel() throws ModelRuntimeException {
+	public void testCreateURI() throws ModelRuntimeException {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		Model m = this.modelset.getModel(graphuri1);
-		m.open();
-		assertEquals(0, m.size());
-		m.addStatement(a, b, c);
-		assertTrue(m.size() > 0);
-		this.modelset.removeModel(graphuri1);
-		m.close();
-		m = this.modelset.getModel(graphuri1);
-		m.open();
-		assertEquals(0, m.size());
-		m.close();
+		URI u = this.modelset.createURI("urn:test:x");
+		assertNotNull(u);
 	}
 
 	@Test
-	public void testRemoveAll() throws ModelRuntimeException {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		Model m = this.modelset.getModel(graphuri1);
-		m.open();
-		assertEquals(0, m.size());
-		m.addStatement(a, b, c);
-		assertTrue(m.size() > 0);
-		this.modelset.removeAll();
-		m.close();
-		m = this.modelset.getModel(graphuri1);
-		m.open();
-		assertEquals(0, m.size());
-		m.close();
+	public void testDeleteStatement() {
+		ModelSet set = RDF2Go.getModelFactory().createModelSet();
+		set.open();
+		Assert.assertEquals(0, set.size());
+		set.addStatement(graphuri1, a, b, c);
+		Assert.assertEquals(1, set.size());
+		set.addStatement(graphuri2, a, b, c);
+		Assert.assertEquals(2, set.size());
+		set.removeStatement(set.createStatement(graphuri1, a, b, c));
+		Assert.assertEquals(1, set.size());
+		set.addStatement(null, a, b, c);
+		Assert.assertEquals(2, set.size());
+		set.removeStatement(set.createStatement(null, a, b, c));
+		Assert.assertEquals(1, set.size());
 	}
 
-	@Test
-	public void testGetModels() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		addTestDataToModelSet();
-		ClosableIterator<? extends Model> i = modelset.getModels();
-		ArrayList<Model> m = new ArrayList<Model>();
-		Iterators.addAll(i, m);
-		assertEquals(TESTGRAPHCOUNT, m.size());
-		i.close();
+	/**
+	 * Gunnar: need a function that queries and removes triples from all
+	 * contexts... i.e. remove all (null, rdf:type, null) from ALL contexts...
+	 * 
+	 * Max: So basically this would mean handling of Triple-patterns not just
+	 * triples, in the add/remove methods. Ok.
+	 * 
+	 * 
+	 * @throws Exception
+	 * @throws ModelRuntimeException
+	 */
+	public void testDeleteTriplePatternInAllGraphs()
+			throws ModelRuntimeException, Exception {
+		ModelSet set = RDF2Go.getModelFactory().createModelSet();
+		set.open();
+
+		Iterator<? extends Model> it = set.getModels();
+		while (it.hasNext()) {
+			Model model = it.next();
+			// This line breaks really badly on sesame2...
+			// and on many other locking stores as well ..
+			// model.removeAll(model.findStatements(Variable.ANY, RDF.type,
+			// Variable.ANY).iterator());
+
+			// just added this method
+			model.removeStatements(Variable.ANY, RDF.type, Variable.ANY);
+		}
 	}
 
 	/** test find with (c,x,y,z) on contained model */
@@ -256,123 +373,51 @@ public abstract class AbstractModelSetTest extends TestCase {
 		it.close();
 	}
 
+	/**
+	 * The default model as defined in the SPARQL semantics. Each data set
+	 * consisting of Models/Graphs has one default graph.
+	 * 
+	 */
 	@Test
-	public void testContainsStatements() throws ModelRuntimeException {
+	public void testGetDefaultModel() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
-		Model model = this.modelset.getModel(graphuri1);
-		model.open();
-		model.addStatement(a, b, c);
-		assertTrue(this.modelset.containsStatements(graphuri1, a, b, c));
-
-		// also with wildcard
-		assertTrue(this.modelset.containsStatements(Variable.ANY, a, b, c));
-
-		model.removeStatement(a, b, c);
-		//		
-		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
-		model.close();
+		Model defaultModel = this.modelset.getDefaultModel();
+		assertNotNull(defaultModel);
+		assertNull("the default model must have the NULL context", defaultModel
+				.getContextURI());
+		defaultModel.close();
 	}
 
 	@Test
-	public void testSparqlAsk() {
+	public void testGetModel() throws Exception {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		// TODO add test when sparql ask is availalbe (not yet, as of
-		// 17.08.2007)
-
-		// fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSparqlConstruct() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-
 		addTestDataToModelSet();
-		ClosableIterable<? extends Statement> i = this.modelset
-				.sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
-						+ "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-						+ "construct {?s rdf:type ?o} where {?s rdf:type ?o}");
-		int size = ModelUtils.size(i);
-		assertEquals("sparql construct works getting types", 395, size);
-	}
-
-	@Test
-	public void testSparqlDescribe() {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		// TODO add test when sparql describe is available (not yet, as of
-		// 17.08.2007)
-
-		// fail("Not yet implemented");
-
-	}
-
-	@Test
-	public void testSparqlSelect() throws ModelRuntimeException {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		Model m = this.modelset.getDefaultModel();
+		this.modelset.close();
+		Model m = this.modelset.getModel(graphuri1);
 		m.open();
-		m.addStatement(a, b, c);
-
-		QueryResultTable table = this.modelset
-				.sparqlSelect("SELECT ?s ?p ?o WHERE { ?s ?p ?o . }");
-		ClosableIterator<QueryRow> it = table.iterator();
-		assertTrue(it.hasNext());
-		it.next();
-		assertFalse(it.hasNext());
-		it.close();
+		assertNotNull(m);
+		assertTrue("graph1 contains less than 10 statements, it contains: "
+				+ m.size(), m.size() > 10);
+		m = this.modelset.getModel(graphuri2);
+		m.open();
+		assertNotNull(m);
+		assertTrue("graph2 contains more than 10 statements, it contains: "
+				+ m.size(), m.size() > 10);
+		m.close();
 	}
 
 	@Test
-	public void testSparqlSelectFOAF() throws ModelRuntimeException,
-			IOException {
+	public void testGetModels() throws Exception {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-
-		// URL foafURL = new URL("http://xmlns.com/foaf/0.1/20050603.rdf");
-		// this.modelset.readFrom( foafURL.openStream() );
-		InputStream in = TestData.getFoafAsStream();
-		this.modelset.readFrom(in);
-
-		QueryResultTable table = this.modelset
-				.sparqlSelect("SELECT ?s ?o WHERE { ?s <" + RDFS.comment
-						+ "> ?o . }");
-		ClosableIterator<QueryRow> it = table.iterator();
-		assertTrue(it.hasNext());
-		it.next();
-		assertTrue(it.hasNext());
-		it.close();
-	}
-
-	@Test
-	public void testGetUnderlyingModelSetImplementation() {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		assertNotNull(this.modelset.getUnderlyingModelSetImplementation());
-	}
-
-	@Test
-	public void testCreateURI() throws ModelRuntimeException {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		URI u = this.modelset.createURI("urn:test:x");
-		assertNotNull(u);
-	}
-
-	// TODO (wth, 15.08.2007) should all this tests which state: "write test
-	// here" be written? yes
-
-	@Test
-	public void testOpenClose() {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-
-		// TODO write test here
-		// tricky... a lot of things have to be considered - ask max
+		addTestDataToModelSet();
+		ClosableIterator<? extends Model> i = modelset.getModels();
+		ArrayList<Model> m = new ArrayList<Model>();
+		Iterators.addAll(i, m);
+		assertEquals(TESTGRAPHCOUNT, m.size());
+		i.close();
 	}
 
 	@Test
@@ -392,34 +437,75 @@ public abstract class AbstractModelSetTest extends TestCase {
 		l.close();
 	}
 
+	// TODO (wth, 15.08.2007) should all this tests which state: "write test
+	// here" be written? yes
+
 	@Test
-	public void testReadFromReader() {
+	public void testGetUnderlyingModelSetImplementation() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-
-		InputStreamReader isr = new InputStreamReader(TestData
-				.getFoafAsStream());
-		try {
-			this.modelset.readFrom(isr);
-		} catch (ModelRuntimeException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
-		} finally {
-			try {
-				isr.close();
-			} catch (IOException e) {
-				fail();
-			}
-		}
+		assertNotNull(this.modelset.getUnderlyingModelSetImplementation());
 	}
 
 	@Test
-	public void testReadFromReaderSyntax() {
+	public void testLoadDataIntoDefaultModel() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		this.modelset.readFrom(TestData.getFoafAsStream());
+		assertTrue(this.modelset.size() > 10);
+		// check default model
+		Model def = this.modelset.getDefaultModel();
+		def.open();
+		assertTrue(def.isOpen());
+		assertNotNull(def);
+		assertTrue("default model has something", def.size() > 10);
+		ArrayList<URI> uris = new ArrayList<URI>();
+		Iterators.addAll(this.modelset.getModelURIs(), uris);
+		assertEquals("default model has no context uri", 0, uris.size());
+		def.close();
+	}
+
+	@Test
+	public void testOpenClose() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
 
 		// TODO write test here
+		// tricky... a lot of things have to be considered - ask max
+	}
+
+	public void testRDF2GoBug() {
+		ModelSet added = getModelFactory().createModelSet();
+		added.open();
+		for (ClosableIterator<? extends Statement> i = added.iterator(); i
+				.hasNext();) {
+			i.next();
+		}
+	}
+
+	public void testRDF2GoBug2() {
+		ModelSet added = getModelFactory().createModelSet();
+		added.open();
+		Statement s = new StatementImpl(new URIImpl("urn:testcontext"),
+				new URIImpl("urn:test"), new URIImpl("urn:testpred"),
+				new URIImpl("urn:testobj"));
+		added.addStatement(s);
+		for (ClosableIterator<? extends Statement> i = added
+				.findStatements(new QuadPatternImpl(Variable.ANY, Variable.ANY,
+						Variable.ANY, Variable.ANY)); i.hasNext();) {
+			i.next();
+		}
+	}
+
+	public void testRDF2GoBugAddRemove() {
+		ModelSet modelSet = getModelFactory().createModelSet();
+		// modelSet = new ObservableModelSetImpl(modelSet);
+		modelSet.open();
+		URI uri = modelSet.createURI("http://example");
+		modelSet.addStatement(null, uri, uri, uri);
+		modelSet.removeStatements(null, Variable.ANY, Variable.ANY,
+				Variable.ANY);
+		modelSet.close();
 	}
 
 	@Test
@@ -523,219 +609,67 @@ public abstract class AbstractModelSetTest extends TestCase {
 	}
 
 	@Test
-	public void testSize() throws Exception {
+	public void testReadFromReader() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		this.modelset.readFrom(TestData.getFoafAsStream());
-		assertEquals("Size of foaf", 536, this.modelset.size());
-	}
 
-	@Test
-	public void testWriteToWriter() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		addTestDataToModelSet();
-
-		StringWriter sw = new StringWriter();
+		InputStreamReader isr = new InputStreamReader(TestData
+				.getFoafAsStream());
 		try {
-			this.modelset.writeTo(sw);
+			this.modelset.readFrom(isr);
 		} catch (ModelRuntimeException e) {
 			fail();
 		} catch (IOException e) {
 			fail();
-		}
-		assertTrue(sw.getBuffer().toString().length() > 1000);
-		sw.close();
-	}
-
-	@Test
-	public void testWriteToWriterSyntax() {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-
-		// TODO write test
-	}
-
-	@Test
-	public void testWriteToOutputStream() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		addTestDataToModelSet();
-
-		try {
-			this.modelset.writeTo(System.out);
-		} catch (ModelRuntimeException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
+		} finally {
+			try {
+				isr.close();
+			} catch (IOException e) {
+				fail();
+			}
 		}
 	}
 
 	@Test
-	public void testWriteToOutputStreamSyntax() throws Exception {
+	public void testReadFromReaderSyntax() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		addTestDataToModelSet();
 
-		try {
-			this.modelset.writeTo(System.out, Syntax.Turtle);
-		} catch (ModelRuntimeException e) {
-			fail();
-		} catch (IOException e) {
-			fail();
-		}
+		// TODO write test here
 	}
 
 	@Test
-	public void testLoadDataIntoDefaultModel() throws Exception {
+	public void testRemoveAll() throws ModelRuntimeException {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
-		this.modelset.readFrom(TestData.getFoafAsStream());
-		assertTrue(this.modelset.size() > 10);
-		// check default model
-		Model def = this.modelset.getDefaultModel();
-		def.open();
-		assertTrue(def.isOpen());
-		assertNotNull(def);
-		assertTrue("default model has something", def.size() > 10);
-		ArrayList<URI> uris = new ArrayList<URI>();
-		Iterators.addAll(this.modelset.getModelURIs(), uris);
-		assertEquals("default model has no context uri", 0, uris.size());
-		def.close();
-	}
-
-	@Test
-	public void testCopyModelSets() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		addTestDataToModelSet();
-		// add a statement in the default context
-		Model model = this.modelset.getDefaultModel();
-		model.open();
-		model.addStatement(subject, predicate, object);
-		ModelSet m = getModelFactory().createModelSet();
+		Model m = this.modelset.getModel(graphuri1);
 		m.open();
-		ModelUtils.copy(this.modelset, m);
-		assertEquals("copied all from source to target", this.modelset.size(),
-				m.size());
+		assertEquals(0, m.size());
+		m.addStatement(a, b, c);
+		assertTrue(m.size() > 0);
+		this.modelset.removeAll();
 		m.close();
-	}
-
-	@Test
-	public void testAddDataFromFileByCopying() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
-		assertTrue(this.modelset.size() > 0);
-
-		ModelSet target = getModelFactory().createModelSet();
-		target.open();
-
-		ModelUtils.copy(this.modelset, target);
-		assertEquals(this.modelset.size(), target.size());
-		target.close();
-	}
-
-	/**
-	 * above test sometimes failed, here is a trace into the details that can
-	 * happen
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testAddDataFromFileByCopyingMoreDetail() throws Exception {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
-
-		assertTrue(this.modelset.size() > 0);
-		// the modelset loads into the default model
-		assertFalse(
-				"as we loaded data only in default model, there are no other models",
-				this.modelset.getModels().hasNext());
-
-		// the default model has something
-		Model m = this.modelset.getDefaultModel();
+		m = this.modelset.getModel(graphuri1);
 		m.open();
-		assertEquals("the default model has foaf", 536, m.size());
-		int sizeByIterator = ModelUtils.size(m);
-		assertEquals("the default model can use an iterator", 536,
-				sizeByIterator);
+		assertEquals(0, m.size());
 		m.close();
-
-		ModelSet target = getModelFactory().createModelSet();
-		target.open();
-
-		// Es liegt also daran, das modelset.read die daten in irgendein nicht
-		// mehr
-		// zugreifbared modell mit dem context "null" steckt. Aber wenn man ein
-		// model
-		// mti "null" macht, ist es leer. Da stimmt was nicht mit sesame.
-		ModelUtils.copy(this.modelset, target);
-
-		assertEquals(this.modelset.size(), target.size());
-		m.close();
-	}
-
-	public void testAddRemovePatternsWithNull() {
-		modelset = getModelFactory().createModelSet();
-		modelset.open();
-		Assert.assertTrue(modelset.isOpen());
-		modelset.addStatement(null, a, b, c);
-		Assert.assertTrue(modelset.isOpen());
-		Assert.assertEquals(1, modelset.size());
-		Assert.assertTrue(modelset.isOpen());
-		modelset.removeStatements(null, Variable.ANY, Variable.ANY,
-				Variable.ANY);
-		Assert.assertTrue(modelset.isOpen());
-		Assert.assertEquals(0, modelset.size());
-		modelset.close();
-	}
-
-	/**
-	 * Gunnar: need a function that queries and removes triples from all
-	 * contexts... i.e. remove all (null, rdf:type, null) from ALL contexts...
-	 * 
-	 * Max: So basically this would mean handling of Triple-patterns not just
-	 * triples, in the add/remove methods. Ok.
-	 * 
-	 * 
-	 * @throws Exception
-	 * @throws ModelRuntimeException
-	 */
-	public void testDeleteTriplePatternInAllGraphs()
-			throws ModelRuntimeException, Exception {
-		ModelSet set = RDF2Go.getModelFactory().createModelSet();
-		set.open();
-
-		Iterator<? extends Model> it = set.getModels();
-		while (it.hasNext()) {
-			Model model = it.next();
-			// This line breaks really badly on sesame2...
-			// and on many other locking stores as well ..
-			// model.removeAll(model.findStatements(Variable.ANY, RDF.type,
-			// Variable.ANY).iterator());
-
-			// just added this method
-			model.removeStatements(Variable.ANY, RDF.type, Variable.ANY);
-		}
 	}
 
 	@Test
-	public void testDeleteStatement() {
-		ModelSet set = RDF2Go.getModelFactory().createModelSet();
-		set.open();
-		Assert.assertEquals(0, set.size());
-		set.addStatement(graphuri1, a, b, c);
-		Assert.assertEquals(1, set.size());
-		set.addStatement(graphuri2, a, b, c);
-		Assert.assertEquals(2, set.size());
-		set.removeStatement(set.createStatement(graphuri1, a, b, c));
-		Assert.assertEquals(1, set.size());
-		set.addStatement(null, a, b, c);
-		Assert.assertEquals(2, set.size());
-		set.removeStatement(set.createStatement(null, a, b, c));
-		Assert.assertEquals(1, set.size());
+	public void testRemoveModel() throws ModelRuntimeException {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		Model m = this.modelset.getModel(graphuri1);
+		m.open();
+		assertEquals(0, m.size());
+		m.addStatement(a, b, c);
+		assertTrue(m.size() > 0);
+		this.modelset.removeModel(graphuri1);
+		m.close();
+		m = this.modelset.getModel(graphuri1);
+		m.open();
+		assertEquals(0, m.size());
+		m.close();
 	}
 
 	@Test
@@ -777,75 +711,141 @@ public abstract class AbstractModelSetTest extends TestCase {
 		mainRepository.close();
 	}
 
-	/**
-	 * AbstractModelSetTest does not seem to test ModelSet.addModel (RDF2Go
-	 * 4.4.1-rc1), so we do it here.
-	 */
-	public void testAddModel() {
-		ModelFactory modelFactory = getModelFactory();
-
-		// create a ModelSet holding a single Model with a single Statement
-		ModelSet modelSet = modelFactory.createModelSet();
-		modelSet.open();
-
-		Model model = modelSet.getModel(graphuri1);
-		model.open();
-		model.addStatement(a, b, c);
-
-		// some sanity checking on the ModelSet
-		assertEquals(1, modelSet.size());
-
-		// see if we can add the Model to the ModelSet: no deadlocks and nothing
-		// should change
-		modelSet.addModel(model);
-		assertEquals(1, modelSet.size());
-
-		// check that something does change when we add a different, stand-alone
-		// Model
-		Model model2 = modelFactory.createModel(graphuri2);
-		model2.open();
-		model2.addStatement(subject, predicate, object);
-		modelSet.addModel(model2);
-		assertEquals(2, modelSet.size());
-
-		// clean-up
-		model.close();
-		model2.close();
-		modelSet.close();
+	@Test
+	public void testSize() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		this.modelset.readFrom(TestData.getFoafAsStream());
+		assertEquals("Size of foaf", 536, this.modelset.size());
 	}
 
-	public void testRDF2GoBug() {
-		ModelSet added = getModelFactory().createModelSet();
-		added.open();
-		for (ClosableIterator<? extends Statement> i = added.iterator(); i
-				.hasNext();) {
-			i.next();
+	@Test
+	public void testSparqlAsk() {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		// TODO add test when sparql ask is availalbe (not yet, as of
+		// 17.08.2007)
+
+		// fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSparqlConstruct() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+
+		addTestDataToModelSet();
+		ClosableIterable<? extends Statement> i = this.modelset
+				.sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
+						+ "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+						+ "construct {?s rdf:type ?o} where {?s rdf:type ?o}");
+		int size = ModelUtils.size(i);
+		assertEquals("sparql construct works getting types", 395, size);
+	}
+
+	@Test
+	public void testSparqlDescribe() {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		// TODO add test when sparql describe is available (not yet, as of
+		// 17.08.2007)
+
+		// fail("Not yet implemented");
+
+	}
+
+	@Test
+	public void testSparqlSelect() throws ModelRuntimeException {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		Model m = this.modelset.getDefaultModel();
+		m.open();
+		m.addStatement(a, b, c);
+
+		QueryResultTable table = this.modelset
+				.sparqlSelect("SELECT ?s ?p ?o WHERE { ?s ?p ?o . }");
+		ClosableIterator<QueryRow> it = table.iterator();
+		assertTrue(it.hasNext());
+		it.next();
+		assertFalse(it.hasNext());
+		it.close();
+	}
+
+	@Test
+	public void testSparqlSelectFOAF() throws ModelRuntimeException,
+			IOException {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+
+		// URL foafURL = new URL("http://xmlns.com/foaf/0.1/20050603.rdf");
+		// this.modelset.readFrom( foafURL.openStream() );
+		InputStream in = TestData.getFoafAsStream();
+		this.modelset.readFrom(in);
+
+		QueryResultTable table = this.modelset
+				.sparqlSelect("SELECT ?s ?o WHERE { ?s <" + RDFS.comment
+						+ "> ?o . }");
+		ClosableIterator<QueryRow> it = table.iterator();
+		assertTrue(it.hasNext());
+		it.next();
+		assertTrue(it.hasNext());
+		it.close();
+	}
+
+	@Test
+	public void testWriteToOutputStream() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		addTestDataToModelSet();
+
+		try {
+			this.modelset.writeTo(System.out);
+		} catch (ModelRuntimeException e) {
+			fail();
+		} catch (IOException e) {
+			fail();
 		}
 	}
 
-	public void testRDF2GoBug2() {
-		ModelSet added = getModelFactory().createModelSet();
-		added.open();
-		Statement s = new StatementImpl(new URIImpl("urn:testcontext"),
-				new URIImpl("urn:test"), new URIImpl("urn:testpred"),
-				new URIImpl("urn:testobj"));
-		added.addStatement(s);
-		for (ClosableIterator<? extends Statement> i = added
-				.findStatements(new QuadPatternImpl(Variable.ANY, Variable.ANY,
-						Variable.ANY, Variable.ANY)); i.hasNext();) {
-			i.next();
+	@Test
+	public void testWriteToOutputStreamSyntax() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		addTestDataToModelSet();
+
+		try {
+			this.modelset.writeTo(System.out, Syntax.Turtle);
+		} catch (ModelRuntimeException e) {
+			fail();
+		} catch (IOException e) {
+			fail();
 		}
 	}
 
-	public void testRDF2GoBugAddRemove() {
-		ModelSet modelSet = getModelFactory().createModelSet();
-		// modelSet = new ObservableModelSetImpl(modelSet);
-		modelSet.open();
-		URI uri = modelSet.createURI("http://example");
-		modelSet.addStatement(null, uri, uri, uri);
-		modelSet.removeStatements(null, Variable.ANY, Variable.ANY,
-				Variable.ANY);
-		modelSet.close();
+	@Test
+	public void testWriteToWriter() throws Exception {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		addTestDataToModelSet();
+
+		StringWriter sw = new StringWriter();
+		try {
+			this.modelset.writeTo(sw);
+		} catch (ModelRuntimeException e) {
+			fail();
+		} catch (IOException e) {
+			fail();
+		}
+		assertTrue(sw.getBuffer().toString().length() > 1000);
+		sw.close();
+	}
+
+	@Test
+	public void testWriteToWriterSyntax() {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+
+		// TODO write test
 	}
 
 }
