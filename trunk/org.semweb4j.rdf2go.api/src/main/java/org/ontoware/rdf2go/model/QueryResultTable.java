@@ -10,17 +10,15 @@
  */
 package org.ontoware.rdf2go.model;
 
-import java.util.Set;
+import java.util.List;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 
 public interface QueryResultTable extends ClosableIterable<QueryRow> {
 
 	/**
-	 * Return the set of all variable names useed in the query.
-	 * 
-	 * @return
+	 * @return the list of all variable names used in the query.
 	 */
-	Set<String> getVariables();
+	List<String> getVariables();
 
 }
