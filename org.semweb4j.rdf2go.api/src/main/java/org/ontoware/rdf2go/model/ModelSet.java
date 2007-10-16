@@ -38,7 +38,7 @@ import org.ontoware.rdf2go.model.node.URI;
  * @author sauermann
  */
 public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
-		ModelSetAddRemove, ModelValueFactory, Commitable {
+		ModelSetAddRemove, ModelValueFactory, Commitable, ReificationSupport {
 
 	/**
 	 * Open connection to defined, unterlying implementation

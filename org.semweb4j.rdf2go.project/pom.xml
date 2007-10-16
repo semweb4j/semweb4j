@@ -41,7 +41,9 @@
 		<module>../org.semweb4j.rdf2go.impl.base</module>
 		<module>../org.semweb4j.rdf2go.impl.base.test</module>
 		<module>../org.semweb4j.rdf2go.impl.jena24</module>
+<!-- 
 		<module>../org.semweb4j.rdf2go.layer.autopersist</module>
+ -->
 	</modules>
 
 	<!-- to avoid folded site uris -->

@@ -36,7 +36,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @param object
 	 *            a Node
 	 * @throws ModelRuntimeException
-	 *             TODO
+	 *             if any internal (I/O related) exception occurs
 	 */
 	void addStatement(URI contextURI, Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException;
@@ -47,7 +47,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * 
 	 * @param statement
 	 * @throws ModelRuntimeException
-	 *             TODO
+	 *             if any internal (I/O related) exception occurs
 	 */
 	void addStatement(Statement statement) throws ModelRuntimeException;
 
@@ -58,7 +58,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * 
 	 * @param statement
 	 * @throws ModelRuntimeException
-	 *             TODO
+	 *             if any internal (I/O related) exception occurs
 	 */
 	void addAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException;
@@ -75,7 +75,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @param object
 	 *            a Node
 	 * @throws ModelRuntimeException
-	 *             TODO
+	 *             if any internal (I/O related) exception occurs
 	 */
 	void removeStatement(URI contextURI, Resource subject,
 			URI predicate, Node object) throws ModelRuntimeException;
@@ -88,7 +88,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @param statement
 	 *            a Statement
 	 * @throws ModelRuntimeException
-	 *             TODO
+	 *             if any internal (I/O related) exception occurs
 	 */
 	void removeStatement(Statement statement)
 			throws ModelRuntimeException;
@@ -100,7 +100,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * 
 	 * @param statement
 	 * @throws ModelRuntimeException
-	 *             TODO
+	 *             if any internal (I/O related) exception occurs
 	 */
 	void removeAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException;

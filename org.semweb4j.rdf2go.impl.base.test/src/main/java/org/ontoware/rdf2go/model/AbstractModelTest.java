@@ -811,6 +811,24 @@ public abstract class AbstractModelTest extends TestCase {
 	}
 
 	@Test
+	public void testSparqlAsk() throws Exception {
+		Model m = getModelFactory().createModel(Reasoning.rdfs);
+		m.open();
+		URI hasTag = new URIImpl("prop://hasTag");
+		URI tagSemweb = new URIImpl("tag://semweb");
+		URI fileA = new URIImpl("file://a");
+		m.addStatement(fileA, hasTag, tagSemweb);
+		Assert.assertTrue(m.sparqlAsk("ASK WHERE { " + fileA.toSPARQL() + " "
+				+ hasTag.toSPARQL() + " ?tag . }"));
+		Assert.assertTrue(m.sparqlAsk("ASK WHERE { " + fileA.toSPARQL() + " "
+				+ " ?prop " + tagSemweb.toSPARQL() + " . }"));
+		Assert.assertFalse(m.sparqlAsk("ASK WHERE { " + fileA.toSPARQL() + " "
+				+ "<prop://bogus>" + " ?tag . }"));
+		Assert.assertTrue(m.sparqlAsk("ASK WHERE { ?s ?p ?o . }"));
+		m.close();
+	}
+
+	@Test
 	public void testSparqlSelectWithStrings() throws Exception {
 		Model m = getModelFactory().createModel(Reasoning.rdfs);
 		m.open();
@@ -911,8 +929,6 @@ public abstract class AbstractModelTest extends TestCase {
 		log.debug("Launching test");
 
 		Model m = RDF2Go.getModelFactory().createModel();
-		// TODO (wth, 17.08.2007) no opened models are not allowed!
-		// fix this everywhere you find it
 		m.open();
 
 		URI konrad = m.createURI("urn:x-example:konrad");
@@ -1038,12 +1054,7 @@ public abstract class AbstractModelTest extends TestCase {
 		model.close();
 	}
 
-	/**
-	 * TODO: RDF2Go inconsistency: a Repository returns language tags not as
-	 * they where given to the Repository, but as toLowerCase(). So testing of
-	 * equalness to the original language tag fails. Maybe we should adopt this
-	 * behaviour in rdf2go.
-	 */
+	/* assert that language tags are always in lower-case */
 	@Test
 	public void testLowerCaseLanguageTag() throws Exception {
 		Model model = getModelFactory().createModel();
@@ -1065,7 +1076,7 @@ public abstract class AbstractModelTest extends TestCase {
 				assertEquals(((LanguageTagLiteral) (statement.getObject()))
 						.getValue(), "Test");
 				assertEquals(((LanguageTagLiteral) (statement.getObject()))
-						.getLanguageTag().toLowerCase(), "de");
+						.getLanguageTag(), "de");
 			} else {
 				assertTrue(statement.getObject() instanceof PlainLiteral);
 				assertTrue(((PlainLiteral) (statement.getObject())).getValue()
@@ -1078,5 +1089,7 @@ public abstract class AbstractModelTest extends TestCase {
 		iterator.close();
 		model.close();
 	}
+
+	// TODO test public ClosableIterable<Statement> sparqlDescribe(String query)
 
 }

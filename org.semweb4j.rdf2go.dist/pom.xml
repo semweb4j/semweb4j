@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.dist</artifactId>
-	<version>4.4.10-SNAPSHOT</version>
+	<version>4.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDF2Go distribution</name>
@@ -27,32 +27,33 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.0-SNAPSHOT</version>
 		</dependency>
-
+<!-- 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.layer.autopersist</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.0-SNAPSHOT</version>
 		</dependency>
+ -->
 
 	</dependencies>
 

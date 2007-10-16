@@ -29,14 +29,13 @@ public class URIGenerator {
 	private static final Logger log = LoggerFactory.getLogger(URIGenerator.class);
 
 	public static URI createNewRandomUniqueURI() {
-		// TODO: add server name to generated uri
 		return new URIImpl("urn:rnd:" + new UID().toString());
 	}
 
 	
 	/**
 	 * @param uriPrefix - must include schema information
-	 * @return a new, random unique URI startign with uriPrefix
+	 * @return a new, random unique URI starting with uriPrefix
 	 */
 	public static URI createNewRandomUniqueURI(String uriPrefix) {
 		return new URIImpl(uriPrefix + new UID().toString());

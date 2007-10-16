@@ -81,8 +81,6 @@ public interface FindableModelSet {
 	 */
 	long countStatements(QuadPattern pattern) throws ModelRuntimeException;
 	
-	// TODO createQuadPattern()
-
 	/**
 	 * @param context
 	 * @param subject

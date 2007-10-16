@@ -12,7 +12,7 @@ import org.ontoware.rdf2go.model.node.Resource;
  * @author voelkel
  * 
  */
-public interface ReificationSupport extends ModelAddRemove, ModelValueFactory {
+public interface ReificationSupport {
 
 	/**
 	 * A convenience function for createReficationOf( createBlankNode(),
@@ -59,10 +59,9 @@ public interface ReificationSupport extends ModelAddRemove, ModelValueFactory {
 	 * </code>
 	 * Note that one resource might have been used in several reifications.
 	 * Although semantic nonsense, this can happen. This method cleans up also these cases.
-	 * @return true if a reification was found and deleted
 	 * @param reificationResource
 	 */
-	boolean deleteReification(Resource reificationResource);
+	void deleteReification(Resource reificationResource);
 
 	/**
 	 * @param statement

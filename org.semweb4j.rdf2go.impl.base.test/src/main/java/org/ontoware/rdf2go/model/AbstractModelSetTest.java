@@ -36,6 +36,8 @@ import org.ontoware.rdf2go.util.Iterators;
 import org.ontoware.rdf2go.util.ModelUtils;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Use this to test implementations of ModelSet. Overwrite the class and
@@ -45,9 +47,11 @@ import org.ontoware.rdf2go.vocabulary.RDFS;
  * @author sauermann
  */
 public abstract class AbstractModelSetTest extends TestCase {
+	
+	Logger log = LoggerFactory.getLogger(AbstractModelSetTest.class);
 
 	// TODO test new open() policies
-	
+
 	public static URI graphuri1 = new URIImpl("urn:first");
 
 	public static URI graphuri2 = new URIImpl("urn:second");
@@ -124,6 +128,13 @@ public abstract class AbstractModelSetTest extends TestCase {
 	@Override
 	public void setUp() {
 		// done by each test, to allow for different Reasoning settings
+		// TODO: Leo: I think this is crap, you never test any reasoning
+		// settings
+		// and now this class has 100 more lines than needed, and in half of the
+		// tests the modelsets are not closed (horrray for consistency)
+		// this is exactly what setup and teardown is for, if you want to check
+		// reasoning, how about making a SECOND modelset in this one Test that
+		// does not exist yet?????????
 	}
 
 	@Override
@@ -244,6 +255,23 @@ public abstract class AbstractModelSetTest extends TestCase {
 	}
 
 	@Test
+	public void testContainsModel() throws ModelRuntimeException {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		assertFalse(this.modelset.containsModel(graphuri1));
+		Model model = this.modelset.getModel(graphuri1);
+		model.open();
+		model.addStatement(a, b, c);
+		assertTrue(this.modelset.containsModel(graphuri1));
+
+		model.removeStatement(a, b, c);
+		// Still under discussion if this test shall fail or not
+		// TODO: decide if this assertion should be made
+		// assertFalse(this.modelset.containsModel(graphuri1));
+		model.close();
+	}
+
+	@Test
 	public void testContainsStatements() throws ModelRuntimeException {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
@@ -285,6 +313,16 @@ public abstract class AbstractModelSetTest extends TestCase {
 		this.modelset.open();
 		URI u = this.modelset.createURI("urn:test:x");
 		assertNotNull(u);
+	}
+
+	@Test
+	public void testCreateStatement() {
+		modelset = getModelFactory().createModelSet();
+		modelset.open();
+
+		Statement s = modelset.createStatement(a, b, c);
+		assertEquals(s, new StatementImpl(null, a, b, c));
+
 	}
 
 	@Test
@@ -386,6 +424,14 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertNotNull(defaultModel);
 		assertNull("the default model must have the NULL context", defaultModel
 				.getContextURI());
+		assertTrue("new open/close policy: open modelsets return open models",
+				defaultModel.isOpen());
+		assertTrue(defaultModel.isEmpty());
+		// add stuff to it
+		defaultModel.addStatement(a, b, c);
+		assertTrue(defaultModel.contains(a, b, c));
+		defaultModel.removeStatement(a, b, c);
+		assertTrue(defaultModel.isEmpty());
 		defaultModel.close();
 	}
 
@@ -705,7 +751,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		naoModel.close();
 		model.close();
 
-		System.out.format("Removing model: %s\n", rdfModelURI);
+		log.debug("Removing model: "+rdfModelURI);
 		mainRepository.removeModel(rdfModelURI);
 
 		mainRepository.close();
@@ -723,6 +769,9 @@ public abstract class AbstractModelSetTest extends TestCase {
 	public void testSparqlAsk() {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
+		
+		
+		
 		// TODO add test when sparql ask is availalbe (not yet, as of
 		// 17.08.2007)
 
