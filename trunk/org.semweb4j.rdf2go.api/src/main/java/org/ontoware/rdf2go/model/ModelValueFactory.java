@@ -38,6 +38,8 @@ public interface ModelValueFactory {
 	 *         returned from BlankNode.getInternalID().
 	 * @throws UnsupportedOperationException
 	 *             if the underlying store cannot create BlankNodes from IDs.
+	 * @throws IllegalArgumentException
+	 *             if the internalID could not be used
 	 */
 	BlankNode createBlankNode(String internalID);
 
@@ -45,10 +47,10 @@ public interface ModelValueFactory {
 	 * The model must create URIs it would accept itself.
 	 * 
 	 * @return a new URI from the given String
-	 * @throws ModelRuntimeException,
+	 * @throws IllegalArgumentException,
 	 *             e.g. if URI is invalid
 	 */
-	URI createURI(String uriString) throws ModelRuntimeException;
+	URI createURI(String uriString) throws IllegalArgumentException;
 
 	/**
 	 * @param uriString

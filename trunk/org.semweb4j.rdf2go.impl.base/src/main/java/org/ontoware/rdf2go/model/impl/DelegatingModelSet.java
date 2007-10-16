@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Collection;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -24,6 +25,7 @@ import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.NodeOrVariable;
+import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
@@ -233,6 +235,26 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 
 	public void setAutocommit(boolean autocommit) {
 		baseModelSet.setAutocommit(autocommit);
+	}
+
+	public Resource createReficationOf(Statement statement, Resource resource) {
+		return baseModelSet.createReficationOf(statement, resource);
+	}
+
+	public BlankNode createReficationOf(Statement statement) {
+		return baseModelSet.createReficationOf(statement);
+	}
+
+	public void deleteReification(Resource reificationResource) {
+		baseModelSet.deleteReification(reificationResource);
+	}
+
+	public Collection<Resource> getAllReificationsOf(Statement statement) {
+		return baseModelSet.getAllReificationsOf(statement);
+	}
+
+	public boolean hasReifications(Statement stmt) {
+		return baseModelSet.hasReifications(stmt);
 	}
 
 }

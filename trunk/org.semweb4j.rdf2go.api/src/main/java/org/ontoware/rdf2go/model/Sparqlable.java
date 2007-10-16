@@ -70,12 +70,9 @@ public interface Sparqlable {
 	 * @return results for SPARQL Construct queries, as supported by underlying
 	 *         implementation.
 	 * 
-	 * Iterator must be auto-close, i.e. when last element is fetched, the
+	 * Iterator is auto-close, i.e. when last element is fetched, the
 	 * implementation must call close().
 	 * 
-	 * TODO: check if: For some implementations (Sesame) it is urgently
-	 * necessary to iterate over all statements of the returned iterator in
-	 * order to close resources properly.
 	 * @throws ModelRuntimeException
 	 *             if the execution throws an exception
 	 * @throws MalformedQueryException
@@ -88,12 +85,8 @@ public interface Sparqlable {
 	 * @return results for other construct-like queries, as supported by
 	 *         underlying implementation.
 	 * 
-	 * Iterator must be auto-close, i.e. when last element is fetched, the
+	 * Iterator is auto-close, i.e. when last element is fetched, the
 	 * implementation must call close().
-	 * 
-	 * TODO: check if: For some implementations (Sesame) it is urgently
-	 * necessary to iterate over all statements of the returned iterator in
-	 * order to close resources properly.
 	 * @param query
 	 * @param querylanguage
 	 * @throws ModelRuntimeException

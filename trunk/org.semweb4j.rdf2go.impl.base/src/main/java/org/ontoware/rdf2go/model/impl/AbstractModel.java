@@ -14,9 +14,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,6 +35,7 @@ import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.TriplePattern;
+import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
@@ -42,10 +45,12 @@ import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
+import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.DatatypeLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.LanguageTagLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdf2go.vocabulary.RDF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -513,4 +518,75 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		}
 	}
 
+	/* fast, no need to override */
+	public BlankNode createReficationOf(Statement statement) {
+		BlankNode bnode = createBlankNode();
+		return (BlankNode) createReficationOf(statement, bnode);
+	}
+
+	public Resource createReficationOf(Statement statement, Resource resource) {
+		Diff diff = new DiffImpl();
+		diff.addStatement(resource, RDF.type, RDF.Statement);
+		diff.addStatement(resource, RDF.subject, statement.getSubject());
+		diff.addStatement(resource, RDF.predicate, statement.getPredicate());
+		diff.addStatement(resource, RDF.object, statement.getObject());
+		update(diff);
+		return resource;
+	}
+
+	public boolean hasReifications(Statement statement) {
+		return this.sparqlAsk("ASK WHERE { " + " ?res " + RDF.type.toSPARQL()
+				+ " " + RDF.Statement + " ." + " ?res "
+				+ RDF.subject.toSPARQL() + " "
+				+ statement.getSubject().toSPARQL() + " ." + " ?res "
+				+ RDF.predicate.toSPARQL() + " "
+				+ statement.getPredicate().toSPARQL() + " ." + " ?res "
+				+ RDF.object.toSPARQL() + " "
+				+ statement.getObject().toSPARQL() + " ." + " }");
+	}
+
+	/*
+	 * inefficient, loads all in memory. should be OK for almost all practical
+	 * cases (when each statement has a small number of refications)
+	 */
+	public Collection<Resource> getAllReificationsOf(Statement statement) {
+		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { "
+				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement + " ."
+				+ " ?res " + RDF.subject.toSPARQL() + " "
+				+ statement.getSubject().toSPARQL() + " ." + " ?res "
+				+ RDF.predicate.toSPARQL() + " "
+				+ statement.getPredicate().toSPARQL() + " ." + " ?res "
+				+ RDF.object.toSPARQL() + " "
+				+ statement.getObject().toSPARQL() + " ." + " }");
+		LinkedList<Resource> result = new LinkedList<Resource>();
+		ClosableIterator<QueryRow> it = table.iterator();
+		while (it.hasNext()) {
+			Resource res = it.next().getValue("res").asResource();
+			result.add(res);
+		}
+		it.close();
+		return result;
+	}
+
+	public void deleteReification(Resource reificationResource) {
+		Diff diff = new DiffImpl();
+		diff.removeStatement(reificationResource, RDF.type, RDF.Statement);
+		ClosableIterator<Statement> it = findStatements(reificationResource,
+				RDF.subject, Variable.ANY);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		it = findStatements(reificationResource, RDF.predicate, Variable.ANY);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		it = findStatements(reificationResource, RDF.object, Variable.ANY);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		update(diff);
+	}
 }

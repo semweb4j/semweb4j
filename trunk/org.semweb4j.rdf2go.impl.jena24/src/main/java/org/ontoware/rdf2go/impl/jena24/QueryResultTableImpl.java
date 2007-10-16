@@ -1,7 +1,7 @@
 package org.ontoware.rdf2go.impl.jena24;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
@@ -16,7 +16,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class QueryResultTableImpl implements QueryResultTable {
 
-	private Set<String> varnames;
+	private List<String> varnames;
 
 	private QueryExecution qexec;
 
@@ -26,14 +26,14 @@ public class QueryResultTableImpl implements QueryResultTable {
 			throw new ModelRuntimeException("The given query is not a SELECT query");
 		}
 		// else
-		this.varnames = new HashSet<String>();
+		this.varnames = new ArrayList<String>();
 		for (Object o : query.getResultVars()) {
 			varnames.add((String) o);
 		}
 		qexec = QueryExecutionFactory.create(query, jenaModel);
 	}
 
-	public Set<String> getVariables() {
+	public List<String> getVariables() {
 		return this.varnames;
 	}
 

@@ -16,7 +16,7 @@
 			</release>
 		-->
 
-		<release version="4.4.10" date="@@" description="API changes">
+		<release version="4.5.0" date="@@" description="API changes">
 			<action dev="xamde" type="fix" issue="RTGO-28">
 				BlankNodeImpl became AbstractBlankNode. Interface
 				BlankNode now has String getInternalID().
@@ -31,6 +31,10 @@
 			</action>
 			<action dev="xamde" type="fix" issue="RTGO-26">
 				Added Syntax.getFilenameExtension()
+			</action>
+			<action dev="xamde" type="fix" issue="RTGO-32">
+				Changed QueryResultTable.getVariables() return type to
+				List&lt;String&gt; (was Set&lt;String&gt;)
 			</action>
 		</release>
 

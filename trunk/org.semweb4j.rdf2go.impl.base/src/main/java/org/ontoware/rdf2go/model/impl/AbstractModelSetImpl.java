@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +45,7 @@ import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.Variable;
+import org.ontoware.rdf2go.vocabulary.RDF;
 
 public abstract class AbstractModelSetImpl implements ModelSet {
 
@@ -330,8 +332,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * part of the quad pattern.
 	 */
 	/* subclasses should overwrite this method for better performance */
-	public ClosableIterator<Statement> findStatements(
-			QuadPattern pattern) throws ModelRuntimeException {
+	public ClosableIterator<Statement> findStatements(QuadPattern pattern)
+			throws ModelRuntimeException {
 		if (pattern.getContext() == Variable.ANY)
 			// match all
 			return new LazyUnionModelIterator(this, pattern);
@@ -341,10 +343,9 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return m.findStatements(pattern);
 	}
 
-	public ClosableIterator<Statement> findStatements(
-			UriOrVariable contextURI, ResourceOrVariable subject,
-			UriOrVariable predicate, NodeOrVariable object)
-			throws ModelRuntimeException {
+	public ClosableIterator<Statement> findStatements(UriOrVariable contextURI,
+			ResourceOrVariable subject, UriOrVariable predicate,
+			NodeOrVariable object) throws ModelRuntimeException {
 		QuadPattern quadPattern = this.createQuadPattern(contextURI, subject,
 				predicate, object);
 		return findStatements(quadPattern);
@@ -404,6 +405,87 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		boolean result = it.hasNext();
 		it.close();
 		return result;
+	}
+
+	/* fast, no need to override */
+	public BlankNode createReficationOf(Statement statement) {
+		BlankNode bnode = createBlankNode();
+		return (BlankNode) createReficationOf(statement, bnode);
+	}
+
+	/* reifications live in the context where the statement is */
+	public Resource createReficationOf(Statement statement, Resource resource) {
+		Diff diff = new DiffImpl();
+		diff.addStatement(createStatement(statement.getContext(), resource,
+				RDF.type, RDF.Statement));
+		diff.addStatement(createStatement(statement.getContext(), resource,
+				RDF.subject, statement.getSubject()));
+		diff.addStatement(createStatement(statement.getContext(), resource,
+				RDF.predicate, statement.getPredicate()));
+		diff.addStatement(createStatement(statement.getContext(), resource,
+				RDF.object, statement.getObject()));
+		update(diff);
+		return resource;
+	}
+
+	/* ignores context */
+	public boolean hasReifications(Statement statement) {
+		return this.sparqlAsk("ASK WHERE { " + " ?res " + RDF.type.toSPARQL()
+				+ " " + RDF.Statement + " ." + " ?res "
+				+ RDF.subject.toSPARQL() + " "
+				+ statement.getSubject().toSPARQL() + " ." + " ?res "
+				+ RDF.predicate.toSPARQL() + " "
+				+ statement.getPredicate().toSPARQL() + " ." + " ?res "
+				+ RDF.object.toSPARQL() + " "
+				+ statement.getObject().toSPARQL() + " ." + " }");
+	}
+
+	/*
+	 * inefficient, loads all in memory. should be OK for almost all practical
+	 * cases (when each statement has a small number of refications)
+	 * 
+	 * ignores context
+	 */
+	public Collection<Resource> getAllReificationsOf(Statement statement) {
+		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { "
+				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement + " ."
+				+ " ?res " + RDF.subject.toSPARQL() + " "
+				+ statement.getSubject().toSPARQL() + " ." + " ?res "
+				+ RDF.predicate.toSPARQL() + " "
+				+ statement.getPredicate().toSPARQL() + " ." + " ?res "
+				+ RDF.object.toSPARQL() + " "
+				+ statement.getObject().toSPARQL() + " ." + " }");
+		LinkedList<Resource> result = new LinkedList<Resource>();
+		ClosableIterator<QueryRow> it = table.iterator();
+		while (it.hasNext()) {
+			Resource res = it.next().getValue("res").asResource();
+			result.add(res);
+		}
+		it.close();
+		return result;
+	}
+
+	/* delete in ALL contexts */
+	public void deleteReification(Resource reificationResource) {
+		Diff diff = new DiffImpl();
+		diff.removeStatement(reificationResource, RDF.type, RDF.Statement);
+		ClosableIterator<Statement> it = findStatements(Variable.ANY, reificationResource,
+				RDF.subject, Variable.ANY);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		it = findStatements(Variable.ANY, reificationResource, RDF.predicate, Variable.ANY);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		it = findStatements(Variable.ANY, reificationResource, RDF.object, Variable.ANY);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		update(diff);
 	}
 
 }
