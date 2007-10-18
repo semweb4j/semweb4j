@@ -26,7 +26,7 @@ import org.ontoware.semversion.impl.generated.RDFModel;
  * default branch is called 'main'.
  * 
  * Each model can have a number of 'suggested' children. Suggestions can have
- * further children, but these must also be suggestions. <code>
+ * further children, but these must also be suggestions. <code><pre>
  * Example:
  * 
  * root
@@ -36,7 +36,7 @@ import org.ontoware.semversion.impl.generated.RDFModel;
  *      - version 2.1.1 (must be a suggestion)
  *    - version 2.2 
  *    - version 2.3
- * </code>
+ * </pre></code>
  * 
  * @author voelkel
  */
