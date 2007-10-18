@@ -1,7 +1,7 @@
 package org.ontoware.rdfreactor.runtime;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
@@ -29,7 +29,7 @@ public class OOQueryResultTableImpl implements OOQueryResultTable {
 		this.returnTypes = returnTypes;
 	}
 
-	public Set<String> getVariables() {
+	public List<String> getVariables() {
 		return this.resultTable.getVariables();
 	}
 

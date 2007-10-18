@@ -1,6 +1,6 @@
 package org.ontoware.rdfreactor.runtime;
 
-import java.util.Set;
+import java.util.List;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 
@@ -11,6 +11,6 @@ public interface OOQueryResultTable extends ClosableIterable<OOQueryRow> {
 	 * 
 	 * @return
 	 */
-	Set<String> getVariables();
+	List<String> getVariables();
 
 }
