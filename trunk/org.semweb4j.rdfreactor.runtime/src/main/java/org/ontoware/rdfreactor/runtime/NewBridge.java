@@ -9,7 +9,7 @@ import org.ontoware.rdf2go.model.node.URI;
 public interface NewBridge {
 
 
-	Object[] getAllInstances(Model model, java.lang.Class javaClass);
+	Object[] getAllInstances(Model model, java.lang.Class<?> javaClass);
 
 	boolean containsInstance(Model model, URI classURI);
 
@@ -43,7 +43,7 @@ public interface NewBridge {
 
 
 	ClosableIterator<? extends Object> getSparqlSelectSingleVariable(Model model,
-			Class returnType, String sparqlSelectQuery)
+			Class<?> returnType, String sparqlSelectQuery)
 			throws ModelRuntimeException;
 	
 	

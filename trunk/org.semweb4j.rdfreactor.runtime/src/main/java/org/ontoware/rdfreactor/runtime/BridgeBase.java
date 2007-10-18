@@ -94,7 +94,7 @@ public class BridgeBase {
 	 */
 	@Patrolled
 	public static Object getValue(Model model, Resource resourceSubject,
-			URI propertyURI, java.lang.Class returnType)
+			URI propertyURI, java.lang.Class<?> returnType)
 			throws RDFDataException, ModelRuntimeException {
 		Node node = ResourceUtils.getSingleValue(model, resourceSubject,
 				propertyURI);
@@ -118,7 +118,7 @@ public class BridgeBase {
 	 */
 	@Patrolled
 	public static Set<Object> getAllValues_asSet(Model model,
-			Resource resource, URI propertyURI, java.lang.Class returnType) {
+			Resource resource, URI propertyURI, java.lang.Class<?> returnType) {
 		synchronized (model) {
 			ClosableIterator<? extends Statement> it = model.findStatements(
 					resource, propertyURI, Variable.ANY);
@@ -148,7 +148,7 @@ public class BridgeBase {
 	 */
 	@Patrolled
 	public static Object[] getAllValues(Model model, Resource resource,
-			URI propertyURI, java.lang.Class returnType) {
+			URI propertyURI, java.lang.Class<?> returnType) {
 		return triplepattern2reactor(model, TriplePatternImpl
 				.createObjectPattern(resource, propertyURI), returnType);
 	}
@@ -169,7 +169,7 @@ public class BridgeBase {
 	 */
 	@Patrolled
 	public static Object[] getAllValues_Inverse(Model model, URI propertyURI,
-			Node objectNode, java.lang.Class returnType)
+			Node objectNode, java.lang.Class<?> returnType)
 			throws ModelRuntimeException {
 		return triplepattern2reactor(model, TriplePatternImpl
 				.createSubjectPattern(propertyURI, objectNode), returnType);
@@ -224,7 +224,7 @@ public class BridgeBase {
 	 */
 	@Patrolled
 	public static Object[] getAllInstances(Model model,
-			java.lang.Class javaClass) {
+			java.lang.Class<?> javaClass) {
 		URI rdfsClass;
 		try {
 			rdfsClass = (URI) javaClass.getDeclaredField("RDFS_CLASS")
