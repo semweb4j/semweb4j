@@ -106,6 +106,7 @@
 			<groupId>org.eclipse</groupId>
 			<artifactId>osgi</artifactId>
 			<version>3.2.1.R32</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- logging dependencies -->
