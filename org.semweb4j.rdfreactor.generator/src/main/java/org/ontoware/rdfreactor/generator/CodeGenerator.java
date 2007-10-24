@@ -150,9 +150,11 @@ public class CodeGenerator {
 			throw new RuntimeException("Can't handle the semantics of '"
 					+ semantics + "'");
 
+		log.info("set alwaysWriteToModel to "+alwaysWriteToModel);
 		jm.setAlwaysWriteToModel(alwaysWriteToModel);
 
 		// third and final step
+		log.info("write using sourceCodeWriter");
 		SourceCodeWriter.write(jm, outDir, SourceCodeWriter.TEMPLATE_CLASS,
 				methodnamePrefix);
 	}
