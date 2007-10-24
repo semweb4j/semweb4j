@@ -1,4 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -10,6 +13,8 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
 	<version>4.4.12-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
 	<name>RDFReactor code generator</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -109,4 +114,24 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>1.0.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Version>4.4.10</Bundle-Version>
+						<Private-Package>org.semweb4j.rdfreactor.runtime, org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.base</Private-Package>
+						<Export-Package>org.semweb4j.rdfreactor.generator*</Export-Package>
+						<Import-Package>org.slf4j</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
