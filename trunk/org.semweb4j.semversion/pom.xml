@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,7 +16,10 @@
 	<name>SemVersion</name>
 	<url>http://ontoworld.org/wiki/SemVersion</url>
 	<inceptionYear>2004</inceptionYear>
-	<description>SemVersion is a versioning system for data in RDF-syntax, such as ontologies.</description>
+	<description>
+		SemVersion is a versioning system for data in RDF-syntax, such
+		as ontologies.
+	</description>
 
 	<developers>
 		<developer>
@@ -75,7 +80,7 @@
 				<role>Initial version</role>
 			</roles>
 		</contributor>
-		
+
 		<contributor>
 			<name>Tudor Groza</name>
 			<url>http://www.deri.ie/about/team/member/tudor_groza/</url>
@@ -83,6 +88,20 @@
 			<organizationUrl>http://www.deri.org/</organizationUrl>
 			<roles>
 				<role>Protégé Integration</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Szymon Pająk</name>
+			<url>
+				http://www.deri.ie/about/team/member/szymon_pajak/
+			</url>
+			<organization>
+				Gdansk University of Technology (in cooperation with
+				DERI)
+			</organization>
+			<organizationUrl>http://www.eti.pg.gda.pl</organizationUrl>
+			<roles>
+				<role>MarcOnt Integration</role>
 			</roles>
 		</contributor>
 	</contributors>
@@ -330,12 +349,12 @@
 		</dependency>
 
 	</dependencies>
-	
+
 	<!-- create a distribution -->
 	<build>
 		<plugins>
 			<!-- builds a zip release that contains all dependency libraries 
-			     they are copied after compile is executed -->
+				they are copied after compile is executed -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -360,8 +379,8 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>	
-	</build>	
+		</plugins>
+	</build>
 
 	<!-- to define where to put the site for this project -->
 	<distributionManagement>
