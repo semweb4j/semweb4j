@@ -14,7 +14,7 @@ import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdfreactor.runtime.Bridge;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
-import org.ontoware.semversion.impl.SessionModel;
+import org.ontoware.semversion.impl.BlankNodeEnrichmentModel;
 import org.ontoware.semversion.impl.SyntacticDiffEngine;
 import org.ontoware.semversion.impl.generated.RDFModel;
 
@@ -46,47 +46,36 @@ public class Version extends VersionedItem {
 
 	/**
 	 * SHOULD NOT BE CALLED FROM API USERS
+	 * 
 	 * @param model
 	 * @param uri
 	 * @param write
 	 */
-	public Version(Model model, URI uri, boolean write) {
-		super(model, uri);
+	public Version(Model model, Session session, URI uri, boolean write) {
+		super(model, session, uri);
 		this.version = new org.ontoware.semversion.impl.generated.Version(
 				model, uri, write);
 	}
 
 	/**
 	 * SHOULD NOT BE CALLED FROM API USERS
+	 * 
 	 * @param version
 	 */
-	public Version(org.ontoware.semversion.impl.generated.Version version) {
-		super(version.getModel(), version.getResource().asURI());
+	public Version(org.ontoware.semversion.impl.generated.Version version,
+			Session session) {
+		super(version.getModel(), session, version.getResource().asURI());
 		this.version = version;
 	}
 
 	private boolean branchLabelExists(String branchLabel) {
 		try {
-			Version[] allVersions = this.getVersionedModel().getAllVersion();
-			for (int i = 0; i < allVersions.length; i++) {
-				if (allVersions[i].getBranchLabel().equals(branchLabel))
+			for (Version v : this.getVersionedModel().getAllVersions()) {
+				if (v.getBranchLabel().equals(branchLabel))
 					return true;
 			}
 		} catch (RDFDataException e) {
 			throw new RuntimeException(e);
-		}
-		return false;
-	}
-
-	/**
-	 * 
-	 * @return if a commit conflict was detected, false otherwise
-	 */
-	protected boolean checkForCommitConflicts() {
-		List<Version> children = this.getValidChildren();
-		for (Version child : children) {
-			if (this.isInSameBranch(child))
-				return true;
 		}
 		return false;
 	}
@@ -106,14 +95,24 @@ public class Version extends VersionedItem {
 			URI provenance, boolean suggestion) throws CommitConflictException {
 		if (!suggestion && isSuggestion())
 			throw new InvalidChildOfSuggestionException();
-		if (checkForCommitConflicts())
-			throw new CommitConflictException();
+		checkForCommitConflicts(suggestion);
 		// apply diff
 		Model content = getContent();
 		Model temp = SyntacticDiffEngine.applyDiff(getSemVersion()
 				.getTripleStore(), content, diff);
 		content.close();
 		return commit(temp, comment, versionURI, provenance, suggestion);
+	}
+
+	/**
+	 * @param suggestion
+	 *            true if someone wants to commit a suggestion
+	 * @return
+	 */
+	private void checkForCommitConflicts(boolean suggestion) {
+		if (!suggestion && this.hasValidChildren()) {
+			throw new CommitConflictException();
+		}
 	}
 
 	/**
@@ -134,8 +133,7 @@ public class Version extends VersionedItem {
 			throws CommitConflictException, InvalidChildOfSuggestionException {
 		if (!suggestion && isSuggestion())
 			throw new InvalidChildOfSuggestionException();
-		if (checkForCommitConflicts())
-			throw new CommitConflictException();
+		checkForCommitConflicts(suggestion);
 		return commit(childContent, comment, getSemVersion().getTripleStore()
 				.newRandomUniqueURI(), null, suggestion);
 	}
@@ -156,11 +154,10 @@ public class Version extends VersionedItem {
 		// Impl: commits a suggestion, setValid then creates a 'real' version
 		if (!suggestion && isSuggestion())
 			throw new InvalidChildOfSuggestionException();
-		if (checkForCommitConflicts())
-			throw new CommitConflictException();
+		checkForCommitConflicts(suggestion);
 
-		Version child = new Version(getSemVersion().getMainModel(), versionURI,
-				true);
+		Version child = new Version(getSemVersion().getMainModel(),
+				getSession(), versionURI, true);
 		// add meta-data
 		try {
 			// store model
@@ -169,8 +166,7 @@ public class Version extends VersionedItem {
 			childContent.close();
 			childModel.close();
 
-			child.setUser(((SessionModel) this.version.getModel()).getSession()
-					.getUser());
+			child.setUser(getSession().getUser());
 			child.setProvenance(provenance);
 			child.setCreationTime(Calendar.getInstance());
 
@@ -320,11 +316,17 @@ public class Version extends VersionedItem {
 	/**
 	 * @return all child versions (suggestions and accepted) of this version
 	 */
-	public Version[] getAllChildren() {
-		return (Version[]) Bridge.getAllValues(version.getModel(), version
-				.getResource(),
-				org.ontoware.semversion.impl.generated.Version.CHILD,
-				Version.class);
+	public List<Version> getAllChildren() {
+		org.ontoware.semversion.impl.generated.Version[] genChildVersions = (org.ontoware.semversion.impl.generated.Version[]) Bridge
+				.getAllValues(version.getModel(), version.getResource(),
+						org.ontoware.semversion.impl.generated.Version.CHILD,
+						org.ontoware.semversion.impl.generated.Version.class);
+
+		List<Version> result = new ArrayList<Version>(genChildVersions.length);
+		for (org.ontoware.semversion.impl.generated.Version genChild : genChildVersions) {
+			result.add(new Version(genChild, getSession()));
+		}
+		return result;
 	}
 
 	/**
@@ -345,7 +347,8 @@ public class Version extends VersionedItem {
 	 * @return a an in-memory copy of the RDF content of this model
 	 */
 	public Model getContent() {
-		return getSemVersion().getTripleStore().getAsTempCopy(getContentURI());
+		return new BlankNodeEnrichmentModel(
+		getSemVersion().getTripleStore().getAsTempCopy(getContentURI()));
 	}
 
 	/**
@@ -365,7 +368,7 @@ public class Version extends VersionedItem {
 		if (reactorVersion == null)
 			return null;
 		else
-			return new Version(reactorVersion);
+			return new Version(reactorVersion, getSession());
 	}
 
 	/**
@@ -401,7 +404,7 @@ public class Version extends VersionedItem {
 		if (secondParent != null
 				&& org.ontoware.semversion.impl.generated.Version.hasInstance(
 						version.getModel(), secondParent.getResource().asURI())) {
-			return new Version(secondParent);
+			return new Version(secondParent, getSession());
 		} else
 			return null;
 	}
@@ -422,10 +425,9 @@ public class Version extends VersionedItem {
 	 */
 	public List<Version> getSuggestions() {
 		List<Version> suggestions = new ArrayList<Version>();
-		Version[] allVersions = getAllChildren();
-		for (int i = 0; i < allVersions.length; i++) {
-			if (!allVersions[i].isValid())
-				suggestions.add(allVersions[i]);
+		for (Version child : getAllChildren()) {
+			if (!child.isValid())
+				suggestions.add(child);
 		}
 		return suggestions;
 	}
@@ -447,7 +449,7 @@ public class Version extends VersionedItem {
 	 * @return the {@link VersionedModel} in which this version lives.
 	 */
 	public VersionedModel getVersionedModel() throws RDFDataException {
-		return new VersionedModel(this.version.getContainer());
+		return new VersionedModel(this.version.getContainer(), getSession());
 	}
 
 	protected boolean hasChildWithSameBranchLabel() {
@@ -468,7 +470,8 @@ public class Version extends VersionedItem {
 
 	/**
 	 * @param other
-	 * @return true if this version has the same branch label as the other version
+	 * @return true if this version has the same branch label as the other
+	 *         version
 	 */
 	public boolean isInSameBranch(Version other) {
 		return getBranchLabel().equals(other.getBranchLabel());
@@ -499,7 +502,8 @@ public class Version extends VersionedItem {
 	 * @param comment
 	 * @param provenance
 	 * @param suggestion
-	 * @return a new version which is the result of the merge (union) of two other versions (this version and 'other' version)
+	 * @return a new version which is the result of the merge (union) of two
+	 *         other versions (this version and 'other' version)
 	 * @throws CommitConflictException
 	 * @throws InvalidChildOfSuggestionException
 	 */
@@ -508,17 +512,15 @@ public class Version extends VersionedItem {
 			InvalidChildOfSuggestionException {
 		if (!suggestion && isSuggestion())
 			throw new InvalidChildOfSuggestionException();
-		if (checkForCommitConflicts())
-			throw new CommitConflictException();
+		checkForCommitConflicts(suggestion);
 		try {
 			URI childURI = getSemVersion().getMainModel().newRandomUniqueURI();
 			Version child = new Version(getSemVersion().getMainModel(),
-					childURI, true);
+					getSession(), childURI, true);
 
 			// set metadata
 
-			child.setUser(((SessionModel) this.version.getModel()).getSession()
-					.getUser());
+			child.setUser(getSession().getUser());
 			child.setProvenance(provenance);
 			child.setCreationTime(Calendar.getInstance());
 

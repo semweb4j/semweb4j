@@ -2,7 +2,6 @@ package org.ontoware.semversion;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -12,21 +11,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
-import org.ontoware.semversion.impl.SemVersionImpl;
 
 @SuppressWarnings("unused")
 public class VersionedModelTest {
 
 	VersionedModel vmi;
 
-	SemVersionImpl svi;
+	SemVersion svi;
 
+	Session session;
+	
 	@Before
 	public void setUp() throws Exception {
-		svi = new SemVersionImpl();
+		svi = new SemVersion();
 		svi.startup(new File("./target/VersionedModelTest"));
 		svi.clear();
-		vmi = new VersionedModel(svi.getMainModel(), new URIImpl("test://vmi"),
+		session = svi.createAnonymousSession();
+		vmi = new VersionedModel(svi.getMainModel(), session, new URIImpl("test://vmi"),
 				true);
 	}
 
@@ -40,7 +41,7 @@ public class VersionedModelTest {
 
 	@Test
 	public void testSetGetRoot() throws RDFDataException {
-		Version vi = new Version(svi.getMainModel(), svi.getMainModel()
+		Version vi = new Version(svi.getMainModel(), session, svi.getMainModel()
 				.newRandomUniqueURI(), true);
 		vmi.setRoot(vi);
 		Version root = vmi.getRoot();
@@ -49,14 +50,14 @@ public class VersionedModelTest {
 
 	@Test
 	public void testAddGetVersion() throws RDFDataException {
-		assertNotNull(vmi.getAllVersion());
+		assertNotNull(vmi.getAllVersions());
 
-		assertEquals(0, vmi.getAllVersion().length);
-		Version vi = new Version(svi.getMainModel(), svi.getMainModel()
+		assertEquals(0, vmi.getAllVersions().size());
+		Version vi = new Version(svi.getMainModel(), session,  svi.getMainModel()
 				.newRandomUniqueURI(), true);
 		vmi.addVersion(vi);
-		assertNotNull(vmi.getAllVersion());
-		assertEquals(1, vmi.getAllVersion().length);
+		assertNotNull(vmi.getAllVersions());
+		assertEquals(1, vmi.getAllVersions().size());
 	}
 
 	public void testRemoveVersion() {

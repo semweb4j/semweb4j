@@ -8,7 +8,6 @@ import java.util.Calendar;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
-import org.ontoware.semversion.impl.SemVersionImpl;
 import org.ontoware.semversion.impl.UserImpl;
 
 /**
@@ -21,6 +20,7 @@ import org.ontoware.semversion.impl.UserImpl;
 public abstract class VersionedItem {
 
 	private org.ontoware.semversion.impl.generated.VersionedItem versionedItem;
+	private Session session;
 
 	/**
 	 * Returns a Java wrapper over an RDF object, identified by URI. Creating
@@ -31,9 +31,14 @@ public abstract class VersionedItem {
 	 * @param uri
 	 *            URI of this instance
 	 */
-	public VersionedItem(Model model, URI uri) {
+	public VersionedItem(Model model, Session session, URI uri) {
 		this.versionedItem = new org.ontoware.semversion.impl.generated.VersionedItem(
 				model, uri);
+		this.session = session;
+	}
+	
+	public Session getSession() {
+		return this.session;
 	}
 
 	public String getComment() {
@@ -70,9 +75,9 @@ public abstract class VersionedItem {
 		return this.versionedItem.getProvenance();
 	}
 
-	protected SemVersionImpl getSemVersion() {
-		return (SemVersionImpl) versionedItem.getModel().getProperty(
-				SemVersionImpl.SEMVERSIONIMPL);
+	protected SemVersion getSemVersion() {
+		return (SemVersion) versionedItem.getModel().getProperty(
+				SemVersion.SEMVERSIONIMPL);
 	}
 
 	/**
