@@ -56,7 +56,7 @@ public class SimpleExample {
 		// root.commit(rootModel, "version2", URIUtils.createURI("version://2"),
 		// new ValidTime(), VersionImpl.NO_PROVENANCE, true);
 
-		semVersion.getSemVersionImpl().getTripleStore().dump();
+		semVersion.dump();
 
 		// free resources
 		semVersion.shutdown();

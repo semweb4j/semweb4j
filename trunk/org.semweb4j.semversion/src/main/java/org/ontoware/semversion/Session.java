@@ -17,8 +17,6 @@ import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
-import org.ontoware.semversion.impl.SemVersionImpl;
-import org.ontoware.semversion.impl.SessionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,11 +33,11 @@ public class Session {
 
 	private final User user;
 
-	private final SemVersionImpl semVersion;
+	private final SemVersion semVersion;
 
 	private boolean alive = true;
 
-	public Session(User user, SemVersionImpl semVersion) {
+	public Session(User user, SemVersion semVersion) {
 		this.user = user;
 		this.semVersion = semVersion;
 	}
@@ -86,9 +84,8 @@ public class Session {
 			return null;
 		}
 		try {
-			SessionModel sessionModel = new SessionModel(this, semVersion
-					.getMainModel());
-			VersionedModel vmi = new VersionedModel(sessionModel, uri, true);
+			VersionedModel vmi = new VersionedModel(semVersion.getMainModel(),
+					this, uri, true);
 
 			vmi.setLabel(label);
 			if (user != null)
@@ -115,7 +112,7 @@ public class Session {
 	/**
 	 * @return the SemVersion implementation.
 	 */
-	public SemVersionImpl getSemVersion() {
+	public SemVersion getSemVersion() {
 		checkAlive();
 		return semVersion;
 	}
@@ -142,10 +139,9 @@ public class Session {
 			VersionedModel versionedModel = null;
 			if (iter.hasNext()) {
 				Statement s = iter.next();
-				versionedModel = new VersionedModel(
-
-				new SessionModel(this, getSemVersion().getMainModel()), (URI) s
-						.getSubject(), false);
+				versionedModel = new VersionedModel(getSemVersion()
+						.getMainModel(), this,
+				(URI) s.getSubject(), false);
 				if (iter.hasNext()) {
 					log.warn("Multiple versioned models have the same label");
 				}
@@ -164,8 +160,8 @@ public class Session {
 	 */
 	public VersionedModel getVersionedModel(URI uri) {
 		checkAlive();
-		return new VersionedModel(new SessionModel(this, getSemVersion()
-				.getMainModel()), uri, false);
+		return new VersionedModel(getSemVersion()
+				.getMainModel(), this, uri, false);
 	}
 
 	/**
@@ -184,8 +180,7 @@ public class Session {
 							org.ontoware.semversion.impl.generated.VersionedModel.RDFS_CLASS);
 			while (iter.hasNext()) {
 				Statement s = iter.next();
-				vmis.add(new VersionedModel(new SessionModel(this,
-						getSemVersion().getMainModel()), (URI) s.getSubject(),
+				vmis.add(new VersionedModel(getSemVersion().getMainModel(),this, (URI) s.getSubject(),
 						false));
 			}
 			iter.close();

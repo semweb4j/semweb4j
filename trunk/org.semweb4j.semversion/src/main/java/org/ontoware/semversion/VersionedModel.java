@@ -15,8 +15,8 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdfreactor.runtime.Bridge;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
-import org.ontoware.semversion.impl.SessionModel;
 import org.ontoware.semversion.impl.generated.RDFModel;
+import org.ontoware.semversion.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,15 +31,15 @@ public class VersionedModel extends VersionedItem {
 
 	private org.ontoware.semversion.impl.generated.VersionedModel vm;
 
-	public VersionedModel(Model model, URI uri, boolean write) {
-		super(model, uri);
+	public VersionedModel(Model model, Session session, URI uri, boolean write) {
+		super(model, session, uri);
 		this.vm = new org.ontoware.semversion.impl.generated.VersionedModel(
 				model, uri, write);
 	}
 
 	public VersionedModel(
-			org.ontoware.semversion.impl.generated.VersionedModel vm) {
-		super(vm.getModel(), vm.getResource().asURI());
+			org.ontoware.semversion.impl.generated.VersionedModel vm, Session session) {
+		super(vm.getModel(), session, vm.getResource().asURI());
 		this.vm = vm;
 	}
 
@@ -103,13 +103,13 @@ public class VersionedModel extends VersionedItem {
 							+ " Method call ignored, continue using existing root.");
 		else {
 			// create Version proxy
-			Version version = new Version(getSemVersion().getMainModel(),
+			Version version = new Version(getSemVersion().getMainModel(), getSession(),
 					versionURI, true);
 
 			// set all data
 			version.setLabel(label);
 			version.setComment(comment);
-			User user = ((SessionModel) this.vm.getModel()).getSession()
+			User user = getSession()
 					.getUser();
 			log.debug("user: " + user.getName());
 			assert user != null;
@@ -149,7 +149,7 @@ public class VersionedModel extends VersionedItem {
 			Calendar now = Calendar.getInstance();
 			setDeletionTime(now);
 			// process versions
-			for (Version v : getAllVersion())
+			for (Version v : getAllVersions())
 				v.setDeletionTime(now);
 
 		} catch (RDFDataException e) {
@@ -169,7 +169,7 @@ public class VersionedModel extends VersionedItem {
 		for (Version v : getAllVersions()) {
 			buf.append(v + "\t" + v.getLabel() + "\t" + v.getBranchLabel()
 					+ "\t" + v.isSuggestion() + "\t" + v.getFirstParent()
-					+ "\t" + v.getAllChildren().length + "\n");
+					+ "\t" + v.getAllChildren().size() + "\n");
 			buf.append(v.dump());
 		}
 		System.out.println(buf);
@@ -290,33 +290,28 @@ public class VersionedModel extends VersionedItem {
 	 */
 	public Set<String> getAllBranches() {
 		Set<String> branchLabels = new HashSet<String>();
-		Version[] allVersions = getAllVersion();
-		for (int i = 0; i < allVersions.length; i++) {
-			branchLabels.add(allVersions[i].getBranchLabel());
+		List<Version> allVersions = getAllVersions();
+		for (int i = 0; i < allVersions.size(); i++) {
+			branchLabels.add(allVersions.get(i).getBranchLabel());
 		}
 		return branchLabels;
 	}
 
 	/**
-	 * @return an array of all versions in this version tree
-	 */
-	public Version[] getAllVersion() {
-		return (Version[]) Bridge.getAllValues(vm.getModel(), vm.getResource(),
-				org.ontoware.semversion.impl.generated.VersionedModel.VERSION,
-				Version.class);
-	}
-
-	/**
 	 * @return a list of all versions in this version tree
 	 */
-	public List<Version> getAllVersions() {
-		Version[] versions = getAllVersion();
-		List<Version> list = new ArrayList<Version>();
-		for (Version vi : versions) {
-			list.add(vi);
+	public List<org.ontoware.semversion.Version> getAllVersions() {
+		org.ontoware.semversion.impl.generated.Version[] genVersions =
+			(org.ontoware.semversion.impl.generated.Version[]) Bridge.getAllValues(vm.getModel(), vm.getResource(),
+				org.ontoware.semversion.impl.generated.VersionedModel.VERSION,
+				org.ontoware.semversion.impl.generated.Version.class);
+		List<org.ontoware.semversion.Version> list = new ArrayList<org.ontoware.semversion.Version>();
+		for (org.ontoware.semversion.impl.generated.Version vi : genVersions) {
+			list.add( new org.ontoware.semversion.Version(vi, getSession()));
 		}
 		return list;
 	}
+
 
 	/**
 	 * @return TODO unclear semantics
@@ -337,7 +332,7 @@ public class VersionedModel extends VersionedItem {
 	public List<Change> getChangeLog() {
 
 		List<Change> changes = new ArrayList<Change>();
-		for (Version v : getAllVersion()) {
+		for (Version v : getAllVersions()) {
 
 			String changeCause = v.getChangeCause();
 			if (changeCause == null) {
@@ -393,7 +388,7 @@ public class VersionedModel extends VersionedItem {
 	 * @return the most recent version of the branch 'branchLabel' or null
 	 */
 	public Version getLastVersionOfBranch(String branchLabel) {
-		for (Version v : getAllVersion()) {
+		for (Version v : getAllVersions()) {
 			String brLabel = v.getBranchLabel();
 			if (brLabel != null && brLabel.equals(branchLabel)
 					&& !v.hasChildWithSameBranchLabel())
@@ -408,8 +403,8 @@ public class VersionedModel extends VersionedItem {
 	 */
 	public List<Version> getLastVersions() {
 		List<Version> allVersions = new ArrayList<Version>();
-		for (Version v : getAllVersion()) {
-			if (v.getAllChildren().length == 0)
+		for (Version v : getAllVersions()) {
+			if (v.getAllChildren().size() == 0)
 				allVersions.add(v);
 		}
 		return allVersions;
@@ -434,7 +429,7 @@ public class VersionedModel extends VersionedItem {
 			Calendar mostRecent = Calendar.getInstance();
 			mostRecent.setTime(new Date(Long.MIN_VALUE));
 			Version mostRecentVersion = null;
-			for (Version v : getAllVersion()) {
+			for (Version v : getAllVersions()) {
 				Calendar d = v.getCreationTime();
 				if (d.after(mostRecent)) {
 					mostRecent = d;
@@ -461,7 +456,7 @@ public class VersionedModel extends VersionedItem {
 		if (rootVersion == null)
 			return null;
 		else
-			return new Version(rootVersion);
+			return new Version(rootVersion, getSession());
 	}
 
 	/**
@@ -483,7 +478,7 @@ public class VersionedModel extends VersionedItem {
 	public Version getVersion(URI versionURI) {
 		if (org.ontoware.semversion.impl.generated.Version.hasInstance(vm
 				.getModel(), versionURI)) {
-			return new Version(vm.getModel(), versionURI, false);
+			return new Version(vm.getModel(), getSession(), versionURI, false);
 		} else
 			return null;
 	}
@@ -512,7 +507,7 @@ public class VersionedModel extends VersionedItem {
 	 */
 	public List<Version> getVersions() {
 		List<Version> vis = new ArrayList<Version>();
-		for (Version vi : getAllVersion()) {
+		for (Version vi : getAllVersions()) {
 			vis.add(vi);
 		}
 		return vis;
@@ -531,7 +526,7 @@ public class VersionedModel extends VersionedItem {
 	public List<Version> queryForVersions(Calendar start, Calendar end,
 			User user) throws RDFDataException {
 		List<Version> vis = new ArrayList<Version>();
-		for (Version vi : getAllVersion()) {
+		for (Version vi : getAllVersions()) {
 			if (vi.getCreationTime().compareTo(start) >= 0
 					&& vi.getCreationTime().compareTo(end) <= 0
 					&& vi.getUser().equals(user))

@@ -15,6 +15,7 @@ import org.ontoware.rdf2go.model.impl.DiffImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.semversion.SemVersion;
 import org.openrdf.rdf2go.RepositoryModelFactory;
 import org.openrdf.rdf2go.RepositoryModelSet;
 import org.openrdf.repository.Repository;
@@ -165,7 +166,7 @@ public class TripleStore {
 					u = m.newRandomUniqueURI();
 					knownBnodes.put((BlankNode) s.getSubject(), u);
 				}
-				diff.addStatement(s.getSubject(), SemVersionImpl.BLANK_NODE_ID,
+				diff.addStatement(s.getSubject(), SemVersion.BLANK_NODE_ID,
 						u);
 			}
 			if (s.getObject() instanceof BlankNode) {
@@ -176,7 +177,7 @@ public class TripleStore {
 					knownBnodes.put((BlankNode) s.getObject(), u);
 				}
 				diff.addStatement((Resource) s.getObject(),
-						SemVersionImpl.BLANK_NODE_ID, u);
+						SemVersion.BLANK_NODE_ID, u);
 			}
 		}
 		if (changed) {

@@ -5,24 +5,44 @@
 	</properties>
 	<body>
 
-		<release version="1.0.0" date="2007-10-18">
+		<release version="1.0.1" date="2007-10-26"
+			description="No API changes">
+			<action dev="xamde" type="update">
+				Unified SemVersion and SemVersionImpl
+			</action>
+			<action dev="xamde" type="update">
+				Refactored VersionedItems to remember the Session
+				themselves, deleted SessionModel
+			</action>
+			<action dev="xamde" type="update">
+				Added test from MarcOnt team to test suite - thanks
+				Szymon Pająk!
+			</action>
+			<action dev="xamde" type="fix" issue="SV-6" />
+		</release>
+
+		<release version="1.0.0" date="2007-10-18"
+			description="Namespace changed">
 			<action dev="xamde" type="update">
 				Migration to RDF2Go 4.4.9 (and sesame beta4).
 			</action>
 			<action dev="xamde" type="update">Improved javadocs</action>
 			<action dev="xamde" type="update">
-				Changed namespace of SemVersion ontology to http://purl.org/net/semversion# .
+				Changed namespace of SemVersion ontology to
+				http://purl.org/net/semversion# .
 			</action>
 		</release>
 
-		<release version="1.0.0-alpha3" date="2007-09-03, not officially released"
+		<release version="1.0.0-alpha3"
+			date="2007-09-03, not officially released"
 			description="No API changes">
 			<action dev="xamde" type="update">
 				Migrated to stable depenencies.
 			</action>
 		</release>
 
-		<release version="1.0.0-alpha2" date="2007-08-20, not officially released"
+		<release version="1.0.0-alpha2"
+			date="2007-08-20, not officially released"
 			description="API changes">
 			<action dev="xamde" type="fix" issue="SV-10">
 				Added User.hasURI(). User is now an interface.
