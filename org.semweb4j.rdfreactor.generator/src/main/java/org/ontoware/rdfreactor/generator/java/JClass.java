@@ -62,10 +62,53 @@ public class JClass extends JMapped {
 	/** the JPackage, to which this JClass belongs */
 	private JPackage packagge;
 
+	private Set<JClass> javaSubclasses = new HashSet<JClass>();
+
 	/**
-	 * property names need only to be unique within a class
+	 * property names need only to be unique within a class FIXME and in all
+	 * super-classes of that class
+	 * 
+	 * @return all property names that have been used in this class or a
+	 *         super-class
 	 */
-	public Set<String> usedPropertynames = new HashSet<String>();
+	public Set<String> getUsedPropertyNames() {
+		// look in all sub- and super-classes and collect used names
+		Set<String> usedNames = new HashSet<String>();
+
+		addUsedPropertyNames(usedNames, this);
+
+		JClass superclass = getSuperclass();
+		while (superclass != null) {
+			addUsedPropertyNames(usedNames, superclass);
+			superclass = superclass.getSuperclass();
+		}
+		addUsedPropertyNamesFromSubClasses(usedNames, this);
+		return usedNames;
+	}
+
+	private void addUsedPropertyNamesFromSubClasses(Set<String> usedNames,
+			JClass jclass) {
+		for (JClass subclass : jclass.getSubclasses()) {
+			addUsedPropertyNames(usedNames, subclass);
+			addUsedPropertyNamesFromSubClasses(usedNames, subclass);
+		}
+	}
+
+	private Set<JClass> getSubclasses() {
+		return this.javaSubclasses;
+	}
+
+	/**
+	 * Add all names used by a property in jclass to usedNames
+	 * 
+	 * @param usedNames
+	 * @param jclass
+	 */
+	private void addUsedPropertyNames(Set<String> usedNames, JClass jclass) {
+		for (JProperty jprop : jclass.getProperties()) {
+			usedNames.add(jprop.getName());
+		}
+	}
 
 	/**
 	 * creating a class adds it to the package the only constructor:
@@ -146,16 +189,46 @@ public class JClass extends JMapped {
 		return false;
 	}
 
+	/**
+	 * @return all direct super-classes
+	 */
 	public List<JClass> getSuperclasses() {
 		return this.superclasses;
+	}
+
+	/**
+	 * @return all super-classes, and their super-classes, and so on until root
+	 */
+	public Set<JClass> getTransitiveSuperclasses() {
+		Set<JClass> transitiveSuperclasses = new HashSet<JClass>();
+		addSuperClasses(transitiveSuperclasses, this);
+		return transitiveSuperclasses;
+	}
+
+	private static void addSuperClasses(Set<JClass> result, JClass clazz) {
+		for (JClass superClass : clazz.getSuperclasses()) {
+			result.add(superClass);
+			addSuperClasses(result, superClass);
+		}
 	}
 
 	public void addSuperclass(JClass superclass) {
 		this.superclasses.add(superclass);
 	}
 
+	/**
+	 * Double-link
+	 * 
+	 * @param javaSuperclass
+	 */
 	public void setJavaSuperclass(JClass javaSuperclass) {
 		this.javaSuperclass = javaSuperclass;
+		javaSuperclass.addJavaSubclass(this);
+	}
+
+	private void addJavaSubclass(JClass javaSubclass) {
+		this.javaSubclasses.add(javaSubclass);
+
 	}
 
 	public List<JProperty> getProperties() {
