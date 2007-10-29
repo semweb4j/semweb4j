@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { DomainlessProperties.class, RangeXsdAnyUri.class,
+@Suite.SuiteClasses( { TestReportedBugs.class,
 	SourceCodeWriterTest.class, TestJModel.class })
 public class AllTests {
 	// the class remains completely empty,
