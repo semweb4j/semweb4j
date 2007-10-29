@@ -5,19 +5,26 @@
 	</properties>
 	<body>
 
-		<release version="4.4.10" description="Dependeny update">
+		<release version="4.4.12" description="Dependeny update" date="2007-10-29">
+			<action dev="xamde" type="fix" issue="REAC-15">
+				Now property names are unique withing the inheritance
+				hierarchy (was only within class before)
+			</action>
+		</release>
+
+		<release version="4.4.11" description="Dependeny update" date="2007-10-02">
 			<action dev="xamde" type="update">
 				Migration to rdfreactor.runtime 4.4.12
 			</action>
 		</release>
 
-		<release version="4.4.10" description="Bug fixes">
+		<release version="4.4.10" description="Bug fixes" date="2007-09-03">
 			<action dev="xamde" type="fix" issue="REAC-13">
 				Generation from OWL had a bug.
 			</action>
 		</release>
 
-		<release version="4.4.9" description="Generated code change">
+		<release version="4.4.9" description="Generated code change" date="2007-08-10">
 			<action dev="xamde" type="update">
 				xsd:dateTime types now result in java.util.Calendat, not
 				Date. This ensures always tim zone information, which is
@@ -32,18 +39,20 @@
 				Migration to RDFReactor.runtime 4.4.10
 			</action>
 		</release>
-		<release version="4.4.8">
+
+		<release version="4.4.8" date="2007-07-06">
 			<action dev="xamde" type="update">
 				Switched to and adapted to runtime 4.4.8.
 			</action>
 			<action dev="xamde" type="add">Added tests.</action>
 		</release>
-		<release version="4.4.7">
+
+		<release version="4.4.7" date="2007-07-02">
 			<action dev="xamde" type="update">
 				Switched to runtime 4.4.7 to propagate bugfix.
 			</action>
 		</release>
-		<release version="4.4.6">
+		<release version="4.4.6" date="2007-06-29">
 			<action dev="xamde" type="update">
 				Ability to handle multiple comments
 			</action>
@@ -52,16 +61,18 @@
 				code
 			</action>
 		</release>
-		<release version="4.4.5">
+		<release version="4.4.5" date="2007-06-03">
 			<action dev="xamde" type="update">
 				Aligned with RDF2Go/RDFReactor runtime 4.4.5 releases.
 			</action>
 		</release>
+		
 		<release version="4.4.2">
 			<action dev="xamde" type="add">
 				Now ignores owl:DeprecatedProperties
 			</action>
 		</release>
+		
 		<release version="4.3.1">
 			<action dev="xamde" type="add">
 				Added support for owl:cardinality

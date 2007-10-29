@@ -1,10 +1,6 @@
 package org.ontoware.rdfreactor.generator;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -12,16 +8,11 @@ import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.model.Model;
-import org.ontoware.rdf2go.model.Statement;
-import org.ontoware.rdf2go.model.impl.StatementImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
-import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.URI;
-import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.OWL;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
-import org.ontoware.rdf2go.vocabulary.XSD;
 import org.ontoware.rdfreactor.generator.java.JClass;
 import org.ontoware.rdfreactor.generator.java.JModel;
 import org.ontoware.rdfreactor.generator.java.JPackage;
@@ -33,244 +24,43 @@ import org.ontoware.rdfreactor.schema.rdfschema.Class;
 import org.ontoware.rdfreactor.schema.rdfschema.Property;
 import org.ontoware.rdfreactor.schema.rdfschema.Resource;
 
+/**
+ * Creates an internal JModel from an ontology model
+ * @author voelkel
+ *
+ */
 public class ModelGenerator {
 
 	private static Log log = LogFactory.getLog(ModelGenerator.class);
 
-	public static final String NS_XSD = "http://www.w3.org/2001/XMLSchema#";
-
-	/**
-	 * Add the buil-in mapping of URIs to classes.
-	 * 
-	 * @param jm
-	 */
-	private static void addBuiltInsCommon(JModel jm) {
-
-		String rdfschema = "org.ontoware.rdfreactor.schema.rdfschema";
-
-		// TODO: shouldnt JPackage.RDFSCHEMA be added to jm ?
-
-		jm.addMapping(RDF.Alt, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Alt", RDF.Alt));
-		jm.addMapping(RDF.Bag, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Bag", RDF.Bag));
-
-		JClass _class = new JClass(JPackage.RDFSCHEMA, rdfschema + ".Class",
-				RDFS.Class);
-		jm.addMapping(RDFS.Class, _class);
-
-		jm.addMapping(RDFS.Container, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Container", RDFS.Container));
-		jm.addMapping(RDFS.ContainerMembershipProperty, new JClass(
-				JPackage.RDFSCHEMA, rdfschema + ".ContainerMembershipProperty",
-				RDFS.ContainerMembershipProperty));
-		jm.addMapping(RDFS.Datatype, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Datatype", RDFS.Datatype));
-		// literal mapping
-		jm.addMapping(RDFS.Literal, JClass.STRING);
-		jm.addMapping(RDF.List, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".List", RDF.List));
-		jm.addMapping(RDF.nil, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Nil", RDF.nil));
-		// rdf property is special
-		jm.addMapping(RDF.Seq, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Seq", RDF.Seq));
-		jm.addMapping(RDF.Statement, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Statement", RDF.Statement));
-		jm.addMapping(RDF.XMLLiteral, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".XMLLiteral", RDF.XMLLiteral));
-
-		jm.addMapping(RDF.Property, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Property", RDF.Property));
-		JClass _resource = new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Resource", RDFS.Resource);
-
-		jm.addMapping(RDFS.Resource, _resource);
-
-		_resource.getProperties().add(
-				new JProperty(_class, "label", RDFS.label));
-		_resource.getProperties().add(
-				new JProperty(_class, "comment", RDFS.comment));
-		_resource.getProperties().add(new JProperty(_class, "type", RDF.type));
-
-		// owl mapping
-		String owl = "org.ontoware.rdfreactor.schema.owl";
-
-		// TODO: shouldnt JPackage.OWL be added to jm ?
-
-		jm.addMapping(OWL.Class, new JClass(JPackage.OWL, owl + ".Class",
-				OWL.Class));
-		jm.addMapping(OWL.AllDifferent, new JClass(JPackage.OWL, owl
-				+ ".AllDifferent", OWL.AllDifferent));
-		jm.addMapping(OWL.AnnotationProperty, new JClass(JPackage.OWL, owl
-				+ ".AnnotationProperty", OWL.AnnotationProperty));
-		jm.addMapping(OWL.DataRange, new JClass(JPackage.OWL, owl
-				+ ".DataRange", OWL.DataRange));
-		jm.addMapping(OWL.DatatypeProperty, new JClass(JPackage.OWL, owl
-				+ ".DatatypeProperty", OWL.DatatypeProperty));
-		jm.addMapping(OWL.DeprecatedClass, new JClass(JPackage.OWL, owl
-				+ ".DeprecatedClass", OWL.DeprecatedClass));
-		jm.addMapping(OWL.DeprecatedProperty, new JClass(JPackage.OWL, owl
-				+ ".DeprecatedProperty", OWL.DeprecatedProperty));
-		jm.addMapping(OWL.FunctionalProperty, new JClass(JPackage.OWL, owl
-				+ ".FunctionalProperty", OWL.FunctionalProperty));
-		jm.addMapping(OWL.InverseFunctionalProperty, new JClass(JPackage.OWL,
-				owl + ".InverseFunctionalProperty",
-				OWL.InverseFunctionalProperty));
-		jm.addMapping(OWL.Nothing, new JClass(JPackage.OWL, owl + ".Nothing",
-				OWL.Nothing));
-		jm.addMapping(OWL.ObjectProperty, new JClass(JPackage.OWL, owl
-				+ ".ObjectProperty", OWL.ObjectProperty));
-		jm.addMapping(OWL.Ontology, new JClass(JPackage.OWL, owl + ".Ontology",
-				OWL.Ontology));
-		jm.addMapping(OWL.OntologyProperty, new JClass(JPackage.OWL, owl
-				+ ".OntologyProperty", OWL.OntologyProperty));
-		jm.addMapping(OWL.Restriction, new JClass(JPackage.OWL, owl
-				+ ".Restriction", OWL.Restriction));
-		jm.addMapping(OWL.SymmetricProperty, new JClass(JPackage.OWL, owl
-				+ ".SymmetricProperty", OWL.SymmetricProperty));
-		jm.addMapping(OWL.Thing, new JClass(JPackage.OWL, owl + ".Thing",
-				OWL.Thing));
-		jm.addMapping(OWL.TransitiveProperty, new JClass(JPackage.OWL, owl
-				+ ".TransitiveProperty", OWL.TransitiveProperty));
-		// XML Schema
-
-		// IDs
-		jm.addMapping(XSD._anyURI, new JClass(new JPackage("java.net"),
-				URI.class.getName() + "", XSD._anyURI));
-
-		// primitve types
-		jm.addMapping(XSD._byte, new JClass(JPackage.JAVA_LANG, Byte.class
-				.getName()
-				+ "", XSD._byte));
-		jm.addMapping(XSD._boolean, new JClass(JPackage.JAVA_LANG,
-				Boolean.class.getName() + "", XSD._boolean));
-
-		// numbers
-		// TODO: better xsd handling for non negative integer
-		jm.addMapping(XSD._nonNegativeInteger, new JClass(JPackage.JAVA_LANG,
-				Integer.class.getName() + "", XSD._nonNegativeInteger));
-
-		jm.addMapping(XSD._integer, new JClass(JPackage.JAVA_LANG,
-				Integer.class.getName() + "", XSD._integer));
-		jm.addMapping(XSD._int, new JClass(JPackage.JAVA_LANG, Integer.class
-				.getName()
-				+ "", XSD._int));
-		jm.addMapping(XSD._long, new JClass(JPackage.JAVA_LANG, Long.class
-				.getName()
-				+ "", XSD._long));
-		jm.addMapping(XSD._double, new JClass(JPackage.JAVA_LANG, Double.class
-				.getName()
-				+ "", XSD._double));
-		jm.addMapping(XSD._float, new JClass(JPackage.JAVA_LANG, Float.class
-				.getName()
-				+ "", XSD._float));
-
-		// date and time -> Calendar.class
-		jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL,
-				Calendar.class.getName() + "", XSD._dateTime));
-		jm.addMapping(XSD._date, new JClass(JPackage.JAVA_UTIL, Calendar.class
-				.getName()
-				+ "", XSD._date));
-		jm.addMapping(XSD._time, new JClass(JPackage.JAVA_UTIL, Calendar.class
-				.getName()
-				+ "", XSD._time));
-
-		// strings
-		jm.addMapping(XSD._normalizedString, new JClass(JPackage.JAVA_LANG,
-				String.class.getName() + "", XSD._normalizedString));
-		jm.addMapping(XSD._string, new JClass(JPackage.JAVA_LANG, String.class
-				.getName()
-				+ "", XSD._string));
-
-		// get all properties
-		jm.knownProperties.add(RDF.nil);
-		jm.knownProperties.add(RDF.first);
-		jm.knownProperties.add(RDF.rest);
-		jm.knownProperties.add(RDF.subject);
-		jm.knownProperties.add(RDF.predicate);
-		jm.knownProperties.add(RDF.object);
-		jm.knownProperties.add(RDF.type);
-		jm.knownProperties.add(RDF.value);
-		jm.knownProperties.add(RDFS.label);
-		jm.knownProperties.add(RDFS.comment);
-		jm.knownProperties.add(RDFS.seeAlso);
-		jm.knownProperties.add(RDFS.isDefinedBy);
-		jm.knownProperties.add(RDFS.domain);
-		jm.knownProperties.add(RDFS.range);
-		jm.knownProperties.add(RDFS.subClassOf);
-		jm.knownProperties.add(RDFS.subPropertyOf);
-
-	}
-
-	/**
-	 * @return a JModel with the common built-ins
-	 */
-	private static JModel getbuiltIns_RDFS() {
-		JModel jm = new JModel(JClass.RDFS_CLASS, true);
-		addBuiltInsCommon(jm);
-		return jm;
-	}
-
-	/**
-	 * @return a JModel with the common built-ins
-	 */
-	private static JModel getbuiltIns_OWL() {
-		JModel jm = new JModel(JClass.OWL_CLASS, true);
-		addBuiltInsCommon(jm);
-		return jm;
-	}
-
 	public static JModel createFromRDFS_Schema(
 			Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
-		log.info("Schema has " + schemaDataModel.size() + " triples");
+
+		log.info("Input model has " + schemaDataModel.size() + " triples");
 
 		// enable RDFS inferencing
 		Model m = RDF2Go.getModelFactory().createModel( Reasoning.rdfs );
 		m.open();
 		m.addAll(schemaDataModel.iterator());
 		
-//		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
-//				.createRDFSModel(schemaDataModel);
-//		Model m = new ModelImplJena24(null, jenaModel);
-//		m.open();
-		return createFromRDFS(m, packagename, skipbuiltins);
-
-	}
-
-	private static String toJavaComment(String[] rdfComments) {
-		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < rdfComments.length; i++) {
-			buf.append(rdfComments[i]);
-			if (i + 1 < rdfComments.length) {
-				buf.append("\n");
-			}
-		}
-		return buf.toString();
-	}
-
-	/** create from RDF2Go model */
-	public static JModel createFromRDFS(Model m, String packagename,
-			boolean skipbuiltins) throws Exception {
-
 		// prepare JModel
 		log.debug("add build-ins");
-		JModel jm = getbuiltIns_RDFS();
+		JModel jm = Semantics.getbuiltIns_RDFS();
 		JPackage jp = new JPackage(packagename);
 		jm.getPackages().add(jp);
-		/**
-		 * local ontology root
-		 */
+
+		// set local ontology root
 		JClass localRoot = new JClass(jp, "Thing", RDFS.Class);
 		localRoot
 				.setComment("This class acts as a catch-all for all properties, for which no domain has specified.");
 		localRoot.addSuperclass(jm.getRoot());
 		jm.setRoot(localRoot);
 
+		
 		// process
 		log.debug("de-anonymizing (replacing bnodes with random uris");
-		deanonymize(m);
+		Utils.deanonymize(m);
 
 		// analysis (triggers also inferencing)
 		Class[] rdfclasses = Class.getAllInstances(m);
@@ -309,7 +99,7 @@ public class ModelGenerator {
 						+ rc.getResource() + " ...");
 				assert rc.getResource() instanceof URI : "A Class with a blank node ID makes not much sense";
 				JClass jc = new JClass(jp, classname, (URI) rc.getResource());
-				jc.setComment(toJavaComment(rc.getAllComment())); // might be
+				jc.setComment(Utils.toJavaComment(rc.getAllComment())); // might be
 				// null, ok.
 				jm.addMapping(rc.getResource(), jc);
 			}
@@ -359,7 +149,7 @@ public class ModelGenerator {
 								+ rp.getDomain().getResource();
 
 						// domainclass might be a built-in, redirect to root
-						if (getbuiltIns_RDFS().classMap
+						if (Semantics.getbuiltIns_RDFS().classMap
 								.containsValue(domainClass)) {
 							log
 									.info("domain "
@@ -390,7 +180,7 @@ public class ModelGenerator {
 	public static JModel createFromRDFS_AND_OWL(
 			Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
-		JModel jm = getbuiltIns_RDFS();
+		JModel jm = Semantics.getbuiltIns_RDFS();
 
 		Model m = RDF2Go.getModelFactory().createModel( Reasoning.rdfsAndOwl );
 		m.open();
@@ -401,7 +191,7 @@ public class ModelGenerator {
 //		Model m = new ModelImplJena24(null, jenaModel);
 //		m.open();
 
-		deanonymize(m);
+		Utils.deanonymize(m);
 
 		// add mapping from OWL to RDF
 		m.addStatement(OWL.Class, RDFS.subClassOf, RDFS.Class);
@@ -511,7 +301,7 @@ public class ModelGenerator {
 //		Model m = new ModelImplJena24(null, jenaModel);
 
 		log.debug("de-anonymizing");
-		deanonymize(m);
+		Utils.deanonymize(m);
 
 		log.debug("after inferencing, found " + m.size() + " statements");
 
@@ -524,7 +314,7 @@ public class ModelGenerator {
 
 		// bootstrapping?
 
-		JModel jm = ModelGenerator.getbuiltIns_OWL();
+		JModel jm = Semantics.getbuiltIns_OWL();
 		jm.addPackage(jp);
 
 		/**
@@ -554,7 +344,7 @@ public class ModelGenerator {
 				log.debug("skipping known class " + classURI);
 				// TODO add all XSD classes to default JModels and remove this
 				// check
-			} else if (classURI.toString().startsWith(NS_XSD)) {
+			} else if (classURI.toString().startsWith(Semantics.NS_XSD)) {
 				log.debug("skipping XML Schema class " + classURI);
 				// TODO: what is the purpose of this?
 			} else if (oc.getResource() instanceof BlankNode) {
@@ -688,13 +478,12 @@ public class ModelGenerator {
 
 		// obtain a nice Java-conform name which has not yet been used
 		String propertyName = JavaNamingUtils.toBeanName(rp,
-				domainClass.usedPropertynames);
-		domainClass.usedPropertynames.add(propertyName);
+				domainClass.getUsedPropertyNames());
 		assert propertyName != null;
 		JProperty jprop = new JProperty(domainClass, propertyName, (URI) rp
 				.getResource());
 		// carry over the comment from RDF to Java, might be null
-		jprop.setComment(toJavaComment(rp.getAllComment())); 
+		jprop.setComment(Utils.toJavaComment(rp.getAllComment())); 
 		log.debug("PROPERTY Adding '" + jprop.getName() + "' to '"
 				+ domainClass.getName() + "'");
 		jprop.getJClass().getProperties().add(jprop);
@@ -730,63 +519,5 @@ public class ModelGenerator {
 			jprop.setMaxCardinality(max);
 		}
 
-	}
-
-	/**
-	 * Remove all Statements with BlankNodes as Subjects or Objects from the
-	 * given RDF2Go model.
-	 * 
-	 * @param m -
-	 *            deanonymize this model
-	 * @throws Exception
-	 */
-	public static void deanonymize(Model m) throws Exception {
-		Iterator<Statement> it = m.iterator();
-		Map<BlankNode, URI> replacement = new HashMap<BlankNode, URI>();
-		Set<Statement> badStatements = new HashSet<Statement>();
-		Set<Statement> goodStatements = new HashSet<Statement>();
-		while (it.hasNext()) {
-			Statement s = it.next();
-			org.ontoware.rdf2go.model.node.Resource subject = s.getSubject();
-			if (s.getSubject() instanceof BlankNode) {
-				badStatements.add(s);
-				subject = toURI((BlankNode) subject, replacement);
-			}
-			Node object = s.getObject();
-			if (object instanceof BlankNode) {
-				badStatements.add(s);
-				object = toURI((BlankNode) object, replacement);
-			}
-			goodStatements.add(new StatementImpl(m.getContextURI(), subject, s
-					.getPredicate(), object));
-		}
-		for (Statement s : badStatements)
-			m.removeStatement(s);
-		for (Statement s : goodStatements)
-			m.addStatement(s);
-
-	}
-
-	/** counter used for toURI() */
-	private static long counter = 0;
-
-	/**
-	 * Generate a unique URI for a BlankNode and put the BlankNode/URI pair into
-	 * the given map.
-	 * 
-	 * @param blankNode -
-	 *            generate a URI for this BlankNode
-	 * @param replacement -
-	 *            Map of BlankNode/URI pairs
-	 * @return URI generated for the BlankNode
-	 */
-	private static URI toURI(BlankNode blankNode,
-			Map<BlankNode, URI> replacement) {
-		URI result = replacement.get(blankNode);
-		if (result == null)
-			result = new URIImpl("blank://" + counter++);
-		// TODO BlankNode identity might be too weak
-		replacement.put(blankNode, result);
-		return result;
 	}
 }
