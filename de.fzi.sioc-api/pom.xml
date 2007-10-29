@@ -4,8 +4,9 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.8</version>
+		<version>4.15.2</version>
 	</parent>
+
 	<groupId>de.fzi</groupId>
 	<artifactId>sioc-api</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
