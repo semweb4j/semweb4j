@@ -1,0 +1,71 @@
+/*
+ * LICENSE INFORMATION
+ * Copyright 2005-2007 by FZI (http://www.fzi.de).
+ * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
+ * <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
+ * <YEAR> = 2007
+ * 
+ * Project information at http://semweb4j.org/rdf2go
+ *
+ * Created on Nov 29, 2004
+ *
+ */
+package org.ontoware.rdf2go.vocabulary;
+
+import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.rdf2go.model.node.impl.URIImpl;
+
+/**
+ * RDFS vocabulary items as URIs
+ */
+public class RDFS {
+
+	/**
+	 * The RDF Schema Namespace
+	 */
+	public static final String RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
+
+	protected static final URI toURI(String local) {
+		return new URIImpl(RDFS_NS + local,false);
+	}
+
+	public static final URI Class = toURI("Class");
+
+	public static final URI Datatype = toURI("Datatype");
+
+	public static final URI ConstraintProperty = toURI("ConstraintProperty");
+
+	public static final URI Container = toURI("Container");
+
+	public static final URI ContainerMembershipProperty = toURI("ContainerMembershipProperty");
+
+	public static final URI ConstraintResource = toURI("ConstraintResource");
+
+	/** http://www.w3.org/2000/01/rdf-schema#Literal */
+	public static final URI Literal = toURI("Literal");
+
+	public static final URI XMLLiteral = toURI("XMLLiteral");
+
+	/** http://www.w3.org/2000/01/rdf-schema#Resource * */
+	public static final URI Resource = toURI("Resource");
+
+	public static final URI comment = toURI("comment");
+
+	public static final URI domain = toURI("domain");
+
+	public static final URI label = toURI("label");
+
+	public static final URI isDefinedBy = toURI("isDefinedBy");
+
+	public static final URI range = toURI("range");
+
+	public static final URI seeAlso = toURI("seeAlso");
+
+	public static final URI subClassOf = toURI("subClassOf");
+
+	public static final URI subPropertyOf = toURI("subPropertyOf");
+
+	public static final URI member = toURI("member");
+
+}
