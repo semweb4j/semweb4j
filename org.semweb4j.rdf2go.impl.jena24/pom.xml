@@ -91,6 +91,14 @@
 			<version>4.5.0</version>
 		</dependency>
 
+		<!-- OSGi -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>osgi</artifactId>
+			<version>3.2.1.R32</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<!--  mvn install:install-file -Dfile=jena.jar -DgroupId=net.sourceforge.jena -DartifactId=jena -Dversion=2.4 -Dpackaging=jar		
 				
