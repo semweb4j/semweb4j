@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -12,7 +10,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena24</artifactId>
 	<name>RDF2Go Jena 2.4 Adapter</name>
-	<version>4.5.0-SNAPSHOT</version>
+	<version>4.5.0</version>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.4
 	</description>
@@ -163,4 +161,10 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.5.0</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.5.0</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.impl.jena24-4.5.0</url>
+  </scm>
 </project>
