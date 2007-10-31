@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.4.13-SNAPSHOT</version>
+	<version>4.4.13</version>
 	<packaging>jar</packaging>
 
 	<name>RDFReactor code generator</name>
