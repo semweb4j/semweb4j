@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.dist</artifactId>
-	<version>4.5.0</version>
+	<version>4.5.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDF2Go distribution</name>
@@ -126,10 +126,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.dist-4.5.0</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.dist-4.5.0</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.dist-4.5.0</url>
-  </scm>
 </project>
