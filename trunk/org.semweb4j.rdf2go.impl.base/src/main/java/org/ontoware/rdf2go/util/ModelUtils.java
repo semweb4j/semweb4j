@@ -242,7 +242,12 @@ public class ModelUtils {
 	 * @return a model with the content from 'in'. Model is open.
 	 * @throws ModelRuntimeException
 	 * @throws IOException
+	 * @deprecated This method creates new models via RDF2Go. If multiple model
+	 *             factories are used, this might be wrong. Use instead public
+	 *             static void loadFromFile(File in, Syntax inSyntax, Model
+	 *             sinkModel)
 	 */
+	@Deprecated
 	public static Model loadFromFile(File in, Syntax inSyntax)
 			throws ModelRuntimeException, IOException {
 		Model model = RDF2Go.getModelFactory().createModel();
@@ -250,6 +255,27 @@ public class ModelUtils {
 		FileInputStream fin = new FileInputStream(in);
 		model.readFrom(fin, inSyntax);
 		return model;
+	}
+
+	/**
+	 * Convenience method to load data from file in in syntax inSyntax and write
+	 * loaded triples to sinkModel.
+	 * 
+	 * @param in
+	 * @param inSyntax
+	 * @param sinkModel
+	 *            where to write the loaded content. This model is not cleared.
+	 *            This model should be open.
+	 * @return
+	 * @throws ModelRuntimeException
+	 * @throws IOException
+	 */
+	public static void loadFromFile(File in, Syntax inSyntax, Model sinkModel)
+			throws ModelRuntimeException, IOException {
+		if (!sinkModel.isOpen())
+			throw new IllegalArgumentException("SinkModel must be open");
+		FileInputStream fin = new FileInputStream(in);
+		sinkModel.readFrom(fin, inSyntax);
 	}
 
 	public static void writeToFile(Model model, File outFile, Syntax outSyntax)

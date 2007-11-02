@@ -18,10 +18,8 @@ import org.ontoware.rdf2go.model.Model;
  * 
  * @author voelkel
  * 
+ * This interface is a shorthand for Persistent and Model.
  */
 public interface PersistentModel extends Persistent, Model {
-	
-	// TODO (xamde from wth, 11.07.2007) WHY DOES THIS EMPTY CLASS EXIST?  
-	//if this is fine, please document why
 
 }
