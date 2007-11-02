@@ -24,7 +24,8 @@ import org.ontoware.rdf2go.model.node.URI;
  * @author Leo Sauermann
  */
 public interface Model extends ModelValueFactory, ModelAddRemove,
-		ModelRemovePatterns, QueryableModel, ModelIO, Commitable, ReificationSupport {
+		ModelRemovePatterns, QueryableModel, ModelIO, Commitable,
+		ReificationSupport {
 
 	/**
 	 * @return the context URI or null
@@ -48,13 +49,17 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	boolean isOpen();
 
 	/**
-	 * The number of explicit statements. Statements that are inferred using
-	 * backward-chaining are per definition not in this number, and also some
-	 * inferred stateemtns may or may be not part of ths size, depending on the
-	 * implementation of the model. If a new triple is added to the model, the
-	 * size must increase.
+	 * For plain models without any inference, this is the exact number of
+	 * explicit statements.
 	 * 
-	 * @return the number of statements in the model
+	 * For models with inference, this number may be anything between the number
+	 * of explicit statements up to the number of all inferrable statements plus
+	 * the number of explicit statements.
+	 * 
+	 * For both cases: If one new triple is added to the model, the size must
+	 * increase at least one.
+	 * 
+	 * @return the (imprecise?) number of statements in the model (see comment)
 	 * @throws ModelRuntimeException
 	 */
 	long size() throws ModelRuntimeException;
@@ -64,8 +69,7 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	 *         the same as size() == 0, but might be faster.
 	 */
 	boolean isEmpty();
-	
-	
+
 	// //////////////
 	// Manipulate underlying impl
 
