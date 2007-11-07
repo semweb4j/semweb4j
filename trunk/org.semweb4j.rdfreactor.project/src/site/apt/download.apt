@@ -1,31 +1,30 @@
                          --------
                    download distribution
                          --------
-                        update 18.09.2007
+                        07.11.2007
                          --------
-                     Werner Thiemann
+                     Max Völkel
                          --------
 
-Release
+Releases
 
-  Latest release is 4.4.8, you can get it here:
+  Latest releases are here {{{http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/}}}
   
-  * {{{http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/4.4.8/rdfreactor.dist-4.4.8.zip}including all libs}}
+  * .zip - including all libs
   
-  * {{{http://semweb4j.org/repo/org/semweb4j/rdfreactor.dist/4.4.8/rdfreactor.dist-4.4.8.pom}maven2 pom }} recommended
+  * .jar - jar only
   
+  * .pom - Maven2 pom}                         
+
   []
   
   You can also get the current (possibly unstable) sources from the svn 
   repository: {{{http://semweb4j.googlecode.com/svn/trunk/}semweb4j svn}} 
-
-  There are no older releases available. Please use the current
-  version to get the most out of RDFReactor.
-
+  
+  Higher numbers are more recent releases.
 
 Changelog
 
   The change logs can be found in the report section of each package.
-  {{{../rdfreactor/changes-report.html} Top level changes (not available yet)}}
     
 ~~ http://maven.apache.org/guides/mini/guide-apt-format.html
