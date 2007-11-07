@@ -20,7 +20,7 @@ import org.ontoware.rdfreactor.generator.java.JModel;
  */
 public class CodeGenerator {
 
-	public static final String GENERATOR_VERSION = "$Id: CodeGenerator.java 785 2007-05-31 15:47:01Z voelkel $";
+	public static final String GENERATOR_VERSION = "$Id$";
 
 	private static Log log = LogFactory.getLog(CodeGenerator.class);
 
