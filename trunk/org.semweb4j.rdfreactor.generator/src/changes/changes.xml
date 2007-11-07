@@ -5,26 +5,37 @@
 	</properties>
 	<body>
 
-		<release version="4.4.12" description="Dependeny update" date="2007-10-29">
+		<release version="4.4.14" description="@@" date="@@">
+			<action dev="xamde" type="update">
+				Fixed version-Id in generated code - now it's alwys
+				current. By setting 'svn-keywords' to 'Id'.
+			</action>
+		</release>
+
+		<release version="4.4.12" description="Dependeny update"
+			date="2007-10-29">
 			<action dev="xamde" type="fix" issue="REAC-15">
 				Now property names are unique withing the inheritance
 				hierarchy (was only within class before)
 			</action>
 		</release>
 
-		<release version="4.4.11" description="Dependeny update" date="2007-10-02">
+		<release version="4.4.11" description="Dependeny update"
+			date="2007-10-02">
 			<action dev="xamde" type="update">
 				Migration to rdfreactor.runtime 4.4.12
 			</action>
 		</release>
 
-		<release version="4.4.10" description="Bug fixes" date="2007-09-03">
+		<release version="4.4.10" description="Bug fixes"
+			date="2007-09-03">
 			<action dev="xamde" type="fix" issue="REAC-13">
 				Generation from OWL had a bug.
 			</action>
 		</release>
 
-		<release version="4.4.9" description="Generated code change" date="2007-08-10">
+		<release version="4.4.9" description="Generated code change"
+			date="2007-08-10">
 			<action dev="xamde" type="update">
 				xsd:dateTime types now result in java.util.Calendat, not
 				Date. This ensures always tim zone information, which is
@@ -66,13 +77,13 @@
 				Aligned with RDF2Go/RDFReactor runtime 4.4.5 releases.
 			</action>
 		</release>
-		
+
 		<release version="4.4.2">
 			<action dev="xamde" type="add">
 				Now ignores owl:DeprecatedProperties
 			</action>
 		</release>
-		
+
 		<release version="4.3.1">
 			<action dev="xamde" type="add">
 				Added support for owl:cardinality
