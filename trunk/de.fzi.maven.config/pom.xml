@@ -151,7 +151,7 @@
 				<version>2.0-beta-5</version>
 			</plugin>
 
-			<!-- build source packages for jars and test jars 
+			<!-- build source packages for jars (but not for test jars) 
 				http://garbuz.com/sm/content.php/articles/maven2_deploying_sources/ -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -160,18 +160,6 @@
 					<execution>
 						<goals>
 							<goal>jar</goal>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
 						</goals>
 					</execution>
 				</executions>
