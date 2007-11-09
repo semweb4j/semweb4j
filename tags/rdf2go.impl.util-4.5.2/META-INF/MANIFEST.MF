@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RDF2Go implementation abstract base classes
+Bundle-SymbolicName: org.semweb4j.rdf2go.impl.base
+Bundle-Version: 4.4.2.SNAPSHOT
+Bundle-Localization: plugin
+Bundle-Vendor: FZI
+Require-Bundle: org.semweb4j.rdf2go.api
+Import-Package: org.apache.commons.logging
+Export-Package: org.ontoware.rdf2go.impl,
+ org.ontoware.rdf2go.model.impl,
+ org.ontoware.rdf2go.model.node.impl,
+ org.ontoware.rdf2go.util
