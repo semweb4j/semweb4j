@@ -119,7 +119,7 @@
 			<name>RDFReactor site</name>
 			<!--  mvn creates new dirs if necessary -->
 			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.base
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.util
 			</url>
 		</site>
 	</distributionManagement>
