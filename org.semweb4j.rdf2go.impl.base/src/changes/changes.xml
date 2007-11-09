@@ -6,14 +6,22 @@
 	</properties>
 	<body>
 
-		<release version="4.5.2" date="@@">
+		<release version="4.5.2" date="2007-11-09"
+			description="Bug fix">
 			<action dev="xamde" type="update">
 				Added support for commit()/setAutocommit() in
 				DelegatingModel.
 			</action>
+			<action dev="xamde" type="update">
+				Moved 'org.semweb4j.rdf2go.util' package to its own
+				project (jar) to allow for independent evolution - 'util'
+				was often evolving much faster than the rest, causing
+				unnecessary releases of RDF2Go adapters. Adapters do not
+				depend on 'util'.
+			</action>
 		</release>
 
-		<release version="4.5.1" date="2007-11-02">
+		<release version="4.5.1" date="2007-11-02" description="Minor changes">
 			<action dev="xamde" type="update">
 				Improved rdf2go.util.ModelUtils.load... methods
 			</action>
