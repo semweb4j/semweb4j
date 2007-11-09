@@ -32,8 +32,6 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.testdata.TestData;
-import org.ontoware.rdf2go.util.Iterators;
-import org.ontoware.rdf2go.util.ModelUtils;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
 import org.slf4j.Logger;
@@ -48,32 +46,41 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractModelSetTest extends TestCase {
 	
-	Logger log = LoggerFactory.getLogger(AbstractModelSetTest.class);
+	public static URI a = new URIImpl("test://test/a");
 
 	// TODO test new open() policies
+
+	public static URI b = new URIImpl("test://test/b");
+
+	public static URI c = new URIImpl("test://test/c");
+
+	public static URI dt = new URIImpl("test://somedata/dt");
 
 	public static URI graphuri1 = new URIImpl("urn:first");
 
 	public static URI graphuri2 = new URIImpl("urn:second");
+
+	public static URI object = new URIImpl("test://test/c");
+
+	public static URI predicate = new URIImpl("test://test/b");
+
+	public static URI subject = new URIImpl("test://test/a");
 
 	/**
 	 * there are two graphs in the default test data
 	 */
 	public static int TESTGRAPHCOUNT = 2;
 
-	public static URI a = new URIImpl("test://test/a");
+	public static <T> ArrayList<T> asArrayListAndClose( ClosableIterator<T> it) {
+		ArrayList<T> result = new ArrayList<T>();
+		while (it.hasNext()) {
+			result.add(it.next());
+		}
+		it.close();
+		return result;
+	}
 
-	public static URI b = new URIImpl("test://test/b");
-
-	public static URI c = new URIImpl("test://test/c");
-
-	public static URI subject = new URIImpl("test://test/a");
-
-	public static URI predicate = new URIImpl("test://test/b");
-
-	public static URI object = new URIImpl("test://test/c");
-
-	public static URI dt = new URIImpl("test://somedata/dt");
+	Logger log = LoggerFactory.getLogger(AbstractModelSetTest.class);
 
 	protected ModelSet modelset = null;
 
@@ -156,7 +163,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		ModelSet target = getModelFactory().createModelSet();
 		target.open();
 
-		ModelUtils.copy(this.modelset, target);
+		TestUtils.copy(this.modelset, target);
 		assertEquals(this.modelset.size(), target.size());
 		target.close();
 	}
@@ -183,7 +190,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		Model m = this.modelset.getDefaultModel();
 		m.open();
 		assertEquals("the default model has foaf", 536, m.size());
-		int sizeByIterator = ModelUtils.size(m);
+		int sizeByIterator = TestUtils.countAndClose(m);
 		assertEquals("the default model can use an iterator", 536,
 				sizeByIterator);
 		m.close();
@@ -196,7 +203,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		// zugreifbared modell mit dem context "null" steckt. Aber wenn man ein
 		// model
 		// mti "null" macht, ist es leer. Da stimmt was nicht mit sesame.
-		ModelUtils.copy(this.modelset, target);
+		TestUtils.copy(this.modelset, target);
 
 		assertEquals(this.modelset.size(), target.size());
 		m.close();
@@ -301,18 +308,10 @@ public abstract class AbstractModelSetTest extends TestCase {
 		model.addStatement(subject, predicate, object);
 		ModelSet m = getModelFactory().createModelSet();
 		m.open();
-		ModelUtils.copy(this.modelset, m);
+		TestUtils.copy(this.modelset, m);
 		assertEquals("copied all from source to target", this.modelset.size(),
 				m.size());
 		m.close();
-	}
-
-	@Test
-	public void testCreateURI() throws ModelRuntimeException {
-		this.modelset = getModelFactory().createModelSet();
-		this.modelset.open();
-		URI u = this.modelset.createURI("urn:test:x");
-		assertNotNull(u);
 	}
 
 	@Test
@@ -323,6 +322,14 @@ public abstract class AbstractModelSetTest extends TestCase {
 		Statement s = modelset.createStatement(a, b, c);
 		assertEquals(s, new StatementImpl(null, a, b, c));
 
+	}
+
+	@Test
+	public void testCreateURI() throws ModelRuntimeException {
+		this.modelset = getModelFactory().createModelSet();
+		this.modelset.open();
+		URI u = this.modelset.createURI("urn:test:x");
+		assertNotNull(u);
 	}
 
 	@Test
@@ -459,12 +466,13 @@ public abstract class AbstractModelSetTest extends TestCase {
 		this.modelset = getModelFactory().createModelSet();
 		this.modelset.open();
 		addTestDataToModelSet();
-		ClosableIterator<? extends Model> i = modelset.getModels();
-		ArrayList<Model> m = new ArrayList<Model>();
-		Iterators.addAll(i, m);
+		ClosableIterator<Model> i = modelset.getModels();
+		ArrayList<Model> m = asArrayListAndClose(i);
 		assertEquals(TESTGRAPHCOUNT, m.size());
-		i.close();
 	}
+
+	// TODO (wth, 15.08.2007) should all this tests which state: "write test
+	// here" be written? yes
 
 	@Test
 	public void testGetModelURIs() throws Exception {
@@ -475,16 +483,11 @@ public abstract class AbstractModelSetTest extends TestCase {
 		ArrayList<URI> test = new ArrayList<URI>();
 		test.add(graphuri1);
 		test.add(graphuri2);
-		ArrayList<URI> uris = new ArrayList<URI>();
-		Iterators.addAll(l, uris);
+		ArrayList<URI> uris = asArrayListAndClose(l);
 		assertEquals(2, uris.size());
 		test.removeAll(uris);
 		assertEquals(0, test.size());
-		l.close();
 	}
-
-	// TODO (wth, 15.08.2007) should all this tests which state: "write test
-	// here" be written? yes
 
 	@Test
 	public void testGetUnderlyingModelSetImplementation() {
@@ -492,7 +495,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		this.modelset.open();
 		assertNotNull(this.modelset.getUnderlyingModelSetImplementation());
 	}
-
+	
 	@Test
 	public void testLoadDataIntoDefaultModel() throws Exception {
 		this.modelset = getModelFactory().createModelSet();
@@ -505,8 +508,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertTrue(def.isOpen());
 		assertNotNull(def);
 		assertTrue("default model has something", def.size() > 10);
-		ArrayList<URI> uris = new ArrayList<URI>();
-		Iterators.addAll(this.modelset.getModelURIs(), uris);
+		ArrayList<URI> uris = asArrayListAndClose(this.modelset.getModelURIs());
 		assertEquals("default model has no context uri", 0, uris.size());
 		def.close();
 	}
@@ -591,11 +593,9 @@ public abstract class AbstractModelSetTest extends TestCase {
 		m.open();
 		assertEquals("the default model has foaf", 536, m.size());
 
-		ClosableIterator<Statement> i = m.iterator();
-		int sizeByIterator = ModelUtils.size(i);
+		int sizeByIterator = TestUtils.countAndClose(m);
 		assertEquals("the default model can use an iterator", 536,
 				sizeByIterator);
-		i.close();
 	}
 
 	@Test
@@ -616,7 +616,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		// assertEquals("The modelset contains exactly loaded triples.",
 		// TestData.FOAF_SIZE + TestData.ICALSIZE, this.modelset.size());
 		// the modelset loads into the named graph
-		int modelcount = ModelUtils.size(this.modelset.getModels());
+		int modelcount = TestUtils.countAndClose(this.modelset.getModels());
 		assertEquals("there are two models", 2, modelcount);
 		// no default model
 		m = this.modelset.getDefaultModel();
@@ -630,11 +630,9 @@ public abstract class AbstractModelSetTest extends TestCase {
 		assertEquals("the named graph model has foaf", TestData.FOAFSIZE, m
 				.size());
 		// at some point, iterators were broken here, so test if it returns one
-		ClosableIterator<Statement> i = m.iterator();
-		int sizeByIterator = ModelUtils.size(i);
+		int sizeByIterator = TestUtils.countAndClose(m);
 		assertEquals("the model supports iterators", TestData.FOAFSIZE,
 				sizeByIterator);
-		i.close();
 		m.close();
 
 		// get the named model2
@@ -788,7 +786,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 				.sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
 						+ "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 						+ "construct {?s rdf:type ?o} where {?s rdf:type ?o}");
-		int size = ModelUtils.size(i);
+		int size = TestUtils.countAndClose(i);
 		assertEquals("sparql construct works getting types", 395, size);
 	}
 
@@ -897,4 +895,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 		// TODO write test
 	}
 
+	
+	
+	
 }
