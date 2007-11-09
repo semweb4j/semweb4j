@@ -6,9 +6,16 @@
 	</properties>
 	<body>
 
+		<release version="4.5.2" date="@@">
+			<action dev="xamde" type="update">
+				Added support for commit()/setAutocommit() in
+				DelegatingModel.
+			</action>
+		</release>
+
 		<release version="4.5.1" date="2007-11-02">
 			<action dev="xamde" type="update">
-			    Improved rdf2go.util.ModelUtils.load... methods
+				Improved rdf2go.util.ModelUtils.load... methods
 			</action>
 		</release>
 
