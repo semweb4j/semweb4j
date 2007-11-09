@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="4.5.2" description="Dependency update"
+			date="2007-11-09">
+			<action dev="xamde" type="update">
+				Migration to latest RDF2Go 4.5.x
+			</action>
+		</release>
+
 		<release version="4.4.9" description="Dependency update"
 			date="2007-10-01">
 			<action dev="xamde" type="update">
