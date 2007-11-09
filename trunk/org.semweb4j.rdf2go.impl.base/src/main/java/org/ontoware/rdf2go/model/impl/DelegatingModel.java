@@ -51,24 +51,22 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel = model;
 	}
 
-	public Model getDelegatedModel() {
-		return this.delegatedModel;
-	}
-
-	protected void setDelegatedModel(Model model) {
-		this.delegatedModel = model;
-	}
-
 	@Override
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		this.delegatedModel.addAll(other);
 	}
-
+	
 	@Override
 	public void addStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
 		this.delegatedModel.addStatement(subject, predicate, object);
+	}
+
+	@Override
+	public void addStatement(Resource subject, URI predicate, String literal)
+			throws ModelRuntimeException {
+		this.delegatedModel.addStatement(subject, predicate, literal);
 	}
 
 	@Override
@@ -84,14 +82,14 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void addStatement(Resource subject, URI predicate, String literal)
-			throws ModelRuntimeException {
-		this.delegatedModel.addStatement(subject, predicate, literal);
+	public void addStatement(Statement statement) throws ModelRuntimeException {
+		this.delegatedModel.addStatement(statement);
 	}
 
 	@Override
-	public void addStatement(Statement statement) throws ModelRuntimeException {
-		this.delegatedModel.addStatement(statement);
+	public void addStatement(String subjectURIString, URI predicate,
+			String literal) throws ModelRuntimeException {
+		this.delegatedModel.addStatement(subjectURIString, predicate, literal);
 	}
 
 	@Override
@@ -107,9 +105,13 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void addStatement(String subjectURIString, URI predicate,
-			String literal) throws ModelRuntimeException {
-		this.delegatedModel.addStatement(subjectURIString, predicate, literal);
+	public void close() {
+		this.delegatedModel.close();
+	}
+
+	@Override
+	public void commit() {
+		this.delegatedModel.commit();
 	}
 
 	@Override
@@ -123,14 +125,17 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.createBlankNode();
 	}
 
+	public BlankNode createBlankNode(String internalID) {
+		return delegatedModel.createBlankNode(internalID);
+	}
+
 	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
 		return this.delegatedModel.createURI(uriString);
 	}
 
-	@Override
-	public Object getProperty(URI propertyURI) {
-		return this.delegatedModel.getProperty(propertyURI);
+	public void dump() {
+		this.delegatedModel.dump();
 	}
 
 	public ClosableIterator<Statement> findStatements(
@@ -140,17 +145,103 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
+	public ClosableIterator<Statement> findStatements(
+			TriplePattern pattern) throws ModelRuntimeException {
+		return this.delegatedModel.findStatements(pattern);
+	}
+
+	public URI getContextURI() {
+		return this.delegatedModel.getContextURI();
+	}
+
+	public Model getDelegatedModel() {
+		return this.delegatedModel;
+	}
+
+	@Override
+	public Diff getDiff(Iterator<? extends Statement> other)
+			throws ModelRuntimeException {
+		return this.delegatedModel.getDiff(other);
+	}
+
+	@Override
+	public Object getProperty(URI propertyURI) {
+		return this.delegatedModel.getProperty(propertyURI);
+	}
+
+	@Override
 	public Object getUnderlyingModelImplementation() {
 		return this.delegatedModel.getUnderlyingModelImplementation();
+	}
+
+	public boolean isEmpty() {
+		return delegatedModel.isEmpty();
+	}
+
+	public boolean isIsomorphicWith(Model other) {
+		return this.delegatedModel.isIsomorphicWith(other);
+	}
+
+	public boolean isLocked() {
+		return this.delegatedModel.isLocked();
+	}
+
+	@Override
+	public boolean isOpen() {
+		return this.delegatedModel.isOpen();
+	}
+
+	public boolean isValidURI(String uriString) {
+		return this.delegatedModel.isValidURI(uriString);
 	}
 
 	public ClosableIterator<Statement> iterator() {
 		return this.delegatedModel.iterator();
 	}
 
+	public void lock() throws LockException {
+		this.delegatedModel.lock();
+	}
+
 	@Override
 	public URI newRandomUniqueURI() {
 		return this.delegatedModel.newRandomUniqueURI();
+	}
+
+	@Override
+	public void open() {
+		this.delegatedModel.open();
+	}
+
+	@Override
+	public ClosableIterable<Statement> queryConstruct(String query,
+			String querylanguage) throws QueryLanguageNotSupportedException,
+			ModelRuntimeException {
+		return this.delegatedModel.queryConstruct(query, querylanguage);
+	}
+
+	@Override
+	public QueryResultTable querySelect(String query, String querylanguage)
+			throws QueryLanguageNotSupportedException, ModelRuntimeException {
+		return this.delegatedModel.querySelect(query, querylanguage);
+	}
+
+	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
+		this.delegatedModel.readFrom(in);
+	}
+
+	@Override
+	public void readFrom(InputStream reader, Syntax syntax) throws IOException,
+			ModelRuntimeException {
+		this.delegatedModel.readFrom(reader, syntax);
+	}
+
+	public void readFrom(Reader r) throws IOException, ModelRuntimeException {
+		this.delegatedModel.readFrom(r);
+	}
+
+	public void readFrom(Reader reader, Syntax syntax) throws ModelRuntimeException, IOException {
+		this.delegatedModel.readFrom(reader, syntax);
 	}
 
 	@Override
@@ -165,35 +256,15 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void removeStatement(Statement statement) throws ModelRuntimeException {
-		this.delegatedModel.removeStatement(statement);
-	}
-
-	@Override
-	public void setProperty(URI propertyURI, Object value) {
-		this.delegatedModel.setProperty(propertyURI, value);
-	}
-
-	@Override
-	public long size() throws ModelRuntimeException {
-		return this.delegatedModel.size();
-	}
-
-	public ClosableIterable<Statement> sparqlConstruct(String query)
-			throws ModelRuntimeException {
-		return this.delegatedModel.sparqlConstruct(query);
-	}
-
-	public QueryResultTable sparqlSelect(String queryString)
-			throws ModelRuntimeException {
-		log.debug("SPARQL query: " + queryString);
-		return this.delegatedModel.sparqlSelect(queryString);
-	}
-
-	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object)
 			throws ModelRuntimeException {
 		this.delegatedModel.removeStatement(subject, predicate, object);
+	}
+
+	@Override
+	public void removeStatement(Resource subject, URI predicate, String literal)
+			throws ModelRuntimeException {
+		this.delegatedModel.removeStatement(subject, predicate, literal);
 	}
 
 	@Override
@@ -209,9 +280,14 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void removeStatement(Resource subject, URI predicate, String literal)
-			throws ModelRuntimeException {
-		this.delegatedModel.removeStatement(subject, predicate, literal);
+	public void removeStatement(Statement statement) throws ModelRuntimeException {
+		this.delegatedModel.removeStatement(statement);
+	}
+
+	@Override
+	public void removeStatement(String subjectURIString, URI predicate,
+			String literal) throws ModelRuntimeException {
+		this.delegatedModel.removeStatement(subjectURIString, predicate, literal);
 	}
 
 	@Override
@@ -231,15 +307,29 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void removeStatement(String subjectURIString, URI predicate,
-			String literal) throws ModelRuntimeException {
-		this.delegatedModel.removeStatement(subjectURIString, predicate, literal);
+	public void removeStatements(ResourceOrVariable subject,
+			UriOrVariable predicate, NodeOrVariable object)
+			throws ModelRuntimeException {
+		this.delegatedModel.removeStatements(subject, predicate, object);
 	}
 
 	@Override
-	public Diff getDiff(Iterator<? extends Statement> other)
-			throws ModelRuntimeException {
-		return this.delegatedModel.getDiff(other);
+	public void setAutocommit( boolean autocommit) {
+		this.delegatedModel.setAutocommit(autocommit);
+	}
+
+	protected void setDelegatedModel(Model model) {
+		this.delegatedModel = model;
+	}
+
+	@Override
+	public void setProperty(URI propertyURI, Object value) {
+		this.delegatedModel.setProperty(propertyURI, value);
+	}
+
+	@Override
+	public long size() throws ModelRuntimeException {
+		return this.delegatedModel.size();
 	}
 
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
@@ -247,73 +337,33 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return result;
 	}
 
+	public ClosableIterable<Statement> sparqlConstruct(String query)
+			throws ModelRuntimeException {
+		return this.delegatedModel.sparqlConstruct(query);
+	}
+
 	public ClosableIterable<Statement> sparqlDescribe(String query)
 			throws ModelRuntimeException {
 		return this.delegatedModel.sparqlDescribe(query);
 	}
-
+	
+	public QueryResultTable sparqlSelect(String queryString)
+			throws ModelRuntimeException {
+		log.debug("SPARQL query: " + queryString);
+		return this.delegatedModel.sparqlSelect(queryString);
+	}
+	
+	public void unlock() {
+		this.delegatedModel.unlock();
+	}
+	
 	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
 		this.delegatedModel.update(diff);
 	}
 
-	public void lock() throws LockException {
-		this.delegatedModel.lock();
-	}
-
-	public boolean isLocked() {
-		return this.delegatedModel.isLocked();
-	}
-
-	public void unlock() {
-		this.delegatedModel.unlock();
-	}
-
-	public URI getContextURI() {
-		return this.delegatedModel.getContextURI();
-	}
-
-	public void readFrom(Reader r) throws IOException, ModelRuntimeException {
-		this.delegatedModel.readFrom(r);
-	}
-
-	public void writeTo(Writer w) throws IOException, ModelRuntimeException {
-		this.delegatedModel.writeTo(w);
-	}
-
-	public void dump() {
-		this.delegatedModel.dump();
-	}
-
-	@Override
-	public ClosableIterator<Statement> findStatements(
-			TriplePattern pattern) throws ModelRuntimeException {
-		return this.delegatedModel.findStatements(pattern);
-	}
-
-	@Override
-	public void removeStatements(ResourceOrVariable subject,
-			UriOrVariable predicate, NodeOrVariable object)
-			throws ModelRuntimeException {
-		this.delegatedModel.removeStatements(subject, predicate, object);
-	}
-
-	public void readFrom(Reader reader, Syntax syntax) throws ModelRuntimeException, IOException {
-		this.delegatedModel.readFrom(reader, syntax);
-	}
-
-	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException, IOException {
-		this.delegatedModel.writeTo(writer, syntax);
-	}
-
-	@Override
-	public void readFrom(InputStream reader, Syntax syntax) throws IOException,
-			ModelRuntimeException {
-		this.delegatedModel.readFrom(reader, syntax);
-	}
-
-	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
-		this.delegatedModel.readFrom(in);
+	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
+		this.delegatedModel.writeTo(out);
 	}
 
 	@Override
@@ -322,52 +372,12 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.writeTo(out, syntax);
 	}
 
-	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
-		this.delegatedModel.writeTo(out);
+	public void writeTo(Writer w) throws IOException, ModelRuntimeException {
+		this.delegatedModel.writeTo(w);
 	}
 
-	@Override
-	public ClosableIterable<Statement> queryConstruct(String query,
-			String querylanguage) throws QueryLanguageNotSupportedException,
-			ModelRuntimeException {
-		return this.delegatedModel.queryConstruct(query, querylanguage);
-	}
-
-	@Override
-	public QueryResultTable querySelect(String query, String querylanguage)
-			throws QueryLanguageNotSupportedException, ModelRuntimeException {
-		return this.delegatedModel.querySelect(query, querylanguage);
-	}
-	
-	@Override
-	public boolean isOpen() {
-		return this.delegatedModel.isOpen();
-	}
-	
-	@Override
-	public void open() {
-		this.delegatedModel.open();
-	}
-	
-	@Override
-	public void close() {
-		this.delegatedModel.close();
-	}
-
-	public boolean isIsomorphicWith(Model other) {
-		return this.delegatedModel.isIsomorphicWith(other);
-	}
-
-	public boolean isValidURI(String uriString) {
-		return this.delegatedModel.isValidURI(uriString);
-	}
-
-	public boolean isEmpty() {
-		return delegatedModel.isEmpty();
-	}
-
-	public BlankNode createBlankNode(String internalID) {
-		return delegatedModel.createBlankNode(internalID);
+	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException, IOException {
+		this.delegatedModel.writeTo(writer, syntax);
 	}
 
 }
