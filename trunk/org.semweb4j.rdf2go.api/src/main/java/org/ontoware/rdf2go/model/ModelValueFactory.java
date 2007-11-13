@@ -28,14 +28,16 @@ import org.ontoware.rdf2go.model.node.URI;
 public interface ModelValueFactory {
 
 	/**
+	 * Create (but do not add) a new blank node
 	 * @return a new blank node
 	 */
 	BlankNode createBlankNode();
 
 	/**
-	 * @param internalID
-	 * @return a BlankNode with the given internal ID. The id should be one
+	 * Create a new blank node with the given internal ID. The id should be one
 	 *         returned from BlankNode.getInternalID().
+	 * @param internalID
+	 * @return a BlankNode with the given internal ID. 
 	 * @throws UnsupportedOperationException
 	 *             if the underlying store cannot create BlankNodes from IDs.
 	 * @throws IllegalArgumentException
@@ -53,12 +55,14 @@ public interface ModelValueFactory {
 	URI createURI(String uriString) throws IllegalArgumentException;
 
 	/**
+	 * CHecks URI for syntax errors.
 	 * @param uriString
 	 * @return true if the URI is valid for the given implementation
 	 */
 	boolean isValidURI(String uriString);
 
 	/**
+	 * Create a new plain literal
 	 * @param literal
 	 * @return a PlainLiteral
 	 */
@@ -85,6 +89,7 @@ public interface ModelValueFactory {
 			throws ModelRuntimeException;
 
 	/**
+	 * Create a new statement - but DOES NOT add it to the model
 	 * @param subject
 	 * @param predicate
 	 * @param object
@@ -94,7 +99,7 @@ public interface ModelValueFactory {
 
 	/**
 	 * Implementations are free to choose if their semantics are unique within
-	 * the this model, the modelset, or unique in the universe
+	 * the this model, the ModelSet, or unique in the universe
 	 * 
 	 * @return a new, unique URI
 	 */
