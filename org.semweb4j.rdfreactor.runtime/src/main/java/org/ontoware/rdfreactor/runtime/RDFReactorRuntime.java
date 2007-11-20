@@ -20,6 +20,7 @@ import org.ontoware.rdfreactor.runtime.converter.IntegerConverter;
 import org.ontoware.rdfreactor.runtime.converter.JavaNetUriConverter;
 import org.ontoware.rdfreactor.runtime.converter.LongConverter;
 import org.ontoware.rdfreactor.runtime.converter.NodeConverter;
+import org.ontoware.rdfreactor.runtime.converter.ResourceConverter;
 import org.ontoware.rdfreactor.runtime.converter.ShortConverter;
 import org.ontoware.rdfreactor.runtime.converter.StringConverter;
 import org.ontoware.rdfreactor.runtime.converter.UriConverter;
@@ -37,6 +38,8 @@ public class RDFReactorRuntime {
 		// rdf2go types
 		registerConverter(org.ontoware.rdf2go.model.node.Node.class,
 				new NodeConverter());
+		registerConverter(org.ontoware.rdf2go.model.node.Resource.class,
+				new ResourceConverter());
 		registerConverter(org.ontoware.rdf2go.model.node.URI.class,
 				new UriConverter());
 
