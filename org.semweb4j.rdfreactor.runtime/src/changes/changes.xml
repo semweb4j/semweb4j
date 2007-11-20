@@ -7,7 +7,7 @@
 
 
 		<release version="4.4.12" description="API extension"
-			date="2007-11-20 or later">
+			date="2007-11-20">
 			<action dev="xamde" type="add">
 				Added Base, a lightweight runtime base with static
 				methods.
