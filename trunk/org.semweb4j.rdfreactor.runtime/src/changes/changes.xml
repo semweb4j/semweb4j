@@ -5,7 +5,23 @@
 	</properties>
 	<body>
 
-		<release version="4.4.12" description="dependency update" date="2007-10-01">
+
+		<release version="4.4.12" description="API extension"
+			date="2007-11-20 or later">
+			<action dev="xamde" type="add">
+				Added Base, a lightweight runtime base with static
+				methods.
+			</action>
+			<action dev="xamde" type="add">
+				Added ResourceConverter
+			</action>
+			<action dev="xamde" type="add">
+				Added static RDFSChema wrapper classes (named "statik")
+			</action>
+		</release>
+
+		<release version="4.4.12" description="dependency update"
+			date="2007-10-01">
 			<action dev="xamde" type="update">
 				Migration to rdfgo.impl.base 4.4.9
 			</action>
