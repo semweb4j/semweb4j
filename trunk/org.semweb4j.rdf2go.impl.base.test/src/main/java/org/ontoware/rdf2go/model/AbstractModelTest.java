@@ -612,6 +612,28 @@ public abstract class AbstractModelTest extends TestCase {
 	}
 
 	@Test
+	public void testRdfsReasoning2() throws ReasoningNotSupportedException,
+			ModelRuntimeException {
+		Model model = getModelFactory().createModel(Reasoning.rdfs);
+		model.open();
+
+		URI resourceA = new URIImpl("urn:resource:A");
+		URI resourceB = new URIImpl("urn:resource:B");
+		URI propertyA = new URIImpl("urn:prop:A");
+		URI propertyB = new URIImpl("urn:prop:B");
+		URI propertyC = new URIImpl("urn:prop:C");
+		
+		model.addStatement(propertyA, propertyB, propertyC);
+		model.addStatement(propertyB, RDFS.subPropertyOf, RDFS.subPropertyOf);
+		Assert.assertTrue( model.contains(propertyA, RDFS.subPropertyOf, propertyC));
+		
+		model.addStatement(resourceA, propertyA, resourceB);
+		Assert.assertTrue( model.contains(resourceA, propertyC, resourceB ));
+		
+		model.close();
+	}
+
+	@Test
 	public void testSimpleQuery1() throws Exception {
 		Model model = getModelFactory().createModel();
 		model.open();
