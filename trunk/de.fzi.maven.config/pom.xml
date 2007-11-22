@@ -284,14 +284,13 @@
 				</reportSets>
 			</plugin>
 
-			<!-- aggregate java doc of sub-projects
-				and provide links to several famous projects
+			<!-- provide links to several famous projects
 				see: Better builds with maven, p.185 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<aggregate>true</aggregate>
+					<!--  do not aggregate javadocs from child elements-->
 					<links>
 						<link>
 							http://java.sun.com/j2se/1.5.0/docs/api/
@@ -324,17 +323,7 @@
 						<link>
 							http://jakarta.apache.org/velocity/api/
 						</link>
-						<!-- add our own projects: rdf2go, rdfreactor, swecr -->
-						<link>
-							http://semweb4j.org/site/rdf2go/apidocs/
-						</link>
-						<link>
-							http://semweb4j.org/site/rdfreactor/apidocs/
-						</link>
-						<link>
-							http://semweb4j.org/site/swecr/apidocs/
-						</link>
-
+						<!-- add our own projects in child-poms -->
 					</links>
 				</configuration>
 			</plugin>
