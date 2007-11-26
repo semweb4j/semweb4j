@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ontoware.rdf2go.model.Model;
@@ -87,6 +88,41 @@ public class MarcOntTests {
 		assertEquals(2, model.size());
 		session.close();
 	}
+	
+	@Test 
+    public void testSV15noLabel() throws Exception { 
+            Session session = semVersion.login("User", "secret"); 
+            VersionedModel vm = session.getVersionedModel("NewThread"); 
+
+            Version v = vm.getRoot(); 
+            Model s1 = v.getContent(); 
+            s1.addStatement(s3, p, o); 
+
+            String label = "LABEL"; 
+            String comment = "COMMENT"; 
+            
+            // Note: This sets the commit 'comment' to the string "LABEL"
+            Version childVersion = v.commit(s1, label, false); 
+            
+            // This does the same.
+            childVersion.setComment(comment); 
+            
+            // Setting the label
+            childVersion.setLabel(label);
+
+            URI uri = childVersion.getURI(); 
+
+            session.close(); 
+
+            session = semVersion.login("User", "secret"); 
+            vm = session.getVersionedModel("NewThread"); 
+
+            v = vm.getVersion(uri); 
+
+            assertTrue(v.getComment().compareTo(comment) == 0); 
+            assertNotNull(v.getLabel());
+            assertTrue(v.getLabel().compareTo(label) == 0); 
+    }	
 
 	/**
 	 * This one works fine
