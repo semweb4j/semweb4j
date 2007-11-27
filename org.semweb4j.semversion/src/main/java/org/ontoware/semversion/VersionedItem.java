@@ -158,7 +158,7 @@ public abstract class VersionedItem {
 		this.versionedItem.setDeletionTime(value);
 	}
 
-	protected void setLabel(String label) {
+	public void setLabel(String label) {
 		this.versionedItem.setLabel(label);
 	}
 
