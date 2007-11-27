@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -11,7 +9,7 @@
 
 	<groupId>org.semanticdesktop</groupId>
 	<artifactId>semversion</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>jar</packaging>
 	<name>SemVersion</name>
 	<url>http://ontoworld.org/wiki/SemVersion</url>
@@ -441,4 +439,10 @@
 		</repository>
 
 	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/semversion-1.0.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/semversion-1.0.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/semversion-1.0.2</url>
+  </scm>
 </project>
