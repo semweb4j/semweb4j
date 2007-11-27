@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="1.0.2" date="2007-11-27"
+			description="API extension">
+			<action dev="xamde" type="update">
+				Made setLabel(..) public in Version and VersionedModel.
+			</action>
+		</release>
+
 		<release version="1.0.1" date="2007-10-26"
 			description="No API changes">
 			<action dev="xamde" type="update">
