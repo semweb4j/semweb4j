@@ -1,0 +1,448 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.15.2</version>
+	</parent>
+
+	<groupId>org.semanticdesktop</groupId>
+	<artifactId>semversion</artifactId>
+	<version>1.0.2</version>
+	<packaging>jar</packaging>
+	<name>SemVersion</name>
+	<url>http://ontoworld.org/wiki/SemVersion</url>
+	<inceptionYear>2004</inceptionYear>
+	<description>
+		SemVersion is a versioning system for data in RDF-syntax, such
+		as ontologies.
+	</description>
+
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>dev@xam.de</email>
+			<url>http://xam.de</url>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+				<role>Initial version</role>
+				<role>Complete Rewrite</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI Karlsruhe</organization>
+			<organizationUrl>http://fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>wth</id>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>POM Manager</role>
+				<role>Documentation Doctor</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Carlos F. Enguix</name>
+			<organization>DERI</organization>
+			<organizationUrl>http://www.deri.org/</organizationUrl>
+			<roles>
+				<role>Bitemporal Database Guru</role>
+				<role>Complete Rewrite</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Wolf Winkler</name>
+			<organization>Ontoprise</organization>
+			<organizationUrl>http://www.ontoprise.de/</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+				<role>Initial version</role>
+			</roles>
+		</contributor>
+
+		<contributor>
+			<name>Tudor Groza</name>
+			<url>http://www.deri.ie/about/team/member/tudor_groza/</url>
+			<organization>DERI</organization>
+			<organizationUrl>http://www.deri.org/</organizationUrl>
+			<roles>
+				<role>Protégé Integration</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Szymon Pająk</name>
+			<url>
+				http://www.deri.ie/about/team/member/szymon_pajak/
+			</url>
+			<organization>
+				Gdansk University of Technology (in cooperation with
+				DERI)
+			</organization>
+			<organizationUrl>http://www.eti.pg.gda.pl</organizationUrl>
+			<roles>
+				<role>MarcOnt Integration</role>
+			</roles>
+		</contributor>
+	</contributors>
+
+	<organization>
+		<name>FZI Karlsruhe</name>
+		<url>http://www.fzi.de/</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>BSD</name>
+			<url>
+				http://www.opensource.org/licenses/bsd-license.php
+			</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/SV</url>
+	</issueManagement>
+
+	<!-- if there is no version provided, it is stated in the parent pom-->
+	<dependencies>
+
+		<!-- semweb4j dependencies -->
+		<!-- rdf2go -->
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base</artifactId>
+			<version>4.4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.jena24</artifactId>
+			<version>4.4.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdfreactor.generator</artifactId>
+			<version>4.4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdfreactor.runtime</artifactId>
+			<version>4.4.12</version>
+		</dependency>
+
+		<!-- sesame (openrdf) dependencies -->
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-model</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-query</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-queryalgebra-model</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-queryalgebra-evaluation</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-queryparser-api</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-queryparser-sparql</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-queryresultio-api</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rdf2go</artifactId>
+			<version>2.0-beta4hack</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-repository-api</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-repository-sail</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rio-api</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rio-n3</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rio-ntriples</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rio-rdfxml</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rio-trix</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-rio-turtle</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-sail-api</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<scope>runtime</scope>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-sail-inferencer</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-sail-memory</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-sail-nativerdf</artifactId>
+			<version>2.0-beta4</version>
+		</dependency>
+
+		<!-- sesame info -->
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-collections</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!--  seems to be missing e.g. in semfs -->
+		<dependency>
+			<scope>runtime</scope>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-concurrent</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-io</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-iteration</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-lang</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-net</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-text</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.aduna</groupId>
+			<artifactId>aduna-xml</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- common dependencies (useful utils)-->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+
+		<!-- logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- testing dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<!-- create a distribution -->
+	<build>
+		<plugins>
+			<!-- builds a zip release that contains all dependency libraries 
+				they are copied after compile is executed -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<finalName>
+								${project.name}-${version}
+							</finalName>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>
+									${basedir}/src/assembly/lib.xml
+								</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- to define where to put the site for this project -->
+	<distributionManagement>
+		<site>
+			<id>theoretiker-site</id>
+			<name>SemVersion site</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/semversion
+			</url>
+		</site>
+	</distributionManagement>
+
+	<repositories>
+		<!-- to find the parent -->
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<!--  additional repositories -->
+		<repository>
+			<id>aduna</id>
+			<name>Aduna repo</name>
+			<url>http://repository.aduna-software.org/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>aduna-snapshots</id>
+			<name>Aduna snapshots</name>
+			<url>
+				http://repository.aduna-software.org/maven2-snapshots/
+			</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+		</repository>
+
+	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/semversion-1.0.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/semversion-1.0.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/semversion-1.0.2</url>
+  </scm>
+</project>

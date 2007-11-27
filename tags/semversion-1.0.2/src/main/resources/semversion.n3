@@ -1,0 +1,142 @@
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix semversion:   <http://purl.org/net/semversion#>.
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl:     <http://www.w3.org/2002/07/owl#>.
+
+# Classes
+
+semversion:VersionedItem a rdfs:Class
+; rdfs:comment "valid time, transaction time and core metadata"
+.
+
+semversion:VersionedModel rdfs:subClassOf semversion:VersionedItem
+; rdfs:comment "A tree of Versions"
+.
+
+semversion:Version rdfs:subClassOf semversion:VersionedItem
+; rdfs:comment "A set of triples (content TripleSet) with a set of metadata"
+.
+
+semversion:RDFModel a rdfs:Class
+; rdfs:comment "The URI of this resource denotes a NamedGraph in the SemVersion store - the named graph does not need to contain any data"
+.
+
+semversion:User a rdfs:Class
+# ; rdfs:subClassOf foaf:Person
+; rdfs:comment "A SemVersion User"
+.
+
+# Properties
+
+semversion:hasVersionedModel a rdf:Property
+; rdfs:domain rdfs:Resource
+; rdfs:range semversion:VersionedModel
+.
+
+semversion:hasTag a rdf:Property
+; rdfs:domain semversion:VersionedItem
+; rdfs:range rdfs:Literal
+.
+
+semversion:hasAuthor a rdf:Property
+; rdfs:domain semversion:VersionedItem
+; rdfs:range semversion:User
+; owl:maxCardinality "1"
+.
+
+semversion:hasCreationTime a rdf:Property
+; rdfs:domain semversion:VersionedItem
+; rdfs:range xsd:dateTime
+; owl:cardinality "1"
+.
+
+semversion:hasDeletionTime a rdf:Property
+; rdfs:domain semversion:VersionedItem
+; rdfs:range xsd:dateTime
+; owl:maxCardinality "1"
+.
+
+semversion:hasUserdefinedMetadata a rdf:Property
+; rdfs:domain semversion:VersionedItem
+; rdfs:range xsd:anyURI
+; owl:maxCardinality "1"
+.
+
+semversion:hasProvenance a rdf:Property
+; rdfs:domain semversion:VersionedItem
+; rdfs:range xsd:anyURI
+; owl:maxCardinality "1"
+.
+
+
+semversion:hasRoot a rdf:Property
+; rdfs:comment "has only one root"
+; rdfs:domain semversion:VersionedModel
+; rdfs:range semversion:Version
+; owl:maxCardinality "1"
+.
+
+semversion:hasVersion a rdf:Property
+; rdfs:comment "exhaustive list of all versions"
+; rdfs:domain semversion:VersionedModel
+; rdfs:range semversion:Version
+.
+
+
+semversion:hasContent a rdf:Property
+; rdfs:domain semversion:Version
+; rdfs:range semversion:RDFModel
+; owl:maxCardinality "1"
+.
+
+
+semversion:hasFirstParent a rdf:Property
+; rdfs:comment "A version has two parents only when merged"
+; rdfs:domain semversion:Version
+; rdfs:range semversion:Version
+; owl:maxCardinality "1"
+.
+
+semversion:hasChild a rdf:Property
+; rdfs:comment "inverse of firstParent and secondParent, relation maintained manually"
+; rdfs:domain semversion:Version
+; rdfs:range semversion:Version
+.
+
+semversion:hasSecondParent a rdf:Property
+; rdfs:domain semversion:Version
+; rdfs:range semversion:Version
+; owl:maxCardinality "1"
+.
+
+semversion:hasChangeCause a rdf:Property
+; rdfs:comment "one of 'commit', 'branch', 'merge'"
+; rdfs:domain semversion:Version
+; rdfs:range rdfs:Literal
+; owl:maxCardinality "1"
+.
+
+semversion:hasContainer a rdf:Property
+; rdfs:domain semversion:Version
+; rdfs:range semversion:VersionedModel
+; owl:cardinality "1"
+.
+
+semversion:hasName a rdf:Property
+; rdfs:domain semversion:User
+; rdfs:range rdfs:Literal
+; owl:cardinality "1"
+.
+
+semversion:hasPassword a rdf:Property
+; rdfs:domain semversion:User
+; rdfs:range rdfs:Literal
+; owl:cardinality "1"
+.
+
+semversion:branchLabel a rdf:Property
+; rdfs:domain semversion:Version
+; rdfs:range rdfs:Literal
+.
+
