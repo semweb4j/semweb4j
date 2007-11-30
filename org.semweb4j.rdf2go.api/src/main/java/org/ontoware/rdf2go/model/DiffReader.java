@@ -10,14 +10,14 @@
  */
 package org.ontoware.rdf2go.model;
 
-import java.util.Iterator;
+/**
+ * A read-only diff.
+ * @author voelkel
+ */
+public interface DiffReader {
 
+	public Iterable<Statement> getAdded();
 
+	public Iterable<Statement> getRemoved();
 
-public interface Diff extends ModelAddRemove, DiffReader {
-
-	/** Should also be offered by a constructor */
-	public Diff create(Iterator<? extends Statement> add, Iterator<? extends Statement> remove);
-
-	public void dump();
 }
