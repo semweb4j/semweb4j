@@ -16,7 +16,16 @@
 			</release>
 		-->
 
-		<release version="4.5.0" date="2007-10-30" description="API changes">
+		<release version="4.5.1" date="2007-11-30"
+			description="API extension">
+			<action dev="xamde" type="add">
+				Introduced DiffReader, a read-only subset of the Diff
+				interface
+			</action>
+		</release>
+
+		<release version="4.5.0" date="2007-10-30"
+			description="API changes">
 			<action dev="xamde" type="fix" issue="RTGO-28">
 				BlankNodeImpl became AbstractBlankNode. Interface
 				BlankNode now has String getInternalID().
