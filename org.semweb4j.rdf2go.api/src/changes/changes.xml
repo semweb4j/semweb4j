@@ -20,7 +20,7 @@
 			description="API extension">
 			<action dev="xamde" type="add">
 				Introduced DiffReader, a read-only subset of the Diff
-				interface
+				interface. Changed Model(Set)AddRemove.update to accept DiffReaders.
 			</action>
 		</release>
 

@@ -38,7 +38,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param diff
 	 * @throws ModelRuntimeException
 	 */
-	void update(Diff diff) throws ModelRuntimeException;
+	void update(DiffReader diff) throws ModelRuntimeException;
 
 	/**
 	 * @param statements

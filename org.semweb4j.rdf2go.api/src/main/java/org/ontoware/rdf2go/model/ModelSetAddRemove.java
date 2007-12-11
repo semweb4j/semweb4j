@@ -143,6 +143,6 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 *             if a model or statement in a model to be removed does not
 	 *             exist.
 	 */
-	void update(Diff diff) throws ModelRuntimeException;
+	void update(DiffReader diff) throws ModelRuntimeException;
 
 }
