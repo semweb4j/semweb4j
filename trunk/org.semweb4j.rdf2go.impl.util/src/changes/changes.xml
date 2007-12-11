@@ -6,13 +6,20 @@
 	</properties>
 	<body>
 
+		<release version="4.5.3" date="2007-12-11">
+			<action dev="xamde" type="add">
+				ModelUtils.copy(..) can copy from one implementation to
+				another one, even with blank nodes
+			</action>
+		</release>
+
 		<release version="4.5.2" date="2007-11-09">
 			<action dev="xamde" type="update">
 				Moved 'org.semweb4j.rdf2go.util' package to its own
-				project (jar) to allow for independent evolution - 'util'
-				was often evolving much faster than the rest, causing
-				unnecessary releases of RDF2Go adapters. Adapters do not
-				depend on 'util'.
+				project (jar) to allow for independent evolution -
+				'util' was often evolving much faster than the rest,
+				causing unnecessary releases of RDF2Go adapters.
+				Adapters do not depend on 'util'.
 			</action>
 		</release>
 
