@@ -17,7 +17,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
@@ -26,6 +28,9 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
+import org.ontoware.rdf2go.model.node.BlankNode;
+import org.ontoware.rdf2go.model.node.Node;
+import org.ontoware.rdf2go.model.node.Resource;
 
 /**
  * Find a lot of convenience functions that are slow but nice and didn't make it
@@ -89,14 +94,72 @@ public class ModelUtils {
 			m.open();
 			Model tm = target.getModel(m.getContextURI());
 			tm.open();
-			tm.addAll(m.iterator());
+			copy(m, tm);
 		}
 		// copy default model
 		Model m = source.getDefaultModel();
 		m.open();
 		Model tm = target.getDefaultModel();
 		tm.open();
-		tm.addAll(m.iterator());
+		copy(m, tm);
+	}
+
+	/**
+	 * If the two models come from different implementations, copying blank
+	 * nodes needs special care
+	 * 
+	 * @param source
+	 * @param target
+	 */
+	public static void copy(Model source, Model target) {
+		if (source.getUnderlyingModelImplementation().equals(
+				target.getUnderlyingModelImplementation().getClass())) {
+			// same implementation, use easy copy
+			ClosableIterator<Statement> it = source.iterator();
+			target.addAll(it);
+			it.close();
+		} else {
+			Map<String,BlankNode> bnodeSourceId2bnodeTarget = new HashMap<String,BlankNode>();
+			ClosableIterator<Statement> it = source.iterator();
+			while(it.hasNext()) {
+				Statement stmt = it.next();
+				boolean blankSubject = stmt.getSubject() instanceof BlankNode;
+				boolean blankObject = stmt.getObject() instanceof BlankNode;
+				
+				if(blankSubject || blankObject) {
+					Resource s;
+					if(blankSubject) {
+						s = transform(stmt.getSubject().asBlankNode(), bnodeSourceId2bnodeTarget, target);
+					} else {
+						s = stmt.getSubject();
+					}
+
+					Node o;
+					// use mapping from node-IDs in impl-source to blank nodes in impl-target
+					if(blankObject) {
+						o = transform(stmt.getObject().asBlankNode(), bnodeSourceId2bnodeTarget, target);
+					} else {
+						o = stmt.getObject();
+					}
+					target.addStatement(s,stmt.getPredicate(),o);
+				} else {
+					target.addStatement(stmt);
+				}
+			}
+			it.close();
+		}
+
+
+	}
+	
+	private static BlankNode transform( BlankNode source, Map<String, BlankNode> map, Model target) {
+		String bnodeSourceId = source.getInternalID();
+		BlankNode bnodeTarget = map.get(bnodeSourceId);
+		if(bnodeTarget == null) {
+			bnodeTarget = target.createBlankNode();
+			map.put(bnodeSourceId, bnodeTarget);
+		}
+		return bnodeTarget;
 	}
 
 	/**
