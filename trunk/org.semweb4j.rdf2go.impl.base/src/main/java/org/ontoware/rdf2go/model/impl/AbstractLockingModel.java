@@ -11,7 +11,7 @@
 package org.ontoware.rdf2go.model.impl;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
-import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public abstract class AbstractLockingModel extends AbstractModel implements Mode
 	 * Using lock() and unlock()
 	 */
 	@Override
-	public synchronized void update(Diff diff) throws ModelRuntimeException {
+	public synchronized void update(DiffReader diff) throws ModelRuntimeException {
 		assertModel();
 		lock();
 		for (Statement r : diff.getRemoved()) {

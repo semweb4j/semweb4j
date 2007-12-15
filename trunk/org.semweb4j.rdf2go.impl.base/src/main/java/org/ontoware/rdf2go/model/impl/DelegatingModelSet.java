@@ -16,7 +16,7 @@ import org.ontoware.rdf2go.exception.MalformedQueryException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
-import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.QuadPattern;
@@ -188,7 +188,7 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 	}
 
 	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
+	public void update(DiffReader diff) throws ModelRuntimeException {
 		this.baseModelSet.update(diff);
 	}
 

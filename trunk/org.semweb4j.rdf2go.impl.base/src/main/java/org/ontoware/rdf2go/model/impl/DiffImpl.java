@@ -21,6 +21,7 @@ import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.LockException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.Resource;
@@ -115,7 +116,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	}
 
 	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
+	public void update(DiffReader diff) throws ModelRuntimeException {
 		addAll(diff.getAdded().iterator());
 		removeAll(diff.getRemoved().iterator());
 	}

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
-import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelChangedListener;
 import org.ontoware.rdf2go.model.ModelSet;
@@ -153,7 +153,7 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 	}
 
 	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
+	public void update(DiffReader diff) throws ModelRuntimeException {
 		// inspect
 		for (Map.Entry<ModelChangedListener, QuadPattern> entry : this.modelsetChangeListener
 				.entrySet()) {

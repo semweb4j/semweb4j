@@ -13,6 +13,7 @@ import org.ontoware.rdf2go.exception.LockException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.Statement;
@@ -358,7 +359,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 	
 	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
+	public void update(DiffReader diff) throws ModelRuntimeException {
 		this.delegatedModel.update(diff);
 	}
 
