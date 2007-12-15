@@ -1,0 +1,178 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.15.2</version>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.impl.jena24</artifactId>
+	<name>RDF2Go Jena 2.4 Adapter</name>
+	<version>4.5.3</version>
+	<description>
+		An implementation of the RDF2Go API which delegates to Jena 2.4
+	</description>
+
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>dev@xam.de</email>
+			<url>http://xam.de</url>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/sebastian_gerke/
+			</url>
+		</developer>
+		<developer>
+			<name>Benjamin Heitmann</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/benjamin_heitmann/
+			</url>
+		</developer>
+		<developer>
+			<id>wth</id>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>POM Manager</role>
+				<role>Documentation Doctor</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/RTGO</url>
+	</issueManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base</artifactId>
+			<version>4.5.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base.test</artifactId>
+			<version>4.5.3</version>
+		</dependency>
+
+		<!-- OSGi -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>osgi</artifactId>
+			<version>3.2.1.R32</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<!--  mvn install:install-file -Dfile=jena.jar -DgroupId=net.sourceforge.jena -DartifactId=jena -Dversion=2.4 -Dpackaging=jar		
+				
+				mvn install:install-file -DgroupId=net.sourceforge.jena -DartifactId=arq -Dversion=2.4 -Dpackaging=jar -Dfile=/path/to/file
+				mvn install:install-file -DgroupId=icu4j -DartifactId=icu4j -Dversion=3.4 -Dpackaging=jar -Dfile=/path/to/file
+				mvn install:install-file -DgroupId=net.sourceforge.jena -DartifactId=iri -Dversion=2.4 -Dpackaging=jar -Dfile=/path/to/file
+			-->
+			<groupId>net.sourceforge.jena</groupId>
+			<artifactId>jena</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.7.1</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- testing dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<!-- to avoid folded site uris -->
+	<distributionManagement>
+		<site>
+			<id>theoretiker-site</id>
+			<name>RDFReactor site</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.jena24
+			</url>
+		</site>
+	</distributionManagement>
+
+
+	<!-- to find the parent -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.5.3</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.jena24-4.5.3</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.impl.jena24-4.5.3</url>
+  </scm>
+</project>
