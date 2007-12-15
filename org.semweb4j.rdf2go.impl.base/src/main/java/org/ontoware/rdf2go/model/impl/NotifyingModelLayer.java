@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
-import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelChangedListener;
 import org.ontoware.rdf2go.model.NotifyingModel;
@@ -289,7 +289,7 @@ public class NotifyingModelLayer extends DelegatingModel implements
 	//////////// diff
 	
 	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
+	public void update(DiffReader diff) throws ModelRuntimeException {
 		for (ModelChangedListener listener : this.modelChangeListener.keySet()) {
 				listener.performedUpdate(diff);
 		}

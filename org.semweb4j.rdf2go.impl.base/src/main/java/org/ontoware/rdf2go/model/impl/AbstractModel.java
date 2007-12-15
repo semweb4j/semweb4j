@@ -29,6 +29,7 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
 import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.QueryRow;
@@ -494,7 +495,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * this implementation.
 	 */
 	@Override
-	public synchronized void update(Diff diff) throws ModelRuntimeException {
+	public synchronized void update(DiffReader diff) throws ModelRuntimeException {
 		assertModel();
 		for (Statement r : diff.getRemoved()) {
 			removeStatement(r);
