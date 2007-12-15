@@ -16,6 +16,13 @@
 			</release>
 		-->
 
+		<release version="4.5.2" date="2007-12-15"
+			description="API extension">
+			<action dev="xamde" type="update">
+			    Changed ModelChangeListener to use DiffReader instead of Diff.
+			</action>
+		</release>
+
 		<release version="4.5.1" date="2007-12-11"
 			description="API extension">
 			<action dev="xamde" type="add">

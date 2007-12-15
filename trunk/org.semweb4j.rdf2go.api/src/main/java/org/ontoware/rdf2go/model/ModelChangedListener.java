@@ -23,5 +23,5 @@ public interface ModelChangedListener {
     
     public void removedStatements(Iterator<? extends Statement> statements);
     
-    public void performedUpdate(Diff diff);
+    public void performedUpdate(DiffReader diff);
 }
