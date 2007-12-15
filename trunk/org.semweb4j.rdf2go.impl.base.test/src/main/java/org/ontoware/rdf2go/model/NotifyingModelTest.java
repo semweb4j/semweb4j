@@ -123,7 +123,7 @@ public class NotifyingModelTest extends AbstractModelTest
 		this.model.addModelChangedListener(new AbstractModelChangeListener()
 		{
 			@Override
-			public void performedUpdate(Diff diff)
+			public void performedUpdate(DiffReader diff)
 			{
 				int i = 0;
 				for (Statement s : diff.getAdded())
