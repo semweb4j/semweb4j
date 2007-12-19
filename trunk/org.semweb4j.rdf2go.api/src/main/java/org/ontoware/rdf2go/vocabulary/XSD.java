@@ -58,14 +58,17 @@ public class XSD {
 	 * As discussed in
 	 * http://www.w3.org/2001/sw/BestPractices/XSCH/xsch-sw-20050127/#section-duration
 	 * an standardised in http://www.w3.org/TR/xpath-datamodel/#notation
-	 * TODO clarify if there is a trailing # at the end or not
+	 * 
+	 * Note: The XML namespace is 'http://www.w3.org/2001/XMLSchema', but RDF
+	 * people seems to have agreed on using '#' atht eh end to create a
+	 * URI-prefix
 	 */
-	public static final String XS = "http://www.w3.org/2001/XMLSchema";
+	public static final String XS_URIPREFIX = "http://www.w3.org/2001/XMLSchema#";
 
-	public static final URI _yearMonthDuration = new URIImpl(XS
+	public static final URI _yearMonthDuration = new URIImpl(XS_URIPREFIX
 			+ "yearMonthDuration", false);
 
-	public static final URI _dayTimeDuration = new URIImpl(XS
+	public static final URI _dayTimeDuration = new URIImpl(XS_URIPREFIX
 			+ "dayTimeDuration", false);
 
 	public static final URI _dateTime = toURI("dateTime");
