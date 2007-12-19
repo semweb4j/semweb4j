@@ -16,10 +16,20 @@
 			</release>
 		-->
 
+		<release version="4.5.3" date="@@"
+			description="API extension">
+			<action dev="xamde" type="update">
+				Changed URIs of XSD._yearMonthDuration and
+				XSD._dayTimeDuration according to new findings in the
+				respective W3C working group -- Thank Leo!
+			</action>
+		</release>
+
 		<release version="4.5.2" date="2007-12-15"
 			description="API extension">
 			<action dev="xamde" type="update">
-			    Changed ModelChangeListener to use DiffReader instead of Diff.
+				Changed ModelChangeListener to use DiffReader instead of
+				Diff.
 			</action>
 		</release>
 
@@ -27,7 +37,8 @@
 			description="API extension">
 			<action dev="xamde" type="add">
 				Introduced DiffReader, a read-only subset of the Diff
-				interface. Changed Model(Set)AddRemove.update to accept DiffReaders.
+				interface. Changed Model(Set)AddRemove.update to accept
+				DiffReaders.
 			</action>
 		</release>
 
