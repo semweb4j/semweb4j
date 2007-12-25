@@ -119,29 +119,32 @@ public class ModelUtils {
 			target.addAll(it);
 			it.close();
 		} else {
-			Map<String,BlankNode> bnodeSourceId2bnodeTarget = new HashMap<String,BlankNode>();
+			Map<String, BlankNode> bnodeSourceId2bnodeTarget = new HashMap<String, BlankNode>();
 			ClosableIterator<Statement> it = source.iterator();
-			while(it.hasNext()) {
+			while (it.hasNext()) {
 				Statement stmt = it.next();
 				boolean blankSubject = stmt.getSubject() instanceof BlankNode;
 				boolean blankObject = stmt.getObject() instanceof BlankNode;
-				
-				if(blankSubject || blankObject) {
+
+				if (blankSubject || blankObject) {
 					Resource s;
-					if(blankSubject) {
-						s = transform(stmt.getSubject().asBlankNode(), bnodeSourceId2bnodeTarget, target);
+					if (blankSubject) {
+						s = transform(stmt.getSubject().asBlankNode(),
+								bnodeSourceId2bnodeTarget, target);
 					} else {
 						s = stmt.getSubject();
 					}
 
 					Node o;
-					// use mapping from node-IDs in impl-source to blank nodes in impl-target
-					if(blankObject) {
-						o = transform(stmt.getObject().asBlankNode(), bnodeSourceId2bnodeTarget, target);
+					// use mapping from node-IDs in impl-source to blank nodes
+					// in impl-target
+					if (blankObject) {
+						o = transform(stmt.getObject().asBlankNode(),
+								bnodeSourceId2bnodeTarget, target);
 					} else {
 						o = stmt.getObject();
 					}
-					target.addStatement(s,stmt.getPredicate(),o);
+					target.addStatement(s, stmt.getPredicate(), o);
 				} else {
 					target.addStatement(stmt);
 				}
@@ -149,13 +152,13 @@ public class ModelUtils {
 			it.close();
 		}
 
-
 	}
-	
-	private static BlankNode transform( BlankNode source, Map<String, BlankNode> map, Model target) {
+
+	private static BlankNode transform(BlankNode source,
+			Map<String, BlankNode> map, Model target) {
 		String bnodeSourceId = source.getInternalID();
 		BlankNode bnodeTarget = map.get(bnodeSourceId);
-		if(bnodeTarget == null) {
+		if (bnodeTarget == null) {
 			bnodeTarget = target.createBlankNode();
 			map.put(bnodeSourceId, bnodeTarget);
 		}
@@ -338,13 +341,23 @@ public class ModelUtils {
 		if (!sinkModel.isOpen())
 			throw new IllegalArgumentException("SinkModel must be open");
 		FileInputStream fin = new FileInputStream(in);
-		sinkModel.readFrom(fin, inSyntax);
+		try {
+			sinkModel.readFrom(fin, inSyntax);
+		} finally {
+			if (fin != null)
+				fin.close();
+		}
 	}
 
 	public static void writeToFile(Model model, File outFile, Syntax outSyntax)
 			throws ModelRuntimeException, IOException {
 		FileOutputStream fout = new FileOutputStream(outFile);
-		model.writeTo(fout, outSyntax);
+		try {
+			model.writeTo(fout, outSyntax);
+		} finally {
+			if (fout != null)
+				fout.close();
+		}
 	}
 
 	/**
