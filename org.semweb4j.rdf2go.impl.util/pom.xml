@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.util</artifactId>
-	<version>4.5.4</version>
+	<version>4.5.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>RDF2Go Base</name>
@@ -145,10 +145,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.impl.util-4.5.4</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.util-4.5.4</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.impl.util-4.5.4</url>
-  </scm>
 </project>
