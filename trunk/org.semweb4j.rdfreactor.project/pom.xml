@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
+		<version>4.15.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -44,6 +44,7 @@
 	<modules>
 		<module>../org.semweb4j.rdfreactor.generator</module>
 		<module>../org.semweb4j.rdfreactor.runtime</module>
+		<module>../org.semweb4j.rdfreactor.site</module>
 	</modules>
 
 	<!-- to avoid folded site uris -->

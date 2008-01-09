@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
+		<version>4.15.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -41,6 +41,7 @@
 		<module>../org.semweb4j.rdf2go.impl.base</module>
 		<module>../org.semweb4j.rdf2go.impl.base.test</module>
 		<module>../org.semweb4j.rdf2go.impl.jena24</module>
+		<module>../org.semweb4j.rdf2go.site</module>
 <!-- 
 		<module>../org.semweb4j.rdf2go.layer.autopersist</module>
  -->
