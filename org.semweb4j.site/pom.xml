@@ -10,7 +10,6 @@
 		<version>4.15.3</version>
 	</parent>
 
-
 	<groupId>org.semweb4j</groupId>
 	<artifactId>site</artifactId>
 	<packaging>pom</packaging>
