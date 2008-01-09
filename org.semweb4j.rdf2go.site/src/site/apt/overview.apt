@@ -1,0 +1,58 @@
+                                    ------
+                                    API Overview
+                                    ------
+                                    Max Völkel
+                                    ------
+                                     17.08.2007
+                                    ------ 
+
+RDF2Go
+
+  This class is the main entry point (singleton) to get a ModelFactory instance.
+
+ModelFactory
+
+  This class creates implementation-specific implementations of ModelSet and Model
+  
+Model
+
+  Is an RDF model. As the RDF specs define, an RDF model consist of a number of triples
+  of the form (Resource, URI, Node).
+  
+  The inheritance hierarchy of the node types is:
+  
+  * Node  
+  
+    * Resources
+    
+      * BlankNode
+      
+      * URI
+      
+      []
+      
+    * Literal
+    
+      * PlainLiteral
+      
+      * LanguageTagLiteral
+      
+      * DatatypeLiteral
+      
+      []
+      
+    []
+    
+  []    
+      
+ModelSet
+
+  A ModelSet is at the same time a set of Models (hence the name) and a quzad store.
+  
+  A ModelSet has a number of mappings of the form URI - Model. In another way,
+  each ModelSet is (URI, Resource, URI, Node). But the quad-store view is 
+  not entirely true, as each ModelSet has to remember which Models (even empty ones)
+  belong to it. SO there can be more Models in a ModelSet than different URIs in a quad.
+  
+  If adding a Statement to a ModelSet, the contextURI of the statement becomes 
+  the URI of the graph.
