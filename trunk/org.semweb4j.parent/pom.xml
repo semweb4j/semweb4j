@@ -150,6 +150,91 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<reporting>
+		<plugins>
+				<!-- aggregate java doc of sub-projects
+				and provide links to several famous projects
+				see: Better builds with maven, p.185 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+					<inherited>true</inherited>
+					<links>
+						<!-- add our own projects: rdf2go, rdfreactor, swecr -->
+						<link>
+							http://semweb4j.org/site/swecr.model/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/binstore/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/cds/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/cds.gwt/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/jwiki/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.api/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.base/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.base.test/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.jena24/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.layer.autopersist/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdfreactor.generator/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdfreactor.runtime/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/semfs/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/semversion/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/semweb4j.tutorial/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.api/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.simple/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.nepomuk/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.search/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.model/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.model.datasource/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.wiki/apidocs/
+						</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
 	<!-- to define where to put the site for this bundle -->
 	<distributionManagement>
 		<site>
