@@ -5,10 +5,13 @@
 	</properties>
 	<body>
 
-		<release version="4.4.14" description="@@" date="@@">
+		<release version="4.4.15" description="Dependency Update and Bugfixes" date="2008-01-21">
 			<action dev="xamde" type="update">
-				Fixed version-Id in generated code - now it's alwys
+				Fixed version-Id in generated code - now it's always
 				current. By setting 'svn-keywords' to 'Id'.
+			</action>
+			<action dev="xamde" type="update">
+				Migration to RDF2Go 4.5.3 and RDFReactor.runtime 4.4.15.
 			</action>
 		</release>
 

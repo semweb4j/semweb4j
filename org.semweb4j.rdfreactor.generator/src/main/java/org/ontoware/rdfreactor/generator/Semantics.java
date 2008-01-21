@@ -25,7 +25,7 @@ public class Semantics {
 
 		String rdfschema = "org.ontoware.rdfreactor.schema.rdfschema";
 
-		// TODO: shouldnt JPackage.RDFSCHEMA be added to jm ?
+		// TODO: shouldn't JPackage.RDFSCHEMA be added to 'jm' ?
 
 		jm.addMapping(RDF.Alt, new JClass(JPackage.RDFSCHEMA, rdfschema
 				+ ".Alt", RDF.Alt));
@@ -73,7 +73,7 @@ public class Semantics {
 		// owl mapping
 		String owl = "org.ontoware.rdfreactor.schema.owl";
 
-		// TODO: shouldnt JPackage.OWL be added to jm ?
+		// TODO: shouldn't JPackage.OWL be added to jm ?
 
 		jm.addMapping(OWL.Class, new JClass(JPackage.OWL, owl + ".Class",
 				OWL.Class));
@@ -116,7 +116,7 @@ public class Semantics {
 		jm.addMapping(XSD._anyURI, new JClass(new JPackage("java.net"),
 				URI.class.getName() + "", XSD._anyURI));
 
-		// primitve types
+		// primitive types
 		jm.addMapping(XSD._byte, new JClass(JPackage.JAVA_LANG, Byte.class
 				.getName()
 				+ "", XSD._byte));
