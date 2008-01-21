@@ -6,6 +6,13 @@
 	<body>
 
 
+		<release version="4.4.15" description="Dependency Update"
+			date="2008-01-21">
+			<action dev="xamde" type="add">
+				Upgrade to RDF2Go 4.5.3
+			</action>
+		</release>
+
 		<release version="4.4.12" description="API extension"
 			date="2007-11-20">
 			<action dev="xamde" type="add">
