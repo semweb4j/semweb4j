@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>sesame.rdfs-inverse-inferencer</artifactId>
-	<version>2.0</version>
+	<version>2.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF inferencer - extended with inverses - Sail</name>
 	<description>
@@ -232,11 +232,4 @@
 			</url>
 		</site>
 	</distributionManagement>
-
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/sesame.rdfs-inverse-inferencer-2.0</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/sesame.rdfs-inverse-inferencer-2.0</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/sesame.rdfs-inverse-inferencer-2.0</url>
-  </scm>
 </project>
