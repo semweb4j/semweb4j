@@ -1111,7 +1111,7 @@ public abstract class AbstractModelTest extends TestCase {
 		iterator.close();
 		model.close();
 	}
-
+	
 	// TODO test public ClosableIterable<Statement> sparqlDescribe(String query)
 
 }

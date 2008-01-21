@@ -2,7 +2,7 @@
  * LICENSE INFORMATION
  * Copyright 2005-2007 by FZI (http://www.fzi.de).
  * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
+ * <OWNER> = Max Vï¿½lkel
  * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
  * <YEAR> = 2007
  * 
@@ -13,7 +13,6 @@ package org.ontoware.rdf2go.model;
 
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.RDF2Go;
-import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.impl.NotifyingModelSetLayer;
 import org.ontoware.rdf2go.model.impl.QuadPatternImpl;
 import org.ontoware.rdf2go.model.node.URI;
@@ -40,7 +39,7 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 	
 	
 	@Override
-	public void setUp() throws ModelRuntimeException
+	public void setUp() throws Exception
 	{
 		super.setUp();
 		ModelSet plainModel = getModelFactory().createModelSet();
