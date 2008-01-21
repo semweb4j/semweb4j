@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
@@ -139,14 +140,13 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		return new JenaBlankNode(com.hp.hpl.jena.graph.Node.createAnon());
 	}
 
-	public BlankNode createBlankNode( String id) {
+	public BlankNode createBlankNode(String id) {
 		// this.modificationCount++;
 		// should be unique across models
 		AnonId anonid = AnonId.create(id);
 		return new JenaBlankNode(com.hp.hpl.jena.graph.Node.createAnon(anonid));
 	}
-	
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -394,10 +394,24 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		}
 	};
 
+	public void readFrom(Reader reader, Syntax syntax, URL baseURI) {
+		assertModel();
+		if (syntax == Syntax.RdfXml) {
+			readFrom(reader);
+		} else if (syntax == Syntax.Ntriples) {
+			this.jenaModel.read(reader, baseURI.toExternalForm(), "N-TRIPLE");
+		} else if (syntax == Syntax.Turtle) {
+			this.jenaModel.read(reader, baseURI.toExternalForm(), "N3");
+		} else if (syntax == Syntax.Trix) {
+			throw new IllegalArgumentException("Not implemented in Jena 2.4");
+		}
+	};
+
 	private static void registerNamespaces(
 			com.hp.hpl.jena.rdf.model.Model jenaModel) {
 		// beautify output
-		jenaModel.setNsPrefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+		jenaModel.setNsPrefix("rdf",
+				"http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 		jenaModel.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 		jenaModel.setNsPrefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
 		jenaModel.setNsPrefix("foaf", "http://xmlns.com/foaf/0.1/");
@@ -494,6 +508,19 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 							+ "> directly, maybe the underlying Jena can...");
 
 		this.jenaModel.read(in, "", jenaSyntax);
+	}
+
+	public void readFrom(InputStream in, Syntax syntax, URL baseURI)
+			throws IOException, ModelRuntimeException {
+		assertModel();
+		assert in != null;
+		String jenaSyntax = getJenaSyntaxName(syntax);
+		if (jenaSyntax == null)
+			throw new SyntaxNotSupportedException(
+					"Could not process syntax named <" + syntax.getName()
+							+ "> directly, maybe the underlying Jena can...");
+
+		this.jenaModel.read(in, baseURI.toExternalForm(), jenaSyntax);
 	}
 
 	public boolean isIsomorphicWith(Model other) {
