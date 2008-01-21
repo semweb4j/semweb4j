@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
@@ -63,11 +64,33 @@ public interface ModelSetIO {
 	 * @throws IOException
 	 *             on IOErrors
 	 * @throws ModelRuntimeException
-	 *             on RDF serialization errors or model errors
+	 *             on RDF serialisation errors or model errors
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
 	void readFrom(Reader in, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException;
+
+	/**
+	 * Reads assuming the given syntax. Encoding defaults to UTF8.
+	 * 
+	 * All Models are created with the corresponding names as defined in the
+	 * TRiX stream as needed.
+	 * 
+	 * @param in
+	 *            the input to read
+	 * @param syntax
+	 *            syntax to use
+	 * @param baseURI
+	 *            baseURI to use
+	 * @throws IOException
+	 *             on IOErrors
+	 * @throws ModelRuntimeException
+	 *             on RDF serialisation errors or model errors
+	 * @throws SyntaxNotSupportedException
+	 *             if adapter can't handle the given syntax
+	 */
+	void readFrom(Reader in, Syntax syntax, URL baseURI) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -84,7 +107,7 @@ public interface ModelSetIO {
 	 * @throws IOException
 	 *             on IOErrors
 	 * @throws ModelRuntimeException
-	 *             on RDF serialization errors or model errors
+	 *             on RDF serialisation errors or model errors
 	 */
 	void readFrom(InputStream in) throws IOException, ModelRuntimeException;
 
@@ -101,12 +124,34 @@ public interface ModelSetIO {
 	 * @throws IOException
 	 *             on IOErrors
 	 * @throws ModelRuntimeException
-	 *             on RDF serialization errors or model errors
+	 *             on RDF serialisation errors or model errors
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
 	void readFrom(InputStream reader, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
+
+	/**
+	 * Reads assuming the given syntax. Encoding defaults to UTF8.
+	 * 
+	 * All Models are created with the corresponding names as defined in the
+	 * TRiX stream as needed.
+	 * 
+	 * @param in
+	 *            the input to read
+	 * @param syntax
+	 *            syntax to use
+	 * @param baseURI
+	 *            base URI to use
+	 * @throws IOException
+	 *             on IOErrors
+	 * @throws ModelRuntimeException
+	 *             on RDF serialisation errors or model errors
+	 * @throws SyntaxNotSupportedException
+	 *             if adapter can't handle the given syntax
+	 */
+	void readFrom(InputStream reader, Syntax syntax, URL baseURI ) throws IOException,
+	ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
 	 * Write to writer in UTF8 and TRiX. For more info on TRiX read:

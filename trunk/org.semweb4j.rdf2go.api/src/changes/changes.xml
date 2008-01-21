@@ -16,12 +16,17 @@
 			</release>
 		-->
 
-		<release version="4.5.3" date="@@"
+		<release version="4.5.3" date="2008-01-21"
 			description="API extension">
 			<action dev="xamde" type="update">
 				Changed URIs of XSD._yearMonthDuration and
 				XSD._dayTimeDuration according to new findings in the
-				respective W3C working group -- Thank Leo!
+				respective W3C working group -- Thanks Leo!
+			</action>
+			<action dev="xamde" type="add">
+				Added Model/ModelSet.readFrom(Reader in, Syntax syntax,
+				URL baseURI) and Model/ModelSet.readFrom(InputStream reader,
+				Syntax syntax, URL baseURI).
 			</action>
 		</release>
 

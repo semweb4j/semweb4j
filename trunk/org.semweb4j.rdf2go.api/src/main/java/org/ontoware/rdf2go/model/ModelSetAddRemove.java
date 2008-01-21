@@ -77,8 +77,8 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             if any internal (I/O related) exception occurs
 	 */
-	void removeStatement(URI contextURI, Resource subject,
-			URI predicate, Node object) throws ModelRuntimeException;
+	void removeStatement(URI contextURI, Resource subject, URI predicate,
+			Node object) throws ModelRuntimeException;
 
 	/**
 	 * Removes the statement (s,p,o) from a model named statement.getContext().
@@ -90,8 +90,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @throws ModelRuntimeException
 	 *             if any internal (I/O related) exception occurs
 	 */
-	void removeStatement(Statement statement)
-			throws ModelRuntimeException;
+	void removeStatement(Statement statement) throws ModelRuntimeException;
 
 	/**
 	 * For each statement in the iterator, the statement is removed form the
@@ -112,8 +111,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * @param quadPattern
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatements(QuadPattern quadPattern)
-			throws ModelRuntimeException;
+	void removeStatements(QuadPattern quadPattern) throws ModelRuntimeException;
 
 	/**
 	 * Find all models matching the context, and remove all (subject, property
@@ -121,9 +119,9 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * 
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatements(UriOrVariable context,
-			ResourceOrVariable subject, UriOrVariable predicate,
-			NodeOrVariable object) throws ModelRuntimeException;
+	void removeStatements(UriOrVariable context, ResourceOrVariable subject,
+			UriOrVariable predicate, NodeOrVariable object)
+			throws ModelRuntimeException;
 
 	/**
 	 * Apply the changes given by this diff <emph>in one atomic operation</emph>
@@ -144,5 +142,19 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 *             exist.
 	 */
 	void update(DiffReader diff) throws ModelRuntimeException;
+
+	
+	
+//	/**
+//	 * Adds all statements contained in 'model' to this ModelSet. Set the
+//	 * context to all these statements to 'contextURI'.
+//	 * 
+//	 * If the model belongs to the same implementation family as the ModelSet,
+//	 * this add might be very fast.
+//	 * 
+//	 * @param context
+//	 * @param model
+//	 */
+//	void addModel(URI contextURI, Model model);
 
 }
