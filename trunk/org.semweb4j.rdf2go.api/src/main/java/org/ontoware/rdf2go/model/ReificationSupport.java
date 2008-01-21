@@ -65,11 +65,21 @@ public interface ReificationSupport {
 
 	/**
 	 * @param statement
-	 * @return a colelction which contains all resources that are a reification
+	 * @return a collection which contains all resources that are a reification
 	 *         of the given statement.
 	 */
 	Collection<Resource> getAllReificationsOf(Statement statement);
 
+	/**
+	 * @param stmt
+	 * @return true if the model contains results to the query
+	 * <code><pre>
+	 * ?reificationResource rdf:type      rdf:Statement . 
+	 * ?reificationResource rdf:subject   ?s .
+	 * ?reificationResource rdf:predicate ?p .
+	 * ?reificationResource rdf:object    ?o .
+	 * </pre></code>
+	 */
 	boolean hasReifications(Statement stmt);
 
 }
