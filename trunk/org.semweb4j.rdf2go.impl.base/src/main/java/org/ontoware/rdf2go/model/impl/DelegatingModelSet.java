@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 import java.util.Collection;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
@@ -255,6 +256,18 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 
 	public boolean hasReifications(Statement stmt) {
 		return baseModelSet.hasReifications(stmt);
+	}
+
+	public void readFrom(InputStream reader, Syntax syntax, URL baseURI)
+			throws IOException, ModelRuntimeException,
+			SyntaxNotSupportedException {
+		baseModelSet.readFrom(reader, syntax, baseURI);
+	}
+
+	public void readFrom(Reader in, Syntax syntax, URL baseURI)
+			throws IOException, ModelRuntimeException,
+			SyntaxNotSupportedException {
+		baseModelSet.readFrom(in, syntax, baseURI);
 	}
 
 }
