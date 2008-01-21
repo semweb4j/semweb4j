@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
@@ -28,9 +29,9 @@ public interface ModelIO {
 	void readFrom(Reader in) throws IOException, ModelRuntimeException;
 
 	/**
-	 * Reads assuming the given syntax. Encoding defaults to UTF8.
-	 * When reading TRiX into a Model, the context URI is ignored.
-	 *  
+	 * Reads assuming the given syntax. Encoding defaults to UTF8. When reading
+	 * TRiX into a Model, the context URI is ignored.
+	 * 
 	 * @param in
 	 *            the input to read
 	 * @param syntax
@@ -41,6 +42,17 @@ public interface ModelIO {
 	 *             on RDF serialization errors or model errors
 	 */
 	void readFrom(Reader in, Syntax syntax) throws IOException,
+			ModelRuntimeException;
+
+	/**
+	 * FIXME comment
+	 * @param in
+	 * @param syntax
+	 * @param baseURI
+	 * @throws IOException
+	 * @throws ModelRuntimeException
+	 */
+	void readFrom(Reader in, Syntax syntax, URL baseURI) throws IOException,
 			ModelRuntimeException;
 
 	/**
@@ -69,6 +81,17 @@ public interface ModelIO {
 	 */
 	void readFrom(InputStream reader, Syntax syntax) throws IOException,
 			ModelRuntimeException;
+
+	/**
+	 * FIXME comment
+	 * @param reader
+	 * @param syntax
+	 * @param baseURI
+	 * @throws IOException
+	 * @throws ModelRuntimeException
+	 */
+	void readFrom(InputStream reader, Syntax syntax, URL baseURI) throws IOException,
+	ModelRuntimeException;
 
 	/**
 	 * Writing an RDF/XML stream in UTF8 encoding
@@ -123,13 +146,15 @@ public interface ModelIO {
 	 */
 	void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException;
-	
+
 	/**
 	 * Convenience method to export a Model to a String in a given syntax.
+	 * 
 	 * @param syntax
 	 * @return a String, containing the Model content in the given syntax.
-	 * @throws SyntaxNotSupportedException if the syntax is not supported
+	 * @throws SyntaxNotSupportedException
+	 *             if the syntax is not supported
 	 */
-	String serialize( Syntax syntax ) throws SyntaxNotSupportedException;
+	String serialize(Syntax syntax) throws SyntaxNotSupportedException;
 
 }
