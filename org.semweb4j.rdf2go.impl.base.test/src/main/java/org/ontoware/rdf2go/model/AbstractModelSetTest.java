@@ -133,7 +133,7 @@ public abstract class AbstractModelSetTest extends TestCase {
 	public abstract ModelFactory getModelFactory();
 
 	@Override
-	public void setUp() {
+	public void setUp() throws Exception {
 		// done by each test, to allow for different Reasoning settings
 		// TODO: Leo: I think this is crap, you never test any reasoning
 		// settings
