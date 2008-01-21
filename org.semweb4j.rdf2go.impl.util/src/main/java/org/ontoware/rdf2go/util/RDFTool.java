@@ -301,7 +301,7 @@ public class RDFTool {
 			else if (suffix.equals("nt"))
 				return Syntax.Ntriples;
 			else if (suffix.equals("trig")) {
-				throw new RuntimeException("trig files not supported by RDF2Go");
+				return Syntax.Trig;
 			} else if (suffix.equals("trix"))
 				return Syntax.Trix;
 		}
