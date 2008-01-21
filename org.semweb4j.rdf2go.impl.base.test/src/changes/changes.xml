@@ -5,6 +5,15 @@
 	</properties>
 	<body>
 
+		<release version="4.5.4" date="2008-01-21"
+			description="dependency update">
+			<action dev="xamde" type="updated">
+				Update to RDF2Go API 4.5.3 and impl.base 4.5.4. Changes
+				maded accordingly in AbstractModelSetTest,
+				AbstractModelTest and NotifyingModelSetTest.
+			</action>
+		</release>
+
 		<release version="4.5.3" date="2007-12-15"
 			description="dependency update">
 			<action dev="xamde" type="updated">

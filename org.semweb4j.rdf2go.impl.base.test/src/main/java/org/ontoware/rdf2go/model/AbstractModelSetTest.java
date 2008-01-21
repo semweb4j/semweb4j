@@ -895,6 +895,15 @@ public abstract class AbstractModelSetTest extends TestCase {
 		// TODO write test
 	}
 
+	@Test
+	public void testRTGO_39() {
+        ModelSet modelset = RDF2Go.getModelFactory().createModelSet();
+        modelset.open();
+        for (ClosableIterator<Statement> i = modelset.iterator(); i.hasNext(); )
+        {
+            i.next();
+        }
+    }	
 	
 	
 	
