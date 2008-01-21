@@ -34,12 +34,12 @@ public interface ReificationSupport {
 	 * Adds the following statemens, as defined in
 	 * {@link http://www.w3.org/TR/rdf-mt/#Reif}
 	 * 
-	 * <code>
+	 * <code><pre>
 	 * (resource) rdf:type       rdf:Statement .
 	 * (resource) rdf:subject   (statement.getSubject()) .
 	 * (resource) rdf:predicate (statement.getPredicate()) .
 	 * (resource) rdf:object    (statement.getObject()) .
-	 * </code>
+	 * </pre></code>
 	 * 
 	 * @param statement
 	 *            which will be reified
@@ -51,12 +51,12 @@ public interface ReificationSupport {
 
 	/**
 	 * Delete reifications made by this resource. More technically, this method
-	 * will remove the following patterns: <code>
+	 * will remove the following patterns: <code><pre>
 	 * (reificationResource) rdf:type      rdf:Statement . 
 	 * (reificationResource) rdf:subject   * .
 	 * (reificationResource) rdf:predicate * .
 	 * (reificationResource) rdf:object    * .
-	 * </code>
+	 * </pre></code>
 	 * Note that one resource might have been used in several reifications.
 	 * Although semantic nonsense, this can happen. This method cleans up also these cases.
 	 * @param reificationResource
