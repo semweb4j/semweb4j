@@ -10,17 +10,14 @@
  */
 package org.ontoware.rdf2go.util;
 
-import java.util.Iterator;
-
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 
 /**
- * A converting iterator that is closeable.
+ * A converting iterator that is closable/closeable (both is correct).
  * 
  * You have to implement both {@link #convert(Object)} and 
  * {@link ClosableIterator#close()}.
  * 
- * Note: is closable a typo? shouldn't it be 'Closeable'? I copy from aifbcommons now...
  * @author sauermann
  * @param <FROM> the source class 
  * @param <TO> the target class
@@ -34,7 +31,7 @@ public abstract class ClosableConvertingIterator<FROM, TO> extends ConvertingIte
      * You have to implement the "convert" method, though.
      * @param wrapped the wrapped iterator
      */
-    public ClosableConvertingIterator(Iterator<FROM> wrapped) {
+    public ClosableConvertingIterator(ClosableIterator<FROM> wrapped) {
         super(wrapped);
     }
 
@@ -44,7 +41,7 @@ public abstract class ClosableConvertingIterator<FROM, TO> extends ConvertingIte
      * @param wrapped the wrapped iterator
      * @param converter the converter
      */
-    public ClosableConvertingIterator(Iterator<FROM> wrapped, Converter<FROM, TO> converter) {
+    public ClosableConvertingIterator(ClosableIterator<FROM> wrapped, Converter<FROM, TO> converter) {
         super(wrapped, converter);
     }
     
