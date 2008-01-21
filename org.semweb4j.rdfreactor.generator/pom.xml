@@ -131,10 +131,4 @@
 		</plugins>
 	</build>
 
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.15</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.15</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdfreactor.generator-4.4.15</url>
-  </scm>
 </project>
