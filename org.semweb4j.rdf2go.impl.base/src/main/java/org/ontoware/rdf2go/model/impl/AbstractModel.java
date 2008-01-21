@@ -13,7 +13,9 @@ package org.ontoware.rdf2go.model.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.io.StringWriter;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -354,13 +356,45 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	}
 
 	/**
-	 * Throws an exception if the syntax is not SPARQL
+	 * Throws an exception if the syntax is not RDF/XML. Subclasses are
+	 * encouraged to overwrite this.
 	 */
 	public void readFrom(InputStream in, Syntax syntax) throws IOException,
 			ModelRuntimeException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
 			readFrom(in);
+		} else {
+			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
+		}
+	}
+
+	/**
+	 * Throws an exception if the syntax is not RDF/XML. Set baseURI to the
+	 * empty string. Subclasses are encouraged to overwrite this.
+	 */
+	public void readFrom(InputStream in, Syntax syntax, URL baseURI)
+			throws IOException, ModelRuntimeException {
+		assertModel();
+		if (syntax == Syntax.RdfXml) {
+			readFrom(in);
+		} else {
+			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
+		}
+	}
+
+	/**
+	 * Throws an exception if the syntax is not RDF/XML. Sets base URI to the
+	 * empty string (default). Subclasses are encouraged to overwrite this.
+	 * 
+	 * @throws IOException
+	 * @throws ModelRuntimeException
+	 */
+	public void readFrom(Reader reader, Syntax syntax, URL baseURI)
+			throws ModelRuntimeException, IOException {
+		assertModel();
+		if (syntax == Syntax.RdfXml) {
+			readFrom(reader);
 		} else {
 			throw new ModelRuntimeException("Unsupported syntax: " + syntax);
 		}
@@ -495,7 +529,8 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * this implementation.
 	 */
 	@Override
-	public synchronized void update(DiffReader diff) throws ModelRuntimeException {
+	public synchronized void update(DiffReader diff)
+			throws ModelRuntimeException {
 		assertModel();
 		for (Statement r : diff.getRemoved()) {
 			removeStatement(r);

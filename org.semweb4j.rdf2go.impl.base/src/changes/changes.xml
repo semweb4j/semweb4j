@@ -6,6 +6,13 @@
 	</properties>
 	<body>
 
+		<release version="4.5.4" date="2008-01-21"
+			description="Dependency Update">
+			<action dev="xamde" type="update">
+			    Implemented new functions from RDF2Go API 4.5.3
+			</action>
+		</release>
+
 		<release version="4.5.3" date="2007-12-15"
 			description="Dependency Update - API changes">
 			<action dev="xamde" type="update">

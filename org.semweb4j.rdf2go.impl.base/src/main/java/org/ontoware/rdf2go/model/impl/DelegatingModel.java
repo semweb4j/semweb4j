@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 import java.util.Iterator;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
@@ -379,6 +380,16 @@ public class DelegatingModel extends AbstractModel implements Model {
 
 	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException, IOException {
 		this.delegatedModel.writeTo(writer, syntax);
+	}
+
+	public void readFrom(Reader in, Syntax syntax, URL baseURI)
+			throws IOException, ModelRuntimeException {
+		delegatedModel.readFrom(in, syntax, baseURI);
+	}
+
+	public void readFrom(InputStream reader, Syntax syntax, URL baseURI)
+			throws IOException, ModelRuntimeException {
+		delegatedModel.readFrom(reader, syntax, baseURI);
 	}
 
 }
