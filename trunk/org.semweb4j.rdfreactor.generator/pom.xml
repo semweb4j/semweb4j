@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.4.14-SNAPSHOT</version>
+	<version>4.4.15-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>RDFReactor code generator</name>
@@ -44,13 +44,13 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.4.13</version>
+			<version>4.4.15</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.5.0</version>
+			<version>4.5.4</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -131,9 +131,4 @@
 		</plugins>
 	</build>
 
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.13</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.4.13</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdfreactor.generator-4.4.13</url>
-  </scm>
 </project>
