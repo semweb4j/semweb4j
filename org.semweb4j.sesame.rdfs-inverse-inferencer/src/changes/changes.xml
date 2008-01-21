@@ -1,0 +1,32 @@
+<document>
+
+	<properties>
+		<title>sesame.rdfs-inverse-inferencer Changelog</title>
+		<author email="dev@xam.de">Max Völkel</author>
+	</properties>
+	<body>
+
+		<!-- 
+			<action dev="xamde" type="remove">
+			Removed
+			deprecatedModelSet.getUnderlyingModelImplementation();
+			</action>
+			<release version="4.4.9" date="@@"
+			description="No API changes">
+			</release>
+		-->
+
+		<release version="2.0.0" date="2008-01-21"
+			description="Initial Release">
+			<action dev="xamde" type="update">
+			    Hacked Sesames ForwardChainingRDFSInferencer to additionally infer inverse triples based on the rule
+			    
+			    Namespace: "nrl" = "http://www.semanticdesktop.org/ontologies/nrl/#"
+			    
+			    Rule:   xxx nrl:inverseProperty yyy   &&  aaa xxx bbb 
+			    -->                                       bbb yyy aaa
+			</action>
+		</release>
+
+	</body>
+</document>
