@@ -1,0 +1,37 @@
+
+
+
+patterns and naming in rdf2go.core:
+----------------------------------
+
+Common<Name>                         - generic
+  <Name> extends Common<Name>        - triple specific
+  Context<Name> extends Common<Name> - quad specific
+
+package core
+------------
+The basic RDF types:
+
+Node
+  Resource
+    URI
+    BlankNode
+  Literal
+    LanguageTagLiteral
+    DatatypeLiteral
+    
+CommonModelReader
+CommonModelWriter    
+CommonModel extends CommonModelReader, CommonModelWriter
+
+ModelException      - an error within the core
+ModelImplException  - an exception in the underlying implementation
+
+package core.triple
+-------------------
+Statement
+
+
+package core.quad
+-----------------
+ContextStatement
