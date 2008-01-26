@@ -32,7 +32,7 @@ public class RDFReactorRuntime {
 
 	static Logger log = LoggerFactory.getLogger(RDFReactorRuntime.class);
 
-	private static Map<Class, INodeConverter> map = new HashMap<Class, INodeConverter>();
+	private static Map<Class<?>, INodeConverter<?>> map = new HashMap<Class<?>, INodeConverter<?>>();
 
 	static {
 		// rdf2go types
@@ -57,11 +57,11 @@ public class RDFReactorRuntime {
 		registerConverter(java.util.Calendar.class, new CalendarConverter());
 	}
 
-	public static void registerConverter(Class type, INodeConverter<?> converter) {
+	public static void registerConverter(Class<?> type, INodeConverter<?> converter) {
 		map.put(type, converter);
 	}
 
-	public static INodeConverter<?> getConverter(Class type) {
+	public static INodeConverter<?> getConverter(Class<?> type) {
 		return map.get(type);
 	}
 
@@ -86,7 +86,6 @@ public class RDFReactorRuntime {
 	@Patrolled
 	public static Object node2javatype(Model model, Node n,
 			java.lang.Class<?> returnType) throws ModelRuntimeException {
-
 		if (returnType.isArray())
 			// TODO call this method for each array member
 			throw new IllegalArgumentException("targetType may not be an array");
@@ -221,7 +220,7 @@ public class RDFReactorRuntime {
 			Resource objectID = ((ResourceEntity) reactorValue).getResource();
 			return objectID;
 		} else {
-			for (Class clazz : map.keySet()) {
+			for (Class<?> clazz : map.keySet()) {
 				log.debug("Can a " + reactorValue.getClass()
 						+ " be converted as " + clazz + " ?");
 				if (clazz.isInstance(reactorValue)) {

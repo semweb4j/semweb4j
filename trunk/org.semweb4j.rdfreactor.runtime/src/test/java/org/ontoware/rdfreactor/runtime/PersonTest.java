@@ -8,7 +8,6 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.RDF;
-import org.ontoware.rdfreactor.AllTests;
 import org.ontoware.rdfreactor.runtime.example.Person;
 
 @SuppressWarnings("unused")

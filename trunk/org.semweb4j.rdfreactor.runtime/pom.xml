@@ -9,13 +9,13 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.4.16-SNAPSHOT</version>
+	<version>4.5.0-SNAPSHOT</version>
 	<name>RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
 
-		This library needs to be shipped togehter with generated
+		This library needs to be shipped together with generated
 		classes.
 	</description>
 	<url>http://semweb4.org/rdfreactor</url>
