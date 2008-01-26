@@ -3,6 +3,7 @@ package org.ontoware.rdfreactor.generator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,11 +73,11 @@ public class Utils {
 
 	}
 
-	public static String toJavaComment(String[] rdfComments) {
+	public static String toJavaComment(List<String> rdfComments) {
 		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < rdfComments.length; i++) {
-			buf.append(rdfComments[i]);
-			if (i + 1 < rdfComments.length) {
+		for (int i = 0; i < rdfComments.size(); i++) {
+			buf.append(rdfComments.get(i));
+			if (i + 1 < rdfComments.size()) {
 				buf.append("\n");
 			}
 		}

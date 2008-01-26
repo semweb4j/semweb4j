@@ -15,7 +15,7 @@ public class TestJModel {
 		
 		JPackage jp = new JPackage("Package");
 		JClass root = new JClass(jp,"Rootclass", new URIImpl("urn:java:class.Rootclass"));
-		JModel jm = new JModel(root,true);
+		JModel jm = new JModel(root);
 		
 		URI testURI = new URIImpl("urn:test:classX");
 		JClass testClass = new JClass(jp,"Testclass", testURI);

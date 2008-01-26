@@ -20,38 +20,53 @@ import org.ontoware.rdfreactor.generator.java.JModel;
 import org.ontoware.rdfreactor.generator.java.JPackage;
 
 /**
- * should use velocity
+ * Write the JModel via Velocity templates to Java source code.
  * 
  * @author $Author: xamde $
  * @version $Id: SourceCodeWriter.java,v 1.9 2006/07/01 10:35:09 xamde Exp $
  * 
  */
 public class SourceCodeWriter {
-	// /microreactor/bin/org/ontoware/rdfreactor/generator/class.vm
-	public static final String TEMPLATE_CLASS = "class.vm";
 
-	// public static final String TEMPLATE_CLASS =
-	// "./org/ontoware/rdfreactor/generator/class.vm";
+	public static final String TEMPLATE_CLASS = "class.vm";
 
 	private static final Log log = LogFactory.getLog(SourceCodeWriter.class);
 
-	// public static final String TEMPLATE_CLASS =
-	// "./org/ontoware/rdfreactor/generator/class.vm";
-
 	/**
-	 * uses the default template
+	 * Writes model 'jm' to 'outdir' creating sub-directories for packages as
+	 * needed. Uses the default template. Prefixes all methods with 'prefix', e.g.
+	 * with prefix="Sioc" one gets "getSiocName"
+	 * 
+	 * @param jm
+	 * @param outdir
+	 * @param methodnamePrefix
+	 * @throws IOException
 	 */
 	public static void write(JModel jm, File outdir, String methodnamePrefix)
 			throws Exception {
 		write(jm, outdir, TEMPLATE_CLASS, methodnamePrefix);
 	}
 
+	/**
+	 * Writes model 'jm' to 'outdir' creating sub-directories for packages as
+	 * needed. Uses 'templateName'. Prefixes all methods with 'prefix', e.g.
+	 * with prefix="Sioc" one gets "getSiocName"
+	 * 
+	 * @param jm
+	 * @param outdir
+	 * @param templateName
+	 *            in resource-syntax, e.g. "com/example/myname.vm"
+	 * @param methodnamePrefix
+	 * @throws IOException
+	 */
 	public static void write(JModel jm, File outdir, String templateName,
 			String methodnamePrefix) throws IOException {
 
+		log.info("Adding inverse properties");
 		jm.addInverseProperties();
+		
 		assert jm.isConsistent() : "java package is not consistent";
-//		log.info("JModel model: \n" + jm.toString());
+		// log.info("JModel model: \n" + jm.toString());
 
 		System.out.println(jm.toString() + "\n>>>>>>  written to "
 				+ outdir.getAbsolutePath());
@@ -106,13 +121,11 @@ public class SourceCodeWriter {
 		assert template != null;
 
 		context.put("methodnameprefix", methodnamePrefix);
-		// for debug only
+		// for debug 
 		Calendar c = Calendar.getInstance();
 		context.put("now", SimpleDateFormat.getInstance().format(c.getTime()));
 		context.put("root", jm.getRoot());
 		context.put("generatorVersion", CodeGenerator.GENERATOR_VERSION);
-		log.debug("always write to store? " + jm.getAlwaysWriteToModel());
-		context.put("writetostore", jm.getAlwaysWriteToModel());
 
 		for (JPackage jp : jm.getPackages())
 			write(context, jp, outdir, template);
@@ -159,6 +172,5 @@ public class SourceCodeWriter {
 			throw new RuntimeException(e);
 		}
 		fw.close();
-
 	}
 }

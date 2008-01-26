@@ -5,6 +5,7 @@
 package org.ontoware.rdfreactor.generator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,11 +13,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.URI;
-import org.ontoware.rdfreactor.schema.rdfschema.Resource;
+import org.ontoware.rdfreactor.schema.bootstrap.Resource;
 
 /**
- * Helper methods for creating legal and unique Java Bean Identifiers
- * for resources. 
+ * Helper methods for creating legal and unique Java Bean Identifiers for
+ * resources.
  * 
  * Use toBeanName() as the main entry point to the helper functions.
  * 
@@ -29,45 +30,43 @@ public class JavaNamingUtils {
 	/**
 	 * Create a legal and unique Java Bean Identifier for a resource.
 	 * 
-	 * @param rresource - 
-	 * 			Resource for which to create the Identifier
-	 * @param usedNames - 
-	 * 			Set of already used names
-	 * @return 
-	 * 			a new unique name from label or URI
+	 * @param rresource -
+	 *            Resource for which to create the Identifier
+	 * @param usedNames -
+	 *            Set of already used names
+	 * @return a new unique name from label or URI
 	 */
 	public static String toBeanName(Resource rresource, Set<String> usedNames) {
 		// if we have at least one label, we use that
-		String[] labels = rresource.getAllLabel();
+		List<String> labels = rresource.getAllLabel_asList();
 		// TODO improve: language handling in labels
-		if (labels.length > 0) {
-			log.debug("Found a label, using first label: " + labels[0]);
-			String labelName = toLegalJavaIdentifier(labels[0]);
+		if (labels.size() > 0) {
+			log.debug("Found a label, using first label: " + labels.get(0));
+			String labelName = toLegalJavaIdentifier(labels.get(0));
 			if (!usedNames.contains(labelName))
 				return labelName;
 			// IMPROVE: might try other labels
 			else {
 				String result = uri2beanname(rresource.getResource(), usedNames);
-				log.debug("NAME     " + rresource.getResource()
-						+ " labelName taken --> uri2beanname: " + result);
+				log.debug("NAME     " + rresource.getResource().toSPARQL()
+						+ " label '"+labelName+"' is already used. Using '" + result+"' computed from URI.");
 				return result;
 			}
 		} else {
 			String result = uri2beanname(rresource.getResource(), usedNames);
-			log.debug("    NAME " + rresource.getResource()
-					+ " found no label --> uri2beanname: " + result);
+			log.debug("NAME     " + rresource.getResource().toSPARQL()
+					+ " found no label. Using '" + result+"' computed from URI.");
 			return result;
 		}
 	}
 
 	/**
-	 * Convert any String into a legal Java Bean Identifier
-	 * (no spaces, everything concatenated)
+	 * Convert any String into a legal Java Bean Identifier (no spaces,
+	 * everything concatenated)
 	 * 
 	 * @param illegal -
-	 * 			String which has to be converted
-	 * @return
-	 * 			legal Java Bean Identifier
+	 *            String which has to be converted
+	 * @return legal Java Bean Identifier
 	 */
 	public static String toLegalJavaIdentifier(String illegal) {
 		assert illegal != null;
@@ -100,14 +99,14 @@ public class JavaNamingUtils {
 	}
 
 	/**
-	 * Take a URI and generate a legal and unique Java Bean Identifier from it. 
+	 * Take a URI and generate a legal and unique Java Bean Identifier from it.
 	 * 
 	 * @param uriOrBlankNode -
-	 * 			URI or BlankNode for which a bean identifiers has to be created.
+	 *            URI or BlankNode for which a bean identifiers has to be
+	 *            created.
 	 * @param usedNames -
-	 * 			Set of alread used bean identifiers
-	 * @return
-	 * 		a legal and unique Java Bean Identifier
+	 *            Set of alread used bean identifiers
+	 * @return a legal and unique Java Bean Identifier
 	 */
 	public static String uri2beanname(Object uriOrBlankNode,
 			Set<String> usedNames) {
@@ -115,8 +114,8 @@ public class JavaNamingUtils {
 		if (uriOrBlankNode instanceof BlankNode) {
 			return "blankNode";
 			// TODO create names for anonymous resource
-//			throw new RuntimeException(
-//					"Cannot create names for anonymous resources (yet)");
+			// throw new RuntimeException(
+			// "Cannot create names for anonymous resources (yet)");
 		}
 
 		URI uri = (URI) uriOrBlankNode;
@@ -157,42 +156,45 @@ public class JavaNamingUtils {
 	}
 
 	/**
-	 * Get the local part of a URI, which is the fragment identifier (after #) or 
-	 * part after the last / .
+	 * Get the local part of a URI, which is the fragment identifier (after #)
+	 * or part after the last / .
 	 * 
-	 * @param uriString - 
-	 * 			URI given  as String
-	 * @return 
-	 * 			URI fragement identifier OR part after last slash OR null
+	 * @param uriString -
+	 *            URI given as String
+	 * @return URI fragment identifier OR part after last slash OR null
 	 */
 	public static String getLocalPart(String uriString) {
 
 		String fragment = null;
-		if (uriString.contains("#"))
+		if (uriString.contains("#")) {
 			fragment = uriString.substring(uriString.lastIndexOf('#') + 1);
-		if (fragment != null && fragment.length() > 0) {
-			return fragment;
+			if (fragment != null && fragment.length() > 0) {
+				return fragment;
+			}
+		}
+
+		// IV: no fragment, but some URI
+		int slashPos = uriString.lastIndexOf('/');
+		if (slashPos > 0 && slashPos + 1 < uriString.length()) {
+			// take after last slash
+			return uriString.substring(slashPos + 1);
 		} else {
-			// IV: no fragment, but some uri
-			int slashPos = uriString.lastIndexOf('/');
-			if (slashPos > 0 && slashPos + 1 < uriString.length()) {
+			int colonPos = uriString.lastIndexOf(':');
+			if (colonPos > 0 && colonPos + 1 < uriString.length()) {
 				// take after last slash
-				return uriString.substring(slashPos + 1);
+				return uriString.substring(colonPos + 1);
 			} else {
 				return null;
 			}
 		}
-
 	}
 
 	/**
-	 * Get the Name Space Part of an URI 
-	 * (before the # or last / )
+	 * Get the Name Space Part of an URI (before the # or last / )
 	 * 
 	 * @param uriString -
-	 * 			URI given  as String
-	 * @return 
-	 * 			the part BEFORE the # or last slash
+	 *            URI given as String
+	 * @return the part BEFORE the # or last slash
 	 */
 	public static String getNamespacePart(String uriString) {
 		String local = getLocalPart(uriString);
@@ -206,7 +208,8 @@ public class JavaNamingUtils {
 	 * try to find a suitable prefix to represent a uri, much like the prefixed
 	 * used in N3 notation.
 	 * 
-	 * @param uriString a URI given  as String
+	 * @param uriString
+	 *            a URI given as String
 	 * @return a short, lowercase name without spaces, usable as a N3 namespace
 	 *         prefix
 	 */

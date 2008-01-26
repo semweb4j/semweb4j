@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.4.16-SNAPSHOT</version>
+	<version>4.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>RDFReactor code generator</name>
@@ -44,15 +44,23 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.4.15</version>
+			<version>4.5.0-SNAPSHOT</version>
 		</dependency>
 
+<dependency>
+	<groupId>org.openrdf</groupId>
+	<artifactId>openrdf-rdf2go</artifactId>
+	<version>4.5.3</version>
+</dependency>
+
+<!-- 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
 			<version>4.5.4</version>
 			<scope>runtime</scope>
 		</dependency>
+ -->
 
 		<dependency>
 			<groupId>velocity</groupId>

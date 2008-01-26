@@ -9,8 +9,10 @@ public class GenerateFromSchemas {
 
 	private static Log log = LogFactory.getLog(CodeGenerator.class);
 
+	public static final String outdir = "./target/test-gen";
+	
 	public static void main(String[] args) throws Exception {
-		File testGenDir = new File("./target/temp/test-gen");
+		File testGenDir = new File(outdir);
 		testGenDir.mkdirs();
 		// tests
 		//generate("Class Cyles", "./test-data/classCycle.n3", "classcycle", "rdfs", true);
@@ -53,7 +55,7 @@ public class GenerateFromSchemas {
 	public static void generate(String name, String schemaFile, String localPackagename,
 			String semantics, boolean skipbuiltins) throws Exception {
 		log.info("Generating " + name);
-		CodeGenerator.generate(schemaFile, "./target/temp/test-gen", "org.ontoware.rdfreactor.testgen."
+		CodeGenerator.generate(schemaFile, outdir, "org.ontoware.rdfreactor.testgen."
 				+ localPackagename, semantics, skipbuiltins, true,"");
 	}
 

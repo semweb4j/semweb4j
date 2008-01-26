@@ -5,6 +5,19 @@
 	</properties>
 	<body>
 
+		<release version="4.5.0" description="Refactoring" date="2008-01-26">
+			<action dev="xamde" type="update">
+				Refactored heavily. Added static methods for all property operations, so 
+				object creation can be avoided. Maybe 5% faster.
+			</action>
+			<action dev="xamde" type="update">
+				Improved overall quality of documentation
+			</action>
+			<action dev="xamde" type="add">
+				Now uses 'name' from URNs such as 'urn:ex:name'. Was using the whole URI before. 
+			</action>
+		</release>
+
 		<release version="4.4.15" description="Dependency Update and Bugfixes" date="2008-01-21">
 			<action dev="xamde" type="update">
 				Fixed version-Id in generated code - now it's always

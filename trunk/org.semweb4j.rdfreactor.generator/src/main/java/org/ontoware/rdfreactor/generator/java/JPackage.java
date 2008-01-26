@@ -25,7 +25,7 @@ public class JPackage {
 	public static final JPackage JAVA_UTIL = new JPackage("java.util");
 
 	public static final JPackage RDFSCHEMA = new JPackage(
-			"org.ontoware.rdfreactor.schema.rdfschema");
+			"org.ontoware.rdfreactor.schema.rdfs");
 
 	public static final JPackage OWL = new JPackage("org.ontoware.rdfreactor.schema.owl");
 

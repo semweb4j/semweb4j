@@ -67,8 +67,6 @@ public class JModel {
 	/** the root JClass of this JModel */
 	private JClass root;
 
-	private boolean writetostore;
-
 	/**
 	 * the only constructor:
 	 * 
@@ -77,12 +75,11 @@ public class JModel {
 	 * @param writetostore -
 	 *            if genertaed classes should write to the rdf model
 	 */
-	public JModel(JClass root, boolean writetostore) {
+	public JModel(JClass root) {
 		this.packages = new ArrayList<JPackage>();
 		this.classMap = new HashMap<Resource, JClass>();
 		this.knownProperties = new HashSet<URI>();
 		this.root = root;
-		this.writetostore = writetostore;
 	}
 
 	/**
@@ -128,29 +125,29 @@ public class JModel {
 	public void flattenInheritanceHierarchy(JPackage jp) {
 		for (JClass jc : jp.getClasses()) {
 			// FIXME for (JClass jc : mapping.values()) {
-			log
-					.debug("pruning on " + jc + " with " + jc.getSuperclasses().size()
-							+ " superclasses");
 			switch (jc.getSuperclasses().size()) {
 			case 0:
-				log.debug("no superclass? set inherited superclass to ontology root");
+				log.debug("Class '" + jc + "' has no superclass --> set superclass to 'Thing'");
 				jc.setJavaSuperclass(root);
 				break;
 			case 1: {
-				log.debug("have 1 superclass");
 				JClass superclass = jc.getSuperclasses().get(0);
 				assert superclass != null;
 				if (superclass.equals(jc)) {
-					log.debug("avoid having yourself as your own superclass");
+					log.debug("Class '" + jc + "' has exactly one superclass: itself --> set superclass to 'Thing'");
 					jc.setJavaSuperclass(root);
 				} else {
+					log.debug("Class '" + jc + "' has exactly one superclass '"+superclass+"'");
 					// use the one we have
 					jc.setJavaSuperclass(superclass);
 				}
 			}
 				break;
 			default: {
-				log.debug("found " + jc.getSuperclasses().size() + " superclasses, pruning...");
+				log
+				.debug("Class '" + jc + "' has " + jc.getSuperclasses().size()
+						+ " superclasses. Needs pruning.... ");
+
 				// prune hierarchy.
 				
 				// Alg:
@@ -254,14 +251,13 @@ public class JModel {
 	}
 
 	/**
-	 * @param id
+	 * @param resource
 	 *            is a Java Object
 	 * @return the JClass to which the Java Object is mapped in this JModel
 	 */
-	public JClass getMapping(Resource id) {
-		JClass result = this.classMap.get(id);	
-		
-		assert result != null : "noclass mapped to id " + id+" idclass = "+id.getClass();
+	public JClass getMapping(Resource resource) {
+		JClass result = this.classMap.get(resource);	
+		assert result != null : "no class mapped to resource " + resource+" type of resource = "+resource.getClass();
 		return result;
 	}
 
@@ -283,14 +279,6 @@ public class JModel {
 	 */
 	public void setRoot(JClass root) {
 		this.root = root;
-	}
-
-	public boolean getAlwaysWriteToModel() {
-		return this.writetostore;
-	}
-
-	public void setAlwaysWriteToModel(boolean alwaysWriteToModel) {
-		this.writetostore= alwaysWriteToModel;
 	}
 
 	// TODO: implement equals() ?

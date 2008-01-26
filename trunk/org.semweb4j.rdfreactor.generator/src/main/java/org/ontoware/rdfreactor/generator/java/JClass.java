@@ -10,11 +10,8 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.node.URI;
-import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.vocabulary.OWL;
 import org.ontoware.rdf2go.vocabulary.RDFS;
-import org.ontoware.rdfreactor.schema.rdfschema.Class;
-import org.ontoware.rdfreactor.schema.rdfschema.Resource;
 
 /**
  * A <b>JClass</b> represents a class in a JModel.
@@ -33,17 +30,13 @@ public class JClass extends JMapped {
 			String.class.getName(), RDFS.Literal);
 
 	public static final JClass RESOURCE = new JClass(JPackage.RDFSCHEMA,
-			Resource.class.getName(), RDFS.Resource);
+			org.ontoware.rdfreactor.schema.rdfs.Resource.class.getName(), RDFS.Resource);
 
 	public static final JClass RDFS_CLASS = new JClass(JPackage.RDFSCHEMA,
-			Class.class.getName(), RDFS.Class);
+			org.ontoware.rdfreactor.schema.rdfs.Class.class.getName(), RDFS.Class);
 
 	public static final JClass OWL_CLASS = new JClass(JPackage.OWL,
-			org.ontoware.rdfreactor.schema.owl.Class.class.getName(), OWL.Class);
-
-	public static final JClass REACTOR_BASE_NAMED = new JClass(new JPackage(
-			"org.ontoware.rdfreactor.runtime"), "ReactorBaseNamed",
-			new URIImpl("urn:java:org.ontoware.rdfreactor.named"));
+			org.ontoware.rdfreactor.schema.owl.OwlClass.class.getName(), OWL.Class);
 
 	private static final Log log = LogFactory.getLog(JClass.class);
 
@@ -129,6 +122,10 @@ public class JClass extends JMapped {
 
 	public String toString() {
 		return this.getName();
+	}
+	
+	public String getDotfree() {
+		return this.getName().replace(".", "_");
 	}
 
 	public String toDebug() {
@@ -345,14 +342,17 @@ public class JClass extends JMapped {
 		for (JClass jc : superclasses) {
 			buf.append(jc.getN3Name()).append(", ");
 		}
-		buf.append(" URI: " + getMappedTo() + "\n");
-		// if (superclasses.size() > 0)
-		// buf.append("\n");
-
+		buf.append("| URI: " + getMappedTo().toSPARQL() + "\n");
+		
 		if (getComment() != null)
 			buf.append("''").append(getComment()).append("''\n");
 
+		buf.append("properties:\n");
 		for (JProperty jp : properties) {
+			buf.append(jp.toReport());
+		}
+		buf.append("inverse properties:\n");
+		for (JProperty jp : inverseProperties) {
 			buf.append(jp.toReport());
 		}
 		return buf.toString();
