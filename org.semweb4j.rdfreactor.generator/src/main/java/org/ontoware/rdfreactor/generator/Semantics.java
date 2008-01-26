@@ -17,58 +17,61 @@ public class Semantics {
 	public static final String NS_XSD = "http://www.w3.org/2001/XMLSchema#";
 
 	/**
-	 * Add the buil-in mapping of URIs to classes.
+	 * Add the build-in mapping of URIs to classes.
 	 * 
 	 * @param jm
 	 */
 	public static void addBuiltInsCommon(JModel jm) {
 
-		String rdfschema = "org.ontoware.rdfreactor.schema.rdfschema";
-
 		// TODO: shouldn't JPackage.RDFSCHEMA be added to 'jm' ?
 
-		jm.addMapping(RDF.Alt, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Alt", RDF.Alt));
-		jm.addMapping(RDF.Bag, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Bag", RDF.Bag));
+		jm.addMapping(RDF.Alt, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Alt", RDF.Alt));
+		jm.addMapping(RDF.Bag, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Bag", RDF.Bag));
 
-		JClass _class = new JClass(JPackage.RDFSCHEMA, rdfschema + ".Class",
-				RDFS.Class);
+		JClass _class = new JClass(JPackage.RDFSCHEMA, JPackage.RDFSCHEMA
+				.getName()
+				+ ".Class", RDFS.Class);
 		jm.addMapping(RDFS.Class, _class);
 
-		jm.addMapping(RDFS.Container, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Container", RDFS.Container));
+		jm.addMapping(RDFS.Container, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Container", RDFS.Container));
 		jm.addMapping(RDFS.ContainerMembershipProperty, new JClass(
-				JPackage.RDFSCHEMA, rdfschema + ".ContainerMembershipProperty",
+				JPackage.RDFSCHEMA, JPackage.RDFSCHEMA.getName()
+						+ ".ContainerMembershipProperty",
 				RDFS.ContainerMembershipProperty));
-		jm.addMapping(RDFS.Datatype, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Datatype", RDFS.Datatype));
+		jm.addMapping(RDFS.Datatype, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Datatype", RDFS.Datatype));
 		// literal mapping
 		jm.addMapping(RDFS.Literal, JClass.STRING);
-		jm.addMapping(RDF.List, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".List", RDF.List));
-		jm.addMapping(RDF.nil, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Nil", RDF.nil));
+		jm.addMapping(RDF.List, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".List", RDF.List));
+		jm.addMapping(RDF.nil, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Nil", RDF.nil));
 		// rdf property is special
-		jm.addMapping(RDF.Seq, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Seq", RDF.Seq));
-		jm.addMapping(RDF.Statement, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Statement", RDF.Statement));
-		jm.addMapping(RDF.XMLLiteral, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".XMLLiteral", RDF.XMLLiteral));
+		jm.addMapping(RDF.Seq, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Seq", RDF.Seq));
+		jm.addMapping(RDF.Statement, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Statement", RDF.Statement));
+		jm.addMapping(RDF.XMLLiteral, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".XMLLiteral", RDF.XMLLiteral));
 
-		jm.addMapping(RDF.Property, new JClass(JPackage.RDFSCHEMA, rdfschema
-				+ ".Property", RDF.Property));
-		JClass _resource = new JClass(JPackage.RDFSCHEMA, rdfschema
+		jm.addMapping(RDF.Property, new JClass(JPackage.RDFSCHEMA,
+				JPackage.RDFSCHEMA.getName() + ".Property", RDF.Property));
+
+		JClass _resource = new JClass(JPackage.RDFSCHEMA, JPackage.RDFSCHEMA
+				.getName()
 				+ ".Resource", RDFS.Resource);
-
 		jm.addMapping(RDFS.Resource, _resource);
-
 		_resource.getProperties().add(
-				new JProperty(_class, "label", RDFS.label));
+				new JProperty(_resource, "label", RDFS.label));
 		_resource.getProperties().add(
-				new JProperty(_class, "comment", RDFS.comment));
-		_resource.getProperties().add(new JProperty(_class, "type", RDF.type));
+				new JProperty(_resource, "comment", RDFS.comment));
+		_resource.getProperties().add(
+				new JProperty(_resource, "type", RDF.type));
+		_resource.getProperties().add(
+				new JProperty(_resource, "member", RDFS.member));
 
 		// owl mapping
 		String owl = "org.ontoware.rdfreactor.schema.owl";
@@ -112,10 +115,12 @@ public class Semantics {
 				+ ".TransitiveProperty", OWL.TransitiveProperty));
 		// XML Schema
 
+		//////////////////// java.net
 		// IDs
 		jm.addMapping(XSD._anyURI, new JClass(new JPackage("java.net"),
 				URI.class.getName() + "", XSD._anyURI));
 
+		/////////////////// java.lang
 		// primitive types
 		jm.addMapping(XSD._byte, new JClass(JPackage.JAVA_LANG, Byte.class
 				.getName()
@@ -143,6 +148,15 @@ public class Semantics {
 				.getName()
 				+ "", XSD._float));
 
+		// strings
+		jm.addMapping(XSD._normalizedString, new JClass(JPackage.JAVA_LANG,
+				String.class.getName() + "", XSD._normalizedString));
+		jm.addMapping(XSD._string, new JClass(JPackage.JAVA_LANG, String.class
+				.getName()
+				+ "", XSD._string));
+
+		/////////////////////////// java.util
+		
 		// date and time -> Calendar.class
 		jm.addMapping(XSD._dateTime, new JClass(JPackage.JAVA_UTIL,
 				Calendar.class.getName() + "", XSD._dateTime));
@@ -153,15 +167,7 @@ public class Semantics {
 				.getName()
 				+ "", XSD._time));
 
-		// strings
-		jm.addMapping(XSD._normalizedString, new JClass(JPackage.JAVA_LANG,
-				String.class.getName() + "", XSD._normalizedString));
-		jm.addMapping(XSD._string, new JClass(JPackage.JAVA_LANG, String.class
-				.getName()
-				+ "", XSD._string));
-
 		// get all properties
-		jm.knownProperties.add(RDF.nil);
 		jm.knownProperties.add(RDF.first);
 		jm.knownProperties.add(RDF.rest);
 		jm.knownProperties.add(RDF.subject);
@@ -173,6 +179,7 @@ public class Semantics {
 		jm.knownProperties.add(RDFS.comment);
 		jm.knownProperties.add(RDFS.seeAlso);
 		jm.knownProperties.add(RDFS.isDefinedBy);
+		jm.knownProperties.add(RDFS.member);
 		jm.knownProperties.add(RDFS.domain);
 		jm.knownProperties.add(RDFS.range);
 		jm.knownProperties.add(RDFS.subClassOf);
@@ -184,7 +191,7 @@ public class Semantics {
 	 * @return a JModel with the common built-ins
 	 */
 	public static JModel getbuiltIns_RDFS() {
-		JModel jm = new JModel(JClass.RDFS_CLASS, true);
+		JModel jm = new JModel(JClass.RDFS_CLASS);
 		addBuiltInsCommon(jm);
 		return jm;
 	}
@@ -193,7 +200,7 @@ public class Semantics {
 	 * @return a JModel with the common built-ins
 	 */
 	public static JModel getbuiltIns_OWL() {
-		JModel jm = new JModel(JClass.OWL_CLASS, true);
+		JModel jm = new JModel(JClass.OWL_CLASS);
 		addBuiltInsCommon(jm);
 		return jm;
 	}

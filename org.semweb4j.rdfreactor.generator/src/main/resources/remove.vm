@@ -1,0 +1,129 @@
+##
+##   if(mindCard==?)
+##     "remove(Node,minCard)"
+##     for each range R:
+##       generate "remove(R,minCard)"
+##   else
+##     "remove(Node)"
+##     for each range R:
+##       generate "remove(R)"
+##
+
+## ================================================
+##
+##     -----------------------------------------------------------------------
+##    | IF min cardinality == UNDEFINED. GENERATE "remove(Node node)"
+#if($prop.minCardinality == $UNDEFINED)
+
+    /**
+     * Removes a value of property #mixedcase($prop.name ) as an RDF2Go node 
+#comment("     " $prop)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be removed
+#debug("remove1static")
+     */
+	public static void remove${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) {
+		Base.remove(model, instanceResource, #uppercase($prop.name), value);
+	}
+	
+    /**
+     * Removes a value of property #mixedcase($prop.name ) as an RDF2Go node
+#comment("     " $prop)
+	 * @param value the value to be removed
+#debug("remove1dynamic")
+     */
+	public void remove${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value) {
+		Base.remove(this.model, this.getResource(), #uppercase($prop.name), value);
+	}
+##             -----------------------------------------------------------------------
+##            | FOR each range R: GENERATE "remove(R)"
+#foreach($type in $prop.types)
+    /**
+     * Removes a value of property #mixedcase($prop.name ) given as an instance of ${type} 
+#comment("     " $type)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be removed
+#debug("remove3static")
+     */
+	public static void remove${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, $type value) {
+		Base.remove(model, instanceResource, #uppercase($prop.name), value);
+	}
+	
+    /**
+     * Removes a value of property #mixedcase($prop.name ) given as an instance of ${type} 
+#comment("     " $type)
+	 * @param value the value to be removed
+#debug("remove4dynamic")
+     */
+	public void remove${methodnameprefix}#mixedcase($prop.name )($type value) {
+		Base.remove(this.model, this.getResource(), #uppercase($prop.name), value);
+	}
+#end ## #foreach(type in $prop.types)
+##     -----------------------------------------------------------------------
+##    | END IF min cardinality == UNDEFINED
+#else 
+##     -----------------------------------------------------------------------
+##    | min cardinality defined
+
+    /**
+     * Removes a value of property #mixedcase($prop.name ) as an RDF2Go node 
+#comment("     " $prop)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be removed
+	 * @throws CardinalityException if removing a value would bring the number 
+	 *            of property values below the cardinality constraint.
+#debug("remove5static")
+     */
+	public static void remove${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) 
+    throws CardinalityException {
+		Base.remove(model, instanceResource, #uppercase($prop.name), value, $prop.maxCardinality);
+	}
+	
+    /**
+     * Removes a value of property #mixedcase($prop.name ) as an RDF2Go node 
+#comment("     " $prop)
+	 * @param value the value to be removed
+	 * @throws CardinalityException if removing a value would bring the number 
+	 *            of property values below the cardinality constraint.
+#debug("remove6dynamic")
+     */
+	public void remove${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value) 
+    throws CardinalityException {
+		Base.remove(this.model, this.getResource(), #uppercase($prop.name), value, $prop.maxCardinality);
+	}
+##             -----------------------------------------------------------------------
+##            | FOR each range R: GENERATE "add(R)"
+#foreach($type in $prop.types)
+    /**
+     * Removes a value of property #mixedcase($prop.name ) from an instance of ${type} 
+#comment("     " $type)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be removed
+	 * @throws CardinalityException if removing a value would bring the number 
+	 *            of property values below the cardinality constraint.
+#debug("remove7static")
+     */
+	public static void remove${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, $type value)
+    throws CardinalityException {
+		Base.remove(model, instanceResource, #uppercase($prop.name), value, $prop.maxCardinality);
+	}
+	
+    /**
+     * Removes a value of property #mixedcase($prop.name ) from an instance of ${type} 
+#comment("     " $type)
+	 * @param value the value to be removed
+	 * @throws CardinalityException if removing a value would bring the number 
+	 *            of property values below the cardinality constraint.
+#debug("remove8dynamic")
+     */
+	public void remove${methodnameprefix}#mixedcase($prop.name )($type value) 
+    throws CardinalityException {
+		Base.remove(this.model, this.getResource(), #uppercase($prop.name), value, $prop.maxCardinality);
+	}
+#end ## #foreach(type in $prop.types)
+
+#end ## else

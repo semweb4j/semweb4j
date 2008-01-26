@@ -3,6 +3,8 @@ package org.ontoware.rdfreactor.generator;
 
 public class MicrobridgeTestGenerator {
 
+	public static final String outdir = "./target/test-gen";
+
 	/**
 	 * generate code for test
 	 * 
@@ -11,7 +13,7 @@ public class MicrobridgeTestGenerator {
 	 */
 	public static void main(String[] args) throws Exception {
 		CodeGenerator.generate("P:/swecr/org.semanticdesktop.swecr.model/src/main/resources/swcm.n3", 
-				"./src/test/java", 
+				outdir,
 				"org.semanticdesktop.swecr.model.rdf.generated",
 				"RDFS", 
 				true, 

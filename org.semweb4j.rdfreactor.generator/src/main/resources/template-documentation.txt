@@ -1,0 +1,82 @@
+minCard == 1 => set to UNDEFINED (?)
+maxCard == 0 => remove property from model
+
+then we are left with the cases:
+* minCard = ? | 1 | n
+* maxCard = ? | 1 | n
+
+
+Generate method?
+	X = yes
+	- = no
+	C = yes, with cardinality check
+
+
+  minCard=| ? | ? | ? | 1 | 1 | 1 | n | n | n |   
+  maxCard=| ? | 1 | n | ? | 1 | n | ? | 1 | n | method has      solution   
+          |   |   |   |   |   |   |   |   |   | issues with
+method    |   |   |   |   |   |   |   |   |   | multi-range?
+----------+---+---+---+---+---+---+---+---+---+
+get       | - | X | - | - | X | - | - | X | - |    yes, _asA _asB _asNode
+getAll    | X | - | X | X | - | X | X | - | X |    yes  _asA _asB _asNode
+add       | X | C | C | X | C | C | X | C | C |    yes  (A), (B), (Node)
+set       | X | X | X | X | X | X | - | - | - |    yes  (A), (B), (Node)
+remove    | X | X | X | C | C | C | C | C | C |    yes  (A), (B), (Node)
+removeAll | X | X | X | - | - | - | - | - | - |    no
+
+
+
+
+if(maxCard==1)
+  "get_asNode"
+  if(multirange)
+    generate "get_asA", "get_asB"
+  else  
+    generate "get"
+else
+  generate "getAll"
+  if(multirange)
+    generate "getAll_asA", "getAll_asB"
+  else  
+    generate "getAll"
+
+
+if(maxCard==?)
+  "add(Node)"
+  if(multirange)
+    generate "add(A)", "add(B)"
+  else
+    generate "add"  
+else
+  "add(Node,maxCard)"
+  if(multirange)
+    generate "add(A,maxCard)","add(B,maxCard)"  
+  else
+    generate "add(...,maxCard)"  
+
+
+if(mindCard==?|minCard==1)
+  "set(Node)"
+  if(multirange)
+    generate "set(A)","set(B)"
+  else
+    generate "set(...)"
+else
+
+
+if(mindCard==?)
+  "remove(Node,minCard)"
+  if(multirange)
+    generate "remove(A,minCard)","remove(B,minCard)"
+  else
+    generate "remove(...,minCard)"
+else
+  "remove(Node)"
+  if(multirange)
+    generate "remove(A)","remove(B)"
+  else
+    generate "remove(...)"
+      
+if(mindCard==?)
+  generate "removeAll"
+
