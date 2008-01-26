@@ -1,0 +1,101 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <urn:ex:> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+#
+# Classes: AAA, BBB, ...
+# Properties: ppp, qqq, rrr, sss, ttt, uuu, ...
+#
+
+:hasPet  a rdf:Property
+;      rdfs:domain :Person 
+;      rdfs:range  :Dog 
+.
+
+# class without properties
+:CCC a rdfs:Class .
+
+# cardinality 
+:ppp1  rdfs:domain :AAA     ; rdfs:range  :BBB ;  .
+:ppp2  rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "0" .
+:ppp3  rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "1" .
+:ppp4  rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "2" .
+:ppp5  rdfs:domain :AAA     ; rdfs:range  :BBB ;                          owl:maxCardinality "0" .
+:ppp6  rdfs:domain :AAA     ; rdfs:range  :BBB ;                          owl:maxCardinality "1" .
+:ppp7  rdfs:domain :AAA     ; rdfs:range  :BBB ;                          owl:maxCardinality "2" .
+
+:ppp8  rdfs:domain :AAA     ; rdfs:range  :BBB                          ; owl:maxCardinality "0" . 
+:ppp9  rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "0" ; owl:maxCardinality "0".
+:ppp10 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "1" ; owl:maxCardinality "0".
+:ppp11 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "2" ; owl:maxCardinality "0".
+
+:ppp12 rdfs:domain :AAA     ; rdfs:range  :BBB                          ; owl:maxCardinality "1" . 
+:ppp13 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "0" ; owl:maxCardinality "1".
+:ppp14 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "1" ; owl:maxCardinality "1".
+:ppp15 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "2" ; owl:maxCardinality "1".
+
+:ppp16 rdfs:domain :AAA     ; rdfs:range  :BBB                          ; owl:maxCardinality "2" . 
+:ppp17 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "0" ; owl:maxCardinality "2".
+:ppp18 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "1" ; owl:maxCardinality "2".
+:ppp19 rdfs:domain :AAA     ; rdfs:range  :BBB ; owl:minCardinality "2" ; owl:maxCardinality "2".
+
+:qqq1  rdfs:domain :AAA     ; rdfs:range  xsd:int ;  .
+:qqq2  rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "0" .
+:qqq3  rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "1" .
+:qqq4  rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "2" .
+:qqq5  rdfs:domain :AAA     ; rdfs:range  xsd:int ;                          owl:maxCardinality "0" .
+:qqq6  rdfs:domain :AAA     ; rdfs:range  xsd:int ;                          owl:maxCardinality "1" .
+:qqq7  rdfs:domain :AAA     ; rdfs:range  xsd:int ;                          owl:maxCardinality "2" .
+
+:qqq8  rdfs:domain :AAA     ; rdfs:range  xsd:int                          ; owl:maxCardinality "0" . 
+:qqq9  rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "0" ; owl:maxCardinality "0".
+:qqq10 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "1" ; owl:maxCardinality "0".
+:qqq11 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "2" ; owl:maxCardinality "0".
+
+:qqq12 rdfs:domain :AAA     ; rdfs:range  xsd:int                          ; owl:maxCardinality "1" . 
+:qqq13 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "0" ; owl:maxCardinality "1".
+:qqq14 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "1" ; owl:maxCardinality "1".
+:qqq15 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "2" ; owl:maxCardinality "1".
+
+:qqq16 rdfs:domain :AAA     ; rdfs:range  xsd:int                          ; owl:maxCardinality "2" . 
+:qqq17 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "0" ; owl:maxCardinality "2".
+:qqq18 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "1" ; owl:maxCardinality "2".
+:qqq19 rdfs:domain :AAA     ; rdfs:range  xsd:int ; owl:minCardinality "2" ; owl:maxCardinality "2".
+
+# no domain and range
+:rrr a rdf:Property .
+
+# no range
+:sss1 a rdf:Property; rdfs:domain :DDD .
+:sss2 a rdf:Property; rdfs:domain xsd:int .
+
+# multiple domains
+:ttt1  a rdf:Property
+;      rdfs:domain :DDD 
+;      rdfs:domain :EEE 
+;      rdfs:range  :FFF 
+.
+
+:ttt2  a rdf:Property
+;      rdfs:domain :DDD 
+;      rdfs:domain xsd:int
+;      rdfs:range  :FFF 
+.
+
+# multiple ranges
+:uuu1  a rdf:Property
+;      rdfs:domain :GGG 
+;      rdfs:range  :HHH 
+;      rdfs:range  :III 
+.
+
+:uuu2  a rdf:Property
+;      rdfs:domain :III 
+;      rdfs:range  :JJJ 
+;      rdfs:range  xsd:int 
+.
+
+
+

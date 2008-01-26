@@ -1,0 +1,90 @@
+
+                                    ------
+                                JModel documentation
+                                    ------
+                                    Max Völkel
+                                    ------
+                                   06.01.2007
+
+Introduction
+
+  <<JModel>> is the internal meta-model used by RDFReactor
+  to handle the mapping from RDF schema to Java code.
+  
+  The basic generation process has the following steps:
+  
+  * Read RDF Schema into a Jena model
+  
+  * Map the RDFSchema more or less 1:1 to a JModel. 
+  
+     * Each rdfs:Class becomes a java:class. 
+  
+     * Each rdfs:Property with domain X is attached to its
+  corresponding JClass X. The range of the property is always
+  another JClass. JClasses for primitive types (literals, some
+  xsd types) are available. 
+  
+     * Superclasses in the RDF schema become superclasses in JModel.
+  
+  * Cycles in the class inheritance are removed, trying to keep
+  the inheritance with the longest path. This leads to nicer-looking
+  code, but has no practical impact. 
+  Properties with multiple domains and ranges are kept.
+  
+  * A velocity template generates a Java source file for each
+  JClass. A lot of the generation logic is in the velocity template.
+  
+JModel 
+
+  JModel has been inspired by the OMG meta-model (M4) and by the
+  Eclipse Modeling Framework Core Model (EMF ECore).
+  
+  In the generation process, some URIs are replaces with Java
+  primitive types. Not all XSD types are handled.
+
+  A UML text notation would be handy here...
+  
+* Input JModel  
+  
++------------------------------------------+
+  JModel
+   ( + ) JPackage 
+      ( 1 ) String: name
+      ( + ) JClass < JType
+         ( 1 ) String: name
+         ( 1 ) URI: mappedTo - the rdf:Class URI
+         ( + ) JClass: superclasses
+         ( ? ) JClass: javaSuperclass
+         ( + ) JProperty: properties   
+            ( 1 ) String: name
+            ( 1 ) URI: mappedTo - the rdf:Class URI
+            ( + ) JClass: type
+            ( 1 ) int minCardinality
+            ( 1 ) int maxCardinality
++------------------------------------------+  
+
+* Restricted JModel ready for code generation:
+
+  * Classes have zero or one superclass only
+  
+  * Properties have exactly one type
+
++------------------------------------------+
+  JModel
+   ( + ) JPackage 
+      ( 1 ) String: name
+      ( + ) JClass < JType
+         ( 1 ) String: name
+         ( 1 ) URI: mappedTo - the rdf:Class URI
+         ( + ) JClass: superclasses
+     >>  ( 1 ) JClass: javaSuperclass
+         ( + ) JProperty: properties   
+            ( 1 ) String: name
+            ( 1 ) URI: mappedTo - the rdf:Class URI
+     >>     ( 1 ) JClass: type
+            ( 1 ) int minCardinality
+            ( 1 ) int maxCardinality
++------------------------------------------+  
+
+
+    
