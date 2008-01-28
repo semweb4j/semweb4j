@@ -344,4 +344,21 @@ public class Base {
 		return RDFReactorRuntime.node2javatype(model, resource, targetType);
 	}
 
+	public static boolean has(Model model, Resource instanceResource, URI propertyURI) {
+		ClosableIterator<Statement> it = model.findStatements(instanceResource,
+				propertyURI, Variable.ANY);
+		boolean result = it.hasNext();
+		it.close();
+		return result;
+	}
+
+	/**
+	 * Delete all (this, *, *)
+	 * @param model
+	 * @param instanceResource
+	 */
+	public static void deleteAllProperties(Model model, Resource instanceResource) {
+		model.removeStatements(instanceResource, Variable.ANY, Variable.ANY);
+	}
+
 }
