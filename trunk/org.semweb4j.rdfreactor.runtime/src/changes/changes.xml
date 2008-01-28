@@ -6,6 +6,22 @@
 	<body>
 
 
+		<release version="4.5.1" description="Extensions" date="@@">
+			<action dev="xamde" type="add">Added hasPROPERTY</action>
+			<action dev="xamde" type="add">
+				All generated classes now implement RDF2Go Resource and
+				delegate to the instanceResource
+			</action>
+		</release>
+
+		<release version="4.5.0" description="Refactoring"
+			date="2008-01-26">
+			<action dev="xamde" type="update">
+				Heavy refactoring. Now all is based only on Base,
+				ReactorEntity and ReactorResult.
+			</action>
+		</release>
+
 		<release version="4.4.15" description="Dependency Update"
 			date="2008-01-21">
 			<action dev="xamde" type="add">
