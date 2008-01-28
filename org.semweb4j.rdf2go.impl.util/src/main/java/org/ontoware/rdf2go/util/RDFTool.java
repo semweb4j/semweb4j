@@ -26,6 +26,7 @@ import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.node.Literal;
@@ -85,9 +86,10 @@ public class RDFTool {
 	 * 
 	 * @param date
 	 * @return a formatted string.
+	 * @deprecated use {@link #date2String(Date)}
 	 */
 	public static String dateTime2DateString(Date date) {
-		return getDateFormat().format(date);
+		return getDateTimeFormat().format(date);
 	}
 
 	/**
@@ -100,6 +102,17 @@ public class RDFTool {
 	 */
 	public static String dateTime2String(Date date) {
 		return getDateTimeFormat().format(date);
+	}
+	
+	/**
+	 * format the given date in a good date format: ISO 8601, using only the
+	 * date and not the T seperator example: 2003-01-22 Timezone is ignored.
+	 * 
+	 * @param date
+	 * @return a formatted string.
+	 */
+	public static String date2String(Date date) {
+		return getDateFormat().format(date);
 	}
 
 	/**
@@ -257,6 +270,20 @@ public class RDFTool {
 		}
 	}
 
+	public static Node getSingleValue(ModelSet m, Resource res, URI pred) {
+		ClosableIterator<? extends Statement> i = m.findStatements(Variable.ANY,res, pred,
+				Variable.ANY);
+		try {
+			if (i.hasNext()) {
+				return i.next().getObject();
+			} 
+			//else
+			return null;
+		} finally {
+			i.close();
+		}
+	}
+
 	/**
 	 * read the values of a predicate of a resource. If a value exists, return a
 	 * string representation of it. When multiple triples with this
@@ -273,6 +300,31 @@ public class RDFTool {
 	 */
 	public static String getSingleValueString(Model m, Resource res, URI pred) {
 		Node n = getSingleValue(m, res, pred);
+		if (n == null)
+			return null;
+
+		if (n instanceof Literal)
+			// Literal
+			return ((Literal) n).getValue();
+		return n.toString();
+	}
+
+	/**
+	 * read the values of a predicate of a resource. If a value exists, return a
+	 * string representation of it. When multiple triples with this
+	 * subject/predicate exist, choose one at random.
+	 * 
+	 * @param modelset
+	 *            the model to read from
+	 * @param res
+	 *            the resource
+	 * @param pred
+	 *            the predicate to read
+	 * @return a string representation of the value, or null. Literals are
+	 *         returned using their Value (not toString()).
+	 */
+	public static String getSingleValueString(ModelSet modelset, Resource res, URI pred) {
+		Node n = getSingleValue(modelset, res, pred);
 		if (n == null)
 			return null;
 
@@ -319,6 +371,10 @@ public class RDFTool {
 		return modelToString(model, Syntax.RdfXml);
 	}
 
+	public static String modelToString(ModelSet modelset) {
+		return modelToString(modelset, Syntax.RdfXml);
+	}
+
 	/**
 	 * convert a model to a string for serialization
 	 * 
@@ -332,6 +388,25 @@ public class RDFTool {
 		StringWriter buffer = new StringWriter();
 		try {
 			model.writeTo(buffer, syntax);
+		} catch (Exception e) {
+			throw new ModelRuntimeException(e);
+		}
+		return buffer.toString();
+	}
+
+	/**
+	 * convert a modelset to a string for serialization
+	 * 
+	 * @param modelset
+	 *            the model to convert
+	 * @param syntax
+	 *            the syntax to use
+	 * @return a string of this model, according to the passed syntax
+	 */
+	public static String modelToString(ModelSet modelset, Syntax syntax) {
+		StringWriter buffer = new StringWriter();
+		try {
+			modelset.writeTo(buffer, syntax);
 		} catch (Exception e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -416,18 +491,10 @@ public class RDFTool {
 	 * @param isodate
 	 *            the XSD date as string.
 	 * @return a parsed date or null, if this breaks
+	 * @throws ParseException 
 	 */
-	public static Date string2Date(String isodate) {
-		try {
-			return getDateTimeFormat().parse(isodate);
-		} catch (ParseException e) {
-			try {
-				return getDateFormat().parse(isodate);
-			} catch (ParseException e1) {
-				return null;
-			}
-		}
-
+	public static Date string2Date(String isodate) throws ParseException {
+		return getDateFormat().parse(isodate);
 	}
 
 	/**
@@ -439,7 +506,7 @@ public class RDFTool {
 	 * @return a formatted string.
 	 */
 	public static Date string2DateTime(String date) throws ParseException {
-		return getDateFormat().parse(date);
+		return getDateTimeFormat().parse(date);
 	}
 
 	/**
