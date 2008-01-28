@@ -266,7 +266,10 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 			nofInferred += applyRule(RDFSPlusInversesRules.Rdfs12);
 			nofInferred += applyRule(RDFSPlusInversesRules.Rdfs13);
 			nofInferred += applyRule(RDFSPlusInversesRules.RX1);
-			nofInferred += applyRule(RDFSPlusInversesRules.NInv);
+			nofInferred += applyRule(RDFSPlusInversesRules.N1a);
+			nofInferred += applyRule(RDFSPlusInversesRules.N1b);
+			nofInferred += applyRule(RDFSPlusInversesRules.N2a);
+			nofInferred += applyRule(RDFSPlusInversesRules.N2b);
 
 			logger.debug("iteration " + iteration + " done; inferred " + nofInferred + " new statements");
 			totalInferred += nofInferred;
@@ -396,8 +399,17 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 			case RDFSPlusInversesRules.RX1:
 				result = applyRuleX1();
 				break;
-			case RDFSPlusInversesRules.NInv:
-				result = applyRuleNInv();
+			case RDFSPlusInversesRules.N1a:
+				result = applyRuleN1a();
+				break;
+			case RDFSPlusInversesRules.N1b:
+				result = applyRuleN1b();
+				break;
+			case RDFSPlusInversesRules.N2a:
+				result = applyRuleN2a();
+				break;
+			case RDFSPlusInversesRules.N2b:
+				result = applyRuleN2b();
 				break;
 			default:
 				// FIXME throw exception here?
@@ -1094,18 +1106,19 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 
 	/**
 	 * xxx nrl:inverseProperty yyy
-	 * aaa xxx bbb -->
+	 * aaa xxx bbb 
+	 * -->
 	 * bbb yyy aaa
+	 * xxx a rdf:Property
+	 * yyy a rdf:Property
 	 * @return
 	 * @throws SailException
 	 */
-	private int applyRuleNInv()
+	private int applyRuleN1a()
 	throws SailException
 {
 	int nofInferred = 0;
 	
-	// FIXME
-
 	Iterator<Statement> ntIter = newThisIteration.match(null, NRL_InverseProperty, null);
 
 	while (ntIter.hasNext()) {
@@ -1115,6 +1128,18 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 		Value yyy = nt.getObject();
 
 		if (xxx instanceof URI && yyy instanceof URI) {
+			// infer: they are both properties
+			boolean added = addInferredStatement((URI)xxx, RDF.TYPE, RDF.PROPERTY);
+			if (added) {
+				nofInferred++;
+			}
+			added = false;
+			added = addInferredStatement((URI)yyy, RDF.TYPE, RDF.PROPERTY);
+			if (added) {
+				nofInferred++;
+			}
+			added = false;
+			// apply to triples using the property
 			CloseableIteration<? extends Statement, SailException> t1Iter;
 			t1Iter = getWrappedConnection().getStatements(null, (URI)xxx, null, true);
 
@@ -1124,7 +1149,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 				Value aaa = t1.getSubject();
 				Value bbb = t1.getObject();
 				if (bbb instanceof Resource) {
-					boolean added = addInferredStatement((Resource)bbb, (URI) yyy, aaa);
+					added = addInferredStatement((Resource)bbb, (URI) yyy, aaa);
 					if (added) {
 						nofInferred++;
 					}
@@ -1137,6 +1162,171 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	return nofInferred;
 }
 
+	/**
+	 * aaa xxx bbb 
+	 * xxx nrl:inverseProperty yyy
+	 * -->
+	 * bbb yyy aaa
+	 * @return
+	 * @throws SailException
+	 */
+	private int applyRuleN1b()
+	throws SailException
+{
+	int nofInferred = 0;
+	
+	Iterator<Statement> ntIter = newThisIteration.match(null, null, null);
+
+	while (ntIter.hasNext()) {
+		Statement nt = ntIter.next();
+
+		Resource xxx = nt.getPredicate();
+
+		CloseableIteration<? extends Statement, SailException> t1Iter;
+		t1Iter = getWrappedConnection().getStatements(xxx,NRL_InverseProperty, null, true);
+
+		while (t1Iter.hasNext()) {
+			Statement t1 = t1Iter.next();
+
+			Value yyy = t1.getObject();
+			if (yyy instanceof URI) {
+				Resource aaa = 	nt.getSubject();
+				Value bbb = nt.getObject();
+				boolean added = addInferredStatement((Resource)bbb, (URI) yyy, aaa);
+				if (added) {
+					nofInferred++;
+				}
+			}
+		}
+		t1Iter.close();
+	}
+
+	return nofInferred;
+}
+
+	/**
+	 * New: ppp nrl:inverseProperty qqq
+	 * 
+	 * ... AND (case 1) 
+	 * rrr rdfs:subPropertyOf  ppp /\ rrr nrl:inverseProperty sss 
+	 * -->
+	 * sss rdfs:subPropertyOf  qqq
+	 * 
+	 * 
+	 * ... AND (case 2)
+	 * ppp rdfs:subPropertyOf  ttt (2)
+	 * ttt nrl:inverseProperty uuu (1)
+	 * -->
+	 * qqq rdfs:subPropertyOf  uuu
+	 * 
+	 * @return
+	 * @throws SailException
+	 */
+	private int applyRuleN2a()
+	throws SailException
+	{
+		int nofInferred = 0;
+		Iterator<Statement> it1 = newThisIteration.match(null, NRL_InverseProperty, null);
+		while (it1.hasNext()) {
+			Statement stmt1 = it1.next();
+			Resource ppp = stmt1.getSubject();
+			Value qqq = stmt1.getObject();
+			if(qqq instanceof Resource) {
+				// case 1
+				CloseableIteration<? extends Statement, SailException> it2;
+				it2 = getWrappedConnection().getStatements(null,RDFS.SUBPROPERTYOF, ppp, true);
+				while (it2.hasNext()) {
+					Statement stmt2 = it2.next();
+					Resource rrr = stmt2.getSubject();
+					CloseableIteration<? extends Statement, SailException> it3;
+					it3 = getWrappedConnection().getStatements(rrr,NRL_InverseProperty, null, true);
+					while (it3.hasNext()) {
+						Statement stmt3 = it3.next();
+						Value sss = stmt3.getObject();
+						if( sss instanceof Resource) {
+							boolean added = addInferredStatement((Resource)sss, RDFS.SUBPROPERTYOF, qqq);
+							if (added) {
+								nofInferred++;
+							}
+						}
+					}
+					it3.close();
+				}
+				it2.close();
+				// case 2
+				it2 = getWrappedConnection().getStatements(ppp,RDFS.SUBPROPERTYOF, null, true);
+				while (it2.hasNext()) {
+					Statement stmt2 = it2.next();
+					Value ttt = stmt2.getObject();
+					if( ttt instanceof Resource) {
+						CloseableIteration<? extends Statement, SailException> it3;
+						it3 = getWrappedConnection().getStatements( (Resource) ttt,NRL_InverseProperty, null, true);
+						while (it3.hasNext()) {
+							Statement stmt3 = it3.next();
+							Value uuu = stmt3.getObject();
+							if( uuu instanceof Resource) {
+								boolean added = addInferredStatement((Resource)qqq, RDFS.SUBPROPERTYOF, uuu);
+								if (added) {
+									nofInferred++;
+								}
+							}
+						}
+						it3.close();
+					}
+				}
+				it2.close();
+			}
+			
+		}
+		return nofInferred;
+	}	
+	
+	/**
+	 * rrr rdfs:subPropertyOf  ppp 
+	 * rrr nrl:inverseProperty sss 
+	 * ppp nrl:inverseProperty qqq 
+	 * -->
+	 * sss rdfs:subPropertyOf  qqq
+	 * @return
+	 * @throws SailException
+	 */
+	private int applyRuleN2b()
+	throws SailException
+	{
+		int nofInferred = 0;
+		Iterator<Statement> it1 = newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
+		while (it1.hasNext()) {
+			Statement stmt1 = it1.next();
+			Resource rrr = stmt1.getSubject();
+			Value ppp = stmt1.getObject();
+			if(ppp instanceof Resource) {
+				CloseableIteration<? extends Statement, SailException> it2;
+				it2 = getWrappedConnection().getStatements(rrr,NRL_InverseProperty, null, true);
+				while (it2.hasNext()) {
+					Statement stmt2 = it2.next();
+					Value sss = stmt2.getObject();
+					if(sss instanceof Resource) {
+						CloseableIteration<? extends Statement, SailException> it3;
+						it3 = getWrappedConnection().getStatements( (Resource) ppp,NRL_InverseProperty, null, true);
+						while (it3.hasNext()) {
+							Statement stmt3 = it3.next();
+							Value qqq = stmt3.getObject();
+							if( qqq instanceof Resource) {
+								boolean added = addInferredStatement((Resource)sss, RDFS.SUBPROPERTYOF, qqq);
+								if (added) {
+									nofInferred++;
+								}
+							}
+						}
+						it3.close();
+					}
+				}
+				it2.close();
+			}
+		}
+		return nofInferred;
+	}	
+	
 	/**
 	 * Util method for {@link #applyRuleX1}.
 	 */

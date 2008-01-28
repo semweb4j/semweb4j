@@ -16,6 +16,20 @@
 			</release>
 		-->
 
+
+		<release version="2.1.0" date="@@"
+			description="Extension">
+			<action dev="xamde" type="add">
+				Added new rule: 
+				
+				ppp nrl:inverseProperty qqq /\ 
+	            rrr rdfs:subPropertyOf  ppp /\
+	            rrr nrl:inverseProperty sss
+	       -> 
+	            sss rdfs:subPropertyOf  qqq
+			</action>
+		</release>
+
 		<release version="2.0.0" date="2008-01-21"
 			description="Initial Release">
 			<action dev="xamde" type="update">
@@ -23,8 +37,8 @@
 			    
 			    Namespace: "nrl" = "http://www.semanticdesktop.org/ontologies/nrl/#"
 			    
-			    Rule:   xxx nrl:inverseProperty yyy   &&  aaa xxx bbb 
-			    -->                                       bbb yyy aaa
+			    Rule:   xxx nrl:inverseProperty yyy   /\  aaa xxx bbb 
+			    ->                                        bbb yyy aaa
 			</action>
 		</release>
 
