@@ -1,5 +1,5 @@
 ## ================================================
-##
+##   generate hasPPP
 ##   if(maxCard==1)
 ##     "get_asNode"
 ##     if(multirange)
@@ -17,6 +17,28 @@
 ##
 ## ================================================
 ##
+    /**
+     * Check if $prop has at least one value set 
+#comment("     " $prop)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+     * @return true if this property has at least one value
+#debug("get0has-static")
+     */
+	public static boolean has${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+		return Base.has(model, instanceResource, #uppercase($prop.name));
+	}
+
+    /**
+     * Check if $prop has at least one value set 
+#comment("     " $prop)
+     * @return true if this property has at least one value
+#debug("get0has-dynamic")
+     */
+	public boolean has${methodnameprefix}#mixedcase($prop.name )() {
+		return Base.has(this.model, this.getResource(), #uppercase($prop.name));
+	}
+
 ##     -----------------------------------------------------------------------
 ##    | IF max cardinality == 1. GENERATE "get_asNode()"
 #if($prop.maxCardinality == 1)
@@ -84,7 +106,7 @@
 #debug("get5static")
      */
 	public static ${classname} get${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (${classname}) Base.getAs(model, instanceResource, #uppercase($prop.name), ${classname}.class);
+		return (${classname}) Base.get(model, instanceResource, #uppercase($prop.name), ${classname}.class);
 	}
 	
     /**
@@ -95,7 +117,7 @@
 #debug("get6dynamic")
      */
 	public ${classname} get${methodnameprefix}#mixedcase($prop.name )() {
-		return (${classname}) Base.getAs(this.model, this.getResource(), #uppercase($prop.name), ${classname}.class);
+		return (${classname}) Base.get(this.model, this.getResource(), #uppercase($prop.name), ${classname}.class);
 	}
 ##             -----------------------------------------------------------------------
 ##            | END multirange

@@ -10,6 +10,7 @@ import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdf2go.vocabulary.OWL;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdfreactor.runtime.Base;
 import org.ontoware.rdfreactor.runtime.ReactorResult;
@@ -1939,4 +1940,18 @@ public class Restriction extends OwlClass {
 	public static Restriction getInstance(Model model, Resource resource) {
 		return Base.getInstance(model, resource, Restriction.class);
 	}
- }
+
+	public Integer getCardinality() {
+		return (Integer) Base.get(this.model, this.getResource(), OWL.cardinality, Integer.class);
+	}
+
+	public Integer getMinCardinality() {
+		assert this.model != null;
+		assert this.getResource() != null;
+		return (Integer) Base.get(this.model, this.getResource(), OWL.minCardinality, Integer.class);
+	}
+
+	public Integer getMaxCardinality() {
+		return (Integer) Base.get(this.model, this.getResource(), OWL.maxCardinality, Integer.class);
+	}
+}

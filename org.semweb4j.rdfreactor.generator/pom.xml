@@ -44,13 +44,14 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.5.0</version>
+			<version>4.5.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-rdf2go</artifactId>
 			<version>4.5.3</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- 
