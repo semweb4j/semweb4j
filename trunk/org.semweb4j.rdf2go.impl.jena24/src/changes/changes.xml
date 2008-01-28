@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="4.5.5" description="Bugfixes"
+			date="@@">
+			<action dev="xamde" type="fix">
+				Fixed OWL reasoning setting in ModelFactory..
+			</action>
+		</release>
+
 		<release version="4.5.4" description="Dependency update"
 			date="2008-01-21">
 			<action dev="xamde" type="update">
