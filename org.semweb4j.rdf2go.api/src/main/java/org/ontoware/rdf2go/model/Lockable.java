@@ -29,7 +29,7 @@ public interface Lockable {
 
 	/**
 	 * Tries to obtain a lock.
-	 * @throws LockException if alreadylocked
+	 * @throws LockException if already locked
 	 */
 	public void lock() throws LockException;
 
