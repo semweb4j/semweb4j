@@ -1,7 +1,5 @@
 package org.ontoware.rdf2go.util;
 
-import static org.junit.Assert.fail;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,11 +52,6 @@ public class TransformerTest {
 		Transformer.applySearchReplaceRule(m, nsMap, where, constructRemove, constructAdd);
 		log.debug("After");
 		m.dump();
-	}
-
-	@Test
-	public void testTransform() {
-		fail("Not yet implemented");
 	}
 
 }

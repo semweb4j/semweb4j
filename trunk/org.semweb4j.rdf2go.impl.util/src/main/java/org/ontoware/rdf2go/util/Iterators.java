@@ -5,6 +5,8 @@
  */
 package org.ontoware.rdf2go.util;
 
+import info.aduna.collections.iterators.CloseableIterator;
+
 import java.util.Collection;
 import java.util.Iterator;
 
