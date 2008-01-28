@@ -16,6 +16,14 @@
 			</release>
 		-->
 
+		<release version="4.5.4" date="@@" description="Minor change">
+			<action dev="xamde" type="remove">
+				Moved org.ontoware.rdf2go.SparqlUtils to project
+				rdf2go.impl.util in package
+				org.ontoware.rdf2go.util.SparqlUtil
+			</action>
+		</release>
+
 		<release version="4.5.3" date="2008-01-21"
 			description="API extension">
 			<action dev="xamde" type="update">
@@ -25,8 +33,8 @@
 			</action>
 			<action dev="xamde" type="add">
 				Added Model/ModelSet.readFrom(Reader in, Syntax syntax,
-				URL baseURI) and Model/ModelSet.readFrom(InputStream reader,
-				Syntax syntax, URL baseURI).
+				URL baseURI) and Model/ModelSet.readFrom(InputStream
+				reader, Syntax syntax, URL baseURI).
 			</action>
 		</release>
 
