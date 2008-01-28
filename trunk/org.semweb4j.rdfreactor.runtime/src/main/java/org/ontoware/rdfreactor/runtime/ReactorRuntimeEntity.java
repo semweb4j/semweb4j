@@ -1,6 +1,11 @@
 package org.ontoware.rdfreactor.runtime;
 
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.node.BlankNode;
+import org.ontoware.rdf2go.model.node.DatatypeLiteral;
+import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
+import org.ontoware.rdf2go.model.node.Literal;
+import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.vocabulary.RDF;
@@ -39,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * 
  * 
  */
-public class ReactorRuntimeEntity {
+public class ReactorRuntimeEntity implements Resource {
 
 	private static Logger log = LoggerFactory.getLogger(ReactorRuntimeEntity.class);
 
@@ -195,6 +200,38 @@ public class ReactorRuntimeEntity {
 	
 	public boolean isInstanceof( URI classURI ) {
 		return Base.hasInstance(model, classURI, instanceIdentifier);
+	}
+
+	public BlankNode asBlankNode() throws ClassCastException {
+		return instanceIdentifier.asBlankNode();
+	}
+
+	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
+		return instanceIdentifier.asDatatypeLiteral();
+	}
+
+	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
+		return instanceIdentifier.asLanguageTagLiteral();
+	}
+
+	public Literal asLiteral() throws ClassCastException {
+		return instanceIdentifier.asLiteral();
+	}
+
+	public Resource asResource() throws ClassCastException {
+		return instanceIdentifier.asResource();
+	}
+
+	public URI asURI() throws ClassCastException {
+		return instanceIdentifier.asURI();
+	}
+
+	public int compareTo(Node o) {
+		return instanceIdentifier.compareTo(o);
+	}
+
+	public String toSPARQL() {
+		return instanceIdentifier.toSPARQL();
 	}
 
 }
