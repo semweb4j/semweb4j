@@ -12,6 +12,7 @@ import org.ontoware.rdf2go.model.node.URI;
 
 import com.hp.hpl.jena.db.DBConnection;
 import com.hp.hpl.jena.db.IDBConnection;
+import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelMaker;
 
 public class ModelFactoryImpl extends AbstractModelFactory implements
@@ -47,7 +48,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements
 			backend = MEMORY;
 
 		Reasoning reasoning = AbstractModelFactory.getReasoning(p);
-		
+
 		if (backend == null || backend.equalsIgnoreCase(MEMORY)) {
 			model = com.hp.hpl.jena.rdf.model.ModelFactory.createDefaultModel();
 			assert model != null;
@@ -97,18 +98,28 @@ public class ModelFactoryImpl extends AbstractModelFactory implements
 					+ backend);
 
 		// reasoning
-		if (reasoning == Reasoning.rdfs) {
+
+		switch (reasoning) {
+		case rdfsAndOwl:
+		case owl:
+			com.hp.hpl.jena.rdf.model.Model owlModel = (com.hp.hpl.jena.rdf.model.Model) com.hp.hpl.jena.rdf.model.ModelFactory
+					.createOntologyModel(OntModelSpec.OWL_DL_MEM_RDFS_INF,
+							model);
+			return new ModelImplJena24(owlModel);
+		case rdfs:
 			com.hp.hpl.jena.rdf.model.Model rdfsModel = (com.hp.hpl.jena.rdf.model.Model) com.hp.hpl.jena.rdf.model.ModelFactory
 					.createRDFSModel(model);
 			return new ModelImplJena24(rdfsModel);
-		} else {
+		default:
 			return new ModelImplJena24(model);
 		}
+
 	}
 
 	public Model createModel(URI contextURI) throws ModelRuntimeException {
-		com.hp.hpl.jena.rdf.model.Model model = com.hp.hpl.jena.rdf.model.ModelFactory.createDefaultModel();
-		return new ModelImplJena24(contextURI,model);
+		com.hp.hpl.jena.rdf.model.Model model = com.hp.hpl.jena.rdf.model.ModelFactory
+				.createDefaultModel();
+		return new ModelImplJena24(contextURI, model);
 	}
 
 	private ModelMaker getDBModelMaker(String SQLDriver,
