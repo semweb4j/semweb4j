@@ -35,16 +35,9 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdfreactor.runtime.Base;
 import org.ontoware.rdfreactor.runtime.ReactorResult;
-
-#if ($class.throwsCardinalityException() )
+#if ($class.cardinalityexception)
 import org.ontoware.rdfreactor.runtime.CardinalityException;
 #end## conditional import
-
-## TODO add necessary imports conditionally
-##import org.ontoware.rdf2go.model.node.URI;
-##import org.ontoware.rdf2go.exception.ModelException;
-
-
 
 ##     -----------------------------------------------------------------------
 ##    |  class comment
@@ -258,12 +251,22 @@ public class $class.name extends $class.superclass {
 
     /**
 	 * Delete all rdf:type from this instance. Other triples are not affected.
+	 * To delete more, use deleteAllProperties
 	 * @param model an RDF2Go model
 	 * @param instanceResource an RDF2Go resource
 #debug("class4")
 	 */
 	public static void deleteInstance(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
 		Base.deleteInstance(model, RDFS_CLASS, instanceResource);
+	}
+
+	/**
+	 * Delete all (this, *, *), i.e. including rdf:type
+	 * @param model an RDF2Go model
+	 * @param resource
+	 */
+	public static void deleteAllProperties(Model model,	org.ontoware.rdf2go.model.node.Resource instanceResource) {
+		Base.deleteAllProperties(model, instanceResource);
 	}
 
     ///////////////////////////////////////////////////////////////////

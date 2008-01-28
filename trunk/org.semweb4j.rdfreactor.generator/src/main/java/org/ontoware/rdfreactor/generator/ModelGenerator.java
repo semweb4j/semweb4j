@@ -30,23 +30,23 @@ import org.ontoware.rdfreactor.schema.bootstrap.TypeUtils;
 
 /**
  * Creates an internal JModel from an ontology model.
+ * 
  * @author voelkel
  */
 public class ModelGenerator {
 
 	private static Log log = LogFactory.getLog(ModelGenerator.class);
 
-	public static JModel createFromRDFS_Schema(
-			Model modelWithSchemaData,
+	public static JModel createFromRDFS_Schema(Model modelWithSchemaData,
 			String packagename, boolean skipbuiltins) throws Exception {
 
 		log.info("Input model has " + modelWithSchemaData.size() + " triples");
 
 		// enable RDFS inferencing
-		Model m = RDF2Go.getModelFactory().createModel( Reasoning.rdfs );
+		Model m = RDF2Go.getModelFactory().createModel(Reasoning.rdfs);
 		m.open();
 		m.addAll(modelWithSchemaData.iterator());
-		
+
 		// prepare JModel
 		log.debug("add build-ins");
 		JModel jm = Semantics.getbuiltIns_RDFS();
@@ -60,18 +60,17 @@ public class ModelGenerator {
 		localRoot.addSuperclass(jm.getRoot());
 		jm.setRoot(localRoot);
 
-		
 		// process
 		log.debug("de-anonymizing (replacing bnodes with random uris");
 		Utils.deanonymize(m);
 
-		
 		// FIXME
-		ClosableIterator<org.ontoware.rdf2go.model.node.Resource> iit = Class.getAllInstancesAsRdf2GoResources(m);
+		ClosableIterator<org.ontoware.rdf2go.model.node.Resource> iit = Class
+				.getAllInstancesAsRdf2GoResources(m);
 		while (iit.hasNext()) {
 			System.out.println(iit.next());
 		}
-		
+
 		// analysis (triggers also inferencing)
 		List<? extends Class> rdfclasses = Class.getAllInstance_as(m).asList();
 		log.info("Got " + rdfclasses.size() + " rdfs:Classes");
@@ -88,7 +87,7 @@ public class ModelGenerator {
 
 		// get all classes and assign to package
 		Set<String> usedClassnames = new HashSet<String>();
-		usedClassnames.add(	jm.getRoot().getName() );
+		usedClassnames.add(jm.getRoot().getName());
 		Set<Class> rdfsClasses = new HashSet<Class>();
 
 		for (Class rc : Class.getAllInstance_as(m).asList()) {
@@ -110,7 +109,8 @@ public class ModelGenerator {
 						+ rc.getResource() + " ...");
 				assert rc.getResource() instanceof URI : "A Class with a blank node ID makes not much sense";
 				JClass jc = new JClass(jp, classname, (URI) rc.getResource());
-				jc.setComment(Utils.toJavaComment(rc.getAllComment_asList())); // might be
+				jc.setComment(Utils.toJavaComment(rc.getAllComment_asList())); // might
+				// be
 				// null, ok.
 				jm.addMapping(rc.getResource(), jc);
 			}
@@ -188,21 +188,20 @@ public class ModelGenerator {
 	 * @return
 	 * @throws Exception
 	 */
-	public static JModel createFromRDFS_AND_OWL(
-			Model schemaDataModel,
+	public static JModel createFromRDFS_AND_OWL(Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
 		log.info("Initialising JModel");
 		JModel jm = Semantics.getbuiltIns_RDFS();
 
 		log.info("Loading schema triples");
-		Model m = RDF2Go.getModelFactory().createModel( Reasoning.rdfsAndOwl );
+		Model m = RDF2Go.getModelFactory().createModel(Reasoning.rdfsAndOwl);
 		m.open();
 		m.addAll(schemaDataModel.iterator());
-		
-//		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
-//				.createRDFSModel(schemaDataModel);
-//		Model m = new ModelImplJena24(null, jenaModel);
-//		m.open();
+
+		// com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
+		// .createRDFSModel(schemaDataModel);
+		// Model m = new ModelImplJena24(null, jenaModel);
+		// m.open();
 
 		log.info("Skolemisation (replacing all blank nodes with random URIs)");
 		Utils.deanonymize(m);
@@ -222,7 +221,8 @@ public class ModelGenerator {
 		JPackage jp = new JPackage(packagename);
 		jm.getPackages().add(jp);
 
-		log.info("Creating a class called 'Thing' for all properties with no given domain");
+		log
+				.info("Creating a class called 'Thing' for all properties with no given domain");
 		JClass localClass = new JClass(jp, "Thing", RDFS.Class);
 		localClass.addSuperclass(jm.getRoot());
 		jm.setRoot(localClass);
@@ -247,7 +247,8 @@ public class ModelGenerator {
 				log.debug("CLASS " + classname + " generated for "
 						+ rc.getResource().toSPARQL() + " ...");
 				JClass jc = new JClass(jp, classname, (URI) rc.getResource());
-				jc.setComment(rc.getAllComment_asList().get(0)); // might be null, ok.
+				jc.setComment(rc.getAllComment_asList().get(0)); // might be
+				// null, ok.
 				jm.addMapping(rc.getResource(), jc);
 			}
 		}
@@ -289,8 +290,7 @@ public class ModelGenerator {
 		return jm;
 	}
 
-	public static JModel createFromOWL(
-			Model schemaDataModel,
+	public static JModel createFromOWL(Model schemaDataModel,
 			String packagename, boolean skipbuiltins) throws Exception {
 		// DIGReasonerFactory drf = (DIGReasonerFactory) ReasonerRegistry
 		// .theRegistry().getFactory(DIGReasonerFactory.URI);
@@ -310,12 +310,13 @@ public class ModelGenerator {
 		Model m = RDF2Go.getModelFactory().createModel(Reasoning.owl);
 		m.open();
 		m.addAll(schemaDataModel.iterator());
-		
-//		Reasoner reasoner = ReasonerRegistry.getOWLMicroReasoner();// miniReasoner();
-//		reasoner = reasoner.bindSchema(schemaDataModel);
-//		InfModel jenaModel = ModelFactory.createInfModel(reasoner,
-//				schemaDataModel);
-//		Model m = new ModelImplJena24(null, jenaModel);
+
+		// Reasoner reasoner = ReasonerRegistry.getOWLMicroReasoner();//
+		// miniReasoner();
+		// reasoner = reasoner.bindSchema(schemaDataModel);
+		// InfModel jenaModel = ModelFactory.createInfModel(reasoner,
+		// schemaDataModel);
+		// Model m = new ModelImplJena24(null, jenaModel);
 
 		log.debug("de-anonymizing");
 		Utils.deanonymize(m);
@@ -443,19 +444,24 @@ public class ModelGenerator {
 						jprop.fixRanges(jm);
 
 						// figure out cardinality
-						
-						ClosableIterator<Statement> it = m.findStatements(Variable.ANY, OWL.onProperty, rp.getResource());
+
+						ClosableIterator<Statement> it = m.findStatements(
+								Variable.ANY, OWL.onProperty, rp.getResource());
 						while (it.hasNext()) {
 							Statement stmt = (Statement) it.next();
-							org.ontoware.rdf2go.model.node.Resource restrictionResource = stmt.getSubject();
-							Restriction restriction = Restriction.getInstance(m, restrictionResource);
-							
-							int min = restriction.getAllMinCardinality_asList().get(0);
+							org.ontoware.rdf2go.model.node.Resource restrictionResource = stmt
+									.getSubject();
+							Restriction restriction = Restriction.getInstance(
+									m, restrictionResource);
+
+							int min = restriction.getAllMinCardinality_asList()
+									.get(0);
 							log.debug("Found minrestriction on " + rp
 									+ " minCard = " + min);
 							if (min != -1)
 								jprop.setMinCardinality(min);
-							int max = restriction.getAllMaxCardinality_asList().get(0);
+							int max = restriction.getAllMaxCardinality_asList()
+									.get(0);
 							log.debug("Found maxrestriction on " + rp
 									+ " maxCard = " + max);
 							if (max != -1)
@@ -498,13 +504,13 @@ public class ModelGenerator {
 			Property rp) {
 
 		// obtain a nice Java-conform name which has not yet been used
-		String propertyName = JavaNamingUtils.toBeanName(rp,
-				domainClass.getUsedPropertyNames());
+		String propertyName = JavaNamingUtils.toBeanName(rp, domainClass
+				.getUsedPropertyNames());
 		assert propertyName != null;
 		JProperty jprop = new JProperty(domainClass, propertyName, (URI) rp
 				.getResource());
 		// carry over the comment from RDF to Java, might be null
-		jprop.setComment(Utils.toJavaComment(rp.getAllComment_asList())); 
+		jprop.setComment(Utils.toJavaComment(rp.getAllComment_asList()));
 		log.debug("PROPERTY Adding '" + jprop.getName() + "' to '"
 				+ domainClass.getName() + "'");
 		jprop.getJClass().getProperties().add(jprop);
@@ -516,31 +522,46 @@ public class ModelGenerator {
 			jprop.addType(jm.getMapping(range.getResource()));
 		}
 		if (rp.getAllRange_asList().size() == 0) {
-			// if no range is given, set to ontology root class (rdfs:Class or owl:Class)
+			// if no range is given, set to ontology root class (rdfs:Class or
+			// owl:Class)
 			jprop.addType(jm.getRoot());
 		}
 
-// FIXME re-add		
+		// process cardinality constraints (convert this property to an OWL
+		// restriciton)
+		assert rp != null;
+		Restriction restriction = (Restriction) rp.castTo(Restriction.class);
+		assert restriction != null;
 		
-//		// process cardinality constraints
-//		Restriction restriction = (Restriction) rp.castTo(Restriction.class);
-//		int cardinality = restriction.getCardinality();
-//		int min = restriction.getMinCardinality();
-//		// might still be -1
-//		if (min == -1)
-//			min = cardinality;
-//		if (min != -1) {
-//			log.debug("Found minrestriction on " + rp + " minCard = " + min);
-//			jprop.setMinCardinality(min);
-//		}
-//		int max = restriction.getMaxCardinality();
-//		// might still be -1
-//		if (max == -1)
-//			max = cardinality;
-//		if (max != -1) {
-//			log.debug("Found maxrestriction on " + rp + " maxCard = " + max);
-//			jprop.setMaxCardinality(max);
-//		}
+		Integer card = restriction.getCardinality();
+		Integer minCard = restriction.getMinCardinality();
+		Integer maxCard = restriction.getMaxCardinality();
+		int min = -1;
+		int max = -1;
+
+		if(minCard != null) {
+			min = minCard;
+			log.debug("Found minrestriction on " + rp + " minCard = " + min);
+		} else if (card != null) {
+			log.debug("Found card.restriction on " + rp + " card = " + min);
+			min = card;
+		}
+		jprop.setMinCardinality(min);
+
+		if(maxCard != null) {
+			max = maxCard;
+			log.debug("Found maxrestriction on " + rp + " maxCard = " + max);
+		} else if (card != null) {
+			log.debug("Found card.restriction on " + rp + " card = " + min);
+			max = card;
+		}
+		jprop.setMaxCardinality(max);
+		
+		
+		if( min != -1 || max != -1) {
+			domainClass.cardinalityexception = true;
+			log.debug("added card.exception in class "+domainClass.getName());
+		}
 
 	}
 }

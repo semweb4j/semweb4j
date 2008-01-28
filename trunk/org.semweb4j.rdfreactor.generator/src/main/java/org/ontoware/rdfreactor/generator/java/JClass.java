@@ -57,6 +57,8 @@ public class JClass extends JMapped {
 
 	private Set<JClass> javaSubclasses = new HashSet<JClass>();
 
+	public boolean cardinalityexception = false;
+
 	/**
 	 * property names need only to be unique within a class FIXME and in all
 	 * super-classes of that class
@@ -172,19 +174,19 @@ public class JClass extends JMapped {
 		return false;
 	}
 
-	/**
-	 * @return true if the template generates code that throws a
-	 *         CardinalityException
-	 */
-	public boolean throwsCardinalityException() {
-		for (JProperty jp : properties) {
-			if (jp.getMinCardinality() != JProperty.NOT_SET)
-				return true;
-			if (jp.getMaxCardinality() > 1)
-				return true;
-		}
-		return false;
-	}
+//	/**
+//	 * @return true if the template generates code that throws a
+//	 *         CardinalityException
+//	 */
+//	public boolean throwsCardinalityException() {
+//		for (JProperty jp : properties) {
+//			if (jp.getMinCardinality() != JProperty.NOT_SET)
+//				return true;
+//			if (jp.getMaxCardinality() > 1)
+//				return true;
+//		}
+//		return false;
+//	}
 
 	/**
 	 * @return all direct super-classes
@@ -369,5 +371,9 @@ public class JClass extends JMapped {
 					.getPackage().equals(otherclass.getPackage()));
 		}
 		return false;
+	}
+
+	public boolean getCardinalityexception() {
+		return cardinalityexception;
 	}
 }
