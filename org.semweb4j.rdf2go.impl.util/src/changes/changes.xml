@@ -16,6 +16,9 @@
 			<action dev="xamde" type="add">
 				Added Transformer to change RDF models with CONSTRUCT queries 
 			</action>
+			<action dev="xamde" type="add">
+				Moved SparqlUtils here and added SPARQL-safe encoding of REGEX expressions. 
+			</action>
 		</release>
 
 		<release version="4.5.5" date="2008-01-21">
