@@ -12,6 +12,9 @@
 				All generated classes now implement RDF2Go Resource and
 				delegate to the instanceResource
 			</action>
+			<action dev="xamde" type="update">
+			    Base.deleteInstance now deletes only the given rdf:type.
+			</action>
 		</release>
 
 		<release version="4.5.0" description="Refactoring"
