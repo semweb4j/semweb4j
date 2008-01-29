@@ -85,7 +85,7 @@ public class Base {
 	}
 
 	/**
-	 * Removes all types
+	 * Removes rdf:type rdfsClass
 	 * 
 	 * @param model
 	 * @param rdfsClass
@@ -94,7 +94,7 @@ public class Base {
 	public static void deleteInstance(Model model, URI rdfsClass,
 			Resource resource) {
 		assertOpen(model);
-		model.removeStatements(resource, RDF.type, Variable.ANY);
+		model.removeStatement(resource, RDF.type, rdfsClass);
 	}
 
 	public static Object get(Model model, Resource resourceSubject,
