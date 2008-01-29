@@ -169,17 +169,17 @@ public class RDFReactorRuntime {
 				try {
 					constructor = targetType
 							.getConstructor(new java.lang.Class[] {
-									Model.class, BlankNode.class });
+									Model.class, BlankNode.class, boolean.class });
 				} catch (NoSuchMethodException nsme) {
 					log.debug("Class " + targetType
 							+ " has no constructor for BlankNode");
 					constructor = targetType
 							.getConstructor(new java.lang.Class[] {
-									Model.class, Object.class });
+									Model.class, Resource.class, boolean.class });
 				}
 				BlankNode bnode = (BlankNode) node;
 				return (ReactorBase) constructor.newInstance(new Object[] {
-						model, bnode });
+						model, bnode, false });
 			} catch (NoSuchMethodException e) {
 				throw new ConversionException(e);
 			} catch (IllegalArgumentException e) {
