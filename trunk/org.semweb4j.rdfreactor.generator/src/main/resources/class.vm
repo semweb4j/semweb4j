@@ -250,7 +250,7 @@ public class $class.name extends $class.superclass {
 	}
 
     /**
-	 * Delete all rdf:type from this instance. Other triples are not affected.
+	 * Remove rdf:type ${class.name} from this instance. Other triples are not affected.
 	 * To delete more, use deleteAllProperties
 	 * @param model an RDF2Go model
 	 * @param instanceResource an RDF2Go resource
