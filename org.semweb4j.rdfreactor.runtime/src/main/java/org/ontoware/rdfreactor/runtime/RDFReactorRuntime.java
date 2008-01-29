@@ -158,7 +158,7 @@ public class RDFReactorRuntime {
 				throw new RuntimeException(cce);
 			} catch (NoSuchMethodException nsme) {
 				throw new RuntimeException("found no constructor " + targetType
-						+ "(Model, URI/Object, boolean) " + nsme);
+						+ "(Model, URI/Resource, boolean) " + nsme);
 			} catch (Exception e) {
 				throw new ConversionException(e);
 			}
@@ -178,17 +178,14 @@ public class RDFReactorRuntime {
 									Model.class, Resource.class, boolean.class });
 				}
 				BlankNode bnode = (BlankNode) node;
-				return (ReactorBase) constructor.newInstance(new Object[] {
+				return (Object) constructor.newInstance(new Object[] {
 						model, bnode, false });
-			} catch (NoSuchMethodException e) {
-				throw new ConversionException(e);
-			} catch (IllegalArgumentException e) {
-				throw new ConversionException(e);
-			} catch (InstantiationException e) {
-				throw new ConversionException(e);
-			} catch (IllegalAccessException e) {
-				throw new ConversionException(e);
-			} catch (InvocationTargetException e) {
+			} catch (ClassCastException cce) {
+				throw new RuntimeException(cce);
+			} catch (NoSuchMethodException nsme) {
+				throw new RuntimeException("found no constructor " + targetType
+						+ "(Model, BlankNode/Resource, boolean) " + nsme);
+			} catch (Exception e) {
 				throw new ConversionException(e);
 			}
 
