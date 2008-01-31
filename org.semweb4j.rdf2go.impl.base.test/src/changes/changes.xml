@@ -12,6 +12,9 @@
 				maded accordingly in AbstractModelSetTest,
 				AbstractModelTest and NotifyingModelSetTest.
 			</action>
+			<action dev="xamde" type="add">
+				Added a test for Model.update(DiffReader)
+			</action>
 		</release>
 
 		<release version="4.5.3" date="2007-12-15"
