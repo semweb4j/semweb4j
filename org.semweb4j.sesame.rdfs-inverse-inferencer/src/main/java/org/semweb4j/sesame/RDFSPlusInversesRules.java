@@ -178,12 +178,7 @@ class RDFSPlusInversesRules {
 	/**
 	 * rule N1a:  (*,nrl:inverseProperty,o)
 	 * xxx nrl:inverseProperty yyy
-	 * 
-	 * ... -->
-	 * xxx rdf:type rdf:Property
-	 * yyy rdf:type rdf:Property
-	 * 
-	 * ... AND aaa xxx bbb 
+	 * aaa xxx bbb 
 	 * --> bbb yyy aaa
 	 * 
 	 * NEPOMUK NRL inverse, nrl = http://www.semanticdesktop.org/ontologies/nrl/#
@@ -233,6 +228,8 @@ class RDFSPlusInversesRules {
 	 * ppp nrl:inverseProperty qqq 
 	 * -->
 	 * qqq nrl:inverseProperty ppp 
+	 * ppp a rdf:Property
+	 * qqq a rdf:Property
 	 */
 	public static final int N3 = 25;
 
@@ -312,7 +309,7 @@ Those would just never be instantiated.
 			{
 					_, X, X, X, X, _, _, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },// 7_2
 			{
-					_, X, _, X, _, _, _, _, _, _, X, _, _, X, _, _, X, X, _, _, _, _, X, _, _, _},// 8
+					_, X, _, X, _, _, _, _, _, _, X, _, _, X, _, _, X, X, _, _, _, _, X, _, _, _ },// 8
 			{
 					_, _, _, X, _, _, _, _, _, X, X, _, X, _, X, X, _, _, X, X, _, _, X, _, _, _ },// 9_1
 			{
@@ -340,9 +337,9 @@ Those would just never be instantiated.
 			{
 					_, X, _, X, _, X, X, X, X, _, X, X, _, _, _, _, _, _, _, _, _, _, X, _, X, _},// N2b
 			{
-					_, X, _, X, _, X, X, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, X, _, X, _},// N3
+					X, X, X, X, X, X, X, _, _, X, X, X, _, X, X, _, _, _, _, _, _, X, X, X, X, _},// N3
 			//	    1    2_2   3_2    4b   5_2   7_1    8    9_2   11_1   12   X1    N1b   N2b
-			//	      2_1   3_1    4a   5_1    6    7_2   9_1   10   11_2   13    N1a   N2a   N2c
+			//	      2_1   3_1    4a   5_1    6    7_2   9_1   10   11_2   13    N1a   N2a   N3
 
 	};
 }

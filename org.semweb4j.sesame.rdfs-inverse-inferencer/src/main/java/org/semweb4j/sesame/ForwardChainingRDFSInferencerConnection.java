@@ -141,7 +141,9 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 		super.rollback();
 	}
 	
+	
 	public static final String NRL_NS = "http://www.semanticdesktop.org/ontologies/nrl/#";
+	
 	public static final URI NRL_InverseProperty = new URIImpl(NRL_NS+"inverseProperty");
 
 	/**
@@ -270,6 +272,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 			nofInferred += applyRule(RDFSPlusInversesRules.N1b);
 			nofInferred += applyRule(RDFSPlusInversesRules.N2a);
 			nofInferred += applyRule(RDFSPlusInversesRules.N2b);
+			nofInferred += applyRule(RDFSPlusInversesRules.N3);
 
 			logger.debug("iteration " + iteration + " done; inferred " + nofInferred + " new statements");
 			totalInferred += nofInferred;
@@ -410,6 +413,9 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 				break;
 			case RDFSPlusInversesRules.N2b:
 				result = applyRuleN2b();
+				break;
+			case RDFSPlusInversesRules.N3:
+				result = applyRuleN3();
 				break;
 			default:
 				// FIXME throw exception here?
@@ -1109,8 +1115,6 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	 * aaa xxx bbb 
 	 * -->
 	 * bbb yyy aaa
-	 * xxx a rdf:Property
-	 * yyy a rdf:Property
 	 * @return
 	 * @throws SailException
 	 */
@@ -1128,17 +1132,6 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 		Value yyy = nt.getObject();
 
 		if (xxx instanceof URI && yyy instanceof URI) {
-			// infer: they are both properties
-			boolean added = addInferredStatement((URI)xxx, RDF.TYPE, RDF.PROPERTY);
-			if (added) {
-				nofInferred++;
-			}
-			added = false;
-			added = addInferredStatement((URI)yyy, RDF.TYPE, RDF.PROPERTY);
-			if (added) {
-				nofInferred++;
-			}
-			added = false;
 			// apply to triples using the property
 			CloseableIteration<? extends Statement, SailException> t1Iter;
 			t1Iter = getWrappedConnection().getStatements(null, (URI)xxx, null, true);
@@ -1149,7 +1142,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 				Value aaa = t1.getSubject();
 				Value bbb = t1.getObject();
 				if (bbb instanceof Resource) {
-					added = addInferredStatement((Resource)bbb, (URI) yyy, aaa);
+					boolean added = addInferredStatement((Resource)bbb, (URI) yyy, aaa);
 					if (added) {
 						nofInferred++;
 					}
@@ -1327,6 +1320,55 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 		return nofInferred;
 	}	
 	
+	/**
+	 * ppp nrl:inverseProperty qqq 
+	 * -->
+	 * qqq nrl:inverseProperty ppp 
+	 * ppp a rdf:Property
+	 * qqq a rdf:Property
+	 * 
+	 * @return
+	 * @throws SailException
+	 */
+	private int applyRuleN3()
+	throws SailException
+	{
+		int nofInferred = 0;
+		
+// FIXME do nothing until http://openrdf.org/issues/browse/SES-521 is fixed		
+		
+//		Iterator<Statement> it1 = newThisIteration.match(null, NRL_InverseProperty, null);
+//		while (it1.hasNext()) {
+//			Statement stmt1 = it1.next();
+//			Resource ppp = stmt1.getSubject();
+//			if(ppp instanceof URI) {
+//				// infer: ppp is a property
+//				boolean addedPPP = addInferredStatement((URI)ppp, RDF.TYPE, RDF.PROPERTY);
+//				if (addedPPP) {
+//					nofInferred++;
+//				}
+//			}
+//			Value qqq = stmt1.getObject();
+//			if(qqq instanceof Resource) {
+//				if(qqq instanceof URI) {
+//					// infer: qqq is a property
+//					boolean addedQQQ = addInferredStatement((URI)qqq, RDF.TYPE, RDF.PROPERTY);
+//					if (addedQQQ) {
+//						nofInferred++;
+//					}
+//				}
+//				if(! qqq.equals(ppp)) {
+//					// infer: qqq inverse ppp
+//					boolean added = addInferredStatement((Resource)qqq, NRL_InverseProperty, ppp);
+//					if (added) {
+//						nofInferred++;
+//					}
+//				}
+//			}
+//		}
+		return nofInferred;
+	}	
+
 	/**
 	 * Util method for {@link #applyRuleX1}.
 	 */
