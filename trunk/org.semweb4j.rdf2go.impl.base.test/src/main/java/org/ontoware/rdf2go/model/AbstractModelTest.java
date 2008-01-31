@@ -28,6 +28,7 @@ import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.exception.MalformedQueryException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.ReasoningNotSupportedException;
+import org.ontoware.rdf2go.model.impl.DiffImpl;
 import org.ontoware.rdf2go.model.impl.TriplePatternImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
@@ -735,6 +736,24 @@ public abstract class AbstractModelTest extends TestCase {
 
 		a.close();
 		b.close();
+	}
+	
+	@Test
+	public void testUpdate() {
+		Model remove = RDF2Go.getModelFactory().createModel();
+		remove.open();
+		Model add = RDF2Go.getModelFactory().createModel();
+		add.open();
+		add.addStatement(a,b,c);
+		Diff diff = new DiffImpl(add.iterator(), remove.iterator());
+		add.close();
+		remove.close();
+
+		Model model = RDF2Go.getModelFactory().createModel();
+		model.open();
+		model.update(diff);
+		
+		Assert.assertTrue(model.contains(a,b,c));
 	}
 
 	@Test
