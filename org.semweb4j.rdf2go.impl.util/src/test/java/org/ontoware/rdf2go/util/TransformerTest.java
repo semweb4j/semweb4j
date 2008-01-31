@@ -8,6 +8,7 @@ import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdf2go.util.transform.SearchRemoveAddRule;
 import org.ontoware.rdf2go.util.transform.Transformer;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.slf4j.Logger;
@@ -49,7 +50,8 @@ public class TransformerTest {
 		String constructRemove = "?x a " + c.toSPARQL();
 		String constructAdd = "?x a " + b.toSPARQL();
 		String where = constructRemove;
-		Transformer.applySearchReplaceRule(m, nsMap, where, constructRemove, constructAdd);
+		
+		SearchRemoveAddRule.searchAndReplace(m, nsMap, where, constructRemove, constructAdd);
 		log.debug("After");
 		m.dump();
 	}
