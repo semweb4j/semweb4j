@@ -9,9 +9,13 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.impl.DiffImpl;
 import org.ontoware.rdf2go.model.node.URI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InferenceRule implements TransformerRule {
 
+	private static Logger log = LoggerFactory.getLogger(InferenceRule.class);
+	
 	String search, add;
 
 	public InferenceRule(String search, String add) {
@@ -42,6 +46,7 @@ public class InferenceRule implements TransformerRule {
 				.iterator();
 		while (it.hasNext()) {
 			Statement stmt = it.next();
+			log.debug("rule infers    "+stmt);
 			addModel.addStatement(stmt);
 		}
 		it.close();

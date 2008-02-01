@@ -3,14 +3,18 @@ package org.ontoware.rdf2go.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.util.transform.SearchRemoveAddRule;
 import org.ontoware.rdf2go.util.transform.Transformer;
+import org.ontoware.rdf2go.util.transform.URISearchReplaceRule;
 import org.ontoware.rdf2go.vocabulary.RDF;
+import org.ontoware.rdf2go.vocabulary.RDFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,10 +54,33 @@ public class TransformerTest {
 		String constructRemove = "?x a " + c.toSPARQL();
 		String constructAdd = "?x a " + b.toSPARQL();
 		String where = constructRemove;
-		
-		SearchRemoveAddRule.searchAndReplace(m, nsMap, where, constructRemove, constructAdd);
+
+		SearchRemoveAddRule.searchAndReplace(m, nsMap, where, constructRemove,
+				constructAdd);
 		log.debug("After");
 		m.dump();
+	}
+
+	@Test
+	public void testUriRename() {
+		Model m = RDF2Go.getModelFactory().createModel();
+		m.open();
+
+		URI a = new URIImpl("urn:test:a");
+		URI b = new URIImpl("urn:test:b");
+		URI c = new URIImpl("urn:test:c");
+
+		URI superRel = new URIImpl(
+				"http://www.semanticdesktop.org/ontologies/2007/09/cds/hasSuperRelation");
+		m.addStatement(superRel, b, c);
+		m.addStatement(a, superRel, c);
+		m.addStatement(a, b, superRel);
+		Map<String, URI> nsMap = new HashMap<String, URI>();
+		URISearchReplaceRule.searchAndReplace(m, nsMap, superRel,
+				RDFS.subPropertyOf);
+
+		m.dump();
+		Assert.assertFalse(m.contains(superRel, Variable.ANY, Variable.ANY));
 	}
 
 }

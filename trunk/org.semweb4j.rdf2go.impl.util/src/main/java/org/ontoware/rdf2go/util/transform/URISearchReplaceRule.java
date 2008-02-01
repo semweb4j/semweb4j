@@ -21,16 +21,28 @@ public class URISearchReplaceRule implements TransformerRule {
 
 	public static void searchAndReplace(Model model,
 			Map<String, URI> namespaceMap, URI search, URI replace) {
-		SearchRemoveAddRule.searchAndReplace(model, namespaceMap, search
-				.toSPARQL()
-				+ " ?p ?o", search.toSPARQL() + " ?p ?o", replace.toSPARQL()
-				+ " ?p ?o");
-		SearchRemoveAddRule.searchAndReplace(model, namespaceMap, "?s "
-				+ search.toSPARQL() + " ?o", "?s " + search.toSPARQL() + " ?o",
-				"?s " + replace.toSPARQL() + " ?o");
-		SearchRemoveAddRule.searchAndReplace(model, namespaceMap, "?s ?p "
-				+ search.toSPARQL(), "?s ?p " + search.toSPARQL(), "?s ?p "
-				+ replace.toSPARQL());
+		SearchRemoveAddRule.searchAndReplace(model, namespaceMap,
+
+		search.toSPARQL() + " ?p ?o",
+
+		search.toSPARQL() + " ?p ?o",
+
+		replace.toSPARQL() + " ?p ?o");
+
+		SearchRemoveAddRule.searchAndReplace(model, namespaceMap,
+
+		"?s " + search.toSPARQL() + " ?o",
+
+		"?s " + search.toSPARQL() + " ?o",
+
+		"?s " + replace.toSPARQL() + " ?o");
+		SearchRemoveAddRule.searchAndReplace(model, namespaceMap,
+
+		"?s ?p " + search.toSPARQL(),
+
+		"?s ?p " + search.toSPARQL(),
+
+		"?s ?p " + replace.toSPARQL());
 	}
 
 }
