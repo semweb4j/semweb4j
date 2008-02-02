@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.5.1-SNAPSHOT</version>
+			<version>4.5.1</version>
 		</dependency>
 
 		<dependency>
