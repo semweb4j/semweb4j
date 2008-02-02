@@ -17,7 +17,7 @@
 		-->
 
 
-		<release version="2.1.0" date="@@"
+		<release version="2.1.0" date="2008-02-02"
 			description="Extension">
 			<action dev="xamde" type="add">
 				Added new rule: 
