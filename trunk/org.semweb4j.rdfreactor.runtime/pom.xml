@@ -58,7 +58,7 @@
 			<version>2.4</version>
 		</dependency>
 		<dependency>
-			<scope>test</scope>
+			<scope>test,runtime</scope>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
 			<version>4.5.4</version>
