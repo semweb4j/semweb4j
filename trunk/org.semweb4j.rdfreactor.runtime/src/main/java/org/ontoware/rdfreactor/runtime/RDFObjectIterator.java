@@ -6,9 +6,9 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 public class RDFObjectIterator<T> implements ClosableIterator<T> {
 
 	private ExtractingIterator it;
-	private Class returnType;
+	private Class<?> returnType;
 
-	public RDFObjectIterator( ExtractingIterator it, Class returnType  ) {
+	public RDFObjectIterator( ExtractingIterator it, Class<?> returnType  ) {
 		this.it = it;
 		this.returnType = returnType;
 	}

@@ -184,12 +184,12 @@ public class BridgeBase {
 	 *            cast the values to the types in returnTypes[]
 	 * @param sparqlSelectQuery -
 	 *            the SPARQL query
-	 * @return javaobjects, typed as desired by 'returnTypes'
+	 * @return java objects, typed as desired by 'returnTypes'
 	 * @throws Exception
 	 */
 	@Patrolled
 	public static OOQueryResultTable getSparqlSelect(Model model,
-			Map<String, Class> returnTypes, String sparqlSelectQuery)
+			Map<String, Class<?>> returnTypes, String sparqlSelectQuery)
 			throws ModelRuntimeException {
 		return new OOQueryResultTableImpl(model, returnTypes, sparqlSelectQuery);
 	}

@@ -16,7 +16,7 @@ public class ReflectionUtils {
 		boolean superclass = false;
 
 		// check superclass
-		Class superClass = classA.getSuperclass();
+		Class<?> superClass = classA.getSuperclass();
 		if (superClass != null) {
 			if (superClass.equals(classB))
 				superclass = true;
@@ -27,8 +27,8 @@ public class ReflectionUtils {
 
 		if (!superclass) {
 			// check interfaces, recursively
-			Class[] interfaces = classA.getInterfaces();
-			for (Class interfaze : interfaces) {
+			Class<?>[] interfaces = classA.getInterfaces();
+			for (Class<?> interfaze : interfaces) {
 				if (interfaze.equals(classB))
 					return true;
 				else {

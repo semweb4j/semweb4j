@@ -12,11 +12,11 @@ public class OOQueryResultTableImpl implements OOQueryResultTable {
 
 	private Model m;
 
-	private Map<String, Class> returnTypes;
+	private Map<String, Class<?>> returnTypes;
 
 	private QueryResultTable resultTable;
 
-	public OOQueryResultTableImpl(Model m, Map<String, Class> returnTypes, String sparqlSelectQuery)
+	public OOQueryResultTableImpl(Model m, Map<String, Class<?>> returnTypes, String sparqlSelectQuery)
 			throws ModelRuntimeException {
 
 		this.resultTable = m.sparqlSelect(sparqlSelectQuery);
@@ -41,7 +41,7 @@ public class OOQueryResultTableImpl implements OOQueryResultTable {
 		return this.m;
 	}
 
-	public Class getReturnType(String varname) {
+	public Class<?> getReturnType(String varname) {
 		return returnTypes.get(varname);
 	}
 
