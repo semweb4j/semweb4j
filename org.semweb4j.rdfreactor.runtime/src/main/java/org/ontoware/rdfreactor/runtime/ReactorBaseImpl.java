@@ -158,7 +158,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 *            for which the RDFS schema class should be found
 	 * @return the RDFs_CLASS URI of an instance by using reflection
 	 */
-	private static URI getClassURI(Class javaClass) {
+	private static URI getClassURI(Class<?> javaClass) {
 		// TODO experimental
 		try {
 			URI classURI;
@@ -340,7 +340,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 *            given Java class
 	 * @return true if .this is an instance of the given Java Class in the model
 	 */
-	public boolean isInstanceof(Class javaClass) throws ModelRuntimeException {
+	public boolean isInstanceof(Class<?> javaClass) throws ModelRuntimeException {
 		return (isInstanceof(getClassURI(javaClass)));
 	}
 
@@ -351,7 +351,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 *            Java type to which to cast this object
 	 * @return converted object
 	 */
-	public Object castTo(Class targetType) {
+	public Object castTo(Class<?> targetType) {
 		return RDFReactorRuntime.node2javatype(model, this.getResource(), targetType);
 	}
 
@@ -370,7 +370,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @return null or object typed as returnType
 	 * @throws RDFDataException
 	 */
-	public Object get(URI prop, Class returnType) throws RDFDataException {
+	public Object get(URI prop, Class<?> returnType) throws RDFDataException {
 		return Bridge.getValue(this.model, this.instanceIdentifier, prop,
 				returnType);
 	}
@@ -385,7 +385,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 *            desired Java return type
 	 * @return all values, array can be empty, never null
 	 */
-	public Object[] getAll(URI prop, Class returnType) {
+	public Object[] getAll(URI prop, Class<?> returnType) {
 
 		try {
 			return Bridge.getAllValues(this.model, this.instanceIdentifier,
@@ -408,7 +408,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 *            desired Java return type
 	 * @return array of desired returnType representing the found resources
 	 */
-	public Object[] getAll_Inverse(URI property, Node o, Class returnType) {
+	public Object[] getAll_Inverse(URI property, Node o, Class<?> returnType) {
 		try {
 			return Bridge.getAllValues_Inverse(this.model, property, o,
 					returnType);
@@ -426,7 +426,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 *            desired Java return type
 	 * @return Set of all values for the given property
 	 */
-	public Set<Object> getAll_AsSet(URI prop, Class returnType) {
+	public Set<Object> getAll_AsSet(URI prop, Class<?> returnType) {
 
 		try {
 			return Bridge.getAllValues_asSet(this.model,

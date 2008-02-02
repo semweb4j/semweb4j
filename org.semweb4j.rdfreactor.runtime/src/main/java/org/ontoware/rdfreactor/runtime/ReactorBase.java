@@ -28,7 +28,7 @@ public interface ReactorBase extends ResourceEntity {
 	 * @throws RDFDataException
 	 *             if multiple values are present
 	 */
-	public Object get(URI prop, java.lang.Class returnType)
+	public Object get(URI prop, java.lang.Class<?> returnType)
 			throws RDFDataException;
 
 	/**
@@ -38,7 +38,7 @@ public interface ReactorBase extends ResourceEntity {
 	 * @return an array of x with (this, prop, x) if such statements are in the
 	 *         model. Empty array otherwise.
 	 */
-	public Object[] getAll(URI prop, java.lang.Class returnType);
+	public Object[] getAll(URI prop, java.lang.Class<?> returnType);
 
 	/**
 	 * Removes all statements (this, prop, x) and set one anew: (this, prop, o).
@@ -191,7 +191,7 @@ public interface ReactorBase extends ResourceEntity {
 	 * @return true iff the given Object is of type javaClass
 	 * @throws Exception
 	 */
-	public boolean isInstanceof(java.lang.Class javaClass)
+	public boolean isInstanceof(java.lang.Class<?> javaClass)
 			throws ModelRuntimeException;
 
 	/**
@@ -200,7 +200,7 @@ public interface ReactorBase extends ResourceEntity {
 	 *            any java class that extends ReactorBase directly or indirectly
 	 * @return a reference to a new object seeing this object as a 'targetType'
 	 */
-	public Object castTo(java.lang.Class targetType);
+	public Object castTo(java.lang.Class<?> targetType);
 
 	/**
 	 * @param model

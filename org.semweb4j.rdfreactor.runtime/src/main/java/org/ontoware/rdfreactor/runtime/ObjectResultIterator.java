@@ -23,7 +23,7 @@ public class ObjectResultIterator<E> implements Iterator<E> {
 
 	private Iterator<Node> it;
 
-	private Class returnType;
+	private Class<?> returnType;
 
 	private Model m;
 
@@ -38,7 +38,7 @@ public class ObjectResultIterator<E> implements Iterator<E> {
 	 * 			the desired Java return type for extracting objects from the Iterator  
 	 */
 	public ObjectResultIterator(Model m, Iterator<Node> it,
-			Class returnType) {
+			Class<?> returnType) {
 		this.it = it;
 		this.returnType = returnType;
 		this.m = m;
