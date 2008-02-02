@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.5.1-SNAPSHOT</version>
+	<version>4.5.1</version>
 	<packaging>jar</packaging>
 
 	<name>RDFReactor code generator</name>
@@ -145,4 +145,10 @@
 			</plugin>
 		</plugins>
 	</build>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.5.1</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.generator-4.5.1</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdfreactor.generator-4.5.1</url>
+  </scm>
 </project>
