@@ -10,6 +10,7 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdf2go.util.transform.NamespaceSearchReplaceRule;
 import org.ontoware.rdf2go.util.transform.SearchRemoveAddRule;
 import org.ontoware.rdf2go.util.transform.Transformer;
 import org.ontoware.rdf2go.util.transform.URISearchReplaceRule;
@@ -83,4 +84,23 @@ public class TransformerTest {
 		Assert.assertFalse(m.contains(superRel, Variable.ANY, Variable.ANY));
 	}
 
+	@Test
+	public void testUriPrefixRename() {
+		Model m = RDF2Go.getModelFactory().createModel();
+		m.open();
+
+		URI a = new URIImpl("urn:test:a");
+		URI b = new URIImpl("urn:test:b");
+		URI c = new URIImpl("urn:test:c");
+
+		URI superRel = new URIImpl(
+				"http://www.semanticdesktop.org/ontologies/2007/09/cds/hasSuperRelation");
+		m.addStatement(superRel, b, c);
+		m.addStatement(a, superRel, c);
+		m.addStatement(a, b, superRel);
+		NamespaceSearchReplaceRule.searchAndReplace(m, "urn:test:", "http://example.com#");
+		
+		m.dump();
+		Assert.assertFalse(m.contains(a, Variable.ANY, Variable.ANY));
+	}
 }
