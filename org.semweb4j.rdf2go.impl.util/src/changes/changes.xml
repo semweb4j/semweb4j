@@ -6,6 +6,14 @@
 	</properties>
 	<body>
 
+
+		<release version="4.5.7" date="2008-02-04">
+			<action dev="xamde" type="add">
+				Added transformation rule to replace namespace-prefixes
+				in URIs.
+			</action>
+		</release>
+
 		<release version="4.5.6" date="2008-02-02">
 			<action dev="xamde" type="add">
 				Added modelSetToString, getSingleValue( ModelSet )
