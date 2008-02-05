@@ -209,11 +209,11 @@ public class RDFReactorRuntime {
 
 		// convert value to rdfnode
 		log.debug("value is instance of " + reactorValue.getClass().getName());
-		if (reactorValue instanceof ResourceEntity) {
+		if (reactorValue instanceof ReactorRuntimeEntity) {
 			log
 					.debug("object is an instanceof ReactorBase, so will add as single resource");
 			// add as resource
-			Resource objectID = ((ResourceEntity) reactorValue).getResource();
+			Resource objectID = ((ReactorRuntimeEntity) reactorValue).getResource();
 			return objectID;
 		} else {
 			for (Class<?> clazz : map.keySet()) {
