@@ -1,5 +1,7 @@
 package org.semweb4j.sesame;
 
+import java.io.IOException;
+
 import junit.framework.Assert;
 
 import org.junit.Ignore;
@@ -48,6 +50,49 @@ public class TestRDFSInverseInferencer {
 
 	}
 
+	@Test
+	public void testInferencer_0_directly() throws RepositoryException {
+		// create a Sail stack
+		Sail sail = new MemoryStore();
+		sail = new ForwardChainingRDFSPlusInverseInferencer(sail);
+
+		// create a Repository
+		Repository repository = new SailRepository(sail);
+		try {
+			repository.initialize();
+		} catch (RepositoryException e) {
+			throw new RuntimeException(e);
+		}
+
+		org.openrdf.model.URI a = new org.openrdf.model.impl.URIImpl(
+				"urn:test:a");
+		org.openrdf.model.URI b = new org.openrdf.model.impl.URIImpl(
+				"urn:test:b");
+		org.openrdf.model.URI c = new org.openrdf.model.impl.URIImpl(
+				"urn:test:c");
+		org.openrdf.model.URI d = new org.openrdf.model.impl.URIImpl(
+				"urn:test:d");
+		org.openrdf.model.URI nrlInverse = new org.openrdf.model.impl.URIImpl(
+				"http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#inverseProperty");
+
+		repository.getConnection().add(a, b, c, new Resource[0]);
+		Assert.assertTrue("added [a] [b] [c]", repository.getConnection()
+				.hasStatement(a, b, c, true, new Resource[0]));
+
+		Assert.assertFalse("expect not [c] [d] [a]", repository.getConnection()
+				.hasStatement(c, d, a, true, new Resource[0]));
+
+		// add [b] hasInverse [d]
+		repository.getConnection().add(b, nrlInverse, d, new Resource[0]);
+		Assert.assertTrue("added [b] nrlInverse [d]", repository
+				.getConnection().hasStatement(b, nrlInverse, d, true,
+						new Resource[0]));
+
+		Assert.assertTrue("expect [c] [d] [a]", repository.getConnection()
+				.hasStatement(c, d, a, true, new Resource[0]));
+
+	}
+
 	@Ignore("due to http://openrdf.org/issues/browse/SES-521")
 	@Test
 	public void testStrangeBug() throws RepositoryException {
@@ -77,6 +122,34 @@ public class TestRDFSInverseInferencer {
 		assert con.hasStatement(m, nrlInverse, minusM, true, defaultContext);
 		assert con.hasStatement(minusM, nrlInverse, m, true, defaultContext);
 
+	}
+
+	@Test
+	public void testInverseTriplesOnRDFDirectly() throws IOException, RepositoryException {
+		// create a Sail stack
+		Sail sail = new MemoryStore();
+		sail = new ForwardChainingRDFSPlusInverseInferencer(sail);
+
+		// create a Repository
+		Repository repository = new SailRepository(sail);
+		try {
+			repository.initialize();
+		} catch (RepositoryException e) {
+			throw new RuntimeException(e);
+		}
+		
+		URI a1 = new URIImpl("urn:name:a1");
+		URI b1 = new URIImpl("urn:name:b1");
+		URI relA = new URIImpl("urn:rel:A");
+		URI relAinv= new URIImpl("urn:rel:Ainv");
+		URI nrlInverse = ForwardChainingRDFSPlusInverseInferencerConnection.NRL_InverseProperty;
+		URI defaultContext = null; // new Resource[0]
+
+		RepositoryConnection con = repository.getConnection();
+		con.add(a1,relA,b1);
+		assert con.hasStatement(a1,relA,b1, true, defaultContext);
+		con.add(relA,nrlInverse,relAinv);
+		assert con.hasStatement(b1, relAinv, a1, true, defaultContext);
 	}
 
 

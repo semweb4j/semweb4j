@@ -142,7 +142,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	}
 	
 	
-	public static final String NRL_NS = "http://www.semanticdesktop.org/ontologies/nrl/#";
+	public static final String NRL_NS = "http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#";
 	
 	public static final URI NRL_InverseProperty = new URIImpl(NRL_NS+"inverseProperty");
 
