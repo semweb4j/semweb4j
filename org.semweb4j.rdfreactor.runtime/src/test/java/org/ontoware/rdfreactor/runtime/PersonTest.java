@@ -2,7 +2,12 @@ package org.ontoware.rdfreactor.runtime;
 
 import junit.framework.TestCase;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.node.URI;
@@ -11,12 +16,13 @@ import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdfreactor.runtime.example.Person;
 
 @SuppressWarnings("unused")
-public class PersonTest extends TestCase {
+public class PersonTest {
 
 	protected org.ontoware.rdf2go.model.node.URI instanceURI;
 
 	protected org.ontoware.rdf2go.model.Model model;
 
+	@Before
 	public void setUp() throws Exception {
 		model = RDF2Go.getModelFactory().createModel();
 		model.open();
@@ -104,6 +110,8 @@ public class PersonTest extends TestCase {
 		model.addStatement(instanceURI, instanceURI, "b");
 	}
 
+	@Ignore("outdated")
+	@Test
 	public void testAdd() throws Exception {
 		// create Person p
 		Person p = new Person(model, new URIImpl("data://jim"), true);
@@ -130,6 +138,8 @@ public class PersonTest extends TestCase {
 		assertEquals(2, p.getAllFriend().length);
 	}
 
+	@Ignore("outdated")
+	@Test
 	public void testRemove() throws ModelRuntimeException {
 		Person p = new Person(model, instanceURI, true);
 		Person q = new Person(model, new URIImpl("data://p1"), true);

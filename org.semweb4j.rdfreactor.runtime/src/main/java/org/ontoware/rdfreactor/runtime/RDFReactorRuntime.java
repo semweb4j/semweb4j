@@ -56,7 +56,8 @@ public class RDFReactorRuntime {
 		registerConverter(java.util.Calendar.class, new CalendarConverter());
 	}
 
-	public static void registerConverter(Class<?> type, INodeConverter<?> converter) {
+	public static void registerConverter(Class<?> type,
+			INodeConverter<?> converter) {
 		map.put(type, converter);
 	}
 
@@ -92,16 +93,16 @@ public class RDFReactorRuntime {
 		INodeConverter<?> nodeConverter = RDFReactorRuntime
 				.getConverter(returnType);
 		if (nodeConverter == null) {
-	//		// requested an RDFReactor generated subtype?
-	//		if (ReflectionUtils.hasSuperClass(returnType, ReactorBase.class)) {
-				return RDFReactorRuntime.resource2reactorbase(model, n,
-						returnType);
-	//		} else {
-	//			throw new RuntimeException(
-	//					"RDFReactor cannot convert any RDF node to "
-	//							+ returnType + ". RDF node: " + n + " of type "
-	//							+ n.getClass());
-	//		}
+			// // requested an RDFReactor generated subtype?
+			// if (ReflectionUtils.hasSuperClass(returnType, ReactorBase.class))
+			// {
+			return RDFReactorRuntime.resource2reactorbase(model, n, returnType);
+			// } else {
+			// throw new RuntimeException(
+			// "RDFReactor cannot convert any RDF node to "
+			// + returnType + ". RDF node: " + n + " of type "
+			// + n.getClass());
+			// }
 		} else {
 			return nodeConverter.toJava(n);
 		}
@@ -150,8 +151,8 @@ public class RDFReactorRuntime {
 									Model.class, Resource.class, boolean.class });
 				}
 
-				return (Object) constructor.newInstance(new Object[] {
-						model, node, false });
+				return (Object) constructor.newInstance(new Object[] { model,
+						node, false });
 
 			} catch (ClassCastException cce) {
 				throw new RuntimeException(cce);
@@ -177,8 +178,8 @@ public class RDFReactorRuntime {
 									Model.class, Resource.class, boolean.class });
 				}
 				BlankNode bnode = (BlankNode) node;
-				return (Object) constructor.newInstance(new Object[] {
-						model, bnode, false });
+				return (Object) constructor.newInstance(new Object[] { model,
+						bnode, false });
 			} catch (ClassCastException cce) {
 				throw new RuntimeException(cce);
 			} catch (NoSuchMethodException nsme) {
@@ -191,10 +192,30 @@ public class RDFReactorRuntime {
 		} else if (node == null) {
 			return null;
 		} else {
-			throw new RuntimeException("cannot convert " + node+ " of class <"+node.getClass()
-					+ "> from " + node + " and convert it to " + targetType);
+			throw new RuntimeException("cannot convert " + node + " of class <"
+					+ node.getClass() + "> from " + node
+					+ " and convert it to " + targetType);
 		}
 
+	}
+
+	/**
+	 * Work around a nasty issue in RepositoryModel: One cannot add a Resource to anything
+	 * It must either be a BlankNode OR a URI.
+	 * @param model
+	 * @param o
+	 * @return
+	 */
+	public static Resource genericResource2RDF2Goresource(Model model, Resource o) {
+		if (o instanceof ReactorRuntimeEntity) {
+			log
+					.debug("object is an instanceof ReactorBase, so will add as single resource");
+			// add as resource
+			Resource objectID = ((ReactorRuntimeEntity) o).getResource();
+			return objectID;
+		} else {
+			return o;
+		}
 	}
 
 	/**
@@ -202,7 +223,7 @@ public class RDFReactorRuntime {
 	 * @param reactorValue
 	 * @return a single RDF2Go Node from a Java object
 	 */
-	protected static Node java2node(Model model, Object reactorValue) {
+	public static Node java2node(Model model, Object reactorValue) {
 		if (reactorValue == null) {
 			throw new IllegalArgumentException("Argument may not be null");
 		}
@@ -213,7 +234,8 @@ public class RDFReactorRuntime {
 			log
 					.debug("object is an instanceof ReactorBase, so will add as single resource");
 			// add as resource
-			Resource objectID = ((ReactorRuntimeEntity) reactorValue).getResource();
+			Resource objectID = ((ReactorRuntimeEntity) reactorValue)
+					.getResource();
 			return objectID;
 		} else {
 			for (Class<?> clazz : map.keySet()) {
