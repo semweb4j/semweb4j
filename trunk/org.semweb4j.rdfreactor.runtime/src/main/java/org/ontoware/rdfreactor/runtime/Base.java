@@ -24,19 +24,25 @@ public class Base {
 	public static void add(Model model, Resource resourceSubject,
 			URI propertyURI, Object value) {
 		assertOpen(model);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
 		Node node = RDFReactorRuntime.java2node(model, value);
-		model.addStatement(resourceSubject, propertyURI, node);
+		model.addStatement(rdfResource, propertyURI, node);
 	}
 
-	public static void add(Model model, Resource resource, URI propertyURI,
-			Object value, int maxCardinality) throws CardinalityException {
+	public static void add(Model model, Resource resourceSubject,
+			URI propertyURI, Object value, int maxCardinality)
+			throws CardinalityException {
 		assertOpen(model);
-		Node node = RDFReactorRuntime.java2node(model, value);
-		model.addStatement(resource, propertyURI, node);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
 
-		long count = countPropertyValues(model, resource, propertyURI);
+		Node node = RDFReactorRuntime.java2node(model, value);
+		model.addStatement(rdfResource, propertyURI, node);
+
+		long count = countPropertyValues(model, rdfResource, propertyURI);
 		if (count < maxCardinality)
-			add(model, resource, propertyURI, value);
+			add(model, rdfResource, propertyURI, value);
 		else
 			throw new CardinalityException(
 					"Adding this value would violate maxCardinality = "
@@ -94,14 +100,18 @@ public class Base {
 	public static void deleteInstance(Model model, URI rdfsClass,
 			Resource resource) {
 		assertOpen(model);
-		model.removeStatement(resource, RDF.type, rdfsClass);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resource);
+		model.removeStatement(rdfResource, RDF.type, rdfsClass);
 	}
 
 	public static Object get(Model model, Resource resourceSubject,
 			URI propertyURI, java.lang.Class<?> returnType)
 			throws RDFDataException, ModelRuntimeException {
 		assertOpen(model);
-		Node node = ResourceUtils.getSingleValue(model, resourceSubject,
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		Node node = ResourceUtils.getSingleValue(model, rdfResource,
 				propertyURI);
 		return RDFReactorRuntime.node2javatype(model, node, returnType);
 	}
@@ -109,8 +119,10 @@ public class Base {
 	public static Node get_asNode(Model model, Resource instanceResource,
 			URI propertyURI) {
 		assertOpen(model);
-		ClosableIterator<Node> it = getAll(model, instanceResource,
-				propertyURI, Node.class);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, instanceResource);
+		ClosableIterator<Node> it = getAll(model, rdfResource, propertyURI,
+				Node.class);
 		if (it.hasNext()) {
 			Node result = it.next();
 			return result;
@@ -122,7 +134,9 @@ public class Base {
 	public static <T> ClosableIterator<T> getAll(Model model,
 			Resource resourceSubject, URI propertyURI, Class<T> returnType) {
 		assertOpen(model);
-		ClosableIterator<Statement> it = model.findStatements(resourceSubject,
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		ClosableIterator<Statement> it = model.findStatements(rdfResource,
 				propertyURI, Variable.ANY);
 		return new ConvertingClosableIterator<T>(new ProjectingIterator<Node>(
 				it, ProjectingIterator.projection.Object), model, returnType);
@@ -131,9 +145,11 @@ public class Base {
 	public static <T> ReactorResult<T> getAll_as(Model model,
 			Resource resourceSubject, URI propertyURI, Class<T> returnType) {
 		assertOpen(model);
-		return new ReactorResult<T>(model, new TriplePatternImpl(
-				resourceSubject, propertyURI, Variable.ANY,
-				TriplePatternImpl.SPO.OBJECT), returnType);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		return new ReactorResult<T>(model, new TriplePatternImpl(rdfResource,
+				propertyURI, Variable.ANY, TriplePatternImpl.SPO.OBJECT),
+				returnType);
 	}
 
 	/**
@@ -149,7 +165,9 @@ public class Base {
 	public static <T> List<T> getAll_asList(Model model,
 			Resource resourceSubject, URI propertyURI, Class<T> returnType) {
 		assertOpen(model);
-		ClosableIterator<T> it = getAll(model, resourceSubject, propertyURI,
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		ClosableIterator<T> it = getAll(model, rdfResource, propertyURI,
 				returnType);
 		return asList(it);
 	}
@@ -157,24 +175,30 @@ public class Base {
 	public static <T> T[] getAll_asArray(Model model, Resource resourceSubject,
 			URI propertyURI, Class<T> returnType) {
 		assertOpen(model);
-		ClosableIterator<T> it = getAll(model, resourceSubject, propertyURI,
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		ClosableIterator<T> it = getAll(model, rdfResource, propertyURI,
 				returnType);
 		return asArray(it, returnType);
 	}
 
 	public static ClosableIterator<Node> getAll_asNode(Model model,
-			Resource instanceResource, URI propertyURI) {
+			Resource resourceSubject, URI propertyURI) {
 		assertOpen(model);
-		ClosableIterator<Statement> it = model.findStatements(instanceResource,
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		ClosableIterator<Statement> it = model.findStatements(rdfResource,
 				propertyURI, Variable.ANY);
 		return new ProjectingIterator<Node>(it,
 				ProjectingIterator.projection.Object);
 	}
 
 	public static List<Node> getAll_asNodeList(Model model,
-			Resource instanceResource, URI propertyURI) {
+			Resource resourceSubject, URI propertyURI) {
 		assertOpen(model);
-		ClosableIterator<Node> it = getAll_asNode(model, instanceResource,
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		ClosableIterator<Node> it = getAll_asNode(model, rdfResource,
 				propertyURI);
 		return asList(it);
 	}
@@ -257,37 +281,53 @@ public class Base {
 	}
 
 	public static boolean hasInstance(Model model, Resource classURI,
-			Resource resourceURI) {
+			Resource resourceSubject) {
 		assertOpen(model);
-		return model.contains(resourceURI, RDF.type, classURI);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		return model.contains(rdfResource, RDF.type, classURI);
 	}
 
 	public static boolean hasValue(Model model, Resource resourceSubject,
 			URI propertyURI) {
 		assertOpen(model);
-		return model.contains(resourceSubject, propertyURI, Variable.ANY);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		return model.contains(rdfResource, propertyURI, Variable.ANY);
 	}
 
 	public static boolean hasValue(Model model, Resource resourceSubject,
 			URI propertyURI, Object value) {
 		assertOpen(model);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
 		Node node = RDFReactorRuntime.java2node(model, value);
-		return model.contains(resourceSubject, propertyURI, node);
+		return model.contains(rdfResource, propertyURI, node);
 	}
 
 	public static void remove(Model model, Resource resourceSubject,
 			URI propertyURI, Object value) {
 		assertOpen(model);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
 		Node node = RDFReactorRuntime.java2node(model, value);
-		model.removeStatement(resourceSubject, propertyURI, node);
+		model.removeStatement(rdfResource, propertyURI, node);
+
+		// FIXME this was old an buggy, fix all similar issues
+		// assertOpen(model);
+		// Node node = RDFReactorRuntime.java2node(model, value);
+		// model.removeStatement(resourceSubject, propertyURI, node);
 	}
 
-	public static void remove(Model model, Resource resource, URI propertyURI,
-			Object value, int minCardinality) throws CardinalityException {
+	public static void remove(Model model, Resource resourceSubject,
+			URI propertyURI, Object value, int minCardinality)
+			throws CardinalityException {
 		assertOpen(model);
-		long count = countPropertyValues(model, resource, propertyURI);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		long count = countPropertyValues(model, rdfResource, propertyURI);
 		if (count > minCardinality)
-			remove(model, resource, propertyURI, value);
+			remove(model, rdfResource, propertyURI, value);
 		else
 			throw new CardinalityException("Must have at least "
 					+ minCardinality + " values for property " + propertyURI);
@@ -304,16 +344,20 @@ public class Base {
 	private static void removeAll_unsynchronized(Model model,
 			Resource resourceSubject, URI propertyURI) {
 		assertOpen(model);
-		model.removeStatements(resourceSubject, propertyURI, Variable.ANY);
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		model.removeStatements(rdfResource, propertyURI, Variable.ANY);
 	}
 
 	public static void set(Model model, Resource resourceSubject,
 			URI propertyURI, Object object) {
 		assertOpen(model);
 		synchronized (model) {
-			removeAll_unsynchronized(model, resourceSubject, propertyURI);
+			Resource rdfResource = RDFReactorRuntime
+					.genericResource2RDF2Goresource(model, resourceSubject);
+			removeAll_unsynchronized(model, rdfResource, propertyURI);
 			Node node = RDFReactorRuntime.java2node(model, object);
-			model.addStatement(resourceSubject, propertyURI, node);
+			model.addStatement(rdfResource, propertyURI, node);
 		}
 	}
 
@@ -344,8 +388,11 @@ public class Base {
 		return RDFReactorRuntime.node2javatype(model, resource, targetType);
 	}
 
-	public static boolean has(Model model, Resource instanceResource, URI propertyURI) {
-		ClosableIterator<Statement> it = model.findStatements(instanceResource,
+	public static boolean has(Model model, Resource resourceSubject,
+			URI propertyURI) {
+		Resource rdfResource = RDFReactorRuntime
+				.genericResource2RDF2Goresource(model, resourceSubject);
+		ClosableIterator<Statement> it = model.findStatements(rdfResource,
 				propertyURI, Variable.ANY);
 		boolean result = it.hasNext();
 		it.close();
@@ -354,10 +401,12 @@ public class Base {
 
 	/**
 	 * Delete all (this, *, *)
+	 * 
 	 * @param model
 	 * @param instanceResource
 	 */
-	public static void deleteAllProperties(Model model, Resource instanceResource) {
+	public static void deleteAllProperties(Model model,
+			Resource instanceResource) {
 		model.removeStatements(instanceResource, Variable.ANY, Variable.ANY);
 	}
 
