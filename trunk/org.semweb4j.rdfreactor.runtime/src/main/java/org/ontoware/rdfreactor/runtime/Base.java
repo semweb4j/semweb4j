@@ -213,6 +213,14 @@ public class Base {
 				ProjectingIterator.projection.Object);
 	}
 
+	public static <T> ReactorResult<T> getAll_Inverse_as(Model model,
+			URI propertyURI, Object value, Class<T> returnType) {
+		assertOpen(model);
+		Node node = RDFReactorRuntime.java2node(model, value);
+		return new ReactorResult<T>(model, new TriplePatternImpl(Variable.ANY,
+				propertyURI, node, TriplePatternImpl.SPO.OBJECT), returnType);
+	}
+
 	// public static <T> ClosableIterator<T> getAllAs(Model model,
 	// Resource instanceResource, URI propertyURI, Class<?> returnType) {
 	// assertOpen(model);
