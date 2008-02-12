@@ -287,6 +287,26 @@ public class $class.name extends $class.superclass {
 		return Base.getAll_Inverse(model, ${inverse.getFirstType()}.#uppercase( $inverse.name ), objectValue);
 	}
 
+	/**
+#comment("	 " $inverse)
+	 * @return all A's as RDF resources, that have a relation '#mixedcase( $inverse.getInverse().getName() )' to this ${class.name} instance
+#debug("getallinverse1dynamic")
+	 */
+	public ClosableIterator<org.ontoware.rdf2go.model.node.Resource> getAll${methodnameprefix}#mixedcase( $inverse.name )_Inverse() {
+		return Base.getAll_Inverse(this.model, ${inverse.getFirstType()}.#uppercase( $inverse.name ), this.getResource() );
+	}
+
+	/**
+#comment("	 " $inverse)
+	 * @param model an RDF2Go model
+	 * @param objectValue
+	 * @return all A's as a ReactorResult, that have a relation '#mixedcase( $inverse.getInverse().getName() )' to this ${class.name} instance
+#debug("getallinverse-as1static")
+	 */
+	public static ReactorResult<org.ontoware.rdf2go.model.node.Resource> getAll${methodnameprefix}#mixedcase( $inverse.name )_Inverse_as( Model model, Object objectValue) {
+		return Base.getAll_Inverse_as(model, ${inverse.getFirstType()}.#uppercase( $inverse.name ), objectValue, org.ontoware.rdf2go.model.node.Resource.class);
+	}
+
 #end## #foreach( $inverse in $class.inverseProperties )
 ##     -----------------------------------------------------------------------
 ##    |  regular properties
