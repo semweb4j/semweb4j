@@ -566,7 +566,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		diff.addStatement(resource, RDF.subject, statement.getSubject());
 		diff.addStatement(resource, RDF.predicate, statement.getPredicate());
 		diff.addStatement(resource, RDF.object, statement.getObject());
-		update(diff);
+		update( (DiffReader) diff);
 		return resource;
 	}
 
@@ -623,6 +623,6 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 			diff.removeStatement(it.next());
 		}
 		it.close();
-		update(diff);
+		update( (DiffReader) diff);
 	}
 }

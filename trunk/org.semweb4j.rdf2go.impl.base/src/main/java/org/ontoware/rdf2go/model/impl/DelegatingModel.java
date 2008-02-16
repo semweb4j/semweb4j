@@ -392,4 +392,5 @@ public class DelegatingModel extends AbstractModel implements Model {
 		delegatedModel.readFrom(reader, syntax, baseURI);
 	}
 
+
 }
