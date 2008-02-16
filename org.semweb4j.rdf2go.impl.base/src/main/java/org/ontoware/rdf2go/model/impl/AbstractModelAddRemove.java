@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
+import org.ontoware.rdf2go.model.Diff;
 import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.ModelAddRemove;
 import org.ontoware.rdf2go.model.Statement;
@@ -111,6 +112,13 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter
 		removeAll(diff.getRemoved().iterator());
 		addAll(diff.getAdded().iterator());
 	}
+	
+	@Deprecated
+	public void update(Diff diff) throws ModelRuntimeException {
+		removeAll(diff.getRemoved().iterator());
+		addAll(diff.getAdded().iterator());
+	}
+	
 
 	// core rdf2go model methods
 	// /////////////////////////

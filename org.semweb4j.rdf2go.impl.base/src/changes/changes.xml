@@ -6,17 +6,26 @@
 	</properties>
 	<body>
 
+		<release version="4.5.5" date="2008-02-16"
+			description="Bug fix">
+			<action dev="xamde" type="fix">
+				literal.toSparql() now wraps literal content in '''
+				instead of single quotes. This allows safe newline
+				handling.
+			</action>
+		</release>
+
 		<release version="4.5.4" date="2008-01-21"
 			description="Dependency Update">
 			<action dev="xamde" type="update">
-			    Implemented new functions from RDF2Go API 4.5.3
+				Implemented new functions from RDF2Go API 4.5.3
 			</action>
 		</release>
 
 		<release version="4.5.3" date="2007-12-15"
 			description="Dependency Update - API changes">
 			<action dev="xamde" type="update">
-			    Changed from update(Diff) to update(DiffReader).
+				Changed from update(Diff) to update(DiffReader).
 			</action>
 		</release>
 
@@ -28,14 +37,15 @@
 			</action>
 			<action dev="xamde" type="update">
 				Moved 'org.semweb4j.rdf2go.util' package to its own
-				project (jar) to allow for independent evolution - 'util'
-				was often evolving much faster than the rest, causing
-				unnecessary releases of RDF2Go adapters. Adapters do not
-				depend on 'util'.
+				project (jar) to allow for independent evolution -
+				'util' was often evolving much faster than the rest,
+				causing unnecessary releases of RDF2Go adapters.
+				Adapters do not depend on 'util'.
 			</action>
 		</release>
 
-		<release version="4.5.1" date="2007-11-02" description="Minor changes">
+		<release version="4.5.1" date="2007-11-02"
+			description="Minor changes">
 			<action dev="xamde" type="update">
 				Improved rdf2go.util.ModelUtils.load... methods
 			</action>
