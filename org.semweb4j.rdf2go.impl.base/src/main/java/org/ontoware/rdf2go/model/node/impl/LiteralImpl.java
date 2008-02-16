@@ -39,6 +39,15 @@ public abstract class LiteralImpl implements Literal {
 	public BlankNode asBlankNode() throws ClassCastException {
 		throw new ClassCastException("Literals are no BlankNodes");
 	}
+	
+	protected static String sparqlEncode( String raw )  {
+		String result = raw;
+		result = result.replace("\\","\\\\");
+		result = result.replace("'","\\'");
+		result = result.replace("\"","\\\"");
+		return result;
+	}
+
 
 
 }

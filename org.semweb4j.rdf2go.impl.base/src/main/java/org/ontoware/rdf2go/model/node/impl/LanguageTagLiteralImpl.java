@@ -10,7 +10,6 @@
  */
 package org.ontoware.rdf2go.model.node.impl;
 
-import org.ontoware.rdf2go.SparqlUtil;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
@@ -91,7 +90,7 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 	}
 
 	public String toSPARQL() {
-		return "\"" + SparqlUtil.sparqlEncode(this.literalValue) + "\"@"
+		return "'''" + sparqlEncode(this.literalValue) + "'''@"
 				+ this.languageTag;
 	}
 

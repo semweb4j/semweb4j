@@ -10,7 +10,6 @@
  */
 package org.ontoware.rdf2go.model.node.impl;
 
-import org.ontoware.rdf2go.SparqlUtil;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
@@ -66,7 +65,7 @@ public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 	}
 
 	public String toSPARQL() {
-		return "\""+SparqlUtil.sparqlEncode(this.value)+"\"";
+		return "'''"+sparqlEncode(this.value)+"'''";
 	}
 
 
