@@ -12,7 +12,6 @@ package org.ontoware.rdf2go.model.node.impl;
 
 import java.util.Date;
 
-import org.ontoware.rdf2go.SparqlUtil;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
@@ -149,7 +148,7 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 	}
 
 	public String toSPARQL()  {
-		return "\"" + SparqlUtil.sparqlEncode(this.value) + "\"^^<" + this.datatype + ">";
+		return "'''" + sparqlEncode(this.value) + "'''^^<" + this.datatype + ">";
 	}
 
 }
