@@ -6,17 +6,26 @@
 	<body>
 
 
-		<release version="4.5.1" description="Extensions" date="@@">
+		<release version="4.5.2" description="Extensions"
+			date="2008-02-02">
+			<action dev="xamde" type="fix" issue="REAC-23">
+				Fixed Base.getAll_Inverse_as()
+			</action>
+		</release>
+
+		<release version="4.5.1" description="Extensions"
+			date="2008-02-02">
 			<action dev="xamde" type="add">Added hasPROPERTY</action>
 			<action dev="xamde" type="add">
 				All generated classes now implement RDF2Go Resource and
 				delegate to the instanceResource
 			</action>
 			<action dev="xamde" type="update">
-			    Base.deleteInstance now deletes only the given rdf:type.
+				Base.deleteInstance now deletes only the given rdf:type.
 			</action>
 			<action dev="xamde" type="fix">
-				Can now return generated classes wrapping a BlankNode in RDF
+				Can now return generated classes wrapping a BlankNode in
+				RDF
 			</action>
 		</release>
 
