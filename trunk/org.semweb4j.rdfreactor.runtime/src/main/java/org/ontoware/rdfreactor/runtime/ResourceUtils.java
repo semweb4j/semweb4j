@@ -92,12 +92,17 @@ public class ResourceUtils {
 			it = model.findStatements(subject, propertyURI, Variable.ANY);
 			if (it.hasNext()) {
 				Statement o = it.next();
-				if (it.hasNext())
+				if (it.hasNext()) {
+					log.warn("Found more than one value. Listing values: ");
+					log.warn("Found "+o.getObject());
+					while(it.hasNext()) {
+						log.warn("Found "+it.next().getObject());
+					}
 					throw new RDFDataException(
 							"Found more than one value for property "
 									+ propertyURI + " and resource " + subject
 									+ " but you asked for *the* value.");
-
+				}
 				result = o.getObject();
 			} else {
 				log.debug("no matching nodes found");
