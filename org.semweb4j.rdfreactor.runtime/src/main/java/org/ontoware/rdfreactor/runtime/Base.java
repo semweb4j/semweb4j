@@ -37,13 +37,11 @@ public class Base {
 		Resource rdfResource = RDFReactorRuntime
 				.genericResource2RDF2Goresource(model, resourceSubject);
 
-		Node node = RDFReactorRuntime.java2node(model, value);
-		model.addStatement(rdfResource, propertyURI, node);
-
 		long count = countPropertyValues(model, rdfResource, propertyURI);
-		if (count < maxCardinality)
-			add(model, rdfResource, propertyURI, value);
-		else
+		if (count < maxCardinality) {
+			Node node = RDFReactorRuntime.java2node(model, value);
+			model.addStatement(rdfResource, propertyURI, node);
+		} else
 			throw new CardinalityException(
 					"Adding this value would violate maxCardinality = "
 							+ maxCardinality + " for property " + propertyURI);
@@ -218,7 +216,7 @@ public class Base {
 		assertOpen(model);
 		Node node = RDFReactorRuntime.java2node(model, value);
 		return new ReactorResult<T>(model, new TriplePatternImpl(Variable.ANY,
-				propertyURI, node, TriplePatternImpl.SPO.OBJECT), returnType);
+				propertyURI, node, TriplePatternImpl.SPO.SUBJECT), returnType);
 	}
 
 	// public static <T> ClosableIterator<T> getAllAs(Model model,
