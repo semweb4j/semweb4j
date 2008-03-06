@@ -208,7 +208,7 @@ public class Base {
 		ClosableIterator<Statement> it = model.findStatements(Variable.ANY,
 				propertyURI, node);
 		return new ProjectingIterator<Resource>(it,
-				ProjectingIterator.projection.Object);
+				ProjectingIterator.projection.Subject);
 	}
 
 	public static <T> ReactorResult<T> getAll_Inverse_as(Model model,
