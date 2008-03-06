@@ -158,8 +158,8 @@ public class ReactorRuntimeEntity implements Resource {
 	 */
 	public boolean equals(Object other) {
 
-		if (other instanceof ReactorBase) {
-			return ((ReactorBase) other).getResource().equals(
+		if (other instanceof ReactorRuntimeEntity) {
+			return ((ReactorRuntimeEntity) other).getResource().equals(
 					this.getResource());
 		} else if (other instanceof URI) {
 			return this.getResource().equals(other);
