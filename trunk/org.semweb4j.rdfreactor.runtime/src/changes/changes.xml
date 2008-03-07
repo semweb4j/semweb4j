@@ -6,7 +6,7 @@
 	<body>
 
 		<release version="4.5.3" description="Bug fixes"
-			date="@@">
+			date="2008-03-07">
 			<action dev="xamde" type="fix" issue="REAC-24">
 				Fixed equals() for generated objects, thanks Felix!,
 			</action>
