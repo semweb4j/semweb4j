@@ -16,7 +16,6 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdfreactor.runtime.Bridge;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
 import org.ontoware.semversion.impl.generated.RDFModel;
-import org.ontoware.semversion.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

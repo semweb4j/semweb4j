@@ -7,9 +7,12 @@ public class GenerateIt {
 
 	public static void main(String[] args) throws Exception {
 		
-		CodeGenerator.generate("./src/main/resources/semversion.n3",
+		CodeGenerator.generate(
+				"./src/main/resources/semversion.n3",
 				"./src/main/java",
-				"org.ontoware.semversion.impl.generated",Reasoning.rdfs, true,true);
+				"org.ontoware.semversion.impl.generated",
+				Reasoning.rdfs,
+				true);
 	}
 
 }

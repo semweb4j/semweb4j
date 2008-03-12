@@ -182,7 +182,7 @@ public class Version extends VersionedItem {
 
 			// link
 			RDFModel childContentModel = new RDFModel(getSemVersion()
-					.getMainModel(), childModel.getContextURI());
+					.getMainModel(), childModel.getContextURI(), true);
 			child.setContent(childContentModel);
 			this.version.addChild(child.version);
 			child.setFirstParent(this);
@@ -541,7 +541,7 @@ public class Version extends VersionedItem {
 			content.close();
 
 			RDFModel childContent = new RDFModel(
-					getSemVersion().getMainModel(), childModel.getContextURI());
+					getSemVersion().getMainModel(), childModel.getContextURI(), true);
 			child.setContent(childContent);
 			child.setContainer(getVersionedModel());
 
@@ -589,7 +589,7 @@ public class Version extends VersionedItem {
 	 * Sets this version as invalid (= suggestion)
 	 */
 	protected void setInvalid() {
-		version.removeAllTag();
+		org.ontoware.semversion.impl.generated.Version.removeAllTag(this.version.getModel(), this.version.asResource());
 	}
 
 	private void setSecondParent(Version value) throws RDFDataException {

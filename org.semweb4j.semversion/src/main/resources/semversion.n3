@@ -138,5 +138,6 @@ semversion:hasPassword a rdf:Property
 semversion:branchLabel a rdf:Property
 ; rdfs:domain semversion:Version
 ; rdfs:range rdfs:Literal
+; owl:cardinality "1"
 .
 

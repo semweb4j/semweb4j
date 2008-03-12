@@ -25,7 +25,7 @@ public class UserImpl implements User {
 	}
 	
 	public UserImpl(Model mainModel, URI uri, String name, String pass) {
-		user = new org.ontoware.semversion.impl.generated.User(mainModel, uri);
+		user = new org.ontoware.semversion.impl.generated.User(mainModel, uri,true);
 		setName(name);
 		setPassword(pass);
 	}
