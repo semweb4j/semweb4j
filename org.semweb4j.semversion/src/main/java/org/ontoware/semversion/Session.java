@@ -58,13 +58,15 @@ public class Session {
 	/**
 	 * 
 	 * @param label
-	 * @return a new VersionedModel or null if a VersionedModel with this name
+	 * @return a new VersionedModel
+	 * @throws DuplicateLabelException if a VersionedModel with this name
 	 *         already exists
 	 */
-	public VersionedModel createVersionedModel(String label) {
+	public VersionedModel createVersionedModel(String label) throws DuplicateLabelException {
 		checkAlive();
-		if (getVersionedModel(label) != null) {
-			return null;
+		VersionedModel vm = getVersionedModel(label);
+		if (vm != null) {
+			throw new DuplicateLabelException("Label '"+label+"' exists already. URI: "+vm.getURI());
 		}
 
 		return createVersionedModel(semVersion.getMainModel()

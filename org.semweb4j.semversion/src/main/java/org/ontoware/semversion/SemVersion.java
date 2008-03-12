@@ -27,6 +27,10 @@ import org.slf4j.LoggerFactory;
  * 
  * @author voelkel
  */
+/**
+ * @author voelkel
+ *
+ */
 public class SemVersion {
 
 	private Logger log = LoggerFactory.getLogger(SemVersion.class);
@@ -70,6 +74,10 @@ public class SemVersion {
 			throw new IllegalStateException("Please call startup(..) first");
 	}
 
+	
+	/**
+	 * Delete all data. CAUTION.
+	 */
 	public void clear() {
 		checkStartup();
 		this.ts.deleteStore();

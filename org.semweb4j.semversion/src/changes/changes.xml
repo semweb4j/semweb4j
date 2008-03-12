@@ -5,6 +5,15 @@
 	</properties>
 	<body>
 
+		<release version="1.0.2" date="2008-03-12"
+			description="API extension & bug fixes">
+			<action dev="xamde" type="update">
+				Session.createVersionedModel(String label) no longer
+				returns null in case of faillure, but throws
+				DuplicateLabelException
+			</action>
+		</release>
+
 		<release version="1.0.2" date="2007-11-27"
 			description="API extension">
 			<action dev="xamde" type="update">
