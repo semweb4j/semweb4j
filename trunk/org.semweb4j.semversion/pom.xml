@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -132,192 +134,60 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.util</artifactId>
+			<version>4.5.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.4.9</version>
+			<version>4.5.4</version>
 		</dependency>
-		<dependency>
+		<!-- 
+			<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.4.9</version>
-		</dependency>
+			<version>4.5.3</version>
+			</dependency>
+		-->
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.generator</artifactId>
-			<version>4.4.11</version>
+			<version>4.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.4.12</version>
-		</dependency>
-
-		<!-- sesame (openrdf) dependencies -->
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-model</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-query</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-queryalgebra-model</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-queryalgebra-evaluation</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-queryparser-api</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-queryparser-sparql</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-queryresultio-api</artifactId>
-			<version>2.0-beta4</version>
+			<version>4.5.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-rdf2go</artifactId>
-			<version>2.0-beta4hack</version>
+			<version>4.5.4</version>
+		</dependency>
+
+		<!-- sesame (openrdf) dependencies -->
+		<dependency>
+			<groupId>org.openrdf</groupId>
+			<artifactId>openrdf-sail-nativerdf</artifactId>
+			<version>2.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-repository-api</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-repository-sail</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-rio-api</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-rio-n3</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-rio-ntriples</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-rio-rdfxml</artifactId>
-			<version>2.0-beta4</version>
+			<artifactId>openrdf-rio-trig</artifactId>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-rio-trix</artifactId>
-			<version>2.0-beta4</version>
+			<version>2.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-rio-turtle</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-sail-api</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<scope>runtime</scope>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-sail-inferencer</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-sail-memory</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-sail-nativerdf</artifactId>
-			<version>2.0-beta4</version>
-		</dependency>
-
-		<!-- sesame info -->
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-collections</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<!--  seems to be missing e.g. in semfs -->
-		<dependency>
-			<scope>runtime</scope>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-concurrent</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-io</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-iteration</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-lang</artifactId>
-			<version>1.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-net</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-text</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.aduna</groupId>
-			<artifactId>aduna-xml</artifactId>
-			<version>1.1</version>
-		</dependency>
-
 		<!-- common dependencies (useful utils)-->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -344,6 +214,13 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.jena24</artifactId>
+			<version>4.5.4</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

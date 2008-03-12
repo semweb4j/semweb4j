@@ -33,7 +33,7 @@ public abstract class VersionedItem {
 	 */
 	public VersionedItem(Model model, Session session, URI uri) {
 		this.versionedItem = new org.ontoware.semversion.impl.generated.VersionedItem(
-				model, uri);
+				model, uri, true);
 		this.session = session;
 	}
 	
@@ -41,8 +41,12 @@ public abstract class VersionedItem {
 		return this.session;
 	}
 
+	/**
+	 * @return one of the comments. 
+	 */
 	public String getComment() {
-		return this.versionedItem.getComment();
+		// FIXME dropping all other comment than the first
+		return this.versionedItem.getAllComment_as().firstValue();
 	}
 
 	/**
@@ -65,7 +69,7 @@ public abstract class VersionedItem {
 	}
 
 	public String getLabel() {
-		return this.versionedItem.getLabel();
+		return this.versionedItem.getAllLabel_as().firstValue();
 	}
 
 	/**
@@ -86,7 +90,7 @@ public abstract class VersionedItem {
 	 * @return a tag, if this item has one. Otherwise null.
 	 */
 	protected String getTag() throws RDFDataException {
-		return this.versionedItem.getTag();
+		return this.versionedItem.getAllTag_as().firstValue();
 	}
 
 	/**
@@ -126,19 +130,19 @@ public abstract class VersionedItem {
 		return this.versionedItem.getUserdefinedMetadata();
 	}
 
-	/**
-	 * removes a value
-	 */
-	protected void removeCreationTime(long value) {
-		this.versionedItem.removeCreationTime();
-	}
-
-	/**
-	 * removes a value
-	 */
-	protected void removeDeletionTime(long value) {
-		this.versionedItem.removeDeletionTime();
-	}
+//	/**
+//	 * removes a value
+//	 */
+//	protected void removeCreationTime(long value) {
+//		this.versionedItem.removeCreationTime();
+//	}
+//
+//	/**
+//	 * removes a value
+//	 */
+//	protected void removeDeletionTime(long value) {
+//		this.versionedItem.removeDeletionTime();
+//	}
 
 	public void setComment(String comment) {
 		this.versionedItem.setComment(comment);

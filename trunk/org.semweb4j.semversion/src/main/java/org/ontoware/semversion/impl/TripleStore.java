@@ -44,7 +44,7 @@ public class TripleStore {
 
 		// persistent store
 		NativeStore ns = new NativeStore(storageDir);
-		ns.setParameter("triple-indexes", "spoc, posc, sopc, psoc, ospc, opsc");
+		ns.setTripleIndexes("spoc, posc, sopc, psoc, ospc, opsc");
 		Repository myRepository = new SailRepository(ns);
 		try {
 			myRepository.initialize();
