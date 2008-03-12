@@ -4,6 +4,8 @@
  */
 package org.ontoware.semversion.usecase.marcont;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -18,6 +20,7 @@ import org.ontoware.rdf2go.model.impl.DiffImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdf2go.util.ModelUtils;
 import org.ontoware.semversion.SemVersion;
 import org.ontoware.semversion.SemanticDiffEngine;
 import org.ontoware.semversion.Session;
@@ -183,7 +186,7 @@ public class MarcOntUseCase {
 	}
 
 	@Test
-	public void testJenaConversion() throws ModelRuntimeException, IOException {
+	public void testJenaConversion() throws Exception {
 		// create a Jena Model
 		com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
 				.createDefaultModel();
@@ -214,9 +217,45 @@ public class MarcOntUseCase {
 
 		// dump ontmodelAsRDF2Go
 		ontModelAsRDF2Go.writeTo(System.out, Syntax.Ntriples);
-	
+
+		// /////////// now try to store it in semversion
+		SemVersion sv = new SemVersion();
+		sv.startup(new File("./target/test"));
+		sv.clear();
+		Session session = sv.createAnonymousSession();
+		VersionedModel vm = session.createVersionedModel("test");
+		assertNotNull(vm);
+		Model semversionModel = session.getModel();
+		ModelUtils.copy(ontModelAsRDF2Go, semversionModel);
+		vm.commitRoot(semversionModel, "root");
+		session.close();
+
+		// load from semversion
+		session = sv.createAnonymousSession();
+		vm = session.getVersionedModel("test");
+		Model fromSemversion = vm.getRoot().getContent();
+		// dump retrieved content
+		fromSemversion.writeTo(System.out, Syntax.Ntriples);
+		// create a new Jena Model
+
+		// create a Jena Model
+		com.hp.hpl.jena.rdf.model.Model secondJenaModel = ModelFactory
+				.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+
+		// for ease of use, wrap it in an RDF2Go model
+		Model secondJenaModelAsRdf2Go = new ModelImplJena24(secondJenaModel);
+		secondJenaModelAsRdf2Go.open();
+
+		ModelUtils.copy(fromSemversion, secondJenaModelAsRdf2Go);
+		session.close();
+
+		fromSemversion.close();
 		ontModelAsRDF2Go.close();
 		jenaModelAsRdf2Go.close();
+
+		secondJenaModelAsRdf2Go.writeTo(System.out, Syntax.Ntriples);
+		secondJenaModelAsRdf2Go.close();
+		sv.shutdown();
 	}
 
 }
