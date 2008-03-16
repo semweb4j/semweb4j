@@ -347,8 +347,8 @@ public class Version extends VersionedItem {
 	 * @return a an in-memory copy of the RDF content of this model
 	 */
 	public Model getContent() {
-		return new BlankNodeEnrichmentModel(
-		getSemVersion().getTripleStore().getAsTempCopy(getContentURI()));
+		return new BlankNodeEnrichmentModel(getSemVersion().getTripleStore()
+				.getAsTempCopy(getContentURI()));
 	}
 
 	/**
@@ -541,7 +541,8 @@ public class Version extends VersionedItem {
 			content.close();
 
 			RDFModel childContent = new RDFModel(
-					getSemVersion().getMainModel(), childModel.getContextURI(), true);
+					getSemVersion().getMainModel(), childModel.getContextURI(),
+					true);
 			child.setContent(childContent);
 			child.setContainer(getVersionedModel());
 
@@ -559,10 +560,34 @@ public class Version extends VersionedItem {
 	}
 
 	/**
-	 * 'Changes the flag from "suggestion" to "released"
+	 * Changes the flag from "suggestion" to "released"
 	 */
 	public void setAsRelease() {
+		// check that this has no suggestions as parents
+		if (getPrevVersion().isSuggestion()) {
+			throw new ConsistencyException("This version (" + this.getURI()
+					+ ") has a suggestion-parent (" + getPrevVersion().getURI()
+					+ ") therefore this version cannot be released.");
+		}
+		// else
 		setValid();
+	}
+
+	/**
+	 * Changes the flag from "released" to "suggestion"
+	 */
+	public void setAsSuggestion() {
+		// check that there are no released children
+		for (Version child : getNextVersions()) {
+			if (!child.isSuggestion()) {
+				throw new ConsistencyException(
+						"Cannot set this version ("
+								+ getURI()
+								+ ") as a suggestion because child versions are already released, e.g. "
+								+ child.getURI());
+			}
+		}
+		setInvalid();
 	}
 
 	private void setBranchLabel(String branchLabel) {
@@ -589,7 +614,8 @@ public class Version extends VersionedItem {
 	 * Sets this version as invalid (= suggestion)
 	 */
 	protected void setInvalid() {
-		org.ontoware.semversion.impl.generated.Version.removeAllTag(this.version.getModel(), this.version.asResource());
+		org.ontoware.semversion.impl.generated.Version.removeAllTag(
+				this.version.getModel(), this.version.asResource());
 	}
 
 	private void setSecondParent(Version value) throws RDFDataException {
@@ -610,6 +636,11 @@ public class Version extends VersionedItem {
 		} catch (RDFDataException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public void delete() {
+		org.ontoware.semversion.impl.generated.Version.deleteAllProperties(
+				version.getModel(), version.asResource());
 	}
 
 }

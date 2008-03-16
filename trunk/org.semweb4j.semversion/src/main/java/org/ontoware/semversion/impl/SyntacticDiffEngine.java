@@ -65,7 +65,7 @@ public class SyntacticDiffEngine {
 	 *            under which a model with source + added - removed is created
 	 * @returns a temporary model with the diff applied
 	 * @throws Exception
-	 *             TODO: uses blank node enrichment here
+	 *             TODO: use blank node enrichment here
 	 */
 	public static Model applyDiff(TripleStore ts, Model sourceModel, Diff diff) {
 		try {
