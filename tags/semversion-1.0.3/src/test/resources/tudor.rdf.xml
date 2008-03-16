@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE rdf:RDF [
+
+       <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+
+       <!ENTITY kb 'http://protege.stanford.edu/kb#'>
+
+       <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+
+]>
+
+<rdf:RDF xmlns:rdf="&rdf;"
+
+       xmlns:kb="&kb;"
+
+       xmlns:rdfs="&rdfs;">
+
+<rdfs:Class rdf:about="&kb;test1"
+
+       rdfs:label="test1">
+
+      <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+
+</rdfs:Class>
+
+<rdfs:Class rdf:about="&kb;test11"
+
+       rdfs:label="test11">
+
+      <rdfs:subClassOf rdf:resource="&kb;test1"/>
+
+</rdfs:Class>
+
+<rdfs:Class rdf:about="&kb;test2"
+
+       rdfs:label="test2">
+
+      <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+
+</rdfs:Class>
+
+<rdfs:Class rdf:about="&kb;test21"
+
+       rdfs:label="test21">
+
+      <rdfs:subClassOf rdf:resource="&kb;test2"/>
+
+</rdfs:Class>
+
+</rdf:RDF>
