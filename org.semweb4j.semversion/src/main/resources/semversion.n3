@@ -51,11 +51,11 @@ semversion:hasCreationTime a rdf:Property
 ; owl:cardinality "1"
 .
 
-semversion:hasDeletionTime a rdf:Property
-; rdfs:domain semversion:VersionedItem
-; rdfs:range xsd:dateTime
-; owl:maxCardinality "1"
-.
+#semversion:hasDeletionTime a rdf:Property
+#; rdfs:domain semversion:VersionedItem
+#; rdfs:range xsd:dateTime
+#; owl:maxCardinality "1"
+#.
 
 semversion:hasUserdefinedMetadata a rdf:Property
 ; rdfs:domain semversion:VersionedItem

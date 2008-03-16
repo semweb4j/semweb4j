@@ -40,12 +40,10 @@ public class ThreadDeleteTest {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void testDeleteVersionedModel() throws Exception {
 		Session session = semVersion.login("User", "secret");
 		VersionedModel vm = session.getVersionedModel("NewThread");
-
 		assertNotNull(vm);
-		
 		vm.delete();
 		
 		vm = session.getVersionedModel("NewThread");

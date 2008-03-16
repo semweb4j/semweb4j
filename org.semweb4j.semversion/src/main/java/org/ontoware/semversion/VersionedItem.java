@@ -45,7 +45,7 @@ public abstract class VersionedItem {
 	 * @return one of the comments. 
 	 */
 	public String getComment() {
-		// FIXME dropping all other comment than the first
+		// this is dropping all other comments besides the first
 		return this.versionedItem.getAllComment_as().firstValue();
 	}
 
@@ -56,17 +56,17 @@ public abstract class VersionedItem {
 		return this.versionedItem.getCreationTime();
 	}
 
-	/**
-	 * @return the deletionTime, or FOREVER if no deletion time has been set
-	 *         yet. A version with no deletion time is considered to be 'live'.
-	 */
-	public Calendar getDeletionTime() throws RDFDataException {
-		Calendar deletionTime = this.versionedItem.getDeletionTime();
-		if (deletionTime == null)
-			return TransactionTime.FOREVER;
-		else
-			return deletionTime;
-	}
+//	/**
+//	 * @return the deletionTime, or FOREVER if no deletion time has been set
+//	 *         yet. A version with no deletion time is considered to be 'live'.
+//	 */
+//	public Calendar getDeletionTime() throws RDFDataException {
+//		Calendar deletionTime = this.versionedItem.getDeletionTime();
+//		if (deletionTime == null)
+//			return TransactionTime.FOREVER;
+//		else
+//			return deletionTime;
+//	}
 
 	public String getLabel() {
 		return this.versionedItem.getAllLabel_as().firstValue();
@@ -93,19 +93,19 @@ public abstract class VersionedItem {
 		return this.versionedItem.getAllTag_as().firstValue();
 	}
 
-	/**
-	 * @return the transaction time, which contains creation and deletio time
-	 */
-	public TransactionTime getTransactionTime() {
-		try {
-			Calendar start = this.getCreationTime();
-			Calendar end = this.getDeletionTime();
-			TransactionTime t = new TransactionTime(start, end);
-			return t;
-		} catch (RDFDataException e) {
-			throw new RuntimeException(e);
-		}
-	}
+//	/**
+//	 * @return the transaction time, which contains creation and deletio time
+//	 */
+//	public TransactionTime getTransactionTime() {
+//		try {
+//			Calendar start = this.getCreationTime();
+//			Calendar end = this.getDeletionTime();
+//			TransactionTime t = new TransactionTime(start, end);
+//			return t;
+//		} catch (RDFDataException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 
 	public URI getURI() {
 		return this.versionedItem.getResource().asURI();
@@ -155,12 +155,12 @@ public abstract class VersionedItem {
 		this.versionedItem.setCreationTime(value);
 	}
 
-	/**
-	 * removes all values and sets this one
-	 */
-	protected void setDeletionTime(Calendar value) throws RDFDataException {
-		this.versionedItem.setDeletionTime(value);
-	}
+//	/**
+//	 * removes all values and sets this one
+//	 */
+//	protected void setDeletionTime(Calendar value) throws RDFDataException {
+//		this.versionedItem.setDeletionTime(value);
+//	}
 
 	public void setLabel(String label) {
 		this.versionedItem.setLabel(label);

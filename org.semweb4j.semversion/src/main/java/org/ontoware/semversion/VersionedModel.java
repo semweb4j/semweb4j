@@ -37,7 +37,8 @@ public class VersionedModel extends VersionedItem {
 	}
 
 	public VersionedModel(
-			org.ontoware.semversion.impl.generated.VersionedModel vm, Session session) {
+			org.ontoware.semversion.impl.generated.VersionedModel vm,
+			Session session) {
 		super(vm.getModel(), session, vm.getResource().asURI());
 		this.vm = vm;
 	}
@@ -87,8 +88,8 @@ public class VersionedModel extends VersionedItem {
 	 * @throws IllegalStateException
 	 *             if this VersionedModel has already a root version
 	 */
-	public Version commitRoot(Model root, String label, String comment, URI versionURI,
-			URI provenance) {
+	public Version commitRoot(Model root, String label, String comment,
+			URI versionURI, URI provenance) {
 		assert root != null;
 		assert comment != null;
 		if (versionURI == null) {
@@ -102,14 +103,13 @@ public class VersionedModel extends VersionedItem {
 							+ " Method call ignored, continue using existing root.");
 		else {
 			// create Version proxy
-			Version version = new Version(getSemVersion().getMainModel(), getSession(),
-					versionURI, true);
+			Version version = new Version(getSemVersion().getMainModel(),
+					getSession(), versionURI, true);
 
 			// set all data
 			version.setLabel(label);
 			version.setComment(comment);
-			User user = getSession()
-					.getUser();
+			User user = getSession().getUser();
 			log.debug("user: " + user.getName());
 			assert user != null;
 			version.setUser(user);
@@ -141,20 +141,16 @@ public class VersionedModel extends VersionedItem {
 	}
 
 	/**
-	 * Removes this VersionedModel and all versions in the version tree.
+	 * Removes this VersionedModel and all versions in the version tree. 	 
 	 */
 	public void delete() {
-		try {
-			Calendar now = Calendar.getInstance();
-			setDeletionTime(now);
-			// process versions
-			for (Version v : getAllVersions())
-				v.setDeletionTime(now);
-
-		} catch (RDFDataException e) {
-			throw new RuntimeException(e);
+		// process versions
+		for (Version v : getAllVersions()) {
+			v.delete();
 		}
-
+		// Delete
+		org.ontoware.semversion.impl.generated.VersionedModel
+				.deleteAllProperties(vm.getModel(), vm.getResource());
 	}
 
 	/**
@@ -223,10 +219,6 @@ public class VersionedModel extends VersionedItem {
 				log.debug("different getCreationTime");
 				return false;
 			}
-			if (!equalHelper(vm.getDeletionTime(), getDeletionTime())) {
-				log.debug("different getDeletionTime");
-				return false;
-			}
 			if (!equalHelper(vm.getLabel(), getLabel())) {
 				log.debug("different getLabel");
 				return false;
@@ -266,12 +258,6 @@ public class VersionedModel extends VersionedItem {
 				log.debug("different getURI");
 				return false;
 			}
-			if (!equalHelper(vm.getTransactionTime(), getTransactionTime())) {
-				log.debug("different getTransactionTime: "
-						+ vm.getTransactionTime() + " vs. "
-						+ getTransactionTime());
-				return false;
-			}
 			if (!equalHelper(vm.getUserdefinedMetadata(),
 					getUserdefinedMetadata())) {
 				log.debug("different getUserdefinedMetadata");
@@ -300,17 +286,18 @@ public class VersionedModel extends VersionedItem {
 	 * @return a list of all versions in this version tree
 	 */
 	public List<org.ontoware.semversion.Version> getAllVersions() {
-		org.ontoware.semversion.impl.generated.Version[] genVersions =
-			(org.ontoware.semversion.impl.generated.Version[]) Bridge.getAllValues(vm.getModel(), vm.getResource(),
-				org.ontoware.semversion.impl.generated.VersionedModel.VERSION,
-				org.ontoware.semversion.impl.generated.Version.class);
+		org.ontoware.semversion.impl.generated.Version[] genVersions = (org.ontoware.semversion.impl.generated.Version[]) Bridge
+				.getAllValues(
+						vm.getModel(),
+						vm.getResource(),
+						org.ontoware.semversion.impl.generated.VersionedModel.VERSION,
+						org.ontoware.semversion.impl.generated.Version.class);
 		List<org.ontoware.semversion.Version> list = new ArrayList<org.ontoware.semversion.Version>();
 		for (org.ontoware.semversion.impl.generated.Version vi : genVersions) {
-			list.add( new org.ontoware.semversion.Version(vi, getSession()));
+			list.add(new org.ontoware.semversion.Version(vi, getSession()));
 		}
 		return list;
 	}
-
 
 	/**
 	 * @return TODO unclear semantics

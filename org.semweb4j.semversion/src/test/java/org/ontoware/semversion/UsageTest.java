@@ -10,6 +10,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -179,7 +180,7 @@ public class UsageTest {
 		assertNotNull(vm.getRoot());
 		session.close();
 		semVersion.shutdown();
-		
+
 		semVersion = new SemVersion();
 		semVersion.startup(persistenceDir);
 		session = semVersion.login("admin", "admin");
@@ -224,9 +225,6 @@ public class UsageTest {
 		assertEquals(secondVersion.getURI(), secondVersion_.getURI());
 		Model secondModel_ = secondVersion_.getContent();
 
-		// FIXME
-		semVersion.dump();
-
 		assertEquals(3, secondModel_.size());
 
 		// logout, login
@@ -259,8 +257,6 @@ public class UsageTest {
 				headModel);
 		assertEquals(0, ModelUtils.size(diff.getAdded()));
 		assertEquals(0, ModelUtils.size(diff.getRemoved()));
-
-		// vm.dump();
 
 		diff = semVersion.getSyntacticDiff(previousMainModel, headModel);
 
@@ -433,8 +429,12 @@ public class UsageTest {
 		semVersion = new SemVersion();
 		semVersion.startup(persistenceDir);
 		session = semVersion.login("admin", "admin");
-		vm = session.createVersionedModel("GeneOntology");
-		assertNull(vm);
+		try {
+			vm = session.createVersionedModel("GeneOntology");
+			Assert.fail();
+		} catch (DuplicateLabelException e) {
+			// ok
+		}
 		session.close();
 	}
 
@@ -527,17 +527,12 @@ public class UsageTest {
 		diff.removeStatement(new URIImpl("gene://cell_1"), RDF.type,
 				new URIImpl("gene://cell"));
 
-		// FIXME remove
-		assert diff.getRemoved().iterator().hasNext();
-		
 		Version lastMainBranch = vm.getLastMainbranchVersion();
-		Version diffCommitedVersion = lastMainBranch.commit(diff, "second Version",
-				new URIImpl("model://diff"), null, false);
+		Version diffCommitedVersion = lastMainBranch.commit(diff,
+				"second Version", new URIImpl("model://diff"), null, false);
 
 		Model m_ = diffCommitedVersion.getContent();
-		
-		m_.dump();
-		
+
 		assertEquals(1, m_.size());
 		it = m_.iterator();
 		s = it.next();
@@ -546,8 +541,7 @@ public class UsageTest {
 		assertEquals(RDF.type, s.getPredicate());
 		assertEquals(new URIImpl("gene://cell"), s.getObject());
 		m_.close();
-		
-		
+
 		Model m2 = vm.getLastMainbranchVersion().getContent();
 		assertNotNull(m2);
 		assertEquals(1, m2.size());
@@ -571,7 +565,7 @@ public class UsageTest {
 				"gene://cell"));
 		diff2.addStatement(new URIImpl("gene://cell_4"), RDF.type, new URIImpl(
 				"gene://cell"));
-		// FIXME hangs
+
 		Version lastMainBranchVersion = vm.getLastMainbranchVersion();
 		lastMainBranchVersion.commit(diff2, "third Version", new URIImpl(
 				"model://diff2"), null, false);

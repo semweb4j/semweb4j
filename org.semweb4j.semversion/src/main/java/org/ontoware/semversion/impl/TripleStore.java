@@ -107,21 +107,7 @@ public class TripleStore {
 		// if m is a persistent model already: copy to memory first
 		if (m.getContextURI() != null
 				&& persistentModelSet.containsModel(m.getContextURI())) {
-			// FIXME
-
-			m.dump();
-
-			Model n = persistentModelSet.getModel(m.getContextURI());
-			n.open();
-			n.dump();
-
-			ClosableIterator<URI> it = persistentModelSet.getModelURIs();
-			while (it.hasNext()) {
-				System.out.println("Model URI " + it.next());
-			}
-
-			throw new RuntimeException("HAB CIHS MIR DOCHGEDACHT m is "
-					+ m.getContextURI());
+			throw new RuntimeException("A model with URI "+m.getContextURI()+" is already in the persistent store");
 		} else {
 			URI u = persistentModelSet.newRandomUniqueURI();
 			Model persistent = getPersistentModel(u);

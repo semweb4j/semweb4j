@@ -5,12 +5,26 @@
 	</properties>
 	<body>
 
-		<release version="1.0.2" date="2008-03-12"
-			description="API extension & bug fixes">
+		<release version="1.0.3" date="2008-03-16"
+			description="API change and bug fixes">
 			<action dev="xamde" type="update">
 				Session.createVersionedModel(String label) no longer
 				returns null in case of faillure, but throws
 				DuplicateLabelException
+			</action>
+			<action dev="xamde" type="remove">
+				Removed deletion date and transaction time. Any kind of
+				delete now really deletes the VersionedModel or Version
+				forever.
+			</action>
+			<action dev="xamde" type="add">
+				Added Version.setAsSuggestion (similar to setAsRelease
+				but with opposite action effect)
+			</action>
+			<action dev="xamde" type="add">
+				Added ConsistencyException which is thrown if a
+				setAsRelease or setAsSuggestion call would create an
+				illegal VersionedModel.
 			</action>
 		</release>
 
