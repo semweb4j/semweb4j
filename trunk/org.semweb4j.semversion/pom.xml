@@ -9,7 +9,7 @@
 
 	<groupId>org.semanticdesktop</groupId>
 	<artifactId>semversion</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>SemVersion</name>
 	<url>http://ontoworld.org/wiki/SemVersion</url>
@@ -218,7 +218,6 @@
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
 			<version>4.5.4</version>
-			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
