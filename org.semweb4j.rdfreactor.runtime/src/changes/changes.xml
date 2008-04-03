@@ -5,13 +5,20 @@
 	</properties>
 	<body>
 
+		<release version="4.5.4" description="Enhancement"
+			date="2008-04-03">
+			<action dev="xamde" type="add">
+				Added null-checks to base class for generated objects
+				and Base.java.
+			</action>
+		</release>
+
 		<release version="4.5.3" description="Bug fixes"
 			date="2008-03-07">
 			<action dev="xamde" type="fix" issue="REAC-24">
 				Fixed equals() for generated objects, thanks Felix!,
 			</action>
 		</release>
-
 
 		<release version="4.5.2" description="Extensions"
 			date="2008-02-02">
