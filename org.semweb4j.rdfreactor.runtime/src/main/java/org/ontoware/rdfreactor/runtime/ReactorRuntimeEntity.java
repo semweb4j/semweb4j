@@ -84,6 +84,13 @@ public class ReactorRuntimeEntity implements Resource {
 	 */
 	public ReactorRuntimeEntity(Model model, URI classURI,
 			Resource instanceIdentifier, boolean write) {
+		if( model == null)
+			throw new IllegalArgumentException("model may not be null");
+		if( classURI == null)
+			throw new IllegalArgumentException("classURI may not be null");
+		if( instanceIdentifier == null)
+			throw new IllegalArgumentException("instanceIdentifier may not be null");
+		
 		this.model = model;
 		this.classURI = classURI;
 		this.instanceIdentifier = (Resource) instanceIdentifier;
