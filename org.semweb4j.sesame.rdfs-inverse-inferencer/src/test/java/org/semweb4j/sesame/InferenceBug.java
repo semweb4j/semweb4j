@@ -2,7 +2,6 @@ package org.semweb4j.sesame;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.URI;
 import org.openrdf.model.impl.URIImpl;
@@ -18,7 +17,7 @@ import org.openrdf.sail.memory.MemoryStore;
 public class InferenceBug {
 
 	@Test
-	@Ignore("due to http://openrdf.org/issues/browse/SES-521")
+	//@Ignore("due to http://openrdf.org/issues/browse/SES-521")
 	public void testAddInferredStatementExplicitly() throws RepositoryException {
 		URI a = new URIImpl("urn:rel:a");
 		URI b = new URIImpl("urn:rel:b");
