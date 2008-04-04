@@ -20,7 +20,7 @@
 			description="Bug fix">
 			<action dev="xamde" type="update">
 				Upgraded to
-				org.openrdf:openrdf-sail-memory:2.0.1-SNAPSHOT to fix
+				org.openrdf:openrdf-sail-memory:2.0.1 to fix
 				http://openrdf.org/issues/browse/SES-521
 			</action>
 		</release>
