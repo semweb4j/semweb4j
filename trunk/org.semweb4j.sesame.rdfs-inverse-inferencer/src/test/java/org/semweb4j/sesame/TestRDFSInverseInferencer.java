@@ -1,10 +1,11 @@
 package org.semweb4j.sesame;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
@@ -93,7 +94,6 @@ public class TestRDFSInverseInferencer {
 
 	}
 
-	@Ignore("due to http://openrdf.org/issues/browse/SES-521")
 	@Test
 	public void testStrangeBug() throws RepositoryException {
 		// create a Sail stack
@@ -108,19 +108,27 @@ public class TestRDFSInverseInferencer {
 			throw new RuntimeException(e);
 		}
 		
-		URI m = new URIImpl("urn:rel:m");
-		URI minusM = new URIImpl("urn:rel:-m");
+		URI p = new URIImpl("urn:rel:p");
+		URI q = new URIImpl("urn:rel:q");
 		URI nrlInverse = ForwardChainingRDFSPlusInverseInferencerConnection.NRL_InverseProperty;
 		URI defaultContext = null; // new Resource[0]
 
 		RepositoryConnection con = repository.getConnection();
 
-		con.add(m, nrlInverse, minusM, defaultContext);
-		assert con.hasStatement(m, nrlInverse, minusM, true, defaultContext);
-		assert con.hasStatement(minusM, nrlInverse, m, true, defaultContext);
-		con.add(minusM, nrlInverse, m, defaultContext);
-		assert con.hasStatement(m, nrlInverse, minusM, true, defaultContext);
-		assert con.hasStatement(minusM, nrlInverse, m, true, defaultContext);
+		// add p-hasInverse-q
+		con.add(p, nrlInverse, q, defaultContext);
+		assertTrue("just added p-haInv-q, should stil be there", 
+				con.hasStatement(p, nrlInverse, q, true, defaultContext) );
+		assertTrue("expect inferred stmt: q-hasInv-p", 
+				con.hasStatement(q, nrlInverse, p, true, defaultContext) );
+		
+		// add (redundant) inverse stmt: q-hasInv-p
+		con.add(q, nrlInverse, p, defaultContext);
+		assertTrue("added p-haInv-q, should stil be there", 
+				con.hasStatement(p, nrlInverse, q, true, defaultContext) );
+		assertTrue( con.hasStatement(p, nrlInverse, q, true, defaultContext) );
+		assertTrue("added q-hasInv-p, should still be there", 
+				con.hasStatement(q, nrlInverse, p, true, defaultContext) );
 
 	}
 

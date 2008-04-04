@@ -418,8 +418,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 				result = applyRuleN3();
 				break;
 			default:
-				// FIXME throw exception here?
-				break;
+				throw new AssertionError("Should be unreachable code");
 		}
 		// ThreadLog.trace("Rule " + RDFSRules.RULENAMES[rule] + " inferred " +
 		// result + " new triples.");
@@ -1335,37 +1334,35 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 		
-// FIXME do nothing until http://openrdf.org/issues/browse/SES-521 is fixed		
-		
-//		Iterator<Statement> it1 = newThisIteration.match(null, NRL_InverseProperty, null);
-//		while (it1.hasNext()) {
-//			Statement stmt1 = it1.next();
-//			Resource ppp = stmt1.getSubject();
-//			if(ppp instanceof URI) {
-//				// infer: ppp is a property
-//				boolean addedPPP = addInferredStatement((URI)ppp, RDF.TYPE, RDF.PROPERTY);
-//				if (addedPPP) {
-//					nofInferred++;
-//				}
-//			}
-//			Value qqq = stmt1.getObject();
-//			if(qqq instanceof Resource) {
-//				if(qqq instanceof URI) {
-//					// infer: qqq is a property
-//					boolean addedQQQ = addInferredStatement((URI)qqq, RDF.TYPE, RDF.PROPERTY);
-//					if (addedQQQ) {
-//						nofInferred++;
-//					}
-//				}
-//				if(! qqq.equals(ppp)) {
-//					// infer: qqq inverse ppp
-//					boolean added = addInferredStatement((Resource)qqq, NRL_InverseProperty, ppp);
-//					if (added) {
-//						nofInferred++;
-//					}
-//				}
-//			}
-//		}
+		Iterator<Statement> it1 = newThisIteration.match(null, NRL_InverseProperty, null);
+		while (it1.hasNext()) {
+			Statement stmt1 = it1.next();
+			Resource ppp = stmt1.getSubject();
+			if(ppp instanceof URI) {
+				// infer: ppp is a property
+				boolean addedPPP = addInferredStatement((URI)ppp, RDF.TYPE, RDF.PROPERTY);
+				if (addedPPP) {
+					nofInferred++;
+				}
+			}
+			Value qqq = stmt1.getObject();
+			if(qqq instanceof Resource) {
+				if(qqq instanceof URI) {
+					// infer: qqq is a property
+					boolean addedQQQ = addInferredStatement((URI)qqq, RDF.TYPE, RDF.PROPERTY);
+					if (addedQQQ) {
+						nofInferred++;
+					}
+				}
+				if(! qqq.equals(ppp)) {
+					// infer: qqq inverse ppp
+					boolean added = addInferredStatement((Resource)qqq, NRL_InverseProperty, ppp);
+					if (added) {
+						nofInferred++;
+					}
+				}
+			}
+		}
 		return nofInferred;
 	}	
 
