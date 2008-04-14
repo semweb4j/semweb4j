@@ -24,4 +24,8 @@ public interface ModelChangedListener {
     public void removedStatements(Iterator<? extends Statement> statements);
     
     public void performedUpdate(DiffReader diff);
+
+    // kept for downward compatibility
+    @Deprecated
+    public void performedUpdate(Diff diff);
 }

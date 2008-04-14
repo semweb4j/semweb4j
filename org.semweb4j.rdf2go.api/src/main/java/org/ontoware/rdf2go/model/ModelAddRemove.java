@@ -39,7 +39,12 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @throws ModelRuntimeException
 	 */
 	void update(DiffReader diff) throws ModelRuntimeException;
+	
+	/** use update(DiffReader diff) instead */
+	@Deprecated
+	void update(Diff diff) throws ModelRuntimeException;
 
+	
 	/**
 	 * @param statements
 	 * @return a Diff between this model and the statements given in the iterator

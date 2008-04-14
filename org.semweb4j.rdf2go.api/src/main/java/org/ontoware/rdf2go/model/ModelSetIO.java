@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
@@ -90,7 +89,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	void readFrom(Reader in, Syntax syntax, URL baseURI) throws IOException,
+	void readFrom(Reader in, Syntax syntax, String baseURI) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -150,7 +149,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	void readFrom(InputStream reader, Syntax syntax, URL baseURI ) throws IOException,
+	void readFrom(InputStream reader, Syntax syntax, String baseURI ) throws IOException,
 	ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**

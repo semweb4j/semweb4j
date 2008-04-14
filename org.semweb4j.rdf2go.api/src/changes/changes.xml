@@ -22,6 +22,10 @@
 				rdf2go.impl.util in package
 				org.ontoware.rdf2go.util.SparqlUtil
 			</action>
+			<action dev="xamde" type="update">
+				Changed Model/ModelSet.readFrom(....., URL baseURI) to
+				(...., String baseURI)
+			</action>
 		</release>
 
 		<release version="4.5.3" date="2008-01-21"
