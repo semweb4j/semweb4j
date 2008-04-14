@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
@@ -45,14 +44,16 @@ public interface ModelIO {
 			ModelRuntimeException;
 
 	/**
-	 * FIXME comment
+	 * Reads RDF data from the given {@link Reader} in the given {@link Syntax}.
+	 * The baseURI is used to dereference URIs with the syntax ":name".
+	 * 
 	 * @param in
 	 * @param syntax
 	 * @param baseURI
 	 * @throws IOException
 	 * @throws ModelRuntimeException
 	 */
-	void readFrom(Reader in, Syntax syntax, URL baseURI) throws IOException,
+	void readFrom(Reader in, Syntax syntax, String baseURI) throws IOException,
 			ModelRuntimeException;
 
 	/**
@@ -83,15 +84,17 @@ public interface ModelIO {
 			ModelRuntimeException;
 
 	/**
-	 * FIXME comment
-	 * @param reader
+	 * Reads RDF data from the given {@link InputStream} in the given {@link Syntax}.
+	 * The baseURI is used to dereference URIs with the syntax ":name".
+	 * 
+	 * @param in
 	 * @param syntax
 	 * @param baseURI
 	 * @throws IOException
 	 * @throws ModelRuntimeException
 	 */
-	void readFrom(InputStream reader, Syntax syntax, URL baseURI) throws IOException,
-	ModelRuntimeException;
+	void readFrom(InputStream in, Syntax syntax, String baseURI)
+			throws IOException, ModelRuntimeException;
 
 	/**
 	 * Writing an RDF/XML stream in UTF8 encoding

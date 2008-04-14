@@ -29,7 +29,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * statement (s,p,o) is inserted into that model.
 	 * 
 	 * @param contextURI
-	 *            a URI
+	 *            a URI or null
 	 * @param subject
 	 *            a Resource (URI or BlankNode)
 	 * @param predicate
@@ -68,7 +68,7 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 * named 'contextURI' becomes empty, it remains in the ModelSet.
 	 * 
 	 * @param context
-	 *            a URI
+	 *            a URI or null
 	 * @param subject
 	 *            a Resource (URI or BlankNode)
 	 * @param predicate
