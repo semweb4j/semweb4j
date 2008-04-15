@@ -25,7 +25,7 @@ import org.ontoware.rdf2go.model.node.URI;
  */
 public interface Model extends ModelValueFactory, ModelAddRemove,
 		ModelRemovePatterns, QueryableModel, ModelIO, Commitable,
-		ReificationSupport {
+		ReificationSupport, NamespaceSupport {
 
 	/**
 	 * @return the context URI or null

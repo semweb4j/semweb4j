@@ -38,7 +38,8 @@ import org.ontoware.rdf2go.model.node.URI;
  * @author sauermann
  */
 public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
-		ModelSetAddRemove, ModelValueFactory, Commitable, ReificationSupport {
+		ModelSetAddRemove, ModelValueFactory, Commitable, ReificationSupport,
+		NamespaceSupport {
 
 	/**
 	 * Open connection to defined, unterlying implementation
@@ -109,7 +110,8 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 *            the URI of the context. This is the same as the name of the
 	 *            named graph.
 	 * @return the model identified by this context. May have a size of 0, if no
-	 *         data was added to it yet. Never returns null.  It has to be isOpen() == true.
+	 *         data was added to it yet. Never returns null. It has to be
+	 *         isOpen() == true.
 	 */
 	Model getModel(URI contextURI);
 
