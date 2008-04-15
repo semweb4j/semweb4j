@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -394,14 +394,14 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		}
 	};
 
-	public void readFrom(Reader reader, Syntax syntax, URL baseURI) {
+	public void readFrom(Reader reader, Syntax syntax, String baseURI) {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
 			readFrom(reader);
 		} else if (syntax == Syntax.Ntriples) {
-			this.jenaModel.read(reader, baseURI.toExternalForm(), "N-TRIPLE");
+			this.jenaModel.read(reader, baseURI, "N-TRIPLE");
 		} else if (syntax == Syntax.Turtle) {
-			this.jenaModel.read(reader, baseURI.toExternalForm(), "N3");
+			this.jenaModel.read(reader, baseURI, "N3");
 		} else if (syntax == Syntax.Trix) {
 			throw new IllegalArgumentException("Not implemented in Jena 2.4");
 		}
@@ -510,7 +510,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		this.jenaModel.read(in, "", jenaSyntax);
 	}
 
-	public void readFrom(InputStream in, Syntax syntax, URL baseURI)
+	public void readFrom(InputStream in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
 		assertModel();
 		assert in != null;
@@ -520,7 +520,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 					"Could not process syntax named <" + syntax.getName()
 							+ "> directly, maybe the underlying Jena can...");
 
-		this.jenaModel.read(in, baseURI.toExternalForm(), jenaSyntax);
+		this.jenaModel.read(in, baseURI, jenaSyntax);
 	}
 
 	public boolean isIsomorphicWith(Model other) {
@@ -550,5 +550,23 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			return false;
 		}
 		return true;
+	}
+
+	public String getNamespace(String prefix) {
+		return jenaModel.getNsPrefixURI(prefix);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, String> getNamespaces() {
+		return (Map<String, String>) jenaModel.getNsPrefixMap();
+	}
+
+	public void removeNamespace(String prefix) {
+		jenaModel.removeNsPrefix(prefix);
+	}
+
+	public void setNamespace(String prefix, String namespaceURI)
+			throws IllegalArgumentException {
+		jenaModel.setNsPrefix(prefix, namespaceURI);
 	}
 }
