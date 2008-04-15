@@ -5,6 +5,14 @@
 		<author email="dev@xam.de">Max Völkel</author>
 	</properties>
 	<body>
+	
+			<release version="4.6.0" date="2008-04-@@@"
+			description="Maintenance Release">
+			<action dev="xamde" type="remove">
+				Removed deprecated DatatypeLiteral.asBoolean/asDate/asInt
+			</action>
+		</release>
+	
 
 		<release version="4.5.5" date="2008-02-16"
 			description="Bug fix">

@@ -10,8 +10,6 @@
  */
 package org.ontoware.rdf2go.model.node.impl;
 
-import java.util.Date;
-
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 import org.ontoware.rdf2go.model.node.Node;
@@ -121,11 +119,6 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 
 	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a DatatypeLiteral");
-	}
-
-	public Date asDate() throws ClassCastException {
-		// TODO: re-use code from RDFReactor
-		throw new RuntimeException("Not implemented yet");
 	}
 
 	@Override
