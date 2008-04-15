@@ -19,6 +19,7 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import static org.junit.Assert.*;
 
 public class NotifyingModelSetTest extends AbstractModelSetTest
 {
@@ -39,7 +40,7 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 	
 	
 	@Override
-	public void setUp() throws Exception
+	public void setUp() 
 	{
 		super.setUp();
 		ModelSet plainModel = getModelFactory().createModelSet();
@@ -68,6 +69,7 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 				assertEquals(predicate, statement.getPredicate());
 				assertEquals(object, statement.getObject());
 			}
+
 		};
 		QuadPattern pattern = new QuadPatternImpl(context1, Variable.ANY, Variable.ANY, Variable.ANY);
 		model.addModelSetChangedListener(listener, pattern);

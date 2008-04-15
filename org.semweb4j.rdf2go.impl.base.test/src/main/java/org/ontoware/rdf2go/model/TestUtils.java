@@ -30,6 +30,8 @@ public class TestUtils {
 			Model tm = target.getModel(m.getContextURI());
 			tm.open();
 			tm.addAll(m.iterator());
+			m.close();
+			tm.close();
 		}
 		// copy default model
 		Model m = source.getDefaultModel();
@@ -37,6 +39,8 @@ public class TestUtils {
 		Model tm = target.getDefaultModel();
 		tm.open();
 		tm.addAll(m.iterator());
+		m.close();
+	    tm.close();	
 	}	
 	
 	/**
