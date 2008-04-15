@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -373,7 +372,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * Throws an exception if the syntax is not RDF/XML. Set baseURI to the
 	 * empty string. Subclasses are encouraged to overwrite this.
 	 */
-	public void readFrom(InputStream in, Syntax syntax, URL baseURI)
+	public void readFrom(InputStream in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
@@ -390,7 +389,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * @throws IOException
 	 * @throws ModelRuntimeException
 	 */
-	public void readFrom(Reader reader, Syntax syntax, URL baseURI)
+	public void readFrom(Reader reader, Syntax syntax, String baseURI)
 			throws ModelRuntimeException, IOException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {

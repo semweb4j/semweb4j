@@ -224,7 +224,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
-	// implement value factory by delgating to default model
+	// implement value factory by delegating to default model
 
 	/* subclasses should overwrite this method for better performance */
 	public BlankNode createBlankNode() {
@@ -312,20 +312,15 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	/* subclasses should overwrite this method for better performance */
 	public long countStatements(QuadPattern pattern)
 			throws ModelRuntimeException {
-		if (pattern.getContext() == Variable.ANY) {
-			// match all
-			long count = 0;
-			Iterator<?> it = getModels();
+		ClosableIterator<Statement> it = findStatements(pattern);
+		long count = 0;
+		while (it.hasNext()) {
 			while (it.hasNext()) {
-				Model m = (Model) it.next();
-				count += m.countStatements(pattern);
+				count++;
+				it.next();
 			}
-			return count;
 		}
-		// else
-		assert pattern.getContext() instanceof URI;
-		Model m = getModel((URI) pattern.getContext());
-		return m.countStatements(pattern);
+		return count;
 	}
 
 	/**
@@ -470,18 +465,20 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	public void deleteReification(Resource reificationResource) {
 		Diff diff = new DiffImpl();
 		diff.removeStatement(reificationResource, RDF.type, RDF.Statement);
-		ClosableIterator<Statement> it = findStatements(Variable.ANY, reificationResource,
-				RDF.subject, Variable.ANY);
+		ClosableIterator<Statement> it = findStatements(Variable.ANY,
+				reificationResource, RDF.subject, Variable.ANY);
 		while (it.hasNext()) {
 			diff.removeStatement(it.next());
 		}
 		it.close();
-		it = findStatements(Variable.ANY, reificationResource, RDF.predicate, Variable.ANY);
+		it = findStatements(Variable.ANY, reificationResource, RDF.predicate,
+				Variable.ANY);
 		while (it.hasNext()) {
 			diff.removeStatement(it.next());
 		}
 		it.close();
-		it = findStatements(Variable.ANY, reificationResource, RDF.object, Variable.ANY);
+		it = findStatements(Variable.ANY, reificationResource, RDF.object,
+				Variable.ANY);
 		while (it.hasNext()) {
 			diff.removeStatement(it.next());
 		}

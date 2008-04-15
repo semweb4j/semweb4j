@@ -9,7 +9,7 @@ import org.ontoware.rdf2go.model.TriplePattern;
 
 /**
  * Returns all statements matching the pattern. Looks into each model.
- * TODO test me
+ * TODO test me - not needed for OpenRDF
  * @author voelkel
  */
 public class LazyUnionModelIterator implements ClosableIterator<Statement> {

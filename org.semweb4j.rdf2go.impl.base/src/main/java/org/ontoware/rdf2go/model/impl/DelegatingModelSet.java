@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.Collection;
+import java.util.Map;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -258,16 +258,33 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return baseModelSet.hasReifications(stmt);
 	}
 
-	public void readFrom(InputStream reader, Syntax syntax, URL baseURI)
+	public void readFrom(InputStream reader, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
 		baseModelSet.readFrom(reader, syntax, baseURI);
 	}
 
-	public void readFrom(Reader in, Syntax syntax, URL baseURI)
+	public void readFrom(Reader in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
 		baseModelSet.readFrom(in, syntax, baseURI);
+	}
+
+	public String getNamespace(String prefix) {
+		return baseModelSet.getNamespace(prefix);
+	}
+
+	public Map<String, String> getNamespaces() {
+		return baseModelSet.getNamespaces();
+	}
+
+	public void removeNamespace(String prefix) {
+		baseModelSet.removeNamespace(prefix);
+	}
+
+	public void setNamespace(String prefix, String namespaceURI)
+			throws IllegalArgumentException {
+		baseModelSet.setNamespace(prefix, namespaceURI);
 	}
 
 }

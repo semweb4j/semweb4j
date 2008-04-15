@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.net.URL;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -382,14 +382,31 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.writeTo(writer, syntax);
 	}
 
-	public void readFrom(Reader in, Syntax syntax, URL baseURI)
+	public void readFrom(Reader in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
 		delegatedModel.readFrom(in, syntax, baseURI);
 	}
 
-	public void readFrom(InputStream reader, Syntax syntax, URL baseURI)
+	public void readFrom(InputStream reader, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
 		delegatedModel.readFrom(reader, syntax, baseURI);
+	}
+
+	public String getNamespace(String prefix) {
+		return delegatedModel.getNamespace(prefix);
+	}
+
+	public Map<String, String> getNamespaces() {
+		return delegatedModel.getNamespaces();
+	}
+
+	public void removeNamespace(String prefix) {
+		delegatedModel.removeNamespace(prefix);
+	}
+
+	public void setNamespace(String prefix, String namespaceURI)
+			throws IllegalArgumentException {
+		delegatedModel.setNamespace(prefix, namespaceURI);
 	}
 
 
