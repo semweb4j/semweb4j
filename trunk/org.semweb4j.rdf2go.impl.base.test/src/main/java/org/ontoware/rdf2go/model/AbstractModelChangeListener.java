@@ -39,4 +39,9 @@ abstract class AbstractModelChangeListener implements ModelChangedListener
 	{
 		NotifyingModelTest.fail();
 	}
+	
+	public void performedUpdate(Diff diff) {
+		NotifyingModelTest.fail();
+	}
+
 }

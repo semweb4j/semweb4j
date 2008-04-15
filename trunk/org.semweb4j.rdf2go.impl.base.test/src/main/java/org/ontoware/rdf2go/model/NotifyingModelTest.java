@@ -15,7 +15,6 @@ import java.util.Iterator;
 
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.RDF2Go;
-import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.impl.DiffImpl;
 import org.ontoware.rdf2go.model.impl.NotifyingModelLayer;
 import org.ontoware.rdf2go.model.impl.StatementImpl;
@@ -38,7 +37,7 @@ public class NotifyingModelTest extends AbstractModelTest
 	}
 
 	@Override
-	public void setUp() throws ModelRuntimeException, Exception
+	public void setUp()
 	{
 		super.setUp();
 		Model plainModel = getModelFactory().createModel();
@@ -139,7 +138,7 @@ public class NotifyingModelTest extends AbstractModelTest
 		this.model.open();
 		Diff diff = new DiffImpl();
 		diff.addStatement(subject, predicate, object);
-		this.model.update(diff);
+		this.model.update( (DiffReader) diff);
 		this.model.close();
 	}
 
