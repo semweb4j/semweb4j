@@ -70,14 +70,14 @@ public abstract class AbstractModelTest extends TestCase {
 
 	/** @return a Model to be used in the test. It must be fresh, e.g. unused */
 	public abstract ModelFactory getModelFactory();
-	
+
 	@Before
 	public void setUp() {
 		URI u = getModelFactory().createModel().newRandomUniqueURI();
 		this.model = getModelFactory().createModel(u);
 		this.model.open();
 	}
-	
+
 	@After
 	public void tearDown() {
 		this.model.close();
@@ -531,6 +531,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Check for valid and invalid URIs
 	 * 
 	 */
+	@Test
 	public void testURIs() {
 		try {
 			model.createURI("file:///c/my%20documents/blah.pdf");
@@ -546,7 +547,7 @@ public abstract class AbstractModelTest extends TestCase {
 		this.model.close();
 		this.model = getModelFactory().createModel(Reasoning.rdfs);
 		this.model.open();
-		
+
 		log.debug("Using internal impl: "
 				+ model.getUnderlyingModelImplementation().getClass());
 
@@ -584,13 +585,14 @@ public abstract class AbstractModelTest extends TestCase {
 		URI propertyA = new URIImpl("urn:prop:A");
 		URI propertyB = new URIImpl("urn:prop:B");
 		URI propertyC = new URIImpl("urn:prop:C");
-		
+
 		model.addStatement(propertyA, propertyB, propertyC);
 		model.addStatement(propertyB, RDFS.subPropertyOf, RDFS.subPropertyOf);
-		Assert.assertTrue( model.contains(propertyA, RDFS.subPropertyOf, propertyC));
-		
+		Assert.assertTrue(model.contains(propertyA, RDFS.subPropertyOf,
+				propertyC));
+
 		model.addStatement(resourceA, propertyA, resourceB);
-		Assert.assertTrue( model.contains(resourceA, propertyC, resourceB ));
+		Assert.assertTrue(model.contains(resourceA, propertyC, resourceB));
 	}
 
 	@Test
@@ -690,21 +692,21 @@ public abstract class AbstractModelTest extends TestCase {
 		a.close();
 		b.close();
 	}
-	
+
 	@Test
 	public void testUpdate() {
 		Model remove = RDF2Go.getModelFactory().createModel();
 		remove.open();
 		Model add = RDF2Go.getModelFactory().createModel();
 		add.open();
-		add.addStatement(a,b,c);
+		add.addStatement(a, b, c);
 		DiffReader diff = new DiffImpl(add.iterator(), remove.iterator());
 		add.close();
 		remove.close();
 
 		model.update(diff);
-		
-		Assert.assertTrue(model.contains(a,b,c));
+
+		Assert.assertTrue(model.contains(a, b, c));
 	}
 
 	@Test
@@ -786,9 +788,9 @@ public abstract class AbstractModelTest extends TestCase {
 		modelRDFS.addStatement(assignment3, hasTag, tagSemweb);
 		modelRDFS.addStatement(assignment3, hasContent, fileB);
 
-		QueryResultTable result = modelRDFS.sparqlSelect("SELECT ?f WHERE " + "{ ?a <"
-				+ hasContent + "> ?f. " + "?a <" + hasTag + "> <" + tagSemweb
-				+ "> . }");
+		QueryResultTable result = modelRDFS.sparqlSelect("SELECT ?f WHERE "
+				+ "{ ?a <" + hasContent + "> ?f. " + "?a <" + hasTag + "> <"
+				+ tagSemweb + "> . }");
 
 		// expect A and B
 		ClosableIterator<QueryRow> i = result.iterator();
@@ -809,12 +811,12 @@ public abstract class AbstractModelTest extends TestCase {
 		URI tagSemweb = new URIImpl("tag://semweb");
 		URI fileA = new URIImpl("file://a");
 		modelRDFS.addStatement(fileA, hasTag, tagSemweb);
-		Assert.assertTrue(modelRDFS.sparqlAsk("ASK WHERE { " + fileA.toSPARQL() + " "
-				+ hasTag.toSPARQL() + " ?tag . }"));
-		Assert.assertTrue(modelRDFS.sparqlAsk("ASK WHERE { " + fileA.toSPARQL() + " "
-				+ " ?prop " + tagSemweb.toSPARQL() + " . }"));
-		Assert.assertFalse(modelRDFS.sparqlAsk("ASK WHERE { " + fileA.toSPARQL() + " "
-				+ "<prop://bogus>" + " ?tag . }"));
+		Assert.assertTrue(modelRDFS.sparqlAsk("ASK WHERE { " + fileA.toSPARQL()
+				+ " " + hasTag.toSPARQL() + " ?tag . }"));
+		Assert.assertTrue(modelRDFS.sparqlAsk("ASK WHERE { " + fileA.toSPARQL()
+				+ " " + " ?prop " + tagSemweb.toSPARQL() + " . }"));
+		Assert.assertFalse(modelRDFS.sparqlAsk("ASK WHERE { "
+				+ fileA.toSPARQL() + " " + "<prop://bogus>" + " ?tag . }"));
 		Assert.assertTrue(modelRDFS.sparqlAsk("ASK WHERE { ?s ?p ?o . }"));
 		modelRDFS.close();
 	}
@@ -844,9 +846,9 @@ public abstract class AbstractModelTest extends TestCase {
 		modelRDFS.addStatement(assignment3, hasTag, tagSemweb);
 		modelRDFS.addStatement(assignment3, hasContent, fileB);
 
-		QueryResultTable result = modelRDFS.sparqlSelect("SELECT ?f WHERE " + "{ ?a <"
-				+ hasContent + "> ?f. " + "?a <" + hasTag + "> '" + tagSemweb
-				+ "' . }");
+		QueryResultTable result = modelRDFS.sparqlSelect("SELECT ?f WHERE "
+				+ "{ ?a <" + hasContent + "> ?f. " + "?a <" + hasTag + "> '"
+				+ tagSemweb + "' . }");
 
 		// expect A and B
 		ClosableIterator<QueryRow> i = result.iterator();
@@ -978,7 +980,7 @@ public abstract class AbstractModelTest extends TestCase {
 		// System.out.println(stmt);
 		// }
 		// it.close();
-		
+
 		// always close after use to free resources
 		model.close();
 	}
@@ -1048,19 +1050,44 @@ public abstract class AbstractModelTest extends TestCase {
 
 		iterator.close();
 	}
-	
+
+	/** test {@link NamespaceSupport} */
 	@Test
 	public void testNamespaceSupport() {
-		assertEquals(0, this.model.getNamespaces().size() );
+		assertEquals(0, this.model.getNamespaces().size());
 		this.model.setNamespace("foo", "http://foo.com");
-		assertEquals(1, this.model.getNamespaces().size() );
-		assertNull( this.model.getNamespaces().get("bar") );
-		assertNotNull( this.model.getNamespaces().get("foo") );
-		assertEquals("http://foo.com", this.model.getNamespaces().get("foo") );
+		assertEquals(1, this.model.getNamespaces().size());
+		assertNull(this.model.getNamespaces().get("bar"));
+		assertNotNull(this.model.getNamespaces().get("foo"));
+		assertEquals("http://foo.com", this.model.getNamespaces().get("foo"));
 		this.model.removeNamespace("foo");
-		assertEquals(0, this.model.getNamespaces().size() );
+		assertEquals(0, this.model.getNamespaces().size());
+	}
+
+	/** test {@link ReificationSupport} */
+	@Test
+	public void testReification() {
+		Statement stmt = this.model.createStatement(a, b, c);
+		BlankNode blankNode = this.model.addReificationOf(stmt);
+		assertTrue(this.model.contains(blankNode, RDF.subject, a));
+		assertTrue(this.model.contains(blankNode, RDF.predicate, b));
+		assertTrue(this.model.contains(blankNode, RDF.object, c));
+		assertTrue(this.model.contains(blankNode, RDF.type, RDF.Statement));
 	}
 
 	// TODO test public ClosableIterable<Statement> sparqlDescribe(String query)
 
+	@Test
+	public void testAddModel() {
+		this.model.addStatement(a, b, c);
+		Model model2 = getModelFactory().createModel();
+		model2.open();
+		model2.addStatement(b, c, a);
+		assertFalse(this.model.contains(b, c, a));
+		this.model.addModel(model2);
+		assertTrue(this.model.contains(b, c, a));
+		model2.removeStatement(b, c, a);
+		assertTrue(this.model.contains(b, c, a));
+		model2.close();
+	}
 }
