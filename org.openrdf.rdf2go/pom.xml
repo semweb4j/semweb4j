@@ -10,7 +10,7 @@
 
 	<groupId>org.openrdf</groupId>
 	<artifactId>openrdf-rdf2go</artifactId>
-	<version>4.6.0</version>
+	<version>4.6.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF Sesame RDF2Go driver</name>
 	<description>
@@ -179,34 +179,6 @@ If present, DEBUG logging is compiled away
 
 	</dependencies>
 
-	<build>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ftp</artifactId>
-			</extension>
-		</extensions>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<tagBase>
-						https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go
-					</tagBase>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 	<repositories>
 		<repository>
 			<releases>
@@ -272,10 +244,4 @@ If present, DEBUG logging is compiled away
 		</site>
 	</distributionManagement>
 
-
-  <scm>
-    <connection>scm:svn:https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</connection>
-    <developerConnection>scm:svn:https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</developerConnection>
-    <url>https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</url>
-  </scm>
 </project>
