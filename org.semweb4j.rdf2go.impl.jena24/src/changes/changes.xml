@@ -10,7 +10,7 @@
 			<action dev="xamde" type="fix">
 				Fixed OWL reasoning setting in ModelFactory..
 			</action>
-			<action dev="xamde" type="fix">
+			<action dev="xamde" type="update">
 				Upgrade to RDF2GO 4.6
 			</action>
 		</release>
