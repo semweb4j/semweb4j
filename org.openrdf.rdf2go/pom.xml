@@ -10,7 +10,7 @@
 
 	<groupId>org.openrdf</groupId>
 	<artifactId>openrdf-rdf2go</artifactId>
-	<version>4.6.0</version>
+	<version>4.6.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF Sesame RDF2Go driver</name>
 	<description>
@@ -243,11 +243,4 @@ If present, DEBUG logging is compiled away
 			</url>
 		</site>
 	</distributionManagement>
-
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/openrdf-rdf2go-4.6.0</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/openrdf-rdf2go-4.6.0</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/openrdf-rdf2go-4.6.0</url>
-  </scm>
 </project>
