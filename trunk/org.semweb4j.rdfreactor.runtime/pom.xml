@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.5.5-SNAPSHOT</version>
+	<version>4.6.0-SNAPSHOT</version>
 	<name>RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -43,12 +43,12 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.5.3</version>
+			<version>4.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.5.4</version>
+			<version>4.6.0</version>
 		</dependency>
 
 		<!--  needed for datatype handling of xsd datetime -->
@@ -61,7 +61,7 @@
 			<scope>test,runtime</scope>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.5.4</version>
+			<version>4.6.0</version>
 		</dependency>
 
 		<!-- logging dependencies -->
