@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
+		<version>4.15.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena24</artifactId>
-	<version>4.5.5-SNAPSHOT</version>
+	<version>4.6.0-SNAPSHOT</version>
 	<name>RDF2Go Jena 2.4 Adapter</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.4
@@ -76,19 +76,19 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.5.3</version>
+			<version>4.6</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.5.4</version>
+			<version>4.6.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<version>4.5.4</version>
+			<version>4.6.0</version>
 		</dependency>
 
 		<!-- OSGi -->
