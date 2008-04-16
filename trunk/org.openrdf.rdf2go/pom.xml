@@ -10,7 +10,7 @@
 
 	<groupId>org.openrdf</groupId>
 	<artifactId>openrdf-rdf2go</artifactId>
-	<version>4.6.0-SNAPSHOT</version>
+	<version>4.6.0</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF Sesame RDF2Go driver</name>
 	<description>
@@ -272,21 +272,10 @@ If present, DEBUG logging is compiled away
 		</site>
 	</distributionManagement>
 
-	<!-- to find the parent -->
-	<repositories>
-		<repository>
-			<id>theoretiker-repo</id>
-			<name>Semweb4j.org maven repo</name>
-			<url>http://semweb4j.org/repo/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
+  <scm>
+    <connection>scm:svn:https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</connection>
+    <developerConnection>scm:svn:https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</developerConnection>
+    <url>https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</url>
+  </scm>
 </project>
