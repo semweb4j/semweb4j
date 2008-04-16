@@ -37,6 +37,7 @@ import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.impl.QuadPatternImpl;
 import org.ontoware.rdf2go.model.impl.StatementImpl;
+import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
@@ -78,6 +79,9 @@ public abstract class AbstractModelSetTest {
 	 */
 	public static int TESTGRAPHCOUNT = 2;
 
+	private static Logger log = LoggerFactory
+			.getLogger(AbstractModelSetTest.class);
+
 	public static <T> ArrayList<T> asArrayListAndClose(ClosableIterator<T> it) {
 		ArrayList<T> result = new ArrayList<T>();
 		while (it.hasNext()) {
@@ -86,9 +90,6 @@ public abstract class AbstractModelSetTest {
 		it.close();
 		return result;
 	}
-
-	private static Logger log = LoggerFactory
-			.getLogger(AbstractModelSetTest.class);
 
 	private ModelSet modelset;
 
@@ -197,6 +198,37 @@ public abstract class AbstractModelSetTest {
 	}
 
 	@Test
+	public void testAddModelContextURI() {
+		Model model = getModelFactory().createModel(graphuri1);
+		model.open();
+		model.addStatement(a, b, c);
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		assertFalse(this.modelset.containsStatements(graphuri2, a, b, c));
+		this.modelset.addModel(model, graphuri2);
+		model.close();
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		assertTrue(this.modelset.containsStatements(graphuri2, a, b, c));
+		this.modelset.removeModel(graphuri2);
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		assertFalse(this.modelset.containsStatements(graphuri2, a, b, c));
+	}
+
+	@Test
+	public void testAddModelSet() {
+		Model model = getModelFactory().createModel(graphuri1);
+		model.open();
+		model.addStatement(a, b, c);
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+		this.modelset.addModel(model);
+		model.close();
+		assertTrue(this.modelset.containsStatements(graphuri1, a, b, c));
+		this.modelset.removeModel(graphuri2);
+		assertTrue(this.modelset.containsStatements(graphuri1, a, b, c));
+		this.modelset.removeModel(graphuri1);
+		assertFalse(this.modelset.containsStatements(graphuri1, a, b, c));
+	}
+
+	@Test
 	public void testAddRemovePatternsWithNull() {
 		Assert.assertTrue(this.modelset.isOpen());
 		this.modelset.addStatement(null, a, b, c);
@@ -218,7 +250,8 @@ public abstract class AbstractModelSetTest {
 		assertTrue(this.modelset.containsModel(graphuri1));
 
 		model.removeStatement(a, b, c);
-		// TODO Does a ModelSet.containsModel(x) if all triples of x have been removed from ModelSet?
+		// TODO Does a ModelSet.containsModel(x) if all triples of x have been
+		// removed from ModelSet?
 		// assertFalse(this.modelset.containsModel(graphuri1));
 		model.close();
 	}
@@ -447,13 +480,25 @@ public abstract class AbstractModelSetTest {
 	}
 
 	@Test
+	public void testNamespaceSupport() {
+		assertEquals(0, this.modelset.getNamespaces().size());
+		this.modelset.setNamespace("foo", "http://foo.com");
+		assertEquals(1, this.modelset.getNamespaces().size());
+		assertNull(this.modelset.getNamespaces().get("bar"));
+		assertNotNull(this.modelset.getNamespaces().get("foo"));
+		assertEquals("http://foo.com", this.modelset.getNamespaces().get("foo"));
+		this.modelset.removeNamespace("foo");
+		assertEquals(0, this.modelset.getNamespaces().size());
+	}
+
+	@Test
 	public void testOpenClose() {
 		assertTrue(this.modelset.isOpen());
 		Model defaultModel = this.modelset.getDefaultModel();
 		assertTrue(defaultModel.isOpen());
 		defaultModel.close();
-		Model model = this.modelset.getModel(  new URIImpl("urn:test:model1"));
-		assertTrue("ModelSet returns open models",model.isOpen());
+		Model model = this.modelset.getModel(new URIImpl("urn:test:model1"));
+		assertTrue("ModelSet returns open models", model.isOpen());
 		model.close();
 	}
 
@@ -603,6 +648,21 @@ public abstract class AbstractModelSetTest {
 		// TODO write test for testReadFromReaderSyntaxBaseURI
 	}
 
+	/** test {@link ReificationSupport} */
+	@Test
+	public void testReification() {
+		Statement stmt = this.modelset.createStatement(a, b, c);
+		BlankNode blankNode = this.modelset.addReificationOf(stmt);
+		assertTrue(this.modelset.contains(this.modelset.createStatement(
+				blankNode, RDF.subject, a)));
+		assertTrue(this.modelset.contains(this.modelset.createStatement(
+				blankNode, RDF.predicate, b)));
+		assertTrue(this.modelset.contains(this.modelset.createStatement(
+				blankNode, RDF.object, c)));
+		assertTrue(this.modelset.contains(this.modelset.createStatement(
+				blankNode, RDF.type, RDF.Statement)));
+	}
+
 	@Test
 	public void testRemoveAll() throws ModelRuntimeException {
 		Model m = this.modelset.getModel(graphuri1);
@@ -713,7 +773,7 @@ public abstract class AbstractModelSetTest {
 				.sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
 						+ "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 						+ "DESCRIBE <http://xmlns.com/foaf/0.1/thumbnail>");
-		
+
 		int size = TestUtils.countAndClose(iterable);
 		assertEquals("sparql DESCRIBE", 8, size);
 	}
@@ -835,17 +895,6 @@ public abstract class AbstractModelSetTest {
 		// ical.close();
 		m.close();
 	}
-	
-	@Test
-	public void testNamespaceSupport() {
-		assertEquals(0, this.modelset.getNamespaces().size() );
-		this.modelset.setNamespace("foo", "http://foo.com");
-		assertEquals(1, this.modelset.getNamespaces().size() );
-		assertNull( this.modelset.getNamespaces().get("bar") );
-		assertNotNull( this.modelset.getNamespaces().get("foo") );
-		assertEquals("http://foo.com", this.modelset.getNamespaces().get("foo") );
-		this.modelset.removeNamespace("foo");
-		assertEquals(0, this.modelset.getNamespaces().size() );
-	}
+
 
 }
