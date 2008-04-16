@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
+		<version>4.15.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base</artifactId>
-	<version>4.5.5-SNAPSHOT</version>
+	<version>4.6.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>RDF2Go Base</name>
@@ -86,7 +86,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.5.3</version>
+			<version>4.6</version>
 		</dependency>
 
 		<!-- logging dependencies -->

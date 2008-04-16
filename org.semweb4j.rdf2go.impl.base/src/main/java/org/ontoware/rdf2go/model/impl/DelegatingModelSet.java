@@ -238,12 +238,12 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		baseModelSet.setAutocommit(autocommit);
 	}
 
-	public Resource createReficationOf(Statement statement, Resource resource) {
-		return baseModelSet.createReficationOf(statement, resource);
+	public Resource addReificationOf(Statement statement, Resource resource) {
+		return baseModelSet.addReificationOf(statement, resource);
 	}
 
-	public BlankNode createReficationOf(Statement statement) {
-		return baseModelSet.createReficationOf(statement);
+	public BlankNode addReificationOf(Statement statement) {
+		return baseModelSet.addReificationOf(statement);
 	}
 
 	public void deleteReification(Resource reificationResource) {
@@ -285,6 +285,15 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 	public void setNamespace(String prefix, String namespaceURI)
 			throws IllegalArgumentException {
 		baseModelSet.setNamespace(prefix, namespaceURI);
+	}
+
+	public void addModel(Model model, URI contextURI)
+			throws ModelRuntimeException {
+		baseModelSet.addModel(model, contextURI);
+	}
+
+	public void addModelSet(ModelSet modelSet) throws ModelRuntimeException {
+		baseModelSet.addModelSet(modelSet);
 	}
 
 }

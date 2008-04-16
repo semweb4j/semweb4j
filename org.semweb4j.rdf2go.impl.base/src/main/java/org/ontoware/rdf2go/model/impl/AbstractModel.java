@@ -80,6 +80,20 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 
 	private boolean open = false;
 
+	/** subclasses should overwrite this for performance reasons */
+	public void addModel(Model model) {
+		ClosableIterator<Statement> it = model.iterator();
+		Set<Statement> statements = new HashSet<Statement>();
+		while (it.hasNext()) {
+			Statement stmt = it.next();
+			statements.add(stmt);
+		}
+		it.close();
+		for( Statement stmt : statements) {
+			this.addStatement( stmt.getSubject(), stmt.getPredicate(), stmt.getObject());
+		}
+	}
+	
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		assertModel();
@@ -554,12 +568,12 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	}
 
 	/* fast, no need to override */
-	public BlankNode createReficationOf(Statement statement) {
+	public BlankNode addReificationOf(Statement statement) {
 		BlankNode bnode = createBlankNode();
-		return (BlankNode) createReficationOf(statement, bnode);
+		return (BlankNode) addReificationOf(statement, bnode);
 	}
 
-	public Resource createReficationOf(Statement statement, Resource resource) {
+	public Resource addReificationOf(Statement statement, Resource resource) {
 		Diff diff = new DiffImpl();
 		diff.addStatement(resource, RDF.type, RDF.Statement);
 		diff.addStatement(resource, RDF.subject, statement.getSubject());
