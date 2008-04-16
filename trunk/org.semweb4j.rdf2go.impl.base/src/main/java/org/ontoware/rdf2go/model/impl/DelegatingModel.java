@@ -409,5 +409,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 		delegatedModel.setNamespace(prefix, namespaceURI);
 	}
 
+	public void addModel(Model model) throws ModelRuntimeException {
+		delegatedModel.addModel(model);
+	}
+
 
 }

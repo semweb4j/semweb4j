@@ -17,9 +17,11 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.LockException;
@@ -362,6 +364,14 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return true;
 	}
 
+	// FIXME test this
+	/* subclasses should overwrite this method for better performance */
+	public void addModelSet(ModelSet modelSet) {
+		for (Statement s : modelSet) {
+			this.addStatement(s);
+		}
+	}
+
 	/**
 	 * @throws ModelRuntimeException
 	 *             if the ModelSet is locked
@@ -404,13 +414,13 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* fast, no need to override */
-	public BlankNode createReficationOf(Statement statement) {
+	public BlankNode addReificationOf(Statement statement) {
 		BlankNode bnode = createBlankNode();
-		return (BlankNode) createReficationOf(statement, bnode);
+		return (BlankNode) addReificationOf(statement, bnode);
 	}
 
 	/* reifications live in the context where the statement is */
-	public Resource createReficationOf(Statement statement, Resource resource) {
+	public Resource addReificationOf(Statement statement, Resource resource) {
 		Diff diff = new DiffImpl();
 		diff.addStatement(createStatement(statement.getContext(), resource,
 				RDF.type, RDF.Statement));
@@ -484,6 +494,20 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 		it.close();
 		update(diff);
+	}
+
+	/** subclasses should overwrite this for performance reasons */
+	public void addModel(Model model, URI contextURI) {
+		ClosableIterator<Statement> it = model.iterator();
+		Set<Statement> statements = new HashSet<Statement>();
+		while (it.hasNext()) {
+			Statement stmt = it.next();
+			statements.add(stmt);
+		}
+		it.close();
+		for( Statement stmt : statements) {
+			this.addStatement( contextURI, stmt.getSubject(), stmt.getPredicate(), stmt.getObject());
+		}
 	}
 
 }
