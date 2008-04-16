@@ -24,6 +24,9 @@
 			<action dev="xamde" type="add">
 				Implemented SPARQL ASK queries
 			</action>
+			<action dev="xamde" type="update">
+				Relocated source code to http(s)://semweb4j.googlecode.com/svn/trunk/org.openrdf.rdf2go 
+			</action>
 		</release>
 
 		<release version="4.5.4" date="2008-01-29"
