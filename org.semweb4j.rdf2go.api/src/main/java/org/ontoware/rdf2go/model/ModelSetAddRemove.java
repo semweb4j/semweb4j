@@ -143,18 +143,16 @@ public interface ModelSetAddRemove extends ClosableIterable<Statement>,
 	 */
 	void update(DiffReader diff) throws ModelRuntimeException;
 
-	
-	
-//	/**
-//	 * Adds all statements contained in 'model' to this ModelSet. Set the
-//	 * context to all these statements to 'contextURI'.
-//	 * 
-//	 * If the model belongs to the same implementation family as the ModelSet,
-//	 * this add might be very fast.
-//	 * 
-//	 * @param context
-//	 * @param model
-//	 */
-//	void addModel(URI contextURI, Model model);
+	// /**
+	// * Adds all statements contained in 'model' to this ModelSet. Set the
+	// * context to all these statements to 'contextURI'.
+	// *
+	// * If the model belongs to the same implementation family as the ModelSet,
+	// * this add might be very fast.
+	// *
+	// * @param context
+	// * @param model
+	// */
+	// void addModel(URI contextURI, Model model);
 
 }

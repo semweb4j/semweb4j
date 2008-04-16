@@ -16,15 +16,26 @@
 			</release>
 		-->
 
-		<release version="4.5.4" date="@@" description="Minor change">
+		<release version="4.6" date="200804-16" description="Extension Release">
 			<action dev="xamde" type="remove">
 				Moved org.ontoware.rdf2go.SparqlUtils to project
 				rdf2go.impl.util in package
-				org.ontoware.rdf2go.util.SparqlUtil
+				org.ontoware.rdf2go.util.SparqlUtil.
+				This change breaks binary compatibility with previous versions.
 			</action>
 			<action dev="xamde" type="update">
 				Changed Model/ModelSet.readFrom(....., URL baseURI) to
-				(...., String baseURI)
+				(...., String baseURI). 
+			</action>
+			<action dev="xamde" type="add">
+				Added Model/ModelSet.addModel( Model/ModelSet ) methods 
+				for better performance.
+			</action>
+			<action dev="xamde" type="add">
+				Added Namespace support (get/set namespaces).
+			</action>
+			<action dev="xamde" type="add">
+				Added Reification support.
 			</action>
 		</release>
 
