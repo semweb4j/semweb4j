@@ -4,9 +4,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.15.3</version>
+	</parent>
+
 	<groupId>org.openrdf</groupId>
 	<artifactId>openrdf-rdf2go</artifactId>
-	<version>4.5.5-SNAPSHOT</version>
+	<version>4.6.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF Sesame RDF2Go driver</name>
 	<description>
@@ -54,19 +60,19 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.5.3</version>
+			<version>4.6</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.5.4</version>
+			<version>4.6.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<version>4.5.4</version>
+			<version>4.6.0</version>
 			<scope>test</scope>
 		</dependency>
 
