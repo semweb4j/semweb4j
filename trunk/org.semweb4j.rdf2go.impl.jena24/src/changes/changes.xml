@@ -5,10 +5,13 @@
 	</properties>
 	<body>
 
-		<release version="4.5.5" description="Bugfixes"
-			date="@@">
+		<release version="4.6.0" description="API upgrade"
+			date="2008-04-16">
 			<action dev="xamde" type="fix">
 				Fixed OWL reasoning setting in ModelFactory..
+			</action>
+			<action dev="xamde" type="fix">
+				Upgrade to RDF2GO 4.6
 			</action>
 		</release>
 
