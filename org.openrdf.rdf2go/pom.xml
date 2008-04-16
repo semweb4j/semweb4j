@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -12,7 +10,7 @@
 
 	<groupId>org.openrdf</groupId>
 	<artifactId>openrdf-rdf2go</artifactId>
-	<version>4.6.0-SNAPSHOT</version>
+	<version>4.6.0</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF Sesame RDF2Go driver</name>
 	<description>
@@ -282,15 +280,9 @@ If present, DEBUG logging is compiled away
 	</distributionManagement>
 
 	<scm>
-		<connection>
-			scm:svn:https://src.aduna-software.org/svn/org.openrdf/projects/sesame2/openrdf-ext/openrdf-rdf2go
-		</connection>
-		<developerConnection>
-			scm:svn:https://src.aduna-software.org/svn/org.openrdf/projects/sesame2/openrdf-ext/openrdf-rdf2go
-		</developerConnection>
-		<url>
-			http://src.aduna-software.org/viewvc/org.openrdf/projects/sesame2/openrdf-ext/openrdf-rdf2go
-		</url>
+		<connection>scm:svn:https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</connection>
+		<developerConnection>scm:svn:https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</developerConnection>
+		<url>https://src.aduna-software.org/svn/org.openrdf/releases/sesame2/openrdf-ext/openrdf-rdf2go/openrdf-rdf2go-4.6.0</url>
 	</scm>
 
 </project>
