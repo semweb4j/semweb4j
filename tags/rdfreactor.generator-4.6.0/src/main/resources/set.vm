@@ -1,0 +1,71 @@
+##
+##   if(mindCard==?|minCard==1)
+##     "set(Node)"
+##     for each R in range:
+##       generate "set(R)"
+##
+
+##     -----------------------------------------------------------------------
+##    | IF max cardinality == UNDEFINED. GENERATE "set(Node node)"
+#if($prop.minCardinality == $UNDEFINED || $prop.minCardinality == 1)
+
+    /**
+     * Sets a value of property #mixedcase($prop.name ) from an RDF2Go node.
+     * First, all existing values are removed, then this value is added.
+     * Cardinality constraints are not checked, but this method exists only for properties with
+     * no minCardinality or minCardinality == 1.
+#comment("     " $prop)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be set
+#debug("set1static")
+     */
+	public static void set${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) {
+		Base.set(model, instanceResource, #uppercase($prop.name), value);
+	}
+	
+    /**
+     * Sets a value of property #mixedcase($prop.name ) from an RDF2Go node.
+     * First, all existing values are removed, then this value is added.
+     * Cardinality constraints are not checked, but this method exists only for properties with
+     * no minCardinality or minCardinality == 1.
+#comment("     " $prop)
+	 * @param value the value to be added
+#debug("set1dynamic")
+     */
+	public void set${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value) {
+		Base.set(this.model, this.getResource(), #uppercase($prop.name), value);
+	}
+##             -----------------------------------------------------------------------
+##            | FOR each range R: GENERATE "set(R)"
+#foreach($type in $prop.types)
+    /**
+     * Sets a value of property #mixedcase($prop.name ) from an instance of ${type} 
+     * First, all existing values are removed, then this value is added.
+     * Cardinality constraints are not checked, but this method exists only for properties with
+     * no minCardinality or minCardinality == 1.
+#comment("     " $type)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be added
+#debug("set3static")
+     */
+	public static void set${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, $type value) {
+		Base.set(model, instanceResource, #uppercase($prop.name), value);
+	}
+	
+    /**
+     * Sets a value of property #mixedcase($prop.name ) from an instance of ${type} 
+     * First, all existing values are removed, then this value is added.
+     * Cardinality constraints are not checked, but this method exists only for properties with
+     * no minCardinality or minCardinality == 1.
+#comment("     " $type)
+	 * @param value the value to be added
+#debug("set4dynamic")
+     */
+	public void set${methodnameprefix}#mixedcase($prop.name )($type value) {
+		Base.set(this.model, this.getResource(), #uppercase($prop.name), value);
+	}
+#end ## foreach	
+#end ## #if($prop.minCardinality == $UNDEFINED || $prop.minCardinality == 1)
+
