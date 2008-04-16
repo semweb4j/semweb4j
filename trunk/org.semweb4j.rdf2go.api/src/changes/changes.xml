@@ -16,7 +16,7 @@
 			</release>
 		-->
 
-		<release version="4.6" date="200804-16" description="Extension Release">
+		<release version="4.6" date="2008-04-16" description="Extension Release">
 			<action dev="xamde" type="remove">
 				Moved org.ontoware.rdf2go.SparqlUtils to project
 				rdf2go.impl.util in package
