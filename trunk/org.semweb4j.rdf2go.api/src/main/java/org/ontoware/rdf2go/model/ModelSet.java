@@ -128,13 +128,39 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	 * Adds a model to this ModelSet. Creating the named-graph if needed, adding
 	 * the triples to it if not.
 	 * 
-	 * This method might be much quicker than addAll(model.iterator()) depending
+	 * Same semantics as: ModelSet.getModel(model.getContextUri).add(model).
+	 * 
+	 * Note: This method might be much quicker than addAll(model.iterator()) depending
 	 * on the implementation.
 	 * 
 	 * @param model
 	 * @return true if successful
 	 */
 	boolean addModel(Model model);
+	
+	/**
+	 * Adds a complete {@link Model} to the given contextURI. 
+	 * The context URI of the model is ignored.
+	 * 
+	 * @param contextURI
+	 * @param model
+	 * @throws ModelRuntimeException
+	 *             if any internal (I/O related) exception occurs
+	 * @since 4.6
+	 */
+	void addModel(Model model, URI contextURI) throws ModelRuntimeException;
+
+	/**
+	 * Adds a complete {@link ModelSet} to this ModelSet. Context URIs in
+	 * the {@link Statement}s of the modelSet are respected.
+	 * 
+	 * @param contextURI
+	 * @param modelSet
+	 * @throws ModelRuntimeException
+	 *             if any internal (I/O related) exception occurs
+	 * @since 4.6
+	 */
+	void addModelSet( ModelSet modelSet) throws ModelRuntimeException;	
 
 	/**
 	 * @param contextURI

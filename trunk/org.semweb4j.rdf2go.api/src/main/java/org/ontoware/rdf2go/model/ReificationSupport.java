@@ -15,14 +15,14 @@ import org.ontoware.rdf2go.model.node.Resource;
 public interface ReificationSupport {
 
 	/**
-	 * A convenience function for createReficationOf( createBlankNode(),
+	 * A convenience function for addReficationOf( createBlankNode(),
 	 * statement );
 	 * 
 	 * @param statement
 	 * @return a new BlankNode which holds the reification of the given
 	 *         statement.
 	 */
-	BlankNode createReficationOf(Statement statement);
+	BlankNode addReificationOf(Statement statement);
 
 	/**
 	 * Reifies the statement, whether the statement was present in the model or
@@ -31,7 +31,7 @@ public interface ReificationSupport {
 	 * triples like (resource )rdf:subject s; rdf:predicate p; rdf:object o.
 	 * Where s,p, and o are taken from the given statement.
 	 * 
-	 * Adds the following statemens, as defined in
+	 * Adds the following statements, as defined in
 	 * {@link http://www.w3.org/TR/rdf-mt/#Reif}
 	 * 
 	 * <code><pre>
@@ -47,7 +47,7 @@ public interface ReificationSupport {
 	 *            used to represent the reified statement
 	 * @return the given resource
 	 */
-	Resource createReficationOf(Statement statement, Resource resource);
+	Resource addReificationOf(Statement statement, Resource resource);
 
 	/**
 	 * Delete reifications made by this resource. More technically, this method

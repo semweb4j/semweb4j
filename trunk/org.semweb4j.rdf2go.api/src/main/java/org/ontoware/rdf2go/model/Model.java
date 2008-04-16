@@ -70,6 +70,20 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 	 */
 	boolean isEmpty();
 
+	/**
+	 * Adds a complete {@link Model} to this Model.
+	 * The context URI of the other model is ignored, if present.
+	 * 
+	 * Note: this might be faster than addAll( model.iterator() );
+	 * 
+	 * @param model
+	 * @throws ModelRuntimeException
+	 *             if any internal (I/O related) exception occurs
+	 * @since 4.6
+	 */
+	void addModel(Model model) throws ModelRuntimeException;
+
+	
 	// //////////////
 	// Manipulate underlying impl
 

@@ -115,12 +115,12 @@ public interface ModelWriter  {
 			String languageTag) throws ModelRuntimeException;
 
 	/**
-	 * adds a (subject, property, literal ,datatype)-statement to the model.
+	 * adds a (subject, property, literal, data-type)-statement to the model.
 	 * This method is intended to give the user convenience and allows the
 	 * underlying implementation to convert directly to native objects without
 	 * converting to RDF2Go objects first.
 	 * 
-	 * datatype normaly is an uri for a xml schema datatype (xsd)
+	 * data-type normally is an URI for a XML schema datatype (XSD)
 	 * 
 	 * @param subject
 	 * @param predicate
@@ -144,5 +144,5 @@ public interface ModelWriter  {
 	 */
 	public void addStatement(String subjectURIString, URI predicate, String literal)
 			throws ModelRuntimeException;
-
+	
 }
