@@ -132,9 +132,9 @@
 							<Bundle-ManifestVersion>
 								2
 							</Bundle-ManifestVersion>
-							<Bundle-Name>${pom.name}</Bundle-Name>
+							<Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name>
 							<Bundle-SymbolicName>
-								org.semweb4j.rdf2go.api
+								${pom.groupId}.${pom.artifactId}
 							</Bundle-SymbolicName>
 							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
 							-->
