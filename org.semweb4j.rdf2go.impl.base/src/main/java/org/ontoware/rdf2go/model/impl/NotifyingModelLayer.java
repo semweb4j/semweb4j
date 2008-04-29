@@ -12,8 +12,11 @@ import org.ontoware.rdf2go.model.NotifyingModel;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.TriplePattern;
 import org.ontoware.rdf2go.model.node.Node;
+import org.ontoware.rdf2go.model.node.NodeOrVariable;
 import org.ontoware.rdf2go.model.node.Resource;
+import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.rdf2go.model.node.UriOrVariable;
 
 /**
  * Adds notifying capabilites to existing models.
@@ -285,6 +288,18 @@ public class NotifyingModelLayer extends DelegatingModel implements
 				.createURI(subjectURIString), predicate, getDelegatedModel()
 				.createPlainLiteral(literal)));
 	}
+	
+	@Override
+	public void removeStatements(ResourceOrVariable subject,
+			UriOrVariable predicate, NodeOrVariable object)
+			throws ModelRuntimeException {
+		ModelAddRemoveMemoryImpl toBeRemoved = new ModelAddRemoveMemoryImpl();
+		toBeRemoved.addAll(this.findStatements(subject, predicate, object));
+		this.removeAll(toBeRemoved.iterator());
+		
+		this.getDelegatedModel().removeAll(toBeRemoved.iterator());
+	}
+
 
 	//////////// diff
 	

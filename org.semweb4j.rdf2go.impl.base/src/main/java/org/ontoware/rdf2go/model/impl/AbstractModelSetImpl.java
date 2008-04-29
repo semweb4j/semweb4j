@@ -270,8 +270,11 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	/* subclasses should overwrite this method for better performance */
 	public Statement createStatement(Resource subject, URI predicate,
 			Node object) {
-		return this.getDefaultModel().createStatement(subject, predicate,
+		Model defaultModel = this.getDefaultModel();
+		Statement statement = defaultModel.createStatement(subject, predicate,
 				object);
+		defaultModel.close();
+		return statement;
 	}
 
 	/* subclasses should overwrite this method for better performance */
