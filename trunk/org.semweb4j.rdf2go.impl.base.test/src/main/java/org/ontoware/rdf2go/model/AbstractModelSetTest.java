@@ -85,7 +85,11 @@ public abstract class AbstractModelSetTest {
 	public static <T> ArrayList<T> asArrayListAndClose(ClosableIterator<T> it) {
 		ArrayList<T> result = new ArrayList<T>();
 		while (it.hasNext()) {
-			result.add(it.next());
+			T t = it.next();
+			result.add(t);
+			if (t instanceof Model) {
+				((Model) t).close();
+			}
 		}
 		it.close();
 		return result;
