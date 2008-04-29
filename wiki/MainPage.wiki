@@ -1,7 +1,6 @@
 #summary semweb4j home page
 #labels Featured
 
+We use Google code for SVN access only. You can browse the SVN contents here:
 
-=== Testing ===
-
-The code in SVN is out-dated. We are testing Google code here ...
+http://semweb4j.googlecode.com/svn/trunk/
