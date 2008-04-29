@@ -81,8 +81,7 @@
 			<organizationUrl>http://www.blue-age.de</organizationUrl>
 			<timezone>+1</timezone>
 			<roles>
-				<role>POM Manager</role>
-				<role>Documentation Doctor</role>
+				<role>Maven Maven</role>
 			</roles>
 		</developer>
 	</developers>
@@ -176,8 +175,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
-					<aggregate>true</aggregate>
-					<inherited>true</inherited>
 					<links>
 						<!-- add our own projects: rdf2go, rdfreactor, swecr -->
 						<link>
@@ -193,9 +190,6 @@
 							http://semweb4j.org/site/cds.gwt/apidocs/
 						</link>
 						<link>
-							http://semweb4j.org/site/jwiki/apidocs/
-						</link>
-						<link>
 							http://semweb4j.org/site/rdf2go.api/apidocs/
 						</link>
 						<link>
@@ -206,6 +200,9 @@
 						</link>
 						<link>
 							http://semweb4j.org/site/rdf2go.impl.jena24/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.sesame20/apidocs/
 						</link>
 						<link>
 							http://semweb4j.org/site/rdf2go.layer.autopersist/apidocs/
