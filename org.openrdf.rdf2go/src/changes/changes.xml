@@ -16,7 +16,16 @@
 			</release>
 		-->
 
-		<release version="4.6.0" date="2008-04-@@@"
+		<release version="4.6.0" date="2008-04-16">
+			<action dev="xamde" type="update">
+				Renamed to groupId 'org.semweb4j' and artifactId
+				'rdf2go.impl.sesame20' for consistency reasons and to
+				make clear that FZI is now maintaining the driver.
+				Package names remain unchanged.
+			</action>
+		</release>
+
+		<release version="4.6.0" date="2008-04-16"
 			description="Improvements and bug fixes">
 			<action dev="xamde" type="update">
 				Upgraded to OpenRDF 2.0.1 release
@@ -25,15 +34,16 @@
 				Implemented SPARQL ASK queries
 			</action>
 			<action dev="xamde" type="update">
-				Relocated source code to http(s)://semweb4j.googlecode.com/svn/trunk/org.openrdf.rdf2go 
+				Relocated source code to
+				http(s)://semweb4j.googlecode.com/svn/trunk/org.openrdf.rdf2go
 			</action>
 		</release>
 
 		<release version="4.5.4" date="2008-01-29"
 			description="Bugfix">
 			<action dev="xamde" type="fix">
-				Fixed a bug in Model/ModelSet.update() - did not use the correct
-				context
+				Fixed a bug in Model/ModelSet.update() - did not use the
+				correct context
 			</action>
 		</release>
 
