@@ -8,8 +8,8 @@
 		<version>4.15.3</version>
 	</parent>
 
-	<groupId>org.openrdf</groupId>
-	<artifactId>openrdf-rdf2go</artifactId>
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.impl.sesame20</artifactId>
 	<version>4.6.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OpenRDF Sesame RDF2Go driver</name>
@@ -231,6 +231,49 @@ If present, DEBUG logging is compiled away
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>dev@xam.de</email>
+			<url>http://xam.de</url>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>leo</id>
+			<name>Leo Sauermann</name>
+			<organization>DFKI</organization>
+			<organizationUrl>http://www.dfki.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>aduna</id>
+			<name>Aduna Team</name>
+			<organization>Aduna</organization>
+			<organizationUrl>http://www.aduna-software.com</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/RTGO</url>
+	</issueManagement>
+
 
 	<!-- to define where to put the site for this bundle -->
 	<distributionManagement>
