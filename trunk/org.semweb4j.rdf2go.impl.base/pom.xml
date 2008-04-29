@@ -152,7 +152,7 @@
 								org.slf4j
 							</Import-Package>
 							<Export-Package>
-								org.ontoware.rdf2go.impl, org.ontoware.rdf2go.model.impl, org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.model.persistent, org.ontoware.rdf2go.util
+								org.ontoware.rdf2go.impl, org.ontoware.rdf2go.model.impl, org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.model.persistent
 							</Export-Package>
 						</manifestEntries>
 					</archive>
