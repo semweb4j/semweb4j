@@ -5,6 +5,17 @@
 	</properties>
 	<body>
 
+		<release version="4.6.1" date="2008-04-@@@"
+			description="maintenance">
+			<action dev="xamde" type="fix">
+				Closing models properly in tests now.
+			</action>
+		</release>
+
+		<release version="4.6.0" date="2008-04-16"
+			description="maintenance">
+		</release>
+
 		<release version="4.5.4" date="2008-01-21"
 			description="dependency update">
 			<action dev="xamde" type="updated">
