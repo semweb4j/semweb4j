@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
+		<version>4.15.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -42,50 +42,50 @@
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-sail-inferencer</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-sail-api</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-queryalgebra-model</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-query</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-queryparser-api</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-queryparser-serql</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-rio-api</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-model</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-repository-api</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 			<!-- 
 				<version>2.0</version>
 			-->
@@ -134,7 +134,7 @@
 		<dependency>
 			<groupId>org.openrdf</groupId>
 			<artifactId>openrdf-repository-sail</artifactId>
-			<version>2.0</version>
+			<version>2.0.1</version>
 			<scope>test</scope>
 		</dependency>
 

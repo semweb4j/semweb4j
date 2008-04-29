@@ -16,6 +16,13 @@
 			</release>
 		-->
 
+		<release version="2.2.2" date="2008-04-29"
+			description="Bug fix">
+			<action dev="xamde" type="update">
+				Upgrade to RDF2Go 4.6 and Sesame 2.0.1
+			</action>
+		</release>
+
 		<release version="2.2.1" date="2008-04-04"
 			description="Bug fix">
 			<action dev="xamde" type="update">
