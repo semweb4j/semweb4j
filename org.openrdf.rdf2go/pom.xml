@@ -239,7 +239,7 @@ If present, DEBUG logging is compiled away
 			<name>RDFReactor site</name>
 			<!--  mvn creates new dirs if necessary -->
 			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.base.test
+                                scp://theoretiker.org/home/max/public_html/semweb4j.org/site/openrdf-rdf2go
 			</url>
 		</site>
 	</distributionManagement>
