@@ -10,26 +10,26 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame20</artifactId>
-	<version>4.6.2-SNAPSHOT</version>
+	<version>4.6.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>OpenRDF Sesame RDF2Go driver</name>
+	<name>rdf2go.impl.sesame20</name>
 	<description>
-		Implementation of an RDF2Go Model operating on top of Sesame.
+		RDF2Go driver for OpenRDF Sesame 2.0
 	</description>
-	<url>http://www.openrdf.org/</url>
+	<url>http://rdf2go.semweb4j.org.org/</url>
 
 	<organization>
-		<name>Aduna</name>
-		<url>http://www.aduna-software.com/</url>
+		<name>FZI</name>
+		<url>http://www.fzi.de/</url>
 	</organization>
 
 	<inceptionYear>2001</inceptionYear>
 
 	<licenses>
 		<license>
-			<name>Aduna BSD-style license</name>
+			<name>BSD license</name>
 			<url>
-				http://www.aduna-software.com/documents/legal/licenses/aduna-bsd.txt
+				http://www.opensource.org/licenses/bsd-license.php
 			</url>
 			<distribution>repo</distribution>
 		</license>
