@@ -112,6 +112,55 @@
 
 	</dependencies>
 
+	<build>
+		<plugins>
+			<!-- add OSGI specific metadata to the manifest 
+				how to do this?
+				http://maven.apache.org/guides/mini/guide-manifest.html
+				there may be a MVN-OSGi conformant way, but unless MVN completly integrates with OSGi
+				and the dependencies declared in maven map directly to OSGi dependencies,
+				I would not touch this further, and just fiddle with the options.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<!--
+							<index>true</true>
+						-->
+						<manifestEntries>
+							<Bundle-ManifestVersion>
+								2
+							</Bundle-ManifestVersion>
+							<Bundle-Name>${pom.name}</Bundle-Name>
+							<Bundle-SymbolicName>
+								org.semweb4j.rdf2go.impl.base
+							</Bundle-SymbolicName>
+							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
+							-->
+							<!--Bundle-Version>${pom.version}</Bundle-Version-->
+							<Bundle-Version>4.7.0</Bundle-Version>
+							<Bundle-Vendor>
+								Max Voelkel FZI, OSGi config by Leo Sauermann DFKI
+							</Bundle-Vendor>
+							<Bundle-Localization>
+								plugin
+							</Bundle-Localization>
+							<Require-Bundle>org.semweb4j.rdf2go.api</Require-Bundle>
+							<Import-Package>
+								org.slf4j
+							</Import-Package>
+							<Export-Package>
+								org.ontoware.rdf2go.impl, org.ontoware.rdf2go.model.impl, org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.model.persistent, org.ontoware.rdf2go.util
+							</Export-Package>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+			
 	<!-- to avoid folded site uris -->
 	<distributionManagement>
 		<site>
