@@ -16,12 +16,15 @@
 			</release>
 		-->
 
-		<release version="4.6.0" date="2008-04-16">
+		<release version="4.6.1" date="2008-04-30">
 			<action dev="xamde" type="update">
 				Renamed to groupId 'org.semweb4j' and artifactId
 				'rdf2go.impl.sesame20' for consistency reasons and to
 				make clear that FZI is now maintaining the driver.
 				Package names remain unchanged.
+			</action>
+			<action dev="xamde" type="fix">
+				Added proper OSGI MANIFEST.MF via POM
 			</action>
 		</release>
 

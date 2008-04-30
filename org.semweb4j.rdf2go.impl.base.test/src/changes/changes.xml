@@ -5,10 +5,13 @@
 	</properties>
 	<body>
 
-		<release version="4.6.1" date="2008-04-@@@"
+		<release version="4.6.1" date="2008-04-30"
 			description="maintenance">
 			<action dev="xamde" type="fix">
 				Closing models properly in tests now.
+			</action>
+			<action dev="xamde" type="fix">
+				Added proper OSGI MANIFEST.MF via POM
 			</action>
 		</release>
 
