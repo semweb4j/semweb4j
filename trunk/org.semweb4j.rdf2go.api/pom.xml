@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -13,7 +10,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<!-- Always use three digits for OSGI compliance -->
-	<version>4.6.1-SNAPSHOT</version>
+	<version>4.6.1</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.api</name>
@@ -230,4 +227,10 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.6.1</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.6.1</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.api-4.6.1</url>
+  </scm>
 </project>
