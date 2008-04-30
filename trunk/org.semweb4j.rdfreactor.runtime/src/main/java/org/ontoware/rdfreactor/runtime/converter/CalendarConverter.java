@@ -4,6 +4,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
@@ -17,9 +21,6 @@ import org.ontoware.rdfreactor.runtime.INodeConverter;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
-import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 
 /**
  * Handles ISO 8601 Date and Time Formats
@@ -35,6 +36,16 @@ public class CalendarConverter implements INodeConverter<Calendar> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(CalendarConverter.class);
+
+	private static DatatypeFactory dtFactory;
+
+	static {
+		try {
+			dtFactory = DatatypeFactory.newInstance();
+		} catch (DatatypeConfigurationException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public Calendar toJava(Node node) {
 		return node2Calendar(node);
@@ -72,86 +83,107 @@ public class CalendarConverter implements INodeConverter<Calendar> {
 		return parseXSDDateTime_toCalendar(literal.getValue());
 	}
 
-	/** return all normalized to UTC */
+	/** 
+	 * return all normalized to UTC. 
+	 * @param cal should be a GregorianCalendar 
+	 * */
 	public static String encodeCalendar_toXSDDateTime(Calendar cal) {
 
 		// convert cal to UTC
-
-		Calendar utcCalendar = new GregorianCalendar(TimeZone
+		GregorianCalendar utcCalendar = new GregorianCalendar(TimeZone
 				.getTimeZone("UTC"));
 		utcCalendar.setTimeInMillis(cal.getTimeInMillis());
 
-		// TODO get rid of Jena dependency
-		XSDDateTime x = new XSDDateTime(utcCalendar);
-
-		StringBuffer buff = new StringBuffer();
-
-		int years = x.getYears();
-		buff.append(years);
-		buff.append("-");
-
-		if (x.getMonths() < 10)
-			buff.append("0");
-		buff.append(x.getMonths());
-		buff.append("-");
-
-		if (x.getDays() < 10)
-			buff.append("0");
-		buff.append(x.getDays());
-		buff.append("T");
-
-		if (x.getHours() < 10)
-			buff.append("0");
-		buff.append(x.getHours());
-
-		buff.append(":");
-		if (x.getMinutes() < 10)
-			buff.append("0");
-		buff.append(x.getMinutes());
-
-		buff.append(":");
-		if (x.getFullSeconds() < 10)
-			buff.append("0");
-		buff.append(x.getFullSeconds());
-
-		// TODO append milliseconds
-		// double milliseconds = ((double) x.getSeconds() - (double)
-		// x.getFullSeconds());
-
-		buff.append("Z");
-		return buff.toString();
+		XMLGregorianCalendar xmlCalendar = dtFactory.newXMLGregorianCalendar(utcCalendar);
+		xmlCalendar = xmlCalendar.normalize();
+		return xmlCalendar.toXMLFormat();
+		
+//		// TODO get rid of Jena dependency
+//		XSDDateTime x = new XSDDateTime(utcCalendar);
+//
+//		StringBuffer buff = new StringBuffer();
+//
+//		int years = x.getYears();
+//		buff.append(years);
+//		buff.append("-");
+//
+//		if (x.getMonths() < 10)
+//			buff.append("0");
+//		buff.append(x.getMonths());
+//		buff.append("-");
+//
+//		if (x.getDays() < 10)
+//			buff.append("0");
+//		buff.append(x.getDays());
+//		buff.append("T");
+//
+//		if (x.getHours() < 10)
+//			buff.append("0");
+//		buff.append(x.getHours());
+//
+//		buff.append(":");
+//		if (x.getMinutes() < 10)
+//			buff.append("0");
+//		buff.append(x.getMinutes());
+//
+//		buff.append(":");
+//		if (x.getFullSeconds() < 10)
+//			buff.append("0");
+//		buff.append(x.getFullSeconds());
+//
+//		// TODO append milliseconds
+//		// double milliseconds = ((double) x.getSeconds() - (double)
+//		// x.getFullSeconds());
+//
+//		buff.append("Z");
+//		return buff.toString();
 
 	}
 
+	/**
+	 * Parses the supplied calendar value string and returns its value.
+	 * 
+	 * @param s
+	 *            A string representation of an xsd:dateTime, xsd:time,
+	 *            xsd:date, xsd:gYearMonth, xsd:gMonthDay, xsd:gYear, xsd:gMonth
+	 *            or xsd:gDay value.
+	 * @return The calendar value represented by the supplied string argument.
+	 * @throws RDFDataException
+	 *             If the supplied string is not a valid calendar value.
+	 */
 	public static Calendar parseXSDDateTime_toCalendar(String s)
 			throws RDFDataException {
 		log.debug("Trying to parse '" + s + "' as an xsd:dateTime");
 
-		// TODO get rid of Jena dependency
-		XSDDateTime xsddate = (XSDDateTime) XSDDatatype.XSDdateTime.parse(s);
+		XMLGregorianCalendar xmlCalendar = dtFactory.newXMLGregorianCalendar(s);
+		xmlCalendar = xmlCalendar.normalize();
+		return xmlCalendar.toGregorianCalendar();
 
-		if (xsddate == null)
-			throw new RDFDataException("Could not parse '" + s
-					+ "' as an xsd:DateTime.");
-
-		log.debug(xsddate.getYears() + "-" + xsddate.getMonths() + "-"
-				+ xsddate.getDays() + "-" + xsddate.getHours() + "-"
-				+ xsddate.getMinutes() + "-" + xsddate.getFullSeconds());
-
-		Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UCT"));
-		c.set(Calendar.YEAR, xsddate.getYears());
-		c.set(Calendar.MONTH, xsddate.getMonths() - 1);
-		c.set(Calendar.DATE, xsddate.getDays());
-
-		log.debug("Hour = " + xsddate.getHours());
-
-		c.set(Calendar.HOUR_OF_DAY, xsddate.getHours());
-		c.set(Calendar.MINUTE, xsddate.getMinutes());
-		c.set(Calendar.SECOND, (int) xsddate.getSeconds());
-		// IMPROVE ... c.set(Calendar.MILLISECOND, ) currently we have only
-		// second-precision
-
-		return c;
+		// // TODO get rid of Jena dependency
+		// XSDDateTime xsddate = (XSDDateTime) XSDDatatype.XSDdateTime.parse(s);
+		//
+		// if (xsddate == null)
+		// throw new RDFDataException("Could not parse '" + s
+		// + "' as an xsd:DateTime.");
+		//
+		// log.debug(xsddate.getYears() + "-" + xsddate.getMonths() + "-"
+		// + xsddate.getDays() + "-" + xsddate.getHours() + "-"
+		// + xsddate.getMinutes() + "-" + xsddate.getFullSeconds());
+		//
+		// Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UCT"));
+		// c.set(Calendar.YEAR, xsddate.getYears());
+		// c.set(Calendar.MONTH, xsddate.getMonths() - 1);
+		// c.set(Calendar.DATE, xsddate.getDays());
+		//
+		// log.debug("Hour = " + xsddate.getHours());
+		//
+		// c.set(Calendar.HOUR_OF_DAY, xsddate.getHours());
+		// c.set(Calendar.MINUTE, xsddate.getMinutes());
+		// c.set(Calendar.SECOND, (int) xsddate.getSeconds());
+		// // IMPROVE ... c.set(Calendar.MILLISECOND, ) currently we have only
+		// // second-precision
+		//
+		// return c;
 	}
 
 	public Node toNode(Model model, Object javaValue) {
