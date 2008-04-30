@@ -1,10 +1,11 @@
 package org.ontoware.rdfreactor.generator.java;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A <b>JPackage</b> represents a package in Java. 
@@ -30,7 +31,7 @@ public class JPackage {
 	public static final JPackage OWL = new JPackage("org.ontoware.rdfreactor.schema.owl");
 
 	
-	private static Log log = LogFactory.getLog(JPackage.class);
+	private static Logger log = LoggerFactory.getLogger(JPackage.class);
 
 	
 	/** the name of the JPackage, usually it conforms to java package naming conventions */
@@ -96,5 +97,11 @@ public class JPackage {
 	 */
 	public boolean equals(Object other) {
 		return (other instanceof JPackage && ((JPackage) other).getName().equals(this.getName()));
+	}
+
+	public void sortClasses() {
+		Collections.sort(this.classes);
+		// TODO Auto-generated method stub
+		
 	}
 }
