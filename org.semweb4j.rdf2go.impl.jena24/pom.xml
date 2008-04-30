@@ -10,7 +10,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena24</artifactId>
 	<version>4.6.1-SNAPSHOT</version>
-	<name>RDF2Go Jena 2.4 Adapter</name>
+	<name>rdf2go.impl.jena24</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.4
 	</description>
