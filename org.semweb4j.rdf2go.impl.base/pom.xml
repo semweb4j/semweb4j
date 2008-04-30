@@ -9,6 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base</artifactId>
+	<!--  always use three digits for OSGI compliance -->
 	<version>4.6.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -86,7 +87,8 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.6</version>
+			<!-- require any version >= 4.6 --> 
+			<version>[4.6,)</version>
 		</dependency>
 
 		<!-- logging dependencies -->
@@ -137,10 +139,7 @@
 							<Bundle-SymbolicName>
 								${pom.groupId}.${pom.artifactId}
 							</Bundle-SymbolicName>
-							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
-							-->
-							<!--Bundle-Version>${pom.version}</Bundle-Version-->
-							<Bundle-Version>4.7.0</Bundle-Version>
+							<Bundle-Version>${pom.version}</Bundle-Version>
 							<Bundle-Vendor>
 								Max Voelkel FZI, OSGi config by Leo Sauermann DFKI
 							</Bundle-Vendor>
