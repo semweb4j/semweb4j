@@ -10,9 +10,6 @@ import junit.framework.TestCase;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.ontoware.rdf2go.RDF2Go;
-import org.ontoware.rdf2go.model.Model;
-import org.ontoware.rdfreactor.runtime.converter.CalendarConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,17 +25,14 @@ public class CalendarConverterTest extends TestCase {
 
 		assertDate("2006-12-07T00:00:00", 2006, 12, 07, 0, 0, 0);
 		// with timezone
+		assertDate("1999-05-31T13:20:00+01:00", 1999, 05, 31, 12, 20, 0);
 		assertDate("1999-05-31T13:20:00-05:00", 1999, 05, 31, 18, 20, 0);
 		assertDate("1999-05-31T13:20:00Z", 1999, 05, 31, 13, 20, 0);
-		assertDate("1999-05-31T13:20:00+01:00", 1999, 05, 31, 12, 20, 0);
 
 	}
 
 	@Test
 	public void testXsdDateTime() {
-
-		Model m = RDF2Go.getModelFactory().createModel();
-		m.open();
 		int year = 2005;
 		int month = 9;
 		int date = 5;

@@ -5,6 +5,14 @@
 	</properties>
 	<body>
 
+		<release version="4.6.1" description="Maintenance release"
+			date="2008-04-30">
+			<action dev="xamde" type="remove">
+				Removed all Jena dependencies. DateTime conversion is
+				now done via javax.xml.* packages.
+			</action>
+		</release>
+
 		<release version="4.6.0" description="API Update"
 			date="2008-04-16">
 			<action dev="xamde" type="update">
