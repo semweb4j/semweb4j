@@ -10,7 +10,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<!-- Always use three digits for OSGI compliance -->
-	<version>4.6.1</version>
+	<version>4.6.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.api</name>
@@ -227,10 +227,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.6.1</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.6.1</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.api-4.6.1</url>
-  </scm>
 </project>
