@@ -256,7 +256,7 @@ public class OwlClass extends Resource {
 	 * [Generated from RDFReactor template rule #getallinverse1static] 
 	 */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Resource> getAllAllValuesFrom_Inverse( Model model, Object objectValue) {
-		return Base.getAll_Inverse(model, Restriction.ALLVALUESFROM, objectValue);
+		return Base.getAll_Inverse(model, OWL_Protege_NRL_Restriction.ALLVALUESFROM, objectValue);
 	}
 
 
@@ -268,7 +268,7 @@ public class OwlClass extends Resource {
 	 * [Generated from RDFReactor template rule #getallinverse1static] 
 	 */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Resource> getAllSomeValuesFrom_Inverse( Model model, Object objectValue) {
-		return Base.getAll_Inverse(model, Restriction.SOMEVALUESFROM, objectValue);
+		return Base.getAll_Inverse(model, OWL_Protege_NRL_Restriction.SOMEVALUESFROM, objectValue);
 	}
 
 
