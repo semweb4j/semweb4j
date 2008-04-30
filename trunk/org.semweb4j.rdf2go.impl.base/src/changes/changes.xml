@@ -6,7 +6,7 @@
 	</properties>
 	<body>
 
-		<release version="4.6.0" date="2008-04-@@@"
+		<release version="4.6.1" date="2008-04-30"
 			description="Maintenance Release">
 			<action dev="xamde" type="fix">
 				Improved AbstractModelSetImpl to close model properly.
@@ -14,6 +14,9 @@
 			<action dev="xamde" type="fix">
 				In NotifyingModelImpl: Added missing
 				removeStatements(...).
+			</action>
+			<action dev="xamde" type="fix">
+				Added proper OSGI MANIFEST.MF via POM
 			</action>
 		</release>
 

@@ -7,6 +7,18 @@
 	<body>
 
 
+		<release version="4.6.1" date="2008-04-30"
+			description="Maintenance Release">
+			<action dev="xamde" type="fix">
+				Added proper OSGI MANIFEST.MF via POM
+			</action>
+		</release>
+
+		<release version="4.6.0" date="2008-04-16"
+			description="Maintenance Release">
+		</release>
+
+
 		<release version="4.5.7" date="2008-02-04">
 			<action dev="xamde" type="add">
 				Added transformation rule to replace namespace-prefixes
