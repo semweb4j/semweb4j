@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -18,6 +16,8 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.ontoware.rdfreactor.generator.java.JClass;
 import org.ontoware.rdfreactor.generator.java.JModel;
 import org.ontoware.rdfreactor.generator.java.JPackage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Write the JModel via Velocity templates to Java source code.
@@ -30,7 +30,7 @@ public class SourceCodeWriter {
 
 	public static final String TEMPLATE_CLASS = "class.vm";
 
-	private static final Log log = LogFactory.getLog(SourceCodeWriter.class);
+	private static Logger log = LoggerFactory.getLogger(SourceCodeWriter.class);
 
 	/**
 	 * Writes model 'jm' to 'outdir' creating sub-directories for packages as
@@ -143,6 +143,7 @@ public class SourceCodeWriter {
 		// package
 		assert jp.isConsistent();
 		context.put("package", jp);
+		jp.sortClasses();
 		for (JClass jc : jp.getClasses()) {
 			assert jc != null;
 			write(jc, packageOutdir, context, template);

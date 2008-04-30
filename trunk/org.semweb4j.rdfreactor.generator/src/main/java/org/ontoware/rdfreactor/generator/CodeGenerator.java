@@ -2,11 +2,11 @@ package org.ontoware.rdfreactor.generator;
 
 import java.io.File;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdfreactor.generator.java.JModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <b>CodeGenerator</b> is more of a 'model generator'
@@ -22,7 +22,7 @@ public class CodeGenerator {
 
 	public static final String GENERATOR_VERSION = "$Id$";
 
-	private static Log log = LogFactory.getLog(CodeGenerator.class);
+	private static Logger log = LoggerFactory.getLogger(CodeGenerator.class);
 
 	public static final String SEMANTICS_RDFS = "rdfs";
 
