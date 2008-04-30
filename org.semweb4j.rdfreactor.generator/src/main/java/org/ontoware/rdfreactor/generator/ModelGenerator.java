@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.Reasoning;
@@ -23,10 +21,12 @@ import org.ontoware.rdfreactor.generator.java.JPackage;
 import org.ontoware.rdfreactor.generator.java.JProperty;
 import org.ontoware.rdfreactor.schema.bootstrap.Class;
 import org.ontoware.rdfreactor.schema.bootstrap.DeprecatedProperty;
+import org.ontoware.rdfreactor.schema.bootstrap.OWL_Protege_NRL_Restriction;
 import org.ontoware.rdfreactor.schema.bootstrap.Property;
 import org.ontoware.rdfreactor.schema.bootstrap.Resource;
-import org.ontoware.rdfreactor.schema.bootstrap.Restriction;
 import org.ontoware.rdfreactor.schema.bootstrap.TypeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Creates an internal JModel from an ontology model.
@@ -35,7 +35,7 @@ import org.ontoware.rdfreactor.schema.bootstrap.TypeUtils;
  */
 public class ModelGenerator {
 
-	private static Log log = LogFactory.getLog(ModelGenerator.class);
+	private static Logger log = LoggerFactory.getLogger(ModelGenerator.class);
 
 	public static JModel createFromRDFS_Schema(Model modelWithSchemaData,
 			String packagename, boolean skipbuiltins) throws Exception {
@@ -451,7 +451,7 @@ public class ModelGenerator {
 							Statement stmt = (Statement) it.next();
 							org.ontoware.rdf2go.model.node.Resource restrictionResource = stmt
 									.getSubject();
-							Restriction restriction = Restriction.getInstance(
+							OWL_Protege_NRL_Restriction restriction = OWL_Protege_NRL_Restriction.getInstance(
 									m, restrictionResource);
 
 							int min = restriction.getAllMinCardinality_asList()
@@ -496,63 +496,64 @@ public class ModelGenerator {
 	 *            the target JModel
 	 * @param domainClass -
 	 *            the JClass domain of the property
-	 * @param rp -
+	 * @param property -
 	 *            the Property instance representing the Property in the RDF2Go
 	 *            model
 	 */
 	private static void handleProperty(Model m, JModel jm, JClass domainClass,
-			Property rp) {
+			Property property) {
 
 		// obtain a nice Java-conform name which has not yet been used
-		String propertyName = JavaNamingUtils.toBeanName(rp, domainClass
+		String propertyName = JavaNamingUtils.toBeanName(property, domainClass
 				.getUsedPropertyNames());
 		assert propertyName != null;
-		JProperty jprop = new JProperty(domainClass, propertyName, (URI) rp
+		JProperty jprop = new JProperty(domainClass, propertyName, (URI) property
 				.getResource());
 		// carry over the comment from RDF to Java, might be null
-		jprop.setComment(Utils.toJavaComment(rp.getAllComment_asList()));
+		jprop.setComment(Utils.toJavaComment(property.getAllComment_asList()));
 		log.debug("PROPERTY Adding '" + jprop.getName() + "' to '"
 				+ domainClass.getName() + "'");
 		jprop.getJClass().getProperties().add(jprop);
 
 		// process range information
 		log.debug("PROPERTY checking ranges...");
-		for (Class range : rp.getAllRange_asList()) {
+		for (Class range : property.getAllRange_asList()) {
 			log.debug("range is " + range);
 			jprop.addType(jm.getMapping(range.getResource()));
 		}
-		if (rp.getAllRange_asList().size() == 0) {
+		if (property.getAllRange_asList().size() == 0) {
 			// if no range is given, set to ontology root class (rdfs:Class or
 			// owl:Class)
 			jprop.addType(jm.getRoot());
 		}
 
 		// process cardinality constraints (convert this property to an OWL
-		// restriciton)
-		assert rp != null;
-		Restriction restriction = (Restriction) rp.castTo(Restriction.class);
+		// restriction)
+		assert property != null;
+		OWL_Protege_NRL_Restriction restriction = (OWL_Protege_NRL_Restriction) property.castTo(OWL_Protege_NRL_Restriction.class);
 		assert restriction != null;
 		
 		Integer card = restriction.getCardinality();
 		Integer minCard = restriction.getMinCardinality();
+		
 		Integer maxCard = restriction.getMaxCardinality();
 		int min = -1;
 		int max = -1;
 
 		if(minCard != null) {
 			min = minCard;
-			log.debug("Found minrestriction on " + rp + " minCard = " + min);
+			log.debug("Found minrestriction on " + property + " minCard = " + min);
 		} else if (card != null) {
-			log.debug("Found card.restriction on " + rp + " card = " + min);
+			log.debug("Found card.restriction on " + property + " card = " + min);
 			min = card;
 		}
 		jprop.setMinCardinality(min);
 
 		if(maxCard != null) {
 			max = maxCard;
-			log.debug("Found maxrestriction on " + rp + " maxCard = " + max);
+			log.debug("Found maxrestriction on " + property + " maxCard = " + max);
 		} else if (card != null) {
-			log.debug("Found card.restriction on " + rp + " card = " + min);
+			log.debug("Found card.restriction on " + property + " card = " + min);
 			max = card;
 		}
 		jprop.setMaxCardinality(max);

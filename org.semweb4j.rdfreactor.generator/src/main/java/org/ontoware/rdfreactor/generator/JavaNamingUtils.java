@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdfreactor.schema.bootstrap.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper methods for creating legal and unique Java Bean Identifiers for
@@ -25,7 +25,7 @@ import org.ontoware.rdfreactor.schema.bootstrap.Resource;
  */
 public class JavaNamingUtils {
 
-	private static Log log = LogFactory.getLog(JavaNamingUtils.class);
+	private static Logger log = LoggerFactory.getLogger(JavaNamingUtils.class);
 
 	/**
 	 * Create a legal and unique Java Bean Identifier for a resource.
