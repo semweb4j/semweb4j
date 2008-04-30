@@ -7,11 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.vocabulary.OWL;
 import org.ontoware.rdf2go.vocabulary.RDFS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A <b>JClass</b> represents a class in a JModel.
@@ -24,21 +24,24 @@ import org.ontoware.rdf2go.vocabulary.RDFS;
  * 
  * @author mvo
  */
-public class JClass extends JMapped {
+public class JClass extends JMapped implements Comparable<JClass> {
 
 	public static final JClass STRING = new JClass(JPackage.JAVA_LANG,
 			String.class.getName(), RDFS.Literal);
 
 	public static final JClass RESOURCE = new JClass(JPackage.RDFSCHEMA,
-			org.ontoware.rdfreactor.schema.rdfs.Resource.class.getName(), RDFS.Resource);
+			org.ontoware.rdfreactor.schema.rdfs.Resource.class.getName(),
+			RDFS.Resource);
 
 	public static final JClass RDFS_CLASS = new JClass(JPackage.RDFSCHEMA,
-			org.ontoware.rdfreactor.schema.rdfs.Class.class.getName(), RDFS.Class);
+			org.ontoware.rdfreactor.schema.rdfs.Class.class.getName(),
+			RDFS.Class);
 
 	public static final JClass OWL_CLASS = new JClass(JPackage.OWL,
-			org.ontoware.rdfreactor.schema.owl.OwlClass.class.getName(), OWL.Class);
+			org.ontoware.rdfreactor.schema.owl.OwlClass.class.getName(),
+			OWL.Class);
 
-	private static final Log log = LogFactory.getLog(JClass.class);
+	private static Logger log = LoggerFactory.getLogger(JClass.class);
 
 	/** List of properties, represented by JProperty instances */
 	private List<JProperty> properties = new ArrayList<JProperty>();
@@ -125,7 +128,7 @@ public class JClass extends JMapped {
 	public String toString() {
 		return this.getName();
 	}
-	
+
 	public String getDotfree() {
 		return this.getName().replace(".", "_");
 	}
@@ -174,19 +177,19 @@ public class JClass extends JMapped {
 		return false;
 	}
 
-//	/**
-//	 * @return true if the template generates code that throws a
-//	 *         CardinalityException
-//	 */
-//	public boolean throwsCardinalityException() {
-//		for (JProperty jp : properties) {
-//			if (jp.getMinCardinality() != JProperty.NOT_SET)
-//				return true;
-//			if (jp.getMaxCardinality() > 1)
-//				return true;
-//		}
-//		return false;
-//	}
+	// /**
+	// * @return true if the template generates code that throws a
+	// * CardinalityException
+	// */
+	// public boolean throwsCardinalityException() {
+	// for (JProperty jp : properties) {
+	// if (jp.getMinCardinality() != JProperty.NOT_SET)
+	// return true;
+	// if (jp.getMaxCardinality() > 1)
+	// return true;
+	// }
+	// return false;
+	// }
 
 	/**
 	 * @return all direct super-classes
@@ -345,7 +348,7 @@ public class JClass extends JMapped {
 			buf.append(jc.getN3Name()).append(", ");
 		}
 		buf.append("| URI: " + getMappedTo().toSPARQL() + "\n");
-		
+
 		if (getComment() != null)
 			buf.append("''").append(getComment()).append("''\n");
 
@@ -375,5 +378,9 @@ public class JClass extends JMapped {
 
 	public boolean getCardinalityexception() {
 		return cardinalityexception;
+	}
+
+	public int compareTo(JClass other) {
+		return this.getName().compareTo(other.getName());
 	}
 }

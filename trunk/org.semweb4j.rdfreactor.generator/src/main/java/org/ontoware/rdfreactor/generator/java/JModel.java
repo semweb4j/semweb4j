@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A <b>JModel</b> is the result of the translation of a given RDFS/OWL
@@ -50,7 +50,7 @@ import org.ontoware.rdf2go.model.node.URI;
 // TODO consider switching to EMF/Ecore from Eclipse
 public class JModel {
 
-	private static Log log = LogFactory.getLog(JModel.class);
+	private static Logger log = LoggerFactory.getLogger(JModel.class);
 
 	/** the List of JPackages in this JModel */
 	private List<JPackage> packages;

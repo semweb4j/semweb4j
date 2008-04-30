@@ -7,10 +7,10 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.vocabulary.RDFS;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A <b>JProperty</b> represents a property of a JClass in the JModel.
@@ -29,7 +29,7 @@ public class JProperty extends JMapped {
 	/** magic number representing a value, which is not set */
 	public static final int NOT_SET = -1;
 
-	private static final Log log = LogFactory.getLog(JProperty.class);
+	private static Logger log = LoggerFactory.getLogger(JProperty.class);
 
 	
 	/** the List of ranges of a JProperty */
