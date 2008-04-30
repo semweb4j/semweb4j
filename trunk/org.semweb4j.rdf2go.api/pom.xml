@@ -12,7 +12,8 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
-	<version>4.7-SNAPSHOT</version>
+	<!-- Always use three digits for OSGI compliance -->
+	<version>4.6.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.api</name>
@@ -138,8 +139,7 @@
 							</Bundle-SymbolicName>
 							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
 							-->
-							<!--Bundle-Version>${pom.version}</Bundle-Version-->
-							<Bundle-Version>4.7.0</Bundle-Version>
+							<Bundle-Version>${pom.version}</Bundle-Version>
 							<Bundle-Vendor>
 								FZI Karlsruhe (fzi.de), Max Voelkel
 								(dev@xam.de). OSGi adaptions by Leo
