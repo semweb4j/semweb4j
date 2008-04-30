@@ -16,19 +16,27 @@
 			</release>
 		-->
 
-		<release version="4.6" date="2008-04-16" description="Extension Release">
+		<release version="4.6.1" date="2008-04-30"
+			description="OSGI packaging">
+			<action dev="xamde" type="add">
+				We now generate a correct MANIFEST.MF
+			</action>
+		</release>
+
+		<release version="4.6" date="2008-04-16"
+			description="Extension Release">
 			<action dev="xamde" type="remove">
 				Moved org.ontoware.rdf2go.SparqlUtils to project
 				rdf2go.impl.util in package
-				org.ontoware.rdf2go.util.SparqlUtil.
-				This change breaks binary compatibility with previous versions.
+				org.ontoware.rdf2go.util.SparqlUtil. This change breaks
+				binary compatibility with previous versions.
 			</action>
 			<action dev="xamde" type="update">
 				Changed Model/ModelSet.readFrom(....., URL baseURI) to
-				(...., String baseURI). 
+				(...., String baseURI).
 			</action>
 			<action dev="xamde" type="add">
-				Added Model/ModelSet.addModel( Model/ModelSet ) methods 
+				Added Model/ModelSet.addModel( Model/ModelSet ) methods
 				for better performance.
 			</action>
 			<action dev="xamde" type="add">
