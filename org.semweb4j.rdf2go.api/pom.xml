@@ -1,5 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<!-- 
+	
+              /!\ WARNING /!\
+	
+	Do not ever use Eclipses Format-Sourcecode here. It destroys the formatting of
+	the manifest-entries. They must remain on a single line!
+	
+	 -->
 
 	<parent>
 		<groupId>org.semweb4j</groupId>
@@ -137,28 +145,10 @@
 							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
 							-->
 							<Bundle-Version>${pom.version}</Bundle-Version>
-							<Bundle-Vendor>
-								FZI Karlsruhe (fzi.de), Max Voelkel
-								(dev@xam.de). OSGi adaptions by Leo
-								Sauermann
-							</Bundle-Vendor>
-							<Bundle-Localization>
-								plugin
-							</Bundle-Localization>
-							<Import-Package>
-								org.slf4j,
-								org.osgi.framework;version="1.3.0"
-							</Import-Package>
-							<Export-Package>
-								org.ontoware.aifbcommons.collection,
-								org.ontoware.rdf2go,
-								org.ontoware.rdf2go.exception,
-								org.ontoware.rdf2go.model,
-								org.ontoware.rdf2go.model.node,
-								org.ontoware.rdf2go.model.node.impl,
-								org.ontoware.rdf2go.osgi,
-								org.ontoware.rdf2go.vocabulary
-							</Export-Package>
+							<Bundle-Vendor>FZI Karlsruhe (fzi.de), Max Voelkel	(dev@xam.de). OSGi adaptions by Leo	Sauermann</Bundle-Vendor>
+							<Bundle-Localization>plugin</Bundle-Localization>
+							<Import-Package>org.slf4j, org.osgi.framework;version="1.3.0"</Import-Package>
+							<Export-Package>org.ontoware.aifbcommons.collection, org.ontoware.rdf2go, org.ontoware.rdf2go.exception, org.ontoware.rdf2go.model, org.ontoware.rdf2go.model.node,	org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.osgi, org.ontoware.rdf2go.vocabulary</Export-Package>
 							<Bundle-Activator>org.ontoware.rdf2go.osgi.RDF2GoActivator</Bundle-Activator>
 							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>

@@ -1,6 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+	<!-- 
+	
+              /!\ WARNING /!\
+	
+	Do not ever use Eclipses Format-Sourcecode here. It destroys the formatting of
+	the manifest-entries. They must remain on a single line!
+	
+	 -->
 
 	<parent>
 		<groupId>org.semweb4j</groupId>
