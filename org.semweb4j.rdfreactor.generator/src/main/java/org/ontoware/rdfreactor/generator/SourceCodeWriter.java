@@ -184,11 +184,12 @@ public class SourceCodeWriter {
 			writePackage(jp);
 	}
 
-	private void writeClass(JClass jc, File packageOutdir) throws IOException {
+	private void writeClass(JPackage jp, JClass jc, File packageOutdir) throws IOException {
 		assert template != null;
 		assert jc != null;
 		assert jc.getName() != null;
 		assert jc.getSuperclass() != null;
+		this.velocityContext.put("package", jp);
 		this.velocityContext.put("class", jc);
 		File outfile = new File(packageOutdir, jc.getName() + ".java");
 		log.info("Generating " + outfile.getAbsolutePath());
@@ -211,7 +212,7 @@ public class SourceCodeWriter {
 			throw new RuntimeException(e);
 		}
 		bw.close();
-		// re-enable if a newer versaion of velocity has no longer the
+		// re-enable if a newer version of velocity has no longer the
 		// cache-grow bug
 		// this.velocityContext.remove("class");
 	}
@@ -226,13 +227,12 @@ public class SourceCodeWriter {
 
 		// package
 		assert jp.isConsistent();
-		this.velocityContext.put("package", jp);
 		jp.sortClasses();
 		for (JClass jc : jp.getClasses()) {
 			assert jc != null;
-			writeClass(jc, packageOutdir);
+			writeClass(jp,jc, packageOutdir);
 		}
-		// re-enable if a newer versaion of velocity has no longer the
+		// re-enable if a newer version of velocity has no longer the
 		// cache-grow bug
 		// this.velocityContext.remove("package");
 	}
