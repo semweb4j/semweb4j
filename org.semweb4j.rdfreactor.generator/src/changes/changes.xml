@@ -5,7 +5,34 @@
 	</properties>
 	<body>
 
-		<release version="4.6.0" description="APU Update"
+		<release version="4.6.1" description="Maintenance Release"
+			date="2008-04-16">
+			<action dev="xamde" type="add">
+				Added vocabulary classes for Protege extensions and NRL
+				cardinality
+			</action>
+			<action dev="xamde" type="add">
+				Added support to read Protege and NRL cardinality
+				constraints
+			</action>
+			<action dev="xamde" type="update">
+				Switching some old code from apache.commons.logging to
+				slf4j
+			</action>
+			<action dev="xamde" type="update">
+				Classes are now written out in alphabetical order. That
+				makes it easier to verify the output.
+			</action>
+			<action dev="xamde" type="fix" issue="REAC-27">
+				Now generated classes have a method "static T
+				getInstance( model, resource )"
+			</action>
+			<action dev="xamde" type="update">
+				Switched to Velocity 1.5 for better log handling
+			</action>
+		</release>
+
+		<release version="4.6.0" description="API Update"
 			date="2008-04-16">
 			<action dev="xamde" type="update">
 				Upgraded to RDF2Go 4.6.

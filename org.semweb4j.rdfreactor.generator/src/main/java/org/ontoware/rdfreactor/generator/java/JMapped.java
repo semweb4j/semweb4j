@@ -86,5 +86,10 @@ public class JMapped {
 				// name
 				((JMapped) other).getName().equals(this.getName()));
 	}
+	
+	/** for velocity: return a dot-free version of the name */
+	public String dotfree() {
+		return this.getName().replace(".","_");
+	}
 
 }

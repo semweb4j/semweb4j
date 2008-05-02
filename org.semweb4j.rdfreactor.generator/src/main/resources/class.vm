@@ -4,7 +4,6 @@
 #macro( mixedcase $name )$name.substring(0,1).toUpperCase()$name.substring(1)#end
 #macro( lowercase $name )$name.toLowerCase()#end
 #macro( uppercase $name )$name.toUpperCase()#end
-#macro( dotfree   $name )${name}.getName().replace(".","_")#end
 #macro( comment   $indent $name )#if($name.getComment().lenght > 0)
 ${indent}* Comment from ontology: ${name.getComment()}
 ${indent}*
@@ -208,6 +207,17 @@ public class $class.name extends $class.superclass {
 ##
     ///////////////////////////////////////////////////////////////////
     // typing
+
+	/**
+	 * Return an existing instance of this class in the model. No statements are written.
+	 * @param model an RDF2Go model
+	 * @param instanceResource an RDF2Go resource
+	 * @return an instance of $class.name  or null if none existst
+#debug("class0")	 
+	 */
+	public static $class.name  getInstance(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+		return Base.getInstance(model, instanceResource, ${class.name}.class);
+	}
 
 	/**
 	 * Create a new instance of this class in the model. 

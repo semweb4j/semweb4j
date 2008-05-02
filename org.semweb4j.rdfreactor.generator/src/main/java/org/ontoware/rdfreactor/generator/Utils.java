@@ -14,6 +14,7 @@ import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdfreactor.generator.java.JMapped;
 
 public class Utils {
 
@@ -82,6 +83,22 @@ public class Utils {
 			}
 		}
 		return buf.toString();
+	}
+
+	// replaces #macro( mixedcase $name
+	// )$name.substring(0,1).toUpperCase()$name.substring(1)#end
+	public static String mixedcase(String name) {
+		return name.substring(0, 1).toUpperCase() + name.substring(1);
+	}
+
+	// replaces #macro( comment $indent $name )#if($name.getComment().lenght
+	// > 0)
+	public static String comment(String indent, JMapped jMapped) {
+		if (jMapped.getComment().length() > 0) {
+			return indent + "* Comment from ontology: " + jMapped.getComment()
+					+ "\n" + indent + "*";
+		} else
+			return "";
 	}
 
 }

@@ -1,5 +1,6 @@
 package org.ontoware.rdfreactor.generator;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,10 +33,17 @@ public class SourceCodeWriter {
 
 	private static Logger log = LoggerFactory.getLogger(SourceCodeWriter.class);
 
+	public static String memreport() {
+		return "memory free: " + Runtime.getRuntime().freeMemory() / 1024
+				+ " KB; total: " + Runtime.getRuntime().totalMemory() / 1024
+				+ " KB; max: " + Runtime.getRuntime().maxMemory() / 1024
+				+ " KB";
+	}
+
 	/**
 	 * Writes model 'jm' to 'outdir' creating sub-directories for packages as
-	 * needed. Uses the default template. Prefixes all methods with 'prefix', e.g.
-	 * with prefix="Sioc" one gets "getSiocName"
+	 * needed. Uses the default template. Prefixes all methods with 'prefix',
+	 * e.g. with prefix="Sioc" one gets "getSiocName"
 	 * 
 	 * @param jm
 	 * @param outdir
@@ -61,15 +69,21 @@ public class SourceCodeWriter {
 	 */
 	public static void write(JModel jm, File outdir, String templateName,
 			String methodnamePrefix) throws IOException {
+		assert templateName != null;
 
 		log.info("Adding inverse properties");
 		jm.addInverseProperties();
-		
-		assert jm.isConsistent() : "java package is not consistent";
-		// log.info("JModel model: \n" + jm.toString());
 
-		System.out.println(jm.toString() + "\n>>>>>>  written to "
-				+ outdir.getAbsolutePath());
+		assert jm.isConsistent() : "java package is not consistent";
+
+		outdir.mkdirs();
+		File modelFile = new File(outdir, "rdfreactor.model.log");
+		FileWriter fw = new FileWriter(modelFile);
+		fw.write(jm.toString());
+		fw.close();
+		log
+				.info("Wrote RDFReactors interpretation of the ontology into a readable textfile at "
+						+ modelFile.getAbsolutePath());
 
 		// //////////////
 		// template
@@ -77,40 +91,81 @@ public class SourceCodeWriter {
 		log.info("prepare for writing " + jm.getPackages().size()
 				+ " packages using template " + templateName);
 
-		VelocityEngine ve = new VelocityEngine();
-		VelocityContext context = new VelocityContext();
+		Calendar now = Calendar.getInstance();
+		SourceCodeWriter sourceCodeWriter = new SourceCodeWriter(jm,
+				methodnamePrefix, now, templateName, outdir);
+		sourceCodeWriter.initEngine();
+		sourceCodeWriter.initTemplate();
+		sourceCodeWriter.initContext();
+		sourceCodeWriter.writeModel();
+	}
 
-		// http://jakarta.apache.org/velocity/docs/api/org/apache/velocity/runtime/resource/loader/ClasspathResourceLoader.html
-		// Properties velocityProperties = new Properties();
-		// velocityProperties.put("resource.loader", "class,classpath");
-		// velocityProperties
-		// .put("class.resource.loader.class",
-		// "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+	private JModel jm;
+
+	private String methodnamePrefix;
+
+	private Calendar now;
+
+	private File outdir;
+
+	private Template template;
+
+	private String templateName;
+
+	private VelocityContext velocityContext = null;
+
+	private VelocityEngine velocityEngine = null;
+
+	public SourceCodeWriter(JModel jm, String methodnamePrefix, Calendar now,
+			String templateName, File outdir) {
+		this.jm = jm;
+		this.methodnamePrefix = methodnamePrefix;
+		this.now = now;
+		this.templateName = templateName;
+		this.outdir = outdir;
+	}
+
+	private void initContext() {
+		this.velocityContext = new VelocityContext();
+		this.velocityContext.put("methodnameprefix", this.methodnamePrefix);
+		// for debug
+		this.velocityContext.put("now", SimpleDateFormat.getInstance().format(
+				this.now.getTime()));
+		this.velocityContext.put("root", this.jm.getRoot());
+		this.velocityContext.put("generatorVersion",
+				CodeGenerator.GENERATOR_VERSION);
+		this.velocityContext.put("utils", new Utils());
+
+	}
+
+	private void initEngine() {
+		this.velocityEngine = new VelocityEngine();
+		log.debug("Free memory: " + Runtime.getRuntime().freeMemory());
 
 		try {
-			ve.setProperty("resource.loader", "class");
-			ve
+			velocityEngine.setProperty("resource.loader", "class");
+			velocityEngine
 					.setProperty("class.resource.loader.class",
 							"org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
 			// see http://minaret.biz/tips/tomcatLogging.html
-			ve.setProperty("runtime.log.logsystem.class",
+			velocityEngine.setProperty("runtime.log.logsystem.class",
 					"org.apache.velocity.runtime.log.SimpleLog4JLogSystem");
 
-			ve.init();
+			velocityEngine.init();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		assert templateName != null;
+	}
 
-		if (!ve.templateExists(templateName))
+	private void initTemplate() {
+		if (!this.velocityEngine.resourceExists(templateName))
 			throw new RuntimeException("template " + templateName
 					+ " does not exist with resource loader "
 					+ Velocity.RESOURCE_LOADER);
 
-		Template template;
 		try {
-			template = ve.getTemplate(templateName);
+			this.template = this.velocityEngine.getTemplate(templateName);
 		} catch (ResourceNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (ParseErrorException e) {
@@ -118,51 +173,36 @@ public class SourceCodeWriter {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		assert template != null;
+		assert this.template != null;
 
-		context.put("methodnameprefix", methodnamePrefix);
-		// for debug 
-		Calendar c = Calendar.getInstance();
-		context.put("now", SimpleDateFormat.getInstance().format(c.getTime()));
-		context.put("root", jm.getRoot());
-		context.put("generatorVersion", CodeGenerator.GENERATOR_VERSION);
+		log.debug("Initialised template. Free memory: "
+				+ Runtime.getRuntime().freeMemory());
+	}
 
+	private void writeModel() throws IOException {
 		for (JPackage jp : jm.getPackages())
-			write(context, jp, outdir, template);
+			writePackage(jp);
 	}
 
-	private static void write(VelocityContext context, JPackage jp,
-			File outdir, Template template) throws IOException {
-		log.info("prepare for writing " + jp.getClasses().size() + " classes");
-		File packageOutdir = new File(outdir, jp.getName().replaceAll("\\.",
-				"\\/"));
-		log.info("Out dir      " + packageOutdir.getAbsolutePath());
-		if (!packageOutdir.exists())
-			packageOutdir.mkdirs();
-
-		// package
-		assert jp.isConsistent();
-		context.put("package", jp);
-		jp.sortClasses();
-		for (JClass jc : jp.getClasses()) {
-			assert jc != null;
-			write(jc, packageOutdir, context, template);
-		}
-	}
-
-	private static void write(JClass jc, File outdir, VelocityContext context,
-			Template template) throws IOException {
-
+	private void writeClass(JClass jc, File packageOutdir) throws IOException {
 		assert template != null;
 		assert jc != null;
 		assert jc.getName() != null;
 		assert jc.getSuperclass() != null;
-		context.put("class", jc);
-		String outfile = outdir + "/" + jc.getName() + ".java";
-		log.debug("writing file " + outfile);
+		this.velocityContext.put("class", jc);
+		File outfile = new File(packageOutdir, jc.getName() + ".java");
+		log.info("Generating " + outfile.getAbsolutePath());
 		FileWriter fw = new FileWriter(outfile);
+		BufferedWriter bw = new BufferedWriter(fw);
+
 		try {
-			template.merge(context, fw);
+			log.debug("Before template merge.    " + memreport());
+			template.merge(this.velocityContext, bw);
+			log.debug("After template merge.     " + memreport());
+			// context has to be re-initialised every time to work around an
+			// ever-growing cache in velocity
+			initContext();
+			log.debug("After context re-init     " + memreport());
 		} catch (ResourceNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (ParseErrorException e) {
@@ -172,6 +212,30 @@ public class SourceCodeWriter {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		fw.close();
+		bw.close();
+		// re-enable if a newer versaion of velocity has no longer the
+		// cache-grow bug
+		// this.velocityContext.remove("class");
+	}
+
+	private void writePackage(JPackage jp) throws IOException {
+		log.info("prepare for writing " + jp.getClasses().size() + " classes");
+		File packageOutdir = new File(this.outdir, jp.getName().replaceAll(
+				"\\.", "\\/"));
+		log.info("Out dir      " + packageOutdir.getAbsolutePath());
+		if (!packageOutdir.exists())
+			packageOutdir.mkdirs();
+
+		// package
+		assert jp.isConsistent();
+		this.velocityContext.put("package", jp);
+		jp.sortClasses();
+		for (JClass jc : jp.getClasses()) {
+			assert jc != null;
+			writeClass(jc, packageOutdir);
+		}
+		// re-enable if a newer versaion of velocity has no longer the
+		// cache-grow bug
+		// this.velocityContext.remove("package");
 	}
 }

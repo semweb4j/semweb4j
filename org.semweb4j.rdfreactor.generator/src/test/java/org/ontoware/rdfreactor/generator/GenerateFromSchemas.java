@@ -2,13 +2,16 @@ package org.ontoware.rdfreactor.generator;
 
 import java.io.File;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 public class GenerateFromSchemas {
 
-	private static Log log = LogFactory.getLog(CodeGenerator.class);
-
+	private static Logger log = LoggerFactory
+			.getLogger(GenerateFromSchemas.class);
+	
 	public static final String outdir = "./target/test-gen";
 	
 	public static void main(String[] args) throws Exception {
