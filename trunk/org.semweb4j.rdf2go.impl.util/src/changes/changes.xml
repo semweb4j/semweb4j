@@ -6,6 +6,16 @@
 	</properties>
 	<body>
 
+		<release version="4.6.1" date="2008-05-02"
+			description="Maintenance Release">
+			<action dev="xamde" type="update">
+				Made OSGI-version number dynamic
+			</action>
+			<action dev="xamde" type="remove">
+				Remove OSGI-dependency to rdf2go.impl.sesame20
+			</action>
+		</release>
+
 		<release version="4.6.1" date="2008-04-30"
 			description="Maintenance Release">
 			<action dev="xamde" type="fix">
