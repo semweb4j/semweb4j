@@ -1,6 +1,7 @@
 package org.ontoware.rdfreactor.generator;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.model.Model;
@@ -130,14 +131,15 @@ public class CodeGenerator {
 
 		Reasoning reasoning;
 
-		if (semantics.equalsIgnoreCase(SEMANTICS_RDFS))
+		if (semantics.equalsIgnoreCase(SEMANTICS_RDFS)) {
 			reasoning = Reasoning.rdfs;
-		else if (semantics.equalsIgnoreCase(SEMANTICS_OWL))
+		} else if (semantics.equalsIgnoreCase(SEMANTICS_OWL)) {
 			reasoning = Reasoning.owl;
-		else if (semantics.equalsIgnoreCase(SEMANTICS_RDFS_AND_OWL))
+		} else if (semantics.equalsIgnoreCase(SEMANTICS_RDFS_AND_OWL)) {
 			reasoning = Reasoning.rdfsAndOwl;
-		else
+		} else {
 			throw new RuntimeException("Unknown semantics: '" + semantics + "'");
+		}
 
 		generate(schemafilename, outdir, packagename, reasoning, skipbuiltins,
 				methodnamePrefix);
@@ -175,12 +177,13 @@ public class CodeGenerator {
 	 * @param semantics
 	 * @param skipbuiltins
 	 * @param methodnamePrefix
+	 * @throws IOException 
 	 * @throws Exception
 	 */
 	public static void generate(Model modelWithSchemaData, File outDir,
 			String packagename, Reasoning semantics, boolean skipbuiltins,
-			String methodnamePrefix)
-			throws Exception {
+			String methodnamePrefix) throws IOException
+			 {
 
 		log.info("using semantics: " + semantics);
 		// different semantics mean different ways to create the internal model
@@ -203,13 +206,13 @@ public class CodeGenerator {
 					+ outDir.getAbsolutePath() + " ...");
 			jm = ModelGenerator.createFromRDFS_AND_OWL(modelWithSchemaData,
 					packagename, skipbuiltins);
-		} else
+		} else {
 			throw new RuntimeException("Can't handle the semantics of '"
 					+ semantics + "'");
+		}
 
 		// close schema model
 		modelWithSchemaData.close();
-		modelWithSchemaData = null;
 		
 		// third and final step
 		log.info("write using sourceCodeWriter");

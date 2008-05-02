@@ -122,18 +122,20 @@ public class JavaNamingUtils {
 
 		String rawname;
 		if (uri != null) {
-			if (getLocalPart(uri.toString()) != null)
+			if (getLocalPart(uri.toString()) != null) {
 				rawname = getLocalPart(uri.toString());
-			else
+			} else {
 				rawname = uri.toString();
+			}
 		} else {
 			// generate name! only needed for blank nodes
 			rawname = "genBean" + System.currentTimeMillis();
 		}
 
 		// remove preceeding 'has'
-		if (rawname.toLowerCase().startsWith("has") && rawname.length() > 3)
+		if (rawname.toLowerCase().startsWith("has") && rawname.length() > 3) {
 			rawname = rawname.substring(3);
+		}
 
 		// make rawname bean-style
 		String beanname = toLegalJavaIdentifier(rawname);
@@ -145,11 +147,12 @@ public class JavaNamingUtils {
 			String namespacePrefix = guessNSPrefix(uri.toString());
 			String prefixedBeanName = toLegalJavaIdentifier(namespacePrefix
 					+ beanname);
-			if (usedNames.contains(prefixedBeanName))
+			if (usedNames.contains(prefixedBeanName)) {
 				// fallback to plain uri
 				beanname = toLegalJavaIdentifier(uri.toString());
-			else
+			} else {
 				beanname = prefixedBeanName;
+			}
 		}
 
 		return beanname;

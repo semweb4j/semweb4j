@@ -46,7 +46,7 @@ public class Utils {
 	 *            de-anonymise this model
 	 * @throws Exception
 	 */
-	public static void deanonymize(Model m) throws Exception {
+	public static void deanonymize(Model m) {
 		Iterator<Statement> it = m.iterator();
 		long counter = 0;
 		Map<BlankNode, URI> replacement = new HashMap<BlankNode, URI>();

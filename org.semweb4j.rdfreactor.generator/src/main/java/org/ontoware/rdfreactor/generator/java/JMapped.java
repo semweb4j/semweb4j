@@ -91,5 +91,9 @@ public class JMapped {
 	public String dotfree() {
 		return this.getName().replace(".","_");
 	}
+	
+	public int hashCode() {
+		return super.hashCode();
+	}
 
 }

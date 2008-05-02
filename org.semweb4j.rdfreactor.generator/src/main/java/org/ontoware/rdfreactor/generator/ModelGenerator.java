@@ -38,7 +38,7 @@ public class ModelGenerator {
 	private static Logger log = LoggerFactory.getLogger(ModelGenerator.class);
 
 	public static JModel createFromRDFS_Schema(Model modelWithSchemaData,
-			String packagename, boolean skipbuiltins) throws Exception {
+			String packagename, boolean skipbuiltins) {
 
 		log.info("Input model has " + modelWithSchemaData.size() + " triples");
 
@@ -183,7 +183,7 @@ public class ModelGenerator {
 	 * @throws Exception
 	 */
 	public static JModel createFromRDFS_AND_OWL(Model schemaDataModel,
-			String packagename, boolean skipbuiltins) throws Exception {
+			String packagename, boolean skipbuiltins) {
 		log.info("Initialising JModel");
 		JModel jm = Semantics.getbuiltIns_RDFS();
 
@@ -286,7 +286,7 @@ public class ModelGenerator {
 	}
 
 	public static JModel createFromOWL(Model schemaDataModel,
-			String packagename, boolean skipbuiltins) throws Exception {
+			String packagename, boolean skipbuiltins) {
 		// DIGReasonerFactory drf = (DIGReasonerFactory) ReasonerRegistry
 		// .theRegistry().getFactory(DIGReasonerFactory.URI);
 		// DIGReasoner r = (DIGReasoner) drf.createWithOWLAxioms(null);
