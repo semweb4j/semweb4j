@@ -1,0 +1,227 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 
+	
+              /!\ WARNING /!\
+	
+	Do not ever use Eclipses Format-Sourcecode here. It destroys the formatting of
+	the manifest-entries. They must remain on a single line!
+	
+	 -->
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.15.3</version>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.api</artifactId>
+	<!-- Always use three digits for OSGI compliance -->
+	<version>4.6.2</version>
+	<packaging>jar</packaging>
+
+	<name>rdf2go.api</name>
+
+	<description>
+		RDF2go is an implementation-independent Java API with the design
+		goals: portability (hence the name), performance and ease of
+		implementation.
+	</description>
+	<url>http://semweb4j.org/rdf2go</url>
+	<inceptionYear>2005</inceptionYear>
+
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>dev@xam.de</email>
+			<url>http://xam.de</url>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/sebastian_gerke/
+			</url>
+		</developer>
+		<developer>
+			<name>Benjamin Heitmann</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/benjamin_heitmann/
+			</url>
+		</developer>
+		<developer>
+			<id>wth</id>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>POM Manager</role>
+				<role>Documentation Doctor</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Leo Sauermann</name>
+			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
+		</contributor>
+		<contributor>
+			<name>Antoni Mylka</name>
+		</contributor>
+	</contributors>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://issues.semweb4j.org/browse/RTGO</url>
+	</issueManagement>
+
+	<properties>
+		<!--  user access, no trailing slash -->
+		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
+		<!--  developer access, no trailing slash -->
+		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
+		<svn.name>${groupId}.${artifactId}</svn.name>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.0-beta-3</version>
+				<configuration>
+					<issueLinkTemplate>
+						%URL%/../%ISSUE%
+					</issueLinkTemplate>
+				</configuration>
+			</plugin>
+
+			<!-- add OSGI specific metadata to the manifest 
+				how to do this?
+				http://maven.apache.org/guides/mini/guide-manifest.html
+				there may be a MVN-OSGi conformant way, but unless MVN completly integrates with OSGi
+				and the dependencies declared in maven map directly to OSGi dependencies,
+				I would not touch this further, and just fiddle with the options.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<!--
+							<index>true</true>
+						-->
+						<manifestEntries>
+							<Bundle-ManifestVersion>
+								2
+							</Bundle-ManifestVersion>
+							<Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name>
+							<Bundle-SymbolicName>
+								${pom.groupId}.${pom.artifactId}
+							</Bundle-SymbolicName>
+							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
+							-->
+							<Bundle-Version>${pom.version}</Bundle-Version>
+							<Bundle-Vendor>FZI Karlsruhe (fzi.de), Max Voelkel	(dev@xam.de). OSGi adaptions by Leo	Sauermann</Bundle-Vendor>
+							<Bundle-Localization>plugin</Bundle-Localization>
+							<Import-Package>org.slf4j, org.osgi.framework;version="1.3.0"</Import-Package>
+							<Export-Package>org.ontoware.aifbcommons.collection, org.ontoware.rdf2go, org.ontoware.rdf2go.exception, org.ontoware.rdf2go.model, org.ontoware.rdf2go.model.node,	org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.osgi, org.ontoware.rdf2go.vocabulary</Export-Package>
+							<Bundle-Activator>org.ontoware.rdf2go.osgi.RDF2GoActivator</Bundle-Activator>
+							<Eclipse-LazyStart>true</Eclipse-LazyStart>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- OSGi -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>osgi</artifactId>
+			<version>3.2.1.R32</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- testing dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<!-- to define where to put the site for this bundle -->
+	<distributionManagement>
+		<site>
+			<id>theoretiker-site</id>
+			<name>RDFReactor site</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>
+				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.api
+			</url>
+		</site>
+	</distributionManagement>
+
+	<!-- to find the parent -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.6.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.api-4.6.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.api-4.6.2</url>
+  </scm>
+</project>
