@@ -80,11 +80,11 @@ public class TestReportedBugs {
 	// }
 
 	@Test
-	public void helpMarco() throws Exception {
+	public void testGenerateNepomukUnifiedOntology() throws Exception {
 		CodeGenerator
 				.generate(
 						"./src/test/resources/unified_nepomuk_ontologies_merged.rdfs",
-						"./src/test_generated",
+						"./src/test_gen",
 						"org.semanticdesktop.nepomuk.comp.rdfsbeans.rdfreactor",
 						Reasoning.rdfs, true);
 	}
