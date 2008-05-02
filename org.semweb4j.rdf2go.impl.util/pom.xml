@@ -17,6 +17,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.util</artifactId>
+	<!--  this must be a three-digit number for OSGI -->
 	<version>4.6.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -93,30 +94,15 @@
 							<index>true</true>
 						-->
 						<manifestEntries>
-							<Bundle-ManifestVersion>
-								2
-							</Bundle-ManifestVersion>
+							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
 							<Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name>
-							<Bundle-SymbolicName>
-								${pom.groupId}.${pom.artifactId}
-							</Bundle-SymbolicName>
-							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
-							-->
-							<!--Bundle-Version>${pom.version}</Bundle-Version-->
-							<Bundle-Version>4.7.0</Bundle-Version>
-							<Bundle-Vendor>
-								${pom.organization.name}
-							</Bundle-Vendor>
-							<Bundle-Localization>
-								plugin
-							</Bundle-Localization>
-							<Require-Bundle>org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.base, org.semweb4j.rdf2go.impl.sesame20</Require-Bundle>
-							<Import-Package>
-								org.slf4j
-							</Import-Package>
-							<Export-Package>
-								org.ontoware.rdf2go.util, org.ontoware.rdf2go.util.transform
-							</Export-Package>
+							<Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
+							<Bundle-Version>${pom.version}</Bundle-Version>
+							<Bundle-Vendor>${pom.organization.name}</Bundle-Vendor>
+							<Bundle-Localization>plugin</Bundle-Localization>
+							<Require-Bundle>org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.base</Require-Bundle>
+							<Import-Package>org.slf4j</Import-Package>
+							<Export-Package>org.ontoware.rdf2go.util, org.ontoware.rdf2go.util.transform</Export-Package>
 							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
