@@ -203,9 +203,8 @@ public class JProperty extends JMapped {
 					maximallyNested.add(type);
 				} else if (currentDepth == maxDepth) {
 					maximallyNested.add(type);
-				} else {
-					// nothing to do
-				}
+				} 
+				// else nothing to do
 			}
 
 			// sort lexicographically

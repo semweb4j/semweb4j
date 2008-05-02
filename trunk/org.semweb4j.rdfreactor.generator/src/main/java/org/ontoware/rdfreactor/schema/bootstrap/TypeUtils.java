@@ -50,8 +50,7 @@ public class TypeUtils {
 	 */
 	public static org.ontoware.rdfreactor.schema.bootstrap.OwlClass[] getAllRealSuperclasses( 
 			org.ontoware.rdfreactor.schema.bootstrap.OwlClass owlclass,
-			Set<org.ontoware.rdfreactor.schema.bootstrap.OwlClass> wanted)
-			throws Exception {
+			Set<org.ontoware.rdfreactor.schema.bootstrap.OwlClass> wanted) {
 		java.util.List<org.ontoware.rdfreactor.schema.bootstrap.OwlClass> real = new ArrayList<org.ontoware.rdfreactor.schema.bootstrap.OwlClass>();
 		for (org.ontoware.rdfreactor.schema.bootstrap.OwlClass c : owlclass.getAllSubClassOf_asList()) {
 			if (c.isInstanceof(OWL.Restriction)) {

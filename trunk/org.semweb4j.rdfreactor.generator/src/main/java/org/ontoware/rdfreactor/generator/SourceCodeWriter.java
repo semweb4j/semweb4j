@@ -209,8 +209,6 @@ public class SourceCodeWriter {
 			throw new RuntimeException(e);
 		} catch (MethodInvocationException e) {
 			throw new RuntimeException(e);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		}
 		bw.close();
 		// re-enable if a newer versaion of velocity has no longer the
