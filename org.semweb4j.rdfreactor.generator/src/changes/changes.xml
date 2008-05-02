@@ -30,6 +30,12 @@
 			<action dev="xamde" type="update">
 				Switched to Velocity 1.5 for better log handling
 			</action>
+			<action dev="xamde" type="update">
+				Worked around memory consumption of Velocity by
+				re-initialising the context for each generated class.
+				This reduced maximal memory consumption from 1.5 GB down
+				to 250 MB for our largest test ontologies.
+			</action>
 		</release>
 
 		<release version="4.6.0" description="API Update"
