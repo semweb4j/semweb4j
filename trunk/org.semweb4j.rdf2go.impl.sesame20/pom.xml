@@ -19,7 +19,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame20</artifactId>
 	<!--  this must be a three-digit number for OSGI MANIFEST -->
-	<version>4.6.2-SNAPSHOT</version>
+	<version>4.6.2</version>
 	<packaging>jar</packaging>
 	<name>rdf2go.impl.sesame20</name>
 	<description>
@@ -346,8 +346,8 @@ If present, DEBUG logging is compiled away
 	</distributionManagement>
 
   <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.impl.sesame20-4.6.1</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.sesame20-4.6.1</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.impl.sesame20-4.6.1</url>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.impl.sesame20-4.6.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.impl.sesame20-4.6.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.impl.sesame20-4.6.2</url>
   </scm>
 </project>
