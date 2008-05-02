@@ -18,7 +18,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base</artifactId>
 	<!--  always use three digits for OSGI compliance -->
-	<version>4.6.3-SNAPSHOT</version>
+	<version>4.6.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.impl.base</name>
@@ -154,7 +154,7 @@
 							<Bundle-Localization>
 								plugin
 							</Bundle-Localization>
-							<Require-Bundle>org.semweb4j.rdf2go.api</Require-Bundle>
+							<Require-Bundle>org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.util;visibility:=reexport</Require-Bundle>
 							<Import-Package>
 								org.slf4j
 							</Import-Package>

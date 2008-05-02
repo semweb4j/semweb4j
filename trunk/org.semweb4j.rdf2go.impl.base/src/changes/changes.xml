@@ -8,8 +8,11 @@
 
 		<release version="4.6.2" date="2008-05-02"
 			description="OSGI packaging">
-			<action dev="xamde" type="update">
-				We *now* generate a correct MANIFEST.MF
+			<action dev="xamde" type="add">
+				Added "Require-Bundle:
+				org.semweb4j.rdf2go.impl.util;visibility:=reexport" to
+				MANIFEST to shield NEPOMUK users from project split
+				(impl.base + impl.util)
 			</action>
 		</release>
 
