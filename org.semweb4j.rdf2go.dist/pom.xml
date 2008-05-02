@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.dist</artifactId>
-	<version>4.6.3-SNAPSHOT</version>
+	<version>4.6.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDF2Go distribution</name>
@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.sesame20</artifactId>
-			<version>4.6.1</version>
+			<version>4.6.2</version>
 		</dependency>
 
 		<dependency>
