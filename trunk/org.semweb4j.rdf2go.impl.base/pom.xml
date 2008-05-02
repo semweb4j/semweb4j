@@ -153,6 +153,7 @@
 							<Export-Package>
 								org.ontoware.rdf2go.impl, org.ontoware.rdf2go.model.impl, org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.model.persistent
 							</Export-Package>
+							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
 				</configuration>
