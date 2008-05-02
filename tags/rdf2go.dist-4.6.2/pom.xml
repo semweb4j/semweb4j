@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.15.3</version>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>rdf2go.dist</artifactId>
+	<version>4.6.2</version>
+	<packaging>pom</packaging>
+
+	<name>Semweb4j RDF2Go distribution</name>
+	<url>http://www.semweb4j.org/rdf2go</url>
+	<inceptionYear>2005</inceptionYear>
+	<description>
+		This project simply bundles all RDF2Go parts in a single
+		distribution - by listing all other parts as dependencies.
+
+		This includes all transitive dependencies too.
+	</description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base</artifactId>
+			<version>4.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.base.test</artifactId>
+			<version>4.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.sesame20</artifactId>
+			<version>4.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.jena24</artifactId>
+			<version>4.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.util</artifactId>
+			<version>4.6.1</version>
+		</dependency>
+
+		<!-- 
+			<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.layer.autopersist</artifactId>
+			<version>4.5.0-SNAPSHOT</version>
+			</dependency>
+		-->
+
+	</dependencies>
+
+	<!-- create a distribution -->
+	<build>
+		<plugins>
+			<!-- builds a zip release that contains all dependency libraries 
+				they are copied after compile is executed -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<finalName>
+								dist/${project.artifactId}-${version}
+							</finalName>
+							<descriptors>
+								<descriptor>
+									${basedir}/src/assembly/lib.xml
+								</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<configuration>
+					<outputDirectory>
+						${basedir}/target/jars
+					</outputDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<outputDirectory>
+						${basedir}/target/jars
+					</outputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- to find the parent -->
+	<repositories>
+		<repository>
+			<id>theoretiker-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdf2go.dist-4.6.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdf2go.dist-4.6.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdf2go.dist-4.6.2</url>
+  </scm>
+</project>
