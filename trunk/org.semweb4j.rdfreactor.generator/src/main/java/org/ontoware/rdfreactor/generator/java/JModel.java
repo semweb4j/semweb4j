@@ -56,11 +56,9 @@ public class JModel {
 	private List<JPackage> packages;
 
 	/**
-	 * a Map of Java Objects to the JClass representing them in the JModel TODO:
-	 * make private
+	 * a Map of Java Objects to the JClass representing them in the JModel 
 	 */
-	// FIXME -> private
-	public Map<Resource, JClass> classMap;
+	private Map<Resource, JClass> classMap;
 
 	public Set<URI> knownProperties;
 	
@@ -216,6 +214,7 @@ public class JModel {
 						jprop.setInverse(inverse);
 						inverse.setInverse(jprop);
 					}
+					assert jprop.getInverse() != null;
 					inverse = jprop.getInverse();
 
 					for (JClass type : jprop.getTypes()) {
@@ -279,6 +278,10 @@ public class JModel {
 	 */
 	public void setRoot(JClass root) {
 		this.root = root;
+	}
+	
+	public boolean containsJClass( JClass jclass ) {
+		return this.classMap.containsValue(jclass);
 	}
 
 	// TODO: implement equals() ?

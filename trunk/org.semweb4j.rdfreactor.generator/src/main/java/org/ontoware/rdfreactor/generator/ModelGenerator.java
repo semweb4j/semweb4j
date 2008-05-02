@@ -64,13 +64,6 @@ public class ModelGenerator {
 		log.debug("de-anonymizing (replacing bnodes with random uris");
 		Utils.deanonymize(m);
 
-		// FIXME
-		ClosableIterator<org.ontoware.rdf2go.model.node.Resource> iit = Class
-				.getAllInstancesAsRdf2GoResources(m);
-		while (iit.hasNext()) {
-			System.out.println(iit.next());
-		}
-
 		// analysis (triggers also inferencing)
 		List<? extends Class> rdfclasses = Class.getAllInstance_as(m).asList();
 		log.info("Got " + rdfclasses.size() + " rdfs:Classes");
@@ -160,8 +153,7 @@ public class ModelGenerator {
 								+ rp.getAllDomain_asList().get(0).getResource();
 
 						// domainclass might be a built-in, redirect to root
-						if (Semantics.getbuiltIns_RDFS().classMap
-								.containsValue(domainClass)) {
+						if (Semantics.getbuiltIns_RDFS().containsJClass(domainClass)) {
 							log
 									.info("domain "
 											+ domainClass
@@ -176,6 +168,8 @@ public class ModelGenerator {
 			}
 
 		}
+		m.close();
+		m = null;
 		return jm;
 	}
 
@@ -287,6 +281,7 @@ public class ModelGenerator {
 				}
 			}
 		}
+		m.close();
 		return jm;
 	}
 
@@ -482,6 +477,7 @@ public class ModelGenerator {
 		// jp.getClasses().remove(jc);
 		// }
 		// }
+		m.close();
 		return jm;
 	}
 

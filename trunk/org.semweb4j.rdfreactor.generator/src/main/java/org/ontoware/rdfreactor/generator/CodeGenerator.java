@@ -120,6 +120,7 @@ public class CodeGenerator {
 
 		generate(schemaDataModel, outDir, packagename, semantics, skipbuiltins,
 				methodnamePrefix);
+		schemaDataModel.close();
 	}
 
 	public static void generate(String schemafilename, String outdir,
@@ -206,6 +207,10 @@ public class CodeGenerator {
 			throw new RuntimeException("Can't handle the semantics of '"
 					+ semantics + "'");
 
+		// close schema model
+		modelWithSchemaData.close();
+		modelWithSchemaData = null;
+		
 		// third and final step
 		log.info("write using sourceCodeWriter");
 		SourceCodeWriter.write(jm, outDir, SourceCodeWriter.TEMPLATE_CLASS,

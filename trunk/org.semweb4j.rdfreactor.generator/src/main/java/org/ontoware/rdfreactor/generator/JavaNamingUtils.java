@@ -74,7 +74,7 @@ public class JavaNamingUtils {
 		// make rawname bean-style
 		// remove all spaces/underlines and concatenate the result
 		String beanname = illegal;
-		// FIXME dirty hack
+
 		beanname = beanname.replaceAll("is ", "");
 		beanname = beanname.replaceAll("has ", "");
 		beanname = beanname.replaceAll("is_", "");

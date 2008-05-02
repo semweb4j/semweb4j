@@ -63,8 +63,9 @@ public class JClass extends JMapped implements Comparable<JClass> {
 	public boolean cardinalityexception = false;
 
 	/**
-	 * property names need only to be unique within a class FIXME and in all
-	 * super-classes of that class
+	 * property names need only to be unique within a class 
+	 * 
+	 * FIXME and in all super-classes of that class
 	 * 
 	 * @return all property names that have been used in this class or a
 	 *         super-class
