@@ -160,6 +160,7 @@
 								org.ontoware.rdf2go.vocabulary
 							</Export-Package>
 							<Bundle-Activator>org.ontoware.rdf2go.osgi.RDF2GoActivator</Bundle-Activator>
+							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
 				</configuration>
