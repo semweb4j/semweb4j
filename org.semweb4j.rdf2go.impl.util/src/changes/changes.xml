@@ -6,6 +6,12 @@
 	</properties>
 	<body>
 
+		<release version="4.6.2" date="2008-05-02"
+			description="OSGI packaging">
+			<action dev="xamde" type="update">
+				We *now* generate a correct MANIFEST.MF
+			</action>
+		</release>
 
 		<release version="4.6.1" date="2008-04-30"
 			description="Maintenance Release">
