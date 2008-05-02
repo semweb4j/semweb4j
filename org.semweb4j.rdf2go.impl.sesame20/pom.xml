@@ -19,7 +19,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame20</artifactId>
 	<!--  this must be a three-digit number for OSGI MANIFEST -->
-	<version>4.6.3-SNAPSHOT</version>
+	<version>4.6.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>rdf2go.impl.sesame20</name>
 	<description>
