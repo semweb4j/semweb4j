@@ -109,6 +109,7 @@
 							<Export-Package>
 								org.ontoware.rdf2go.util, org.ontoware.rdf2go.util.transform
 							</Export-Package>
+							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
 				</configuration>
