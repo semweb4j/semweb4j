@@ -16,6 +16,14 @@
 			</release>
 		-->
 
+		<release version="4.6.2" date="2008-05-02">
+			<action dev="xamde" type="update">
+				Change bundleName and bundleSymbolicName in MANIFEST
+				back to "org.openrdf.rdf2go" for backwards compatibility
+				with NEPOMUK project
+			</action>
+		</release>
+
 		<release version="4.6.1" date="2008-04-30">
 			<action dev="xamde" type="update">
 				Renamed to groupId 'org.semweb4j' and artifactId

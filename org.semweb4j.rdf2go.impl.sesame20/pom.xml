@@ -219,10 +219,12 @@ If present, DEBUG logging is compiled away
 							<Bundle-ManifestVersion>
 								2
 							</Bundle-ManifestVersion>
-							<Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name>
-							<Bundle-SymbolicName>
-								${pom.groupId}.${pom.artifactId}
-							</Bundle-SymbolicName>
+							<!--  for downward compatibility with NEPOMUK we keep the old symbolic name -->
+							<!--  <Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name> -->
+							<!-- <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}	</Bundle-SymbolicName> -->
+							<Bundle-Name>org.openrdf.rdf2go</Bundle-Name>
+							<Bundle-SymbolicName>org.openrdf.rdf2go</Bundle-SymbolicName>
+
 							<!-- NOTE: the Maven naming does NOT work because in OSGi, the versioning has to be [num].[num].[num].[alphanum]
 							-->
 							<!--Bundle-Version>${pom.version}</Bundle-Version-->
