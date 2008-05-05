@@ -16,12 +16,8 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.URI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class URIImpl extends ResourceImpl implements URI {
-
-	private static final Logger log = LoggerFactory.getLogger(URIImpl.class);
 
 	private String uriString;
 
@@ -87,24 +83,12 @@ public class URIImpl extends ResourceImpl implements URI {
 	}
 
 	public boolean equals(Object other) {
-
 		if (other == null)
 			return false;
-		
-		log.debug("comparing for equal: " + this + " and " + other
-				+ " of type " + other.getClass());
-
 		if (other instanceof URI) {
 			boolean equal = ((URI) other).toString().equals(this.toString());
-
-			log.debug("they are equal? " + equal);
-
 			return equal;
-		} else
-			log.debug("URIImpl cannot compare with type " + other.getClass()
-					+ " so this is false");
-
-		return false;
+		} else return false;
 	}
 
 	public java.net.URI toJavaURI() throws URISyntaxException {
