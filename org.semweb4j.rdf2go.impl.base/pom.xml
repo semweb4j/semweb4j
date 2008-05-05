@@ -140,27 +140,16 @@
 							<index>true</true>
 						-->
 						<manifestEntries>
-							<Bundle-ManifestVersion>
-								2
-							</Bundle-ManifestVersion>
+							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
 							<Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name>
-							<Bundle-SymbolicName>
-								${pom.groupId}.${pom.artifactId}
-							</Bundle-SymbolicName>
+							<Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
 							<Bundle-Version>${pom.version}</Bundle-Version>
-							<Bundle-Vendor>
-								Max Voelkel FZI, OSGi config by Leo Sauermann DFKI
-							</Bundle-Vendor>
-							<Bundle-Localization>
-								plugin
-							</Bundle-Localization>
-							<Require-Bundle>org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.util;visibility:=reexport</Require-Bundle>
-							<Import-Package>
-								org.slf4j
-							</Import-Package>
-							<Export-Package>
-								org.ontoware.rdf2go.impl, org.ontoware.rdf2go.model.impl, org.ontoware.rdf2go.model.node.impl, org.ontoware.rdf2go.model.persistent
-							</Export-Package>
+							<Bundle-Vendor>Max Voelkel FZI, OSGi config by Leo Sauermann DFKI</Bundle-Vendor>
+							<Bundle-Localization>plugin</Bundle-Localization>
+							<!--  make sure to have no whitespace in package lists -->
+							<Require-Bundle>org.semweb4j.rdf2go.api,org.semweb4j.rdf2go.impl.util;visibility:=reexport</Require-Bundle>
+							<Import-Package>org.slf4j</Import-Package>
+							<Export-Package>org.ontoware.rdf2go.impl,org.ontoware.rdf2go.model.impl,org.ontoware.rdf2go.model.node.impl,org.ontoware.rdf2go.model.persistent</Export-Package>
 							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
