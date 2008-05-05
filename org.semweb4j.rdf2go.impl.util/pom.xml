@@ -100,9 +100,10 @@
 							<Bundle-Version>${pom.version}</Bundle-Version>
 							<Bundle-Vendor>${pom.organization.name}</Bundle-Vendor>
 							<Bundle-Localization>plugin</Bundle-Localization>
-							<Require-Bundle>org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.base</Require-Bundle>
+							<!--  make sure to have no whitespace in package lists -->
+							<Require-Bundle>org.semweb4j.rdf2go.api,org.semweb4j.rdf2go.impl.base</Require-Bundle>
 							<Import-Package>org.slf4j</Import-Package>
-							<Export-Package>org.ontoware.rdf2go.util, org.ontoware.rdf2go.util.transform</Export-Package>
+							<Export-Package>org.ontoware.rdf2go.util,org.ontoware.rdf2go.util.transform</Export-Package>
 							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
