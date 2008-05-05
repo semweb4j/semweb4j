@@ -220,17 +220,19 @@ If present, DEBUG logging is compiled away
 							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
 							<!--  for downward compatibility with NEPOMUK we keep the old symbolic name -->
 							<!--  <Bundle-Name>${pom.groupId}.${pom.artifactId}</Bundle-Name> -->
-							<!-- <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}	</Bundle-SymbolicName> -->
 							<Bundle-Name>org.openrdf.rdf2go</Bundle-Name>
+							<!--  /!\ the JAR a plugin has to be named exactly like the bundle-symbolic-name -->
+							<!-- <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}	</Bundle-SymbolicName> -->
 							<Bundle-SymbolicName>org.openrdf.rdf2go</Bundle-SymbolicName>
 							<Bundle-Version>${pom.version}</Bundle-Version>
 							<Bundle-Vendor>Nepomuk Consortium, Aduna Software</Bundle-Vendor>
 							<Bundle-Localization>plugin</Bundle-Localization>
 							<Bundle-ClassPath>.</Bundle-ClassPath>
 							<Bundle-Activator>org.openrdf.rdf2go.osgi.Activator</Bundle-Activator>
-							<Require-Bundle>org.openrdf.sesame2, org.semweb4j.rdf2go.api, org.semweb4j.rdf2go.impl.base</Require-Bundle>
-							<Import-Package>org.apache.commons.logging, org.osgi.framework;version="1.3.0", org.slf4j</Import-Package>
-							<Export-Package>org.ontoware.rdf2go.impl, org.openrdf.rdf2go</Export-Package>
+							<!--  make sure to have no whitespace in package lists -->
+							<Require-Bundle>org.openrdf.sesame2,org.semweb4j.rdf2go.api,org.semweb4j.rdf2go.impl.base</Require-Bundle>
+							<Import-Package>org.apache.commons.logging,org.osgi.framework;version="1.3.0",org.slf4j</Import-Package>
+							<Export-Package>org.ontoware.rdf2go.impl,org.openrdf.rdf2go</Export-Package>
 							<Eclipse-LazyStart>true</Eclipse-LazyStart>
 						</manifestEntries>
 					</archive>
