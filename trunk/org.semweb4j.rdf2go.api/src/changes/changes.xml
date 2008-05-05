@@ -16,6 +16,13 @@
 			</release>
 		-->
 
+
+		<release version="4.6.3" date="@@@svn" description="@@@">
+			<action dev="xamde" type="remove">
+				Removed expensive logging from URIImpl.equals(...)
+			</action>
+		</release>
+
 		<release version="4.6.2" date="2008-05-02"
 			description="OSGI packaging">
 			<action dev="xamde" type="update">
