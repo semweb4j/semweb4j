@@ -154,7 +154,7 @@
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
-			<id>theoretiker-repo</id>
+			<id>semweb4j-repo</id>
 			<name>Semweb4j.org maven repo</name>
 			<url>http://semweb4j.org/repo/</url>
 			<releases>
