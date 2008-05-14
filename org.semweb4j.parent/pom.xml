@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>de.fzi</groupId>
 		<artifactId>maven.config</artifactId>
-		<version>0.0.10</version>
+		<version>0.1.2</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>4.15.5-SNAPSHOT</version>
+	<version>4.16.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -250,12 +250,9 @@
 	<!-- to define where to put the site for this bundle -->
 	<distributionManagement>
 		<site>
-			<id>theoretiker-site</id>
-			<name>RDFReactor site</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/semweb4j.parent
-			</url>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
 </project>
