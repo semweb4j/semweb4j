@@ -3,7 +3,7 @@
 
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Common Maven Config</name>
@@ -46,7 +46,7 @@
 	<repositories>
 		<!-- normal versions -->
 		<repository>
-			<id>deploy-repo</id>
+			<id>semweb4j-repo</id>
 			<name>semweb4j.org maven repository server</name>
 			<url>http://semweb4j.org/repo/</url>
 			<releases>
@@ -60,7 +60,7 @@
 		</repository>
 		<!-- snapshots -->
 		<repository>
-			<id>deploy-snapshots</id>
+			<id>semweb4j-snapshots</id>
 			<name>semweb4j.org maven SNAPSHOT repository server</name>
 			<url>http://semweb4j.org/snapshots/</url>
 			<releases>
@@ -93,26 +93,26 @@
 	<distributionManagement>
 		<!-- normal versions -->
 		<repository>
-			<id>deploy-repo</id>
+			<id>semweb4j-repo</id>
 			<name>semweb4j.org maven repository server</name>
-			<url>scp://${deploy.repo}</url>
+			<url>scp://${semweb4j.repo}</url>
 			<uniqueVersion>false</uniqueVersion>
 		</repository>
 		<!-- snapshots -->
 		<snapshotRepository>
-			<id>deploy-snapshots</id>
+			<id>semweb4j-snapshots</id>
 			<name>semweb4j.org maven SNAPSHOT repository server</name>
-			<url>scp://${deploy.snapshots}</url>
+			<url>scp://${semweb4j.snapshots}</url>
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 
 		<!--  Note: site url is not inherited, but effective locally
                       So this block is copy & paste correct from now on -->
 		<site>
-			<id>deploy-site</id>
+			<id>semweb4j-site</id>
 			<name>semweb4j.org site server</name>
 			<!--  mvn creates new dirs if necessary -->
-			<url>scp://${deploy.site}/${artifactId}</url>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
 
