@@ -1,5 +1,4 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 	<!-- 
 	
@@ -13,7 +12,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.3</version>
+		<version>4.16.0</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -275,12 +274,12 @@ If present, DEBUG logging is compiled away
 			</url>
 		</repository>
 		<repository>
-			<id>theoretiker-repo</id>
+			<id>semweb4j-repo</id>
 			<name>Semweb4j.org maven repo</name>
 			<url>http://semweb4j.org/repo/</url>
 		</repository>
 		<repository>
-			<id>theoretiker-snapshots</id>
+			<id>semweb4j-snapshots</id>
 			<name>Semweb4j.org maven snapshot repo</name>
 			<url>http://semweb4j.org/snapshots/</url>
 			<releases>
@@ -340,10 +339,9 @@ If present, DEBUG logging is compiled away
 	<!-- to define where to put the site for this bundle -->
 	<distributionManagement>
 		<site>
-			<id>theoretiker-site</id>
-			<name>site</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.sesame20</url>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
 
