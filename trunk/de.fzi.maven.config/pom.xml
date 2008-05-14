@@ -1,9 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.fzi</groupId>
 	<artifactId>maven.config</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Common Maven Config</name>
@@ -34,9 +37,11 @@
 	-->
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/maven.config-0.1.1</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.config-0.1.1</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/maven.config-0.1.1</url>
+		<connection>scm:svn:${svn.user}/trunk/{$svn.name}</connection>
+		<developerConnection>
+			scm:svn:${svn.dev}/trunk/{$svn.name}
+		</developerConnection>
+		<url>${svn.user}/{$svn.name}</url>
 	</scm>
 
 	<!-- repository settings -->
@@ -107,7 +112,7 @@
 		</snapshotRepository>
 
 		<!--  Note: site url is not inherited, but effective locally
-                      So this block is copy & paste correct from now on -->
+			So this block is copy & paste correct from now on -->
 		<site>
 			<id>semweb4j-site</id>
 			<name>semweb4j.org site server</name>
