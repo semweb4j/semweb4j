@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.3</version>
+		<version>4.16.0</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -61,8 +61,7 @@
 			<organizationUrl>http://www.blue-age.de</organizationUrl>
 			<timezone>+1</timezone>
 			<roles>
-				<role>POM Manager</role>
-				<role>Documentation Doctor</role>
+				<role>Maven Maven</role>
 			</roles>
 		</developer>
 	</developers>
@@ -146,15 +145,11 @@
 	<!-- to avoid folded site uris -->
 	<distributionManagement>
 		<site>
-			<id>theoretiker-site</id>
-			<name>RDFReactor site</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.jena24
-			</url>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
-
 
 	<!-- to find the parent -->
 	<repositories>
