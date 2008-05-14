@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.3</version>
+		<version>4.16.0</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -36,25 +36,20 @@
 	<modules>
 		<module>../org.semweb4j.rdf2go.project</module>
 		<module>../org.semweb4j.rdfreactor.project</module>		
- <!-- 		<module>../org.ontoware.semversion</module>  -->		
  		<module>../org.semweb4j.semweb4j.tutorial</module>		
  		<module>../org.semweb4j.site</module>		
- 		
+ <!-- 		<module>../org.ontoware.semversion</module>  -->		 		
 	</modules>
 
 	<!-- to avoid folded site uris -->
 	<distributionManagement>
 		<site>
-			<id>theoretiker-site</id>
-			<name>RDFReactor site</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/semweb4j
-			</url>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
 
-	
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
