@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
+		<version>4.16.0</version>
 	</parent>
 	
 	<groupId>org.semweb4j</groupId>
@@ -18,7 +18,7 @@
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
-			<id>theoretiker-repo</id>
+			<id>semweb4j-repo</id>
 			<name>Semweb4j.org maven repo</name>
 			<url>http://semweb4j.org/repo/</url>
 			<releases>
