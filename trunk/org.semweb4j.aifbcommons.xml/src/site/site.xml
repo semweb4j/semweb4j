@@ -12,7 +12,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.2</version>
+		<version>1.2.3</version>
 	</skin>
 	<publishDate format="yyyy-MM-dd" />
 	<body>
