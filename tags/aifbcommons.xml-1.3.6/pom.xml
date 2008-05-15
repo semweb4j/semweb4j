@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<!--  aifbcommons -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.16.3</version>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>aifbcommons.xml</artifactId>
+	<version>1.3.6</version>
+	<packaging>jar</packaging>
+	<name>AIFBcommons XML</name>
+	<!--  
+		<url>http://semweb4j.org/aifbcommons</url>
+	-->
+	<inceptionYear>2005</inceptionYear>
+	<description>
+		AIFBcommons is a small bundle of little, commonly needed tools.
+		AIFBcommons XML contains XML-related tools.
+	</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<!-- mvn install:install-file -Dfile=XXXXXX -DgroupId=org.xmlpull -DartifactId=xpp -Dversion=1.1.3.4.O -Dpackaging=jar -->
+			<groupId>xpp3</groupId>
+			<artifactId>xpp3</artifactId>
+			<version>1.1.3.4-RC8</version>
+		</dependency>
+		<!-- mvn install:install-file -Dfile=P:\aifbcommons\lib\jaxen-full.jar -DgroupId=org.jaxen -DartifactId=jaxen -Dversion=1.0-FCS -Dpackaging=jar -->
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.0-FCS</version>
+		</dependency>
+		<!-- mvn install:install-file -Dfile=P:\aifbcommons\lib\saxpath.jar -DgroupId=org.saxpath -DartifactId=saxpath -Dversion=1.0-FCS -Dpackaging=jar -->
+		<dependency>
+			<groupId>saxpath</groupId>
+			<artifactId>saxpath</artifactId>
+			<version>1.0-FCS</version>
+		</dependency>
+
+		<!-- logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
+		<!-- testing dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<!-- to define where to put the site for this bundle -->
+	<distributionManagement>
+		<site>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
+		</site>
+	</distributionManagement>
+
+	<!-- to find the parent -->
+	<repositories>
+		<repository>
+			<id>semweb4j-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/aifbcommons.xml-1.3.6</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/aifbcommons.xml-1.3.6</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/aifbcommons.xml-1.3.6</url>
+  </scm>
+</project>
