@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.0</version>
+		<version>4.16.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -61,7 +61,7 @@
 			<organizationUrl>http://www.blue-age.de</organizationUrl>
 			<timezone>+1</timezone>
 			<roles>
-				<role>Maven Maven</role>
+				<role>Maven Manager</role>
 			</roles>
 		</developer>
 	</developers>
