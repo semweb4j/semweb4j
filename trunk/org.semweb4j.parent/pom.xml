@@ -72,17 +72,19 @@
 			</roles>
 			<timezone>+1</timezone>
 		</developer>
-		<developer>
-			<id>wth</id>
+	</developers>
+
+	<contributors>
+		<contributor>
 			<name>Werner Thiemann</name>
 			<organization>blue-age</organization>
 			<organizationUrl>http://www.blue-age.de</organizationUrl>
 			<timezone>+1</timezone>
 			<roles>
-				<role>Maven Maven</role>
+				<role>Maven</role>
 			</roles>
-		</developer>
-	</developers>
+		</contributor>
+	</contributors>
 
 	<!-- to find the parent -->
 	<repositories>
