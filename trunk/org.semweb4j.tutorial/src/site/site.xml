@@ -5,7 +5,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.1</version>
+		<version>1.2.4</version>
 	</skin>
 
 	<bannerLeft>
@@ -34,8 +34,10 @@
 
 		<!-- the links are inherited from the parent -->
 
-		<!-- menu Semweb4j is inherited from the parent -->
-
+		<menu name="Semweb4j Tutorial">
+			<item name="Homepage" href="http://www.semanticweb.org/wiki/Semweb4j" />
+		</menu>
+		
 		<menu ref="reports" />
 		<menu ref="modules" />
 	</body>
