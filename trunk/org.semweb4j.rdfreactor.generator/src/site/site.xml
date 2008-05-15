@@ -5,7 +5,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.1</version>
+		<version>1.2.4</version>
 	</skin>
 
 	<bannerLeft>
@@ -35,14 +35,11 @@
 		
 		<!-- the links are inherited from the parent -->
 
-		<!-- menu Semweb4j is inherited from the parent -->
-
 		<menu name="RDFReactor">
-			<item name="Home" href="../rdfreactor/index.html" />
-			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
-			<item name="Download" href="../rdfreactor/download.html" />
-			<item name="API Documentation" href="../rdfreactor/apidocs/index.html" />
+			<item name="Homepage" href="http://ontoworld.org/wiki/RDFReactor" />
+			<item name="Reports" href="../rdfreactor/index.html" />
 		</menu>
+		
 		<menu ref="reports" />
 		<menu ref="modules" />
 	</body>
