@@ -34,11 +34,5 @@
 			<item name="Xam.de" href="http://xam.de" />
 		</links>
 
-		<!-- define the top level menu for all the descendants -->
-		<menu name="Semweb4j" inherit="top">
-			<item name="Semweb4j Home" href="http://www.semanticweb.org/wiki/Semweb4j" />
-			<item name="Semweb4j Reports" href="http://semweb4j.org/site/semweb4j/index.html" />
-		</menu>
-
 	</body>
 </project>
