@@ -4,12 +4,12 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.0</version>
+		<version>4.16.1</version>
 	</parent>
 	
 	<groupId>org.semweb4j</groupId>
 	<artifactId>skin</artifactId>
-	<version>1.2.2-SNAPSHOT</version>
+	<version>1.2.2</version>
 	<packaging>jar</packaging>
 	
 	<name>maven skin for semweb4j</name>
@@ -31,4 +31,10 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/skin-1.2.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/skin-1.2.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/skin-1.2.2</url>
+  </scm>
 </project>
