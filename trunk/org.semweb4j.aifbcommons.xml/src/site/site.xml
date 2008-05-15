@@ -12,7 +12,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.3</version>
+		<version>1.2.4</version>
 	</skin>
 	<publishDate format="yyyy-MM-dd" />
 	<body>
@@ -27,6 +27,8 @@
 				_uacct = "UA-271022-2"; urchinTracker();
 			</script>
 		</head>
+
+		<!-- links are inherited from the parent -->
 
 		<menu name="AIFBcommons">
 			<item name="Project Home" href="http://www.semanticweb.org/wiki/AIFBcommons" />
