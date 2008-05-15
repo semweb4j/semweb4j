@@ -111,7 +111,6 @@
 		<site>
 			<id>semweb4j-site</id>
 			<name>semweb4j.org site server</name>
-			<!--  mvn creates new dirs if necessary -->
 			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
