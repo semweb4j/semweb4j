@@ -81,7 +81,7 @@
 			<organizationUrl>http://www.blue-age.de</organizationUrl>
 			<timezone>+1</timezone>
 			<roles>
-				<role>Maven</role>
+				<role>Maven Manager</role>
 			</roles>
 		</contributor>
 	</contributors>
