@@ -34,13 +34,9 @@
 		
 		<!-- the links are inherited from the parent -->
 
-		<!-- menu Semweb4j is inherited from the parent -->
-
 		<menu name="RDFReactor">
-			<item name="Home" href="../rdfreactor/index.html" />
-			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDFReactor" />
-			<item name="Download" href="../rdfreactor/download.html" />
-			<item name="API Documentation" href="../rdfreactor/apidocs/index.html" />
+			<item name="Homepage" href="http://www.semanticweb.org/wiki/RDFReactor" />
+			<item name="Reports" href="../rdfreactor/index.html" />
 			<item name="&gt; Runtime" href="../rdfreactor.runtime/index.html" />
 			<item name="&gt; Generator" href="../rdfreactor.generator/index.html" />
 		</menu>
