@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="semweb4j"
+	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
+
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>1.2.2</version>
+	</skin>
+
+	<bannerLeft>
+		<src>images/logos/semweb4j.png</src>
+		<href>http://semweb4j.org/</href>
+	</bannerLeft>
+		
+	<publishDate format="yyyy-MM-dd" />
+	<body>
+		<head>
+			<meta name="keywords" content="semweb4j, mv2178imnetz" />
+			<link rel="meta" title="DOAP" type="application/rdf+xml"
+				href="doap.rdf" />
+			<script src="http://www.google-analytics.com/urchin.js"
+				type="text/javascript">
+			</script>
+			<script type="text/javascript">
+				_uacct = "UA-271022-2"; urchinTracker();
+			</script>
+		</head>
+		
+		<!-- define the links (right side) for all descendants -->
+		<links>
+			<item name="FZI" href="http://www.fzi.de/" />
+			<item name="AIFB" href="http://aifb.uni-karlsruhe.de/" />
+			<item name="Xam.de" href="http://xam.de" />
+		</links>
+
+		<!-- define the top level menu for all the descendants -->
+		<menu name="Semweb4j" inherit="top">
+			<item name="Semweb4j Home" href="http://www.semanticweb.org/wiki/Semweb4j" />
+			<item name="Semweb4j Reports" href="http://semweb4j.org/site/semweb4j/index.html" />
+		</menu>
+
+	</body>
+</project>
