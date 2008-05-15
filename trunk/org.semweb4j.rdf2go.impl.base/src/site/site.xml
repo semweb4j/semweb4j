@@ -5,7 +5,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.1</version>
+		<version>1.2.4</version>
 	</skin>
 
 	<bannerLeft>
@@ -38,10 +38,8 @@
 		<!-- menu Semweb4j is inherited from the parent -->
 
 		<menu name="RDF2Go">
-		  	<item name="Home" href="../rdf2go/index.html" />
-			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/RDF2Go" />
-			<item name="Download" href="../rdf2go/download.html" />
-			<item name="API Documentation" href="../rdf2go/apidocs/index.html" />
+			<item name="Homepage" href="http://www.semanticweb.org/wiki/RDF2Go" />
+		  	<item name="Reports" href="../rdf2go/index.html" />
 		</menu>
 
 		<menu ref="reports" />
