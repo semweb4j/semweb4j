@@ -5,7 +5,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.1</version>
+		<version>1.2.2</version>
 	</skin>
 
 	<bannerLeft>
@@ -36,8 +36,8 @@
 
 		<!-- define the top level menu for all the descendants -->
 		<menu name="Semweb4j" inherit="top">
-			<item name="Project Home" href="http://www.semanticweb.org/wiki/Semweb4j" />
-			<item name="Reports Home" href="http://semweb4j.org/site/semweb4j/index.html" />
+			<item name="Semweb4j Home" href="http://www.semanticweb.org/wiki/Semweb4j" />
+			<item name="Semweb4j Reports" href="http://semweb4j.org/site/semweb4j/index.html" />
 		</menu>
 
 	</body>
