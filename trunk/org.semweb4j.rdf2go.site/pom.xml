@@ -25,7 +25,7 @@
 		<site>
 			<id>semweb4j-site</id>
 			<name>semweb4j.org site server</name>
-			<url>scp://${semweb4j.site}/${artifactId}</url>
+			<url>scp://${semweb4j.site}/rdf2go</url>
 		</site>
 	</distributionManagement>
 
