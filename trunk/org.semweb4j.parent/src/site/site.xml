@@ -36,9 +36,8 @@
 
 		<!-- define the top level menu for all the descendants -->
 		<menu name="Semweb4j" inherit="top">
-			<item name="Home" href="http://semweb4j.org/site/semweb4j/index.html" />
-			<item name="@ Ontoworld" href="http://ontoworld.org/wiki/Semweb4j" />
-			<item name="Download" href="http://semweb4j.org/site/semweb4j/download.html" />
+			<item name="Project Home" href="http://www.semweb4j.org/wiki/Semweb4j" />
+			<item name="Reports Home" href="http://semweb4j.org/site/semweb4j/index.html" />
 		</menu>
 
 	</body>
