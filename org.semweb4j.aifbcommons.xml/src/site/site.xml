@@ -31,7 +31,7 @@
 		<!-- links are inherited from the parent -->
 
 		<menu name="AIFBcommons">
-			<item name="Project Home" href="http://www.semanticweb.org/wiki/AIFBcommons" />
+			<item name="Homepage" href="http://www.semanticweb.org/wiki/AIFBcommons" />
 		</menu>
 		<menu ref="reports" />
 		<menu ref="modules" />
