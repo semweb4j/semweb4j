@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.15.3</version>
+		<version>4.16.3</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -178,7 +178,7 @@
 	<repositories>
 		<!-- to find the parent -->
 		<repository>
-			<id>theoretiker-repo</id>
+			<id>semweb4j-repo</id>
 			<name>Semweb4j.org maven repo</name>
 			<url>http://semweb4j.org/repo/</url>
 			<releases>
@@ -228,12 +228,9 @@
 	<!-- to define where to put the site for this bundle -->
 	<distributionManagement>
 		<site>
-			<id>theoretiker-site</id>
-			<name>RDFReactor site</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/sesame.rdfs-inverse-inferencer
-			</url>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
 </project>
