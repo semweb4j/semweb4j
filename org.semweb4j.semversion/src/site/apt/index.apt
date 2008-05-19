@@ -14,28 +14,12 @@ About
 
   You can watch (and file) issues here: http://issues.semweb4j.org/browse/SV
 
-Releases
+Project Homepage
 
-  The latest release can be found in the {{{../semversion/download.html}download section}}.
-
-More Information
-
-  * <<{{{http://www.ontoworld.org/wiki/SemVersion}Wiki}}>> 
+  * <<{{{http://www.semanticweb.org/wiki/SemVersion}Wiki}}>> 
   
-  The wiki page of SemVersion can be found at {{http://www.ontoworld.org/wiki/SemVersion}}. 
+  The wiki page of SemVersion can be found at {{http://www.semanticweb.org/wiki/SemVersion}}. 
     
-  * {{{../semversion/apidocs/}JavaDoc}}
-  
-  Use the {{{../semversion/apidocs/}SemVersion API documentation}}.
-  
-  * Source code
-
-  Can be found in {{{http://swecr.googlecode.com/svn/trunk/org.ontoware.semversion/src}Subversion}}
-
-  * <<{{{../semversion/doap.rdf}DOAP File}}>>
-  
-  Get the {{{../semversion/doap.rdf}Description of a Project (DOAP) file}} for SemVersion.
-
 Project Support
 
 [images/logos/nepomuk-logo.png]  
