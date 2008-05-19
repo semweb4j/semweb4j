@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>de.fzi</groupId>
+		<artifactId>maven.config</artifactId>
+		<version>0.1.2</version>
+	</parent>
+	
+	<groupId>de.fzi</groupId>
+	<artifactId>maven.skin</artifactId>
+	<version>0.0.2</version>
+	<packaging>jar</packaging>
+
+	<name>general maven skin</name>
+	<description>A Maven2 skin, based on maven-stylus-skin.</description>
+
+	<!-- the repository with the parent project -->
+	<repositories>
+		<repository>
+			<id>semweb4j-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/maven.skin-0.0.2</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/maven.skin-0.0.2</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/maven.skin-0.0.2</url>
+  </scm>
+</project>
