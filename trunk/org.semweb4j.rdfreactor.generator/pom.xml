@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
-		<version>4.16.3</version>
+		<version>4.16.4</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
