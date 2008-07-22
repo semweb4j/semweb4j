@@ -600,7 +600,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 */
 	public Collection<Resource> getAllReificationsOf(Statement statement) {
 		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { "
-				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement + " ."
+				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement.toSPARQL() + " ."
 				+ " ?res " + RDF.subject.toSPARQL() + " "
 				+ statement.getSubject().toSPARQL() + " ." + " ?res "
 				+ RDF.predicate.toSPARQL() + " "
