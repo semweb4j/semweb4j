@@ -21,6 +21,9 @@
 			<action dev="xamde" type="remove">
 				Removed expensive logging from URIImpl.equals(...)
 			</action>
+			<action dev="xamde" type="fix">
+				Fixed RDF.li(...)
+			</action>
 		</release>
 
 		<release version="4.6.2" date="2008-05-02"
