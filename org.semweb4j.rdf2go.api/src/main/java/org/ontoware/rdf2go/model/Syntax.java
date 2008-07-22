@@ -138,21 +138,21 @@ public class Syntax {
 	 * @return the MIME type
 	 */
 	public String getMimeType() {
-		return mimeType;
+		return this.mimeType;
 	}
 
 	/**
 	 * @return the common name of this format
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
 	 * @return the suggested filename-extension, including the leading '.'
 	 */
 	public String getFilenameExtension() {
-		return filenameExtension;
+		return this.filenameExtension;
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class Syntax {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Syntax) {
-			return mimeType.equals(((Syntax) obj).mimeType);
+			return this.mimeType.equals(((Syntax) obj).mimeType);
 		}
 		return false;
 	}
@@ -204,7 +204,7 @@ public class Syntax {
 	 */
 	@Override
 	public int hashCode() {
-		return mimeType.hashCode();
+		return this.mimeType.hashCode();
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class Syntax {
 	 */
 	@Override
 	public String toString() {
-		return "RDF Syntax '" + name + "' MIME-type=" + mimeType;
+		return "RDF Syntax '" + this.name + "' MIME-type=" + this.mimeType;
 	}
 
 }

@@ -109,7 +109,7 @@ public class URIImpl extends ResourceImpl implements URI {
 	}
 
 	public String toSPARQL() {
-		return "<" + uriString + ">";
+		return "<" + this.uriString + ">";
 	}
 
 	public java.net.URI asJavaURI() {
