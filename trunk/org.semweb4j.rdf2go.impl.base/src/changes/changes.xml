@@ -14,6 +14,9 @@
 				MANIFEST to shield NEPOMUK users from project split
 				(impl.base + impl.util)
 			</action>
+			<action dev="xamde" type="fix" issue="RTGO-52">
+				Fixed getAllReificationsOf - thanks Mariusz Cygan!
+			</action>
 		</release>
 
 		<release version="4.6.1" date="2008-04-30"
