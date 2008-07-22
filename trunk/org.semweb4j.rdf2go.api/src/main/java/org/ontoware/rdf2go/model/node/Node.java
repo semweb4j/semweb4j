@@ -41,7 +41,7 @@ public interface Node extends NodeOrVariable, Comparable<Node> {
 	 * @throws ClassCastException
 	 *             if the node is not a Literal
 	 */
-	public Literal asLiteral() throws ClassCastException;;
+	public Literal asLiteral() throws ClassCastException;
 
 	/**
 	 * A convenience method for a cast to
@@ -51,7 +51,7 @@ public interface Node extends NodeOrVariable, Comparable<Node> {
 	 * @throws ClassCastException
 	 *             if the node is not a DatatypeLiteral
 	 */
-	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException;;
+	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException;
 
 	/**
 	 * A convenience method for a cast to
@@ -61,7 +61,7 @@ public interface Node extends NodeOrVariable, Comparable<Node> {
 	 * @throws ClassCastException
 	 *             if the node is not a LanguageTagLiteral
 	 */
-	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException;;
+	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException;
 
 	/**
 	 * A convenience method for a cast to org.ontoware.rdf2go.model.node.URI
