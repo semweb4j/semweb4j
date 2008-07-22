@@ -32,7 +32,7 @@ public class RDF {
 	}
 
 	public static URI li(int i) {
-		return toURI(RDF_NS + "_" + i);
+		return toURI("_" + i);
 	}
 
 	public static final URI Alt = toURI("Alt");
