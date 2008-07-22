@@ -186,7 +186,10 @@ public class TypeConversion {
 	 */
 	public static org.ontoware.rdf2go.model.node.Node toRDF2Go(Node n)
 			throws ModelRuntimeException {
-		assert n != null;
+		// A return of null indicates that the variable is not present in this solution.
+		if (n == null)
+			return null;
+		
 		if (n.isURI())
 			return new URIImpl(n.getURI());
 
