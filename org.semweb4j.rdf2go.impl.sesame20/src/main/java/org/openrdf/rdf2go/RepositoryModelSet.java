@@ -413,7 +413,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					}
 					// now insert with a different context URI
 					for (org.openrdf.model.Statement stmt : stmts) {
-						valueFactory.createStatement(stmt.getSubject(), stmt
+						this.valueFactory.createStatement(stmt.getSubject(), stmt
 								.getPredicate(), stmt.getObject(),
 								openrdfContextURI);
 					}
@@ -433,7 +433,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 
 					// doesn't hurt to explicitly add them to the right context
 					for (org.openrdf.model.Statement stmt : statements.asList()) {
-						this.connection.add(valueFactory.createStatement(stmt
+						this.connection.add(this.valueFactory.createStatement(stmt
 								.getSubject(), stmt.getPredicate(), stmt
 								.getObject(), openrdfContextURI), openrdfContextURI);
 					}
