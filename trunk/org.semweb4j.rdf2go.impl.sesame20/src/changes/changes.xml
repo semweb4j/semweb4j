@@ -15,6 +15,13 @@
 			description="No API changes">
 			</release>
 		-->
+		
+		<release version="4.6.3" date="2008-@@@">
+			<action dev="xamde" type="fix">
+				Added support for SeRQL and others in RepositoryModel.
+			</action>
+		</release>
+		
 
 		<release version="4.6.2" date="2008-05-02">
 			<action dev="xamde" type="update">
