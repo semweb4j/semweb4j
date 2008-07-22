@@ -77,8 +77,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	public ModelImplJena24(URI contextURI, Reasoning r) {
 		this.contextURI = contextURI;
 		this.reasoning = r;
-		jenaModel = ModelFactory.createDefaultModel();
-		applyReasoning(reasoning);
+		this.jenaModel = ModelFactory.createDefaultModel();
+		applyReasoning(this.reasoning);
 	}
 
 	/**
@@ -123,11 +123,12 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	void applyReasoning(Reasoning r) {
 		switch (r) {
 		case rdfs:
-			jenaModel = ModelFactory.createRDFSModel(jenaModel);
+			this.jenaModel = ModelFactory.createRDFSModel(this.jenaModel);
 			break;
 		case owl:
-			jenaModel = ModelFactory.createInfModel(ReasonerRegistry
-					.getOWLReasoner(), jenaModel);
+			this.jenaModel = ModelFactory.createInfModel(ReasonerRegistry
+					.getOWLReasoner(), this.jenaModel);
+			break;
 		default:
 			break;
 		}
@@ -164,9 +165,9 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			if (!(object instanceof DatatypeLiteral)) {
 				this.jenaModel.getGraph().add(
 						new Triple(TypeConversion
-								.toJenaNode(subject, jenaModel), TypeConversion
-								.toJenaNode(predicate, jenaModel),
-								TypeConversion.toJenaNode(object, jenaModel)));
+								.toJenaNode(subject, this.jenaModel), TypeConversion
+								.toJenaNode(predicate, this.jenaModel),
+								TypeConversion.toJenaNode(object, this.jenaModel)));
 			} else
 			// DatatypeLiteral
 			{
@@ -217,9 +218,9 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		this.jenaModel.getGraph().delete(
 				new Triple(
 
-				TypeConversion.toJenaNode(subject, jenaModel), TypeConversion
-						.toJenaNode(predicate, jenaModel), TypeConversion
-						.toJenaNode(object, jenaModel)));
+				TypeConversion.toJenaNode(subject, this.jenaModel), TypeConversion
+						.toJenaNode(predicate, this.jenaModel), TypeConversion
+						.toJenaNode(object, this.jenaModel)));
 	}
 
 	public QueryResultTable sparqlSelect(String queryString)
@@ -227,14 +228,14 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		assertModel();
 		log.debug("Query " + queryString);
 		Query query = QueryFactory.create(queryString);
-		return new QueryResultTableImpl(query, jenaModel);
+		return new QueryResultTableImpl(query, this.jenaModel);
 	}
 
 	public ClosableIterable<Statement> sparqlConstruct(String queryString)
 			throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
-		QueryExecution qexec = QueryExecutionFactory.create(query, jenaModel);
+		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
 
 		if (query.isConstructType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
@@ -257,7 +258,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 					"The given query is not an ASK query");
 		}
 		// else
-		QueryExecution qexec = QueryExecutionFactory.create(query, jenaModel);
+		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
 		return qexec.execAsk();
 	}
 
@@ -292,18 +293,18 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	}
 
 	public Object getUnderlyingModelImplementation() {
-		return jenaModel;
+		return this.jenaModel;
 	}
 
 	public void setUnderlyingModelImplementation(Object o) {
 		assert o instanceof com.hp.hpl.jena.rdf.model.Model;
-		jenaModel = (com.hp.hpl.jena.rdf.model.Model) o;
+		this.jenaModel = (com.hp.hpl.jena.rdf.model.Model) o;
 	}
 
 	public ClosableIterator<Statement> iterator() {
 		assertModel();
-		return new TripleIterator(jenaModel.getGraph().find(Node.ANY, Node.ANY,
-				Node.ANY), modificationCount, this);
+		return new TripleIterator(this.jenaModel.getGraph().find(Node.ANY, Node.ANY,
+				Node.ANY), this.modificationCount, this);
 	}
 
 	public URI getContextURI() {
@@ -311,18 +312,18 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	}
 
 	public void lock() throws LockException {
-		locked = true;
-		jenaModel.enterCriticalSection(true);
+		this.locked = true;
+		this.jenaModel.enterCriticalSection(true);
 
 	}
 
 	public boolean isLocked() {
-		return locked;
+		return this.locked;
 	}
 
 	public void unlock() {
 		assertModel();
-		jenaModel.leaveCriticalSection();
+		this.jenaModel.leaveCriticalSection();
 		this.locked = false;
 	}
 
@@ -339,10 +340,10 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			NodeOrVariable object) throws ModelRuntimeException {
 		assertModel();
 
-		return new TripleIterator(jenaModel.getGraph().find(
+		return new TripleIterator(this.jenaModel.getGraph().find(
 				TypeConversion.toJenaNode(subject),
 				TypeConversion.toJenaNode(predicate),
-				TypeConversion.toJenaNode(object)), modificationCount, this);
+				TypeConversion.toJenaNode(object)), this.modificationCount, this);
 	}
 
 	/**
@@ -352,7 +353,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
-		QueryExecution qexec = QueryExecutionFactory.create(query, jenaModel);
+		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
 
 		if (query.isDescribeType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execDescribe();
@@ -392,7 +393,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		} else if (syntax == Syntax.Trix) {
 			throw new IllegalArgumentException("Not implemented in Jena 2.4");
 		}
-	};
+	}
 
 	public void readFrom(Reader reader, Syntax syntax, String baseURI) {
 		assertModel();
@@ -405,7 +406,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		} else if (syntax == Syntax.Trix) {
 			throw new IllegalArgumentException("Not implemented in Jena 2.4");
 		}
-	};
+	}
 
 	private static void registerNamespaces(
 			com.hp.hpl.jena.rdf.model.Model jenaModel) {
@@ -424,7 +425,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 
 	public void writeTo(Writer writer, Syntax syntax) {
 		assertModel();
-		registerNamespaces(jenaModel);
+		registerNamespaces(this.jenaModel);
 
 		if (syntax == Syntax.RdfXml) {
 			this.jenaModel.write(writer, "RDF/XML", "");
@@ -445,7 +446,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 
 	public void dump() {
 		assertModel();
-		jenaModel.write(System.out, "N3-PP", "");
+		this.jenaModel.write(System.out, "N3-PP", "");
 	}
 
 	public void readFrom(InputStream in) throws IOException,
@@ -470,7 +471,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			throws ModelRuntimeException, IOException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
-			jenaModel.write(out, "RDF/XML", "");
+			this.jenaModel.write(out, "RDF/XML", "");
 		} else if (syntax == Syntax.Ntriples) {
 			this.jenaModel.write(out, "N-TRIPLE", "");
 		} else if (syntax == Syntax.Turtle) {
@@ -553,20 +554,20 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	}
 
 	public String getNamespace(String prefix) {
-		return jenaModel.getNsPrefixURI(prefix);
+		return this.jenaModel.getNsPrefixURI(prefix);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> getNamespaces() {
-		return (Map<String, String>) jenaModel.getNsPrefixMap();
+		return (Map<String, String>) this.jenaModel.getNsPrefixMap();
 	}
 
 	public void removeNamespace(String prefix) {
-		jenaModel.removeNsPrefix(prefix);
+		this.jenaModel.removeNsPrefix(prefix);
 	}
 
 	public void setNamespace(String prefix, String namespaceURI)
 			throws IllegalArgumentException {
-		jenaModel.setNsPrefix(prefix, namespaceURI);
+		this.jenaModel.setNsPrefix(prefix, namespaceURI);
 	}
 }
