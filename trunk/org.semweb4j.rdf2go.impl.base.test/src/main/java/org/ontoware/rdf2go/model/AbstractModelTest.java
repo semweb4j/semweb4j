@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -102,7 +103,7 @@ public abstract class AbstractModelTest extends TestCase {
 	@Test
 	public void testAddStatementSimple() throws Exception {
 		this.model.addStatement(subject, predicate, object);
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				subject, predicate, object);
 		assertNotNull(sit);
 		assertTrue(sit.hasNext());
@@ -121,9 +122,9 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddTwoStatements() throws Exception {
-		model.addStatement(a, b, "Jim");
-		model.addStatement(a, c, "Jon");
-		ClosableIterator<Statement> sit = model.iterator();
+		this.model.addStatement(a, b, "Jim");
+		this.model.addStatement(a, c, "Jon");
+		ClosableIterator<Statement> sit = this.model.iterator();
 		assertTrue(sit.hasNext());
 		int count = 0;
 		while (sit.hasNext()) {
@@ -142,18 +143,18 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testRemoveStatementSimple() throws Exception {
-		model = getModelFactory().createModel();
-		model.open();
-		model.addStatement(subject, predicate, object);
-		ClosableIterator<? extends Statement> iter = model.findStatements(
+		this.model = getModelFactory().createModel();
+		this.model.open();
+		this.model.addStatement(subject, predicate, object);
+		ClosableIterator<? extends Statement> iter = this.model.findStatements(
 				subject, predicate, object);
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
 		iter.close();
 
-		model.removeStatement(subject, predicate, object);
-		ClosableIterator<? extends Statement> it = model.findStatements(
+		this.model.removeStatement(subject, predicate, object);
+		ClosableIterator<? extends Statement> it = this.model.findStatements(
 				subject, predicate, object);
 		assertFalse(it.hasNext());
 		it.close();
@@ -165,11 +166,11 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddStatementURIURIString() throws Exception {
-		model = getModelFactory().createModel();
-		model.open();
-		model.addStatement(subject, predicate, "Test");
-		ClosableIterator<? extends Statement> sit = model.findStatements(
-				subject, predicate, model.createPlainLiteral("Test"));
+		this.model = getModelFactory().createModel();
+		this.model.open();
+		this.model.addStatement(subject, predicate, "Test");
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
+				subject, predicate, this.model.createPlainLiteral("Test"));
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
 			// should be just one
@@ -187,17 +188,17 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testRemoveStatementURIURIString() throws Exception {
-		model.addStatement(subject, predicate, "Test");
+		this.model.addStatement(subject, predicate, "Test");
 
-		ClosableIterator<? extends Statement> iter = model.findStatements(
-				subject, predicate, model.createPlainLiteral("Test"));
+		ClosableIterator<? extends Statement> iter = this.model.findStatements(
+				subject, predicate, this.model.createPlainLiteral("Test"));
 		assertTrue(iter.hasNext());
 		while (iter.hasNext())
 			iter.next();
 		iter.close();
-		model.removeStatement(subject, predicate, "Test");
-		ClosableIterator<? extends Statement> it = model.findStatements(
-				subject, predicate, model.createPlainLiteral("Test"));
+		this.model.removeStatement(subject, predicate, "Test");
+		ClosableIterator<? extends Statement> it = this.model.findStatements(
+				subject, predicate, this.model.createPlainLiteral("Test"));
 		assertFalse(it.hasNext());
 		it.close();
 	}
@@ -207,8 +208,8 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddStatementLanguageTaggedLiteral() throws Exception {
-		model.addStatement(subject, predicate, "Test", "DE");
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		this.model.addStatement(subject, predicate, "Test", "DE");
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				subject, predicate, Variable.ANY);
 		assertTrue(sit.hasNext());
 		Statement s = sit.next();
@@ -232,14 +233,14 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testRemoveStatementLanguageTaggedLiteral() throws Exception {
-		model.addStatement(subject, predicate, "Test", "DE");
-		assertTrue(model.contains(subject, predicate, model
+		this.model.addStatement(subject, predicate, "Test", "DE");
+		assertTrue(this.model.contains(subject, predicate, this.model
 				.createLanguageTagLiteral("Test", "DE")));
-		ClosableIterator<Statement> iter = model.iterator();
+		ClosableIterator<Statement> iter = this.model.iterator();
 		assertTrue(iter.hasNext());
 		iter.close();
-		model.removeStatement(subject, predicate, "Test", "DE");
-		assertFalse(model.contains(subject, predicate, model
+		this.model.removeStatement(subject, predicate, "Test", "DE");
+		assertFalse(this.model.contains(subject, predicate, this.model
 				.createLanguageTagLiteral("Test", "DE")));
 	}
 
@@ -248,9 +249,9 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddStatementDatatypedLiteral() throws Exception {
-		model.addStatement(subject, predicate, "Test", dt);
-		assertEquals(1, model.size());
-		ClosableIterator<Statement> sit = model.iterator();
+		this.model.addStatement(subject, predicate, "Test", dt);
+		assertEquals(1, this.model.size());
+		ClosableIterator<Statement> sit = this.model.iterator();
 		assertNotNull(sit);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -274,19 +275,19 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testRemoveStatementDatatypedLiteral() throws Exception {
-		model.addStatement(subject, predicate, "Test", dt);
-		assertTrue(model.contains(subject, predicate, model
+		this.model.addStatement(subject, predicate, "Test", dt);
+		assertTrue(this.model.contains(subject, predicate, this.model
 				.createDatatypeLiteral("Test", dt)));
 
-		ClosableIterator<Statement> iter = model.iterator();
+		ClosableIterator<Statement> iter = this.model.iterator();
 		assertTrue(iter.hasNext());
 
 		while (iter.hasNext())
 			iter.next();
 		iter.close();
 
-		model.removeStatement(subject, predicate, "Test", dt);
-		assertFalse(model.contains(subject, predicate, model
+		this.model.removeStatement(subject, predicate, "Test", dt);
+		assertFalse(this.model.contains(subject, predicate, this.model
 				.createDatatypeLiteral("Test", dt)));
 	}
 
@@ -296,10 +297,10 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddRemoveStatementBlankNode() throws Exception {
-		BlankNode blankNode = model.createBlankNode();
+		BlankNode blankNode = this.model.createBlankNode();
 
-		model.addStatement(subject, predicate, blankNode);
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		this.model.addStatement(subject, predicate, blankNode);
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				subject, predicate, blankNode);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -311,8 +312,8 @@ public abstract class AbstractModelTest extends TestCase {
 		}
 		sit.close();
 
-		model.removeStatement(subject, predicate, blankNode);
-		assertFalse(model.contains(subject, predicate, blankNode));
+		this.model.removeStatement(subject, predicate, blankNode);
+		assertFalse(this.model.contains(subject, predicate, blankNode));
 	}
 
 	/*
@@ -321,10 +322,10 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddRemoveStatementBlankNode2() throws Exception {
-		BlankNode blankNode = model.createBlankNode();
+		BlankNode blankNode = this.model.createBlankNode();
 
-		model.addStatement(blankNode, predicate, object);
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		this.model.addStatement(blankNode, predicate, object);
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				blankNode, predicate, object);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -340,8 +341,8 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(object, s.getObject());
 		}
 		sit.close();
-		model.removeStatement(blankNode, predicate, object);
-		assertFalse(model.contains(blankNode, predicate, object));
+		this.model.removeStatement(blankNode, predicate, object);
+		assertFalse(this.model.contains(blankNode, predicate, object));
 	}
 
 	/*
@@ -350,10 +351,10 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddRemoveStatementObjectURIString() throws Exception {
-		BlankNode blankNode = model.createBlankNode();
+		BlankNode blankNode = this.model.createBlankNode();
 
-		model.addStatement(blankNode, predicate, "Test");
-		ClosableIterator<? extends Statement> sit = model
+		this.model.addStatement(blankNode, predicate, "Test");
+		ClosableIterator<? extends Statement> sit = this.model
 				.findStatements(new TriplePatternImpl(blankNode, predicate,
 						"Test"));
 		assertTrue(sit.hasNext());
@@ -365,8 +366,8 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(s.getObject(), "Test");
 		}
 		sit.close();
-		model.removeStatement(blankNode, predicate, "Test");
-		ClosableIterator<? extends Statement> it = model
+		this.model.removeStatement(blankNode, predicate, "Test");
+		ClosableIterator<? extends Statement> it = this.model
 				.findStatements(new TriplePatternImpl(blankNode, predicate,
 						"Test"));
 		assertFalse(it.hasNext());
@@ -379,11 +380,11 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddRemoveStatementURIObjectURIObject() throws Exception {
-		BlankNode blankNodeSubject = model.createBlankNode();
-		BlankNode blankNodeObject = model.createBlankNode();
+		BlankNode blankNodeSubject = this.model.createBlankNode();
+		BlankNode blankNodeObject = this.model.createBlankNode();
 
-		model.addStatement(blankNodeSubject, predicate, blankNodeObject);
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		this.model.addStatement(blankNodeSubject, predicate, blankNodeObject);
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				blankNodeSubject, predicate, blankNodeObject);
 		assertTrue(sit.hasNext());
 		while (sit.hasNext()) {
@@ -394,8 +395,8 @@ public abstract class AbstractModelTest extends TestCase {
 			assertEquals(blankNodeObject, s.getObject());
 		}
 		sit.close();
-		model.removeStatement(blankNodeSubject, predicate, blankNodeObject);
-		assertFalse(model
+		this.model.removeStatement(blankNodeSubject, predicate, blankNodeObject);
+		assertFalse(this.model
 				.contains(blankNodeSubject, predicate, blankNodeObject));
 	}
 
@@ -407,7 +408,7 @@ public abstract class AbstractModelTest extends TestCase {
 		int size = 10;
 		List<BlankNode> bNodes = new ArrayList<BlankNode>(size);
 		for (int i = 0; i < size; i++) {
-			bNodes.add(model.createBlankNode());
+			bNodes.add(this.model.createBlankNode());
 		}
 
 		for (int i = 0; i < size; i++) {
@@ -425,10 +426,10 @@ public abstract class AbstractModelTest extends TestCase {
 	@Test
 	public void testGetStatementWithLiteralAndNoLanguageTagURIURIString()
 			throws Exception {
-		model.addStatement(subject, predicate, "Test", "DE");
-		model.addStatement(subject, predicate, "Test");
+		this.model.addStatement(subject, predicate, "Test", "DE");
+		this.model.addStatement(subject, predicate, "Test");
 
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				Variable.ANY, predicate, Variable.ANY);
 		assertTrue(sit.hasNext());
 		Statement s = sit.next();
@@ -450,12 +451,12 @@ public abstract class AbstractModelTest extends TestCase {
 	@Test
 	public void testGetStatementWithLiteralAndNoLanguageTagObjectURIString()
 			throws Exception {
-		BlankNode blankNodeSubject1 = model.createBlankNode();
-		BlankNode blankNodeSubject2 = model.createBlankNode();
-		model.addStatement(blankNodeSubject1, predicate, "Test");
-		model.addStatement(blankNodeSubject2, predicate, "Test", "DE");
+		BlankNode blankNodeSubject1 = this.model.createBlankNode();
+		BlankNode blankNodeSubject2 = this.model.createBlankNode();
+		this.model.addStatement(blankNodeSubject1, predicate, "Test");
+		this.model.addStatement(blankNodeSubject2, predicate, "Test", "DE");
 
-		ClosableIterator<? extends Statement> sit = model.findStatements(
+		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				Variable.ANY, predicate, Variable.ANY);
 		assertTrue(sit.hasNext());
 		Statement s = sit.next();
@@ -474,11 +475,11 @@ public abstract class AbstractModelTest extends TestCase {
 	public void testQuery() throws Exception {
 		String query = "PREFIX \t:\t<test://test/>\n"
 				+ "CONSTRUCT { ?s ?p \"Test2\" } WHERE { ?s ?p \"Test2\" }";
-		BlankNode bNode = model.createBlankNode();
-		model.addStatement(subject, predicate, "Test1");
-		model.addStatement(subject, predicate, "Test2");
-		model.addStatement(bNode, predicate, "Test2");
-		ClosableIterator<? extends Statement> iter = model.sparqlConstruct(
+		BlankNode bNode = this.model.createBlankNode();
+		this.model.addStatement(subject, predicate, "Test1");
+		this.model.addStatement(subject, predicate, "Test2");
+		this.model.addStatement(bNode, predicate, "Test2");
+		ClosableIterator<? extends Statement> iter = this.model.sparqlConstruct(
 				query).iterator();
 
 		assertTrue(iter.hasNext());
@@ -497,11 +498,11 @@ public abstract class AbstractModelTest extends TestCase {
 	public void testSelectQuery() throws Exception {
 		String query = "PREFIX \t:\t<test://test/>\n" + "SELECT  ?s ?p \n"
 				+ "WHERE { ?s ?p \"Test2\" }";
-		BlankNode bNode = model.createBlankNode();
-		model.addStatement(subject, predicate, "Test1");
-		model.addStatement(subject, predicate, "Test2");
-		model.addStatement(bNode, predicate, "Test2");
-		QueryResultTable result = model.sparqlSelect(query);
+		BlankNode bNode = this.model.createBlankNode();
+		this.model.addStatement(subject, predicate, "Test1");
+		this.model.addStatement(subject, predicate, "Test2");
+		this.model.addStatement(bNode, predicate, "Test2");
+		QueryResultTable result = this.model.sparqlSelect(query);
 		ClosableIterator<QueryRow> it = result.iterator();
 		assertTrue(it.hasNext());
 		QueryRow row = it.next();
@@ -518,13 +519,13 @@ public abstract class AbstractModelTest extends TestCase {
 
 	@Test
 	public void testOpenClose() {
-		assertTrue(model.isOpen());
-		model.close();
-		assertFalse(model.isOpen());
-		model = getModelFactory().createModel();
-		assertFalse(model.isOpen());
-		model.open();
-		assertTrue(model.isOpen());
+		assertTrue(this.model.isOpen());
+		this.model.close();
+		assertFalse(this.model.isOpen());
+		this.model = getModelFactory().createModel();
+		assertFalse(this.model.isOpen());
+		this.model.open();
+		assertTrue(this.model.isOpen());
 	}
 
 	/**
@@ -534,7 +535,7 @@ public abstract class AbstractModelTest extends TestCase {
 	@Test
 	public void testURIs() {
 		try {
-			model.createURI("file:///c/my%20documents/blah.pdf");
+			this.model.createURI("file:///c/my%20documents/blah.pdf");
 		} catch (ModelRuntimeException e) {
 			fail();
 		}
@@ -549,25 +550,25 @@ public abstract class AbstractModelTest extends TestCase {
 		this.model.open();
 
 		log.debug("Using internal impl: "
-				+ model.getUnderlyingModelImplementation().getClass());
+				+ this.model.getUnderlyingModelImplementation().getClass());
 
 		// a rdf:type classA
 		// classA rdfs:subClassOf classB
 		// -->
 		// a rdf:type classB
 
-		URI a = model.createURI("urn:test:a");
-		URI classA = model.createURI("urn:test:classA");
-		URI classB = model.createURI("urn:test:classB");
+		URI a = this.model.createURI("urn:test:a");
+		URI classA = this.model.createURI("urn:test:classA");
+		URI classB = this.model.createURI("urn:test:classB");
 
-		model.addStatement(a, RDF.type, classA);
-		model.addStatement(classA, RDFS.subClassOf, classB);
+		this.model.addStatement(a, RDF.type, classA);
+		this.model.addStatement(classA, RDFS.subClassOf, classB);
 
-		boolean inferencedStatement = model.contains(Variable.ANY, RDF.type,
+		boolean inferencedStatement = this.model.contains(Variable.ANY, RDF.type,
 				classB);
 		if (!inferencedStatement) {
 			log.warn("Could not find expected statement.");
-			model.dump();
+			this.model.dump();
 		}
 		assertTrue(inferencedStatement);
 	}
@@ -586,13 +587,13 @@ public abstract class AbstractModelTest extends TestCase {
 		URI propertyB = new URIImpl("urn:prop:B");
 		URI propertyC = new URIImpl("urn:prop:C");
 
-		model.addStatement(propertyA, propertyB, propertyC);
-		model.addStatement(propertyB, RDFS.subPropertyOf, RDFS.subPropertyOf);
-		Assert.assertTrue(model.contains(propertyA, RDFS.subPropertyOf,
+		this.model.addStatement(propertyA, propertyB, propertyC);
+		this.model.addStatement(propertyB, RDFS.subPropertyOf, RDFS.subPropertyOf);
+		Assert.assertTrue(this.model.contains(propertyA, RDFS.subPropertyOf,
 				propertyC));
 
-		model.addStatement(resourceA, propertyA, resourceB);
-		Assert.assertTrue(model.contains(resourceA, propertyC, resourceB));
+		this.model.addStatement(resourceA, propertyA, resourceB);
+		Assert.assertTrue(this.model.contains(resourceA, propertyC, resourceB));
 	}
 
 	@Test
@@ -600,8 +601,8 @@ public abstract class AbstractModelTest extends TestCase {
 		URI a = new URIImpl("test://a");
 		URI b = new URIImpl("test://b");
 		URI c = new URIImpl("test://c");
-		model.addStatement(a, b, c);
-		ClosableIterator<? extends Statement> it = model
+		this.model.addStatement(a, b, c);
+		ClosableIterator<? extends Statement> it = this.model
 				.findStatements(a, b, c);
 		assertTrue(it.hasNext());
 		it.close();
@@ -612,10 +613,10 @@ public abstract class AbstractModelTest extends TestCase {
 		URI a = new URIImpl("test://a");
 		URI b = new URIImpl("test://b");
 		URI c = new URIImpl("test://c");
-		model.addStatement(a, b, c);
-		assertEquals(1, model.size());
+		this.model.addStatement(a, b, c);
+		assertEquals(1, this.model.size());
 
-		ClosableIterator<? extends Statement> it = model.findStatements(
+		ClosableIterator<? extends Statement> it = this.model.findStatements(
 				Variable.ANY, b, c);
 		assertTrue(it.hasNext());
 		it.close();
@@ -704,9 +705,9 @@ public abstract class AbstractModelTest extends TestCase {
 		add.close();
 		remove.close();
 
-		model.update(diff);
+		this.model.update(diff);
 
-		Assert.assertTrue(model.contains(a, b, c));
+		Assert.assertTrue(this.model.contains(a, b, c));
 	}
 
 	@Test
@@ -866,22 +867,22 @@ public abstract class AbstractModelTest extends TestCase {
 		URI a = new URIImpl("urn:test:a");
 		URI b = new URIImpl("urn:test:b");
 		URI c = new URIImpl("urn:test:c");
-		model.addStatement(a, b, c);
+		this.model.addStatement(a, b, c);
 
-		assertTrue(model.sparqlAsk("ASK { ?s ?p ?x . }"));
-		assertTrue(model.sparqlAsk("ASK { <urn:test:a> <urn:test:b> ?x . }"));
-		assertTrue(model
+		assertTrue(this.model.sparqlAsk("ASK { ?s ?p ?x . }"));
+		assertTrue(this.model.sparqlAsk("ASK { <urn:test:a> <urn:test:b> ?x . }"));
+		assertTrue(this.model
 				.sparqlAsk("ASK { <urn:test:a> <urn:test:b> <urn:test:c> . }"));
 	}
 
 	@Test
 	public void testReadFromFile() throws ModelRuntimeException, IOException {
-		assertNotNull(model);
+		assertNotNull(this.model);
 		InputStream reader = TestData.getFoafAsStream();
 		assertNotNull("testdata stream should not be null", reader);
 		Syntax rdfxml = Syntax.RdfXml;
 		assertNotNull(rdfxml);
-		model.readFrom(reader, rdfxml);
+		this.model.readFrom(reader, rdfxml);
 	}
 
 	@Test
@@ -894,12 +895,12 @@ public abstract class AbstractModelTest extends TestCase {
 		}
 		String inString = new String(allchars);
 
-		model.addStatement(a, b, inString);
+		this.model.addStatement(a, b, inString);
 
-		ClosableIterator<Statement> it = model.iterator();
+		ClosableIterator<Statement> it = this.model.iterator();
 		Statement stmt = it.next();
 		it.close();
-		model.close();
+		this.model.close();
 
 		Assert.assertEquals(a, stmt.getSubject());
 		Assert.assertEquals(b, stmt.getPredicate());
@@ -908,15 +909,15 @@ public abstract class AbstractModelTest extends TestCase {
 
 	@Test
 	public void testWriteRead() throws ModelRuntimeException {
-		URI konrad = model.createURI("urn:x-example:konrad");
-		URI kennt = model.createURI("urn:x-example:kennt");
-		URI max = model.createURI("urn:x-example:max");
+		URI konrad = this.model.createURI("urn:x-example:konrad");
+		URI kennt = this.model.createURI("urn:x-example:kennt");
+		URI max = this.model.createURI("urn:x-example:max");
 
-		model.addStatement(konrad, kennt, max);
+		this.model.addStatement(konrad, kennt, max);
 
 		String queryString = "SELECT ?x WHERE { <" + konrad + "> <" + kennt
 				+ "> ?x}";
-		QueryResultTable table = model.sparqlSelect(queryString);
+		QueryResultTable table = this.model.sparqlSelect(queryString);
 		ClosableIterator<QueryRow> it = table.iterator();
 		QueryRow row = it.next();
 		assertFalse("iterator should have only one result", it.hasNext());
@@ -930,7 +931,7 @@ public abstract class AbstractModelTest extends TestCase {
 	@Test
 	public void testGetSelectQueryResult() throws MalformedQueryException,
 			ModelRuntimeException {
-		QueryResultTable table = model
+		QueryResultTable table = this.model
 				.sparqlSelect("SELECT ?a ?b ?c WHERE { ?a ?b ?c }");
 		Iterator<QueryRow> iterator = table.iterator();
 
@@ -992,7 +993,7 @@ public abstract class AbstractModelTest extends TestCase {
 		Assert.assertNotNull(stream);
 		InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
 
-		model.readFrom(reader, Syntax.RdfXml);
+		this.model.readFrom(reader, Syntax.RdfXml);
 
 		reader.close();
 		stream.close();
@@ -1000,21 +1001,21 @@ public abstract class AbstractModelTest extends TestCase {
 
 	@Test
 	public void testCheckForValidURI() {
-		assertFalse(model.isValidURI("ping"));
-		assertTrue(model.isValidURI("http://i.am.a.uri"));
+		assertFalse(this.model.isValidURI("ping"));
+		assertTrue(this.model.isValidURI("http://i.am.a.uri"));
 	}
 
 	@Test
 	public void testAutoCommit() throws ModelRuntimeException {
-		assertFalse(model.isLocked());
-		model.lock();
-		assertTrue(model.isLocked());
+		assertFalse(this.model.isLocked());
+		this.model.lock();
+		assertTrue(this.model.isLocked());
 
-		model.addStatement(subject, predicate, "Test", "DE");
-		model.unlock();
-		assertFalse(model.isLocked());
+		this.model.addStatement(subject, predicate, "Test", "DE");
+		this.model.unlock();
+		assertFalse(this.model.isLocked());
 
-		assertTrue(model.contains(subject, predicate, model
+		assertTrue(this.model.contains(subject, predicate, this.model
 				.createLanguageTagLiteral("Test", "DE")));
 
 	}
@@ -1022,10 +1023,10 @@ public abstract class AbstractModelTest extends TestCase {
 	/* assert that language tags are always in lower-case */
 	@Test
 	public void testLowerCaseLanguageTag() throws Exception {
-		model.addStatement(subject, predicate, "Test", "DE");
-		model.addStatement(subject, predicate, "Test");
+		this.model.addStatement(subject, predicate, "Test", "DE");
+		this.model.addStatement(subject, predicate, "Test");
 
-		ClosableIterator<? extends Statement> iterator = model.findStatements(
+		ClosableIterator<? extends Statement> iterator = this.model.findStatements(
 				Variable.ANY, predicate, Variable.ANY);
 		assertTrue(iterator.hasNext());
 
@@ -1089,5 +1090,15 @@ public abstract class AbstractModelTest extends TestCase {
 		model2.removeStatement(b, c, a);
 		assertTrue(this.model.contains(b, c, a));
 		model2.close();
+	}
+	
+	@Test
+	public void testgetAllReificationsOf() {
+		Statement s = this.model.createStatement(a,b,c);
+		BlankNode reificationBlankNode = this.model.addReificationOf(s);
+		
+		Collection<Resource> reifications = this.model.getAllReificationsOf(s);
+		assertTrue( reifications.contains(reificationBlankNode) );
+		assertEquals(1, reifications.size() );
 	}
 }
