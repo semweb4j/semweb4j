@@ -36,7 +36,7 @@ public class RepositoryQueryResultTable implements QueryResultTable {
 		throws ModelRuntimeException
 	{
 		try {
-			queryResult = connection.prepareTupleQuery(language, queryString).evaluate();
+			this.queryResult = connection.prepareTupleQuery(language, queryString).evaluate();
 		}
 		catch (OpenRDFException e) {
 			throw new ModelRuntimeException(e);
@@ -44,10 +44,10 @@ public class RepositoryQueryResultTable implements QueryResultTable {
 	}
 
 	public List<String> getVariables() {
-		return queryResult.getBindingNames();
+		return this.queryResult.getBindingNames();
 	}
 
 	public ClosableIterator<QueryRow> iterator() {
-		return new QueryRowIterator(queryResult);
+		return new QueryRowIterator(this.queryResult);
 	}
 }
