@@ -22,9 +22,11 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Seq extends Container {
 
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq", false);
 
     /** all property-URIs with this class as domain */
+	@SuppressWarnings("hiding")
     public static final URI[] MANAGED_URIS = {
  
     };

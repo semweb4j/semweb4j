@@ -93,7 +93,7 @@ public class ReactorRuntimeEntity implements Resource {
 		
 		this.model = model;
 		this.classURI = classURI;
-		this.instanceIdentifier = (Resource) instanceIdentifier;
+		this.instanceIdentifier = instanceIdentifier;
 
 		// this can lead to concurrenty exceptions when used in
 		// iterators on the model
@@ -163,6 +163,7 @@ public class ReactorRuntimeEntity implements Resource {
 	 * 
 	 * @see Object methods
 	 */
+	@Override
 	public boolean equals(Object other) {
 
 		if (other instanceof ReactorRuntimeEntity) {
@@ -179,6 +180,7 @@ public class ReactorRuntimeEntity implements Resource {
 	 * 
 	 * @see Object methods
 	 */
+	@Override
 	public int hashCode() {
 		return this.instanceIdentifier.hashCode();
 	}
@@ -190,6 +192,7 @@ public class ReactorRuntimeEntity implements Resource {
 	 * @return a string representation of the instance identifier (URI or blank
 	 *         node). Representations are dependant on the used RDF2Go adaptor.
 	 */
+	@Override
 	public String toString() {
 		return this.instanceIdentifier.toString();
 	}
@@ -202,43 +205,43 @@ public class ReactorRuntimeEntity implements Resource {
 	 * @return converted object
 	 */
 	public Object castTo(Class<?> targetType) {
-		return Base.castTo(model, instanceIdentifier, targetType);
+		return Base.castTo(this.model, this.instanceIdentifier, targetType);
 	}
 	
 	public boolean isInstanceof( URI classURI ) {
-		return Base.hasInstance(model, classURI, instanceIdentifier);
+		return Base.hasInstance(this.model, classURI, this.instanceIdentifier);
 	}
 
 	public BlankNode asBlankNode() throws ClassCastException {
-		return instanceIdentifier.asBlankNode();
+		return this.instanceIdentifier.asBlankNode();
 	}
 
 	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
-		return instanceIdentifier.asDatatypeLiteral();
+		return this.instanceIdentifier.asDatatypeLiteral();
 	}
 
 	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
-		return instanceIdentifier.asLanguageTagLiteral();
+		return this.instanceIdentifier.asLanguageTagLiteral();
 	}
 
 	public Literal asLiteral() throws ClassCastException {
-		return instanceIdentifier.asLiteral();
+		return this.instanceIdentifier.asLiteral();
 	}
 
 	public Resource asResource() throws ClassCastException {
-		return instanceIdentifier.asResource();
+		return this.instanceIdentifier.asResource();
 	}
 
 	public URI asURI() throws ClassCastException {
-		return instanceIdentifier.asURI();
+		return this.instanceIdentifier.asURI();
 	}
 
 	public int compareTo(Node o) {
-		return instanceIdentifier.compareTo(o);
+		return this.instanceIdentifier.compareTo(o);
 	}
 
 	public String toSPARQL() {
-		return instanceIdentifier.toSPARQL();
+		return this.instanceIdentifier.toSPARQL();
 	}
 
 }

@@ -93,7 +93,7 @@ public class ReactorBaseImpl implements ReactorBase {
 			Resource instanceIdentifier, boolean write) {
 		this.model = model;
 		this.classURI = classURI;
-		this.instanceIdentifier = (Resource) instanceIdentifier;
+		this.instanceIdentifier = instanceIdentifier;
 
 		// this can lead to concurrenty exceptions when used in
 		// iterators on the model
@@ -180,6 +180,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * 
 	 * @see Object methods
 	 */
+	@Override
 	public boolean equals(Object other) {
 
 		if (other instanceof ReactorBase) {
@@ -196,6 +197,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * 
 	 * @see Object methods
 	 */
+	@Override
 	public int hashCode() {
 		return this.instanceIdentifier.hashCode();
 	}
@@ -207,6 +209,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @return a string representation of the instance identifier (URI or blank
 	 *         node). Representations are dependant on the used RDF2Go adaptor.
 	 */
+	@Override
 	public String toString() {
 		return this.instanceIdentifier.toString();
 	}
@@ -330,7 +333,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @return true if .this is an instance of the given classURI
 	 */
 	public boolean isInstanceof(URI classURI) throws ModelRuntimeException {
-		return model.contains(this.getResource(), RDF.type, classURI);
+		return this.model.contains(this.getResource(), RDF.type, classURI);
 	}
 
 	/**
@@ -352,7 +355,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @return converted object
 	 */
 	public Object castTo(Class<?> targetType) {
-		return RDFReactorRuntime.node2javatype(model, this.getResource(), targetType);
+		return RDFReactorRuntime.node2javatype(this.model, this.getResource(), targetType);
 	}
 
 	// FIXME new
@@ -371,7 +374,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @throws RDFDataException
 	 */
 	public Object get(URI prop, Class<?> returnType) throws RDFDataException {
-		return Bridge.getValue(this.model, this.instanceIdentifier, prop,
+		return BridgeBase.getValue(this.model, this.instanceIdentifier, prop,
 				returnType);
 	}
 
@@ -388,7 +391,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	public Object[] getAll(URI prop, Class<?> returnType) {
 
 		try {
-			return Bridge.getAllValues(this.model, this.instanceIdentifier,
+			return BridgeBase.getAllValues(this.model, this.instanceIdentifier,
 					prop, returnType);
 		} catch (Exception e) {
 			throw new RuntimeException("return type " + returnType.getName()
@@ -410,7 +413,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 */
 	public Object[] getAll_Inverse(URI property, Node o, Class<?> returnType) {
 		try {
-			return Bridge.getAllValues_Inverse(this.model, property, o,
+			return BridgeBase.getAllValues_Inverse(this.model, property, o,
 					returnType);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -429,7 +432,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	public Set<Object> getAll_AsSet(URI prop, Class<?> returnType) {
 
 		try {
-			return Bridge.getAllValues_asSet(this.model,
+			return BridgeBase.getAllValues_asSet(this.model,
 					this.instanceIdentifier, prop, returnType);
 		} catch (Exception e) {
 			throw new RuntimeException("type " + returnType.getName(), e);
@@ -487,7 +490,7 @@ public class ReactorBaseImpl implements ReactorBase {
 		else
 			throw new CardinalityException("Only " + maxCard
 					+ " values allowed for property " + prop + " in class "
-					+ classURI + ". You tried to add " + o.length);
+					+ this.classURI + ". You tried to add " + o.length);
 	}
 
 	/**
@@ -521,7 +524,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 */
 	public boolean hasValue(URI prop, Object value) {
 		try {
-			return Bridge.containsGivenValue(model, instanceIdentifier, prop,
+			return BridgeBase.containsGivenValue(this.model, this.instanceIdentifier, prop,
 					value);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
@@ -534,7 +537,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 */
 	public boolean hasValue(URI prop) {
 		try {
-			return ResourceUtils.containsAnyValue(model, instanceIdentifier,
+			return ResourceUtils.containsAnyValue(this.model, this.instanceIdentifier,
 					prop);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
@@ -583,7 +586,7 @@ public class ReactorBaseImpl implements ReactorBase {
 		else
 			throw new CardinalityException("Only " + maxCard
 					+ " values allowed for property " + property + " in class "
-					+ classURI);
+					+ this.classURI);
 	}
 
 	/**
@@ -597,7 +600,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 */
 	public boolean remove(URI prop, Object o) {
 		try {
-			return Bridge.removeValue(this.model, this.instanceIdentifier,
+			return BridgeBase.removeValue(this.model, this.instanceIdentifier,
 					prop, o);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -624,7 +627,7 @@ public class ReactorBaseImpl implements ReactorBase {
 			return remove(prop, o);
 		else
 			throw new CardinalityException("Must have at least " + minCard
-					+ " values for property " + prop + " in class " + classURI);
+					+ " values for property " + prop + " in class " + this.classURI);
 	}
 
 	/**
@@ -635,7 +638,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 */
 	public boolean removeAll(URI prop) {
 		try {
-			return Bridge.removeAllValues(this.model, this.instanceIdentifier,
+			return BridgeBase.removeAllValues(this.model, this.instanceIdentifier,
 					prop);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -651,7 +654,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	 */
 	public void delete() {
 		try {
-			this.model.removeStatements(model.createTriplePattern(
+			this.model.removeStatements(this.model.createTriplePattern(
 					this.instanceIdentifier, Variable.ANY, Variable.ANY));
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException(e);
@@ -660,9 +663,9 @@ public class ReactorBaseImpl implements ReactorBase {
 	}
 
 	public boolean in(Model model) {
+		throw new UnsupportedOperationException("not yet implemented");
 
 		// TODO implement boolean in(Model)
-		return false;
 	}
 
 	// TODO re-enable after cleanup is complete

@@ -18,17 +18,17 @@ public class ProjectingIterator<T> implements ClosableIterator<T> {
 	}
 
 	public void close() {
-		it.close();
+		this.it.close();
 	}
 
 	public boolean hasNext() {
-		return it.hasNext();
+		return this.it.hasNext();
 	}
 
 	@SuppressWarnings("unchecked")
 	public T next() {
-		Statement statement = it.next();
-		switch (p) {
+		Statement statement = this.it.next();
+		switch (this.p) {
 		case Subject:
 			return (T) statement.getSubject();
 		case Predicate:
@@ -42,7 +42,7 @@ public class ProjectingIterator<T> implements ClosableIterator<T> {
 	}
 
 	public void remove() {
-		it.remove();
+		this.it.remove();
 	}
 
 }

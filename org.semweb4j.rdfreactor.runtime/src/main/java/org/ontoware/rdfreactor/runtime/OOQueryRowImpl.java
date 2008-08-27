@@ -18,8 +18,8 @@ public class OOQueryRowImpl implements OOQueryRow {
 	}
 
 	public Object getValue(String varname) {
-		return RDFReactorRuntime.node2javatype(ooQueryResultTable.getModel(), row.getValue(varname),
-				ooQueryResultTable.getReturnType(varname));
+		return RDFReactorRuntime.node2javatype(this.ooQueryResultTable.getModel(), this.row.getValue(varname),
+				this.ooQueryResultTable.getReturnType(varname));
 	}
 
 }

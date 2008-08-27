@@ -34,7 +34,8 @@ public class AllDifferent extends OwlThing {
 	public static final URI DISTINCTMEMBERS = new URIImpl("http://www.w3.org/2002/07/owl#distinctMembers",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2002/07/owl#distinctMembers",false) 
     };
 

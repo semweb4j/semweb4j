@@ -24,38 +24,38 @@ public class PersonTest {
 
 	@Before
 	public void setUp() throws Exception {
-		model = RDF2Go.getModelFactory().createModel();
-		model.open();
-		model.removeAll();
-		instanceURI = new URIImpl("data://person-1");
+		this.model = RDF2Go.getModelFactory().createModel();
+		this.model.open();
+		this.model.removeAll();
+		this.instanceURI = new URIImpl("data://person-1");
 	}
 
 	public void testTyping() throws Exception {
 		URI jim = new URIImpl("data://jim");
-		Person p = new Person(model, jim, true);
-		Assert.assertTrue(model.contains(jim, RDF.type, Person.PERSON));
+		Person p = new Person(this.model, jim, true);
+		Assert.assertTrue(this.model.contains(jim, RDF.type, Person.PERSON));
 	}
 
 	// //////////////
 	// specific tests
 
 	public void testSetAge() throws RDFDataException {
-		Person p = new Person(model, instanceURI, true);
+		Person p = new Person(this.model, this.instanceURI, true);
 		p.setAge(18);
 		int age = p.getAge();
 		assertEquals(18, age);
 	}
 
 	public void testSetName() throws RDFDataException {
-		Person p = new Person(model, instanceURI, true);
+		Person p = new Person(this.model, this.instanceURI, true);
 		p.setName("Max Mustermann");
 		assertEquals("Max Mustermann", p.getName());
 	}
 
 	public void testHashCode() throws ModelRuntimeException {
-		Person p1 = new Person(model, instanceURI, true);
-		Person p2 = new Person(model, instanceURI, true);
-		Person p3 = new Person(model, new URIImpl("test://otheruri"), true);
+		Person p1 = new Person(this.model, this.instanceURI, true);
+		Person p2 = new Person(this.model, this.instanceURI, true);
+		Person p3 = new Person(this.model, new URIImpl("test://otheruri"), true);
 		assertEquals(p1.hashCode(), p2.hashCode());
 		assertNotSame(p1.hashCode(), p3.hashCode());
 	}
@@ -67,16 +67,16 @@ public class PersonTest {
 	 * Class under test for boolean equals(Object)
 	 */
 	public void testEqualsObject() throws ModelRuntimeException {
-		Person p1 = new Person(model, instanceURI, true);
-		Person p2 = new Person(model, instanceURI, true);
-		Person p3 = new Person(model, new URIImpl("test://otheruri"), true);
+		Person p1 = new Person(this.model, this.instanceURI, true);
+		Person p2 = new Person(this.model, this.instanceURI, true);
+		Person p3 = new Person(this.model, new URIImpl("test://otheruri"), true);
 		assertEquals(p1, p2);
 		assertNotSame(p1, p3);
 	}
 
 	public void testGetURI() {
-		Person p1 = new Person(model, instanceURI, true);
-		assertEquals(instanceURI, p1.getResource());
+		Person p1 = new Person(this.model, this.instanceURI, true);
+		assertEquals(this.instanceURI, p1.getResource());
 	}
 
 	/*
@@ -86,7 +86,7 @@ public class PersonTest {
 	}
 
 	public void testGet() throws RDFDataException {
-		Person p1 = new Person(model, instanceURI, true);
+		Person p1 = new Person(this.model, this.instanceURI, true);
 		Integer a = p1.getAge();
 		Assert.assertNull(a);
 		p1.setAge(21);
@@ -106,28 +106,28 @@ public class PersonTest {
 	}
 
 	public void testTwoStatements() throws Exception {
-		model.addStatement(instanceURI, instanceURI, "a");
-		model.addStatement(instanceURI, instanceURI, "b");
+		this.model.addStatement(this.instanceURI, this.instanceURI, "a");
+		this.model.addStatement(this.instanceURI, this.instanceURI, "b");
 	}
 
 	@Ignore("outdated")
 	@Test
 	public void testAdd() throws Exception {
 		// create Person p
-		Person p = new Person(model, new URIImpl("data://jim"), true);
-		assertTrue("model contains a Person after add", model.contains(p
+		Person p = new Person(this.model, new URIImpl("data://jim"), true);
+		assertTrue("model contains a Person after add", this.model.contains(p
 				.getResource(), RDF.type, Person.PERSON));
 
 		// set name
 		p.setName("Jim");
 
-		assert model.contains(p.getResource(), RDF.type, Person.PERSON);
-		assert model.contains(p.getResource(), Person.NAME, "Jim");
+		assert this.model.contains(p.getResource(), RDF.type, Person.PERSON);
+		assert this.model.contains(p.getResource(), Person.NAME, "Jim");
 
 		// create Persons q1 and q2
-		Person q1 = new Person(model, new URIImpl("data://jon"), true);
+		Person q1 = new Person(this.model, new URIImpl("data://jon"), true);
 		q1.setName("Jon");
-		Person q2 = new Person(model, new URIImpl("data://joe"), true);
+		Person q2 = new Person(this.model, new URIImpl("data://joe"), true);
 		q2.setName("Joe");
 
 		// add friends
@@ -141,14 +141,14 @@ public class PersonTest {
 	@Ignore("outdated")
 	@Test
 	public void testRemove() throws ModelRuntimeException {
-		Person p = new Person(model, instanceURI, true);
-		Person q = new Person(model, new URIImpl("data://p1"), true);
-		Person q2 = new Person(model, new URIImpl("data://p2"), true);
+		Person p = new Person(this.model, this.instanceURI, true);
+		Person q = new Person(this.model, new URIImpl("data://p1"), true);
+		Person q2 = new Person(this.model, new URIImpl("data://p2"), true);
 		p.addFriend(q);
 		p.addFriend(q2);
 		assertEquals(2, p.getAllFriend().length);
 
-		assertTrue(model.contains(p.getResource(), Person.HAS_FRIEND, q2
+		assertTrue(this.model.contains(p.getResource(), Person.HAS_FRIEND, q2
 				.getResource()));
 
 		assertTrue(p.removeFriend(q2));

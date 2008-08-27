@@ -27,19 +27,19 @@ public class ExtractingIterator implements ClosableIterator<Node> {
 	}
 
 	public boolean hasNext() {
-		return it.hasNext();
+		return this.it.hasNext();
 	}
 
 	public Node next() {
-		return it.next().getValue(extractVariable);
+		return this.it.next().getValue(this.extractVariable);
 	}
 
 	public void remove() {
-		it.remove();
+		this.it.remove();
 	}
 
 	public void close() {
-		it.close();
+		this.it.close();
 	}
 
 	public Model getModel() {
