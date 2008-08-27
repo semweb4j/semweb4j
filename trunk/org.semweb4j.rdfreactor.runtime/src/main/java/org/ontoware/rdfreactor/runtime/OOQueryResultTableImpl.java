@@ -42,7 +42,7 @@ public class OOQueryResultTableImpl implements OOQueryResultTable {
 	}
 
 	public Class<?> getReturnType(String varname) {
-		return returnTypes.get(varname);
+		return this.returnTypes.get(varname);
 	}
 
 }

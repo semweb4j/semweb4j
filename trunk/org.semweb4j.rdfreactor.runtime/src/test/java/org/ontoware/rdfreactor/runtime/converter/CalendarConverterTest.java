@@ -1,7 +1,6 @@
 package org.ontoware.rdfreactor.runtime.converter;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -44,16 +43,16 @@ public class CalendarConverterTest extends TestCase {
 		cal.set(year, month - 1, date, hrs, min, sec);
 
 		String encoded = CalendarConverter.encodeCalendar_toXSDDateTime(cal);
-		log.info("Cal = " + formatDate(cal)+" encoded as "+encoded);
+		this.log.info("Cal = " + formatDate(cal)+" encoded as "+encoded);
 
 		assertDate(encoded, year, month, date, hrs, min, sec);
 
-		log.debug("as xsd:date: " + encoded);
+		this.log.debug("as xsd:date: " + encoded);
 
 
 		Calendar returnCal = CalendarConverter.parseXSDDateTime_toCalendar(encoded);
-		log.debug("returnCal = "
-				+ SimpleDateFormat.getInstance().format(returnCal.getTime()));
+		this.log.debug("returnCal = "
+				+ DateFormat.getInstance().format(returnCal.getTime()));
 
 		Assert.assertEquals("year", cal.get(Calendar.YEAR), returnCal
 				.get(Calendar.YEAR));
@@ -81,7 +80,7 @@ public class CalendarConverterTest extends TestCase {
 	public void assertDate(String datestring, int year, int month, int day,
 			int h, int m, int s) {
 		Calendar c = CalendarConverter.parseXSDDateTime_toCalendar(datestring);
-		log.info("Parsed '" + datestring + "' to " + formatDate(c));
+		this.log.info("Parsed '" + datestring + "' to " + formatDate(c));
 
 		assertEquals("year", year, c.get(Calendar.YEAR));
 		assertEquals("month", month - 1, c.get(Calendar.MONTH));

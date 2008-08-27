@@ -18,21 +18,21 @@ public class ConvertingClosableIterator<T> implements ClosableIterator<T>{
 	}
 
 	public void close() {
-		it.close();
+		this.it.close();
 	}
 
 	public boolean hasNext() {
-		return it.hasNext();
+		return this.it.hasNext();
 	}
 
 	@SuppressWarnings("unchecked")
 	public T next() {
-		Node node = it.next();
-		return (T) RDFReactorRuntime.node2javatype(model, node, returnType);
+		Node node = this.it.next();
+		return (T) RDFReactorRuntime.node2javatype(this.model, node, this.returnType);
 	}
 
 	public void remove() {
-		it.remove();
+		this.it.remove();
 	}
 
 }

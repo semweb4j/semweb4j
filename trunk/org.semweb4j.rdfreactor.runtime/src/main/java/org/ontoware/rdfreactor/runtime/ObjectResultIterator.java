@@ -45,15 +45,15 @@ public class ObjectResultIterator<E> implements Iterator<E> {
 	}
 
 	public boolean hasNext() {
-		return it.hasNext();
+		return this.it.hasNext();
 	}
 
 	@SuppressWarnings(value = "unchecked")
 	public E next() {
-		Node node = it.next();
+		Node node = this.it.next();
 		Object typedObject;
 		try {
-			typedObject = RDFReactorRuntime.node2javatype(this.m, node, returnType);
+			typedObject = RDFReactorRuntime.node2javatype(this.m, node, this.returnType);
 			// TODO: can this be done better in Java 1.5?
 			return (E) typedObject;
 		} catch (ModelRuntimeException e) {
@@ -62,7 +62,7 @@ public class ObjectResultIterator<E> implements Iterator<E> {
 	}
 
 	public void remove() {
-		it.remove();
+		this.it.remove();
 	}
 
 }

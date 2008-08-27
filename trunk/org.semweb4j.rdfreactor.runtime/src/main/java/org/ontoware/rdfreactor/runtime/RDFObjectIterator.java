@@ -14,24 +14,24 @@ public class RDFObjectIterator<T> implements ClosableIterator<T> {
 	}
 	
 	public boolean hasNext() {
-		return it.hasNext();
+		return this.it.hasNext();
 	}
 
 	@SuppressWarnings("unchecked")
 	public T next() {
 		try {
-			return (T) RDFReactorRuntime.node2javatype( it.getModel(), it.next(), returnType);
+			return (T) RDFReactorRuntime.node2javatype( this.it.getModel(), this.it.next(), this.returnType);
 		} catch (ModelRuntimeException e) {
 			throw new RuntimeException( e );
 		}
 	}
 
 	public void remove() {
-		it.remove();
+		this.it.remove();
 	}
 
 	public void close() {
-		it.close();
+		this.it.close();
 	}
 
 

@@ -25,10 +25,10 @@ public class ReactorResult<T> {
 	}
 
 	public ClosableIterator<T> asClosableIterator() {
-		ClosableIterator<Statement> it = model.findStatements(triplePattern.getSubject(),
-				triplePattern.getPredicate(), triplePattern.getObject() );
+		ClosableIterator<Statement> it = this.model.findStatements(this.triplePattern.getSubject(),
+				this.triplePattern.getPredicate(), this.triplePattern.getObject() );
 		ProjectingIterator.projection proj = null;
-		switch (triplePattern.extract) {
+		switch (this.triplePattern.extract) {
 		case SUBJECT:
 			proj = ProjectingIterator.projection.Subject;
 			break;
@@ -40,7 +40,7 @@ public class ReactorResult<T> {
 			break;
 		}
 		return new ConvertingClosableIterator<T>( new ProjectingIterator<Node>(it,
-				proj), model, returnType);
+				proj), this.model, this.returnType);
 	}
 	
 	public T firstValue() {
@@ -65,7 +65,7 @@ public class ReactorResult<T> {
 
 	@SuppressWarnings("unchecked")
 	public T[] asArray() {
-		Object[] resultAsArray = (Object[]) Array.newInstance(returnType, 0);
+		Object[] resultAsArray = (Object[]) Array.newInstance(this.returnType, 0);
 		return (T[]) asList().toArray(resultAsArray);
 	}
 	
