@@ -60,6 +60,7 @@ public class GenericTest {
 	//the classes return null on purpose
 	//they are only mock implementations for testing purposes
 	
+	@SuppressWarnings("unused")
 	private static class RDF2GoTestAdapter extends AbstractModelFactory {
 
 		public Model createModel(Properties p) throws ModelRuntimeException {
@@ -75,6 +76,7 @@ public class GenericTest {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static class RDF2GoTestAdapterTwo extends AbstractModelFactory {
 
 		public Model createModel(Properties p) throws ModelRuntimeException {

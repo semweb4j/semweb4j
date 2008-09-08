@@ -822,7 +822,8 @@ public abstract class AbstractModelSetTest {
 		try {
 			this.modelset.writeTo(new OutputStream() {
 				@Override
-				public void write(int b) throws IOException {
+				public void write(@SuppressWarnings("unused")
+				int b) {
 				}
 			});
 		} catch (ModelRuntimeException e) {
@@ -839,7 +840,8 @@ public abstract class AbstractModelSetTest {
 		try {
 			this.modelset.writeTo(new OutputStream() {
 				@Override
-				public void write(int b) throws IOException {
+				public void write(@SuppressWarnings("unused")
+				int b) {
 				}
 			}, Syntax.Turtle);
 		} catch (ModelRuntimeException e) {
@@ -899,6 +901,5 @@ public abstract class AbstractModelSetTest {
 		// ical.close();
 		m.close();
 	}
-
 
 }

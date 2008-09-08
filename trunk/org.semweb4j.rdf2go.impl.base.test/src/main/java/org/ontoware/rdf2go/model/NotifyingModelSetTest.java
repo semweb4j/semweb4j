@@ -45,23 +45,24 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 		super.setUp();
 		ModelSet plainModel = getModelFactory().createModelSet();
 		assertNotNull(plainModel);
-		model = new NotifyingModelSetLayer(plainModel);
+		this.model = new NotifyingModelSetLayer(plainModel);
 	}
 	
 	public void testModelConnection()
 	{
-		assertNotNull(model);
-		assertNotNull(model.getDelegatedModelSet());
-		assertFalse(model.isOpen());
-		model.open();
-		assertTrue(model.isOpen());
-		model.close();
-		assertFalse(model.isOpen());
+		assertNotNull(this.model);
+		assertNotNull(this.model.getDelegatedModelSet());
+		assertFalse(this.model.isOpen());
+		this.model.open();
+		assertTrue(this.model.isOpen());
+		this.model.close();
+		assertFalse(this.model.isOpen());
 	}
 	
 	public void testContextNotification()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {
+			@Override
 			public void addedStatement(Statement statement)
 			{
 				assertEquals(context1, statement.getContext());
@@ -72,25 +73,26 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 
 		};
 		QuadPattern pattern = new QuadPatternImpl(context1, Variable.ANY, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, subject, predicate, object);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, subject, predicate, object);
+		this.model.close();
 	}
 	
 	public void testContextNotification2()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {};
 		QuadPattern pattern = new QuadPatternImpl(context1, Variable.ANY, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context2, subject, predicate, object);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context2, subject, predicate, object);
+		this.model.close();
 	}
 	
 	public void testSubjectNotification()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {
+			@Override
 			public void addedStatement(Statement statement)
 			{
 				assertEquals(context1, statement.getContext());
@@ -100,26 +102,27 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 			}
 		};
 		QuadPattern pattern = new QuadPatternImpl(Variable.ANY, subject, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, subject, predicate, object);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, subject, predicate, object);
+		this.model.close();
 	}
 	
 	public void testSubjectNotification2()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {};
 		QuadPattern pattern = new QuadPatternImpl(Variable.ANY, subject, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, predicate, object, subject);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, predicate, object, subject);
+		this.model.close();
 	}
 	
 	
 	public void testLiteralNotification()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {
+			@Override
 			public void addedStatement(Statement statement)
 			{
 				assertEquals(context1, statement.getContext());
@@ -129,10 +132,10 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 			}
 		};
 		QuadPattern pattern = new QuadPatternImpl(Variable.ANY, Variable.ANY, Variable.ANY, new PlainLiteralImpl("Sebastian Gerke"));
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, subject, predicate, new PlainLiteralImpl("Sebastian Gerke"));
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, subject, predicate, new PlainLiteralImpl("Sebastian Gerke"));
+		this.model.close();
 	}
 	
 	
@@ -140,15 +143,16 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {};
 		QuadPattern pattern = new QuadPatternImpl(Variable.ANY, Variable.ANY, Variable.ANY, new PlainLiteralImpl("Sebastian"));
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, subject, predicate, new PlainLiteralImpl("Sebastian Gerke"));
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, subject, predicate, new PlainLiteralImpl("Sebastian Gerke"));
+		this.model.close();
 	}
 	
 	public void testContextAndSubjectNotification()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {
+			@Override
 			public void addedStatement(Statement statement)
 			{
 				assertEquals(context1, statement.getContext());
@@ -158,35 +162,36 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 			}
 		};
 		QuadPattern pattern = new QuadPatternImpl(context1, subject, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, subject, predicate, object);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, subject, predicate, object);
+		this.model.close();
 	}
 	
 	public void testContextAndSubjectNotification2()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {};
 		QuadPattern pattern = new QuadPatternImpl(context1, subject, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, predicate, object, subject);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, predicate, object, subject);
+		this.model.close();
 	}
 	
 	public void testContextAndSubjectNotification3()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {};
 		QuadPattern pattern = new QuadPatternImpl(context1, subject, Variable.ANY, Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context2, subject, predicate, object);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context2, subject, predicate, object);
+		this.model.close();
 	}
 	
 	public void testPredicateNotification()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {
+			@Override
 			public void addedStatement(Statement statement)
 			{
 				assertEquals(context1, statement.getContext());
@@ -196,20 +201,20 @@ public class NotifyingModelSetTest extends AbstractModelSetTest
 			}
 		};
 		QuadPattern pattern = new QuadPatternImpl(Variable.ANY, Variable.ANY, predicate,  Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, subject, predicate, object);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, subject, predicate, object);
+		this.model.close();
 	}
 	
 	public void testPredicateNotification2()
 	{
 		ModelChangedListener listener = new AbstractModelChangeListener() {};
 		QuadPattern pattern = new QuadPatternImpl(Variable.ANY, Variable.ANY, predicate,  Variable.ANY);
-		model.addModelSetChangedListener(listener, pattern);
-		model.open();
-		model.addStatement(context1, predicate, object, subject);
-		model.close();
+		this.model.addModelSetChangedListener(listener, pattern);
+		this.model.open();
+		this.model.addStatement(context1, predicate, object, subject);
+		this.model.close();
 	}
 
 }
