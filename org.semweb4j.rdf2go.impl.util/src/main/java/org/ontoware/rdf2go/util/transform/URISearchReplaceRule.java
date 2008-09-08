@@ -16,7 +16,7 @@ public class URISearchReplaceRule implements TransformerRule {
 	}
 
 	public void applyRule(Model model, Map<String, URI> namespaceMap) {
-		searchAndReplace(model, namespaceMap, search, replace);
+		searchAndReplace(model, namespaceMap, this.search, this.replace);
 	}
 
 	public static void searchAndReplace(Model model,
