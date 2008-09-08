@@ -122,7 +122,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			this.context = new URIImpl(DEFAULT_CONTEXT, false);
 			this.openRdfContext = DEFAULT_OPENRDF_CONTEXT;
 		} else {
-			this.openRdfContext = this.valueFactory.createURI(this.context.toString());
+			this.openRdfContext = this.valueFactory.createURI(this.context
+					.toString());
 		}
 	}
 
@@ -206,12 +207,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					.toOpenRDF(subject, this.valueFactory);
 			org.openrdf.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(
 					predicate, this.valueFactory);
-			Value openRdfObject = ConversionUtil
-					.toOpenRDF(object, this.valueFactory);
+			Value openRdfObject = ConversionUtil.toOpenRDF(object,
+					this.valueFactory);
 
 			// add the statement
-			this.connection.add(openRdfSubject, openRdfPredicate, openRdfObject,
-					this.openRdfContext);
+			this.connection.add(openRdfSubject, openRdfPredicate,
+					openRdfObject, this.openRdfContext);
 			if (log.isDebugEnabled()) {
 				this.connection.commit();
 				if (!contains(subject, predicate, object)) {
@@ -276,7 +277,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			boolean autocommitBefore = this.connection.isAutoCommit();
 			this.connection.setAutoCommit(false);
 			// remove all
-			this.connection.clear();
+			this.connection.clear(this.openRdfContext);
 			this.connection.setAutoCommit(autocommitBefore);
 		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -326,12 +327,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					.toOpenRDF(subject, this.valueFactory);
 			org.openrdf.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(
 					predicate, this.valueFactory);
-			Value openRdfObject = ConversionUtil
-					.toOpenRDF(object, this.valueFactory);
+			Value openRdfObject = ConversionUtil.toOpenRDF(object,
+					this.valueFactory);
 
 			// remove the statement
-			this.connection.remove(openRdfSubject, openRdfPredicate, openRdfObject,
-					this.openRdfContext);
+			this.connection.remove(openRdfSubject, openRdfPredicate,
+					openRdfObject, this.openRdfContext);
 		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 
@@ -347,7 +348,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				.toOpenRDF(subject, this.valueFactory);
 		org.openrdf.model.URI openRdfPredicate = (org.openrdf.model.URI) ConversionUtil
 				.toOpenRDF(predicate, this.valueFactory);
-		Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+		Value openRdfObject = ConversionUtil.toOpenRDF(object,
+				this.valueFactory);
 
 		try {
 			// find the matching statements
@@ -361,6 +363,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 
+	@Override
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
 		assertModel();
 		try {
@@ -382,8 +385,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throws ModelRuntimeException {
 		assertModel();
 		try {
-			GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
-					QueryLanguage.SPARQL, query).evaluate();
+			GraphQueryResult graphQueryResult = this.connection
+					.prepareGraphQuery(QueryLanguage.SPARQL, query).evaluate();
 			return new GraphIterable(graphQueryResult, this);
 		} catch (MalformedQueryException e) {
 			throw new ModelRuntimeException(e);
@@ -400,8 +403,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throws ModelRuntimeException {
 		assertModel();
 		try {
-			GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
-					QueryLanguage.SPARQL, query).evaluate();
+			GraphQueryResult graphQueryResult = this.connection
+					.prepareGraphQuery(QueryLanguage.SPARQL, query).evaluate();
 			return new GraphIterable(graphQueryResult, this);
 		} catch (MalformedQueryException e) {
 			throw new ModelRuntimeException(e);
@@ -425,12 +428,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			QueryLanguage ql = QueryLanguage.valueOf(querylanguage);
 			if (ql == null) {
 				throw new QueryLanguageNotSupportedException(
-						"Unsupported query language: '" + querylanguage+"'");
+						"Unsupported query language: '" + querylanguage + "'");
 			}
 			return new RepositoryQueryResultTable(query, ql, this.connection);
 		}
 	}
-	
+
 	/* enable SeRQL queries, too */
 	@Override
 	public ClosableIterable<Statement> queryConstruct(String query,
@@ -443,11 +446,11 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			QueryLanguage ql = QueryLanguage.valueOf(querylanguage);
 			if (ql == null) {
 				throw new QueryLanguageNotSupportedException(
-						"Unsupported query language: '" + querylanguage+"'");
+						"Unsupported query language: '" + querylanguage + "'");
 			}
 			try {
-				GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
-						ql, query).evaluate();
+				GraphQueryResult graphQueryResult = this.connection
+						.prepareGraphQuery(ql, query).evaluate();
 				return new GraphIterable(graphQueryResult, this);
 			} catch (MalformedQueryException e) {
 				throw new ModelRuntimeException(e);
@@ -668,9 +671,11 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		writeTo(stream, Syntax.RdfXml);
 	}
 
+	@SuppressWarnings("unused")
 	@Override
-	public void writeTo(OutputStream stream, Syntax syntax) throws IOException,
-			ModelRuntimeException {
+	public void writeTo(OutputStream stream, Syntax syntax) throws
+	// interface allows it
+			IOException, ModelRuntimeException {
 		RDFWriter rdfWriter = Rio.createWriter(getRDFFormat(syntax), stream);
 		writeTo(rdfWriter);
 	}
@@ -766,10 +771,13 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 
-	public boolean isIsomorphicWith(Model other) {
+	/* NOT YET IMPLEMENTED */
+	public boolean isIsomorphicWith(@SuppressWarnings("unused")
+	Model other) {
 		throw new UnsupportedOperationException("Not yet implemented!");
 	}
 
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
 		update((DiffReader) diff);
 	}

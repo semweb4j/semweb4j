@@ -20,6 +20,9 @@
 			<action dev="xamde" type="fix">
 				Added support for SeRQL and others in RepositoryModel.
 			</action>
+			<action dev="xamde" type="fix" issue="RTGO-56">
+				Fixed RepositoryModel.removeAll() - thank Antoni!
+			</action>
 		</release>
 		
 

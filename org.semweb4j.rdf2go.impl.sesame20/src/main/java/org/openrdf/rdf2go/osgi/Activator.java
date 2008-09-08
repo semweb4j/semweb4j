@@ -17,35 +17,39 @@ import org.osgi.framework.ServiceRegistration;
 
 /**
  * Register the ModelFactory at OSGI
+ * 
  * @author sauermann
  */
 public class Activator implements BundleActivator {
 
-    protected static BundleContext bc;
+	protected static BundleContext bc;
 
-    private ModelFactory factory;
+	private ModelFactory factory;
 
-    private ServiceReference reference;
+	private ServiceReference reference;
 
-    /**
-     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+	 */
+	@SuppressWarnings("unchecked")
 	public void start(BundleContext context) throws Exception {
 
-        bc = context;
+		bc = context;
 
-        factory = new RepositoryModelFactory();
-        ServiceRegistration registration = bc.registerService(ModelFactory.class.getName(), factory,
-            new Hashtable());
-        reference = registration.getReference();
-    }
+		this.factory = new RepositoryModelFactory();
+		ServiceRegistration registration = bc.registerService(
+				ModelFactory.class.getName(), this.factory, new Hashtable());
+		this.reference = registration.getReference();
+	}
 
-    /**
-     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext context) throws Exception {
-        bc.ungetService(reference);
-    }
+	/**
+	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(
+	// TODO: document why bundlecontext is not used
+			@SuppressWarnings("unused")
+			BundleContext context) throws Exception {
+		bc.ungetService(this.reference);
+	}
 
 }

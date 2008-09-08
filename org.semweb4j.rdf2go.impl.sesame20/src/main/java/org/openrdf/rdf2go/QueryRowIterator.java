@@ -33,13 +33,13 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 	}
 
 	public boolean hasNext() {
-		if (closed) {
+		if (this.closed) {
 			return false;
 		}
 		else {
 			boolean hasNext = false;
 			try {
-				hasNext = queryResult.hasNext();
+				hasNext = this.queryResult.hasNext();
 			}
 			catch (QueryEvaluationException e) {
 				throw new ModelRuntimeException(e);
@@ -55,9 +55,9 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 		BindingSet nextBindingSet = null;
 
 		try {
-			nextBindingSet = queryResult.next();
+			nextBindingSet = this.queryResult.next();
 
-			if (!queryResult.hasNext()) {
+			if (!this.queryResult.hasNext()) {
 				close();
 			}
 		}
@@ -70,7 +70,7 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 
 	public void remove() {
 		try {
-			queryResult.remove();
+			this.queryResult.remove();
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
@@ -79,12 +79,12 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 
 	public void close() {
 		try {
-			queryResult.close();
+			this.queryResult.close();
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
 		}
-		closed = true;
+		this.closed = true;
 	}
 
 	@Override
@@ -92,8 +92,8 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 		throws Throwable
 	{
 		try {
-			if (!closed) {
-				logger.warn(this.getClass().getName() + " not closed, closing now");
+			if (!this.closed) {
+				this.logger.warn(this.getClass().getName() + " not closed, closing now");
 				close();
 			}
 		}

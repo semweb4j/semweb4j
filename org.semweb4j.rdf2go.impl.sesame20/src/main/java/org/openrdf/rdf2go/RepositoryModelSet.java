@@ -379,6 +379,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		return true;
 	}
 
+	@Override
 	public void addModel(Model model, URI contextURI)
 			throws ModelRuntimeException {
 		this.assertModel();
@@ -454,6 +455,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 
+	@Override
 	public void addModelSet(ModelSet modelSet) throws ModelRuntimeException {
 		this.assertModel();
 
@@ -1106,6 +1108,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 * the context URIs might or might not be serialized. TriX should be able to
 	 * serialize contexts.
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException {
@@ -1127,6 +1130,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 * context URIs might or might not be serialized. TriX should be able to
 	 * serialize contexts.
 	 */
+	@SuppressWarnings("unused")
 	@Override
 	public void writeTo(Writer writer, Syntax syntax) throws IOException,
 			ModelRuntimeException {

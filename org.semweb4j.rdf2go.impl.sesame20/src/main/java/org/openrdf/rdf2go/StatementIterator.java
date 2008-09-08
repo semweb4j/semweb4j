@@ -38,13 +38,13 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 	}
 
 	public boolean hasNext() {
-		if (closed) {
+		if (this.closed) {
 			return false;
 		}
 		else {
 			boolean hasNext;
 			try {
-				hasNext = cit.hasNext();
+				hasNext = this.cit.hasNext();
 			}
 			catch (OpenRDFException e) {
 				throw new ModelRuntimeException(e);
@@ -59,10 +59,10 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 	public org.ontoware.rdf2go.model.Statement next() {
 		org.ontoware.rdf2go.model.Statement result = null;
 		try {
-			Statement nextStatement = cit.next();
-			result = new StatementWrapper(model, nextStatement);
+			Statement nextStatement = this.cit.next();
+			result = new StatementWrapper(this.model, nextStatement);
 
-			if (!cit.hasNext()) {
+			if (!this.cit.hasNext()) {
 				close();
 			}
 		}
@@ -80,12 +80,12 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 
 	public void close() {
 		try {
-			cit.close();
+			this.cit.close();
 		}
 		catch (OpenRDFException e) {
 			throw new ModelRuntimeException(e);
 		}
-		closed = true;
+		this.closed = true;
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 		throws Throwable
 	{
 		try {
-			if (!closed) {
-				logger.warn(this.getClass().getName() + " not closed, closing now");
+			if (!this.closed) {
+				this.logger.warn(this.getClass().getName() + " not closed, closing now");
 				close();
 			}
 		}

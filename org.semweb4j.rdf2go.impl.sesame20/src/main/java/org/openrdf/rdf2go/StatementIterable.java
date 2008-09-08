@@ -32,6 +32,6 @@ public class StatementIterable implements ClosableIterable<Statement> {
 	}
 
 	public ClosableIterator<Statement> iterator() {
-		return new StatementIterator(cit, model);
+		return new StatementIterator(this.cit, this.model);
 	}
 }

@@ -28,7 +28,7 @@ public class GraphIterator implements ClosableIterator<Statement> {
 
 	public boolean hasNext() {
 		try {
-			return iterator.hasNext();
+			return this.iterator.hasNext();
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
@@ -38,17 +38,17 @@ public class GraphIterator implements ClosableIterator<Statement> {
 	public Statement next() {
 		org.openrdf.model.Statement statement = null;
 		try {
-			statement = iterator.next();
+			statement = this.iterator.next();
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
 		}
-		return new StatementWrapper(model, statement);
+		return new StatementWrapper(this.model, statement);
 	}
 
 	public void remove() {
 		try {
-			iterator.remove();
+			this.iterator.remove();
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
@@ -57,7 +57,7 @@ public class GraphIterator implements ClosableIterator<Statement> {
 
 	public void close() {
 		try {
-			iterator.close();
+			this.iterator.close();
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
