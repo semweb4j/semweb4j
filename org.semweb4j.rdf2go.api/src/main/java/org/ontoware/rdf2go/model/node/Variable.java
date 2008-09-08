@@ -49,6 +49,7 @@ public class Variable implements ResourceOrVariable, UriOrVariable,
 		throw new ClassCastException("A Variable cannot be seen as this");
 	}
 
+	@Override
 	public int hashCode() {
 		return 0;
 	}
@@ -56,6 +57,7 @@ public class Variable implements ResourceOrVariable, UriOrVariable,
 	/**
 	 * There is only one Variable, so it's equals to itself.
 	 */
+	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Variable)
 			return true;
