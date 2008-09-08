@@ -23,6 +23,6 @@ public class GraphIterable implements ClosableIterable<Statement> {
 	}
 
 	public ClosableIterator<Statement> iterator() {
-		return new GraphIterator(queryResult, model);
+		return new GraphIterator(this.queryResult, this.model);
 	}
 }

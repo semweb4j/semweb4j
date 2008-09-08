@@ -26,19 +26,19 @@ public class StatementWrapper extends AbstractStatement {
 	}
 
 	public Node getObject() {
-		return ConversionUtil.toRdf2go(statement.getObject());
+		return ConversionUtil.toRdf2go(this.statement.getObject());
 	}
 
 	public URI getPredicate() {
-		return ConversionUtil.toRdf2go(statement.getPredicate());
+		return ConversionUtil.toRdf2go(this.statement.getPredicate());
 	}
 
 	public Resource getSubject() {
-		return (Resource)ConversionUtil.toRdf2go(statement.getSubject());
+		return (Resource)ConversionUtil.toRdf2go(this.statement.getSubject());
 	}
 
 	public URI getContext() {
-		return (URI)ConversionUtil.toRdf2go(statement.getContext());
+		return (URI)ConversionUtil.toRdf2go(this.statement.getContext());
 	}
 
 	@Override
@@ -47,6 +47,6 @@ public class StatementWrapper extends AbstractStatement {
 	}
 
 	public Model getModel() {
-		return model;
+		return this.model;
 	}
 }

@@ -20,7 +20,7 @@ public class RepositoryModelSetTest extends AbstractModelSetTest {
 
 	@Override
 	public ModelFactory getModelFactory() {
-		return rmodelfactory;
+		return this.rmodelfactory;
 	}
 	
 }

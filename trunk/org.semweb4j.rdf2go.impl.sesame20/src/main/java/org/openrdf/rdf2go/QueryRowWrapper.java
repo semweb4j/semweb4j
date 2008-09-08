@@ -26,7 +26,7 @@ public class QueryRowWrapper implements QueryRow {
 	}
 
 	public Node getValue(String varName) {
-		Value value = solution.getValue(varName);
+		Value value = this.solution.getValue(varName);
 		return ConversionUtil.toRdf2go(value);
 	}
 
