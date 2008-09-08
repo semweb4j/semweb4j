@@ -168,6 +168,7 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		return this.baseModelSet.size();
 	}
 
+	@Override
 	public boolean sparqlAsk(String query) throws ModelRuntimeException,
 			MalformedQueryException {
 		return this.baseModelSet.sparqlAsk(query);
@@ -214,86 +215,95 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements
 		this.baseModelSet.writeTo(out, syntax);
 	}
 
+	@Override
 	public boolean isEmpty() {
-		return baseModelSet.isEmpty();
+		return this.baseModelSet.isEmpty();
 	}
 
 	public boolean containsModel(URI contextURI) {
-		return baseModelSet.containsModel(contextURI);
+		return this.baseModelSet.containsModel(contextURI);
 	}
 
 	public boolean removeModel(URI contextURI) {
-		return baseModelSet.removeModel(contextURI);
+		return this.baseModelSet.removeModel(contextURI);
 	}
 
+	@Override
 	public BlankNode createBlankNode(String internalID) {
-		return baseModelSet.createBlankNode(internalID);
+		return this.baseModelSet.createBlankNode(internalID);
 	}
 
 	public void commit() {
-		baseModelSet.commit();
+		this.baseModelSet.commit();
 	}
 
 	public void setAutocommit(boolean autocommit) {
-		baseModelSet.setAutocommit(autocommit);
+		this.baseModelSet.setAutocommit(autocommit);
 	}
 
+	@Override
 	public Resource addReificationOf(Statement statement, Resource resource) {
-		return baseModelSet.addReificationOf(statement, resource);
+		return this.baseModelSet.addReificationOf(statement, resource);
 	}
 
+	@Override
 	public BlankNode addReificationOf(Statement statement) {
-		return baseModelSet.addReificationOf(statement);
+		return this.baseModelSet.addReificationOf(statement);
 	}
 
+	@Override
 	public void deleteReification(Resource reificationResource) {
-		baseModelSet.deleteReification(reificationResource);
+		this.baseModelSet.deleteReification(reificationResource);
 	}
 
+	@Override
 	public Collection<Resource> getAllReificationsOf(Statement statement) {
-		return baseModelSet.getAllReificationsOf(statement);
+		return this.baseModelSet.getAllReificationsOf(statement);
 	}
 
+	@Override
 	public boolean hasReifications(Statement stmt) {
-		return baseModelSet.hasReifications(stmt);
+		return this.baseModelSet.hasReifications(stmt);
 	}
 
 	public void readFrom(InputStream reader, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
-		baseModelSet.readFrom(reader, syntax, baseURI);
+		this.baseModelSet.readFrom(reader, syntax, baseURI);
 	}
 
 	public void readFrom(Reader in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
-		baseModelSet.readFrom(in, syntax, baseURI);
+		this.baseModelSet.readFrom(in, syntax, baseURI);
 	}
 
 	public String getNamespace(String prefix) {
-		return baseModelSet.getNamespace(prefix);
+		return this.baseModelSet.getNamespace(prefix);
 	}
 
 	public Map<String, String> getNamespaces() {
-		return baseModelSet.getNamespaces();
+		return this.baseModelSet.getNamespaces();
 	}
 
 	public void removeNamespace(String prefix) {
-		baseModelSet.removeNamespace(prefix);
+		this.baseModelSet.removeNamespace(prefix);
 	}
 
 	public void setNamespace(String prefix, String namespaceURI)
 			throws IllegalArgumentException {
-		baseModelSet.setNamespace(prefix, namespaceURI);
+		this.baseModelSet.setNamespace(prefix, namespaceURI);
 	}
 
+	@Override
 	public void addModel(Model model, URI contextURI)
 			throws ModelRuntimeException {
-		baseModelSet.addModel(model, contextURI);
+		this.baseModelSet.addModel(model, contextURI);
 	}
 
+	@Override
 	public void addModelSet(ModelSet modelSet) throws ModelRuntimeException {
-		baseModelSet.addModelSet(modelSet);
+		this.baseModelSet.addModelSet(modelSet);
 	}
 
 }

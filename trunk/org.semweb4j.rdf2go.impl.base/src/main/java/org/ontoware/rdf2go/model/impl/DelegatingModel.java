@@ -128,7 +128,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 
 	public BlankNode createBlankNode(String internalID) {
-		return delegatedModel.createBlankNode(internalID);
+		return this.delegatedModel.createBlankNode(internalID);
 	}
 
 	@Override
@@ -176,8 +176,9 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.getUnderlyingModelImplementation();
 	}
 
+	@Override
 	public boolean isEmpty() {
-		return delegatedModel.isEmpty();
+		return this.delegatedModel.isEmpty();
 	}
 
 	public boolean isIsomorphicWith(Model other) {
@@ -334,6 +335,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.size();
 	}
 
+	@Override
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
 		boolean result = this.delegatedModel.sparqlAsk(query);
 		return result;
@@ -382,35 +384,38 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.writeTo(writer, syntax);
 	}
 
+	@Override
 	public void readFrom(Reader in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
-		delegatedModel.readFrom(in, syntax, baseURI);
+		this.delegatedModel.readFrom(in, syntax, baseURI);
 	}
 
+	@Override
 	public void readFrom(InputStream reader, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
-		delegatedModel.readFrom(reader, syntax, baseURI);
+		this.delegatedModel.readFrom(reader, syntax, baseURI);
 	}
 
 	public String getNamespace(String prefix) {
-		return delegatedModel.getNamespace(prefix);
+		return this.delegatedModel.getNamespace(prefix);
 	}
 
 	public Map<String, String> getNamespaces() {
-		return delegatedModel.getNamespaces();
+		return this.delegatedModel.getNamespaces();
 	}
 
 	public void removeNamespace(String prefix) {
-		delegatedModel.removeNamespace(prefix);
+		this.delegatedModel.removeNamespace(prefix);
 	}
 
 	public void setNamespace(String prefix, String namespaceURI)
 			throws IllegalArgumentException {
-		delegatedModel.setNamespace(prefix, namespaceURI);
+		this.delegatedModel.setNamespace(prefix, namespaceURI);
 	}
 
+	@Override
 	public void addModel(Model model) throws ModelRuntimeException {
-		delegatedModel.addModel(model);
+		this.delegatedModel.addModel(model);
 	}
 
 

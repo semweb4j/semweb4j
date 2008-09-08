@@ -51,7 +51,8 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		while (removed.hasNext()) {
 			Statement stmt = removed.next();
 			if (this.addedSet.contains(stmt)) {
-				// adding and removing the same statement is a do-nothing-operation
+				// adding and removing the same statement is a
+				// do-nothing-operation
 				this.addedSet.remove(stmt);
 			} else {
 				this.removedSet.add(stmt);
@@ -75,7 +76,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	@Override
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
-		removedSet.add(statement);
+		this.removedSet.add(statement);
 	}
 
 	@Override
@@ -110,8 +111,8 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		}
 	}
 
-	public Diff getDiff(Iterator<? extends Statement> statements)
-			throws ModelRuntimeException {
+	public Diff getDiff(@SuppressWarnings("unused")
+	Iterator<? extends Statement> statements) throws ModelRuntimeException {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}
 
