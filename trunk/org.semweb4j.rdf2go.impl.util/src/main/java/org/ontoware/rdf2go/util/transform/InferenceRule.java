@@ -25,11 +25,11 @@ public class InferenceRule implements TransformerRule {
 	}
 
 	public String getSearch() {
-		return search;
+		return this.search;
 	}
 
 	public String getAdd() {
-		return add;
+		return this.add;
 	}
 
 	public void applyRule(Model model, Map<String, URI> namespaceMap) {
@@ -40,7 +40,7 @@ public class InferenceRule implements TransformerRule {
 		Model addModel = RDF2Go.getModelFactory().createModel();
 		addModel.open();
 
-		String query = Transformer.toSparqlConstruct(namespaceMap, add, search);
+		String query = Transformer.toSparqlConstruct(namespaceMap, this.add, this.search);
 
 		ClosableIterator<Statement> it = model.sparqlConstruct(query)
 				.iterator();

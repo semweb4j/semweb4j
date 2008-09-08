@@ -88,6 +88,7 @@ public class RDFTool {
 	 * @return a formatted string.
 	 * @deprecated use {@link #date2String(Date)}
 	 */
+	@SuppressWarnings("dep-ann")
 	public static String dateTime2DateString(Date date) {
 		return getDateTimeFormat().format(date);
 	}

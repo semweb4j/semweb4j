@@ -35,7 +35,7 @@ public class NamespaceSearchReplaceRule implements TransformerRule {
 	 *      java.util.Map)
 	 */
 	public void applyRule(Model model, Map<String, URI> namespaceMap) {
-		searchAndReplace(model, searchURIPrefix, replaceURIPrefix);
+		searchAndReplace(model, this.searchURIPrefix, this.replaceURIPrefix);
 	}
 
 	public static void searchAndReplace(Model model, String searchURIPrefix,

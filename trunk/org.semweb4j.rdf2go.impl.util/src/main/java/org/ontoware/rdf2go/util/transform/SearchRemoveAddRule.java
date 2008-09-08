@@ -36,7 +36,7 @@ public class SearchRemoveAddRule implements TransformerRule {
 	}
 
 	public void applyRule(Model model, Map<String, URI> namespaceMap) {
-		searchAndReplace(model, namespaceMap, search, remove,add);
+		searchAndReplace(model, namespaceMap, this.search, this.remove,this.add);
 	}	
 	
 	public static void searchAndReplace( Model model, Map<String, URI> namespaceMap, String search, String remove, String add ) {
