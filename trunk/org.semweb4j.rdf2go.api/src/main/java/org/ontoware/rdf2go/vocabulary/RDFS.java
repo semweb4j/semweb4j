@@ -38,6 +38,7 @@ public class RDFS {
 	 * This URI was present in http://www.w3.org/TR/2000/CR-rdf-schema-20000327/ but removed for final 1.0 spec
 	 * @deprecated
 	 */
+	@Deprecated
 	public static final URI ConstraintProperty = toURI("ConstraintProperty");
 
 	public static final URI Container = toURI("Container");
@@ -48,6 +49,7 @@ public class RDFS {
 	 * This URI was present in http://www.w3.org/TR/2000/CR-rdf-schema-20000327/ but removed for final 1.0 spec
 	 * @deprecated
 	 */
+	@Deprecated
 	public static final URI ConstraintResource = toURI("ConstraintResource");
 
 	/** http://www.w3.org/2000/01/rdf-schema#Literal */

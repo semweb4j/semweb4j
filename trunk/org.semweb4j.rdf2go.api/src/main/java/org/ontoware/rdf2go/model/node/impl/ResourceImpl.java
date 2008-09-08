@@ -20,8 +20,10 @@ import org.ontoware.rdf2go.model.node.Resource;
 
 public abstract class ResourceImpl implements Resource {
 
+	@Override
 	public abstract boolean equals( Object other );
 	
+	@Override
 	public abstract int hashCode();
 
 	public Resource asResource() throws ClassCastException {

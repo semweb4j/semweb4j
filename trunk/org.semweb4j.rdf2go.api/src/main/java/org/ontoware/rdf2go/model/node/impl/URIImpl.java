@@ -56,6 +56,7 @@ public class URIImpl extends ResourceImpl implements URI {
 	 * @param uriString
 	 * @return a URI
 	 */
+	@Deprecated
 	public static URI create(String uriString) {
 		return new URIImpl(uriString);
 	}
@@ -66,10 +67,12 @@ public class URIImpl extends ResourceImpl implements URI {
 	 * @param uriString
 	 * @return a URI
 	 */
+	@Deprecated
 	public static URI createURIWithoutChecking(String uriString) {
 		return new URIImpl(uriString,false);
 	}
 
+	@Override
 	public String toString() {
 		return this.uriString;
 	}
@@ -82,6 +85,7 @@ public class URIImpl extends ResourceImpl implements URI {
 		throw new ClassCastException("Cannot cast a URI to a BlankNode");
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if (other == null)
 			return false;
@@ -95,6 +99,7 @@ public class URIImpl extends ResourceImpl implements URI {
 		return new java.net.URI(this.uriString);
 	}
 
+	@Override
 	public int hashCode() {
 		return this.uriString.hashCode();
 	}
