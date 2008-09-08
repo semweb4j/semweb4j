@@ -72,6 +72,7 @@ public abstract class AbstractModelTest extends TestCase {
 	/** @return a Model to be used in the test. It must be fresh, e.g. unused */
 	public abstract ModelFactory getModelFactory();
 
+	@Override
 	@Before
 	public void setUp() {
 		URI u = getModelFactory().createModel().newRandomUniqueURI();
@@ -79,6 +80,7 @@ public abstract class AbstractModelTest extends TestCase {
 		this.model.open();
 	}
 
+	@Override
 	@After
 	public void tearDown() {
 		this.model.close();
