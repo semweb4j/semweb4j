@@ -89,35 +89,41 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 			statements.add(stmt);
 		}
 		it.close();
-		for( Statement stmt : statements) {
-			this.addStatement( stmt.getSubject(), stmt.getPredicate(), stmt.getObject());
+		for (Statement stmt : statements) {
+			this.addStatement(stmt.getSubject(), stmt.getPredicate(), stmt
+					.getObject());
 		}
 	}
-	
+
+	@Override
 	public void addAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		assertModel();
 		super.addAll(other);
 	}
 
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		assertModel();
 		super.addStatement(subject, predicate, literal);
 	}
 
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
 		assertModel();
 		super.addStatement(subject, predicate, literal, languageTag);
 	}
 
+	@Override
 	public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
 		assertModel();
 		super.addStatement(subject, predicate, literal, datatypeURI);
 	}
 
+	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
 		assertModel();
 		super.addStatement(statement);
@@ -128,18 +134,21 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	// core rdf2go model methods
 	// /////////////////////////
 
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		assertModel();
 		super.addStatement(subjectURIString, predicate, literal);
 	}
 
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		assertModel();
 		super.addStatement(subjectURIString, predicate, literal, languageTag);
 	}
 
+	@Override
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		assertModel();
@@ -156,7 +165,6 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		}
 		if (!isOpen())
 			throw new ModelRuntimeException("Model is not open");
-
 	}
 
 	/**
@@ -383,11 +391,14 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	}
 
 	/**
-	 * Throws an exception if the syntax is not RDF/XML. Set baseURI to the
-	 * empty string. Subclasses are encouraged to overwrite this.
+	 * Note: <em>Subclasses are encouraged to overwrite this.</em>
+	 * 
+	 * Throws an exception if the syntax is not RDF/XML. Sets baseURI to the
+	 * empty string.
 	 */
-	public void readFrom(InputStream in, Syntax syntax, String baseURI)
-			throws IOException, ModelRuntimeException {
+	public void readFrom(InputStream in, Syntax syntax,
+			@SuppressWarnings("unused")
+			String baseURI) throws IOException, ModelRuntimeException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
 			readFrom(in);
@@ -397,14 +408,17 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	}
 
 	/**
+	 * Note: <em>Subclasses are encouraged to overwrite this.</em>
+	 * 
 	 * Throws an exception if the syntax is not RDF/XML. Sets base URI to the
-	 * empty string (default). Subclasses are encouraged to overwrite this.
+	 * empty string (default).
 	 * 
 	 * @throws IOException
 	 * @throws ModelRuntimeException
 	 */
-	public void readFrom(Reader reader, Syntax syntax, String baseURI)
-			throws ModelRuntimeException, IOException {
+	public void readFrom(Reader reader, Syntax syntax,
+			@SuppressWarnings("unused")
+			String baseURI) throws ModelRuntimeException, IOException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
 			readFrom(reader);
@@ -413,46 +427,54 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		}
 	}
 
+	@Override
 	public void removeAll() throws ModelRuntimeException {
 		assertModel();
 		super.removeAll();
 	}
 
+	@Override
 	public void removeAll(Iterator<? extends Statement> statements) {
 		assertModel();
 		super.removeAll(statements);
 	}
 
+	@Override
 	public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		assertModel();
 		super.removeStatement(subject, predicate, literal);
 	}
 
+	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		assertModel();
 		super.removeStatement(subject, predicate, literal, languageTag);
 	}
 
+	@Override
 	public void removeStatement(Resource subject, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		assertModel();
 		super.removeStatement(subject, predicate, literal, datatypeURI);
 	}
 
+	@Override
 	public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
 		assertModel();
 		super.removeStatement(statement);
 	}
 
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		assertModel();
 		super.removeStatement(subjectURIString, predicate, literal);
 	}
 
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		assertModel();
@@ -461,6 +483,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 						languageTag);
 	}
 
+	@Override
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		assertModel();
@@ -469,6 +492,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 						datatypeURI);
 	}
 
+	@Override
 	public void removeStatements(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
@@ -476,6 +500,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		super.removeStatements(subject, predicate, object);
 	}
 
+	@Override
 	public void removeStatements(TriplePattern triplePattern)
 			throws ModelRuntimeException {
 		assertModel();
@@ -495,8 +520,13 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		return sw.getBuffer().toString();
 	}
 
-	/** OVERWRITE ME */
-	public void setAutocommit(boolean autocommit) {
+	/**
+	 * Note: <em>Subclasses SHOULD overwrite this.</em>
+	 * 
+	 * This implementation simply ignores the request.
+	 */
+	public void setAutocommit(@SuppressWarnings("unused")
+	boolean autocommit) {
 		// do nothing
 	}
 
@@ -579,7 +609,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		diff.addStatement(resource, RDF.subject, statement.getSubject());
 		diff.addStatement(resource, RDF.predicate, statement.getPredicate());
 		diff.addStatement(resource, RDF.object, statement.getObject());
-		update( (DiffReader) diff);
+		update((DiffReader) diff);
 		return resource;
 	}
 
@@ -600,8 +630,9 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 */
 	public Collection<Resource> getAllReificationsOf(Statement statement) {
 		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { "
-				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement.toSPARQL() + " ."
-				+ " ?res " + RDF.subject.toSPARQL() + " "
+				+ " ?res " + RDF.type.toSPARQL() + " "
+				+ RDF.Statement.toSPARQL() + " ." + " ?res "
+				+ RDF.subject.toSPARQL() + " "
 				+ statement.getSubject().toSPARQL() + " ." + " ?res "
 				+ RDF.predicate.toSPARQL() + " "
 				+ statement.getPredicate().toSPARQL() + " ." + " ?res "
@@ -636,6 +667,6 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 			diff.removeStatement(it.next());
 		}
 		it.close();
-		update( (DiffReader) diff);
+		update((DiffReader) diff);
 	}
 }
