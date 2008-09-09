@@ -50,7 +50,7 @@ public class FloatConverter implements INodeConverter<Float> {
 	}
 
 	public Node toNode(Model model, Object javaValue) {
-		return model.createDatatypeLiteral( ""+(Float) javaValue, XSD._float);
+		return model.createDatatypeLiteral( ""+javaValue, XSD._float);
 	}
 
 }

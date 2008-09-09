@@ -22,10 +22,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class FunctionalProperty extends OwlProperty {
 
     /** http://www.w3.org/2002/07/owl#FunctionalProperty */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#FunctionalProperty", false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
  
     };
 

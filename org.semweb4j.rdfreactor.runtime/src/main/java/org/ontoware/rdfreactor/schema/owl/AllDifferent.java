@@ -28,6 +28,7 @@ import org.ontoware.rdfreactor.schema.rdfs.List;
 public class AllDifferent extends OwlThing {
 
     /** http://www.w3.org/2002/07/owl#AllDifferent */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#AllDifferent", false);
 
     /** http://www.w3.org/2002/07/owl#distinctMembers */
@@ -183,7 +184,7 @@ public class AllDifferent extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllDistinctMembers_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, DISTINCTMEMBERS);
+		return Base.getAll_asNode(model, instanceResource, DISTINCTMEMBERS);
 	}
 	
     /**
@@ -195,7 +196,7 @@ public class AllDifferent extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllDistinctMembers_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, DISTINCTMEMBERS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, DISTINCTMEMBERS, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -205,7 +206,7 @@ public class AllDifferent extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllDistinctMembers_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), DISTINCTMEMBERS);
+		return Base.getAll_asNode(this.model, this.getResource(), DISTINCTMEMBERS);
 	}
 
     /**
@@ -215,7 +216,7 @@ public class AllDifferent extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllDistinctMembers_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), DISTINCTMEMBERS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), DISTINCTMEMBERS, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property DistinctMembers     * @param model an RDF2Go model

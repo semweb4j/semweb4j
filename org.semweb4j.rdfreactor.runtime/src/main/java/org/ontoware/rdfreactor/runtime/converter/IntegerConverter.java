@@ -55,7 +55,7 @@ public class IntegerConverter implements INodeConverter<Integer> {
 	}
 
 	public Node toNode(Model model, Object javaValue) {
-		return model.createDatatypeLiteral( ""+(Integer) javaValue, XSD._int);
+		return model.createDatatypeLiteral( ""+javaValue, XSD._int);
 	}
 
 }

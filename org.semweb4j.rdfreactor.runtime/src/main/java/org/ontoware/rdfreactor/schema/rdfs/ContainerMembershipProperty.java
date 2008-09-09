@@ -22,10 +22,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class ContainerMembershipProperty extends Property {
 
     /** http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty", false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
  
     };
 

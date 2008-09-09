@@ -17,7 +17,8 @@ public class ResourceConverter implements INodeConverter<Node> {
 		return node.asResource();
 	}
 
-	public Node toNode(Model model, Object javaValue) {
+	public Node toNode(@SuppressWarnings("unused")
+	Model model, Object javaValue) {
 		// a resource is a node, fine.
 		return (Node) javaValue;
 	}

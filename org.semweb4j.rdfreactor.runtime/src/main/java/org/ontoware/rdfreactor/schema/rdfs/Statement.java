@@ -29,6 +29,7 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Statement extends Resource {
 
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement", false);
 
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#object */
@@ -41,7 +42,8 @@ public class Statement extends Resource {
 	public static final URI SUBJECT = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#subject",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#object",false),
       new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate",false),
       new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#subject",false) 
@@ -191,7 +193,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllObject_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, OBJECT);
+		return Base.getAll_asNode(model, instanceResource, OBJECT);
 	}
 	
     /**
@@ -203,7 +205,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllObject_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, OBJECT, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, OBJECT, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -213,7 +215,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllObject_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), OBJECT);
+		return Base.getAll_asNode(this.model, this.getResource(), OBJECT);
 	}
 
     /**
@@ -223,7 +225,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllObject_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), OBJECT, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), OBJECT, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property Object     * @param model an RDF2Go model
@@ -435,7 +437,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllPredicate_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, PREDICATE);
+		return Base.getAll_asNode(model, instanceResource, PREDICATE);
 	}
 	
     /**
@@ -447,7 +449,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllPredicate_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, PREDICATE, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, PREDICATE, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -457,7 +459,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllPredicate_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), PREDICATE);
+		return Base.getAll_asNode(this.model, this.getResource(), PREDICATE);
 	}
 
     /**
@@ -467,7 +469,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllPredicate_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), PREDICATE, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), PREDICATE, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property Predicate     * @param model an RDF2Go model
@@ -679,7 +681,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSubject_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, SUBJECT);
+		return Base.getAll_asNode(model, instanceResource, SUBJECT);
 	}
 	
     /**
@@ -691,7 +693,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSubject_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, SUBJECT, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, SUBJECT, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -701,7 +703,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSubject_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), SUBJECT);
+		return Base.getAll_asNode(this.model, this.getResource(), SUBJECT);
 	}
 
     /**
@@ -711,7 +713,7 @@ public class Statement extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSubject_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), SUBJECT, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), SUBJECT, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property Subject     * @param model an RDF2Go model

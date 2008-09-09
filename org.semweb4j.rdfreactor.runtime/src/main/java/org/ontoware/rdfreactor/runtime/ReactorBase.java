@@ -191,6 +191,7 @@ public interface ReactorBase extends ResourceEntity {
 	 * @return true iff the given Object is of type javaClass
 	 * @throws Exception
 	 */
+	@Deprecated
 	public boolean isInstanceof(java.lang.Class<?> javaClass)
 			throws ModelRuntimeException;
 

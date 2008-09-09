@@ -22,10 +22,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class InverseFunctionalProperty extends ObjectProperty {
 
     /** http://www.w3.org/2002/07/owl#InverseFunctionalProperty */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#InverseFunctionalProperty", false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
  
     };
 

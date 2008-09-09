@@ -27,13 +27,15 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class ObjectProperty extends OwlProperty {
 
     /** http://www.w3.org/2002/07/owl#ObjectProperty */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#ObjectProperty", false);
 
     /** http://www.w3.org/2002/07/owl#inverseOf */
 	public static final URI INVERSEOF = new URIImpl("http://www.w3.org/2002/07/owl#inverseOf",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2002/07/owl#inverseOf",false) 
     };
 
@@ -193,7 +195,7 @@ public class ObjectProperty extends OwlProperty {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllInverseOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, INVERSEOF);
+		return Base.getAll_asNode(model, instanceResource, INVERSEOF);
 	}
 	
     /**
@@ -205,7 +207,7 @@ public class ObjectProperty extends OwlProperty {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllInverseOf_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, INVERSEOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, INVERSEOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -215,7 +217,7 @@ public class ObjectProperty extends OwlProperty {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllInverseOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), INVERSEOF);
+		return Base.getAll_asNode(this.model, this.getResource(), INVERSEOF);
 	}
 
     /**
@@ -225,7 +227,7 @@ public class ObjectProperty extends OwlProperty {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllInverseOf_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), INVERSEOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), INVERSEOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property InverseOf     * @param model an RDF2Go model

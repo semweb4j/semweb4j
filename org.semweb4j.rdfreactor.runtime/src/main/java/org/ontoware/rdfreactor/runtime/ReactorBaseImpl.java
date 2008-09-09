@@ -662,10 +662,11 @@ public class ReactorBaseImpl implements ReactorBase {
 
 	}
 
-	public boolean in(Model model) {
+	// TODO implement boolean in(Model)
+	public boolean in(@SuppressWarnings("unused")
+	Model model) {
 		throw new UnsupportedOperationException("not yet implemented");
 
-		// TODO implement boolean in(Model)
 	}
 
 	// TODO re-enable after cleanup is complete

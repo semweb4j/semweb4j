@@ -49,7 +49,7 @@ public class ByteConverter implements INodeConverter<Byte> {
 	}
 
 	public Node toNode(Model model, Object javaValue) {
-		return model.createDatatypeLiteral( ""+(Byte) javaValue, XSD._byte);
+		return model.createDatatypeLiteral( ""+javaValue, XSD._byte);
 	}
 
 }
