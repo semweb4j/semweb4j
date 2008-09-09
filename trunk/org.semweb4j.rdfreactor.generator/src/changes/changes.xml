@@ -6,7 +6,7 @@
 	<body>
 
 		<release version="4.6.2" description="Maintenance Release"
-			date="@@@">
+			date="2008-09-09">
 			<action dev="xamde" type="fix" issue="REAC-29">
 				Fixed typo in generated method name: getAllInstance_as(
 				Model m ) --> getAllInstances_as( Model m )
