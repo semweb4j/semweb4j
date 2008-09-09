@@ -1,0 +1,26 @@
+##
+##   if(mindCard==?)
+##     generate "removeAll"
+##
+#if($prop.minCardinality == $UNDEFINED || $prop.minCardinality == 0)
+
+    /**
+     * Removes all values of property #mixedcase($prop.name )
+#comment("     " $prop)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+#debug("removeall1static")
+     */
+	public static void removeAll${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+		Base.removeAll(model, instanceResource, #uppercase($prop.name));
+	}
+	
+    /**
+     * Removes all values of property #mixedcase($prop.name )
+#comment("     " $prop)
+#debug("removeall1dynamic")
+     */
+	public void removeAll${methodnameprefix}#mixedcase($prop.name )() {
+		Base.removeAll(this.model, this.getResource(), #uppercase($prop.name));
+	}
+#end ###if($prop.minCardinality == $UNDEFINED)

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="semweb4j"
+	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
+
+	<skin>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>1.2.4</version>
+	</skin>
+
+	<bannerLeft>
+		<src>images/logos/semweb4j.png</src>
+		<href>http://semweb4j.org/</href>
+	</bannerLeft>
+
+	<publishDate format="yyyy-MM-dd" />
+	<body>
+		<head>
+			<meta name="keywords" content="semweb4j, mv2178imnetz" />
+			<link rel="meta" title="DOAP" type="application/rdf+xml"
+				href="doap.rdf" />
+			<script src="http://www.google-analytics.com/urchin.js"
+				type="text/javascript">
+			</script>
+			<script type="text/javascript">
+				_uacct = "UA-271022-2"; urchinTracker();
+			</script>
+		</head>
+		
+		<breadcrumbs>
+			<item name="Semweb4j" href="../semweb4j/index.html" />
+			<item name="RDFReactor" href="../rdfreactor/index.html" />
+			<item name="RDFReactor Generator" href="../rdfreactor.generator/index.html" />			
+		</breadcrumbs>
+		
+		<!-- the links are inherited from the parent -->
+
+		<menu name="RDFReactor">
+			<item name="Homepage" href="http://ontoworld.org/wiki/RDFReactor" />
+			<item name="Reports" href="../rdfreactor/index.html" />
+		</menu>
+		
+		<menu ref="reports" />
+		<menu ref="modules" />
+	</body>
+</project>

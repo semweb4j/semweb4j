@@ -1,0 +1,20 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://example.com#>.
+@prefix reactor: <http://rdfreactor.ontoware.org/2005/04#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+:AAA a rdfs:Class.
+:BBB a rdfs:Class.
+
+:ppp a rdf:Property
+; rdfs:domain :AAA
+; rdfs:range :BBB
+.
+
+:qqq a rdf:Property
+; rdfs:domain :AAA
+; rdfs:range xsd:int
+.
+
