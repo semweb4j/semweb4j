@@ -40,7 +40,7 @@ public class JMapped {
 	}
 
 	public String getComment() {
-		return comment;
+		return this.comment;
 	}
 
 	public void setComment(String comment) {
@@ -48,11 +48,11 @@ public class JMapped {
 	}
 
 	public URI getMappedTo() {
-		return mappedTo;
+		return this.mappedTo;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	public String getPlainName() {
@@ -79,6 +79,7 @@ public class JMapped {
 	 * Two JMapped are equal, if they are mapped to the same URI OR have the
 	 * same name
 	 */
+	@Override
 	public boolean equals(Object other) {
 		return other instanceof JMapped && (
 		// same URI
@@ -92,6 +93,7 @@ public class JMapped {
 		return this.getName().replace(".","_");
 	}
 	
+	@Override
 	public int hashCode() {
 		return super.hashCode();
 	}

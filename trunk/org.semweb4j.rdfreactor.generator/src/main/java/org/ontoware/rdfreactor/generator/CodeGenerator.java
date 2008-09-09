@@ -52,8 +52,10 @@ public class CodeGenerator {
 	/**
 	 * @deprecated Use {@link #generate(String,String,String,Reasoning,boolean)} instead
 	 */
+	@Deprecated
 	public static void generate(String schemafilename, String outdir,
 			String packagename, Reasoning semantics, boolean skipbuiltins,
+			@SuppressWarnings("unused")
 			boolean alwaysWriteToModel) throws Exception {
 				generate(schemafilename, outdir, packagename, semantics,
 						skipbuiltins);
@@ -85,6 +87,7 @@ public class CodeGenerator {
 	 * @throws Exception
 	 * @deprecated Use {@link #generate(String,String,String,Reasoning,boolean,String)} instead
 	 */
+	@Deprecated
 	public static void generate(String schemafilename, String outdir,
 			String packagename, Reasoning semantics, boolean skipbuiltins,
 			boolean alwaysWriteToModel, String methodnamePrefix)
@@ -124,6 +127,16 @@ public class CodeGenerator {
 		schemaDataModel.close();
 	}
 
+	/**
+	 * @param schemafilename
+	 * @param outdir
+	 * @param packagename
+	 * @param semantics
+	 * @param skipbuiltins
+	 * @param alwaysWriteToModel  TODO this is currently just ignored.
+	 * @param methodnamePrefix
+	 * @throws Exception
+	 */
 	public static void generate(String schemafilename, String outdir,
 			String packagename, String semantics, boolean skipbuiltins,
 			boolean alwaysWriteToModel, String methodnamePrefix)
@@ -159,6 +172,7 @@ public class CodeGenerator {
 	 * @throws Exception
 	 * @deprecated Use {@link #generate(Model,File,String,Reasoning,boolean,String)} instead
 	 */
+	@Deprecated
 	public static void generate(Model modelWithSchemaData, File outDir,
 			String packagename, Reasoning semantics, boolean skipbuiltins,
 			boolean alwaysWriteToModel, String methodnamePrefix)

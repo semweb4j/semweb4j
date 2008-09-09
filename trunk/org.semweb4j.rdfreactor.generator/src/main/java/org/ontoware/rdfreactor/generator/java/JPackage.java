@@ -49,7 +49,7 @@ public class JPackage {
 	}
 	
 	public void addClass(JClass someClass){
-		classes.add(someClass);
+		this.classes.add(someClass);
 	}
 	
 	public List<JClass> getClasses() {
@@ -64,7 +64,7 @@ public class JPackage {
 	 */
 	public boolean isConsistent() {
 		boolean result = true;
-		for (JClass jc : classes) {
+		for (JClass jc : this.classes) {
 			if (!jc.isConsistent())
 				log.warn(jc.getName() + " is not consistent");
 			result &= jc.isConsistent();
@@ -72,10 +72,11 @@ public class JPackage {
 		return result;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
-		buf.append("  JPackage " + name + "\n");
-		for (JClass jc : classes) {
+		buf.append("  JPackage " + this.name + "\n");
+		for (JClass jc : this.classes) {
 			buf.append(jc.toDebug());
 		}
 		return buf.toString();
@@ -85,7 +86,7 @@ public class JPackage {
 	public String toReport() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("Package -------------------\n");
-		for (JClass jc : classes) {
+		for (JClass jc : this.classes) {
 			buf.append(jc.toReport());
 		}
 		return buf.toString();
@@ -95,6 +96,7 @@ public class JPackage {
 	 * two packages are equal, iff they have the same name. Note: they may have
 	 * different classes.
 	 */
+	@Override
 	public boolean equals(Object other) {
 		return (other instanceof JPackage && ((JPackage) other).getName().equals(this.getName()));
 	}

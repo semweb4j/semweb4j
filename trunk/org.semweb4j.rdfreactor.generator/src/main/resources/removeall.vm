@@ -2,7 +2,7 @@
 ##   if(mindCard==?)
 ##     generate "removeAll"
 ##
-#if($prop.minCardinality == $UNDEFINED)
+#if($prop.minCardinality == $UNDEFINED || $prop.minCardinality == 0)
 
     /**
      * Removes all values of property #mixedcase($prop.name )
@@ -20,7 +20,7 @@
 #comment("     " $prop)
 #debug("removeall1dynamic")
      */
-	public void add${methodnameprefix}#mixedcase($prop.name )() {
+	public void removeAll${methodnameprefix}#mixedcase($prop.name )() {
 		Base.removeAll(this.model, this.getResource(), #uppercase($prop.name));
 	}
 #end ###if($prop.minCardinality == $UNDEFINED)

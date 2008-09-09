@@ -88,7 +88,7 @@ public class JProperty extends JMapped {
 	public void addType(JClass type) {
 		assert type != null;
 		this.types.add(type);
-		log.debug("added a type, have " + types.size() + " now");
+		log.debug("added a type, have " + this.types.size() + " now");
 	}
 
 	/**
@@ -103,11 +103,11 @@ public class JProperty extends JMapped {
 	}
 
 	public int getMaxCardinality() {
-		return maxCardinality;
+		return this.maxCardinality;
 	}
 
 	public int getMinCardinality() {
-		return minCardinality;
+		return this.minCardinality;
 	}
 
 	public void setMinCardinality(int min) {
@@ -119,11 +119,12 @@ public class JProperty extends JMapped {
 		this.maxCardinality = max;
 	}
 
+	@Override
 	public String toDebug() {
 		StringBuffer buf = new StringBuffer();
-		buf.append("      " + getName() + " (" + minCardinality + "/" + maxCardinality + ") "
+		buf.append("      " + getName() + " (" + this.minCardinality + "/" + this.maxCardinality + ") "
 				+ " -> " + getMappedTo() + ", types: ");
-		for (JClass jc : types) {
+		for (JClass jc : this.types) {
 			buf.append("'" + jc.getName() + "'");
 			buf.append(",");
 		}
@@ -179,8 +180,8 @@ public class JProperty extends JMapped {
 			for (JClass type : allTypes) {
 				assert type != null;
 				if (type.getMappedTo().equals(RDFS.Literal)) {
-					types.remove(type);
-					types.add(JClass.STRING);
+					this.types.remove(type);
+					this.types.add(JClass.STRING);
 				}
 			}
 
@@ -225,7 +226,7 @@ public class JProperty extends JMapped {
 	}
 
 	public JProperty getInverse() {
-		return inverse;
+		return this.inverse;
 	}
 
 	public boolean hasInverse() {
@@ -239,11 +240,11 @@ public class JProperty extends JMapped {
 	/** generate a verbose report of this JProperty */
 	public String toReport() {
 		StringBuffer buf = new StringBuffer();
-		buf.append("* " + getName() + " (" + minCardinality + " / " + maxCardinality + ") "
+		buf.append("* " + getName() + " (" + this.minCardinality + " / " + this.maxCardinality + ") "
 				+ " URI " + getMappedTo());
 		// + ", types: ");
 		buf.append("\n");
-		for (JClass jc : types) {
+		for (JClass jc : this.types) {
 			buf.append("** range: " + jc.getName() + "");
 			buf.append("\n");
 		}

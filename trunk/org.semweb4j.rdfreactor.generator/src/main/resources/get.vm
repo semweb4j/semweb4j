@@ -110,7 +110,9 @@
 	}
 	
     /**
-     * Get single value of property #mixedcase($prop.name )  
+     * Get single value of property #mixedcase($prop.name )  .
+     * This property has maxCardinality=1, that means the property takes only
+     * a single value.
 #comment("     " $prop)
      * @return the single value or null if no value is found
      * @throws RDFDataException, if the property has multiple values
@@ -136,7 +138,7 @@
 #debug("get7static")
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name )_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, #uppercase($prop.name));
+		return Base.getAll_asNode(model, instanceResource, #uppercase($prop.name));
 	}
 	
     /**
@@ -148,7 +150,7 @@
 #debug("get7static-reactor-result")
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name )_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, #uppercase($prop.name), org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, #uppercase($prop.name), org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -158,7 +160,7 @@
 #debug("get8dynamic")
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name )_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), #uppercase($prop.name));
+		return Base.getAll_asNode(this.model, this.getResource(), #uppercase($prop.name));
 	}
 
     /**
@@ -168,7 +170,7 @@
 #debug("get8dynamic-reactor-result")
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name )_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), #uppercase($prop.name), org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), #uppercase($prop.name), org.ontoware.rdf2go.model.node.Node.class);
 	}
 ##             -----------------------------------------------------------------------
 ##            | IF multirange. GENERATE "It<A> getAll_asA()", "It<B> getAll_asB()"
