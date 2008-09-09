@@ -1,7 +1,5 @@
 package org.ontoware.rdfreactor.runtime;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.node.URI;

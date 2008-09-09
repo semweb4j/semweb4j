@@ -22,10 +22,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Bag extends Container {
 
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag", false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
  
     };
 

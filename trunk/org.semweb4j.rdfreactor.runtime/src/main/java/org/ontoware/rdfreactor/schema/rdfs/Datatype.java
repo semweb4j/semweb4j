@@ -22,10 +22,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Datatype extends Class {
 
     /** http://www.w3.org/2000/01/rdf-schema#Datatype */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2000/01/rdf-schema#Datatype", false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
  
     };
 

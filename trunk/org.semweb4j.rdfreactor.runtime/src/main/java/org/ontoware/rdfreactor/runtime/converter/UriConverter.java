@@ -46,7 +46,8 @@ public class UriConverter implements INodeConverter<URI> {
 
 	}
 
-	public Node toNode(Model model, Object javaValue) {
+	public Node toNode(@SuppressWarnings("unused")
+	Model model, Object javaValue) {
 		return (URI) javaValue;
 	}
 

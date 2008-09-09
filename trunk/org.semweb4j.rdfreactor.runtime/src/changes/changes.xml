@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="4.6.2" description="Maintenance release"
+			date="2008-09-09">
+			<action dev="xamde" type="update">
+				Semantically irrelevant code beautification. Added missing deprecation annotations.
+			</action>
+		</release>
+
 		<release version="4.6.1" description="Maintenance release"
 			date="2008-04-30">
 			<action dev="xamde" type="remove">

@@ -50,7 +50,7 @@ public class DoubleConverter implements INodeConverter<Double> {
 	}
 
 	public Node toNode(Model model, Object javaValue) {
-		return model.createDatatypeLiteral( ""+(Double) javaValue, XSD._double);
+		return model.createDatatypeLiteral( ""+javaValue, XSD._double);
 	}
 
 }

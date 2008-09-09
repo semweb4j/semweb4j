@@ -151,7 +151,7 @@ public class RDFReactorRuntime {
 									Model.class, Resource.class, boolean.class });
 				}
 
-				return (Object) constructor.newInstance(new Object[] { model,
+				return constructor.newInstance(new Object[] { model,
 						node, false });
 
 			} catch (ClassCastException cce) {
@@ -178,7 +178,7 @@ public class RDFReactorRuntime {
 									Model.class, Resource.class, boolean.class });
 				}
 				BlankNode bnode = (BlankNode) node;
-				return (Object) constructor.newInstance(new Object[] { model,
+				return constructor.newInstance(new Object[] { model,
 						bnode, false });
 			} catch (ClassCastException cce) {
 				throw new RuntimeException(cce);

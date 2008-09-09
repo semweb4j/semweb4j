@@ -30,6 +30,7 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Ontology extends OwlThing {
 
     /** http://www.w3.org/2002/07/owl#Ontology */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Ontology", false);
 
     /** http://www.w3.org/2002/07/owl#backwardCompatibleWith */
@@ -45,7 +46,8 @@ public class Ontology extends OwlThing {
 	public static final URI PRIORVERSION = new URIImpl("http://www.w3.org/2002/07/owl#priorVersion",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2002/07/owl#backwardCompatibleWith",false),
       new URIImpl("http://www.w3.org/2002/07/owl#imports",false),
       new URIImpl("http://www.w3.org/2002/07/owl#incompatibleWith",false),
@@ -244,7 +246,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllBackwardCompatibleWith_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, BACKWARDCOMPATIBLEWITH);
+		return Base.getAll_asNode(model, instanceResource, BACKWARDCOMPATIBLEWITH);
 	}
 	
     /**
@@ -256,7 +258,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllBackwardCompatibleWith_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, BACKWARDCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, BACKWARDCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -266,7 +268,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllBackwardCompatibleWith_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), BACKWARDCOMPATIBLEWITH);
+		return Base.getAll_asNode(this.model, this.getResource(), BACKWARDCOMPATIBLEWITH);
 	}
 
     /**
@@ -276,7 +278,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllBackwardCompatibleWith_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), BACKWARDCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), BACKWARDCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property BackwardCompatibleWith     * @param model an RDF2Go model
@@ -488,7 +490,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllImports_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, IMPORTS);
+		return Base.getAll_asNode(model, instanceResource, IMPORTS);
 	}
 	
     /**
@@ -500,7 +502,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllImports_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, IMPORTS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, IMPORTS, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -510,7 +512,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllImports_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), IMPORTS);
+		return Base.getAll_asNode(this.model, this.getResource(), IMPORTS);
 	}
 
     /**
@@ -520,7 +522,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllImports_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), IMPORTS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), IMPORTS, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property Imports     * @param model an RDF2Go model
@@ -732,7 +734,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllIncompatibleWith_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, INCOMPATIBLEWITH);
+		return Base.getAll_asNode(model, instanceResource, INCOMPATIBLEWITH);
 	}
 	
     /**
@@ -744,7 +746,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllIncompatibleWith_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, INCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, INCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -754,7 +756,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllIncompatibleWith_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), INCOMPATIBLEWITH);
+		return Base.getAll_asNode(this.model, this.getResource(), INCOMPATIBLEWITH);
 	}
 
     /**
@@ -764,7 +766,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllIncompatibleWith_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), INCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), INCOMPATIBLEWITH, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property IncompatibleWith     * @param model an RDF2Go model
@@ -976,7 +978,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllPriorVersion_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, PRIORVERSION);
+		return Base.getAll_asNode(model, instanceResource, PRIORVERSION);
 	}
 	
     /**
@@ -988,7 +990,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllPriorVersion_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, PRIORVERSION, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, PRIORVERSION, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -998,7 +1000,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllPriorVersion_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), PRIORVERSION);
+		return Base.getAll_asNode(this.model, this.getResource(), PRIORVERSION);
 	}
 
     /**
@@ -1008,7 +1010,7 @@ public class Ontology extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllPriorVersion_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), PRIORVERSION, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), PRIORVERSION, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property PriorVersion     * @param model an RDF2Go model

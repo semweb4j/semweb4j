@@ -33,6 +33,7 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Restriction extends OwlClass {
 
     /** http://www.w3.org/2002/07/owl#Restriction */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Restriction", false);
 
     /** http://www.w3.org/2002/07/owl#allValuesFrom */
@@ -57,7 +58,8 @@ public class Restriction extends OwlClass {
 	public static final URI SOMEVALUESFROM = new URIImpl("http://www.w3.org/2002/07/owl#someValuesFrom",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2002/07/owl#allValuesFrom",false),
       new URIImpl("http://www.w3.org/2002/07/owl#cardinality",false),
       new URIImpl("http://www.w3.org/2002/07/owl#hasValue",false),
@@ -211,7 +213,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllAllValuesFrom_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, ALLVALUESFROM);
+		return Base.getAll_asNode(model, instanceResource, ALLVALUESFROM);
 	}
 	
     /**
@@ -223,7 +225,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllAllValuesFrom_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, ALLVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, ALLVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -233,7 +235,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllAllValuesFrom_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), ALLVALUESFROM);
+		return Base.getAll_asNode(this.model, this.getResource(), ALLVALUESFROM);
 	}
 
     /**
@@ -243,7 +245,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllAllValuesFrom_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), ALLVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), ALLVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property AllValuesFrom     * @param model an RDF2Go model
@@ -455,7 +457,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllCardinality_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, CARDINALITY);
+		return Base.getAll_asNode(model, instanceResource, CARDINALITY);
 	}
 	
     /**
@@ -467,7 +469,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllCardinality_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, CARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, CARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -477,7 +479,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllCardinality_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), CARDINALITY);
+		return Base.getAll_asNode(this.model, this.getResource(), CARDINALITY);
 	}
 
     /**
@@ -487,7 +489,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllCardinality_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), CARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), CARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property Cardinality     * @param model an RDF2Go model
@@ -699,7 +701,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllHasValue_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, HASVALUE);
+		return Base.getAll_asNode(model, instanceResource, HASVALUE);
 	}
 	
     /**
@@ -711,7 +713,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllHasValue_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, HASVALUE, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, HASVALUE, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -721,7 +723,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllHasValue_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), HASVALUE);
+		return Base.getAll_asNode(this.model, this.getResource(), HASVALUE);
 	}
 
     /**
@@ -731,7 +733,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllHasValue_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), HASVALUE, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), HASVALUE, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property HasValue     * @param model an RDF2Go model
@@ -943,7 +945,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllMaxCardinality_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, MAXCARDINALITY);
+		return Base.getAll_asNode(model, instanceResource, MAXCARDINALITY);
 	}
 	
     /**
@@ -955,7 +957,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllMaxCardinality_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, MAXCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, MAXCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -965,7 +967,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllMaxCardinality_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), MAXCARDINALITY);
+		return Base.getAll_asNode(this.model, this.getResource(), MAXCARDINALITY);
 	}
 
     /**
@@ -975,7 +977,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllMaxCardinality_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), MAXCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), MAXCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property MaxCardinality     * @param model an RDF2Go model
@@ -1187,7 +1189,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllMinCardinality_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, MINCARDINALITY);
+		return Base.getAll_asNode(model, instanceResource, MINCARDINALITY);
 	}
 	
     /**
@@ -1199,7 +1201,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllMinCardinality_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, MINCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, MINCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1209,7 +1211,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllMinCardinality_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), MINCARDINALITY);
+		return Base.getAll_asNode(this.model, this.getResource(), MINCARDINALITY);
 	}
 
     /**
@@ -1219,7 +1221,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllMinCardinality_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), MINCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), MINCARDINALITY, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property MinCardinality     * @param model an RDF2Go model
@@ -1431,7 +1433,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllOnProperty_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, ONPROPERTY);
+		return Base.getAll_asNode(model, instanceResource, ONPROPERTY);
 	}
 	
     /**
@@ -1443,7 +1445,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllOnProperty_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, ONPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, ONPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1453,7 +1455,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllOnProperty_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), ONPROPERTY);
+		return Base.getAll_asNode(this.model, this.getResource(), ONPROPERTY);
 	}
 
     /**
@@ -1463,7 +1465,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllOnProperty_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), ONPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), ONPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property OnProperty     * @param model an RDF2Go model
@@ -1675,7 +1677,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSomeValuesFrom_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, SOMEVALUESFROM);
+		return Base.getAll_asNode(model, instanceResource, SOMEVALUESFROM);
 	}
 	
     /**
@@ -1687,7 +1689,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSomeValuesFrom_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, SOMEVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, SOMEVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1697,7 +1699,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSomeValuesFrom_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), SOMEVALUESFROM);
+		return Base.getAll_asNode(this.model, this.getResource(), SOMEVALUESFROM);
 	}
 
     /**
@@ -1707,7 +1709,7 @@ public class Restriction extends OwlClass {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSomeValuesFrom_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), SOMEVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), SOMEVALUESFROM, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property SomeValuesFrom     * @param model an RDF2Go model

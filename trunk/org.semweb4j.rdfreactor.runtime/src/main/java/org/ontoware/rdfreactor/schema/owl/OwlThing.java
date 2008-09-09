@@ -30,6 +30,7 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 
     /** http://www.w3.org/2002/07/owl#Thing */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Thing", false);
 
     /** http://www.w3.org/2002/07/owl#differentFrom */
@@ -45,7 +46,8 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	public static final URI VERSIONINFO = new URIImpl("http://www.w3.org/2002/07/owl#versionInfo",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2002/07/owl#differentFrom",false),
       new URIImpl("http://www.w3.org/2002/07/owl#sameAs",false), 
       new URIImpl("http://www.w3.org/2002/07/owl#equivalentProperty",false),
@@ -220,7 +222,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllDifferentFrom_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, DIFFERENTFROM);
+		return Base.getAll_asNode(model, instanceResource, DIFFERENTFROM);
 	}
 	
     /**
@@ -232,7 +234,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllDifferentFrom_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, DIFFERENTFROM, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, DIFFERENTFROM, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -242,7 +244,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllDifferentFrom_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), DIFFERENTFROM);
+		return Base.getAll_asNode(this.model, this.getResource(), DIFFERENTFROM);
 	}
 
     /**
@@ -252,7 +254,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllDifferentFrom_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), DIFFERENTFROM, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), DIFFERENTFROM, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property DifferentFrom     * @param model an RDF2Go model
@@ -464,7 +466,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSameAs_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, SAMEAS);
+		return Base.getAll_asNode(model, instanceResource, SAMEAS);
 	}
 	
     /**
@@ -476,7 +478,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSameAs_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, SAMEAS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, SAMEAS, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -486,7 +488,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSameAs_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), SAMEAS);
+		return Base.getAll_asNode(this.model, this.getResource(), SAMEAS);
 	}
 
     /**
@@ -496,7 +498,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSameAs_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), SAMEAS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), SAMEAS, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property SameAs     * @param model an RDF2Go model
@@ -747,7 +749,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllEquivalentProperty_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, EQUIVALENTPROPERTY);
+		return Base.getAll_asNode(model, instanceResource, EQUIVALENTPROPERTY);
 	}
 	
     /**
@@ -759,7 +761,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllEquivalentProperty_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, EQUIVALENTPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, EQUIVALENTPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -769,7 +771,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllEquivalentProperty_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), EQUIVALENTPROPERTY);
+		return Base.getAll_asNode(this.model, this.getResource(), EQUIVALENTPROPERTY);
 	}
 
     /**
@@ -779,7 +781,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllEquivalentProperty_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), EQUIVALENTPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), EQUIVALENTPROPERTY, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property EquivalentProperty     * @param model an RDF2Go model
@@ -991,7 +993,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllVersionInfo_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, VERSIONINFO);
+		return Base.getAll_asNode(model, instanceResource, VERSIONINFO);
 	}
 	
     /**
@@ -1003,7 +1005,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllVersionInfo_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, VERSIONINFO, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, VERSIONINFO, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1013,7 +1015,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllVersionInfo_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), VERSIONINFO);
+		return Base.getAll_asNode(this.model, this.getResource(), VERSIONINFO);
 	}
 
     /**
@@ -1023,7 +1025,7 @@ public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllVersionInfo_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), VERSIONINFO, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), VERSIONINFO, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property VersionInfo     * @param model an RDF2Go model

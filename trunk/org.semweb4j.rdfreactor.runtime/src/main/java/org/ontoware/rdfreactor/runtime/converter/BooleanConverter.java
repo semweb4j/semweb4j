@@ -49,7 +49,8 @@ public class BooleanConverter implements INodeConverter<Boolean>{
 				+ " to Boolean");
 	}
 
-	public Node toNode(Model model, Object javaValue) {
+	public Node toNode(@SuppressWarnings("unused")
+	Model model, Object javaValue) {
 		Boolean b = (Boolean) javaValue;
 		return new DatatypeLiteralImpl( b.toString(), XSD._boolean);
 	}	

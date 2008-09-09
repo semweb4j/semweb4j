@@ -49,7 +49,7 @@ public class ShortConverter implements INodeConverter<Short> {
 	}
 	
 	public Node toNode(Model model, Object javaValue) {
-		return model.createDatatypeLiteral( ""+(Short) javaValue, XSD._short);
+		return model.createDatatypeLiteral( ""+javaValue, XSD._short);
 	}
 
 

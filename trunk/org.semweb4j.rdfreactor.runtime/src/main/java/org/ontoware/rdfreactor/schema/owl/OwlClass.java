@@ -35,6 +35,7 @@ import org.ontoware.rdfreactor.schema.rdfs.Resource;
 public class OwlClass extends OwlThing {
 
     /** http://www.w3.org/2002/07/owl#Class */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Class", false);
 
     /** http://www.w3.org/2002/07/owl#complementOf */
@@ -59,7 +60,8 @@ public class OwlClass extends OwlThing {
 	public static final URI SUBCLASSOF = new URIImpl("http://www.w3.org/2000/01/rdf-schema#subClassOf",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2002/07/owl#complementOf",false),
       new URIImpl("http://www.w3.org/2002/07/owl#disjointWith",false),
       new URIImpl("http://www.w3.org/2002/07/owl#equivalentClass",false),
@@ -249,7 +251,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllComplementOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, COMPLEMENTOF);
+		return Base.getAll_asNode(model, instanceResource, COMPLEMENTOF);
 	}
 	
     /**
@@ -261,7 +263,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllComplementOf_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, COMPLEMENTOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, COMPLEMENTOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -271,7 +273,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllComplementOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), COMPLEMENTOF);
+		return Base.getAll_asNode(this.model, this.getResource(), COMPLEMENTOF);
 	}
 
     /**
@@ -281,7 +283,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllComplementOf_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), COMPLEMENTOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), COMPLEMENTOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property ComplementOf     * @param model an RDF2Go model
@@ -493,7 +495,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllDisjointWith_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, DISJOINTWITH);
+		return Base.getAll_asNode(model, instanceResource, DISJOINTWITH);
 	}
 	
     /**
@@ -505,7 +507,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllDisjointWith_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, DISJOINTWITH, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, DISJOINTWITH, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -515,7 +517,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllDisjointWith_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), DISJOINTWITH);
+		return Base.getAll_asNode(this.model, this.getResource(), DISJOINTWITH);
 	}
 
     /**
@@ -525,7 +527,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllDisjointWith_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), DISJOINTWITH, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), DISJOINTWITH, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property DisjointWith     * @param model an RDF2Go model
@@ -737,7 +739,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllEquivalentClass_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, EQUIVALENTCLASS);
+		return Base.getAll_asNode(model, instanceResource, EQUIVALENTCLASS);
 	}
 	
     /**
@@ -749,7 +751,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllEquivalentClass_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, EQUIVALENTCLASS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, EQUIVALENTCLASS, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -759,7 +761,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllEquivalentClass_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), EQUIVALENTCLASS);
+		return Base.getAll_asNode(this.model, this.getResource(), EQUIVALENTCLASS);
 	}
 
     /**
@@ -769,7 +771,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllEquivalentClass_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), EQUIVALENTCLASS, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), EQUIVALENTCLASS, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property EquivalentClass     * @param model an RDF2Go model
@@ -981,7 +983,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllIntersectionOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, INTERSECTIONOF);
+		return Base.getAll_asNode(model, instanceResource, INTERSECTIONOF);
 	}
 	
     /**
@@ -993,7 +995,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllIntersectionOf_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, INTERSECTIONOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, INTERSECTIONOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1003,7 +1005,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllIntersectionOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), INTERSECTIONOF);
+		return Base.getAll_asNode(this.model, this.getResource(), INTERSECTIONOF);
 	}
 
     /**
@@ -1013,7 +1015,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllIntersectionOf_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), INTERSECTIONOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), INTERSECTIONOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property IntersectionOf     * @param model an RDF2Go model
@@ -1225,7 +1227,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllUnionOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, UNIONOF);
+		return Base.getAll_asNode(model, instanceResource, UNIONOF);
 	}
 	
     /**
@@ -1237,7 +1239,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllUnionOf_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, UNIONOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, UNIONOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1247,7 +1249,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllUnionOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), UNIONOF);
+		return Base.getAll_asNode(this.model, this.getResource(), UNIONOF);
 	}
 
     /**
@@ -1257,7 +1259,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllUnionOf_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), UNIONOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), UNIONOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property UnionOf     * @param model an RDF2Go model
@@ -1543,7 +1545,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllOneOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, ONEOF);
+		return Base.getAll_asNode(model, instanceResource, ONEOF);
 	}
 	
     /**
@@ -1555,7 +1557,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllOneOf_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, ONEOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, ONEOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1565,7 +1567,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllOneOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), ONEOF);
+		return Base.getAll_asNode(this.model, this.getResource(), ONEOF);
 	}
 
     /**
@@ -1575,7 +1577,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllOneOf_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), ONEOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), ONEOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property OneOf     * @param model an RDF2Go model
@@ -1787,7 +1789,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, SUBCLASSOF);
+		return Base.getAll_asNode(model, instanceResource, SUBCLASSOF);
 	}
 	
     /**
@@ -1799,7 +1801,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
      */
 	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(model, instanceResource, SUBCLASSOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(model, instanceResource, SUBCLASSOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
 
     /**
@@ -1809,7 +1811,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), SUBCLASSOF);
+		return Base.getAll_asNode(this.model, this.getResource(), SUBCLASSOF);
 	}
 
     /**
@@ -1819,7 +1821,7 @@ public class OwlClass extends OwlThing {
 	 * [Generated from RDFReactor template rule #get8dynamic-reactor-result] 
      */
 	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNode_() {
-		return (ReactorResult<org.ontoware.rdf2go.model.node.Node>) Base.getAll_as(this.model, this.getResource(), SUBCLASSOF, org.ontoware.rdf2go.model.node.Node.class);
+		return Base.getAll_as(this.model, this.getResource(), SUBCLASSOF, org.ontoware.rdf2go.model.node.Node.class);
 	}
      /**
      * Get all values of property SubClassOf     * @param model an RDF2Go model

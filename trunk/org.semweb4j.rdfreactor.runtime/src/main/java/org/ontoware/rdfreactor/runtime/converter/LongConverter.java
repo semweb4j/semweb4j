@@ -49,7 +49,7 @@ public class LongConverter implements INodeConverter<Long> {
 	}
 
 	public Node toNode(Model model, Object javaValue) {
-		return model.createDatatypeLiteral( ""+(Long) javaValue, XSD._long);
+		return model.createDatatypeLiteral( ""+javaValue, XSD._long);
 	}
 
 }

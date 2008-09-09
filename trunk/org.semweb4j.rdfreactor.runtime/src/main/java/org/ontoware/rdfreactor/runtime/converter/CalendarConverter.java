@@ -186,7 +186,8 @@ public class CalendarConverter implements INodeConverter<Calendar> {
 		// return c;
 	}
 
-	public Node toNode(Model model, Object javaValue) {
+	public Node toNode(@SuppressWarnings("unused")
+	Model model, Object javaValue) {
 		String xsdDateTime = encodeCalendar_toXSDDateTime((Calendar) javaValue);
 		return new DatatypeLiteralImpl(xsdDateTime, XSD._dateTime);
 	}
