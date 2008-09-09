@@ -88,7 +88,7 @@ public class JModel {
 	 */
 	public boolean isConsistent() {
 		boolean result = true;
-		for (JPackage jp : packages) {
+		for (JPackage jp : this.packages) {
 			if (!jp.isConsistent())
 				log.warn(jp + " is not consistent");
 			result &= jp.isConsistent();
@@ -96,10 +96,11 @@ public class JModel {
 		return result;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("\nJModel\n");
-		for (JPackage jp : packages) {
+		for (JPackage jp : this.packages) {
 			buf.append(jp.toString());
 		}
 		return buf.toString();
@@ -108,7 +109,7 @@ public class JModel {
 	/** generate a verbose report of this JModel and its parts */
 	public String toReport() {
 		StringBuffer buf = new StringBuffer();
-		for (JPackage jp : packages) {
+		for (JPackage jp : this.packages) {
 			buf.append(jp.toReport());
 		}
 		return buf.toString();
@@ -126,14 +127,14 @@ public class JModel {
 			switch (jc.getSuperclasses().size()) {
 			case 0:
 				log.debug("Class '" + jc + "' has no superclass --> set superclass to 'Thing'");
-				jc.setJavaSuperclass(root);
+				jc.setJavaSuperclass(this.root);
 				break;
 			case 1: {
 				JClass superclass = jc.getSuperclasses().get(0);
 				assert superclass != null;
 				if (superclass.equals(jc)) {
 					log.debug("Class '" + jc + "' has exactly one superclass: itself --> set superclass to 'Thing'");
-					jc.setJavaSuperclass(root);
+					jc.setJavaSuperclass(this.root);
 				} else {
 					log.debug("Class '" + jc + "' has exactly one superclass '"+superclass+"'");
 					// use the one we have
@@ -161,7 +162,7 @@ public class JModel {
 				// superclasses (not depth)
 				// Note: this can handle cycles (uses no recursion)
 				int maxSuperclassCount = 0;
-				JClass mostSpecificSuperClass = root;
+				JClass mostSpecificSuperClass = this.root;
 				for (JClass superclass : jc.getSuperclasses()) {
 					log.debug("trying " + superclass + " (" + superclass.getSuperclasses().size()
 							+ " superclasses)");
@@ -180,7 +181,7 @@ public class JModel {
 					jc.setJavaSuperclass(mostSpecificSuperClass);
 				} else {
 					log.debug("most specific superclass of " + jc.getName() + " is root");
-					jc.setJavaSuperclass(root);
+					jc.setJavaSuperclass(this.root);
 				}
 			}
 				break;
@@ -267,7 +268,7 @@ public class JModel {
 	 *         JModel
 	 */
 	public boolean hasMapping(Object id) {
-		return classMap.containsKey(id);
+		return this.classMap.containsKey(id);
 	}
 
 	/**

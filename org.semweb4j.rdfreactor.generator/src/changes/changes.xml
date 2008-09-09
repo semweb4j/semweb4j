@@ -5,6 +5,23 @@
 	</properties>
 	<body>
 
+		<release version="4.6.2" description="Maintenance Release"
+			date="@@@">
+			<action dev="xamde" type="fix" issue="REAC-29">
+				Fixed typo in generated method name: getAllInstance_as(
+				Model m ) --> getAllInstances_as( Model m )
+			</action>
+			<action dev="xamde" type="add">
+				Generate cleaner code: Added @SuppressWarnings to generated static URI fields.
+			</action>
+			<action dev="xamde" type="fix" issue="REAC-30">
+				removeAllPROP() was named addAllPROP() by accident.
+			</action>
+			<action dev="xamde" type="update">
+				Code beautification - removed all Eclipse warnings
+			</action>
+		</release>
+
 		<release version="4.6.1" description="Maintenance Release"
 			date="2008-04-16">
 			<action dev="xamde" type="add">

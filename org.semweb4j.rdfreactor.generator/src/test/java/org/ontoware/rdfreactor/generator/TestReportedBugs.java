@@ -1,5 +1,6 @@
 package org.ontoware.rdfreactor.generator;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.ontoware.rdf2go.Reasoning;
 
@@ -80,12 +81,13 @@ public class TestReportedBugs {
 	// }
 
 	@Test
+	@Ignore
+	// takes ages to run and ran ok
 	public void testGenerateNepomukUnifiedOntology() throws Exception {
-		CodeGenerator
-				.generate(
-						"./src/test/resources/unified_nepomuk_ontologies_merged.rdfs",
-						"./src/test_gen",
-						"org.semanticdesktop.nepomuk.comp.rdfsbeans.rdfreactor",
-						Reasoning.rdfs, true);
+		CodeGenerator.generate(
+				"./src/test/resources/unified_nepomuk_ontologies_merged.rdfs",
+				"./src/test_gen",
+				"org.semanticdesktop.nepomuk.comp.rdfsbeans.rdfreactor",
+				Reasoning.rdfs, true);
 	}
 }

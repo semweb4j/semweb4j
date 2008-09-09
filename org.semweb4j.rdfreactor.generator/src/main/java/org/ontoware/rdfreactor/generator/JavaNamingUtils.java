@@ -94,7 +94,6 @@ public class JavaNamingUtils {
 		beanname = beanname.substring(0, 1).toUpperCase()
 				+ beanname.substring(1);
 
-		assert beanname != null;
 		return beanname;
 	}
 
@@ -142,6 +141,11 @@ public class JavaNamingUtils {
 
 		// now we have a nice bean name - but is it unique?
 		if (usedNames.contains(beanname)) {
+			
+			// TODO check when this happens and deal better with it
+			if(uri == null) {
+				throw new IllegalStateException("");
+			}
 
 			// try to use namespace prefix for disambiguation
 			String namespacePrefix = guessNSPrefix(uri.toString());

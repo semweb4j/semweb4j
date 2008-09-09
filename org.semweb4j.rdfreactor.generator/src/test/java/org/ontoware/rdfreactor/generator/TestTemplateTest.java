@@ -22,11 +22,11 @@ public class TestTemplateTest {
 			Resource elem = it.next();
 			System.out.println("found as it "+elem);
 		}
-		for (AAA b : AAA.getAllInstance_as(m).asArray()) {
+		for (AAA b : AAA.getAllInstances_as(m).asArray()) {
 			System.out.println("found as array "+b);
 			System.out.println(b.getAllLabel_as().asArray());
 		}
-		for (AAA b : AAA.getAllInstance_as(m).asList()) {
+		for (AAA b : AAA.getAllInstances_as(m).asList()) {
 			System.out.println("found as list "+b);
 			System.out.println(b.getAllLabel_as().asArray());
 		}

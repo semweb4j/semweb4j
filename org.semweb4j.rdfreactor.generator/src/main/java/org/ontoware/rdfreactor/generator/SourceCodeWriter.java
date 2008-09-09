@@ -4,16 +4,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Calendar;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.ontoware.rdfreactor.generator.java.JClass;
 import org.ontoware.rdfreactor.generator.java.JModel;
 import org.ontoware.rdfreactor.generator.java.JPackage;
@@ -129,7 +129,7 @@ public class SourceCodeWriter {
 		this.velocityContext = new VelocityContext();
 		this.velocityContext.put("methodnameprefix", this.methodnamePrefix);
 		// for debug
-		this.velocityContext.put("now", SimpleDateFormat.getInstance().format(
+		this.velocityContext.put("now", DateFormat.getInstance().format(
 				this.now.getTime()));
 		this.velocityContext.put("root", this.jm.getRoot());
 		this.velocityContext.put("generatorVersion",
@@ -143,29 +143,29 @@ public class SourceCodeWriter {
 		log.debug("Free memory: " + Runtime.getRuntime().freeMemory());
 
 		try {
-			velocityEngine.setProperty("resource.loader", "class");
-			velocityEngine
+			this.velocityEngine.setProperty("resource.loader", "class");
+			this.velocityEngine
 					.setProperty("class.resource.loader.class",
 							"org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
 			// see http://minaret.biz/tips/tomcatLogging.html
-			velocityEngine.setProperty("runtime.log.logsystem.class",
+			this.velocityEngine.setProperty("runtime.log.logsystem.class",
 					"org.apache.velocity.runtime.log.SimpleLog4JLogSystem");
 
-			velocityEngine.init();
+			this.velocityEngine.init();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	private void initTemplate() {
-		if (!this.velocityEngine.resourceExists(templateName))
-			throw new RuntimeException("template " + templateName
+		if (!this.velocityEngine.resourceExists(this.templateName))
+			throw new RuntimeException("template " + this.templateName
 					+ " does not exist with resource loader "
-					+ Velocity.RESOURCE_LOADER);
+					+ RuntimeConstants.RESOURCE_LOADER);
 
 		try {
-			this.template = this.velocityEngine.getTemplate(templateName);
+			this.template = this.velocityEngine.getTemplate(this.templateName);
 		} catch (ResourceNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (ParseErrorException e) {
@@ -180,12 +180,12 @@ public class SourceCodeWriter {
 	}
 
 	private void writeModel() throws IOException {
-		for (JPackage jp : jm.getPackages())
+		for (JPackage jp : this.jm.getPackages())
 			writePackage(jp);
 	}
 
 	private void writeClass(JPackage jp, JClass jc, File packageOutdir) throws IOException {
-		assert template != null;
+		assert this.template != null;
 		assert jc != null;
 		assert jc.getName() != null;
 		assert jc.getSuperclass() != null;
@@ -198,7 +198,7 @@ public class SourceCodeWriter {
 
 		try {
 			log.debug("Before template merge.    " + memreport());
-			template.merge(this.velocityContext, bw);
+			this.template.merge(this.velocityContext, bw);
 			log.debug("After template merge.     " + memreport());
 			// context has to be re-initialised every time to work around an
 			// ever-growing cache in velocity

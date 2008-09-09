@@ -6,8 +6,8 @@
 #macro( uppercase $name )$name.toUpperCase()#end
 #macro( comment   $indent $name )#if($name.getComment().lenght > 0)
 ${indent}* Comment from ontology: ${name.getComment()}
-${indent}*
-#end#end  
+${indent}*#end  
+#end  
 ##  production 
 ##macro( debug $text )$!{nix}#end
 ## debug
@@ -63,14 +63,20 @@ public class $class.name extends $class.superclass {
 ##    |  URI constants for properties
 ##
     /** $class.mappedTo */
+    @SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("$class.mappedTo", false);
 #foreach( $prop in $class.properties )
 
     /** $prop.mappedTo */
+    @SuppressWarnings("hiding")
 	public static final URI #uppercase( $prop.name ) = new URIImpl("$prop.mappedTo",false);
 #end## foreach( $prop in $class.properties )
 
-    /** all property-URIs with this class as domain */
+    /** 
+     * All property-URIs with this class as domain.
+     * All properties of all super-classes are also available. 
+     */
+    @SuppressWarnings("hiding")
     public static final URI[] MANAGED_URIS = {
 #foreach( $prop in $class.properties )
       new URIImpl("$prop.mappedTo",false)#if (${velocityCount} < $class.properties.size()),
@@ -255,7 +261,7 @@ public class $class.name extends $class.superclass {
 	 * which can conveniently be converted to iterator, list or array.
 #debug("class3-as")	 
 	 */
-	public static ReactorResult<? extends ${class.name}> getAllInstance_as(Model model) {
+	public static ReactorResult<? extends ${class.name}> getAllInstances_as(Model model) {
 		return Base.getAllInstances_as(model, RDFS_CLASS, ${class.name}.class );
 	}
 

@@ -374,7 +374,7 @@ public class ModelGenerator {
 						+ " ...");
 				JClass jc = new JClass(jp, classname, (URI) oc.getResource());
 				jc.setComment(oc.getAllComment_asList().get(0));
-				jm.addMapping((URI) oc.getResource(), jc);
+				jm.addMapping(oc.getResource(), jc);
 			}
 		}
 		log.debug("dealing with " + owlClasses.size() + " 'real' classes");
@@ -443,7 +443,7 @@ public class ModelGenerator {
 						ClosableIterator<Statement> it = m.findStatements(
 								Variable.ANY, OWL.onProperty, rp.getResource());
 						while (it.hasNext()) {
-							Statement stmt = (Statement) it.next();
+							Statement stmt = it.next();
 							org.ontoware.rdf2go.model.node.Resource restrictionResource = stmt
 									.getSubject();
 							OWL_Protege_NRL_Restriction restriction = OWL_Protege_NRL_Restriction.getInstance(
@@ -525,7 +525,6 @@ public class ModelGenerator {
 
 		// process cardinality constraints (convert this property to an OWL
 		// restriction)
-		assert property != null;
 		OWL_Protege_NRL_Restriction restriction = (OWL_Protege_NRL_Restriction) property.castTo(OWL_Protege_NRL_Restriction.class);
 		assert restriction != null;
 		

@@ -25,13 +25,15 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
 public class Class extends Resource {
 
     /** http://www.w3.org/2000/01/rdf-schema#Class */
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2000/01/rdf-schema#Class", false);
 
     /** http://www.w3.org/2000/01/rdf-schema#subClassOf */
 	public static final URI SUBCLASSOF = new URIImpl("http://www.w3.org/2000/01/rdf-schema#subClassOf",false);
 
     /** all property-URIs with this class as domain */
-    public static final URI[] MANAGED_URIS = {
+    @SuppressWarnings("hiding")
+	public static final URI[] MANAGED_URIS = {
       new URIImpl("http://www.w3.org/2000/01/rdf-schema#subClassOf",false) 
     };
 
@@ -216,7 +218,7 @@ public class Class extends Resource {
 	 * [Generated from RDFReactor template rule #get7static] 
      */
 	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(model, instanceResource, SUBCLASSOF);
+		return Base.getAll_asNode(model, instanceResource, SUBCLASSOF);
 	}
 	
     /**
@@ -228,7 +230,7 @@ public class Class extends Resource {
 	 * [Generated from RDFReactor template rule #get7static-list] 
      */
 	public static java.util.List<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNodeList(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (java.util.List<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNodeList(model, instanceResource, SUBCLASSOF);
+		return Base.getAll_asNodeList(model, instanceResource, SUBCLASSOF);
 	}
 
     /**
@@ -238,7 +240,7 @@ public class Class extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic] 
      */
 	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNode() {
-		return (ClosableIterator<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNode(this.model, this.getResource(), SUBCLASSOF);
+		return Base.getAll_asNode(this.model, this.getResource(), SUBCLASSOF);
 	}
 
     /**
@@ -248,7 +250,7 @@ public class Class extends Resource {
 	 * [Generated from RDFReactor template rule #get8dynamic-list] 
      */
 	public java.util.List<org.ontoware.rdf2go.model.node.Node> getAllSubClassOf_asNodeList() {
-		return (java.util.List<org.ontoware.rdf2go.model.node.Node>) Base.getAll_asNodeList(this.model, this.getResource(), SUBCLASSOF);
+		return Base.getAll_asNodeList(this.model, this.getResource(), SUBCLASSOF);
 	}
      /**
      * Get all values of property SubClassOf     * @param model an RDF2Go model

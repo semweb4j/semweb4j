@@ -126,6 +126,7 @@ public class JClass extends JMapped implements Comparable<JClass> {
 		this.packagge.getClasses().add(this);
 	}
 
+	@Override
 	public String toString() {
 		return this.getName();
 	}
@@ -134,21 +135,22 @@ public class JClass extends JMapped implements Comparable<JClass> {
 		return this.getName().replace(".", "_");
 	}
 
+	@Override
 	public String toDebug() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("    JClass " + getName() + " -> " + getMappedTo() + "\n");
-		if (superclasses.size() > 0)
+		if (this.superclasses.size() > 0)
 			buf.append("      extends: ");
-		for (JClass jc : superclasses) {
+		for (JClass jc : this.superclasses) {
 			buf.append(jc.getName()).append(", ");
 		}
-		if (superclasses.size() > 0)
+		if (this.superclasses.size() > 0)
 			buf.append("\n");
 
 		if (getComment() != null)
 			buf.append("      comment: ").append(getComment()).append("\n");
 
-		for (JProperty jp : properties) {
+		for (JProperty jp : this.properties) {
 			buf.append(jp.toDebug());
 		}
 		return buf.toString();
@@ -159,7 +161,7 @@ public class JClass extends JMapped implements Comparable<JClass> {
 	 *         then one
 	 */
 	public boolean hasMultiValuePropeties() {
-		for (JProperty jp : properties)
+		for (JProperty jp : this.properties)
 			if (jp.getMaxCardinality() > 1)
 				return true;
 		return false;
@@ -170,7 +172,7 @@ public class JClass extends JMapped implements Comparable<JClass> {
 	 *         RDFDataException
 	 */
 	public boolean throwsRDFDataException() {
-		for (JProperty jp : properties) {
+		for (JProperty jp : this.properties) {
 			if (jp.getMaxCardinality() == JProperty.NOT_SET
 					|| jp.getMaxCardinality() == 1)
 				return true;
@@ -262,7 +264,7 @@ public class JClass extends JMapped implements Comparable<JClass> {
 			log.warn(getName() + " has no superclass to inherit from");
 			result &= false;
 		}
-		for (JProperty jp : properties) {
+		for (JProperty jp : this.properties) {
 			if (!jp.isConsistent())
 				log.warn(jp.getName() + " is not consistent");
 			result &= jp.isConsistent();
@@ -336,16 +338,16 @@ public class JClass extends JMapped implements Comparable<JClass> {
 	}
 
 	public List<JProperty> getInverseProperties() {
-		return inverseProperties;
+		return this.inverseProperties;
 	}
 
 	/** generate a verbose report of this JClass */
 	public String toReport() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("\n" + getName());
-		if (superclasses.size() > 0)
+		if (this.superclasses.size() > 0)
 			buf.append("  extends: ");
-		for (JClass jc : superclasses) {
+		for (JClass jc : this.superclasses) {
 			buf.append(jc.getN3Name()).append(", ");
 		}
 		buf.append("| URI: " + getMappedTo().toSPARQL() + "\n");
@@ -354,11 +356,11 @@ public class JClass extends JMapped implements Comparable<JClass> {
 			buf.append("''").append(getComment()).append("''\n");
 
 		buf.append("properties:\n");
-		for (JProperty jp : properties) {
+		for (JProperty jp : this.properties) {
 			buf.append(jp.toReport());
 		}
 		buf.append("inverse properties:\n");
-		for (JProperty jp : inverseProperties) {
+		for (JProperty jp : this.inverseProperties) {
 			buf.append(jp.toReport());
 		}
 		return buf.toString();
@@ -368,6 +370,7 @@ public class JClass extends JMapped implements Comparable<JClass> {
 	 * two JClass instances are equal if they have the same name and belong to
 	 * the same JPackage
 	 */
+	@Override
 	public boolean equals(Object other) {
 		if (other instanceof JClass) {
 			JClass otherclass = (JClass) other;
@@ -378,7 +381,7 @@ public class JClass extends JMapped implements Comparable<JClass> {
 	}
 
 	public boolean getCardinalityexception() {
-		return cardinalityexception;
+		return this.cardinalityexception;
 	}
 
 	public int compareTo(JClass other) {
