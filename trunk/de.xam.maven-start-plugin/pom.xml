@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 
+		
+		USAGE:
+		-  Maven 2.0.9 (won't run with 2.0.8)
+		- see also http://code.google.com/p/keks/wiki/MavenProjectMigration
+		
+	-->
+
+
+	<parent>
+		<groupId>org.semanticdesktop</groupId>
+		<artifactId>swecr.parent</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>de.xam</groupId>
+	<artifactId>maven-start-plugin</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>maven-plugin</packaging>
+
+	<name>Maven Start Mojo</name>
+	<url>http://semanticweb.org/Maven_Start</url>
+	<inceptionYear>2008</inceptionYear>
+	<description>
+		A maven2 mojo for generating start scripts
+	</description>
+
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>dev@xam.de</email>
+			<url>http://xam.de</url>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<repositories>
+		<!-- to find the parent -->
+		<repository>
+			<id>semweb4j-repo</id>
+			<name>Semweb4j.org maven repo</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<version>2.0.9</version>
+			<artifactId>maven-project</artifactId>
+		</dependency>
+
+<!-- 
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-artifact-manager</artifactId>
+			<version>2.0</version>
+		</dependency>
+ -->
+
+		<!-- testing dependencies -->
+<!-- 
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+ -->
+
+
+	</dependencies>
+
+	<!-- the deploy repositories: normal/snapshot/site generation 
+		make sure the prorper rights for the given IDs are set in 
+		the user's settings.xml -->
+	<distributionManagement>
+		<!-- normal versions -->
+		<repository>
+			<id>semweb4j-repo</id>
+			<name>semweb4j.org maven repository server</name>
+			<url>scp://${semweb4j.repo}</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+		<!-- snapshots -->
+		<snapshotRepository>
+			<id>semweb4j-snapshots</id>
+			<name>semweb4j.org maven SNAPSHOT repository server</name>
+			<url>scp://${semweb4j.snapshots}</url>
+			<uniqueVersion>true</uniqueVersion>
+		</snapshotRepository>
+
+		<!--  Note: site url is not inherited, but effective locally
+			So this block is copy & paste correct from now on -->
+		<site>
+			<id>semweb4j-site</id>
+			<name>semweb4j.org site server</name>
+			<!--  mvn creates new dirs if necessary -->
+			<url>scp://${semweb4j.site}/${artifactId}</url>
+		</site>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>de.xam</groupId>
+				<artifactId>maven-start-plugin</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<configuration>
+					<mainclass>de.xam.MainClass</mainclass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
