@@ -17,7 +17,7 @@
 
 	<groupId>de.xam</groupId>
 	<artifactId>maven-start-plugin</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Maven Start Mojo</name>
