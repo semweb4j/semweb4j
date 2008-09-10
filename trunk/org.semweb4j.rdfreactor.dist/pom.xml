@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.dist</artifactId>
-	<version>4.6.2</version>
+	<version>4.6.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDFReactor distribution</name>
@@ -83,10 +83,4 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-  <scm>
-    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rdfreactor.dist-4.6.2</connection>
-    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rdfreactor.dist-4.6.2</developerConnection>
-    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/rdfreactor.dist-4.6.2</url>
-  </scm>
 </project>
