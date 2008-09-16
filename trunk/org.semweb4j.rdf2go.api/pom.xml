@@ -141,7 +141,22 @@
 							<Bundle-SymbolicName>
 								${pom.groupId}.${pom.artifactId}
 							</Bundle-SymbolicName>
-							<Bundle-Version>${pom.version}</Bundle-Version>
+							<!-- 
+							TODO: this only works if the version is not a *.-SNAPSHOT version 
+							if the version of a bundle is 'x.x.x-SNAPSHOT' the bundle can not be 
+							installed in a osgi framework (tested with equinox)
+							
+							as workaround the version is hard coded from now 
+							to solve this problem configuring the apache maven bundle plugin 
+							well instead of the jar plugin. This plugin writes only osgi 
+							compatible values in the Manifest file.  
+							-->
+							
+							<!--<Bundle-Version>${pom.version}</Bundle-Version>-->
+							<!-- 
+							this is a hack not a solution 
+							  -->
+							<Bundle-Version>4.6.3.SNAPSHOT</Bundle-Version>
 							<Bundle-Vendor>FZI Karlsruhe (fzi.de), Max Voelkel	(dev@xam.de). OSGi adaptions by Leo	Sauermann</Bundle-Vendor>
 							<Bundle-Localization>plugin</Bundle-Localization>
 							<!--  make sure to have no whitespace in package lists -->
