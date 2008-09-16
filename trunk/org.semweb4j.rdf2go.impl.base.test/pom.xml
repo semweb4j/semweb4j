@@ -123,6 +123,21 @@
 		</site>
 	</distributionManagement>
 
+	<!-- for OSGi preparation we have to slightly change the final name of the 
+		 project-jar
+	-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<finalName>${pom.groupId}.${project.build.finalName}</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<!-- to find the parent -->
 	<repositories>
 		<repository>

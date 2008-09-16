@@ -211,6 +211,7 @@ If present, DEBUG logging is compiled away
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
+					<finalName>${pom.groupId}.${project.build.finalName}</finalName>
 					<archive>
 						<!--
 							<index>true</true>
