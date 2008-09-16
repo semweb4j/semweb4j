@@ -53,6 +53,8 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 					.warning("RDF2Go cannot find configuration value for default RDF2Go factory. "
 							+ "No Default ModelFactory will be available. Please set "
 							+ DEFAULTMODELFACTORY_CFG);
+
+			this.defaultFactoryClassName = "org.openrdf.rdf2go.RepositoryModelFactory";
 		}
 
 		String filter = "(objectclass=" + ModelFactory.class.getName() + ")";
