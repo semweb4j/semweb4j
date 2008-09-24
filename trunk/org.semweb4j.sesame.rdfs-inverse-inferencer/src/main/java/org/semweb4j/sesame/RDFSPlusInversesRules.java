@@ -232,6 +232,22 @@ class RDFSPlusInversesRules {
 	 * qqq a rdf:Property
 	 */
 	public static final int N3 = 25;
+	
+	// alias processing
+	
+	// FIXME
+	/*
+	 * x sameAs y => y sameAs x
+	 * 
+	 * can be achieved by stating "sameAs nrl:inverse sameAs"
+	 * 
+	 * 
+	 * x sameAs y /\ y sameAs z => x sameAs z
+	 * 
+	 * x sameAs y /\ x ppp z => y ppp z
+	 * 
+	 */
+	
 
 /* TODO: missing rules
 

@@ -1,7 +1,9 @@
 /*
  * Copyright Aduna (http://www.aduna-software.com/) (c) 1997-2007.
  *
- * Licensed under the Aduna BSD-style license.
+ * Copyright FZI (http://fzi.de), (c) 2007-2008.
+ *
+ * Licensed under the Aduna/FZI BSD-style license.
  */
 package org.semweb4j.sesame;
 
@@ -35,6 +37,10 @@ import org.openrdf.sail.inferencer.InferencerConnectionWrapper;
  * Recommendation (10 February 2004)</a>. This inferencer can be used to add
  * RDF Schema semantics to any Sail that returns {@link InferencerConnection}s
  * from their {@link Sail#getConnection()} method.
+ * 
+ * Added: nrl:inverse
+ * 
+ * @author voelkel
  */
 class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConnectionWrapper implements
 		SailConnectionListener
@@ -94,21 +100,21 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 
 	// Called by base sail
 	public void statementAdded(Statement st) {
-		if (statementsRemoved) {
+		if (this.statementsRemoved) {
 			// No need to record, starting from scratch anyway
 			return;
 		}
 
-		if (newStatements == null) {
-			newStatements = new GraphImpl();
+		if (this.newStatements == null) {
+			this.newStatements = new GraphImpl();
 		}
-		newStatements.add(st);
+		this.newStatements.add(st);
 	}
 
 	// Called by base sail
 	public void statementRemoved(Statement st) {
-		statementsRemoved = true;
-		newStatements = null;
+		this.statementsRemoved = true;
+		this.newStatements = null;
 	}
 
 	@Override
@@ -117,15 +123,15 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		super.flushUpdates();
 
-		if (statementsRemoved) {
-			logger.debug("statements removed, starting inferencing from scratch");
+		if (this.statementsRemoved) {
+			this.logger.debug("statements removed, starting inferencing from scratch");
 			clearInferred();
 			addAxiomStatements();
 
-			newStatements = new GraphImpl();
-			Iterations.addAll(getWrappedConnection().getStatements(null, null, null, true), newStatements);
+			this.newStatements = new GraphImpl();
+			Iterations.addAll(getWrappedConnection().getStatements(null, null, null, true), this.newStatements);
 
-			statementsRemoved = false;
+			this.statementsRemoved = false;
 		}
 
 		doInferencing();
@@ -135,8 +141,8 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	public void rollback()
 		throws SailException
 	{
-		statementsRemoved = false;
-		newStatements = null;
+		this.statementsRemoved = false;
+		this.newStatements = null;
 
 		super.rollback();
 	}
@@ -153,7 +159,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	protected void addAxiomStatements()
 		throws SailException
 	{
-		logger.debug("Inserting axiom statements");
+		this.logger.debug("Inserting axiom statements");
 
 		// RDF axiomatic triples (from RDF Semantics, section 3.1):
 
@@ -231,19 +237,19 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 		}
 
 		// initialize some vars
-		totalInferred = 0;
+		this.totalInferred = 0;
 		int iteration = 0;
 		int nofInferred = 1;
 
 		// All rules need to be checked:
 		for (int i = 0; i < RDFSPlusInversesRules.RULECOUNT; i++) {
-			ruleCount[i] = 0;
-			checkRuleNextIter[i] = true;
+			this.ruleCount[i] = 0;
+			this.checkRuleNextIter[i] = true;
 		}
 
 		while (hasNewStatements()) {
 			iteration++;
-			logger.debug("starting iteration " + iteration);
+			this.logger.debug("starting iteration " + iteration);
 			prepareIteration();
 
 			nofInferred = 0;
@@ -274,45 +280,45 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 			nofInferred += applyRule(RDFSPlusInversesRules.N2b);
 			nofInferred += applyRule(RDFSPlusInversesRules.N3);
 
-			logger.debug("iteration " + iteration + " done; inferred " + nofInferred + " new statements");
-			totalInferred += nofInferred;
+			this.logger.debug("iteration " + iteration + " done; inferred " + nofInferred + " new statements");
+			this.totalInferred += nofInferred;
 		}
 
 		// Print some statistics
-		logger.debug("---RdfMTInferencer statistics:---");
-		logger.debug("total statements inferred = " + totalInferred);
+		this.logger.debug("---RdfMTInferencer statistics:---");
+		this.logger.debug("total statements inferred = " + this.totalInferred);
 		for (int i = 0; i < RDFSPlusInversesRules.RULECOUNT; i++) {
-			logger.debug("rule " + RDFSPlusInversesRules.RULENAMES[i] + ":\t#inferred=" + ruleCount[i]);
+			this.logger.debug("rule " + RDFSPlusInversesRules.RULENAMES[i] + ":\t#inferred=" + this.ruleCount[i]);
 		}
-		logger.debug("---end of statistics:---");
+		this.logger.debug("---end of statistics:---");
 	}
 
 	protected void prepareIteration() {
 		for (int i = 0; i < RDFSPlusInversesRules.RULECOUNT; i++) {
-			checkRule[i] = checkRuleNextIter[i];
+			this.checkRule[i] = this.checkRuleNextIter[i];
 
 			// reset for next iteration:
-			checkRuleNextIter[i] = false;
+			this.checkRuleNextIter[i] = false;
 		}
 
-		newThisIteration = newStatements;
-		newStatements = new GraphImpl();
+		this.newThisIteration = this.newStatements;
+		this.newStatements = new GraphImpl();
 	}
 
 	protected boolean hasNewStatements() {
-		return newStatements != null && !newStatements.isEmpty();
+		return this.newStatements != null && !this.newStatements.isEmpty();
 	}
 
 	protected void updateTriggers(int ruleNo, int nofInferred) {
 		if (nofInferred > 0) {
-			ruleCount[ruleNo] += nofInferred;
+			this.ruleCount[ruleNo] += nofInferred;
 
 			// Check which rules are triggered by this one.
 			boolean[] triggers = RDFSPlusInversesRules.TRIGGERS[ruleNo];
 
 			for (int i = 0; i < RDFSPlusInversesRules.RULECOUNT; i++) {
 				if (triggers[i] == true) {
-					checkRuleNextIter[i] = true;
+					this.checkRuleNextIter[i] = true;
 				}
 			}
 		}
@@ -321,7 +327,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	protected int applyRule(int rule)
 		throws SailException
 	{
-		if (!checkRule[rule]) {
+		if (!this.checkRule[rule]) {
 			return 0;
 		}
 		int nofInferred = 0;
@@ -433,7 +439,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, null, null);
+		Iterator<Statement> iter = this.newThisIteration.match(null, null, null);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -457,7 +463,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, null, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, null, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -494,7 +500,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.DOMAIN, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.DOMAIN, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -531,7 +537,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, null, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, null, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -569,7 +575,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.RANGE, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.RANGE, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -608,7 +614,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, null, null);
+		Iterator<Statement> iter = this.newThisIteration.match(null, null, null);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -630,7 +636,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, null, null);
+		Iterator<Statement> iter = this.newThisIteration.match(null, null, null);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -656,7 +662,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -696,7 +702,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -733,7 +739,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, RDF.TYPE, RDF.PROPERTY);
+		Iterator<Statement> iter = this.newThisIteration.match(null, RDF.TYPE, RDF.PROPERTY);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -757,7 +763,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, null, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, null, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -795,7 +801,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -833,7 +839,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, RDF.TYPE, RDFS.CLASS);
+		Iterator<Statement> iter = this.newThisIteration.match(null, RDF.TYPE, RDFS.CLASS);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -858,7 +864,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.SUBCLASSOF, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.SUBCLASSOF, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -896,7 +902,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDF.TYPE, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDF.TYPE, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -936,7 +942,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, RDF.TYPE, RDFS.CLASS);
+		Iterator<Statement> iter = this.newThisIteration.match(null, RDF.TYPE, RDFS.CLASS);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -961,7 +967,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.SUBCLASSOF, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.SUBCLASSOF, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -1001,7 +1007,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> ntIter = newThisIteration.match(null, RDFS.SUBCLASSOF, null);
+		Iterator<Statement> ntIter = this.newThisIteration.match(null, RDFS.SUBCLASSOF, null);
 
 		while (ntIter.hasNext()) {
 			Statement nt = ntIter.next();
@@ -1039,7 +1045,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, RDF.TYPE, RDFS.CONTAINERMEMBERSHIPPROPERTY);
+		Iterator<Statement> iter = this.newThisIteration.match(null, RDF.TYPE, RDFS.CONTAINERMEMBERSHIPPROPERTY);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -1063,7 +1069,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 
-		Iterator<Statement> iter = newThisIteration.match(null, RDF.TYPE, RDFS.DATATYPE);
+		Iterator<Statement> iter = this.newThisIteration.match(null, RDF.TYPE, RDFS.DATATYPE);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -1090,7 +1096,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 		int nofInferred = 0;
 
 		String prefix = RDF.NAMESPACE + "_";
-		Iterator<Statement> iter = newThisIteration.match(null, null, null);
+		Iterator<Statement> iter = this.newThisIteration.match(null, null, null);
 
 		while (iter.hasNext()) {
 			Statement st = iter.next();
@@ -1122,7 +1128,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 {
 	int nofInferred = 0;
 	
-	Iterator<Statement> ntIter = newThisIteration.match(null, NRL_InverseProperty, null);
+	Iterator<Statement> ntIter = this.newThisIteration.match(null, NRL_InverseProperty, null);
 
 	while (ntIter.hasNext()) {
 		Statement nt = ntIter.next();
@@ -1167,7 +1173,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 {
 	int nofInferred = 0;
 	
-	Iterator<Statement> ntIter = newThisIteration.match(null, null, null);
+	Iterator<Statement> ntIter = this.newThisIteration.match(null, null, null);
 
 	while (ntIter.hasNext()) {
 		Statement nt = ntIter.next();
@@ -1218,7 +1224,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	throws SailException
 	{
 		int nofInferred = 0;
-		Iterator<Statement> it1 = newThisIteration.match(null, NRL_InverseProperty, null);
+		Iterator<Statement> it1 = this.newThisIteration.match(null, NRL_InverseProperty, null);
 		while (it1.hasNext()) {
 			Statement stmt1 = it1.next();
 			Resource ppp = stmt1.getSubject();
@@ -1286,7 +1292,7 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	throws SailException
 	{
 		int nofInferred = 0;
-		Iterator<Statement> it1 = newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
+		Iterator<Statement> it1 = this.newThisIteration.match(null, RDFS.SUBPROPERTYOF, null);
 		while (it1.hasNext()) {
 			Statement stmt1 = it1.next();
 			Resource rrr = stmt1.getSubject();
@@ -1334,13 +1340,13 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	{
 		int nofInferred = 0;
 		
-		Iterator<Statement> it1 = newThisIteration.match(null, NRL_InverseProperty, null);
+		Iterator<Statement> it1 = this.newThisIteration.match(null, NRL_InverseProperty, null);
 		while (it1.hasNext()) {
 			Statement stmt1 = it1.next();
 			Resource ppp = stmt1.getSubject();
 			if(ppp instanceof URI) {
 				// infer: ppp is a property
-				boolean addedPPP = addInferredStatement((URI)ppp, RDF.TYPE, RDF.PROPERTY);
+				boolean addedPPP = addInferredStatement(ppp, RDF.TYPE, RDF.PROPERTY);
 				if (addedPPP) {
 					nofInferred++;
 				}
