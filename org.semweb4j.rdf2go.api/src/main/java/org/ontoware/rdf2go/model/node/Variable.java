@@ -12,8 +12,10 @@ package org.ontoware.rdf2go.model.node;
 
 
 /**
- * This variable models wildcards in triple pattern queres. Only onw instance of
+ * This variable models wild-cards in triple pattern queries. Only onw instance of
  * this class if allows: ANY. This allows type-safe methods.
+ * 
+ * 
  * 
  * @author voelkel
  */
@@ -76,6 +78,12 @@ public class Variable implements ResourceOrVariable, UriOrVariable,
 	public String toSPARQL() {
 		throw new RuntimeException(
 				"Variable (Singleton) can not be used for SPARQL queries");
+	}
+	
+	/* Always returns '*' */
+	@Override
+	public String toString() {
+		return "*";
 	}
 
 }

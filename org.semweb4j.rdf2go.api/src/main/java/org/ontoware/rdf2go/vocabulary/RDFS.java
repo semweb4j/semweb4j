@@ -55,6 +55,8 @@ public class RDFS {
 	/** http://www.w3.org/2000/01/rdf-schema#Literal */
 	public static final URI Literal = toURI("Literal");
 
+	/** @deprecated This belongs to the 'rdf' namespace now */
+	@Deprecated
 	public static final URI XMLLiteral = toURI("XMLLiteral");
 
 	/** http://www.w3.org/2000/01/rdf-schema#Resource * */
