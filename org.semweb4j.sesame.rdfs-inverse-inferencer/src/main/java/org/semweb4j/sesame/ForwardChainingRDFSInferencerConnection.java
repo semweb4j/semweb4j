@@ -112,7 +112,8 @@ class ForwardChainingRDFSPlusInverseInferencerConnection extends InferencerConne
 	}
 
 	// Called by base sail
-	public void statementRemoved(Statement st) {
+	public void statementRemoved(@SuppressWarnings("unused")
+	Statement st) {
 		this.statementsRemoved = true;
 		this.newStatements = null;
 	}
