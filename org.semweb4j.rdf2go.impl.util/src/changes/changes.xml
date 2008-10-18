@@ -6,7 +6,7 @@
 	</properties>
 	<body>
 
-		<release version="4.6.1" date="2008-05-02"
+		<release version="4.6.2" date="2008-05-02"
 			description="Maintenance Release">
 			<action dev="xamde" type="update">
 				Made OSGI-version number dynamic
