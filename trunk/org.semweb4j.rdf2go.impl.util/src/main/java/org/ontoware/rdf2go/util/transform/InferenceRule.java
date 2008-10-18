@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
-import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.impl.DiffImpl;
@@ -51,7 +51,7 @@ public class InferenceRule implements TransformerRule {
 		}
 		it.close();
 
-		Diff diff = new DiffImpl(addModel.iterator(), removeModel.iterator());
+		DiffReader diff = new DiffImpl(addModel.iterator(), removeModel.iterator());
 		addModel.close();
 		removeModel.close();
 		model.update(diff);

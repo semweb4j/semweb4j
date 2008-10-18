@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.impl.DiffImpl;
@@ -85,7 +86,7 @@ public class NamespaceSearchReplaceRule implements TransformerRule {
 		it.close();
 		ClosableIterator<Statement> addIt = add.iterator();
 		ClosableIterator<Statement> removeIt = remove.iterator();
-		model.update( new DiffImpl(addIt, removeIt));
+		model.update( (DiffReader) new DiffImpl(addIt, removeIt));
 		addIt.close();
 		removeIt.close();
 		add.close();
