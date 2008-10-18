@@ -1,0 +1,470 @@
+package org.ontoware.rdf2go.util;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.ontoware.aifbcommons.collection.ClosableIterable;
+import org.ontoware.aifbcommons.collection.ClosableIterator;
+import org.ontoware.rdf2go.exception.LockException;
+import org.ontoware.rdf2go.exception.MalformedQueryException;
+import org.ontoware.rdf2go.exception.ModelRuntimeException;
+import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
+import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
+import org.ontoware.rdf2go.model.DiffReader;
+import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.ModelSet;
+import org.ontoware.rdf2go.model.QuadPattern;
+import org.ontoware.rdf2go.model.QueryResultTable;
+import org.ontoware.rdf2go.model.Statement;
+import org.ontoware.rdf2go.model.Syntax;
+import org.ontoware.rdf2go.model.node.BlankNode;
+import org.ontoware.rdf2go.model.node.DatatypeLiteral;
+import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
+import org.ontoware.rdf2go.model.node.Node;
+import org.ontoware.rdf2go.model.node.NodeOrVariable;
+import org.ontoware.rdf2go.model.node.PlainLiteral;
+import org.ontoware.rdf2go.model.node.Resource;
+import org.ontoware.rdf2go.model.node.ResourceOrVariable;
+import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.rdf2go.model.node.UriOrVariable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A Model that delegates to another Model and logs all calls to a SLF4j logger.
+ * Ideal for performance analysis.
+ * 
+ * @author voelkel
+ * 
+ */
+public class LoggingModelSet implements ModelSet {
+
+	private static Logger log = LoggerFactory.getLogger(LoggingModelSet.class);
+
+	ModelSet modelset;
+
+	public LoggingModelSet(ModelSet modelset) {
+		this.modelset = modelset;
+	}
+
+	public void addAll(Iterator<? extends Statement> statement)
+			throws ModelRuntimeException {
+		log.debug("addAll");
+		this.modelset.addAll(statement);
+	}
+
+	public void addModel(Model model, URI contextURI)
+			throws ModelRuntimeException {
+		log.debug("addModel");
+		this.modelset.addModel(model, contextURI);
+	}
+
+	public boolean addModel(Model model) {
+		log.debug("addModel");
+		return this.modelset.addModel(model);
+	}
+
+	public void addModelSet(ModelSet modelSet) throws ModelRuntimeException {
+		log.debug("addModelSet");
+		this.modelset.addModelSet(modelSet);
+	}
+
+	public Resource addReificationOf(Statement statement, Resource resource) {
+		log.debug("addReificationOf");
+		return this.modelset.addReificationOf(statement, resource);
+	}
+
+	public BlankNode addReificationOf(Statement statement) {
+		log.debug("addReificationOf");
+		return this.modelset.addReificationOf(statement);
+	}
+
+	public void addStatement(Statement statement) throws ModelRuntimeException {
+		log.debug("addStatement");
+		this.modelset.addStatement(statement);
+	}
+
+	public void addStatement(URI contextURI, Resource subject, URI predicate,
+			Node object) throws ModelRuntimeException {
+		log.debug("addStatement");
+		this.modelset.addStatement(contextURI, subject, predicate, object);
+	}
+
+	public void close() {
+		log.debug("close");
+		this.modelset.close();
+	}
+
+	public void commit() throws ModelRuntimeException {
+		log.debug("commit");
+		this.modelset.commit();
+	}
+
+	public boolean contains(Statement s) throws ModelRuntimeException {
+		log.debug("contains");
+		return this.modelset.contains(s);
+	}
+
+	public boolean containsModel(URI contextURI) {
+		log.debug("containsModel");
+		return this.modelset.containsModel(contextURI);
+	}
+
+	public boolean containsStatements(UriOrVariable contextURI,
+			ResourceOrVariable subject, UriOrVariable predicate,
+			NodeOrVariable object) throws ModelRuntimeException {
+		log.debug("containsStatements");
+		return this.modelset.containsStatements(contextURI, subject, predicate,
+				object);
+	}
+
+	public long countStatements(QuadPattern pattern)
+			throws ModelRuntimeException {
+		log.debug("countStatements");
+		return this.modelset.countStatements(pattern);
+	}
+
+	public BlankNode createBlankNode() {
+		log.debug("createBlankNode");
+		return this.modelset.createBlankNode();
+	}
+
+	public BlankNode createBlankNode(String internalID) {
+		log.debug("createBlankNode");
+		return this.modelset.createBlankNode(internalID);
+	}
+
+	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
+			throws ModelRuntimeException {
+		log.debug("createDatatypeLiteral");
+		return this.modelset.createDatatypeLiteral(literal, datatypeURI);
+	}
+
+	public LanguageTagLiteral createLanguageTagLiteral(String literal,
+			String langugeTag) throws ModelRuntimeException {
+		log.debug("createLanguageTagLiteral");
+		return this.modelset.createLanguageTagLiteral(literal, langugeTag);
+	}
+
+	public PlainLiteral createPlainLiteral(String literal) {
+		log.debug("createPlainLiteral");
+		return this.modelset.createPlainLiteral(literal);
+	}
+
+	public QuadPattern createQuadPattern(UriOrVariable context,
+			ResourceOrVariable subject, UriOrVariable predicate,
+			NodeOrVariable object) {
+		log.debug("createQuadPattern");
+		return this.modelset.createQuadPattern(context, subject, predicate,
+				object);
+	}
+
+	public Statement createStatement(Resource subject, URI predicate,
+			Node object) {
+		log.debug("createStatement");
+		return this.modelset.createStatement(subject, predicate, object);
+	}
+
+	public Statement createStatement(URI context, Resource subject,
+			URI predicate, Node object) {
+		log.debug("createStatement");
+		return this.modelset.createStatement(context, subject, predicate,
+				object);
+	}
+
+	public URI createURI(String uriString) throws ModelRuntimeException {
+		log.debug("createURI");
+		return this.modelset.createURI(uriString);
+	}
+
+	public void deleteReification(Resource reificationResource) {
+		log.debug("deleteReification");
+		this.modelset.deleteReification(reificationResource);
+	}
+
+	public void dump() {
+		log.debug("dump");
+		this.modelset.dump();
+	}
+
+	public ClosableIterator<Statement> findStatements(QuadPattern pattern)
+			throws ModelRuntimeException {
+		log.debug("findStatements");
+		return this.modelset.findStatements(pattern);
+	}
+
+	public ClosableIterator<Statement> findStatements(UriOrVariable contextURI,
+			ResourceOrVariable subject, UriOrVariable predicate,
+			NodeOrVariable object) throws ModelRuntimeException {
+		log.debug("findStatements");
+		return this.modelset.findStatements(contextURI, subject, predicate,
+				object);
+	}
+
+	public Collection<Resource> getAllReificationsOf(Statement statement) {
+		log.debug("getAllReificationsOf");
+		return this.modelset.getAllReificationsOf(statement);
+	}
+
+	public Model getDefaultModel() {
+		log.debug("getDefaultModel");
+		return new LoggingModel(this.modelset.getDefaultModel());
+	}
+
+	public Model getModel(URI contextURI) {
+		log.debug("getModel for URI " + contextURI);
+		return new LoggingModel(this.modelset.getModel(contextURI));
+	}
+
+	public ClosableIterator<Model> getModels() {
+		log.debug("getModels");
+		return this.modelset.getModels();
+	}
+
+	public ClosableIterator<URI> getModelURIs() {
+		log.debug("getModelURIs");
+		return this.modelset.getModelURIs();
+	}
+
+	public String getNamespace(String prefix) {
+		log.debug("getNamespace");
+		return this.modelset.getNamespace(prefix);
+	}
+
+	public Map<String, String> getNamespaces() {
+		log.debug("getNamespaces");
+		return this.modelset.getNamespaces();
+	}
+
+	public Object getUnderlyingModelSetImplementation() {
+		log.debug("getUnderlyingModelSetImplementation");
+		return this.modelset.getUnderlyingModelSetImplementation();
+	}
+
+	public boolean hasReifications(Statement stmt) {
+		log.debug("hasReifications");
+		return this.modelset.hasReifications(stmt);
+	}
+
+	public boolean isEmpty() {
+		log.debug("isEmpty");
+		return this.modelset.isEmpty();
+	}
+
+	public boolean isLocked() {
+		log.debug("isLocked");
+		return this.modelset.isLocked();
+	}
+
+	public boolean isOpen() {
+		log.debug("isOpen");
+		return this.modelset.isOpen();
+	}
+
+	public boolean isValidURI(String uriString) {
+		log.debug("isValidURI");
+		return this.modelset.isValidURI(uriString);
+	}
+
+	public ClosableIterator<Statement> iterator() {
+		log.debug("iterator");
+		return this.modelset.iterator();
+	}
+
+	public void lock() throws LockException {
+		log.debug("lock");
+		this.modelset.lock();
+	}
+
+	public URI newRandomUniqueURI() {
+		log.debug("newRandomUniqueURI");
+		return this.modelset.newRandomUniqueURI();
+	}
+
+	public void open() {
+		log.debug("open");
+		this.modelset.open();
+	}
+
+	public ClosableIterable<Statement> queryConstruct(String query,
+			String querylanguage) throws QueryLanguageNotSupportedException,
+			MalformedQueryException, ModelRuntimeException {
+		log.debug("queryConstruct");
+		return this.modelset.queryConstruct(query, querylanguage);
+	}
+
+	public QueryResultTable querySelect(String query, String querylanguage)
+			throws QueryLanguageNotSupportedException, MalformedQueryException,
+			ModelRuntimeException {
+		log.debug("querySelect");
+		return this.modelset.querySelect(query, querylanguage);
+	}
+
+	public void readFrom(InputStream reader, Syntax syntax, String baseURI)
+			throws IOException, ModelRuntimeException,
+			SyntaxNotSupportedException {
+		log.debug("read");
+		this.modelset.readFrom(reader, syntax, baseURI);
+	}
+
+	public void readFrom(InputStream reader, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		log.debug("read");
+		this.modelset.readFrom(reader, syntax);
+	}
+
+	public void readFrom(InputStream in) throws IOException,
+			ModelRuntimeException {
+		log.debug("read");
+		this.modelset.readFrom(in);
+	}
+
+	public void readFrom(Reader in, Syntax syntax, String baseURI)
+			throws IOException, ModelRuntimeException,
+			SyntaxNotSupportedException {
+		log.debug("read");
+		this.modelset.readFrom(in, syntax, baseURI);
+	}
+
+	public void readFrom(Reader in, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		log.debug("read");
+		this.modelset.readFrom(in, syntax);
+	}
+
+	public void readFrom(Reader in) throws IOException, ModelRuntimeException {
+		log.debug("read");
+		this.modelset.readFrom(in);
+	}
+
+	public void removeAll() throws ModelRuntimeException {
+		log.debug("removeAll");
+		this.modelset.removeAll();
+	}
+
+	public void removeAll(Iterator<? extends Statement> statement)
+			throws ModelRuntimeException {
+		log.debug("removeAll");
+		this.modelset.removeAll(statement);
+	}
+
+	public boolean removeModel(URI contextURI) {
+		log.debug("removeModel " + contextURI);
+		return this.modelset.removeModel(contextURI);
+	}
+
+	public void removeNamespace(String prefix) {
+		log.debug("OTHER");
+		this.modelset.removeNamespace(prefix);
+	}
+
+	public void removeStatement(Statement statement)
+			throws ModelRuntimeException {
+		log.debug("removeStatement");
+		this.modelset.removeStatement(statement);
+	}
+
+	public void removeStatement(URI contextURI, Resource subject,
+			URI predicate, Node object) throws ModelRuntimeException {
+		log.debug("removeStatement");
+		this.modelset.removeStatement(contextURI, subject, predicate, object);
+	}
+
+	public void removeStatements(QuadPattern quadPattern)
+			throws ModelRuntimeException {
+		log.debug("removeStatements");
+		this.modelset.removeStatements(quadPattern);
+	}
+
+	public void removeStatements(UriOrVariable context,
+			ResourceOrVariable subject, UriOrVariable predicate,
+			NodeOrVariable object) throws ModelRuntimeException {
+		log.debug("removeStatemens");
+		this.modelset.removeStatements(context, subject, predicate, object);
+	}
+
+	public String serialize(Syntax syntax) throws SyntaxNotSupportedException {
+		log.debug("serialize");
+		return this.modelset.serialize(syntax);
+	}
+
+	public void setAutocommit(boolean autocommit) {
+		log.debug("setAutocommit");
+		this.modelset.setAutocommit(autocommit);
+	}
+
+	public void setNamespace(String prefix, String namespaceURI)
+			throws IllegalArgumentException {
+		log.debug("setNamespace");
+		this.modelset.setNamespace(prefix, namespaceURI);
+	}
+
+	public long size() throws ModelRuntimeException {
+		log.debug("size");
+		return this.modelset.size();
+	}
+
+	public boolean sparqlAsk(String query) throws ModelRuntimeException,
+			MalformedQueryException {
+		log.debug("sparqlAsk");
+		return this.modelset.sparqlAsk(query);
+	}
+
+	public ClosableIterable<Statement> sparqlConstruct(String query)
+			throws ModelRuntimeException, MalformedQueryException {
+		log.debug("sparqlConstruct");
+		return this.modelset.sparqlConstruct(query);
+	}
+
+	public ClosableIterable<Statement> sparqlDescribe(String query)
+			throws ModelRuntimeException {
+		log.debug("sparqlDescribe");
+		return this.modelset.sparqlDescribe(query);
+	}
+
+	public QueryResultTable sparqlSelect(String queryString)
+			throws MalformedQueryException, ModelRuntimeException {
+		log.debug("sparqlSelect");
+		return this.modelset.sparqlSelect(queryString);
+	}
+
+	public void unlock() {
+		log.debug("unlock");
+		this.modelset.unlock();
+	}
+
+	public void update(DiffReader diff) throws ModelRuntimeException {
+		log.debug("update");
+		this.modelset.update(diff);
+	}
+
+	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		log.debug("write");
+		this.modelset.writeTo(out, syntax);
+	}
+
+	public void writeTo(OutputStream out) throws IOException,
+			ModelRuntimeException {
+		log.debug("write");
+		this.modelset.writeTo(out);
+	}
+
+	public void writeTo(Writer out, Syntax syntax) throws IOException,
+			ModelRuntimeException, SyntaxNotSupportedException {
+		log.debug("write");
+		this.modelset.writeTo(out, syntax);
+	}
+
+	public void writeTo(Writer out) throws IOException, ModelRuntimeException {
+		log.debug("write");
+		this.modelset.writeTo(out);
+	}
+
+}
