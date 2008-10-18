@@ -6,8 +6,8 @@
 	<body>
 
 		<release version="4.6.3" description="Maintenance release"
-			date="2008-@@@">
-			<action dev="xamde" type="add">
+			date="2008-10-18">
+			<action dev="xamde" type="update">
 				Adding a value to a property with cardinality
 				constraints now always succeeds, if the value was
 				already present. Threw a cardinality exception before.
