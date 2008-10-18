@@ -344,8 +344,7 @@ public class ModelUtils {
 		try {
 			sinkModel.readFrom(fin, inSyntax);
 		} finally {
-			if (fin != null)
-				fin.close();
+			fin.close();
 		}
 	}
 
@@ -355,8 +354,7 @@ public class ModelUtils {
 		try {
 			model.writeTo(fout, outSyntax);
 		} finally {
-			if (fout != null)
-				fout.close();
+			fout.close();
 		}
 	}
 

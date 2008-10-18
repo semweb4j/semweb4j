@@ -34,7 +34,8 @@ public class NamespaceSearchReplaceRule implements TransformerRule {
 	 * @see org.ontoware.rdf2go.util.transform.TransformerRule#applyRule(org.ontoware.rdf2go.model.Model,
 	 *      java.util.Map)
 	 */
-	public void applyRule(Model model, Map<String, URI> namespaceMap) {
+	public void applyRule(Model model, @SuppressWarnings("unused")
+	Map<String, URI> namespaceMap) {
 		searchAndReplace(model, this.searchURIPrefix, this.replaceURIPrefix);
 	}
 
