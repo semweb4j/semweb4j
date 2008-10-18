@@ -52,10 +52,14 @@ public class Base {
 		assertOpen(model);
 		Resource rdfResource = RDFReactorRuntime
 				.genericResource2RDF2Goresource(model, resourceSubject);
+		
+		Node node = RDFReactorRuntime.java2node(model, value);
+		if( model.contains(rdfResource, propertyURI, node) ) {
+			return;
+		}
 
 		long count = countPropertyValues(model, rdfResource, propertyURI);
 		if (count < maxCardinality) {
-			Node node = RDFReactorRuntime.java2node(model, value);
 			model.addStatement(rdfResource, propertyURI, node);
 		} else
 			throw new CardinalityException(
