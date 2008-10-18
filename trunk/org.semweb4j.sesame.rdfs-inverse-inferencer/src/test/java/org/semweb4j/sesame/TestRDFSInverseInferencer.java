@@ -1,9 +1,6 @@
 package org.semweb4j.sesame;
 
 import static org.junit.Assert.assertTrue;
-
-import java.io.IOException;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -133,7 +130,7 @@ public class TestRDFSInverseInferencer {
 	}
 
 	@Test
-	public void testInverseTriplesOnRDFDirectly() throws IOException, RepositoryException {
+	public void testInverseTriplesOnRDFDirectly() throws RepositoryException {
 		// create a Sail stack
 		Sail sail = new MemoryStore();
 		sail = new ForwardChainingRDFSPlusInverseInferencer(sail);
