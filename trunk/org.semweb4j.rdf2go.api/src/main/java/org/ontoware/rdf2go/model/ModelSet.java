@@ -1,13 +1,15 @@
-/*
+/**
  * LICENSE INFORMATION
- * Copyright 2005-2007 by FZI (http://www.fzi.de).
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de).
  * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
  * <OWNER> = Max Völkel
  * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2007
+ * <YEAR> = 2008
  * 
- * Project information at http://semweb4j.org/rdf2go
+ * Further project information at http://semanticweb.org/wiki/RDF2Go 
  */
+
 package org.ontoware.rdf2go.model;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -180,8 +182,8 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 	void removeAll() throws ModelRuntimeException;
 
 	/**
-	 * The default model is used when the modelset is loaded from a
-	 * serialization that has no context. The default model has a context of
+	 * The default model is used when the ModelSet is loaded from a
+	 * serialisation that has no context. The default model has a context of
 	 * 'null'
 	 * 
 	 * @return the default model. It has to be isOpen() == true.
