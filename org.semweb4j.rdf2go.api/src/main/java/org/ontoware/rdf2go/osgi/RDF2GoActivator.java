@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2006 Deutsches Forschungszentrum fuer Kuenstliche Intelligenz DFKI GmbH.
- * All rights reserved.
+/**
+ * LICENSE INFORMATION
  * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de).
  * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
+ * <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
+ * <YEAR> = 2008
+ * 
+ * Further project information at http://semanticweb.org/wiki/RDF2Go 
  */
 package org.ontoware.rdf2go.osgi;
 
@@ -22,6 +27,12 @@ import org.osgi.framework.ServiceReference;
  * are compared to a configuration value, if the configured factory is found, it
  * is set as default. This is the configuration value to set:
  * <code>org.ontoware.rdf2go.defaultmodelfactory=(classname of modelfactory)</code>
+ * 
+ * This class has been contributed by Deutsches Forschungszentrum fuer
+ * Kuenstliche Intelligenz DFKI GmbH.
+ * 
+ * TODO why cannot just the implementation bundle register itself? It shouldn't
+ * be the APIs job to register implementations.
  * 
  * @author sauermann
  */
@@ -54,6 +65,8 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 							+ "No Default ModelFactory will be available. Please set "
 							+ DEFAULTMODELFACTORY_CFG);
 
+			// TODO improve - API class should not dictate default
+			// implementation
 			this.defaultFactoryClassName = "org.openrdf.rdf2go.RepositoryModelFactory";
 		}
 
@@ -71,8 +84,6 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 
 	/**
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-	 * 
-	 * TODO document why context is not needed for stopping the bundle
 	 */
 	public void stop(@SuppressWarnings("unused")
 	BundleContext context) throws Exception {

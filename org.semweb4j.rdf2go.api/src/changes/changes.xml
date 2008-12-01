@@ -17,13 +17,27 @@
 		-->
 
 
-		<release version="4.6.3" date="@@@svn" description="@@@">
+		<release version="4.7.0" date="@@@svn"
+			description="Merged Projects">
+			<action dev="xamde" type="update">
+				Merged rdf2go.impl.base into this project. Reduced the
+				number of projects (in SVN, Eclipse, Maven) and thereby
+				the number of JAR files.
+			</action>
+			<action dev="xamde" type="update">
+				Updated LICENSE header consistenly in all .java files
+			</action>
+			<action dev="xamde" type="fix" issue="RTGO-58">
+				Fixed Model is not closed when using ModelSet.create...
+			</action>
+		</release>
+
+		<release version="4.6.3" date="unreleased"
+			description="Maintenance">
 			<action dev="xamde" type="remove">
 				Removed expensive logging from URIImpl.equals(...)
 			</action>
-			<action dev="xamde" type="fix">
-				Fixed RDF.li(...)
-			</action>
+			<action dev="xamde" type="fix">Fixed RDF.li(...)</action>
 			<action dev="xamde" type="add">
 				Added Variable.toString() to return '*'.
 			</action>
