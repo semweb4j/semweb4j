@@ -16,7 +16,7 @@
 			</release>
 		-->
 
-		<release version="4.7.0" date="2008-@@@"
+		<release version="4.7.0" date="2009-01-05"
 			description="Last Sesame 2.0 release - future fixes go the Sesame 2.2.x project">
 			<action dev="xamde" type="fix">
 				Added support for SeRQL and others in RepositoryModel.
