@@ -27,7 +27,7 @@ public class QueryIterator implements ClosableIterator<QueryRow> {
 	public QueryRow next() {
 		QuerySolution qs = this.resultSet.nextSolution();
 		QueryRowImpl row = new QueryRowImpl();
-		for (String v : table.getVariables()) {
+		for (String v : this.table.getVariables()) {
 			RDFNode node = qs.get(v);
 			assert node != null : "null node for varname " + v
 					+ ". Do you have unbound variables in the query?";

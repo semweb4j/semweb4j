@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena24</artifactId>
-	<version>4.6.1-SNAPSHOT</version>
+	<version>4.7.0-SNAPSHOT</version>
 	<name>rdf2go.impl.jena24</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.4
@@ -76,14 +76,7 @@
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
 			<!--  require any version >= 4.6 -->
-			<version>[4.6,)</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.base</artifactId>
-			<!--  require any version >= 4.6 -->
-			<version>[4.6,)</version>
+			<version>4.7.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -91,16 +84,14 @@
 			<artifactId>rdf2go.impl.base.test</artifactId>
 			<!--  require any version >= 4.6 -->
 			<version>[4.6,)</version>
+			<scope>test</scope>
 		</dependency>
-
-		<!-- OSGi -->
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>osgi</artifactId>
 			<version>3.2.1.R32</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<!--  mvn install:install-file -Dfile=jena.jar -DgroupId=net.sourceforge.jena -DartifactId=jena -Dversion=2.4 -Dpackaging=jar		
 				
@@ -118,8 +109,6 @@
 			<version>2.7.1</version>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -128,17 +117,20 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-
-		<!-- testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+
+		<!-- OSGi -->
+
+		<!-- logging dependencies -->
+
+		<!-- testing dependencies -->
 
 	</dependencies>
 	

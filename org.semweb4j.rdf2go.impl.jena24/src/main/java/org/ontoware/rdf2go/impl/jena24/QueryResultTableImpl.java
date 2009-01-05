@@ -28,9 +28,9 @@ public class QueryResultTableImpl implements QueryResultTable {
 		// else
 		this.varnames = new ArrayList<String>();
 		for (Object o : query.getResultVars()) {
-			varnames.add((String) o);
+			this.varnames.add((String) o);
 		}
-		qexec = QueryExecutionFactory.create(query, jenaModel);
+		this.qexec = QueryExecutionFactory.create(query, jenaModel);
 	}
 
 	public List<String> getVariables() {
@@ -39,7 +39,7 @@ public class QueryResultTableImpl implements QueryResultTable {
 
 
 	public ClosableIterator<QueryRow> iterator() {
-		ResultSet results = qexec.execSelect();
+		ResultSet results = this.qexec.execSelect();
 		return new QueryIterator(this,results);
 	}
 
