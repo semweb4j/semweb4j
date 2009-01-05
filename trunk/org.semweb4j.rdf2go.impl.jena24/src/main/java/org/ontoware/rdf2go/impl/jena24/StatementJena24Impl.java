@@ -34,13 +34,13 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 	}
 
 	public com.hp.hpl.jena.rdf.model.Statement toJenaStatement(Model jenaModel) {
-		Triple t = new Triple(s, p, o);
+		Triple t = new Triple(this.s, this.p, this.o);
 		return jenaModel.asStatement(t);
 	}
 
 	public Resource getSubject() {
 		try {
-			return (Resource) TypeConversion.toRDF2Go(s);
+			return (Resource) TypeConversion.toRDF2Go(this.s);
 		} catch (ModelRuntimeException e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -48,7 +48,7 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 
 	public URI getPredicate() {
 		try {
-			return (URI) TypeConversion.toRDF2Go(p);
+			return (URI) TypeConversion.toRDF2Go(this.p);
 		} catch (ModelRuntimeException e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -56,12 +56,13 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 
 	public org.ontoware.rdf2go.model.node.Node getObject() {
 		try {
-			return (org.ontoware.rdf2go.model.node.Node) TypeConversion.toRDF2Go(o);
+			return TypeConversion.toRDF2Go(this.o);
 		} catch (ModelRuntimeException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
 	
+	@Override
 	public String toString() {
 		return getSubject()+"--"+getPredicate()+"--"+getObject();
 	}
@@ -88,6 +89,7 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 		return false;
 	}
 	
+	@Override
 	public int hashCode() {
 		return super.hashCode();
 	}

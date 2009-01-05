@@ -49,7 +49,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements
 
 		Reasoning reasoning = AbstractModelFactory.getReasoning(p);
 
-		if (backend == null || backend.equalsIgnoreCase(MEMORY)) {
+		if (backend.equalsIgnoreCase(MEMORY)) {
 			model = com.hp.hpl.jena.rdf.model.ModelFactory.createDefaultModel();
 			assert model != null;
 		} else if (backend.equalsIgnoreCase(DATABASE)) {
@@ -102,12 +102,12 @@ public class ModelFactoryImpl extends AbstractModelFactory implements
 		switch (reasoning) {
 		case rdfsAndOwl:
 		case owl:
-			com.hp.hpl.jena.rdf.model.Model owlModel = (com.hp.hpl.jena.rdf.model.Model) com.hp.hpl.jena.rdf.model.ModelFactory
+			com.hp.hpl.jena.rdf.model.Model owlModel = com.hp.hpl.jena.rdf.model.ModelFactory
 					.createOntologyModel(OntModelSpec.OWL_DL_MEM_RDFS_INF,
 							model);
 			return new ModelImplJena24(owlModel);
 		case rdfs:
-			com.hp.hpl.jena.rdf.model.Model rdfsModel = (com.hp.hpl.jena.rdf.model.Model) com.hp.hpl.jena.rdf.model.ModelFactory
+			com.hp.hpl.jena.rdf.model.Model rdfsModel = com.hp.hpl.jena.rdf.model.ModelFactory
 					.createRDFSModel(model);
 			return new ModelImplJena24(rdfsModel);
 		default:
@@ -136,7 +136,8 @@ public class ModelFactoryImpl extends AbstractModelFactory implements
 				.createFileModelMaker(filename);
 	}
 
-	public ModelSet createModelSet(Properties p) throws ModelRuntimeException {
+	public ModelSet createModelSet(@SuppressWarnings("unused")
+	Properties p) throws ModelRuntimeException {
 		// TODO not available in Jena, TODO: implement using NG4J
 		throw new UnsupportedOperationException(
 				"not available in Jena, TODO: implement using NG4J");

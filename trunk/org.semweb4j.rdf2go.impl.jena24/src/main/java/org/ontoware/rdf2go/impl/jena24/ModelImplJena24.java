@@ -61,7 +61,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	protected com.hp.hpl.jena.rdf.model.Model jenaModel;
 
 	/**
-	 * used to check wheter iterators work on the up-to-date model
+	 * used to check whether iterators work on the up-to-date model
 	 */
 	protected long modificationCount = 0;
 
@@ -154,6 +154,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.Model#addStatement(java.lang.Object,
 	 *      java.net.URI, java.lang.Object)
 	 */
+	@Override
 	public void addStatement(org.ontoware.rdf2go.model.node.Resource subject,
 			URI predicate, org.ontoware.rdf2go.model.node.Node object)
 			throws ModelRuntimeException {
@@ -206,6 +207,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	 * @see org.ontoware.rdf2go.Model#removeStatement(java.lang.Object,
 	 *      java.net.URI, java.lang.Object)
 	 */
+	@Override
 	public void removeStatement(
 			org.ontoware.rdf2go.model.node.Resource subject, URI predicate,
 			org.ontoware.rdf2go.model.node.Node object)
@@ -248,6 +250,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		}
 	}
 
+	@Override
 	public boolean sparqlAsk(String queryString) throws ModelRuntimeException {
 		assertModel();
 		log.debug("Query " + queryString);
@@ -292,6 +295,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		return this.modificationCount;
 	}
 
+	@Override
 	public Object getUnderlyingModelImplementation() {
 		return this.jenaModel;
 	}
@@ -327,6 +331,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		this.locked = false;
 	}
 
+	@Override
 	public void update(Diff diff) throws ModelRuntimeException {
 		assertModel();
 		lock();
@@ -395,6 +400,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		}
 	}
 
+	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI) {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
@@ -449,6 +455,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		this.jenaModel.write(System.out, "N3-PP", "");
 	}
 
+	@SuppressWarnings("unused")
 	public void readFrom(InputStream in) throws IOException,
 			ModelRuntimeException {
 		assertModel();
@@ -467,6 +474,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	 * @throws IOException
 	 * @throws ModelRuntimeException
 	 */
+	@SuppressWarnings("unused")
+	@Override
 	public void writeTo(OutputStream out, Syntax syntax)
 			throws ModelRuntimeException, IOException {
 		assertModel();
@@ -498,6 +507,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			return null;
 	}
 
+	@SuppressWarnings("unused")
+	@Override
 	public void readFrom(InputStream in, Syntax syntax) throws IOException,
 			ModelRuntimeException {
 		assertModel();
@@ -511,6 +522,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		this.jenaModel.read(in, "", jenaSyntax);
 	}
 
+	@Override
+	@SuppressWarnings("unused")
 	public void readFrom(InputStream in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException {
 		assertModel();
@@ -559,7 +572,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 
 	@SuppressWarnings("unchecked")
 	public Map<String, String> getNamespaces() {
-		return (Map<String, String>) this.jenaModel.getNsPrefixMap();
+		return this.jenaModel.getNsPrefixMap();
 	}
 
 	public void removeNamespace(String prefix) {

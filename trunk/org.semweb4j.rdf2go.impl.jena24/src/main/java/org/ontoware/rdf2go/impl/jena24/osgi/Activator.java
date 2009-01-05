@@ -1,8 +1,13 @@
-/*
- * Copyright (c) 2006 Deutsches Forschungszentrum fuer Kuenstliche Intelligenz DFKI GmbH.
- * All rights reserved.
+/**
+ * LICENSE INFORMATION
  * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de).
  * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
+ * <OWNER> = Max VÃ¶lkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
+ * <YEAR> = 2008
+ * 
+ * Further project information at http://semanticweb.org/wiki/RDF2Go 
  */
 package org.ontoware.rdf2go.impl.jena24.osgi;
 
@@ -12,7 +17,6 @@ import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.impl.jena24.ModelFactoryImpl;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
 /**
@@ -25,7 +29,7 @@ public class Activator implements BundleActivator {
 
     private ModelFactory factory;
 
-    private ServiceReference reference;
+    private ServiceRegistration registration;
 
     /**
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
@@ -35,17 +39,17 @@ public class Activator implements BundleActivator {
 
         bc = context;
 
-        factory = new ModelFactoryImpl();
-        ServiceRegistration registration = bc.registerService(ModelFactory.class.getName(), factory,
+        this.factory = new ModelFactoryImpl();
+        this.registration = bc.registerService(ModelFactory.class.getName(), this.factory,
             new Hashtable());
-        reference = registration.getReference();
     }
 
     /**
      * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
-    public void stop(BundleContext context) throws Exception {
-        bc.ungetService(reference);
+    public void stop(@SuppressWarnings("unused")
+	BundleContext context) throws Exception {
+        this.registration.unregister();
     }
 
 }

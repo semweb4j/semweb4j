@@ -27,29 +27,29 @@ public class TripleIterator implements ClosableIterator<Statement> {
 	}
 
 	public boolean hasNext() {
-		assert modelImplJena.getModificationCount() == modelModificationCountAtCreationTime : "concurrent modification for iterator ("
-				+ modelModificationCountAtCreationTime
+		assert this.modelImplJena.getModificationCount() == this.modelModificationCountAtCreationTime : "concurrent modification for iterator ("
+				+ this.modelModificationCountAtCreationTime
 				+ " but model is "
-				+ modelImplJena.getModificationCount() + ")";
-		return it.hasNext();
+				+ this.modelImplJena.getModificationCount() + ")";
+		return this.it.hasNext();
 	}
 
 	public Statement next() {
-		assert modelImplJena.getModificationCount() == modelModificationCountAtCreationTime;
-		Triple t = (Triple) it.next();
+		assert this.modelImplJena.getModificationCount() == this.modelModificationCountAtCreationTime;
+		Triple t = (Triple) this.it.next();
 		return new StatementJena24Impl(this.modelImplJena, t.getSubject(), t.getPredicate(), t
 				.getObject());
 	}
 
 	public void remove() {
 		// it.remove();
-		 assert modelImplJena.getModificationCount() ==
-		 modelModificationCountAtCreationTime;
-		 it.remove();
+		 assert this.modelImplJena.getModificationCount() ==
+		 this.modelModificationCountAtCreationTime;
+		 this.it.remove();
 	}
 
 	public void close() {
-		it.close();
+		this.it.close();
 	}
 
 }
