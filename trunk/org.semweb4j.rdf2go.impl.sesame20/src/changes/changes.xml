@@ -15,16 +15,20 @@
 			description="No API changes">
 			</release>
 		-->
-		
-		<release version="4.6.3" date="2008-@@@">
+
+		<release version="4.7.0" date="2008-@@@"
+			description="Last Sesame 2.0 release - future fixes go the Sesame 2.2.x project">
 			<action dev="xamde" type="fix">
 				Added support for SeRQL and others in RepositoryModel.
 			</action>
 			<action dev="xamde" type="fix" issue="RTGO-56">
 				Fixed RepositoryModel.removeAll() - thank Antoni!
 			</action>
+			<action dev="xamde" type="fix" issue="RTGO-49">
+				Antoni fixed OSGI issues
+			</action>
 		</release>
-		
+
 
 		<release version="4.6.2" date="2008-05-02">
 			<action dev="xamde" type="update">
