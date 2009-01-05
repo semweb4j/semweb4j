@@ -30,6 +30,9 @@
 			<action dev="xamde" type="fix" issue="RTGO-58">
 				Fixed Model is not closed when using ModelSet.create...
 			</action>
+			<action dev="xamde" type="fix" issue="RTGO-49">
+				Antoni fixed OSGI issues
+			</action>
 		</release>
 
 		<release version="4.6.3" date="unreleased"
