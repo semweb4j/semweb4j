@@ -36,7 +36,7 @@ public interface Model extends ModelValueFactory, ModelAddRemove,
 
 	/**
 	 * Open connection to defined, underlying implementation
-	 * @return TODO
+	 * @return the model itself (now open) ready for further operations
 	 */
 	Model open();
 
