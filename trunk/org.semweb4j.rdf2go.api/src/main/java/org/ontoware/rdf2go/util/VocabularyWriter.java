@@ -357,8 +357,7 @@ public class VocabularyWriter {
 		// ID, may have to upcase
 		try {
 			for (; !Character.isJavaIdentifierStart(s.charAt(i)); i++) {
-				// TODO (xamde from wth, 11.07.2007) WHY IS THIS BLOCK EMPTY?  
-				//if this is fine, please document why
+				// skip all characters which are illegal at the start
 			}
 		} catch (StringIndexOutOfBoundsException e) {
 			System.err

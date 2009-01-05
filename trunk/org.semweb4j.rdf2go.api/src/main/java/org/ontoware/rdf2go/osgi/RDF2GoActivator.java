@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * This class has been contributed by Deutsches Forschungszentrum fuer
  * Kuenstliche Intelligenz DFKI GmbH.
  * 
- * TODO why cannot just the implementation bundle register itself? It shouldn't
+ * TODO sauermann why cannot just the implementation bundle register itself? It shouldn't
  * be the APIs job to register implementations.
  * 
  * @author sauermann
@@ -88,7 +88,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	/**
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 * 
-	 *      TODO document why context is not needed for stopping the bundle
+	 *      TODO leo/antoni document why context is not needed/used for stopping the bundle
 	 */
 	public void stop(@SuppressWarnings("unused") BundleContext context)
 			throws Exception {
