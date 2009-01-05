@@ -18,7 +18,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame22</artifactId>
 	<!--  this must be a three-digit number for OSGI MANIFEST -->
-	<version>4.7.0.2-2-1-SNAPSHOT</version>
+	<version>4.7.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>rdf2go.impl.sesame20</name>
 	<description>
@@ -67,7 +67,7 @@
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
 			<!--  require any version >= 4.6 -->
-			<version>[4.6.0,5.0.0)</version>
+			<version>4.7.0</version>
 		</dependency>
 
 		<!-- OSGi -->
@@ -197,7 +197,7 @@ If present, DEBUG logging is compiled away
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<version>[4.6.0,)</version>
+			<version>4.7.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -260,7 +260,11 @@ If present, DEBUG logging is compiled away
 	</build>
 
 	<repositories>
-		<repository>
+		
+		<repository>  
+		<id>aduna-opensource.releases</id>  
+		<name>Aduna Open Source - Maven releases</name>  
+		<url>http://repo.aduna-software.org/maven2/releases</url>  
 			<releases>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
@@ -271,34 +275,9 @@ If present, DEBUG logging is compiled away
 				<updatePolicy>never</updatePolicy>
 				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
-			<id>aduna-repo</id>
-			<name>Aduna Repository</name>
-			<url>http://repository.aduna-software.org/maven2</url>
-		</repository>
-		
-		<repository>  
-		<id>aduna-opensource.releases</id>  
-		<name>Aduna Open Source - Maven releases</name>  
-		<url>http://repo.aduna-software.org/maven2/releases</url>  
 		</repository> 
 		
-		<repository>
-			<releases>
-				<enabled>false</enabled>
-				<updatePolicy>never</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>warn</checksumPolicy>
-			</snapshots>
-			<id>aduna-snapshot-repo</id>
-			<name>Aduna Snapshot Repository</name>
-			<url>
-				http://repository.aduna-software.org/maven2-snapshots
-			</url>
-		</repository>
+		
 		<repository>
 			<id>semweb4j-repo</id>
 			<name>Semweb4j.org maven repo</name>
