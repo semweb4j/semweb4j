@@ -137,7 +137,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	private Throwable caller;
 
 	@Override
-	public void open() {
+	public Model open() {
 		// establish a connection
 		try {
 			this.connection = this.repository.getConnection();
@@ -153,6 +153,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
+		return this;
 	}
 
 	@Override
