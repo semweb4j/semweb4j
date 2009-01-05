@@ -1,0 +1,97 @@
+<document>
+
+	<properties>
+		<title>RDF2GO adapter for OpenRDF 2.0.0 Changelog</title>
+		<author email="dev@xam.de">Max Völkel</author>
+	</properties>
+	<body>
+
+		<!-- 
+			<action dev="xamde" type="remove">
+			Removed
+			deprecatedModelSet.getUnderlyingModelImplementation();
+			</action>
+			<release version="4.4.9" date="@@"
+			description="No API changes">
+			</release>
+		-->
+
+		<release version="4.7.0" date="2009-01-05"
+			description="Last Sesame 2.0 release - future fixes go the Sesame 2.2.x project">
+			<action dev="xamde" type="fix">
+				Added support for SeRQL and others in RepositoryModel.
+			</action>
+			<action dev="xamde" type="fix" issue="RTGO-56">
+				Fixed RepositoryModel.removeAll() - thank Antoni!
+			</action>
+			<action dev="xamde" type="fix" issue="RTGO-49">
+				Antoni fixed OSGI issues
+			</action>
+		</release>
+
+
+		<release version="4.6.2" date="2008-05-02">
+			<action dev="xamde" type="update">
+				Change bundleName and bundleSymbolicName in MANIFEST
+				back to "org.openrdf.rdf2go" for backwards compatibility
+				with NEPOMUK project
+			</action>
+		</release>
+
+		<release version="4.6.1" date="2008-04-30">
+			<action dev="xamde" type="update">
+				Renamed to groupId 'org.semweb4j' and artifactId
+				'rdf2go.impl.sesame20' for consistency reasons and to
+				make clear that FZI is now maintaining the driver.
+				Package names remain unchanged.
+			</action>
+			<action dev="xamde" type="fix">
+				Added proper OSGI MANIFEST.MF via POM
+			</action>
+		</release>
+
+		<release version="4.6.0" date="2008-04-16"
+			description="Improvements and bug fixes">
+			<action dev="xamde" type="update">
+				Upgraded to OpenRDF 2.0.1 release
+			</action>
+			<action dev="xamde" type="add">
+				Implemented SPARQL ASK queries
+			</action>
+			<action dev="xamde" type="update">
+				Relocated source code to
+				http(s)://semweb4j.googlecode.com/svn/trunk/org.openrdf.rdf2go
+			</action>
+		</release>
+
+		<release version="4.5.4" date="2008-01-29"
+			description="Bugfix">
+			<action dev="xamde" type="fix">
+				Fixed a bug in Model/ModelSet.update() - did not use the
+				correct context
+			</action>
+		</release>
+
+		<release version="4.5.3" date="2008-01-21"
+			description="API extension">
+			<action dev="xamde" type="update">
+				Upgraded to RDF2Go 4.5.3
+			</action>
+			<action dev="xamde" type="add">
+				Added TRiG parser to dependencies.
+			</action>
+			<action dev="xamde" type="add">
+				Added this ChangeLog.
+			</action>
+		</release>
+
+		<release version="4.5.2" date="2007-12-17"
+			description="API extension">
+			<action dev="xamde" type="update">
+				Upgraded to OpenRDF 2.0.0
+			</action>
+		</release>
+
+
+	</body>
+</document>
