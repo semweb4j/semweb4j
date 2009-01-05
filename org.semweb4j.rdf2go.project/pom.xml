@@ -19,7 +19,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.project</artifactId>
-	<version>4.4.6</version>
+	<version>4.7.0</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDF2go project summary</name>
@@ -38,8 +38,8 @@
 
 	<modules>
 		<module>../org.semweb4j.rdf2go.api</module>
-		<module>../org.semweb4j.rdf2go.impl.base</module>
 		<module>../org.semweb4j.rdf2go.impl.base.test</module>
+		<module>../org.semweb4j.rdf2go.impl.sesame22</module>
 		<module>../org.semweb4j.rdf2go.impl.jena24</module>
 		<module>../org.semweb4j.rdf2go.site</module>
 <!-- 
