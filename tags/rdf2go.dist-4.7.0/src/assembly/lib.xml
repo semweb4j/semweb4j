@@ -1,0 +1,17 @@
+<assembly>
+	<!-- 		
+		jar, dependencies as jar
+	-->
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<!-- exclude the unnecessary dist.jar -->
+			<excludes>
+				<exclude>org.semweb4j:rdf2go.dist</exclude>
+			</excludes>
+		</dependencySet>
+	</dependencySets>
+</assembly>
