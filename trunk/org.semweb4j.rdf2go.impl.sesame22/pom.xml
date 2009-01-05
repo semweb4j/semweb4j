@@ -18,7 +18,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame22</artifactId>
 	<!--  this must be a three-digit number for OSGI MANIFEST -->
-	<version>4.7.0-SNAPSHOT</version>
+	<version>4.7.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>rdf2go.impl.sesame22</name>
 	<description>
@@ -49,13 +49,13 @@
 <!--			<artifactId>aduna-commons-iteration</artifactId>-->
 <!--			<version>2.2</version>-->
 <!--		</dependency>-->
-<!---->
+
 <!--		<dependency>-->
 <!--			<groupId>info.aduna.commons</groupId>-->
 <!--			<artifactId>aduna-commons-concurrent</artifactId>-->
 <!--			<version>2.2</version>-->
 <!--		</dependency>-->
-<!---->
+
 <!--		<dependency>-->
 <!--			<groupId>info.aduna.commons</groupId>-->
 <!--			<artifactId>aduna-commons-io</artifactId>-->
