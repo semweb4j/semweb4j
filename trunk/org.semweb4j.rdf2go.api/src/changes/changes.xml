@@ -17,8 +17,8 @@
 		-->
 
 
-		<release version="4.7.0" date="@@@svn"
-			description="Merged Projects">
+		<release version="4.7.0" date="2009-01-05"
+			description="API Extension (backwards compatible) and maintenance">
 			<action dev="xamde" type="update">
 				Merged rdf2go.impl.base and rdf2go.impl.util into this project. Reduced the
 				number of projects (in SVN, Eclipse, Maven) and thereby
