@@ -19,8 +19,6 @@ import org.ontoware.rdf2go.model.node.Variable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public abstract class AbstractBlankNodeImpl extends ResourceImpl implements BlankNode {
 
 	private static final Logger log = LoggerFactory.getLogger(Variable.class);
@@ -77,7 +75,7 @@ public abstract class AbstractBlankNodeImpl extends ResourceImpl implements Blan
 
 	public String toSPARQL() throws UnsupportedOperationException {
 		log.warn("Variable (Singleton) should not be used for SPARQL queries");
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	public abstract String getInternalID();

@@ -11,15 +11,16 @@
  */
 package org.ontoware.rdf2go.osgi;
 
-import java.util.logging.Logger;
-
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.RDF2Go;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Activate the RDF2Go framework. Listens to registered OSGI services and
@@ -42,51 +43,55 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 * set this variable in the OSGI config to define the default driver for
 	 * RDF2Go.
 	 */
-	public static final String DEFAULTMODELFACTORY_CFG = "org.ontoware.rdf2go.defaultmodelfactory";
+	public static final String DEFAULTMODELFACTORY_CFG = 
+		"org.ontoware.rdf2go.defaultmodelfactory";
+	
+	/**
+	 * The filter used to search for ModelFactories
+	 */
+	public static final String MODEL_FACTORY_FILTER = 
+		"(objectclass=" + ModelFactory.class.getName() + ")";
 
 	private BundleContext bc;
 
 	private String defaultFactoryClassName = null;
+	
+	private ServiceReference currentFactorySR;
 
-	private static final Logger log = Logger.getLogger(RDF2GoActivator.class
-			.getName());
+	private static final Logger log = 
+		LoggerFactory.getLogger(RDF2GoActivator.class);
 
 	/**
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
 		this.bc = context;
-
-		this.defaultFactoryClassName = context
-				.getProperty(DEFAULTMODELFACTORY_CFG);
-		if (this.defaultFactoryClassName == null) {
-			log
-					.warning("RDF2Go cannot find configuration value for default RDF2Go factory. "
-							+ "No Default ModelFactory will be available. Please set "
-							+ DEFAULTMODELFACTORY_CFG);
-
-			// TODO improve - API class should not dictate default
-			// implementation
-			this.defaultFactoryClassName = "org.openrdf.rdf2go.RepositoryModelFactory";
-		}
-
-		String filter = "(objectclass=" + ModelFactory.class.getName() + ")";
-		context.addServiceListener(this, filter);
-
-		ServiceReference references[] = context.getServiceReferences(null,
-				filter);
-
-		for (int i = 0; references != null && i < references.length; i++) {
-			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-					references[i]));
+		this.defaultFactoryClassName = context.getProperty(DEFAULTMODELFACTORY_CFG);
+		this.bc.addServiceListener(this, MODEL_FACTORY_FILTER);
+		initalizeListener();
+	}
+	
+	private void initalizeListener() {
+		ServiceReference references[];
+		try {
+			references = this.bc.getServiceReferences(null,MODEL_FACTORY_FILTER);
+			for (int i = 0; references != null && i < references.length; i++) {
+				this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
+						references[i]));
+			}
+		} catch (InvalidSyntaxException e) {
+			// this will not happen
+			log.error("Syntax error",e);
 		}
 	}
 
 	/**
 	 * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 * 
+	 *      TODO document why context is not needed for stopping the bundle
 	 */
-	public void stop(@SuppressWarnings("unused")
-	BundleContext context) throws Exception {
+	public void stop(@SuppressWarnings("unused") BundleContext context)
+			throws Exception {
 		this.bc = null;
 	}
 
@@ -96,38 +101,65 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 * @see org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.ServiceEvent)
 	 */
 	public void serviceChanged(ServiceEvent event) {
-		if (this.defaultFactoryClassName == null)
-			return;
-
-		ModelFactory factory;
 		switch (event.getType()) {
 		case ServiceEvent.REGISTERED:
-			factory = (ModelFactory) this.bc.getService(event
-					.getServiceReference());
-			if (factory.getClass().getName().equals(
-					this.defaultFactoryClassName)) {
-				log.info("RDF2Go uses " + this.defaultFactoryClassName
-						+ " as default ModelFactory");
-				RDF2Go.register(factory);
-			} else
-				this.bc.ungetService(event.getServiceReference());
+			handleRegisteredEvent(event);
 			break;
 		case ServiceEvent.UNREGISTERING:
-			factory = (ModelFactory) this.bc.getService(event
-					.getServiceReference());
-			if (factory.getClass().getName().equals(
-					this.defaultFactoryClassName)) {
-				log
-						.fine("RDF2Go unregistered the ModelFactory "
-								+ this.defaultFactoryClassName
-								+ " as default ModelFactory. No ModelFactory available now. The Bundle of the ModelFactory was unregistered.");
-				RDF2Go.register((ModelFactory) null);
-			}
-			this.bc.ungetService(event.getServiceReference());
+			handleUnregisteredEvent(event);
 			break;
 		}
 		// We do not care for modified
 		// case ServiceEvent.MODIFIED:
 	}
 
+	private void handleRegisteredEvent(ServiceEvent event) {
+		ServiceReference ref = event.getServiceReference();
+		ModelFactory factory = (ModelFactory) this.bc.getService(ref);
+		String currClass = getCurrentFactoryClassName();
+		String newClass = factory.getClass().getName();
+		if (this.currentFactorySR == null) {
+			log.info("Registering " + factory.getClass().getName()
+					+ " as default ModelFactory");
+			this.currentFactorySR = ref;
+			RDF2Go.register(factory);
+		} else if (this.defaultFactoryClassName != null && 
+				  !currClass.equals(this.defaultFactoryClassName) &&
+				  newClass.equals(this.defaultFactoryClassName)) {
+			RDF2Go.register((ModelFactory) null);
+			this.bc.ungetService(this.currentFactorySR);
+
+			factory = (ModelFactory) this.bc.getService(ref);
+			this.currentFactorySR = ref;
+			RDF2Go.register(factory);
+			log.info("RDF2Go uses " + newClass + " as default ModelFactory");
+		} else {
+			this.bc.ungetService(ref);
+		}
+	}
+	
+	private void handleUnregisteredEvent(ServiceEvent event) {
+		ServiceReference ref = event.getServiceReference();
+		String currClass = getCurrentFactoryClassName();
+		if (ref == this.currentFactorySR) {
+			RDF2Go.register((ModelFactory) null);
+			this.currentFactorySR = null;
+			log.info("RDF2Go unregistered the ModelFactory "
+				+ currClass
+				+ " as default ModelFactory. No ModelFactory available now. " 
+				+ "The Bundle of the ModelFactory was unregistered.");
+		}
+		this.bc.ungetService(ref);
+		initalizeListener();
+	}
+	
+	private String getCurrentFactoryClassName() {
+		ModelFactory currFactory = null;
+		try {
+			currFactory = RDF2Go.getModelFactory();
+		} catch (RuntimeException e) {
+			// do nothing, this means that no factory has been registered
+		}
+		return (currFactory == null ? null : currFactory.getClass().getName());
+	}
 }
