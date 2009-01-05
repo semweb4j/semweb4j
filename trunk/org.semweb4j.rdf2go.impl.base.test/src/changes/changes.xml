@@ -5,6 +5,13 @@
 	</properties>
 	<body>
 
+		<release version="4.7.0" date="2009-01-05"
+			description="maintenance">
+			<action dev="xamde" type="update">
+				Nothing changed besides the version number.
+			</action>
+		</release>
+
 		<release version="4.6.1" date="2008-04-30"
 			description="maintenance">
 			<action dev="xamde" type="fix">
