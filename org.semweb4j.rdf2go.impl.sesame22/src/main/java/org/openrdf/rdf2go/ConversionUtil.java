@@ -65,6 +65,19 @@ public class ConversionUtil {
 			return toOpenRDF((BlankNode) object, factory);
 		} else if (object instanceof Variable) {
 			return toOpenRDF((Variable) object, factory);
+		} else
+		// fix for RDFReactor compatibility
+		if (object instanceof org.ontoware.rdf2go.model.node.Resource) {
+			try {
+				URI uri = ((org.ontoware.rdf2go.model.node.Resource) object)
+						.asURI();
+				return toOpenRDF(uri, factory);
+			} catch (ClassCastException e) {
+				// if a resource is not a URI it must be a blank node
+				BlankNode blankNode = ((org.ontoware.rdf2go.model.node.Resource) object)
+						.asBlankNode();
+				return toOpenRDF(blankNode, factory);
+			}
 		} else {
 			throw new IllegalArgumentException("Unexpected object type: "
 					+ object.getClass().getName());
@@ -125,11 +138,13 @@ public class ConversionUtil {
 		return result;
 	}
 
-	
 	/**
 	 * Variables in Sesame are represented by <code>null</code>.
-	 * @param variable - not used
-	 * @param factory - not used
+	 * 
+	 * @param variable -
+	 *            not used
+	 * @param factory -
+	 *            not used
 	 * @return always null
 	 */
 	public static Value toOpenRDF(Variable variable, ValueFactory factory) {
