@@ -15,7 +15,14 @@
 			description="No API changes">
 			</release>
 		-->
-		
+
+		<release version="4.7.1" date="2009-01-@@">
+			<action dev="xamde" type="fix" issue="REAC-28">
+				Fix an issue with RDFReactor - conversion of instances
+				of Resource that are not instances of URI or BlankNode.
+			</action>
+		</release>
+
 		<release version="4.7.0" date="2009-01-05">
 			<action dev="xamde" type="fix">
 				Added support for SeRQL and others in RepositoryModel.
@@ -30,7 +37,7 @@
 				Upgraded to Sesame 2.2.1.
 			</action>
 		</release>
-		
+
 
 		<release version="4.6.2" date="2008-05-02">
 			<action dev="xamde" type="update">
