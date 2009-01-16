@@ -70,7 +70,7 @@ public class BridgeBase {
 	public static boolean containsGivenValue(Model model, Resource resource,
 			URI propertyURI, Object value) throws ModelRuntimeException {
 
-		Node objectNode = RDFReactorRuntime.java2node(model,value);
+		Node objectNode = RDFReactorRuntime.java2node(model, value);
 		return model.contains(resource, propertyURI, objectNode);
 	}
 
@@ -125,7 +125,8 @@ public class BridgeBase {
 			Set<Object> result = new HashSet<Object>();
 			while (it.hasNext()) {
 				Node rdfnode = it.next().getObject();
-				result.add(RDFReactorRuntime.node2javatype(model, rdfnode, returnType));
+				result.add(RDFReactorRuntime.node2javatype(model, rdfnode,
+						returnType));
 			}
 			it.close();
 			return result;
@@ -210,7 +211,8 @@ public class BridgeBase {
 	@Patrolled
 	public static void add(Model model, Resource subject, URI property,
 			Object object) throws ModelRuntimeException {
-		addStatementGeneric(model, subject, property, RDFReactorRuntime.java2node(model,object));
+		addStatementGeneric(model, subject, property, RDFReactorRuntime
+				.java2node(model, object));
 	}
 
 	/**
@@ -289,7 +291,7 @@ public class BridgeBase {
 	 */
 	static boolean removeValue(Model model, Resource resource, URI propertyURI,
 			Object value) throws ModelRuntimeException {
-		Node objectNode = RDFReactorRuntime.java2node(model,value);
+		Node objectNode = RDFReactorRuntime.java2node(model, value);
 		boolean found = model.contains(resource, propertyURI, objectNode);
 
 		if (found) {
@@ -328,7 +330,8 @@ public class BridgeBase {
 				log.debug("got a result");
 				Statement statement = it.next();
 				Node rdfnode = triplePattern.getExtract(statement);
-				result.add(RDFReactorRuntime.node2javatype(model, rdfnode, returnType));
+				result.add(RDFReactorRuntime.node2javatype(model, rdfnode,
+						returnType));
 			}
 			it.close();
 		}
@@ -426,48 +429,48 @@ public class BridgeBase {
 					+ object.getClass());
 	}
 
-//	/**
-//	 * convert a ReactorBase or primitive Java object to a type used in the
-//	 * RDF2GO model
-//	 * 
-//	 * @param reactorValue
-//	 * @return URI, String and Blank nodes are passed through, ReactorBase
-//	 *         instances have their identifier returned.
-//	 * @throws ModelRuntimeException
-//	 */
-//	private static Object toRDF2GoType(Object reactorValue) {
-//		if (reactorValue == null) {
-//			throw new IllegalArgumentException("Argument may not be null");
-//		}
-//
-//		// array in, array out
-//
-//		if (reactorValue.getClass().isArray()) {
-//			log.debug("object is an array");
-//			Object[] reactorValues = (Object[]) reactorValue;
-//			Node[] nodes = new Node[reactorValues.length];
-//			for (int i = 0; i < reactorValues.length; i++) {
-//				nodes[i] = toRDF2GoNode(reactorValues[i]);
-//			}
-//			return nodes;
-//		}
-//
-//		// if (reactorValue instanceof ResourceEntity[]) {
-//		// log
-//		// .debug("object is an instanceof ReactorBase[], so will add as
-//		// multiple resources");
-//		// ResourceEntity[] values = (ResourceEntity[]) reactorValue;
-//		// Resource[] javatype = new Resource[values.length];
-//		// for (int i = 0; i < values.length; i++) {
-//		// javatype[i] = ((ResourceEntity) values[i]).getResource();
-//		// }
-//		// return javatype;
-//		// }
-//		else {
-//			log.debug("object is simple, converting to rdf2go node...");
-//			// value in, value out
-//			return toRDF2GoNode(reactorValue);
-//		}
-//	}
+	// /**
+	// * convert a ReactorBase or primitive Java object to a type used in the
+	// * RDF2GO model
+	// *
+	// * @param reactorValue
+	// * @return URI, String and Blank nodes are passed through, ReactorBase
+	// * instances have their identifier returned.
+	// * @throws ModelRuntimeException
+	// */
+	// private static Object toRDF2GoType(Object reactorValue) {
+	// if (reactorValue == null) {
+	// throw new IllegalArgumentException("Argument may not be null");
+	// }
+	//
+	// // array in, array out
+	//
+	// if (reactorValue.getClass().isArray()) {
+	// log.debug("object is an array");
+	// Object[] reactorValues = (Object[]) reactorValue;
+	// Node[] nodes = new Node[reactorValues.length];
+	// for (int i = 0; i < reactorValues.length; i++) {
+	// nodes[i] = toRDF2GoNode(reactorValues[i]);
+	// }
+	// return nodes;
+	// }
+	//
+	// // if (reactorValue instanceof ResourceEntity[]) {
+	// // log
+	// // .debug("object is an instanceof ReactorBase[], so will add as
+	// // multiple resources");
+	// // ResourceEntity[] values = (ResourceEntity[]) reactorValue;
+	// // Resource[] javatype = new Resource[values.length];
+	// // for (int i = 0; i < values.length; i++) {
+	// // javatype[i] = ((ResourceEntity) values[i]).getResource();
+	// // }
+	// // return javatype;
+	// // }
+	// else {
+	// log.debug("object is simple, converting to rdf2go node...");
+	// // value in, value out
+	// return toRDF2GoNode(reactorValue);
+	// }
+	// }
 
 }
