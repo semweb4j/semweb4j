@@ -5,6 +5,21 @@
 	</properties>
 	<body>
 
+		<release version="4.7.0" description="Maintenance release"
+			date="2009-01-16">
+			<action dev="xamde" type="update">
+				Upgrade to RDF2Go 4.7.0.
+			</action>
+			<action type="add" issue="REAC-21" dev="xamde">
+				Added generation of X.hasPPP( O ) to return true if
+				there is a triple (x,p,o).
+			</action>
+			<action type="remove" dev="xamde">
+				Removed unnecessary cast in generated code:
+				getPPP_asNode().
+			</action>
+		</release>
+
 		<release version="4.6.2" description="Maintenance Release"
 			date="2008-09-09">
 			<action dev="xamde" type="fix" issue="REAC-29">
@@ -12,7 +27,8 @@
 				Model m ) --> getAllInstances_as( Model m )
 			</action>
 			<action dev="xamde" type="add">
-				Generate cleaner code: Added @SuppressWarnings to generated static URI fields.
+				Generate cleaner code: Added @SuppressWarnings to
+				generated static URI fields.
 			</action>
 			<action dev="xamde" type="fix" issue="REAC-30">
 				removeAllPROP() was named addAllPROP() by accident.

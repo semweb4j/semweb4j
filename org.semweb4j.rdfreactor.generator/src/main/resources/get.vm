@@ -39,6 +39,30 @@
 		return Base.has(this.model, this.getResource(), #uppercase($prop.name));
 	}
 
+    /**
+     * Check if $prop has the given value (maybe among other values).  
+#comment("     " $prop)
+     * @param model an RDF2Go model
+     * @param resource an RDF2Go resource
+	 * @param value the value to be checked
+     * @return true if this property contains (maybe among other) the given value
+#debug("get0has-value-static")
+     */
+	public static boolean has${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value ) {
+		return Base.hasValue(model, instanceResource, #uppercase($prop.name));
+	}
+
+    /**
+     * Check if $prop has the given value (maybe among other values).  
+#comment("     " $prop)
+	 * @param value the value to be checked
+     * @return true if this property contains (maybe among other) the given value
+#debug("get0has-value-dynamic")
+     */
+	public boolean has${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value ) {
+		return Base.hasValue(this.model, this.getResource(), #uppercase($prop.name));
+	}
+
 ##     -----------------------------------------------------------------------
 ##    | IF max cardinality == 1. GENERATE "get_asNode()"
 #if($prop.maxCardinality == 1)
@@ -52,7 +76,7 @@
 #debug("get1static")
      */
 	public static org.ontoware.rdf2go.model.node.Node get${methodnameprefix}#mixedcase($prop.name )_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (org.ontoware.rdf2go.model.node.Node) Base.get_asNode(model, instanceResource, #uppercase($prop.name));
+		return Base.get_asNode(model, instanceResource, #uppercase($prop.name));
 	}
 	
     /**
@@ -63,7 +87,7 @@
 #debug("get2dynamic")
      */
 	public org.ontoware.rdf2go.model.node.Node get${methodnameprefix}#mixedcase($prop.name )_asNode() {
-		return (org.ontoware.rdf2go.model.node.Node) Base.get_asNode(this.model, this.getResource(), #uppercase($prop.name));
+		return Base.get_asNode(this.model, this.getResource(), #uppercase($prop.name));
 	}
 ##             -----------------------------------------------------------------------
 ##            | IF multirange. GENERATE "A get_asA", "B getAs_B"
