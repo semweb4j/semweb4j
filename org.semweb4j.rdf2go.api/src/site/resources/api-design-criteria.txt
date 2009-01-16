@@ -1,4 +1,0 @@
-gunnar: it should be easy for API users to import all necessary parts of the library with few "import" statements
-
-
-richard: 
