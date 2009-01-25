@@ -21,3 +21,4 @@ Export-Package: org.ontoware.aifbcommons.collection,
  org.ontoware.rdf2go.util,
  org.ontoware.rdf2go.vocabulary
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
