@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.semweb4j.rdf2go.api
 Bundle-SymbolicName: org.semweb4j.rdf2go.api
-Bundle-Version: 4.7.0.SNAPSHOT
+Bundle-Version: 4.7.1
 Bundle-Vendor: FZI Karlsruhe (fzi.de), Max Voelkel (dev@xam.de), OSGI adaptations by Leo Sauermann
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.osgi.framework;version="1.4.0",

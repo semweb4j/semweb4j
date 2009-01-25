@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RDF2Go Sesame22 Plug-in
 Bundle-SymbolicName: org.semweb4j.rdf2go.impl.sesame22
-Bundle-Version: 4.7.0.2-2-1-SNAPSHOT
+Bundle-Version: 4.7.1.2-2-3
 Bundle-Vendor: Nepomuk Consortium, Aduna Software
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: info.aduna.iteration;version="[2.2.0,2.3.0)",
@@ -32,3 +32,6 @@ Import-Package: info.aduna.iteration;version="[2.2.0,2.3.0)",
  org.slf4j;version="1.5.0"
 Bundle-Activator: org.openrdf.rdf2go.osgi.Activator
 Bundle-ActivationPolicy: lazy
+Export-Package: org.ontoware.rdf2go.impl,
+ org.openrdf.rdf2go,
+ org.openrdf.rdf2go.osgi
