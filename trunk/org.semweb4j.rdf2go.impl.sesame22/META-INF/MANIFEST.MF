@@ -35,3 +35,4 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.ontoware.rdf2go.impl,
  org.openrdf.rdf2go,
  org.openrdf.rdf2go.osgi
+Bundle-ClassPath: .
