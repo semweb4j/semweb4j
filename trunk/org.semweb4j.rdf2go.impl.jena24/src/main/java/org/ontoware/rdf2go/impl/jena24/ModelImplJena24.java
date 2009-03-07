@@ -15,8 +15,9 @@ import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.exception.LockException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
+import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
-import org.ontoware.rdf2go.model.Diff;
+import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.Statement;
@@ -152,7 +153,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.ontoware.rdf2go.Model#addStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
+	 * java.net.URI, java.lang.Object)
 	 */
 	@Override
 	public void addStatement(org.ontoware.rdf2go.model.node.Resource subject,
@@ -165,10 +166,10 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			this.modificationCount++;
 			if (!(object instanceof DatatypeLiteral)) {
 				this.jenaModel.getGraph().add(
-						new Triple(TypeConversion
-								.toJenaNode(subject, this.jenaModel), TypeConversion
-								.toJenaNode(predicate, this.jenaModel),
-								TypeConversion.toJenaNode(object, this.jenaModel)));
+						new Triple(TypeConversion.toJenaNode(subject,
+								this.jenaModel), TypeConversion.toJenaNode(
+								predicate, this.jenaModel), TypeConversion
+								.toJenaNode(object, this.jenaModel)));
 			} else
 			// DatatypeLiteral
 			{
@@ -205,7 +206,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.ontoware.rdf2go.Model#removeStatement(java.lang.Object,
-	 *      java.net.URI, java.lang.Object)
+	 * java.net.URI, java.lang.Object)
 	 */
 	@Override
 	public void removeStatement(
@@ -220,9 +221,9 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		this.jenaModel.getGraph().delete(
 				new Triple(
 
-				TypeConversion.toJenaNode(subject, this.jenaModel), TypeConversion
-						.toJenaNode(predicate, this.jenaModel), TypeConversion
-						.toJenaNode(object, this.jenaModel)));
+				TypeConversion.toJenaNode(subject, this.jenaModel),
+						TypeConversion.toJenaNode(predicate, this.jenaModel),
+						TypeConversion.toJenaNode(object, this.jenaModel)));
 	}
 
 	public QueryResultTable sparqlSelect(String queryString)
@@ -237,7 +238,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
-		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
+		QueryExecution qexec = QueryExecutionFactory.create(query,
+				this.jenaModel);
 
 		if (query.isConstructType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
@@ -261,7 +263,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 					"The given query is not an ASK query");
 		}
 		// else
-		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
+		QueryExecution qexec = QueryExecutionFactory.create(query,
+				this.jenaModel);
 		return qexec.execAsk();
 	}
 
@@ -307,8 +310,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 
 	public ClosableIterator<Statement> iterator() {
 		assertModel();
-		return new TripleIterator(this.jenaModel.getGraph().find(Node.ANY, Node.ANY,
-				Node.ANY), this.modificationCount, this);
+		return new TripleIterator(this.jenaModel.getGraph().find(Node.ANY,
+				Node.ANY, Node.ANY), this.modificationCount, this);
 	}
 
 	public URI getContextURI() {
@@ -332,7 +335,7 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 	}
 
 	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
+	public void update(DiffReader diff) throws ModelRuntimeException {
 		assertModel();
 		lock();
 		addAll(diff.getAdded().iterator());
@@ -348,7 +351,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 		return new TripleIterator(this.jenaModel.getGraph().find(
 				TypeConversion.toJenaNode(subject),
 				TypeConversion.toJenaNode(predicate),
-				TypeConversion.toJenaNode(object)), this.modificationCount, this);
+				TypeConversion.toJenaNode(object)), this.modificationCount,
+				this);
 	}
 
 	/**
@@ -358,7 +362,8 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
-		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
+		QueryExecution qexec = QueryExecutionFactory.create(query,
+				this.jenaModel);
 
 		if (query.isDescribeType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execDescribe();
@@ -583,4 +588,52 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 			throws IllegalArgumentException {
 		this.jenaModel.setNsPrefix(prefix, namespaceURI);
 	}
+
+	@Override
+	public QueryResultTable querySelect(String queryString, String querylanguage)
+			throws QueryLanguageNotSupportedException, ModelRuntimeException {
+		assertModel();
+		if (log.isDebugEnabled()) {
+			log.debug("Query " + queryString);
+		}
+		com.hp.hpl.jena.query.Syntax syntax = com.hp.hpl.jena.query.Syntax
+				.lookup(querylanguage);
+		if (syntax == null) {
+			// delegate to super
+			return super.querySelect(queryString, querylanguage);
+		}
+		Query query = QueryFactory.create(queryString, syntax);
+		return new QueryResultTableImpl(query, this.jenaModel);
+	}
+
+	/**
+	 * Throws an exception if the syntax is not SPARQL
+	 */
+	@Override
+	public ClosableIterable<Statement> queryConstruct(String queryString,
+			String querylanguage) throws QueryLanguageNotSupportedException,
+			ModelRuntimeException {
+		assertModel();
+		com.hp.hpl.jena.query.Syntax syntax = com.hp.hpl.jena.query.Syntax
+				.lookup(querylanguage);
+		if (syntax == null) {
+			// delegate to super
+			return super.queryConstruct(queryString, querylanguage);
+		}
+		Query query = QueryFactory.create(queryString, syntax);
+
+		QueryExecution qexec = QueryExecutionFactory.create(query,
+				this.jenaModel);
+
+		if (query.isConstructType()) {
+			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
+			Model resultModel = new ModelImplJena24(null, m, Reasoning.none);
+			resultModel.open();
+			return resultModel;
+		} else {
+			throw new RuntimeException(
+					"Cannot handle this type of queries! Please use CONSTRUCT.");
+		}
+	}
+
 }

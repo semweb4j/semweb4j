@@ -74,12 +74,12 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 	
 	
 	@Override
-	public boolean equals(Object o)
+	public boolean equals(Object other)
 	{
 		
-		if (o instanceof Statement)
+		if (other instanceof Statement)
 		{
-			Statement stmt = (Statement) o;
+			Statement stmt = (Statement) other;
 			boolean e = super.equals(stmt);
 			log.debug("statements are equal? "+e+" now the context");
 			if (e && stmt.getContext() != null && this.getModel().getContextURI() != null) 
