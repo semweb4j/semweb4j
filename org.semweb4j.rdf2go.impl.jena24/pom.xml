@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -66,6 +67,12 @@
 		</developer>
 	</developers>
 
+	<contributors>
+		<contributor>
+			<name>Keith Garry Boyce</name>
+		</contributor>
+	</contributors>
+
 	<issueManagement>
 		<system>JIRA</system>
 		<url>http://issues.semweb4j.org/browse/RTGO</url>
@@ -93,11 +100,16 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<!--  mvn install:install-file -Dfile=jena.jar -DgroupId=net.sourceforge.jena -DartifactId=jena -Dversion=2.4 -Dpackaging=jar		
-				
-				mvn install:install-file -DgroupId=net.sourceforge.jena -DartifactId=arq -Dversion=2.4 -Dpackaging=jar -Dfile=/path/to/file
-				mvn install:install-file -DgroupId=icu4j -DartifactId=icu4j -Dversion=3.4 -Dpackaging=jar -Dfile=/path/to/file
-				mvn install:install-file -DgroupId=net.sourceforge.jena -DartifactId=iri -Dversion=2.4 -Dpackaging=jar -Dfile=/path/to/file
+			<!--
+				mvn install:install-file -Dfile=jena.jar
+				-DgroupId=net.sourceforge.jena -DartifactId=jena -Dversion=2.4
+				-Dpackaging=jar mvn install:install-file
+				-DgroupId=net.sourceforge.jena -DartifactId=arq -Dversion=2.4
+				-Dpackaging=jar -Dfile=/path/to/file mvn install:install-file
+				-DgroupId=icu4j -DartifactId=icu4j -Dversion=3.4 -Dpackaging=jar
+				-Dfile=/path/to/file mvn install:install-file
+				-DgroupId=net.sourceforge.jena -DartifactId=iri -Dversion=2.4
+				-Dpackaging=jar -Dfile=/path/to/file
 			-->
 			<groupId>net.sourceforge.jena</groupId>
 			<artifactId>jena</artifactId>
@@ -133,9 +145,10 @@
 		<!-- testing dependencies -->
 
 	</dependencies>
-	
-	<!-- for OSGi preparation we have to slightly change the final name of the 
-		 project-jar
+
+	<!--
+		for OSGi preparation we have to slightly change the final name of the
+		project-jar
 	-->
 	<build>
 		<plugins>
@@ -148,7 +161,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 
 	<!-- to avoid folded site uris -->
 	<distributionManagement>
