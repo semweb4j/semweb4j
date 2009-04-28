@@ -107,6 +107,27 @@
 	</properties>
 
 	<build>
+		<!--
+			include source code to JAR to let GWT compiler have it, when
+			this is used as a GWT module
+		-->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>org/ontoware/aifbcommons/collection/**</include>
+					<include>org/ontoware/rdf2go/*.java</include>
+					<include>org/ontoware/rdf2go/exception/*.java</include>
+					<include>org/ontoware/rdf2go/impl/*.java</include>
+					<include>org/ontoware/rdf2go/model/*.java</include>
+					<include>org/ontoware/rdf2go/model/impl/*.java</include>
+					<include>org/ontoware/rdf2go/model/node/*.java</include>
+					<include>org/ontoware/rdf2go/model/node/impl/*.java</include>
+					<include>org/ontoware/rdf2go/vocabulary/*.java</include>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
