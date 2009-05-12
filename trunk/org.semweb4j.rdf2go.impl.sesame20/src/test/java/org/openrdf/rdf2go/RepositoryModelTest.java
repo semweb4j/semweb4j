@@ -5,14 +5,20 @@
  */
 package org.openrdf.rdf2go;
 
+import java.io.InputStream;
+
 import org.junit.Test;
+import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.model.AbstractModelTest;
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.ontoware.rdf2go.testdata.TestData;
+import org.ontoware.rdf2go.util.Iterators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,4 +136,25 @@ public class RepositoryModelTest extends AbstractModelTest {
 	// // MemoryStoreRDFSInferences starts to support different inferencing
 	// // and inferred statement insertion strategies.
 	// }
+	
+	public void testQuerySelectSERQL() throws Exception {
+		InputStream in = TestData.getFoafAsStream();
+		this.model.readFrom(in);
+		QueryResultTable i = model.querySelect("SELECT s FROM {s} rdf:type {rdfs:Class}", "SERQL");
+		assertEquals(12, Iterators.count(i.iterator()));
+	}
+	
+	public void testQueryConstructSERQL() throws Exception {
+		InputStream in = TestData.getFoafAsStream();
+		this.model.readFrom(in);
+		// count the classes in foaf
+		ClosableIterable<Statement> i = model.queryConstruct(
+				"CONSTRUCT {s} rdf:type {rdfs:Class} " +
+				"FROM {s} rdf:type {rdfs:Class} " +
+				"USING NAMESPACE " +
+				"rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ," +
+				"rdfs = <http://www.w3.org/2000/01/rdf-schema#> ", 
+				"SERQL");
+		assertEquals(12, Iterators.count(i.iterator()));
+	}
 }
