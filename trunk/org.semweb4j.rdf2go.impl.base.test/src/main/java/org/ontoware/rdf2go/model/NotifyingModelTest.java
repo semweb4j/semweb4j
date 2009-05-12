@@ -28,6 +28,7 @@ public class NotifyingModelTest extends AbstractModelTest
 	// no method of the changelistener should be called, if a method is expected
 	// to be called, this method has to be overwritten.
 
+	// TODO: as the model in AbstractModelTest is now protected, this field has to go and be replaced by ((NotifyingModelLayer)this.model).method
 	NotifyingModelLayer	model;
 
 	@Override
