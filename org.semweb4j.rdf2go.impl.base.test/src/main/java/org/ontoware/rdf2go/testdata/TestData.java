@@ -81,14 +81,15 @@ public class TestData {
 	}
 
 	/**
+	 * To get this testcase to run in Eclipse, make sure to patch your compiler
+	 * settings to NOT exclude *.xml files.
 	 * 
 	 * @return as RDF/XML
 	 */
 	public static InputStream getFoafAsStream() {
-
+		String FOAFRESOURCE = "org/ontoware/rdf2go/testdata/foaf.xml";
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream in = cl
-				.getResourceAsStream("org/ontoware/rdf2go/testdata/foaf.xml");
+		InputStream in = cl.getResourceAsStream(FOAFRESOURCE);
 		return in;
 	}
 
@@ -150,8 +151,8 @@ public class TestData {
 		if (getFoafAsStream() == null)
 			throw new RuntimeException(
 					"Could not load FOAF from internally packaged file");
-		
-		//else
+
+		// else
 		System.out.println("FOAF found.");
 	}
 
