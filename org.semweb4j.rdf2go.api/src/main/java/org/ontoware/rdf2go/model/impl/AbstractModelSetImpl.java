@@ -472,7 +472,7 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	/* ignores context */
 	public boolean hasReifications(Statement statement) {
 		return this.sparqlAsk("ASK WHERE { " + " ?res " + RDF.type.toSPARQL()
-				+ " " + RDF.Statement + " ." + " ?res "
+				+ " " + RDF.Statement.toSPARQL() + " ." + " ?res "
 				+ RDF.subject.toSPARQL() + " "
 				+ statement.getSubject().toSPARQL() + " ." + " ?res "
 				+ RDF.predicate.toSPARQL() + " "
@@ -488,8 +488,9 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * ignores context
 	 */
 	public Collection<Resource> getAllReificationsOf(Statement statement) {
-		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { "
-				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement + " ."
+		QueryResultTable table = this.sparqlSelect(
+				"SELECT ?res WHERE { \n"
+				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement.toSPARQL() + " ."
 				+ " ?res " + RDF.subject.toSPARQL() + " "
 				+ statement.getSubject().toSPARQL() + " ." + " ?res "
 				+ RDF.predicate.toSPARQL() + " "

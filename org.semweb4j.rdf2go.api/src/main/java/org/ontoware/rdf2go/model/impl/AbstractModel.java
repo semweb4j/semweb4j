@@ -618,7 +618,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 
 	public boolean hasReifications(Statement statement) {
 		return this.sparqlAsk("ASK WHERE { " + " ?res " + RDF.type.toSPARQL()
-				+ " " + RDF.Statement + " ." + " ?res "
+				+ " " + RDF.Statement.toSPARQL() + " ." + " ?res "
 				+ RDF.subject.toSPARQL() + " "
 				+ statement.getSubject().toSPARQL() + " ." + " ?res "
 				+ RDF.predicate.toSPARQL() + " "
