@@ -13,6 +13,8 @@ package org.ontoware.rdf2go.model;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -24,6 +26,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.RDF2Go;
@@ -43,6 +46,7 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.testdata.TestData;
+import org.ontoware.rdf2go.util.Iterators;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
 import org.slf4j.Logger;
@@ -67,7 +71,11 @@ public abstract class AbstractModelTest extends TestCase {
 
 	public static URI dt = new URIImpl("test://somedata/dt", false);
 
-	private Model model;
+	/**
+	 * the model to use in the tests, initialized by setup and teardown.
+	 * protected so that subclasses can reuse it
+	 */
+	protected Model model;
 
 	/** @return a Model to be used in the test. It must be fresh, e.g. unused */
 	public abstract ModelFactory getModelFactory();
@@ -138,6 +146,17 @@ public abstract class AbstractModelTest extends TestCase {
 		assertEquals(2, count);
 		sit.close(); // redudant
 	}
+	
+	
+	public void testRemoveAll() throws Exception {
+		this.model.addStatement(subject, predicate, object);
+		assertTrue(this.model.contains(
+				subject, predicate, object));
+		this.model.removeAll();
+		assertFalse(this.model.contains(
+				subject, predicate, object));
+	}
+
 
 	/*
 	 * Class under test for void removeStatement(URI, URI, URI) and void
@@ -145,8 +164,6 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testRemoveStatementSimple() throws Exception {
-		this.model = getModelFactory().createModel();
-		this.model.open();
 		this.model.addStatement(subject, predicate, object);
 		ClosableIterator<? extends Statement> iter = this.model.findStatements(
 				subject, predicate, object);
@@ -168,8 +185,6 @@ public abstract class AbstractModelTest extends TestCase {
 	 */
 	@Test
 	public void testAddStatementURIURIString() throws Exception {
-		this.model = getModelFactory().createModel();
-		this.model.open();
 		this.model.addStatement(subject, predicate, "Test");
 		ClosableIterator<? extends Statement> sit = this.model.findStatements(
 				subject, predicate, this.model.createPlainLiteral("Test"));
@@ -474,7 +489,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * Test method for 'org.ontoware.rdf2go.Model.query(String)'
 	 */
 	@Test
-	public void testQuery() throws Exception {
+	public void testSparqlConstruct() throws Exception {
 		String query = "PREFIX \t:\t<test://test/>\n"
 				+ "CONSTRUCT { ?s ?p \"Test2\" } WHERE { ?s ?p \"Test2\" }";
 		BlankNode bNode = this.model.createBlankNode();
@@ -970,20 +985,6 @@ public abstract class AbstractModelTest extends TestCase {
 		// a shortcut: resource URIs and plain literal objects as strings
 		model.addStatement("urn:test:c", RDFS.label, "Hello World C");
 
-		// list statements
-		// for (Statement stmt : model) {
-		// System.out.println(stmt);
-		// }
-
-		// query for triple pattern
-		// ClosableIterator<? extends Statement> it = model.findStatements(s,
-		// Variable.ANY, Variable.ANY);
-		// while (it.hasNext()) {
-		// Statement stmt = it.next();
-		// System.out.println(stmt);
-		// }
-		// it.close();
-
 		// always close after use to free resources
 		model.close();
 	}
@@ -1069,13 +1070,23 @@ public abstract class AbstractModelTest extends TestCase {
 
 	/** test {@link ReificationSupport} */
 	@Test
-	public void testReification() {
+	public void testAddReificationOf() {
 		Statement stmt = this.model.createStatement(a, b, c);
 		BlankNode blankNode = this.model.addReificationOf(stmt);
 		assertTrue(this.model.contains(blankNode, RDF.subject, a));
 		assertTrue(this.model.contains(blankNode, RDF.predicate, b));
 		assertTrue(this.model.contains(blankNode, RDF.object, c));
 		assertTrue(this.model.contains(blankNode, RDF.type, RDF.Statement));
+		
+		// test also the method where the resource is passed
+		stmt = this.model.createStatement(a, b, a);
+		URI u = this.model.newRandomUniqueURI();
+		Resource reified = this.model.addReificationOf(stmt, u);
+		assertEquals(u, reified);
+		assertTrue(this.model.contains(u, RDF.subject, a));
+		assertTrue(this.model.contains(u, RDF.predicate, b));
+		assertTrue(this.model.contains(u, RDF.object, a));
+		assertTrue(this.model.contains(u, RDF.type, RDF.Statement));
 	}
 
 	// TODO test public ClosableIterable<Statement> sparqlDescribe(String query)
@@ -1095,12 +1106,296 @@ public abstract class AbstractModelTest extends TestCase {
 	}
 	
 	@Test
-	public void testgetAllReificationsOf() {
+	public void testGetAllReificationsOf() {
 		Statement s = this.model.createStatement(a,b,c);
 		BlankNode reificationBlankNode = this.model.addReificationOf(s);
 		
 		Collection<Resource> reifications = this.model.getAllReificationsOf(s);
 		assertTrue( reifications.contains(reificationBlankNode) );
 		assertEquals(1, reifications.size() );
+	}
+	
+	public void testAddAll(){
+		
+		List<Statement> list = new ArrayList<Statement>();
+		Statement statement1 = this.model.createStatement(a,b,c);
+		Statement statement2 = this.model.createStatement(a,b,a);
+		Statement statement3 = this.model.createStatement(c,b,c);
+		list.add(statement1);
+		list.add(statement2);
+		list.add(statement3);
+		this.model.addAll(list.iterator());
+		assertTrue(this.model.contains(statement1));
+		assertTrue(this.model.contains(statement2));
+		assertTrue(this.model.contains(statement3));
+	}
+	
+	public void testClose(){
+		this.model.close();
+		assertFalse(this.model.isOpen());
+		this.model.open();
+		this.model.addStatement(a, b, c);
+		this.model.close();
+		assertFalse(this.model.isOpen());
+		this.model.close();
+		assertFalse(this.model.isOpen());
+	}
+	
+	public void testCommit(){
+		this.model.commit();
+	}
+	
+	public void testContains(){
+		assertFalse(this.model.contains(
+				subject, predicate, object));
+		this.model.addStatement(subject, predicate, object);
+		assertTrue(this.model.contains(
+				subject, predicate, object));
+	}
+	
+	public void testCountStatements(){
+		assertEquals(0,this.model.countStatements(this.model.createTriplePattern(subject, predicate, object)));
+		this.model.addStatement(this.model.createStatement(subject, predicate, object));
+		assertEquals(1,this.model.countStatements(this.model.createTriplePattern(subject, predicate, object)));
+	}
+	
+	public void testCreateBlankNode(){
+		BlankNode node = this.model.createBlankNode();
+		assertEquals(node, node.asBlankNode());
+	}
+	
+	public void testCreateDatatypeLiteral(){
+		DatatypeLiteral datatypeLiteral = this.model.createDatatypeLiteral("literal", dt);
+		assertEquals("literal^^" + dt,datatypeLiteral.asLiteral().toString());
+	}
+	
+	public void testCreateLanguageTagLiteral(){
+		LanguageTagLiteral languageTagLiteral = this.model.createLanguageTagLiteral("literal", "en-us");
+		assertEquals("literal@en-us",languageTagLiteral.toString());
+	}
+	
+	public void testCreatePlainLiteral(){
+		PlainLiteral literal = this.model.createPlainLiteral("Something");
+		assertEquals("Something", literal.getValue());
+	}
+	
+	public void testCreateStatement(){
+		Statement stmt = this.model.createStatement(subject, predicate, object);
+		assertEquals(subject,stmt.getSubject());
+		assertEquals(predicate,stmt.getPredicate());
+		assertEquals(object,stmt.getObject());
+	}
+	
+	public void testCreateTriplePattern(){
+		TriplePattern pattern = this.model.createTriplePattern(subject, predicate, object);
+		assertEquals(subject,pattern.getSubject());
+		assertEquals(predicate,pattern.getPredicate());
+		assertEquals(object,pattern.getObject());
+	}
+	
+	public void testCreateURI(){
+		URI uri = this.model.createURI(dt.toString());
+		assertEquals(dt, uri);
+		uri = this.model.createURI(a.toString());
+		assertEquals(a, uri);
+		uri = this.model.createURI(b.toString());
+		assertEquals(b, uri);
+		uri = this.model.createURI(c.toString());
+		assertEquals(c, uri);
+	}
+	
+	public void testDeleteReification(){
+		Statement stmt = this.model.createStatement(a, b, c);
+		BlankNode blankNode = this.model.addReificationOf(stmt);
+		assertTrue(this.model.contains(blankNode, RDF.subject, a));
+		assertTrue(this.model.contains(blankNode, RDF.predicate, b));
+		assertTrue(this.model.contains(blankNode, RDF.object, c));
+		assertTrue(this.model.contains(blankNode, RDF.type, RDF.Statement));
+		this.model.deleteReification(blankNode);
+		assertFalse(this.model.contains(blankNode, RDF.subject, a));
+		assertFalse(this.model.contains(blankNode, RDF.predicate, b));
+		assertFalse(this.model.contains(blankNode, RDF.object, c));
+		assertFalse(this.model.contains(blankNode, RDF.type, RDF.Statement));
+		
+		
+		// test also the method where the resource is passed
+		stmt = this.model.createStatement(a, b, a);
+		URI u = this.model.newRandomUniqueURI();
+		Resource reified = this.model.addReificationOf(stmt, u);
+		assertEquals(u, reified);
+		assertTrue(this.model.contains(u, RDF.subject, a));
+		assertTrue(this.model.contains(u, RDF.predicate, b));
+		assertTrue(this.model.contains(u, RDF.object, a));
+		assertTrue(this.model.contains(u, RDF.type, RDF.Statement));
+		this.model.deleteReification(u);
+		assertFalse(this.model.contains(u, RDF.subject, a));
+		assertFalse(this.model.contains(u, RDF.predicate, b));
+		assertFalse(this.model.contains(u, RDF.object, a));
+		assertFalse(this.model.contains(u, RDF.type, RDF.Statement));
+		
+	}
+	
+	public void testFindStatements(){
+		ClosableIterator<Statement> statements = this.model.findStatements(this.model.createTriplePattern(subject, predicate, object));
+		assertFalse(statements.hasNext());
+	
+		this.model.addStatement(subject, predicate, object);
+		statements = this.model.findStatements(this.model.createTriplePattern(subject, predicate, object));
+		assertTrue(statements.hasNext());
+	}
+	
+	
+	public void testGetContextURI(){
+		this.model.getContextURI();
+	}
+	
+	public void testGetProperty(){
+		this.model.setProperty(subject, "value");
+		Object property = this.model.getProperty(subject);
+		assertNotNull(property);
+		assertEquals("value",property.toString());
+	}
+	
+	public void testGetUnderlyingModelImplementation(){
+		this.model.getUnderlyingModelImplementation();
+	}
+	
+	public void testHasReifications(){
+		Statement stmt = this.model.createStatement(a, b, c);
+		assertFalse(this.model.hasReifications(stmt));
+		Resource r = this.model.addReificationOf(stmt);
+		// we already verified in testAddReification() that the reification is in the store!
+		assertTrue(this.model.hasReifications(stmt));
+		// remove an essential part
+		this.model.removeStatement(r, RDF.subject, a);
+		assertFalse(this.model.hasReifications(stmt));
+	}
+	
+	public void testIsEmpty(){
+		assertTrue(this.model.isEmpty());
+		this.model.addStatement(this.model.createStatement(a, b, c));
+		assertFalse(this.model.isEmpty());
+	}
+	
+	public void testIsIsomorphicWith(){
+		Model model2 = getModelFactory().createModel();
+		model2.open();
+		model2.addStatement(b, c, a);
+		assertFalse(this.model.isIsomorphicWith(model2));
+		assertTrue(this.model.isIsomorphicWith(this.model));
+	}
+	
+	public void testIsLocked(){
+		assertFalse(this.model.isLocked());
+		this.model.lock();
+		assertTrue(this.model.isLocked());
+	}
+	
+	public void testIsValidURI(){
+		assertTrue(this.model.isValidURI(a.toString()));
+		String wrong = "error-.#'?.&4$%\\__%&$!";
+		assertFalse("should not be a valid uri: "+wrong,this.model.isValidURI(wrong));
+	}
+	
+	public void testIterator(){
+		ClosableIterator<Statement> iterator = this.model.iterator();
+		while(iterator.hasNext()){
+			iterator.next();
+		}
+	}
+	
+	public void testLock(){
+		this.model.lock();
+		assertTrue(this.model.isLocked());
+	}
+	
+	public void testNewRandomUniqueURI(){
+		URI newRandomUniqueURI = this.model.newRandomUniqueURI();
+		assertTrue(this.model.isValidURI(newRandomUniqueURI.toString()));
+	}
+	
+	public void testQueryConstruct() throws Exception {
+		InputStream in = TestData.getFoafAsStream();
+		this.model.readFrom(in);
+		// count the classes in foaf
+		ClosableIterable<Statement> i = this.model.queryConstruct(
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
+				"CONSTRUCT {?s rdf:type rdfs:Class.} " +
+				"WHERE {?s rdf:type rdfs:Class}", 
+				"SPARQL");
+		assertEquals(12, Iterators.count(i.iterator()));
+	}
+	
+	public void testQuerySelect() throws Exception{
+		InputStream in = TestData.getFoafAsStream();
+		this.model.readFrom(in);
+		// count the classes in foaf
+		QueryResultTable i = this.model.querySelect(
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
+				"SELECT ?s " +
+				"WHERE {?s rdf:type rdfs:Class.}", 
+				"SPARQL");
+		assertEquals(12, Iterators.count(i.iterator()));
+	}
+	
+	public void testSerialize() throws Exception {
+		this.model.readFrom(TestData.getFoafAsStream());
+		String asrdfxml = this.model.serialize(Syntax.RdfXml);
+		Model m1 = getModelFactory().createModel();
+		m1.open();
+		m1.readFrom(new StringReader(asrdfxml), Syntax.RdfXml);
+		// assert isomorphism
+		assertEquals(this.model.size(), m1.size());
+		assertTrue(m1.isIsomorphicWith(this.model));
+		m1.close();
+	}
+	
+	public void testSetAutocommit(){
+		this.model.setAutocommit(true);
+		this.model.setAutocommit(false);
+	}
+	
+	public void testSetProperty(){
+		this.model.setProperty(subject, "value");
+		Object property = this.model.getProperty(subject);
+		assertNotNull(property);
+	}
+	
+	public void testSize(){
+		assertEquals(0, this.model.size());
+		this.model.addStatement(b, c, a);
+		assertEquals(1, this.model.size());
+	}
+	
+	public void testSparqlDescribe(){
+		this.model.sparqlDescribe("DESCRIBE "+ a.toSPARQL());
+	}
+	
+	public void testUnlock(){
+		this.model.unlock();
+		assertFalse(this.model.isLocked());
+		this.model.lock();
+		assertTrue(this.model.isLocked());
+		this.model.unlock();
+		assertFalse(this.model.isLocked());
+	}
+	
+	public void testWriteTo() throws Exception{
+		this.model.readFrom(TestData.getFoafAsStream());
+		StringWriter w = new StringWriter();
+		this.model.writeTo(w, Syntax.RdfXml);
+		Model m1 = getModelFactory().createModel();
+		m1.open();
+		m1.readFrom(new StringReader(w.toString()), Syntax.RdfXml);
+		// assert isomorphism
+		assertEquals(this.model.size(), m1.size());
+		assertTrue(m1.isIsomorphicWith(this.model));
+		m1.close();
+	}
+	
+	public void testDump(){
+		this.model.dump();
 	}
 }
