@@ -342,7 +342,10 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @param javaClass -
 	 *            given Java class
 	 * @return true if .this is an instance of the given Java Class in the model
+	 * @deprecated
 	 */
+	@SuppressWarnings("deprecation")
+	@Deprecated
 	public boolean isInstanceof(Class<?> javaClass) throws ModelRuntimeException {
 		return (isInstanceof(getClassURI(javaClass)));
 	}
