@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.7.1-SNAPSHOT</version>
+	<version>4.7.1</version>
 	<name>RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.sesame22</artifactId>
-			<version>4.7.1-SNAPSHOT</version>
+			<version>4.7.1</version>
 			<scope>test</scope>
 		</dependency>
 
