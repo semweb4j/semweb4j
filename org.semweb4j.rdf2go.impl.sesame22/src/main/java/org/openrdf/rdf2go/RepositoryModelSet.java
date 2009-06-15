@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.lang.ref.WeakReference;
+import java.util.LinkedList;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -145,6 +147,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			URI uri = this.contextIterator.next();
 			model = new RepositoryModel(uri, RepositoryModelSet.this.repository);
 			model.open();
+			RepositoryModelSet.this.openModels.add(new WeakReference<Model>(model));
 			this.lastURI = uri;
 			return model;
 		}
@@ -283,6 +286,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	private Repository repository;
 
 	private ValueFactory valueFactory;
+	
+	private LinkedList<WeakReference<Model>> openModels = new LinkedList<WeakReference<Model>>();
 
 	public RepositoryModelSet(Repository repository)
 			throws ModelRuntimeException {
@@ -521,6 +526,12 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void close() {
 		if (this.isOpen()) {
 			try {
+				for(Iterator<WeakReference<Model>> i = this.openModels.iterator();i.hasNext();)
+				{
+					Model m = i.next().get();
+					if(m != null)
+						m.close();
+				}
 				this.connection.close();
 			} catch (RepositoryException e) {
 				throw new ModelRuntimeException(e);
@@ -657,12 +668,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public Model getDefaultModel() {
 		Model model = new RepositoryModel(this.repository);
 		model.open();
+		this.openModels.add(new WeakReference<Model>(model));
 		return model;
 	}
 
 	public Model getModel(URI contextURI) {
 		Model model = new RepositoryModel(contextURI, this.repository);
 		model.open();
+		this.openModels.add(new WeakReference<Model>(model));
 		return model;
 	}
 
