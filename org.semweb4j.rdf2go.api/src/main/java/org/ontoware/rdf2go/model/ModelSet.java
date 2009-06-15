@@ -103,18 +103,26 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet,
 
 	/**
 	 * Get the Model with the passed URI. If the model does not exist yet, an
-	 * empty model will be created and returned.
+	 * empty model will be created and returned. This method will throw an
+	 * Exception when {@link #isOpen()} is false.
 	 * 
-	 * Note that the returned model is tied to this modelset, and any changes in
-	 * the model will be reflected here.
+	 * Note that the returned model is tied to this modelset. Any changes in the
+	 * model will be reflected here, closing this ModelSet will close the
+	 * returned Model. To avoid side-effects, closing the returned Model will
+	 * NOT close this ModelSet. Closing the returned model will not affect
+	 * objects returned by previous calls to this method, hence this method
+	 * should always return a new copy of the Model object to allow callers to
+	 * close() a returned model.
 	 * 
 	 * @param contextURI
 	 *            the URI of the context. This is the same as the name of the
 	 *            named graph.
 	 * @return the model identified by this context. May have a size of 0, if no
-	 *         data was added to it yet. Never returns null. It has to be
-	 *         isOpen() == true.
+	 *         data was added to it yet. Never returns null. The returned model
+	 *         has isOpen() == true. Closing the returned model will not close
+	 *         this dataset and is optional.
 	 */
+
 	Model getModel(URI contextURI);
 
 	/**
