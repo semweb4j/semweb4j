@@ -24,6 +24,11 @@ public class QueryIterator implements ClosableIterator<QueryRow> {
 		return this.resultSet.hasNext();
 	}
 
+	@SuppressWarnings("null")
+	/*
+	 * patch from garpinc against nulls -
+	 * http://issues.semweb4j.org/browse/RTGO-65
+	 */
 	public QueryRow next() {
 		QuerySolution qs = this.resultSet.nextSolution();
 		QueryRowImpl row = new QueryRowImpl();
@@ -32,9 +37,10 @@ public class QueryIterator implements ClosableIterator<QueryRow> {
 			assert node != null : "null node for varname " + v
 					+ ". Do you have unbound variables in the query?";
 			try {
-				row.put(v, TypeConversion.toRDF2Go(node.asNode()));
+				row.put(v, TypeConversion.toRDF2Go((node == null ? null : node
+						.asNode())));
 			} catch (ModelRuntimeException e) {
-				throw new ModelRuntimeException( e );
+				throw new ModelRuntimeException(e);
 			}
 		}
 		return row;
