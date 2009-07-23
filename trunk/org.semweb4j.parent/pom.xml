@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>2009.07.23-SNAPSHOT</version>
+	<version>2009.07.23</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -254,4 +254,10 @@
 			<url>scp://${semweb4j.site}/${artifactId}</url>
 		</site>
 	</distributionManagement>
+
+  <scm>
+    <connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/parent-2009.07.23</connection>
+    <developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/parent-2009.07.23</developerConnection>
+    <url>http://semweb4j.googlecode.com/svn/{$svn.name}/tags/parent-2009.07.23</url>
+  </scm>
 </project>
