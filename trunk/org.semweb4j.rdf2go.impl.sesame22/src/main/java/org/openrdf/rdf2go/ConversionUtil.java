@@ -20,7 +20,6 @@ import org.ontoware.rdf2go.model.node.impl.DatatypeLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.LanguageTagLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-
 import org.openrdf.model.BNode;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Value;
@@ -120,8 +119,8 @@ public class ConversionUtil {
 	 * @param factory
 	 * @return
 	 */
-	public static BNode toOpenRDF(BlankNode node, @SuppressWarnings("unused")
-	ValueFactory factory) {
+	public static BNode toOpenRDF(BlankNode node,
+			@SuppressWarnings("unused") ValueFactory factory) {
 		BNode result = null;
 
 		if (node != null) {
@@ -141,10 +140,10 @@ public class ConversionUtil {
 	/**
 	 * Variables in Sesame are represented by <code>null</code>.
 	 * 
-	 * @param variable -
-	 *            not used
-	 * @param factory -
-	 *            not used
+	 * @param variable
+	 *            - not used
+	 * @param factory
+	 *            - not used
 	 * @return always null
 	 */
 	public static Value toOpenRDF(Variable variable, ValueFactory factory) {
@@ -164,18 +163,18 @@ public class ConversionUtil {
 	}
 
 	public static QueryLanguage toOpenRDFQueryLanguage(String queryLanguage) {
-		queryLanguage = queryLanguage.toLowerCase();
+		String queryLanguageLowercase = queryLanguage.toLowerCase();
 
-		if (queryLanguage.equals("sparql")) {
+		if (queryLanguageLowercase.equals("sparql")) {
 			return QueryLanguage.SPARQL;
-		} else if (queryLanguage.equals("serql")) {
+		} else if (queryLanguageLowercase.equals("serql")) {
 			return QueryLanguage.SERQL;
-		} else if (queryLanguage.equals("serqo")) {
+		} else if (queryLanguageLowercase.equals("serqo")) {
 			return QueryLanguage.SERQO;
 		} else {
 			throw new QueryLanguageNotSupportedException(
 					"Query language '"
-							+ queryLanguage
+							+ queryLanguageLowercase
 							+ "' not supported. Valid values are \"sparql\", \"serql\" and \"serqo\".");
 		}
 	}

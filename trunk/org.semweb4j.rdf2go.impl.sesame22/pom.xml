@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.4</version>
+		<version>2009.07.231</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -200,6 +200,7 @@ If present, DEBUG logging is compiled away
 			<version>4.7.0</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -210,6 +211,7 @@ If present, DEBUG logging is compiled away
 			<artifactId>slf4j-api</artifactId>
 			<version>1.5.0</version>
 		</dependency>
+		 -->
 	</dependencies>
 
 	<build>

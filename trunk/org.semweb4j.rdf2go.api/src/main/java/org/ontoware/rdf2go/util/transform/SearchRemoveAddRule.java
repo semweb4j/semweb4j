@@ -52,7 +52,7 @@ public class SearchRemoveAddRule implements TransformerRule {
 	}	
 	
 	public static void searchAndReplace( Model model, Map<String, URI> namespaceMap, String search, String remove, String add ) {
-		log.debug("rule remove... ");
+		log.trace("rule remove... ");
 		Model removeModel = RDF2Go.getModelFactory().createModel();
 		removeModel.open();
 		ClosableIterator<Statement> it = model.sparqlConstruct(
@@ -60,12 +60,12 @@ public class SearchRemoveAddRule implements TransformerRule {
 				.iterator();
 		while (it.hasNext()) {
 			Statement stmt = it.next();
-			log.debug("rule removes "+stmt);
+			log.trace("rule removes "+stmt);
 			removeModel.addStatement(stmt);
 		}
 		it.close();
 
-		log.debug("rule remove... ");
+		log.trace("rule remove... ");
 		Model addModel = RDF2Go.getModelFactory().createModel();
 		addModel.open();
 		it = model.sparqlConstruct(
@@ -73,7 +73,7 @@ public class SearchRemoveAddRule implements TransformerRule {
 				.iterator();
 		while (it.hasNext()) {
 			Statement stmt = it.next();
-			log.debug("rule adds    "+stmt);
+			log.trace("rule adds    "+stmt);
 			addModel.addStatement(stmt);
 		}
 		it.close();

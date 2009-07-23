@@ -19,9 +19,6 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.ontoware.rdf2go.testdata.TestData;
 import org.ontoware.rdf2go.util.Iterators;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.openrdf.model.Resource;
 import org.openrdf.model.Value;
 import org.openrdf.model.ValueFactory;
@@ -29,6 +26,8 @@ import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.sail.memory.MemoryStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RepositoryModelTest extends AbstractModelTest {
 
@@ -96,6 +95,7 @@ public class RepositoryModelTest extends AbstractModelTest {
 		model.close();
 	}
 
+	@Override
 	@Test
 	public void testRemoveAll() throws Exception {
 		Repository repo = new SailRepository(new MemoryStore());
@@ -126,6 +126,7 @@ public class RepositoryModelTest extends AbstractModelTest {
 		assertEquals(2, model1.size());
 		assertEquals(0, model2.size());
 	}
+
 	// @Override
 	// public void testRdfsReasoning()
 	// throws ReasoningNotSupportedException, ModelRuntimeException
@@ -136,25 +137,27 @@ public class RepositoryModelTest extends AbstractModelTest {
 	// // MemoryStoreRDFSInferences starts to support different inferencing
 	// // and inferred statement insertion strategies.
 	// }
-	
+
 	public void testQuerySelectSERQL() throws Exception {
 		InputStream in = TestData.getFoafAsStream();
 		this.model.readFrom(in);
-		QueryResultTable i = model.querySelect("SELECT s FROM {s} rdf:type {rdfs:Class}", "SERQL");
+		QueryResultTable i = this.model.querySelect(
+				"SELECT s FROM {s} rdf:type {rdfs:Class}", "SERQL");
 		assertEquals(12, Iterators.count(i.iterator()));
 	}
-	
+
 	public void testQueryConstructSERQL() throws Exception {
 		InputStream in = TestData.getFoafAsStream();
 		this.model.readFrom(in);
 		// count the classes in foaf
-		ClosableIterable<Statement> i = model.queryConstruct(
-				"CONSTRUCT {s} rdf:type {rdfs:Class} " +
-				"FROM {s} rdf:type {rdfs:Class} " +
-				"USING NAMESPACE " +
-				"rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ," +
-				"rdfs = <http://www.w3.org/2000/01/rdf-schema#> ", 
-				"SERQL");
+		ClosableIterable<Statement> i = this.model
+				.queryConstruct(
+						"CONSTRUCT {s} rdf:type {rdfs:Class} "
+								+ "FROM {s} rdf:type {rdfs:Class} "
+								+ "USING NAMESPACE "
+								+ "rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ,"
+								+ "rdfs = <http://www.w3.org/2000/01/rdf-schema#> ",
+						"SERQL");
 		assertEquals(12, Iterators.count(i.iterator()));
 	}
 }

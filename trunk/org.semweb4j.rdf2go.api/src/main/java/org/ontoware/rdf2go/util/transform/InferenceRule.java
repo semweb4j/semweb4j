@@ -58,7 +58,7 @@ public class InferenceRule implements TransformerRule {
 				.iterator();
 		while (it.hasNext()) {
 			Statement stmt = it.next();
-			log.debug("rule infers    "+stmt);
+			log.trace("rule infers    "+stmt);
 			addModel.addStatement(stmt);
 		}
 		it.close();

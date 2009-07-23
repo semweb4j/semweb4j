@@ -168,7 +168,7 @@ public class RDF2Go {
 				Object result = method.invoke(clazz, new Object[] {});
 				if (result instanceof ModelFactory) {
 					modelFactory = (ModelFactory) result;
-					log.info("Using ModelFactory '"
+					log.debug("Using ModelFactory '"
 									+ result.getClass()
 									+ "' which was loaded via org.ontoware.rdf2go.impl.StaticBinding.");
 				}

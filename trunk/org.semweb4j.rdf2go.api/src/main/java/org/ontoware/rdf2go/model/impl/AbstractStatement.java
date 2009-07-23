@@ -35,7 +35,7 @@ public abstract class AbstractStatement implements Statement {
 		if (sysout)
 			System.out.println(s);
 		if (_log)
-			log.debug(s);
+			log.trace(s);
 	}
 
 	@Override
@@ -43,11 +43,11 @@ public abstract class AbstractStatement implements Statement {
 		if (o instanceof Statement) {
 			Statement oStmt = (Statement) o;
 			boolean subjects = this.getSubject().equals(oStmt.getSubject());
-			if (!subjects) log.debug("Subjects differ: "+this.getSubject()+" vs "+oStmt.getSubject());			
+			if (!subjects) log.trace("Subjects differ: "+this.getSubject()+" vs "+oStmt.getSubject());			
 			boolean predicates = this.getPredicate().equals( oStmt.getPredicate());
-			if (!predicates) log.debug("Prediactes differ: "+this.getPredicate()+" vs "+oStmt.getPredicate());			
+			if (!predicates) log.trace("Prediactes differ: "+this.getPredicate()+" vs "+oStmt.getPredicate());			
 			boolean objects = this.getObject().equals( oStmt.getObject() );
-			if (!objects) log.debug("Objects differ: "+this.getObject()+" vs "+oStmt.getObject());			
+			if (!objects) log.trace("Objects differ: "+this.getObject()+" vs "+oStmt.getObject());			
 			return subjects && predicates && objects;
 		} 
 		//else
@@ -60,7 +60,7 @@ public abstract class AbstractStatement implements Statement {
 	}
 	
 	public int compareTo(Statement o) {
-		log.debug("Comparing "+this+" to "+o);
+		log.trace("Comparing "+this+" to "+o);
 		if( this.getSubject().equals(o.getSubject())) {
 			if (this.getPredicate().equals(o.getPredicate()))
 				// only objects differ (maybe)

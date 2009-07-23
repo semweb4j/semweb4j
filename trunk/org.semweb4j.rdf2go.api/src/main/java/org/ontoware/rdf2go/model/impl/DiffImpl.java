@@ -149,7 +149,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	}
 
 	public void dump() {
-		log.debug("Dumping diff to System.out");
+		log.trace("Dumping diff to System.out");
 		List<Statement> added = new ArrayList<Statement>();
 		for (Statement s : getAdded()) {
 			added.add(s);
@@ -189,7 +189,7 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 			Diff diff = (Diff) other;
 
 			try {
-				log.debug("Comparing two diffs");
+				log.trace("Comparing two diffs");
 				// IMPROVE compare less expensive
 				ModelAddRemoveMemoryImpl otherAdded = new ModelAddRemoveMemoryImpl();
 				otherAdded.addAll(diff.getAdded().iterator());
@@ -197,9 +197,9 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 				ModelAddRemoveMemoryImpl otherRemoved = new ModelAddRemoveMemoryImpl();
 				otherRemoved.addAll(diff.getRemoved().iterator());
 
-				log.debug("This diff: " + this.addedSet.size() + " added and "
+				log.trace("This diff: " + this.addedSet.size() + " added and "
 						+ this.removedSet.size() + " removed");
-				log.debug("Other diff: " + otherAdded.set.size()
+				log.trace("Other diff: " + otherAdded.set.size()
 						+ " added and " + otherRemoved.set.size() + " removed");
 
 				// now compare the sets of statements
@@ -213,9 +213,9 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		}
 		// else
 		if (other == null) {
-			log.debug("other is null, but not a DiffImpl");
+			log.trace("other is null, but not a DiffImpl");
 		} else {
-			log.debug("other is not a diff but " + other.getClass());
+			log.trace("other is not a diff but " + other.getClass());
 		}
 		return false;
 	}

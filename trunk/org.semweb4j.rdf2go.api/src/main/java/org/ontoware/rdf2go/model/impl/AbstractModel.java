@@ -176,7 +176,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		if (isOpen()) {
 			this.open = false;
 		} else {
-			log.debug("Model was closed already, ignored.");
+			log.trace("Model was closed already, ignored.");
 		}
 	}
 
@@ -285,7 +285,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		Set<Statement> otherSet = new HashSet<Statement>();
 		while (other.hasNext())
 			otherSet.add(other.next());
-		log.debug("this has " + size() + " triples, other has "
+		log.trace("this has " + size() + " triples, other has "
 				+ otherSet.size() + " triples");
 
 		// added Statements = present in other, but not this
@@ -299,12 +299,12 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		Set<Statement> removed = new HashSet<Statement>();
 		for (Statement s : this) {
 			if (!otherSet.contains(s)) {
-				log.debug("otherSet does not contain " + s);
+				log.trace("otherSet does not contain " + s);
 				removed.add(s);
 			}
 		}
 
-		log.debug(added.size() + " triples added, " + removed.size()
+		log.trace(added.size() + " triples added, " + removed.size()
 				+ " removed.");
 
 		// These iterators are not closable, so we don't have to close them
@@ -400,8 +400,8 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * empty string.
 	 */
 	public void readFrom(InputStream in, Syntax syntax,
-			@SuppressWarnings("unused")
-			String baseURI) throws IOException, ModelRuntimeException {
+			@SuppressWarnings("unused") String baseURI) throws IOException,
+			ModelRuntimeException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
 			readFrom(in);
@@ -420,8 +420,8 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * @throws ModelRuntimeException
 	 */
 	public void readFrom(Reader reader, Syntax syntax,
-			@SuppressWarnings("unused")
-			String baseURI) throws ModelRuntimeException, IOException {
+			@SuppressWarnings("unused") String baseURI)
+			throws ModelRuntimeException, IOException {
 		assertModel();
 		if (syntax == Syntax.RdfXml) {
 			readFrom(reader);
@@ -528,8 +528,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 	 * 
 	 * This implementation simply ignores the request.
 	 */
-	public void setAutocommit(@SuppressWarnings("unused")
-	boolean autocommit) {
+	public void setAutocommit(@SuppressWarnings("unused") boolean autocommit) {
 		// do nothing
 	}
 
@@ -612,7 +611,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 		diff.addStatement(resource, RDF.subject, statement.getSubject());
 		diff.addStatement(resource, RDF.predicate, statement.getPredicate());
 		diff.addStatement(resource, RDF.object, statement.getObject());
-		update((DiffReader) diff);
+		update(diff);
 		return resource;
 	}
 
@@ -670,6 +669,6 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns
 			diff.removeStatement(it.next());
 		}
 		it.close();
-		update((DiffReader) diff);
+		update(diff);
 	}
 }
