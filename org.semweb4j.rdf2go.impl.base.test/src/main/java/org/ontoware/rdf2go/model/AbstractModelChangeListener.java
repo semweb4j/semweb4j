@@ -16,34 +16,24 @@ import java.util.Iterator;
 import junit.framework.Assert;
 
 @SuppressWarnings("unused")
-abstract class AbstractModelChangeListener implements ModelChangedListener
-{
-	public void addedStatement(Statement statement)
-	{
+abstract class AbstractModelChangeListener implements ModelChangedListener {
+	public void addedStatement(Statement statement) {
 		Assert.fail();
 	}
 
-	public void addedStatements(Iterator<? extends Statement> statements)
-	{
+	public void addedStatements(Iterator<? extends Statement> statements) {
 		Assert.fail();
 	}
 
-	public void performedUpdate(DiffReader diff)
-	{
+	public void performedUpdate(DiffReader diff) {
 		Assert.fail();
 	}
 
-	public void removedStatement(Statement statement)
-	{
+	public void removedStatement(Statement statement) {
 		Assert.fail();
 	}
 
-	public void removedStatements(Iterator<? extends Statement> statements)
-	{
-		Assert.fail();
-	}
-	
-	public void performedUpdate(Diff diff) {
+	public void removedStatements(Iterator<? extends Statement> statements) {
 		Assert.fail();
 	}
 

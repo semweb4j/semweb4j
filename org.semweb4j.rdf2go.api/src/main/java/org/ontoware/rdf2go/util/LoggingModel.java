@@ -56,7 +56,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class LoggingModel implements Model {
-	
+
 	private static Logger log = LoggerFactory.getLogger(LoggingModel.class);
 
 	private Model model;
@@ -118,13 +118,15 @@ public class LoggingModel implements Model {
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		log.debug("addStatement");
-		this.model.addStatement(subjectURIString, predicate, literal, languageTag);
+		this.model.addStatement(subjectURIString, predicate, literal,
+				languageTag);
 	}
 
 	public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		log.debug("addStatement");
-		this.model.addStatement(subjectURIString, predicate, literal, datatypeURI);
+		this.model.addStatement(subjectURIString, predicate, literal,
+				datatypeURI);
 	}
 
 	public void addStatement(String subjectURIString, URI predicate,
@@ -146,19 +148,19 @@ public class LoggingModel implements Model {
 	public boolean contains(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
-		log.debug("contains "+subject+" "+predicate+" "+object);
+		log.debug("contains " + subject + " " + predicate + " " + object);
 		return this.model.contains(subject, predicate, object);
 	}
 
 	public boolean contains(ResourceOrVariable subject,
 			UriOrVariable predicate, String plainLiteral)
 			throws ModelRuntimeException {
-		log.debug("contains "+subject+" "+predicate+" "+plainLiteral);
+		log.debug("contains " + subject + " " + predicate + " " + plainLiteral);
 		return this.model.contains(subject, predicate, plainLiteral);
 	}
 
 	public boolean contains(Statement s) throws ModelRuntimeException {
-		log.debug("contains "+s);
+		log.debug("contains " + s);
 		return this.model.contains(s);
 	}
 
@@ -225,13 +227,13 @@ public class LoggingModel implements Model {
 	public ClosableIterator<Statement> findStatements(
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
-		log.debug("findStatements "+subject+ " "+predicate+" "+object);
+		log.debug("findStatements " + subject + " " + predicate + " " + object);
 		return this.model.findStatements(subject, predicate, object);
 	}
 
 	public ClosableIterator<Statement> findStatements(TriplePattern pattern)
 			throws ModelRuntimeException {
-		log.debug("findStatements "+pattern);
+		log.debug("findStatements " + pattern);
 		return this.model.findStatements(pattern);
 	}
 
@@ -419,17 +421,15 @@ public class LoggingModel implements Model {
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		log.debug("removeStatement");
-		this.model
-				.removeStatement(subjectURIString, predicate, literal,
-						languageTag);
+		this.model.removeStatement(subjectURIString, predicate, literal,
+				languageTag);
 	}
 
 	public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		log.debug("removeStatement");
-		this.model
-				.removeStatement(subjectURIString, predicate, literal,
-						datatypeURI);
+		this.model.removeStatement(subjectURIString, predicate, literal,
+				datatypeURI);
 	}
 
 	public void removeStatement(String subjectURIString, URI predicate,
@@ -506,12 +506,6 @@ public class LoggingModel implements Model {
 		this.model.unlock();
 	}
 
-	@Deprecated
-	public void update(Diff diff) throws ModelRuntimeException {
-		log.debug("update");
-		this.model.update(diff);
-	}
-
 	public void update(DiffReader diff) throws ModelRuntimeException {
 		log.debug("update");
 		this.model.update(diff);
@@ -539,7 +533,5 @@ public class LoggingModel implements Model {
 		log.debug("write");
 		this.model.writeTo(out);
 	}
-	
-	
-	
+
 }

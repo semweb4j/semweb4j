@@ -5,6 +5,8 @@
  */
 package org.openrdf.rdf2go;
 
+import info.aduna.iteration.CloseableIteration;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,11 +39,6 @@ import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import info.aduna.iteration.CloseableIteration;
-
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.Namespace;
 import org.openrdf.model.Value;
@@ -60,6 +57,8 @@ import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of the RDF2Go model interface for an OpenRDF Repository.
@@ -773,14 +772,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	}
 
 	/* NOT YET IMPLEMENTED */
-	public boolean isIsomorphicWith(@SuppressWarnings("unused")
-	Model other) {
+	public boolean isIsomorphicWith(@SuppressWarnings("unused") Model other) {
 		throw new UnsupportedOperationException("Not yet implemented!");
-	}
-
-	@Override
-	public void update(Diff diff) throws ModelRuntimeException {
-		update((DiffReader) diff);
 	}
 
 	@Override

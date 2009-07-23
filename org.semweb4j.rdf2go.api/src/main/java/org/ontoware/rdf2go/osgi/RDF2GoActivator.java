@@ -119,7 +119,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 		String currClass = getCurrentFactoryClassName();
 		String newClass = factory.getClass().getName();
 		if (this.currentFactorySR == null) {
-			log.info("Registering " + factory.getClass().getName()
+			log.debug("Registering " + factory.getClass().getName()
 					+ " as default ModelFactory");
 			this.currentFactorySR = ref;
 			RDF2Go.register(factory);
@@ -132,7 +132,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 			factory = (ModelFactory) this.bc.getService(ref);
 			this.currentFactorySR = ref;
 			RDF2Go.register(factory);
-			log.info("RDF2Go uses " + newClass + " as default ModelFactory");
+			log.debug("RDF2Go uses " + newClass + " as default ModelFactory");
 		} else {
 			this.bc.ungetService(ref);
 		}
@@ -144,7 +144,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 		if (ref == this.currentFactorySR) {
 			RDF2Go.register((ModelFactory) null);
 			this.currentFactorySR = null;
-			log.info("RDF2Go unregistered the ModelFactory "
+			log.debug("RDF2Go unregistered the ModelFactory "
 				+ currClass
 				+ " as default ModelFactory. No ModelFactory available now. " 
 				+ "The Bundle of the ModelFactory was unregistered.");

@@ -103,7 +103,7 @@ public class RDFTool {
 	public static String dateTime2String(Date date) {
 		return getDateTimeFormat().format(date);
 	}
-	
+
 	/**
 	 * format the given date in a good date format: ISO 8601, using only the
 	 * date and not the T seperator example: 2003-01-22 Timezone is ignored.
@@ -235,7 +235,11 @@ public class RDFTool {
 	 * @param uri
 	 *            a URI
 	 * @return a short name for it, for display.
+	 * 
+	 * @deprecated THIS METHOD HAS BEEN REPORTED AS BUGGY
+	 *             http://octopus13.fzi.de:8080/browse/RTGO-63
 	 */
+	@Deprecated
 	public static String getShortName(String uri) {
 		if (uri.indexOf('#') > 0)
 			uri = uri.substring(uri.lastIndexOf('#') + 1);
@@ -262,8 +266,8 @@ public class RDFTool {
 		try {
 			if (i.hasNext()) {
 				return i.next().getObject();
-			} 
-			//else
+			}
+			// else
 			return null;
 		} finally {
 			i.close();
@@ -271,13 +275,13 @@ public class RDFTool {
 	}
 
 	public static Node getSingleValue(ModelSet m, Resource res, URI pred) {
-		ClosableIterator<? extends Statement> i = m.findStatements(Variable.ANY,res, pred,
-				Variable.ANY);
+		ClosableIterator<? extends Statement> i = m.findStatements(
+				Variable.ANY, res, pred, Variable.ANY);
 		try {
 			if (i.hasNext()) {
 				return i.next().getObject();
-			} 
-			//else
+			}
+			// else
 			return null;
 		} finally {
 			i.close();
@@ -323,7 +327,8 @@ public class RDFTool {
 	 * @return a string representation of the value, or null. Literals are
 	 *         returned using their Value (not toString()).
 	 */
-	public static String getSingleValueString(ModelSet modelset, Resource res, URI pred) {
+	public static String getSingleValueString(ModelSet modelset, Resource res,
+			URI pred) {
 		Node n = getSingleValue(modelset, res, pred);
 		if (n == null)
 			return null;
@@ -491,7 +496,7 @@ public class RDFTool {
 	 * @param isodate
 	 *            the XSD date as string.
 	 * @return a parsed date or null, if this breaks
-	 * @throws ParseException 
+	 * @throws ParseException
 	 */
 	public static Date string2Date(String isodate) throws ParseException {
 		return getDateFormat().parse(isodate);

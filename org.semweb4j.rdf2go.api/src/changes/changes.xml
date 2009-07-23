@@ -6,123 +6,153 @@
 	</properties>
 	<body>
 
-		<!-- 
-			<action dev="xamde" type="remove">
-			Removed
-			deprecatedModelSet.getUnderlyingModelImplementation();
-			</action>
-			<release version="4.4.9" date="@@"
-			description="No API changes">
+		<!--
+			<action dev="xamde" type="remove"> Removed
+			deprecatedModelSet.getUnderlyingModelImplementation(); </action>
+			<release version="4.4.9" date="@@" description="No API changes">
 			</release>
 		-->
 
 
+		<release version="4.7.2" date="2009-07-23" description="Service Release">
+			<action dev="xamde" type="update">
+				Upgraded to slf4j 1.5.6 in Maven POM
+				and
+				OSGI MANIFEST.
+			</action>
+			<action dev="xamde" type="update">
+				Changed INFO logging to DEBUG and
+				some DEBUG logging to TRACE. Less is more.
+			</action>
+			<action dev="xamde" type="remove">
+				Removed already deprecated method
+				ModelChangedListener.performedUpdate(Diff diff) -- you can use
+				ModelChangedListener.performedUpdate(DiffReader diffreader) instead.
+			</action>
+		</release>
+
 		<release version="4.7.0" date="2009-01-05"
 			description="API Extension (backwards compatible) and maintenance">
 			<action dev="xamde" type="update">
-				Merged rdf2go.impl.base and rdf2go.impl.util into this project. Reduced the
-				number of projects (in SVN, Eclipse, Maven) and thereby
+				Merged rdf2go.impl.base and
+				rdf2go.impl.util into this project. Reduced the
+				number of projects
+				(in SVN, Eclipse, Maven) and thereby
 				the number of JAR files.
 			</action>
 			<action dev="xamde" type="update">
-				Updated LICENSE header consistenly in all .java files
+				Updated LICENSE header consistenly in
+				all .java files
 			</action>
 			<action dev="xamde" type="fix" issue="RTGO-58">
-				Fixed Model is not closed when using ModelSet.create...
+				Fixed Model is not closed
+				when using ModelSet.create...
 			</action>
 			<action dev="xamde" type="fix" issue="RTGO-49">
 				Antoni fixed OSGI issues
 			</action>
 		</release>
 
-		<release version="4.6.3" date="unreleased"
-			description="Maintenance">
+		<release version="4.6.3" date="unreleased" description="Maintenance">
 			<action dev="xamde" type="remove">
-				Removed expensive logging from URIImpl.equals(...)
+				Removed expensive logging from
+				URIImpl.equals(...)
 			</action>
 			<action dev="xamde" type="fix">Fixed RDF.li(...)</action>
 			<action dev="xamde" type="add">
-				Added Variable.toString() to return '*'.
+				Added Variable.toString() to return
+				'*'.
 			</action>
 		</release>
 
-		<release version="4.6.2" date="2008-05-02"
-			description="OSGI packaging">
+		<release version="4.6.2" date="2008-05-02" description="OSGI packaging">
 			<action dev="xamde" type="update">
-				We *now* generate a correct MANIFEST.MF
+				We *now* generate a correct
+				MANIFEST.MF
 			</action>
 		</release>
 
-		<release version="4.6.1" date="2008-04-30"
-			description="OSGI packaging">
+		<release version="4.6.1" date="2008-04-30" description="OSGI packaging">
 			<action dev="xamde" type="add">
 				We now generate a correct MANIFEST.MF
 			</action>
 		</release>
 
-		<release version="4.6" date="2008-04-16"
-			description="Extension Release">
+		<release version="4.6" date="2008-04-16" description="Extension Release">
 			<action dev="xamde" type="remove">
-				Moved org.ontoware.rdf2go.SparqlUtils to project
+				Moved org.ontoware.rdf2go.SparqlUtils
+				to project
 				rdf2go.impl.util in package
 				org.ontoware.rdf2go.util.SparqlUtil. This change breaks
-				binary compatibility with previous versions.
+				binary
+				compatibility with previous versions.
 			</action>
 			<action dev="xamde" type="update">
-				Changed Model/ModelSet.readFrom(....., URL baseURI) to
-				(...., String baseURI).
+				Changed
+				Model/ModelSet.readFrom(....., URL baseURI) to
+				(...., String
+				baseURI).
 			</action>
 			<action dev="xamde" type="add">
-				Added Model/ModelSet.addModel( Model/ModelSet ) methods
+				Added Model/ModelSet.addModel(
+				Model/ModelSet ) methods
 				for better performance.
 			</action>
 			<action dev="xamde" type="add">
-				Added Namespace support (get/set namespaces).
+				Added Namespace support (get/set
+				namespaces).
 			</action>
 			<action dev="xamde" type="add">
 				Added Reification support.
 			</action>
 		</release>
 
-		<release version="4.5.3" date="2008-01-21"
-			description="API extension">
+		<release version="4.5.3" date="2008-01-21" description="API extension">
 			<action dev="xamde" type="update">
-				Changed URIs of XSD._yearMonthDuration and
-				XSD._dayTimeDuration according to new findings in the
+				Changed URIs of
+				XSD._yearMonthDuration and
+				XSD._dayTimeDuration according to new
+				findings in the
 				respective W3C working group -- Thanks Leo!
 			</action>
 			<action dev="xamde" type="add">
-				Added Model/ModelSet.readFrom(Reader in, Syntax syntax,
-				URL baseURI) and Model/ModelSet.readFrom(InputStream
-				reader, Syntax syntax, URL baseURI).
+				Added Model/ModelSet.readFrom(Reader
+				in, Syntax syntax,
+				URL baseURI) and
+				Model/ModelSet.readFrom(InputStream
+				reader, Syntax syntax, URL
+				baseURI).
 			</action>
 		</release>
 
-		<release version="4.5.2" date="2007-12-15"
-			description="API extension">
+		<release version="4.5.2" date="2007-12-15" description="API extension">
 			<action dev="xamde" type="update">
-				Changed ModelChangeListener to use DiffReader instead of
+				Changed ModelChangeListener to use
+				DiffReader instead of
 				Diff.
 			</action>
 		</release>
 
-		<release version="4.5.1" date="2007-12-11"
-			description="API extension">
+		<release version="4.5.1" date="2007-12-11" description="API extension">
 			<action dev="xamde" type="add">
-				Introduced DiffReader, a read-only subset of the Diff
-				interface. Changed Model(Set)AddRemove.update to accept
+				Introduced DiffReader, a read-only
+				subset of the Diff
+				interface. Changed Model(Set)AddRemove.update to
+				accept
 				DiffReaders.
 			</action>
 		</release>
 
-		<release version="4.5.0" date="2007-10-30"
-			description="API changes">
+		<release version="4.5.0" date="2007-10-30" description="API changes">
 			<action dev="xamde" type="fix" issue="RTGO-28">
-				BlankNodeImpl became AbstractBlankNode. Interface
-				BlankNode now has String getInternalID().
+				BlankNodeImpl became
+				AbstractBlankNode. Interface
+				BlankNode now has String
+				getInternalID().
 			</action>
 			<action dev="xamde" type="update">
-				Variable no longer extends Node. This was a bug, thanks
+				Variable no longer extends Node. This
+				was a bug, thanks
 				for spotting it Axel!
 			</action>
 			<action dev="xamde" type="fix" issue="RTGO-25">

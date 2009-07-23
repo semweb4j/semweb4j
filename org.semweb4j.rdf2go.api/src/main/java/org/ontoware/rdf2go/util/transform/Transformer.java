@@ -40,7 +40,7 @@ public class Transformer {
 			List<TransformerRule> rules) {
 		
 		for (int i = 0; i < rules.size(); i++) {
-			log.debug("Executing rule "+i+" -------- "+rules.get(i).getClass());
+			log.trace("Executing rule "+i+" -------- "+rules.get(i).getClass());
 			rules.get(i).applyRule(model, namespaceMap);
 		}
 		
@@ -58,7 +58,7 @@ public class Transformer {
 		query.append("} WHERE {\n");
 		query.append(where).append("\n");
 		query.append("}\n");
-		log.debug("query \n"+query);
+		log.trace("query \n"+query);
 		return query.toString();
 	}
 }

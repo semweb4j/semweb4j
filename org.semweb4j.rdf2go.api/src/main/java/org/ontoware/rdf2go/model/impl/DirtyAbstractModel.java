@@ -42,19 +42,19 @@ public abstract class DirtyAbstractModel extends AbstractModel {
 
 					for (Statement s : this) {
 						if (!abstractModel.contains(s)) {
-							log.debug("Other model does not contain " + s);
+							log.trace("Other model does not contain " + s);
 							return false;
 						}
 					}
 					return true;
 				} 
 				//else 
-				log.debug("Models do not have the same size");
+				log.trace("Models do not have the same size");
 				return false;
 
 			} 
 			//else 
-			log.debug("object is not an instance of ModelAdapter, it's "
+			log.trace("object is not an instance of ModelAdapter, it's "
 					+ other.getClass());
 			return false;
 		} catch (ModelRuntimeException e) {

@@ -10,13 +10,13 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.4</version>
+		<version>2009.07.231</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<!-- Always use three digits for OSGI compliance -->
-	<version>4.7.1-SNAPSHOT</version>
+	<version>4.7.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.api</name>
@@ -110,27 +110,6 @@
 	</properties>
 
 	<build>
-		<!--
-			include source code to JAR to let GWT compiler have it, when
-			this is used as a GWT module
-		-->
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>org/ontoware/aifbcommons/collection/**</include>
-					<include>org/ontoware/rdf2go/*.java</include>
-					<include>org/ontoware/rdf2go/exception/*.java</include>
-					<include>org/ontoware/rdf2go/impl/*.java</include>
-					<include>org/ontoware/rdf2go/model/*.java</include>
-					<include>org/ontoware/rdf2go/model/impl/*.java</include>
-					<include>org/ontoware/rdf2go/model/node/*.java</include>
-					<include>org/ontoware/rdf2go/model/node/impl/*.java</include>
-					<include>org/ontoware/rdf2go/vocabulary/*.java</include>
-					<include>**/*.gwt.xml</include>
-				</includes>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

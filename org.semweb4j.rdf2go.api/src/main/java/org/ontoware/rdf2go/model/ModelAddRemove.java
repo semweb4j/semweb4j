@@ -22,40 +22,38 @@ import org.ontoware.rdf2go.model.node.URI;
 
 /**
  * Can remove statements and apply diffs in one atomic operation.
+ * 
  * @author voelkel
  */
-public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter, Lockable {
+public interface ModelAddRemove extends ClosableIterable<Statement>,
+		ModelWriter, Lockable {
 
-	//////////////
+	// ////////////
 	// diffing
-	
+
 	/**
 	 * Apply the changes given by this diff <emph>in one atomic operation</emph>
 	 * 
 	 * Implementations must check that all statements to be removed are still in
 	 * the Model. Otherwise an exception is thrown.
 	 * 
-	 * First all triples to be removed are removed, then triples to be added are added.
+	 * First all triples to be removed are removed, then triples to be added are
+	 * added.
 	 * 
 	 * @param diff
 	 * @throws ModelRuntimeException
 	 */
 	void update(DiffReader diff) throws ModelRuntimeException;
-	
-	/** use update(DiffReader diff) instead */
-	@Deprecated
-	void update(Diff diff) throws ModelRuntimeException;
 
-	
 	/**
 	 * @param statements
-	 * @return a Diff between this model and the statements given in the iterator
+	 * @return a Diff between this model and the statements given in the
+	 *         iterator
 	 * @throws ModelRuntimeException
 	 */
-	Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException;
+	Diff getDiff(Iterator<? extends Statement> statements)
+			throws ModelRuntimeException;
 
-	
-	
 	/**
 	 * Removes all statements from this model.
 	 * 
@@ -71,9 +69,10 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 *            another RDF2GO model
 	 * @throws ModelRuntimeException
 	 */
-	void removeAll(Iterator<? extends Statement> statements) throws ModelRuntimeException;
+	void removeAll(Iterator<? extends Statement> statements)
+			throws ModelRuntimeException;
 
-	///////////////////
+	// /////////////////
 	// remove
 
 	/**
@@ -87,10 +86,9 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 *            TypedLiteral or LanguageTagLiteral
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatement(Resource subject, URI predicate, Node object) throws ModelRuntimeException;
+	void removeStatement(Resource subject, URI predicate, Node object)
+			throws ModelRuntimeException;
 
-	
-	
 	void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException;
 
@@ -104,8 +102,8 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param languageTag
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatement(Resource subject, URI predicate, String literal, String languageTag)
-			throws ModelRuntimeException;
+	void removeStatement(Resource subject, URI predicate, String literal,
+			String languageTag) throws ModelRuntimeException;
 
 	/**
 	 * remove a (subject, property ,literal, datatype)-statement from the model
@@ -118,8 +116,8 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param datatypeURI
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatement(Resource subject, URI predicate, String literal, URI datatypeURI)
-			throws ModelRuntimeException;
+	void removeStatement(Resource subject, URI predicate, String literal,
+			URI datatypeURI) throws ModelRuntimeException;
 
 	/**
 	 * remove a rdf2go-statement from the model
@@ -142,8 +140,8 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param languageTag
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatement(String subjectURIString, URI predicate, String literal,
-			String languageTag) throws ModelRuntimeException;
+	void removeStatement(String subjectURIString, URI predicate,
+			String literal, String languageTag) throws ModelRuntimeException;
 
 	/**
 	 * remove a (subject, property ,literal, datatype)-statement from the model
@@ -156,7 +154,7 @@ public interface ModelAddRemove extends ClosableIterable<Statement>, ModelWriter
 	 * @param datatypeURI
 	 * @throws ModelRuntimeException
 	 */
-	void removeStatement(String subjectURIString, URI predicate, String literal,
-			URI datatypeURI) throws ModelRuntimeException;
+	void removeStatement(String subjectURIString, URI predicate,
+			String literal, URI datatypeURI) throws ModelRuntimeException;
 
 }

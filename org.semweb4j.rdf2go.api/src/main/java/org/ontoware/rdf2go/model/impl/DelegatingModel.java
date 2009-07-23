@@ -365,7 +365,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 	
 	public QueryResultTable sparqlSelect(String queryString)
 			throws ModelRuntimeException {
-		log.debug("SPARQL query: " + queryString);
+		log.trace("SPARQL query: " + queryString);
 		return this.delegatedModel.sparqlSelect(queryString);
 	}
 	
