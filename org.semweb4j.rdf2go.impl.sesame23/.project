@@ -1,0 +1,13 @@
+<projectDescription>
+  <name>rdf2go.impl.sesame23</name>
+  <comment>RDF2Go driver for OpenRDF Sesame 2.3</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>
