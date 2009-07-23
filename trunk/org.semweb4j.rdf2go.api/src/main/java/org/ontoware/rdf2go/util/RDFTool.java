@@ -236,16 +236,16 @@ public class RDFTool {
 	 *            a URI
 	 * @return a short name for it, for display.
 	 * 
-	 * @deprecated THIS METHOD HAS BEEN REPORTED AS BUGGY
-	 *             http://octopus13.fzi.de:8080/browse/RTGO-63
+	 *         WARNING: THIS METHOD HAS BEEN REPORTED AS BUGGY
+	 *         http://octopus13.fzi.de:8080/browse/RTGO-63
 	 */
-	@Deprecated
 	public static String getShortName(String uri) {
-		if (uri.indexOf('#') > 0)
-			uri = uri.substring(uri.lastIndexOf('#') + 1);
-		else if (uri.indexOf('/') > 0)
-			uri = uri.substring(uri.lastIndexOf('/') + 1);
-		return uri;
+		String result = uri;
+		if (result.indexOf('#') > 0)
+			result = result.substring(result.lastIndexOf('#') + 1);
+		else if (result.indexOf('/') > 0)
+			result = result.substring(result.lastIndexOf('/') + 1);
+		return result;
 	}
 
 	/**
