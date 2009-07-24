@@ -122,8 +122,7 @@ public abstract class AbstractModelSetTest {
 
 	@After
 	public void tearDown() throws Exception {
-		if (this.modelset != null)
-		{
+		if (this.modelset != null) {
 			this.modelset.close();
 			this.modelset = null;
 		}
@@ -834,8 +833,7 @@ public abstract class AbstractModelSetTest {
 		try {
 			this.modelset.writeTo(new OutputStream() {
 				@Override
-				public void write(@SuppressWarnings("unused")
-				int b) {
+				public void write(@SuppressWarnings("unused") int b) {
 				}
 			});
 		} catch (ModelRuntimeException e) {
@@ -852,8 +850,7 @@ public abstract class AbstractModelSetTest {
 		try {
 			this.modelset.writeTo(new OutputStream() {
 				@Override
-				public void write(@SuppressWarnings("unused")
-				int b) {
+				public void write(@SuppressWarnings("unused") int b) {
 				}
 			}, Syntax.Turtle);
 		} catch (ModelRuntimeException e) {
@@ -913,8 +910,9 @@ public abstract class AbstractModelSetTest {
 		// ical.close();
 		m.close();
 	}
+
 	@Test
-	public void testAddAll(){
+	public void testAddAll() {
 		List<Statement> smt = new ArrayList<Statement>();
 		smt.add(this.modelset.createStatement(subject, predicate, object));
 		smt.add(this.modelset.createStatement(c, b, a));
@@ -922,213 +920,315 @@ public abstract class AbstractModelSetTest {
 		assertTrue(this.modelset.contains(smt.get(0)));
 		assertTrue(this.modelset.contains(smt.get(1)));
 	}
+
 	@Test
-	public void testAddStatement(){
-		Statement statement = this.modelset.createStatement(subject, predicate, object);
+	public void testAddStatement() {
+		Statement statement = this.modelset.createStatement(subject, predicate,
+				object);
 		this.modelset.addStatement(statement);
 		assertTrue(this.modelset.contains(statement));
 	}
+
 	@Test
-	public void testContains(){
-		Statement statement = this.modelset.createStatement(subject, predicate, object);
+	public void testContains() {
+		Statement statement = this.modelset.createStatement(subject, predicate,
+				object);
 		assertFalse(this.modelset.contains(statement));
 		this.modelset.addStatement(statement);
 		assertTrue(this.modelset.contains(statement));
 	}
+
 	@Test
-	public void testCountStatements(){
-		Statement statement = this.modelset.createStatement(a,subject, predicate, object);
-		assertEquals(0, this.modelset.countStatements(this.modelset.createQuadPattern(a, subject, predicate, object)));
+	public void testCountStatements() {
+		Statement statement = this.modelset.createStatement(a, subject,
+				predicate, object);
+		assertEquals(0, this.modelset.countStatements(this.modelset
+				.createQuadPattern(a, subject, predicate, object)));
 		this.modelset.addStatement(statement);
-		assertEquals(1, this.modelset.countStatements(this.modelset.createQuadPattern(a, subject, predicate, object)));
+		assertEquals(1, this.modelset.countStatements(this.modelset
+				.createQuadPattern(a, subject, predicate, object)));
 	}
+
 	@Test
-	public void testCreateBlankNode(){
+	public void testCreateBlankNode() {
 		this.modelset.createBlankNode();
-		assertEquals("internalID",this.modelset.createBlankNode("internalID").getInternalID());
+		assertEquals("internalID", this.modelset.createBlankNode("internalID")
+				.getInternalID());
 	}
+
 	@Test
-	public void testCreateDatatypeLiteral(){
-		DatatypeLiteral datatypeLiteral = this.modelset.createDatatypeLiteral("literal", dt);
-		assertEquals("literal^^" + dt,datatypeLiteral.asLiteral().toString());
+	public void testCreateDatatypeLiteral() {
+		DatatypeLiteral datatypeLiteral = this.modelset.createDatatypeLiteral(
+				"literal", dt);
+		assertEquals("literal^^" + dt, datatypeLiteral.asLiteral().toString());
 	}
+
 	@Test
-	public void testCreateLanguageTagLiteral(){
-		LanguageTagLiteral languageTagLiteral = this.modelset.createLanguageTagLiteral("literal", "en-us");
-		assertEquals("literal@en-us",languageTagLiteral.toString());
+	public void testCreateLanguageTagLiteral() {
+		LanguageTagLiteral languageTagLiteral = this.modelset
+				.createLanguageTagLiteral("literal", "en-us");
+		assertEquals("literal@en-us", languageTagLiteral.toString());
 	}
+
 	@Test
-	public void testCreatePlainLiteral(){
+	public void testCreatePlainLiteral() {
 		PlainLiteral literal = this.modelset.createPlainLiteral("Something");
 		assertEquals("Something", literal.getValue());
 	}
+
 	@Test
-	public void testCreateQuadPattern(){
-		QuadPattern quadPattern = this.modelset.createQuadPattern(a, subject, predicate, object);
+	public void testCreateQuadPattern() {
+		QuadPattern quadPattern = this.modelset.createQuadPattern(a, subject,
+				predicate, object);
 		assertEquals(a, quadPattern.getContext());
 		assertEquals(subject, quadPattern.getSubject());
 		assertEquals(predicate, quadPattern.getPredicate());
 		assertEquals(object, quadPattern.getObject());
 	}
+
 	@Test
-	public void testDeleteReification(){
-		Statement stmt = this.modelset.createStatement(a, subject, predicate, object);
+	public void testDeleteWithBlankNodes() {
+		BlankNode blankNode = this.modelset.createBlankNode();
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+		this.modelset.addStatement(a, blankNode, RDF.type, RDF.Statement);
+		assertTrue(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+		this.modelset.removeStatement(a, blankNode, RDF.type, RDF.Statement);
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+		Statement stmt = this.modelset.createStatement(a, blankNode, RDF.type,
+				RDF.Statement);
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+		this.modelset.addStatement(stmt);
+		assertTrue(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+		this.modelset.removeStatement(stmt);
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+
+		Diff diff = new DiffImpl();
+		diff.addStatement(stmt);
+		this.modelset.update(diff);
+		assertTrue(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+		diff = new DiffImpl();
+		diff.removeStatement(stmt);
+		this.modelset.update(diff);
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+	}
+
+	@Test
+	public void testDeleteReification() {
+		assertFalse(this.modelset.containsStatements(a, Variable.ANY,
+				RDF.subject, subject));
+		assertFalse(this.modelset.containsStatements(a, Variable.ANY,
+				RDF.predicate, predicate));
+		assertFalse(this.modelset.containsStatements(a, Variable.ANY,
+				RDF.object, object));
+		assertFalse(this.modelset.containsStatements(a, Variable.ANY, RDF.type,
+				RDF.Statement));
+
+		Statement stmt = this.modelset.createStatement(a, subject, predicate,
+				object);
 		BlankNode blankNode = this.modelset.addReificationOf(stmt);
-		assertTrue(this.modelset.containsStatements(a,blankNode, RDF.subject, subject));
-		assertTrue(this.modelset.containsStatements(a,blankNode, RDF.predicate, predicate));
-		assertTrue(this.modelset.containsStatements(a,blankNode, RDF.object, object));
-		assertTrue(this.modelset.containsStatements(a,blankNode, RDF.type, RDF.Statement));
+		assertTrue(this.modelset.containsStatements(a, blankNode, RDF.subject,
+				subject));
+		assertTrue(this.modelset.containsStatements(a, blankNode,
+				RDF.predicate, predicate));
+		assertTrue(this.modelset.containsStatements(a, blankNode, RDF.object,
+				object));
+		assertTrue(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+
 		this.modelset.deleteReification(blankNode);
-		assertFalse(this.modelset.containsStatements(a,blankNode, RDF.subject, subject));
-		assertFalse(this.modelset.containsStatements(a,blankNode, RDF.predicate, predicate));
-		assertFalse(this.modelset.containsStatements(a,blankNode, RDF.object, object));
-		assertFalse(this.modelset.containsStatements(a,blankNode, RDF.type, RDF.Statement));
-		
-		
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.subject,
+				subject));
+		assertFalse(this.modelset.containsStatements(a, blankNode,
+				RDF.predicate, predicate));
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.object,
+				object));
+		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
+				RDF.Statement));
+
 		// test also the method where the resource is passed
-		stmt = this.modelset.createStatement(a, b, a);
+		stmt = this.modelset.createStatement(a, subject, predicate, object);
 		URI u = this.modelset.newRandomUniqueURI();
 		Resource reified = this.modelset.addReificationOf(stmt, u);
 		assertEquals(u, reified);
-		assertTrue(this.modelset.containsStatements(a,u, RDF.subject, subject));
-		assertTrue(this.modelset.containsStatements(a,u, RDF.predicate, predicate));
-		assertTrue(this.modelset.containsStatements(a,u, RDF.object, object));
-		assertTrue(this.modelset.containsStatements(a,u, RDF.type, RDF.Statement));
+		assertTrue(this.modelset.containsStatements(a, u, RDF.subject, subject));
+		assertTrue(this.modelset.containsStatements(a, u, RDF.predicate,
+				predicate));
+		assertTrue(this.modelset.containsStatements(a, u, RDF.object, object));
+		assertTrue(this.modelset.containsStatements(a, u, RDF.type,
+				RDF.Statement));
 		this.modelset.deleteReification(u);
-		assertFalse(this.modelset.containsStatements(a,u, RDF.subject, subject));
-		assertFalse(this.modelset.containsStatements(a,u, RDF.predicate, predicate));
-		assertFalse(this.modelset.containsStatements(a,u, RDF.object, object));
-		assertFalse(this.modelset.containsStatements(a,u, RDF.type, RDF.Statement));
-
+		assertFalse(this.modelset
+				.containsStatements(a, u, RDF.subject, subject));
+		assertFalse(this.modelset.containsStatements(a, u, RDF.predicate,
+				predicate));
+		assertFalse(this.modelset.containsStatements(a, u, RDF.object, object));
+		assertFalse(this.modelset.containsStatements(a, u, RDF.type,
+				RDF.Statement));
 	}
+
 	@Test
-	public void testDump(){
+	public void testDump() {
 		this.modelset.dump();
 	}
+
 	@Test
-	public void testGetAllReificationsOf(){
-		Statement s = this.modelset.createStatement(a,b,c);
+	public void testGetAllReificationsOf() {
+		Statement s = this.modelset.createStatement(a, b, c);
 		BlankNode reificationBlankNode = this.modelset.addReificationOf(s);
-		
-		Collection<Resource> reifications = this.modelset.getAllReificationsOf(s);
-		assertTrue( reifications.contains(reificationBlankNode) );
-		assertEquals(1, reifications.size() );
+
+		Collection<Resource> reifications = this.modelset
+				.getAllReificationsOf(s);
+		assertTrue(reifications.contains(reificationBlankNode));
+		assertEquals(1, reifications.size());
 	}
+
 	@Test
-	public void testHasReifications(){
+	public void testHasReifications() {
 		Statement stmt = this.modelset.createStatement(a, b, c);
 		assertFalse(this.modelset.hasReifications(stmt));
 		Resource r = this.modelset.addReificationOf(stmt);
-		// we already verified in testAddReification() that the reification is in the store!
+		// we already verified in testAddReification() that the reification is
+		// in the store!
 		assertTrue(this.modelset.hasReifications(stmt));
 		// remove an essential part
-		this.modelset.removeStatement(this.modelset.createStatement(r, RDF.subject, a));
+		this.modelset.removeStatement(this.modelset.createStatement(r,
+				RDF.subject, a));
 		assertFalse(this.modelset.hasReifications(stmt));
 	}
+
 	@Test
-	public void testIsEmpty(){
+	public void testIsEmpty() {
 		assertTrue(this.modelset.isEmpty());
 		this.modelset.addStatement(this.modelset.createStatement(a, b, c));
 		assertFalse(this.modelset.isEmpty());
 	}
+
 	@Test
-	public void testIsLocked(){
+	public void testIsLocked() {
 		assertFalse(this.modelset.isLocked());
 		this.modelset.lock();
 		assertTrue(this.modelset.isLocked());
 	}
+
 	@Test
-	public void testIsOpen(){
+	public void testIsOpen() {
 		assertTrue(this.modelset.isOpen());
 		this.modelset.close();
 		assertFalse(this.modelset.isOpen());
 	}
+
 	@Test
-	public void testIsValidURI(){
+	public void testIsValidURI() {
 		assertTrue(this.modelset.isValidURI(a.toString()));
 		String wrong = "error-.#'?.&4$%\\__%&$!";
-		assertFalse("should not be a valid uri: "+wrong,this.modelset.isValidURI(wrong));
+		assertFalse("should not be a valid uri: " + wrong, this.modelset
+				.isValidURI(wrong));
 	}
+
 	@Test
-	public void testIterator(){
+	public void testIterator() {
 		ClosableIterator<Statement> iterator = this.modelset.iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			iterator.next();
 		}
 	}
+
 	@Test
-	public void testLock(){
+	public void testLock() {
 		this.modelset.lock();
 		assertTrue(this.modelset.isLocked());
 	}
+
 	@Test
-	public void testNewRandomUniqueURI(){
+	public void testNewRandomUniqueURI() {
 		URI newRandomUniqueURI = this.modelset.newRandomUniqueURI();
 		assertTrue(this.modelset.isValidURI(newRandomUniqueURI.toString()));
 	}
+
 	@Test
-	public void testQueryConstruct() throws Exception{
+	public void testQueryConstruct() throws Exception {
 		InputStream in = TestData.getFoafAsStream();
 		this.modelset.readFrom(in);
 		// count the classes in foaf
-		ClosableIterable<Statement> i = this.modelset.queryConstruct(
-				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
-				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
-				"CONSTRUCT {?s rdf:type rdfs:Class.} " +
-				"WHERE {?s rdf:type rdfs:Class}", 
-				"SPARQL");
+		ClosableIterable<Statement> i = this.modelset
+				.queryConstruct(
+						"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
+								+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
+								+ "CONSTRUCT {?s rdf:type rdfs:Class.} "
+								+ "WHERE {?s rdf:type rdfs:Class}", "SPARQL");
 		assertEquals(12, Iterators.count(i.iterator()));
 
 	}
+
 	@Test
-	public void testQuerySelect()throws Exception{
+	public void testQuerySelect() throws Exception {
 		InputStream in = TestData.getFoafAsStream();
 		this.modelset.readFrom(in);
 		// count the classes in foaf
-		QueryResultTable i = this.modelset.querySelect(
-				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
-				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
-				"SELECT ?s " +
-				"WHERE {?s rdf:type rdfs:Class.}", 
-				"SPARQL");
+		QueryResultTable i = this.modelset
+				.querySelect(
+						"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
+								+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
+								+ "SELECT ?s "
+								+ "WHERE {?s rdf:type rdfs:Class.}", "SPARQL");
 		assertEquals(12, Iterators.count(i.iterator()));
 	}
+
 	@Test
-	public void testRemoveStatement(){
-		Statement statement = this.modelset.createStatement(subject, predicate, object);
+	public void testRemoveStatement() {
+		Statement statement = this.modelset.createStatement(subject, predicate,
+				object);
 		this.modelset.addStatement(statement);
 		assertTrue(this.modelset.contains(statement));
 		this.modelset.removeStatement(statement);
 		assertFalse(this.modelset.contains(statement));
 		this.modelset.addStatement(a, subject, predicate, object);
-		assertTrue(this.modelset.contains(this.modelset.createStatement(a, subject, predicate, object)));
+		assertTrue(this.modelset.contains(this.modelset.createStatement(a,
+				subject, predicate, object)));
 		this.modelset.removeStatement(a, subject, predicate, object);
-		assertFalse(this.modelset.contains(this.modelset.createStatement(a, subject, predicate, object)));
+		assertFalse(this.modelset.contains(this.modelset.createStatement(a,
+				subject, predicate, object)));
 	}
+
 	@Test
-	public void testRemoveStatements(){
+	public void testRemoveStatements() {
 		this.modelset.addStatement(a, subject, predicate, object);
-		assertTrue(this.modelset.contains(this.modelset.createStatement(a, subject, predicate, object)));
-		this.modelset.removeStatements(this.modelset.createQuadPattern(a, subject, predicate, object));
-		assertFalse(this.modelset.contains(this.modelset.createStatement(a, subject, predicate, object)));
-		
+		assertTrue(this.modelset.contains(this.modelset.createStatement(a,
+				subject, predicate, object)));
+		this.modelset.removeStatements(this.modelset.createQuadPattern(a,
+				subject, predicate, object));
+		assertFalse(this.modelset.contains(this.modelset.createStatement(a,
+				subject, predicate, object)));
+
 		this.modelset.addStatement(a, subject, predicate, object);
-		assertTrue(this.modelset.contains(this.modelset.createStatement(a, subject, predicate, object)));
+		assertTrue(this.modelset.contains(this.modelset.createStatement(a,
+				subject, predicate, object)));
 		this.modelset.removeStatements(a, subject, predicate, object);
-		assertFalse(this.modelset.contains(this.modelset.createStatement(a, subject, predicate, object)));
+		assertFalse(this.modelset.contains(this.modelset.createStatement(a,
+				subject, predicate, object)));
 	}
+
 	@Test
-	public void testSerialize()throws Exception{
+	public void testSerialize() throws Exception {
 		this.modelset.readFrom(TestData.getFoafAsStream());
 		String serialize = this.modelset.serialize(Syntax.RdfXml);
 		ModelSet m1 = getModelFactory().createModelSet();
 		m1.open();
 		m1.readFrom(new StringReader(serialize), Syntax.RdfXml);
 		assertEquals(this.modelset.size(), m1.size());
-		m1.close();	
+		m1.close();
 	}
+
 	@Test
-	public void testUnlock(){
+	public void testUnlock() {
 		this.modelset.unlock();
 		assertFalse(this.modelset.isLocked());
 		this.modelset.lock();
@@ -1136,8 +1236,9 @@ public abstract class AbstractModelSetTest {
 		this.modelset.unlock();
 		assertFalse(this.modelset.isLocked());
 	}
+
 	@Test
-	public void testUpdate(){
+	public void testUpdate() {
 		Model remove = RDF2Go.getModelFactory().createModel();
 		remove.open();
 		Model add = RDF2Go.getModelFactory().createModel();
@@ -1148,5 +1249,5 @@ public abstract class AbstractModelSetTest {
 		remove.close();
 
 		this.modelset.update(diff);
-	}	
+	}
 }

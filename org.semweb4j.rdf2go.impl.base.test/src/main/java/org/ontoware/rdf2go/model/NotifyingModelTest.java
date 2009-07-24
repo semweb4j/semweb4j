@@ -8,7 +8,6 @@
  * 
  * Project information at http://semweb4j.org/rdf2go
  */
-
 package org.ontoware.rdf2go.model;
 
 import java.util.Iterator;
@@ -27,6 +26,10 @@ public class NotifyingModelTest extends AbstractModelTest {
 	// no method of the changelistener should be called, if a method is expected
 	// to be called, this method has to be overwritten.
 
+	// TODO: as the model in AbstractModelTest is now protected, this field has
+	// to go and be replaced by ((NotifyingModelLayer)this.model).method
+	NotifyingModelLayer notifyingModel;
+
 	@Override
 	public ModelFactory getModelFactory() {
 		return RDF2Go.getModelFactory();
@@ -37,26 +40,27 @@ public class NotifyingModelTest extends AbstractModelTest {
 		super.setUp();
 		Model plainModel = getModelFactory().createModel();
 		assertNotNull(plainModel);
-		// FIXME this.model = new NotifyingModelLayer(plainModel);
+		this.notifyingModel = new NotifyingModelLayer(plainModel);
 	}
 
 	public void testModelConnection() {
-		assertNotNull(this.model);
-		assertNotNull(((NotifyingModelLayer) this.model).getDelegatedModel());
-		assertFalse(this.model.isOpen());
-		this.model.open();
-		assertTrue(this.model.isOpen());
-		this.model.close();
-		assertFalse(this.model.isOpen());
+		assertNotNull(this.notifyingModel);
+		assertNotNull(this.notifyingModel.getDelegatedModel());
+		assertFalse(this.notifyingModel.isOpen());
+		this.notifyingModel.open();
+		assertTrue(this.notifyingModel.isOpen());
+		this.notifyingModel.close();
+		assertFalse(this.notifyingModel.isOpen());
 	}
 
 	public void testAddStatement() {
-		this.model.open();
-		this.model.addStatement(predicate, object, subject); // this statement
+		this.notifyingModel.open();
+		this.notifyingModel.addStatement(predicate, object, subject); // this
+																		// statement
 		// should
 		// not cause a
 		// notification
-		((NotifyingModelLayer) this.model)
+		this.notifyingModel
 				.addModelChangedListener(new AbstractModelChangeListener() {
 
 					@Override
@@ -74,15 +78,15 @@ public class NotifyingModelTest extends AbstractModelTest {
 						assertFalse(statements.hasNext());
 					}
 				});
-		this.model.addStatement(subject, predicate, object);
-		this.model.close();
+		this.notifyingModel.addStatement(subject, predicate, object);
+		this.notifyingModel.close();
 	}
 
 	public void testRemoveStatement() {
-		this.model.open();
-		this.model.addStatement(subject, predicate, object);
+		this.notifyingModel.open();
+		this.notifyingModel.addStatement(subject, predicate, object);
 
-		((NotifyingModelLayer) this.model)
+		this.notifyingModel
 				.addModelChangedListener(new AbstractModelChangeListener() {
 
 					@Override
@@ -100,11 +104,11 @@ public class NotifyingModelTest extends AbstractModelTest {
 						assertFalse(statements.hasNext());
 					}
 				});
-		this.model.close();
+		this.notifyingModel.close();
 	}
 
 	public void testChangeStatement() {
-		((NotifyingModelLayer) this.model)
+		this.notifyingModel
 				.addModelChangedListener(new AbstractModelChangeListener() {
 					@Override
 					public void performedUpdate(DiffReader diff) {
@@ -118,15 +122,15 @@ public class NotifyingModelTest extends AbstractModelTest {
 						assertFalse(diff.getRemoved().iterator().hasNext());
 					}
 				});
-		this.model.open();
+		this.notifyingModel.open();
 		Diff diff = new DiffImpl();
 		diff.addStatement(subject, predicate, object);
-		this.model.update(diff);
-		this.model.close();
+		this.notifyingModel.update(diff);
+		this.notifyingModel.close();
 	}
 
 	public void testNotificationOnSubject() {
-		this.model.open();
+		this.notifyingModel.open();
 		ModelChangedListener listener = new AbstractModelChangeListener() {
 			@Override
 			public void addedStatement(Statement statement) {
@@ -143,13 +147,13 @@ public class NotifyingModelTest extends AbstractModelTest {
 				assertFalse(statements.hasNext());
 			}
 		};
-		((NotifyingModelLayer) this.model).addModelChangedListener(listener,
+		this.notifyingModel.addModelChangedListener(listener,
 				new TriplePatternImpl(subject, Variable.ANY, Variable.ANY));
 
-		this.model.addStatement(subject, predicate, "Test1");
-		this.model.addStatement(predicate, object, "Test2");
-		this.model.addStatement(predicate, subject, "Test3");
-		((NotifyingModelLayer) this.model).removeModelChangedListener(listener);
+		this.notifyingModel.addStatement(subject, predicate, "Test1");
+		this.notifyingModel.addStatement(predicate, object, "Test2");
+		this.notifyingModel.addStatement(predicate, subject, "Test3");
+		this.notifyingModel.removeModelChangedListener(listener);
 		listener = new AbstractModelChangeListener() {
 			@Override
 			public void removedStatement(Statement statement) {
@@ -167,14 +171,14 @@ public class NotifyingModelTest extends AbstractModelTest {
 				assertFalse(statements.hasNext());
 			}
 		};
-		this.model.removeStatement(subject, predicate, "Test1");
-		this.model.removeStatement(predicate, object, "Test2");
-		this.model.removeStatement(predicate, subject, "Test3");
-		this.model.close();
+		this.notifyingModel.removeStatement(subject, predicate, "Test1");
+		this.notifyingModel.removeStatement(predicate, object, "Test2");
+		this.notifyingModel.removeStatement(predicate, subject, "Test3");
+		this.notifyingModel.close();
 	}
 
 	public void testNotificationOnLiteralObject() {
-		this.model.open();
+		this.notifyingModel.open();
 		ModelChangedListener listener = new AbstractModelChangeListener() {
 			@Override
 			public void addedStatement(Statement statement) {
@@ -182,16 +186,16 @@ public class NotifyingModelTest extends AbstractModelTest {
 						.getObject());
 			}
 		};
-		((NotifyingModelLayer) this.model).addModelChangedListener(listener,
+		this.notifyingModel.addModelChangedListener(listener,
 				new TriplePatternImpl(Variable.ANY, Variable.ANY,
 						new PlainLiteralImpl("Sebastian")));
-		this.model.addStatement(subject, predicate, "Sebastian Gerke");
-		this.model.addStatement(predicate, object, "Sebastian");
-		this.model.close();
+		this.notifyingModel.addStatement(subject, predicate, "Sebastian Gerke");
+		this.notifyingModel.addStatement(predicate, object, "Sebastian");
+		this.notifyingModel.close();
 	}
 
 	public void testNotificationOnPredicateAndObject() {
-		this.model.open();
+		this.notifyingModel.open();
 		ModelChangedListener listener = new AbstractModelChangeListener() {
 			@Override
 			public void addedStatement(Statement statement) {
@@ -201,12 +205,12 @@ public class NotifyingModelTest extends AbstractModelTest {
 				assertEquals(predicate, statement.getPredicate());
 			}
 		};
-		((NotifyingModelLayer) this.model).addModelChangedListener(listener,
+		this.notifyingModel.addModelChangedListener(listener,
 				new TriplePatternImpl(Variable.ANY, predicate,
 						new PlainLiteralImpl("Sebastian")));
-		this.model.addStatement(subject, predicate, "Sebastian Gerke");
-		this.model.addStatement(subject, predicate, "Sebastian");
-		this.model.addStatement(predicate, object, "Sebastian");
-		this.model.close();
+		this.notifyingModel.addStatement(subject, predicate, "Sebastian Gerke");
+		this.notifyingModel.addStatement(subject, predicate, "Sebastian");
+		this.notifyingModel.addStatement(predicate, object, "Sebastian");
+		this.notifyingModel.close();
 	}
 }

@@ -488,10 +488,10 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * ignores context
 	 */
 	public Collection<Resource> getAllReificationsOf(Statement statement) {
-		QueryResultTable table = this.sparqlSelect(
-				"SELECT ?res WHERE { \n"
-				+ " ?res " + RDF.type.toSPARQL() + " " + RDF.Statement.toSPARQL() + " ."
-				+ " ?res " + RDF.subject.toSPARQL() + " "
+		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { \n"
+				+ " ?res " + RDF.type.toSPARQL() + " "
+				+ RDF.Statement.toSPARQL() + " ." + " ?res "
+				+ RDF.subject.toSPARQL() + " "
 				+ statement.getSubject().toSPARQL() + " ." + " ?res "
 				+ RDF.predicate.toSPARQL() + " "
 				+ statement.getPredicate().toSPARQL() + " ." + " ?res "
@@ -510,9 +510,16 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	/* delete in ALL contexts */
 	public void deleteReification(Resource reificationResource) {
 		Diff diff = new DiffImpl();
-		diff.removeStatement(reificationResource, RDF.type, RDF.Statement);
-		ClosableIterator<Statement> it = findStatements(Variable.ANY,
-				reificationResource, RDF.subject, Variable.ANY);
+		ClosableIterator<Statement> it;
+
+		it = findStatements(Variable.ANY, reificationResource, RDF.type,
+				RDF.Statement);
+		while (it.hasNext()) {
+			diff.removeStatement(it.next());
+		}
+		it.close();
+		it = findStatements(Variable.ANY, reificationResource, RDF.subject,
+				Variable.ANY);
 		while (it.hasNext()) {
 			diff.removeStatement(it.next());
 		}
