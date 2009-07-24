@@ -1,8 +1,0 @@
-<module>
-
-	<inherits name='com.google.gwt.user.User' />
-
-	<source path="aifbcommons.collection" />
-	<source path="rdf2go" />
-
-</module>
