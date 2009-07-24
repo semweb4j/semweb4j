@@ -16,7 +16,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<!-- Always use three digits for OSGI compliance -->
-	<version>4.7.3-SNAPSHOT</version>
+	<version>4.7.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.api</name>
@@ -251,4 +251,5 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
 </project>
