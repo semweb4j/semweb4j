@@ -1,0 +1,12 @@
+Steps neededed to create this package:
+
+- create Nil.java manually.
+- List.java is largely manually crafted. Do not delete. Adapt.
+- Ontology.java is from owl, delete it from RDFS package.
+- Resource DOES NOT extend Class but REactorRuntimeEntity - manual fix
+
+in Resource:
+- manual change from getAllLabel to getAllRdfLabel, same for comments
+
+
+- Literal.java can be deleted an replaced with java.lang.String
