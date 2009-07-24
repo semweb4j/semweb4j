@@ -988,6 +988,7 @@ public abstract class AbstractModelSetTest {
 
 	@Test
 	public void testDeleteWithBlankNodes() {
+		this.modelset.removeAll();
 		BlankNode blankNode = this.modelset.createBlankNode();
 		assertFalse(this.modelset.containsStatements(a, blankNode, RDF.type,
 				RDF.Statement));
