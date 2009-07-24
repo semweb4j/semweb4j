@@ -48,7 +48,7 @@
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
 			<!--  require any version >= 4.6 -->
-			<version>4.7.0</version>
+			<version>4.7.2</version>
 		</dependency>
 
 		<!-- OSGi -->
@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<version>4.7.0</version>
+			<version>4.7.2</version>
 			<scope>test</scope>
 		</dependency>		
 	</dependencies>

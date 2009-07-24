@@ -330,8 +330,10 @@ public class ModelImplJena24 extends AbstractModel implements Model {
 
 	public void unlock() {
 		assertModel();
-		this.jenaModel.leaveCriticalSection();
-		this.locked = false;
+		if (this.isLocked()) {
+			this.jenaModel.leaveCriticalSection();
+			this.locked = false;
+		}
 	}
 
 	@Override

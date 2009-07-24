@@ -27,25 +27,25 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.7.0</version>
+			<version>4.7.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<version>4.7.0</version>
+			<version>4.7.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame22</artifactId>
-			<version>4.7.0</version>
+			<artifactId>rdf2go.impl.sesame23</artifactId>
+			<version>4.7.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.7.0</version>
+			<version>4.7.2</version>
 		</dependency>
 
 		<!-- 

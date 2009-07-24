@@ -13,9 +13,6 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.openrdf.model.Resource;
 import org.openrdf.model.Value;
 import org.openrdf.model.ValueFactory;
@@ -23,6 +20,8 @@ import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.sail.memory.MemoryStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RepositoryModelTest extends AbstractModelTest {
 
@@ -90,6 +89,7 @@ public class RepositoryModelTest extends AbstractModelTest {
 		model.close();
 	}
 
+	@Override
 	@Test
 	public void testRemoveAll() throws Exception {
 		Repository repo = new SailRepository(new MemoryStore());
@@ -119,6 +119,8 @@ public class RepositoryModelTest extends AbstractModelTest {
 		assertEquals(2, modelSet.size());
 		assertEquals(2, model1.size());
 		assertEquals(0, model2.size());
+		model1.close();
+		model2.close();
 	}
 	// @Override
 	// public void testRdfsReasoning()

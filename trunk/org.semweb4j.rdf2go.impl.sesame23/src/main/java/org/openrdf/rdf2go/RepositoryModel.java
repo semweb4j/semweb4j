@@ -771,9 +771,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 
-	/* NOT YET IMPLEMENTED */
-	public boolean isIsomorphicWith(@SuppressWarnings("unused") Model other) {
-		throw new UnsupportedOperationException("Not yet implemented!");
+	public boolean isIsomorphicWith(Model other) {
+		ClosableIterator<Statement> it = other.iterator();
+		Diff diff = this.getDiff(it);
+		it.close();
+		Iterator<Statement> addIt = diff.getAdded().iterator();
+		Iterator<Statement> removeIt = diff.getAdded().iterator();
+		boolean result = !addIt.hasNext() && !removeIt.hasNext();
+		return result;
 	}
 
 	@Override

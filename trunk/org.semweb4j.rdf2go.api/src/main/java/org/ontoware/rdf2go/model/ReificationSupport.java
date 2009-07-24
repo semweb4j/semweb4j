@@ -18,8 +18,8 @@ import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Resource;
 
 /**
- * Support for reification, as defined in
- * {@link http://www.w3.org/TR/rdf-mt/#Reif}
+ * Support for reification, as defined in {@link http
+ * ://www.w3.org/TR/rdf-mt/#Reif}
  * 
  * @author voelkel
  * 
@@ -27,8 +27,8 @@ import org.ontoware.rdf2go.model.node.Resource;
 public interface ReificationSupport {
 
 	/**
-	 * A convenience function for addReficationOf( createBlankNode(),
-	 * statement );
+	 * A convenience function for addReficationOf( createBlankNode(), statement
+	 * );
 	 * 
 	 * @param statement
 	 * @return a new BlankNode which holds the reification of the given
@@ -43,8 +43,8 @@ public interface ReificationSupport {
 	 * triples like (resource )rdf:subject s; rdf:predicate p; rdf:object o.
 	 * Where s,p, and o are taken from the given statement.
 	 * 
-	 * Adds the following statements, as defined in
-	 * {@link http://www.w3.org/TR/rdf-mt/#Reif}
+	 * Adds the following statements, as defined in {@link http
+	 * ://www.w3.org/TR/rdf-mt/#Reif}
 	 * 
 	 * <code><pre>
 	 * (resource) rdf:type       rdf:Statement .
@@ -68,9 +68,12 @@ public interface ReificationSupport {
 	 * (reificationResource) rdf:subject   * .
 	 * (reificationResource) rdf:predicate * .
 	 * (reificationResource) rdf:object    * .
-	 * </pre></code>
-	 * Note that one resource might have been used in several reifications.
-	 * Although semantic nonsense, this can happen. This method cleans up also these cases.
+	 * </pre></code> Note that one resource might have been used in several
+	 * reifications. Although semantic nonsense, this can happen. This method
+	 * cleans up also these cases.
+	 * 
+	 * Note that this method deletes the reification <em>from all contexts</em>.
+	 * 
 	 * @param reificationResource
 	 */
 	void deleteReification(Resource reificationResource);
@@ -84,8 +87,7 @@ public interface ReificationSupport {
 
 	/**
 	 * @param stmt
-	 * @return true if the model contains results to the query
-	 * <code><pre>
+	 * @return true if the model contains results to the query <code><pre>
 	 * ?reificationResource rdf:type      rdf:Statement . 
 	 * ?reificationResource rdf:subject   ?s .
 	 * ?reificationResource rdf:predicate ?p .
