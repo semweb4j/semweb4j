@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.4</version>
+		<version>2009.07.231</version>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
@@ -43,13 +43,13 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.7.0</version>
+			<version>4.7.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame22</artifactId>
-			<version>4.7.1</version>
+			<artifactId>rdf2go.impl.sesame23</artifactId>
+			<version>4.7.2</version>
 			<scope>test</scope>
 		</dependency>
 
