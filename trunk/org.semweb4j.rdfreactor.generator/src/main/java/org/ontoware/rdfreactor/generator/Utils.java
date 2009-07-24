@@ -22,17 +22,17 @@ public class Utils {
 	 * Generate a unique URI for a BlankNode and put the BlankNode/URI pair into
 	 * the given map.
 	 * 
-	 * @param blankNode -
-	 *            generate a URI for this BlankNode
-	 * @param replacement -
-	 *            Map of BlankNode/URI pairs
+	 * @param blankNode
+	 *            - generate a URI for this BlankNode
+	 * @param replacement
+	 *            - Map of BlankNode/URI pairs
 	 * @return URI generated for the BlankNode
 	 */
 	public static URI toURI(BlankNode blankNode,
 			Map<BlankNode, URI> replacement, long counter) {
 		URI result = replacement.get(blankNode);
 		if (result == null)
-			result = new URIImpl("blank://" + counter++);
+			result = new URIImpl("blank://" + (counter + 1));
 		// TODO BlankNode identity might be too weak
 		replacement.put(blankNode, result);
 		return result;
@@ -42,8 +42,8 @@ public class Utils {
 	 * Remove all Statements with BlankNodes as Subjects or Objects from the
 	 * given RDF2Go model.
 	 * 
-	 * @param m -
-	 *            de-anonymise this model
+	 * @param m
+	 *            - de-anonymise this model
 	 * @throws Exception
 	 */
 	public static void deanonymize(Model m) {
