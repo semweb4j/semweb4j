@@ -54,6 +54,7 @@ public class URIImpl extends ResourceImpl implements URI {
 
 	/**
 	 * This method is deprecated. Just use new URIImpl(uriString) instead.
+	 * 
 	 * @deprecated use the constructors instead
 	 * @param uriString
 	 * @return a URI
@@ -65,13 +66,14 @@ public class URIImpl extends ResourceImpl implements URI {
 
 	/**
 	 * This method is deprecated. Just use new URIImpl(uriString,false) instead.
+	 * 
 	 * @deprecated use the constructors instead
 	 * @param uriString
 	 * @return a URI
 	 */
 	@Deprecated
 	public static URI createURIWithoutChecking(String uriString) {
-		return new URIImpl(uriString,false);
+		return new URIImpl(uriString, false);
 	}
 
 	@Override
@@ -92,9 +94,11 @@ public class URIImpl extends ResourceImpl implements URI {
 		if (other == null)
 			return false;
 		if (other instanceof URI) {
-			boolean equal = ((URI) other).toString().equals(this.toString());
+			boolean equal = this == other
+					|| ((URI) other).toString().equals(this.toString());
 			return equal;
-		} else return false;
+		} else
+			return false;
 	}
 
 	public java.net.URI toJavaURI() throws URISyntaxException {
@@ -121,7 +125,7 @@ public class URIImpl extends ResourceImpl implements URI {
 
 	public java.net.URI asJavaURI() {
 		try {
-			return new java.net.URI( toString() );
+			return new java.net.URI(toString());
 		} catch (URISyntaxException e) {
 			throw new ModelRuntimeException(e);
 		}
