@@ -11,7 +11,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.test</artifactId>
-	<version>4.5.4-SNAPSHOT</version>
+	<version>4.7.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>RDF2Go Integration Tests</name>
@@ -45,23 +45,19 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.5.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.base</artifactId>
-			<version>4.5.3</version>
+			<version>4.7.0</version>
 		</dependency>
 
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.0</version>
 		</dependency>
 
 		<dependency>
@@ -70,17 +66,29 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.openrdf</groupId>
-			<artifactId>openrdf-rdf2go</artifactId>
-			<version>4.5.2-SNAPSHOT</version>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.sesame22</artifactId>
+			<version>4.7.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.5.4-SNAPSHOT</version>
+			<version>4.7.0</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdfreactor.runtime</artifactId>
+			<version>4.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
 
 	</dependencies>
 
