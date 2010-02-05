@@ -30,7 +30,7 @@
 		<breadcrumbs>
 			<item name="Semweb4j" href="../semweb4j/index.html" />
 			<item name="RDF2Go" href="../rdf2go/index.html" />
-			<item name="RDF2Go Impl.Sesame20" href="../rdf2go.impl.sesame20/index.html" />			
+			<item name="RDF2Go impl.sesame23" href="../rdf2go.impl.sesame23/index.html" />			
 		</breadcrumbs>
 
 		<!-- the links are inherited from the parent -->
