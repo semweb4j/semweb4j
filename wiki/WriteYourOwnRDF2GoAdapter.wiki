@@ -4,10 +4,10 @@
 First you need to decide if you want to implement only a triple store adapter  or a quad store adapter. 
 
 A triple store in RDF2Go is a _Model_ (s,p,o), a quad store is a _ModelSet_ (c,s,p,o). 
-* c - context URI
-* s - subject URI or blank node
-* p - property URI
-* o - object URI, blank node or literal
+  * c - context URI
+  * s - subject URI or blank node
+  * p - property URI
+  * o - object URI, blank node or literal
 
 A ModelSet always has tha ability to be used as a set of named models (c -> s, p, o).
 
