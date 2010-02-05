@@ -1,0 +1,4 @@
+#summary RDF2Go
+#labels rdf2go
+
+<wiki:gadget url="http://www.ohloh.net/p/220078/widgets/project_users.xml?style=blue" height="100" border="0"/>
