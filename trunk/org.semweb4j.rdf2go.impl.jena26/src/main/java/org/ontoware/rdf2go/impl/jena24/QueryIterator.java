@@ -5,8 +5,6 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.impl.QueryRowImpl;
 
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
 public class QueryIterator implements ClosableIterator<QueryRow> {
