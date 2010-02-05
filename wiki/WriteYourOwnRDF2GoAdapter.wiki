@@ -1,0 +1,20 @@
+#summary How to write a RDF2GO adapter for your triplestore
+#labels rdf2go,Phase-Implementation,Featured
+
+First you need to decide if you want to implement only a triple store adapter  or a quad store adapter. 
+
+A triple store in RDF2Go is a _Model_ (s,p,o), a quad store is a _ModelSet_ (c,s,p,o). 
+* c - context URI
+* s - subject URI or blank node
+* p - property URI
+* o - object URI, blank node or literal
+
+A ModelSet always has tha ability to be used as a set of named models (c -> s, p, o).
+
+=== Walk-through of Sesame 2.3.1 Implementation ===
+
+You need to extend AbstractModel and implement the abstract methods.
+
+Second, you need a _[http://code.google.com/p/semweb4j/source/browse/trunk/org.semweb4j.rdf2go.impl.sesame23/src/main/java/org/ontoware/rdf2go/impl/StaticBinding.java StaticBinding]_ to register your implementation. This allows the _RDF2Go_ class to create models based on your adapter.
+
+The _[http://code.google.com/p/semweb4j/source/browse/trunk/org.semweb4j.rdf2go.impl.sesame23/src/main/java/org/openrdf/rdf2go/RepositoryModel.java RepositoryModel]_ of the Sesame/OpenRDF 2.3.1 adapter is less than 900 lines long and in production use. 
