@@ -15,6 +15,6 @@ A ModelSet always has tha ability to be used as a set of named models (c -> s, p
 
 You need to extend AbstractModel and implement the abstract methods.
 
-Second, you need a _[http://code.google.com/p/semweb4j/source/browse/trunk/org.semweb4j.rdf2go.impl.sesame23/src/main/java/org/ontoware/rdf2go/impl/StaticBinding.java StaticBinding]_ to register your implementation. This allows the _RDF2Go_ class to create models based on your adapter.
+Second, you need a _[StaticBinding]_ [http://code.google.com/p/semweb4j/source/browse/trunk/org.semweb4j.rdf2go.impl.sesame23/src/main/java/org/ontoware/rdf2go/impl/StaticBinding.java (see SVN)] to register your implementation. This allows the _RDF2Go_ class to create models based on your adapter.
 
-The _[http://code.google.com/p/semweb4j/source/browse/trunk/org.semweb4j.rdf2go.impl.sesame23/src/main/java/org/openrdf/rdf2go/RepositoryModel.java RepositoryModel]_ of the Sesame/OpenRDF 2.3.1 adapter is less than 900 lines long and in production use. 
+The _RepositoryModel_ [http://code.google.com/p/semweb4j/source/browse/trunk/org.semweb4j.rdf2go.impl.sesame23/src/main/java/org/openrdf/rdf2go/RepositoryModel.java (see SVN)] of the Sesame/OpenRDF 2.3.1 adapter is less than 900 lines long and in production use. 
