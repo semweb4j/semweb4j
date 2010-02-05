@@ -1,13 +1,12 @@
 /**
  * LICENSE INFORMATION
  * 
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2008
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2008
  * 
- * Further project information at http://semanticweb.org/wiki/RDF2Go 
+ * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
 package org.ontoware.rdf2go.util.transform;
@@ -24,22 +23,22 @@ import org.ontoware.rdf2go.model.node.Resource;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 
+
 /**
  * Replaces one prefix of all URIs with another prefix.
  * 
  * @author voelkel
  */
 public class NamespaceSearchReplaceRule implements TransformerRule {
-
+	
 	private String searchURIPrefix, replaceURIPrefix;
-
-	public NamespaceSearchReplaceRule(String searchURIPrefix,
-			String replaceURIPrefix) {
+	
+	public NamespaceSearchReplaceRule(String searchURIPrefix, String replaceURIPrefix) {
 		super();
 		this.searchURIPrefix = searchURIPrefix;
 		this.replaceURIPrefix = replaceURIPrefix;
 	}
-
+	
 	/*
 	 * Namespace-map is ignored for this rule (non-Javadoc)
 	 * 
@@ -47,50 +46,43 @@ public class NamespaceSearchReplaceRule implements TransformerRule {
 	 * org.ontoware.rdf2go.util.transform.TransformerRule#applyRule(org.ontoware
 	 * .rdf2go.model.Model, java.util.Map)
 	 */
-	public void applyRule(Model model,
-			@SuppressWarnings("unused") Map<String, URI> namespaceMap) {
+	public void applyRule(Model model, Map<String,URI> namespaceMap) {
 		searchAndReplace(model, this.searchURIPrefix, this.replaceURIPrefix);
 	}
-
-	public static void searchAndReplace(Model model, String searchURIPrefix,
-			String replaceURIPrefix) {
+	
+	public static void searchAndReplace(Model model, String searchURIPrefix, String replaceURIPrefix) {
 		Model add = RDF2Go.getModelFactory().createModel();
 		add.open();
-
+		
 		Model remove = RDF2Go.getModelFactory().createModel();
 		remove.open();
-
+		
 		ClosableIterator<Statement> it = model.iterator();
-		while (it.hasNext()) {
+		while(it.hasNext()) {
 			Statement stmt = it.next();
 			Resource s = stmt.getSubject();
 			URI p = stmt.getPredicate();
 			Node o = stmt.getObject();
-
+			
 			boolean match = false;
-			if (s instanceof URI
-					&& s.asURI().toString().startsWith(searchURIPrefix)) {
+			if(s instanceof URI && s.asURI().toString().startsWith(searchURIPrefix)) {
 				match = true;
-				String sURI = s.asURI().toString().replace(searchURIPrefix,
-						replaceURIPrefix);
+				String sURI = s.asURI().toString().replace(searchURIPrefix, replaceURIPrefix);
 				s = new URIImpl(sURI);
 			}
-			if (p.toString().startsWith(searchURIPrefix)) {
+			if(p.toString().startsWith(searchURIPrefix)) {
 				match = true;
-				String pURI = p.toString().replace(searchURIPrefix,
-						replaceURIPrefix);
+				String pURI = p.toString().replace(searchURIPrefix, replaceURIPrefix);
 				p = new URIImpl(pURI);
-
+				
 			}
-			if (o instanceof URI
-					&& o.asURI().toString().startsWith(searchURIPrefix)) {
+			if(o instanceof URI && o.asURI().toString().startsWith(searchURIPrefix)) {
 				match = true;
-				String oURI = o.asURI().toString().replace(searchURIPrefix,
-						replaceURIPrefix);
+				String oURI = o.asURI().toString().replace(searchURIPrefix, replaceURIPrefix);
 				o = new URIImpl(oURI);
 			}
-
-			if (match) {
+			
+			if(match) {
 				remove.addStatement(stmt);
 				add.addStatement(s, p, o);
 			}
@@ -104,5 +96,5 @@ public class NamespaceSearchReplaceRule implements TransformerRule {
 		add.close();
 		remove.close();
 	}
-
+	
 }
