@@ -1,5 +1,9 @@
-#summary RDF2Go
+#summary RDF2Go is a Java abstraction layer for RDF triple and quad stores
 #labels rdf2go
+
+Stats:
+<wiki:gadget url="http://www.ohloh.net/p/220078/widgets/project_partner_badge.xml" height="53" border="0"/>
+<wiki:gadget url="http://www.ohloh.net/p/220078/widgets/project_basic_stats.xml" height="220" border="1"/>
 
 Are you using RDF2Go? Click on "I use it" and let the world know.
 <wiki:gadget url="http://www.ohloh.net/p/220078/widgets/project_users.xml?style=blue" height="100" border="0"/>
