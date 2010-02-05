@@ -179,6 +179,7 @@
 				</configuration>
 			</plugin>
 
+			<!--  Usage: "mvn license:format" -->
 			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
