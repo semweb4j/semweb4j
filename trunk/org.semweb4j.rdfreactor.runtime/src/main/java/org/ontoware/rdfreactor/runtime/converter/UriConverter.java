@@ -11,44 +11,42 @@ import org.ontoware.rdf2go.vocabulary.XSD;
 import org.ontoware.rdfreactor.runtime.INodeConverter;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
 
+
 public class UriConverter implements INodeConverter<URI> {
-
+	
 	public URI toJava(Node node) {
-
-		if (node == null)
+		
+		if(node == null)
 			return null;
-
-		if (node instanceof URI) {
+		
+		if(node instanceof URI) {
 			return node.asURI();
 		}
-
-		if (node instanceof PlainLiteral) {
+		
+		if(node instanceof PlainLiteral) {
 			return new URIImpl(node.asLiteral().getValue());
 		}
-
-		if (node instanceof LanguageTagLiteral) {
+		
+		if(node instanceof LanguageTagLiteral) {
 			throw new RDFDataException(
-					"Cannot convert a language tagged literal to a URI - it makes no sense");
+			        "Cannot convert a language tagged literal to a URI - it makes no sense");
 		}
-
-		if (node instanceof DatatypeLiteral) {
+		
+		if(node instanceof DatatypeLiteral) {
 			URI datatype = node.asDatatypeLiteral().getDatatype();
-			if (datatype.equals(XSD._anyURI)) {
+			if(datatype.equals(XSD._anyURI)) {
 				return new URIImpl(node.asDatatypeLiteral().getValue());
 			} else {
-				throw new RDFDataException("Cannot convert from datatype "
-						+ datatype + " to URI");
+				throw new RDFDataException("Cannot convert from datatype " + datatype + " to URI");
 			}
 		}
-
-		throw new RDFDataException("Cannot convert from " + node.getClass()
-				+ " to URI");
-
+		
+		throw new RDFDataException("Cannot convert from " + node.getClass() + " to URI");
+		
 	}
-
-	public Node toNode(@SuppressWarnings("unused")
-	Model model, Object javaValue) {
-		return (URI) javaValue;
+	
+	public Node toNode(Model model, Object javaValue) {
+		return (URI)javaValue;
 	}
-
+	
 }

@@ -10,8 +10,7 @@ public class NodeConverter implements INodeConverter<Node> {
 		return node;
 	}
 
-	public Node toNode(@SuppressWarnings("unused")
-	Model model, Object javaValue) {
+	public Node toNode(Model model, Object javaValue) {
 		return (Node) javaValue;
 	}
 
