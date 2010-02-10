@@ -344,7 +344,6 @@ public class ReactorBaseImpl implements ReactorBase {
 	 * @return true if .this is an instance of the given Java Class in the model
 	 * @deprecated
 	 */
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public boolean isInstanceof(Class<?> javaClass) throws ModelRuntimeException {
 		return (isInstanceof(getClassURI(javaClass)));
@@ -666,7 +665,7 @@ public class ReactorBaseImpl implements ReactorBase {
 	}
 
 	// TODO implement boolean in(Model)
-	public boolean in(@SuppressWarnings("unused")
+	public boolean in(
 	Model model) {
 		throw new UnsupportedOperationException("not yet implemented");
 
