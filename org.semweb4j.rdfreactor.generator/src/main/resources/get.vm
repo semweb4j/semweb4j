@@ -49,7 +49,7 @@
 #debug("get0has-value-static")
      */
 	public static boolean has${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value ) {
-		return Base.hasValue(model, instanceResource, #uppercase($prop.name));
+		return Base.hasValue(model, instanceResource, #uppercase($prop.name), value);
 	}
 
     /**
@@ -60,7 +60,7 @@
 #debug("get0has-value-dynamic")
      */
 	public boolean has${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value ) {
-		return Base.hasValue(this.model, this.getResource(), #uppercase($prop.name));
+		return Base.hasValue(this.model, this.getResource(), #uppercase($prop.name), value);
 	}
 
 ##     -----------------------------------------------------------------------

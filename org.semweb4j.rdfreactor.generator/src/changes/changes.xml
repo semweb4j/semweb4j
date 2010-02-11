@@ -5,6 +5,21 @@
 	</properties>
 	<body>
 
+		<release version="4.7.3" description="Maintenance release"
+			date="2010-02-11">
+			<action dev="xamde" type="update">
+				Upgrade to RDF2Go 4.7.3.
+			</action>
+			<action type="fix" issue="REAC-32" dev="xamde">
+				Fixed hasX(model,resource,value) - was ignoring the value
+			</action>
+			
+			<action type="remove" dev="xamde">
+				Removed @SuppressWarnings, as Eclipse now complains about these unnecessary SuppressWarnings.
+			</action>
+		</release>
+
+
 		<release version="4.7.0" description="Maintenance release"
 			date="2009-01-16">
 			<action dev="xamde" type="update">
