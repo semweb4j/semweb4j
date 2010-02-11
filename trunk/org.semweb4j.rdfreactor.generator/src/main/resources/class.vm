@@ -63,12 +63,11 @@ public class $class.name extends $class.superclass {
 ##    |  URI constants for properties
 ##
     /** $class.mappedTo */
-    @SuppressWarnings("hiding")
+	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("$class.mappedTo", false);
 #foreach( $prop in $class.properties )
 
     /** $prop.mappedTo */
-    @SuppressWarnings("hiding")
 	public static final URI #uppercase( $prop.name ) = new URIImpl("$prop.mappedTo",false);
 #end## foreach( $prop in $class.properties )
 
@@ -76,7 +75,7 @@ public class $class.name extends $class.superclass {
      * All property-URIs with this class as domain.
      * All properties of all super-classes are also available. 
      */
-    @SuppressWarnings("hiding")
+	@SuppressWarnings("hiding")
     public static final URI[] MANAGED_URIS = {
 #foreach( $prop in $class.properties )
       new URIImpl("$prop.mappedTo",false)#if (${velocityCount} < $class.properties.size()),
