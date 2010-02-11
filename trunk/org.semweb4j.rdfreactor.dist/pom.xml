@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.dist</artifactId>
-	<version>4.7.3-SNAPSHOT</version>
+	<version>4.7.3</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDFReactor distribution</name>
@@ -25,13 +25,13 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.generator</artifactId>
-			<version>4.7.2</version>
+			<version>4.7.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.7.2</version>
+			<version>4.7.3</version>
 		</dependency>
 	</dependencies>
 
