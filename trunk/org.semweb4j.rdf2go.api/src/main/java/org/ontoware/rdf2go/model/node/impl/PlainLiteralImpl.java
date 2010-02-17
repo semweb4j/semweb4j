@@ -19,6 +19,10 @@ import org.ontoware.rdf2go.model.node.PlainLiteral;
 
 public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -9217019607745519710L;
 	private String value;
 
 	public PlainLiteralImpl(String value) {

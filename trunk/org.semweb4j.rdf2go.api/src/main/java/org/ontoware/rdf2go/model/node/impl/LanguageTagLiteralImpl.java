@@ -19,6 +19,11 @@ import org.ontoware.rdf2go.model.node.Node;
 public class LanguageTagLiteralImpl extends LiteralImpl implements
 		LanguageTagLiteral {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 2183810366150271250L;
+
 	private String languageTag;
 
 	private String literalValue;

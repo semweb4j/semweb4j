@@ -21,6 +21,10 @@ import org.ontoware.rdf2go.model.node.URI;
 
 public class URIImpl extends ResourceImpl implements URI {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -73757322163415742L;
 	private String uriString;
 
 	/**
