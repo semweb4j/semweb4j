@@ -22,6 +22,11 @@ import org.ontoware.rdf2go.model.node.Resource;
 
 public abstract class ResourceImpl implements Resource {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -2823155956202460052L;
+
 	@Override
 	public abstract boolean equals( Object other );
 	

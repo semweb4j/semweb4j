@@ -26,6 +26,11 @@ import org.ontoware.rdf2go.vocabulary.XSD;
  */
 public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -356372147459786438L;
+
 	// imagine them as final
 	private URI datatype;
 

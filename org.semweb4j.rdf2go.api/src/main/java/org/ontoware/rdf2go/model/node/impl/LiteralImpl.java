@@ -24,6 +24,11 @@ import org.ontoware.rdf2go.model.node.URI;
  */
 public abstract class LiteralImpl implements Literal {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -4860142603655339470L;
+
 	public abstract String getValue(); 
 
 	public Resource asResource() throws ClassCastException {
