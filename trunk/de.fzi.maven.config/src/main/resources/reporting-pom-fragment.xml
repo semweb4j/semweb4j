@@ -1,0 +1,5 @@
+<!-- 
+Use via 
+
+ -->
+<!ENTITY chap1 SYSTEM "mydocs/chapter1.xml">
