@@ -175,6 +175,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private class OpenRDFQuadPattern implements QuadPattern {
 		
+		/**
+         * 
+         */
+        private static final long serialVersionUID = -2397218722246644188L;
+
 		private UriOrVariable context;
 		
 		private NodeOrVariable object;

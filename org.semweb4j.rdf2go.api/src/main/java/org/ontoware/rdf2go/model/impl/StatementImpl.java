@@ -26,6 +26,11 @@ import org.ontoware.rdf2go.model.node.URI;
 
 public class StatementImpl extends AbstractStatement implements Statement {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 533033017623140349L;
+
 	protected Resource subject;
 
 	protected URI predicate;
