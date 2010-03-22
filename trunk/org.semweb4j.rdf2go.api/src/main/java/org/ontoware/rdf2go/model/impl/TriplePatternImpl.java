@@ -31,6 +31,11 @@ import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
  */
 public class TriplePatternImpl implements TriplePattern {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 7880656889564700726L;
+
 	public enum SPO {
 		SUBJECT, PREDICATE, OBJECT
 	}

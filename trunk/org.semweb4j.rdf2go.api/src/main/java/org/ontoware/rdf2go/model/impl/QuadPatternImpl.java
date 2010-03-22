@@ -26,6 +26,10 @@ import org.ontoware.rdf2go.model.node.Variable;
  */
 public class QuadPatternImpl extends TriplePatternImpl implements QuadPattern {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -4492270855601646699L;
 	private UriOrVariable context;
 
 	public QuadPatternImpl(UriOrVariable context, ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object) {
