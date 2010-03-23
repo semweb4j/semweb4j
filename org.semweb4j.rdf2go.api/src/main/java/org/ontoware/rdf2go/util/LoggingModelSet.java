@@ -57,6 +57,11 @@ import org.slf4j.LoggerFactory;
  */
 public class LoggingModelSet implements ModelSet {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -5697227201151338229L;
+
 	private static Logger log = LoggerFactory.getLogger(LoggingModelSet.class);
 
 	ModelSet modelset;

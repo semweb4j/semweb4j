@@ -50,6 +50,10 @@ import org.ontoware.rdf2go.model.node.UriOrVariable;
 public class DelegatingModelSet extends AbstractModelSetImpl implements
 		ModelSet {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -253433238968437407L;
 	protected ModelSet baseModelSet;
 
 	public DelegatingModelSet(ModelSet baseModelSet) {

@@ -40,6 +40,11 @@ import org.ontoware.rdf2go.model.node.Variable;
 public class NotifyingModelSetLayer extends DelegatingModelSet implements
 		NotifyingModelSet {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 5673118697010013053L;
+
 	public NotifyingModelSetLayer(ModelSet modelset) {
 		super(modelset);
 	}

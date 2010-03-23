@@ -29,6 +29,11 @@ import org.ontoware.rdf2go.model.node.UriOrVariable;
 public abstract class AbstractModelRemovePatterns extends
 		AbstractModelAddRemove implements ModelRemovePatterns {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 6919483551303893410L;
+
 	public void removeStatements(TriplePattern triplePattern)
 			throws ModelRuntimeException {
 		ModelAddRemoveMemoryImpl toBeRemoved = new ModelAddRemoveMemoryImpl();
