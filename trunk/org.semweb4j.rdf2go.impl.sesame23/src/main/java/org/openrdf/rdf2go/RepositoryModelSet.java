@@ -75,6 +75,11 @@ import org.slf4j.LoggerFactory;
  */
 public class RepositoryModelSet extends AbstractModelSetImpl {
 	
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 202502559337092796L;
+
 	private static class ContextIterator implements ClosableIterator<URI> {
 		
 		private RepositoryResult<org.openrdf.model.Resource> idIterator;

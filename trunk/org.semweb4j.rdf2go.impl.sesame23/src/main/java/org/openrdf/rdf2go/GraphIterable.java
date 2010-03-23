@@ -13,6 +13,11 @@ import org.openrdf.query.GraphQueryResult;
 
 public class GraphIterable implements ClosableIterable<Statement> {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -4676097526635602838L;
+
 	private RepositoryModel model;
 
 	private GraphQueryResult queryResult;

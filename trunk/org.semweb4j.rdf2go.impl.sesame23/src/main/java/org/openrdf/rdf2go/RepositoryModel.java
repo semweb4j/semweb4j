@@ -73,6 +73,11 @@ import org.slf4j.LoggerFactory;
  */
 public class RepositoryModel extends AbstractLockingModel implements Model {
 	
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1466969214320765429L;
+
 	private static Logger log = LoggerFactory.getLogger(RepositoryModel.class);
 	
 	public static final String DEFAULT_CONTEXT = "urn:nullcontext";

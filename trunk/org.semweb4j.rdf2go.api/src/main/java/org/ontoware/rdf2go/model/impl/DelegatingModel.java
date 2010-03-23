@@ -51,6 +51,11 @@ import org.slf4j.LoggerFactory;
  */
 public class DelegatingModel extends AbstractModel implements Model {
 	
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 8030119548548555034L;
+
 	private static final Logger log = LoggerFactory.getLogger(DelegatingModel.class);
 	
 	private Model delegatedModel;

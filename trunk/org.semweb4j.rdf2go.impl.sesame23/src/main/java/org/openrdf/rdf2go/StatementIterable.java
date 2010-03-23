@@ -19,6 +19,11 @@ import org.openrdf.OpenRDFException;
  */
 public class StatementIterable implements ClosableIterable<Statement> {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -8172286299886107501L;
+
 	private final CloseableIteration<? extends org.openrdf.model.Statement, ? extends OpenRDFException> cit;
 
 	private RepositoryModel model;

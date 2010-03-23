@@ -28,6 +28,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class DirtyAbstractModel extends AbstractModel {
 	
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 8123833377499881371L;
 	private static Logger log = LoggerFactory.getLogger(DirtyAbstractModel.class);
 	
 	/**

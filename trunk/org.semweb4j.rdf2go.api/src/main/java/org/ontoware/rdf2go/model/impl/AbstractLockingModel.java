@@ -27,6 +27,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractLockingModel extends AbstractModel implements Model {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 5478109218581755289L;
 	@SuppressWarnings("unused")
 	private static Logger log = LoggerFactory.getLogger(AbstractLockingModel.class);
 

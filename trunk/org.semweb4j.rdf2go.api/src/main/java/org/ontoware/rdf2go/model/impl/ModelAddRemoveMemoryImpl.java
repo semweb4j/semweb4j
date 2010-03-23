@@ -28,6 +28,10 @@ import org.ontoware.rdf2go.model.node.URI;
 
 public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements ModelAddRemove {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 7704116494068276793L;
 	protected Set<Statement> set = new HashSet<Statement>();
 
 	@Override

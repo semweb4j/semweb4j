@@ -54,6 +54,11 @@ import org.ontoware.rdf2go.vocabulary.RDF;
 
 public abstract class AbstractModelSetImpl implements ModelSet {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -1495547890343668419L;
+
 	public void dump() {
 		Iterator<? extends Model> it = getModels();
 		while (it.hasNext()) {

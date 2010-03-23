@@ -34,6 +34,11 @@ import org.slf4j.LoggerFactory;
 
 public class DiffImpl extends AbstractModelAddRemove implements Diff {
 	
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -8901163929521106031L;
+
 	private static final Logger log = LoggerFactory.getLogger(DiffImpl.class);
 	
 	private Set<Statement> addedSet;

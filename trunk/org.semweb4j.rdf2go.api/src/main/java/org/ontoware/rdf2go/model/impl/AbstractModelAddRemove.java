@@ -41,6 +41,10 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractModelAddRemove extends AbstractModelWriter
 		implements ModelAddRemove {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -8108651111897609624L;
 	@SuppressWarnings("unused")
 	private static Logger log = LoggerFactory
 			.getLogger(AbstractModelAddRemove.class);
