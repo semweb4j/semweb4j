@@ -8,11 +8,11 @@
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
-	<artifactId>rdf2go.impl.jena24</artifactId>
+	<artifactId>rdf2go.impl.jena26</artifactId>
 	<version>4.7.3</version>
-	<name>rdf2go.impl.jena24</name>
+	<name>rdf2go.impl.jena26</name>
 	<description>
-		An implementation of the RDF2Go API which delegates to Jena 2.4
+		An implementation of the RDF2Go API which delegates to Jena 2.6
 	</description>
 
 	<developers>
