@@ -7,7 +7,8 @@
 
 		<release version="4.7.0" description="Bug fixes">
 			<action dev="xamde" type="fix" issue="RTGO-62">
-				Added support for custom query
+				Added support for custom
+				query
 				languages in querySelect and queryConstruct
 			</action>
 		</release>
