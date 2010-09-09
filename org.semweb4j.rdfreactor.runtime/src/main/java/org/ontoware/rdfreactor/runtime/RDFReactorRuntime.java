@@ -27,21 +27,31 @@ import org.ontoware.rdfreactor.runtime.converter.UrlConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * A central class providing static type conversion functions. The set of
+ * registered converters is extensible.
+ * 
+ * @author voelkel
+ * 
+ */
 public class RDFReactorRuntime {
-
+	
 	static Logger log = LoggerFactory.getLogger(RDFReactorRuntime.class);
-
-	private static Map<Class<?>, INodeConverter<?>> map = new HashMap<Class<?>, INodeConverter<?>>();
-
+	
+	/*
+	 * Map from java types to convertes that can handle this type and convert it
+	 * to RDF2Go types.
+	 */
+	private static Map<Class<?>,INodeConverter<?>> converterMap = new HashMap<Class<?>,INodeConverter<?>>();
+	
 	static {
+		/* register converters */
 		// rdf2go types
-		registerConverter(org.ontoware.rdf2go.model.node.Node.class,
-				new NodeConverter());
-		registerConverter(org.ontoware.rdf2go.model.node.Resource.class,
-				new ResourceConverter());
-		registerConverter(org.ontoware.rdf2go.model.node.URI.class,
-				new UriConverter());
-
+		registerConverter(org.ontoware.rdf2go.model.node.Node.class, new NodeConverter());
+		registerConverter(org.ontoware.rdf2go.model.node.Resource.class, new ResourceConverter());
+		registerConverter(org.ontoware.rdf2go.model.node.URI.class, new UriConverter());
+		
 		// primitive data types
 		registerConverter(String.class, new StringConverter());
 		registerConverter(Boolean.class, new BooleanConverter());
@@ -55,44 +65,39 @@ public class RDFReactorRuntime {
 		registerConverter(java.net.URL.class, new UrlConverter());
 		registerConverter(java.util.Calendar.class, new CalendarConverter());
 	}
-
-	public static void registerConverter(Class<?> type,
-			INodeConverter<?> converter) {
-		map.put(type, converter);
+	
+	public static void registerConverter(Class<?> type, INodeConverter<?> converter) {
+		converterMap.put(type, converter);
 	}
-
+	
 	public static INodeConverter<?> getConverter(Class<?> type) {
-		return map.get(type);
+		return converterMap.get(type);
 	}
-
+	
 	// /////////////////////
 	// type conversion
-
+	
 	/**
 	 * Convert RDF entities to ReactorBaseNamed and primitive java values. This
 	 * is the main method for calling other converter methods.
 	 * 
-	 * @param model -
-	 *            the underlying RDF2Go model
-	 * @param n -
-	 *            convert this object. type may be: URI, BlankNode,
+	 * @param model - the underlying RDF2Go model
+	 * @param n - convert this object. type may be: URI, BlankNode,
 	 *            LanguageTagLiteral, DatatypeLiteral, String
-	 * @param returnType -
-	 *            n is converted to this type, if it implements the needed
-	 *            constructor
+	 * @param returnType - n is converted to this type, if it implements the
+	 *            needed constructor
 	 * @return a single object of returnType converted from n
 	 * @throws ModelRuntimeException
 	 */
 	@Patrolled
-	public static Object node2javatype(Model model, Node n,
-			java.lang.Class<?> returnType) throws ModelRuntimeException {
-		if (returnType.isArray())
+	public static Object node2javatype(Model model, Node n, java.lang.Class<?> returnType)
+	        throws ModelRuntimeException {
+		if(returnType.isArray())
 			// TODO call this method for each array member
 			throw new IllegalArgumentException("targetType may not be an array");
-
-		INodeConverter<?> nodeConverter = RDFReactorRuntime
-				.getConverter(returnType);
-		if (nodeConverter == null) {
+		
+		INodeConverter<?> nodeConverter = RDFReactorRuntime.getConverter(returnType);
+		if(nodeConverter == null) {
 			// // requested an RDFReactor generated subtype?
 			// if (ReflectionUtils.hasSuperClass(returnType, ReactorBase.class))
 			// {
@@ -106,152 +111,134 @@ public class RDFReactorRuntime {
 		} else {
 			return nodeConverter.toJava(n);
 		}
-
+		
 	}
-
+	
 	/**
 	 * Convert an RDF2Go resource to the target type, which must be a subclass
 	 * of ReactorBase.
 	 * 
-	 * @param model -
-	 *            the underlying RDF2Go model
-	 * @param node -
-	 *            convert this object, can be a URI or a BlankNode
-	 * @param targetType -
-	 *            used to find constructor for creating the returned object. has
-	 *            to implement the following constructor c: <br>
-	 *            o is URI: c(Model, URI, boolean) or c(Model, Object, boolean)
-	 *            <br>
-	 *            o is BlankNode: c(Model, BlankNode) or c(Model, BlankNode)
-	 *            <br>
+	 * @param model - the underlying RDF2Go model
+	 * @param node - convert this object, can be a URI or a BlankNode
+	 * @param targetType - used to find constructor for creating the returned
+	 *            object. has to implement the following constructor c: <br>
+	 *            o is URI: c(Model, URI, boolean) or c(Model, Object, boolean) <br>
+	 *            o is BlankNode: c(Model, BlankNode) or c(Model, BlankNode) <br>
 	 * @return object of the given target type with contents of given object
 	 */
-	public static Object resource2reactorbase(Model model, Node node,
-			Class<?> targetType) {
-		if (targetType.isArray())
+	public static Object resource2reactorbase(Model model, Node node, Class<?> targetType) {
+		if(targetType.isArray())
 			throw new IllegalArgumentException("targetType may not be an array");
-
-		if (node instanceof URI) {
+		
+		if(node instanceof URI) {
 			log.debug("URI node");
 			try {
-
+				
 				// // TODO: experimental
 				// URI classURI = (URI)
 				// targetType.getDeclaredField("RDFS_CLASS")
 				// .get(null);
-
+				
 				Constructor<?> constructor;
 				try {
-					constructor = targetType
-							.getConstructor(new java.lang.Class[] {
-									Model.class, URI.class, boolean.class });
-				} catch (NoSuchMethodException nsme) {
-					constructor = targetType
-							.getConstructor(new java.lang.Class[] {
-									Model.class, Resource.class, boolean.class });
+					constructor = targetType.getConstructor(new java.lang.Class[] { Model.class,
+					        URI.class, boolean.class });
+				} catch(NoSuchMethodException nsme) {
+					constructor = targetType.getConstructor(new java.lang.Class[] { Model.class,
+					        Resource.class, boolean.class });
 				}
-
-				return constructor.newInstance(new Object[] { model,
-						node, false });
-
-			} catch (ClassCastException cce) {
+				
+				return constructor.newInstance(new Object[] { model, node, false });
+				
+			} catch(ClassCastException cce) {
 				throw new RuntimeException(cce);
-			} catch (NoSuchMethodException nsme) {
+			} catch(NoSuchMethodException nsme) {
 				throw new RuntimeException("found no constructor " + targetType
-						+ "(Model, URI/Resource, boolean) " + nsme);
-			} catch (Exception e) {
+				        + "(Model, URI/Resource, boolean) " + nsme);
+			} catch(Exception e) {
 				throw new ConversionException(e);
 			}
-		} else if (node instanceof BlankNode) {
+		} else if(node instanceof BlankNode) {
 			log.debug("BlankNode node");
 			Constructor<?> constructor;
 			try {
 				try {
-					constructor = targetType
-							.getConstructor(new java.lang.Class[] {
-									Model.class, BlankNode.class, boolean.class });
-				} catch (NoSuchMethodException nsme) {
-					log.debug("Class " + targetType
-							+ " has no constructor for BlankNode");
-					constructor = targetType
-							.getConstructor(new java.lang.Class[] {
-									Model.class, Resource.class, boolean.class });
+					constructor = targetType.getConstructor(new java.lang.Class[] { Model.class,
+					        BlankNode.class, boolean.class });
+				} catch(NoSuchMethodException nsme) {
+					log.debug("Class " + targetType + " has no constructor for BlankNode");
+					constructor = targetType.getConstructor(new java.lang.Class[] { Model.class,
+					        Resource.class, boolean.class });
 				}
-				BlankNode bnode = (BlankNode) node;
-				return constructor.newInstance(new Object[] { model,
-						bnode, false });
-			} catch (ClassCastException cce) {
+				BlankNode bnode = (BlankNode)node;
+				return constructor.newInstance(new Object[] { model, bnode, false });
+			} catch(ClassCastException cce) {
 				throw new RuntimeException(cce);
-			} catch (NoSuchMethodException nsme) {
+			} catch(NoSuchMethodException nsme) {
 				throw new RuntimeException("found no constructor " + targetType
-						+ "(Model, BlankNode/Resource, boolean) " + nsme);
-			} catch (Exception e) {
+				        + "(Model, BlankNode/Resource, boolean) " + nsme);
+			} catch(Exception e) {
 				throw new ConversionException(e);
 			}
-
-		} else if (node == null) {
+			
+		} else if(node == null) {
 			return null;
 		} else {
-			throw new RuntimeException("cannot convert " + node + " of class <"
-					+ node.getClass() + "> from " + node
-					+ " and convert it to " + targetType);
+			throw new RuntimeException("cannot convert " + node + " of class <" + node.getClass()
+			        + "> from " + node + " and convert it to " + targetType);
 		}
-
+		
 	}
-
+	
 	/**
-	 * Work around a nasty issue in RepositoryModel: One cannot add a Resource to anything
-	 * It must either be a BlankNode OR a URI.
+	 * Work around a nasty issue in openrdf RepositoryModel: One cannot add a
+	 * generic Resource to anything It must specifically either be a BlankNode
+	 * OR a URI.
+	 * 
 	 * @param model
 	 * @param o
 	 * @return
 	 */
 	public static Resource genericResource2RDF2Goresource(Model model, Resource o) {
-		if (o instanceof ReactorRuntimeEntity) {
-			log
-					.debug("object is an instanceof ReactorBase, so will add as single resource");
+		if(o instanceof ReactorRuntimeEntity) {
+			log.debug("object is an instanceof ReactorBase, so will add as single resource");
 			// add as resource
-			Resource objectID = ((ReactorRuntimeEntity) o).getResource();
+			Resource objectID = ((ReactorRuntimeEntity)o).getResource();
 			return objectID;
 		} else {
 			return o;
 		}
 	}
-
+	
 	/**
 	 * @param model
 	 * @param reactorValue
 	 * @return a single RDF2Go Node from a Java object
 	 */
 	public static Node java2node(Model model, Object reactorValue) {
-		if (reactorValue == null) {
+		if(reactorValue == null) {
 			throw new IllegalArgumentException("Argument may not be null");
 		}
-
+		
 		// convert value to rdfnode
 		log.debug("value is instance of " + reactorValue.getClass().getName());
-		if (reactorValue instanceof ReactorRuntimeEntity) {
-			log
-					.debug("object is an instanceof ReactorBase, so will add as single resource");
+		if(reactorValue instanceof ReactorRuntimeEntity) {
+			log.debug("object is an instanceof ReactorBase, so will add as single resource");
 			// add as resource
-			Resource objectID = ((ReactorRuntimeEntity) reactorValue)
-					.getResource();
+			Resource objectID = ((ReactorRuntimeEntity)reactorValue).getResource();
 			return objectID;
 		} else {
-			for (Class<?> clazz : map.keySet()) {
-				log.debug("Can a " + reactorValue.getClass()
-						+ " be converted as " + clazz + " ?");
-				if (clazz.isInstance(reactorValue)) {
+			for(Class<?> clazz : converterMap.keySet()) {
+				log.debug("Can a " + reactorValue.getClass() + " be converted as " + clazz + " ?");
+				if(clazz.isInstance(reactorValue)) {
 					log.debug("Yes");
 					return getConverter(clazz).toNode(model, reactorValue);
 				}
 			}
 		}
-
-		throw new ConversionException(
-				"Cannot handle instances of "
-						+ reactorValue.getClass()
-						+ " which are neither instance of Reactorbase nor Reactorbase[]");
+		
+		throw new ConversionException("Cannot handle instances of " + reactorValue.getClass()
+		        + " which are neither instance of Reactorbase nor Reactorbase[]");
 	}
-
+	
 }

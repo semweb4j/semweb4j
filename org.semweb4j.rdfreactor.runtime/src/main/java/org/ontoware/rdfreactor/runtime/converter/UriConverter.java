@@ -1,8 +1,10 @@
 package org.ontoware.rdfreactor.runtime.converter;
 
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
+import org.ontoware.rdf2go.model.node.Literal;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.PlainLiteral;
 import org.ontoware.rdf2go.model.node.URI;
@@ -12,6 +14,16 @@ import org.ontoware.rdfreactor.runtime.INodeConverter;
 import org.ontoware.rdfreactor.runtime.RDFDataException;
 
 
+/**
+ * Converts an RDF2Go {@link Node} to an RDF2Go {@link URI}.
+ * 
+ * {@link Literal} is just turned into {@link URI}. {@link URI} remains
+ * {@link URI}, {@link LanguageTagLiteral} fails. {@link DatatypeLiteral} works
+ * only if type is xsd:anyURI. {@link BlankNode} fails. Null returns null.
+ * 
+ * @author voelkel
+ * 
+ */
 public class UriConverter implements INodeConverter<URI> {
 	
 	public URI toJava(Node node) {
