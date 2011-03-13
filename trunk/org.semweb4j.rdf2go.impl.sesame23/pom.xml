@@ -20,7 +20,8 @@
 	<packaging>jar</packaging>
 	<name>rdf2go.impl.sesame22</name>
 	<description>
-		RDF2Go driver for OpenRDF Sesame 2.3
+		RDF2Go driver for OpenRDF Sesame 2.3.
+		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
 	</description>
 	<url>http://rdf2go.semweb4j.org.org/</url>
 
@@ -161,10 +162,10 @@
 		<developer>
 			<id>xamde</id>
 			<name>Max Völkel (Max Voelkel)</name>
-			<email>dev@xam.de</email>
-			<url>http://xam.de</url>
-			<organization>FZI</organization>
-			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<email>opensource@maxvoelkel.de</email>
+			<url>http://maxvoelkel.de</url>
+			<organization>IT Consulting Dr. Max Völkel</organization>
+			<organizationUrl>http://www.maxvoelkel.de</organizationUrl>
 			<roles>
 				<role>Manager</role>
 				<role>Architect</role>
