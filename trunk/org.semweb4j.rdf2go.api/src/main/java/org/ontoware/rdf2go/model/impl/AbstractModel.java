@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -67,11 +66,8 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractModel extends AbstractModelRemovePatterns implements Model {
 	
-	/**
-     * 
-     */
-    private static final long serialVersionUID = -8779401783869682830L;
-
+	private static final long serialVersionUID = -8779401783869682830L;
+	
 	private static Logger log = LoggerFactory.getLogger(AbstractModel.class);
 	
 	/**
@@ -308,7 +304,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Note: This is a property of the model, not an RDF property
 	 * 
-	 * @param propertyURI
+	 * @param propertyURI used as a property name to get the model property
 	 * @return stored property value for this model or null
 	 */
 	public Object getProperty(URI propertyURI) {
@@ -405,8 +401,8 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * Throws an exception if the syntax is not RDF/XML. Sets base URI to the
 	 * empty string (default).
 	 * 
-	 * @throws IOException
-	 * @throws ModelRuntimeException
+	 * @throws IOException from reader
+	 * @throws ModelRuntimeException from model
 	 */
 	public void readFrom(Reader reader, Syntax syntax, String baseURI)
 	        throws ModelRuntimeException, IOException {
@@ -518,8 +514,8 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * available at runtime. This allows Model to serve as a central data model
 	 * in larger applications (like SemVersion.ontoware.org)
 	 * 
-	 * @param propertyURI
-	 * @param value
+	 * @param propertyURI used as a parameter name for storing a model property
+	 * @param value any java object. Only stored in memory, not in RDF.
 	 */
 	public void setProperty(URI propertyURI, Object value) {
 		this.runtimeProperties.put(propertyURI, value);

@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -34,6 +33,7 @@ import org.ontoware.rdf2go.vocabulary.OWL;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
 
+
 /**
  * reads an RDF/S file and creates an RDF2Go Vocabulary file from it.
  * 
@@ -56,89 +56,88 @@ import org.ontoware.rdf2go.vocabulary.RDFS;
  * 
  * 
  *  @author sauermann
- *  $Id: VocabularyWriter.java,v 1.14 2007/02/20 09:13:33 leo_sauermann Exp $
+ * $Id: VocabularyWriter.java,v 1.14 2007/02/20 09:13:33 leo_sauermann Exp $
  * 
  */
 public class VocabularyWriter {
-
+	
 	String inputRdf = null;
-
+	
 	String outputDirName = null;
-
+	
 	String outputFileName = null;
-
+	
 	String ns = null;
-
+	
 	String packageName = null;
-
+	
 	Model model = null;
-
+	
 	// output stream
 	PrintStream outP;
-
+	
 	// transform variables
 	File inputRdfFile;
-
+	
 	File outputDirFile;
-
+	
 	File outputFile;
-
+	
 	boolean namespacestrict = false;
-
+	
 	// avoid duplicates
-	HashMap<String, String> uriToLocalName = new HashMap<String, String>();
-
+	HashMap<String,String> uriToLocalName = new HashMap<String,String>();
+	
 	public VocabularyWriter() {
 		super();
 	}
-
+	
 	public void go(String[] args) throws Exception {
 		getOpt(args);
 		loadOnt();
 		writeVocab();
 	}
-
+	
 	private void loadOnt() throws Exception {
 		// read
 		Syntax syntax = RDFTool.guessSyntax(this.inputRdfFile.toString());
 		this.model = RDF2Go.getModelFactory().createModel(Reasoning.none);
 		this.model.open();
-		System.out.println("reading from " + this.inputRdfFile.getAbsolutePath()
-				+ " in format " + syntax);
+		System.out.println("reading from " + this.inputRdfFile.getAbsolutePath() + " in format "
+		        + syntax);
 		Reader reader = new BufferedReader(new FileReader(this.inputRdfFile));
 		this.model.readFrom(reader, syntax);
 		reader.close();
 	}
-
+	
 	private void writeVocab() throws Exception {
-
+		
 		// prepare output
 		this.outP = new PrintStream(this.outputFile);
 		try {
 			// preamble
 			this.outP.println("package " + this.packageName + ";\n");
 			this.outP.println("import org.ontoware.rdf2go.model.node.URI;");
-			this.outP
-					.println("import org.ontoware.rdf2go.model.node.impl.URIImpl;\n");
+			this.outP.println("import org.ontoware.rdf2go.model.node.impl.URIImpl;\n");
 			this.outP.println("/**");
-			this.outP.println(" * Vocabulary File. Created by "
-					+ VocabularyWriter.class.getName() + " on " + new Date());
+			this.outP.println(" * Vocabulary File. Created by " + VocabularyWriter.class.getName()
+			        + " on " + new Date());
 			this.outP.println(" * input file: " + this.inputRdf);
 			this.outP.println(" * namespace: " + this.ns);
 			this.outP.println(" */");
 			this.outP.println("public interface " + this.outputFileName + " {");
 			this.outP.println("	public static final URI NS_" + this.outputFileName
-					+ " = new URIImpl(\"" + this.ns + "\",false);\n");
-
+			        + " = new URIImpl(\"" + this.ns + "\",false);\n");
+			
 			// iterate through classes
 			generateElement(RDFS.Class, false);
 			generateElement(OWL.Class, false);
-
+			
 			// iterate through properties
 			generateElement(RDF.Property, true);
 			generateElement(OWL.DatatypeProperty, true);
 			generateElement(OWL.ObjectProperty, true);
-
+			
 			// end
 			this.outP.println("}");
 		} finally {
@@ -146,47 +145,44 @@ public class VocabularyWriter {
 		}
 		System.out.println("successfully wrote file to " + this.outputFile);
 	}
-
+	
 	public void generateElement(URI type, boolean isProperty) throws Exception {
-		ClosableIterator<? extends Statement> queryC = this.model
-		.findStatements(Variable.ANY, RDF.type, type);
+		ClosableIterator<? extends Statement> queryC = this.model.findStatements(Variable.ANY,
+		        RDF.type, type);
 		try {
-			while (queryC.hasNext()) {
+			while(queryC.hasNext()) {
 				Statement answer = queryC.next();
 				Resource rx = answer.getSubject();
 				// we do not create constants for blank nodes
-				if (!(rx instanceof URI))
+				if(!(rx instanceof URI))
 					continue;
-				URI vx = (URI) rx;
+				URI vx = (URI)rx;
 				String uri = vx.toString();
 				// check URI once and for all
 				boolean valid = this.model.isValidURI(uri);
-				if (!valid)
-				{
-					this.outP.println("    /* cannot export "+uri+", not a valid URI */");
-				} else 
-				{
+				if(!valid) {
+					this.outP.println("    /* cannot export " + uri + ", not a valid URI */");
+				} else {
 					String localName = getLocalName(vx);
 					String javalocalName = asLegalJavaID(localName, !isProperty);
-					if (this.uriToLocalName.containsKey(uri))
+					if(this.uriToLocalName.containsKey(uri))
 						continue;
 					this.uriToLocalName.put(uri, javalocalName);
 					// check namespace strict?
-					if (this.namespacestrict && !uri.startsWith(this.ns))
+					if(this.namespacestrict && !uri.startsWith(this.ns))
 						continue;
 					this.outP.println("    /**");
 					printCommentAndLabel(vx);
 					this.outP.println("     */");
 					this.outP.println("    public static final URI " + javalocalName
-							+ " = new URIImpl(\"" + uri
-							+ "\", false);\n");
+					        + " = new URIImpl(\"" + uri + "\", false);\n");
 				}
 			}
 		} finally {
 			queryC.close();
 		}
 	}
-
+	
 	/**
 	 * The RDF2Go interface doesn't support getting a local name from the URI. I
 	 * 'borrowed' this snippet from the Sesame LiteralImpl.
@@ -194,157 +190,156 @@ public class VocabularyWriter {
 	private String getLocalName(URI vx) {
 		String fullUri = vx.toString();
 		int splitIdx = fullUri.indexOf('#');
-
-		if (splitIdx < 0) {
+		
+		if(splitIdx < 0) {
 			splitIdx = fullUri.lastIndexOf('/');
 		}
-
-		if (splitIdx < 0) {
+		
+		if(splitIdx < 0) {
 			splitIdx = fullUri.lastIndexOf(':');
 		}
-
-		if (splitIdx < 0) {
+		
+		if(splitIdx < 0) {
 			throw new RuntimeException("Not a legal (absolute) URI: " + fullUri);
 		}
 		return fullUri.substring(splitIdx + 1);
 	}
-
+	
 	/**
 	 * print comment and label of the uri to the passed stream
 	 * 
-	 * @param uri
+	 * @param uri of a resource
 	 */
 	public void printCommentAndLabel(URI uri) throws Exception {
-
-		ClosableIterator<? extends Statement> queryC = this.model
-		.findStatements(uri, RDFS.label, Variable.ANY);
+		
+		ClosableIterator<? extends Statement> queryC = this.model.findStatements(uri, RDFS.label,
+		        Variable.ANY);
 		try {
 			StringBuffer lBuf = new StringBuffer();
-			while (queryC.hasNext()) {
+			while(queryC.hasNext()) {
 				Statement answer = queryC.next();
 				Node vl = answer.getObject();
 				lBuf.append(vl.toString().concat(" "));
 			}
 			String l = lBuf.toString();
-			if (l.length() > 0)
+			if(l.length() > 0)
 				this.outP.println("     * Label: " + l);
 		} finally {
 			queryC.close();
 		}
-
+		
 		queryC = this.model.findStatements(uri, RDFS.comment, Variable.ANY);
 		try {
 			String l = "";
-			while (queryC.hasNext()) {
+			while(queryC.hasNext()) {
 				Statement answer = queryC.next();
 				Node vl = answer.getObject();
 				l += vl.toString() + " ";
 			}
-			if (l.length() > 0)
+			if(l.length() > 0)
 				this.outP.println("     * Comment: " + l);
 		} finally {
 			queryC.close();
 		}
-
+		
 		queryC = this.model.findStatements(uri, RDFS.domain, Variable.ANY);
 		try {
 			String l = "";
-			while (queryC.hasNext()) {
+			while(queryC.hasNext()) {
 				Statement answer = queryC.next();
 				Node vl = answer.getObject();
 				l += vl.toString() + " ";
 			}
-			if (l.length() > 0)
+			if(l.length() > 0)
 				this.outP.println("     * Comment: " + l);
 		} finally {
 			queryC.close();
 		}
-
+		
 		queryC = this.model.findStatements(uri, RDFS.range, Variable.ANY);
 		try {
 			String l = "";
-			while (queryC.hasNext()) {
+			while(queryC.hasNext()) {
 				Statement answer = queryC.next();
 				Node vl = answer.getObject();
 				l += vl.toString() + " ";
 			}
-			if (l.length() > 0)
+			if(l.length() > 0)
 				this.outP.println("     * Range: " + l);
 		} finally {
 			queryC.close();
 		}
 	}
-
+	
 	public void getOpt(String[] args) throws Exception {
 		int i = 0;
-		if (args.length == 0) {
+		if(args.length == 0) {
 			help();
 			throw new Exception("no arguments given");
 		}
 		// args
-		while ((i < args.length) && args[i].startsWith("-")) {
-			if (args[i].equals("-i")) {
+		while((i < args.length) && args[i].startsWith("-")) {
+			if(args[i].equals("-i")) {
 				i++;
 				this.inputRdf = args[i];
-			} else if (args[i].equals("-o")) {
+			} else if(args[i].equals("-o")) {
 				i++;
 				this.outputDirName = args[i];
-			} else if (args[i].equals("-a")) {
+			} else if(args[i].equals("-a")) {
 				i++;
 				this.ns = args[i];
-			} else if (args[i].equals("-n")) {
+			} else if(args[i].equals("-n")) {
 				i++;
 				this.outputFileName = args[i];
-			} else if (args[i].equals("--package")) {
+			} else if(args[i].equals("--package")) {
 				i++;
 				this.packageName = args[i];
-			} else if (args[i].equals("-namespacestrict")) {
+			} else if(args[i].equals("-namespacestrict")) {
 				i++;
 				String s = args[i];
-				if ("false".equals(s))
+				if("false".equals(s))
 					this.namespacestrict = false;
-				else if ("true".equals(s))
+				else if("true".equals(s))
 					this.namespacestrict = true;
 				else
-					throw new Exception(
-							"namespacestrict only allows 'true' or 'false', not '"
-									+ s + "'");
-
+					throw new Exception("namespacestrict only allows 'true' or 'false', not '" + s
+					        + "'");
+				
 			} else
 				throw new Exception("unknow argument " + args[i]);
 			i++;
 		}
-
-		if (this.inputRdf == null)
+		
+		if(this.inputRdf == null)
 			usage("no input file given");
-		if (this.outputDirName == null)
+		if(this.outputDirName == null)
 			usage("no output dir given");
-		if (this.ns == null)
+		if(this.ns == null)
 			usage("no namespace given");
-		if (this.outputFileName == null)
+		if(this.outputFileName == null)
 			usage("no output classname given");
-		if (this.packageName == null)
+		if(this.packageName == null)
 			usage("no package name given");
-
+		
 		// transform variables
 		this.inputRdfFile = new File(this.inputRdf);
 		this.outputDirFile = new File(this.outputDirName);
 		this.outputFile = new File(this.outputDirFile, this.outputFileName + ".java");
 	}
-
+	
 	private void help() {
 		System.err
-				.println("Syntax: java VocabularyWriter -i inputfile -o outputdir -a namespace -n classname --package package ");
+		        .println("Syntax: java VocabularyWriter -i inputfile -o outputdir -a namespace -n classname --package package ");
 	}
-
+	
 	/**
 	 * documentation see class, above.
 	 */
 	public static void main(String[] args) throws Exception {
 		new VocabularyWriter().go(args);
-
+		
 	}
-
+	
 	/**
 	 * Convert s to a legal Java identifier; capitalise first char if cap is
 	 * true this method is copied from jena code.
@@ -352,36 +347,35 @@ public class VocabularyWriter {
 	protected String asLegalJavaID(String s, boolean cap) {
 		StringBuilder buf = new StringBuilder();
 		int i = 0;
-
+		
 		// treat the first character specially - must be able to start a Java
 		// ID, may have to upcase
 		try {
-			for (; !Character.isJavaIdentifierStart(s.charAt(i)); i++) {
+			for(; !Character.isJavaIdentifierStart(s.charAt(i)); i++) {
 				// skip all characters which are illegal at the start
 			}
-		} catch (StringIndexOutOfBoundsException e) {
-			System.err
-					.println("Could not identify legal Java identifier start character in '"
-							+ s + "', replacing with __");
+		} catch(StringIndexOutOfBoundsException e) {
+			System.err.println("Could not identify legal Java identifier start character in '" + s
+			        + "', replacing with __");
 			return "__";
 		}
 		buf.append(cap ? Character.toUpperCase(s.charAt(i)) : s.charAt(i));
-
+		
 		// copy the remaining characters - replace non-legal chars with '_'
-		for (++i; i < s.length(); i++) {
+		for(++i; i < s.length(); i++) {
 			char c = s.charAt(i);
 			buf.append(Character.isJavaIdentifierPart(c) ? c : '_');
 		}
-
+		
 		// check standard name
 		String result = buf.toString();
-		if (result.equals("class") || result.equals("abstract"))
+		if(result.equals("class") || result.equals("abstract"))
 			result = result + "_";
 		return result;
 	}
-
+	
 	private static void usage(String string) throws Exception {
 		throw new Exception(string);
 	}
-
+	
 }

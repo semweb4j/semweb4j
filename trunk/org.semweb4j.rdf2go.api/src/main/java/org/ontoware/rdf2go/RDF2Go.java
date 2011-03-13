@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -19,6 +18,7 @@ import java.lang.reflect.Method;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 /**
  * Convenience class that allows registering and finding ModelFactories If you
@@ -42,7 +42,8 @@ import org.slf4j.LoggerFactory;
  * 
  * For each RDF2Go adapter, an ModelFactoy implementation is needed.
  * 
- * User can call the {@link #register()} method to do that.
+ * User can call the {@link #register(ModelFactory) or #register(String)} method
+ * to do that.
  * 
  * As a fall-back, when a user calls getModelFactory() but no adapter has been
  * registered yet, RDF2Go looks for a class named
@@ -69,17 +70,17 @@ import org.slf4j.LoggerFactory;
  * @author voelkel
  */
 public class RDF2Go {
-
-	private static final Logger log = LoggerFactory.getLogger( RDF2Go.class );
+	
+	private static final Logger log = LoggerFactory.getLogger(RDF2Go.class);
 	
 	/**
 	 * the default factory for RDF2Go. This is a singleton. The field is
 	 * protected by design, JUnit tests inside RDF2Go may want to reset it.
 	 */
 	protected static ModelFactory modelFactory;
-
+	
 	private static Exception instanceRegistered;
-
+	
 	/**
 	 * get the currently registered RDF2Go factory. Usually, you will use one
 	 * adaptor in your application, register this adaptor using the .register()
@@ -92,40 +93,36 @@ public class RDF2Go {
 		checkModelFactory();
 		return modelFactory;
 	}
-
+	
 	/**
 	 * register an implementation of the RDF2Go framework. you can only register
 	 * one framework inside one Java application, it will throw an Exception if
 	 * you register more than one.
 	 * 
-	 * @param modelFactory
-	 *            the factory to register. You can pass <code>null</code> to
-	 *            unregister a modelFactory. Unregistering is restricted to
-	 *            frameworks, you will not need it in simple applications.
-	 * @throws RuntimeException
-	 *             if registered already. See the cause of this exception for a
-	 *             stacktrace where you first registered.
+	 * @param modelFactory the factory to register. You can pass
+	 *            <code>null</code> to unregister a modelFactory. Unregistering
+	 *            is restricted to frameworks, you will not need it in simple
+	 *            applications.
+	 * @throws RuntimeException if registered already. See the cause of this
+	 *             exception for a stacktrace where you first registered.
 	 */
 	public static final void register(ModelFactory modelFactory) {
-		if (modelFactory == null) {
+		if(modelFactory == null) {
 			RDF2Go.modelFactory = null;
 			return;
 		}
-		if ((RDF2Go.modelFactory != null)
-				&& (!RDF2Go.modelFactory.getClass().equals(
-						modelFactory.getClass())))
+		if((RDF2Go.modelFactory != null)
+		        && (!RDF2Go.modelFactory.getClass().equals(modelFactory.getClass())))
 			throw new RuntimeException("already registered framework "
-					+ modelFactory.getClass().getName()
-					+ " in the attached Exception (see stacktrace).",
-					instanceRegistered);
+			        + modelFactory.getClass().getName()
+			        + " in the attached Exception (see stacktrace).", instanceRegistered);
 		RDF2Go.modelFactory = modelFactory;
 		// store the stacktrace to help people find where the falsly registered
 		// first
 		instanceRegistered = new Exception("registered framework before");
 	}
-
-	public static final void register(String modelFactoryClassname)
-			throws ModelRuntimeException {
+	
+	public static final void register(String modelFactoryClassname) throws ModelRuntimeException {
 		Class<?> c;
 		try {
 			c = Class.forName(modelFactoryClassname);
@@ -134,65 +131,62 @@ public class RDF2Go {
 				constructor = c.getConstructor(new Class[] {});
 				ModelFactory modelBuilder;
 				try {
-					modelBuilder = (ModelFactory) constructor.newInstance();
+					modelBuilder = (ModelFactory)constructor.newInstance();
 					register(modelBuilder);
-				} catch (IllegalArgumentException e) {
+				} catch(IllegalArgumentException e) {
 					throw new ModelRuntimeException(e);
-				} catch (InstantiationException e) {
+				} catch(InstantiationException e) {
 					throw new ModelRuntimeException(e);
-				} catch (IllegalAccessException e) {
+				} catch(IllegalAccessException e) {
 					throw new ModelRuntimeException(e);
-				} catch (InvocationTargetException e) {
+				} catch(InvocationTargetException e) {
 					throw new ModelRuntimeException(e);
 				}
-			} catch (SecurityException e) {
+			} catch(SecurityException e) {
 				throw new ModelRuntimeException(e);
-			} catch (NoSuchMethodException e) {
+			} catch(NoSuchMethodException e) {
 				throw new ModelRuntimeException(e);
 			}
-		} catch (ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) {
 			throw new ModelRuntimeException(e);
 		}
-
+		
 	}
-
+	
 	private static void checkModelFactory() {
 		// before failing, try to find an adapter via a static binding
 		// approach, like the one used by SL4J.org
-		if (modelFactory == null) {
+		if(modelFactory == null) {
 			try {
-				Class<?> clazz = Class
-						.forName("org.ontoware.rdf2go.impl.StaticBinding");
-				Method method = clazz.getMethod("getModelFactory",
-						new Class[] {});
+				Class<?> clazz = Class.forName("org.ontoware.rdf2go.impl.StaticBinding");
+				Method method = clazz.getMethod("getModelFactory", new Class[] {});
 				Object result = method.invoke(clazz, new Object[] {});
-				if (result instanceof ModelFactory) {
-					modelFactory = (ModelFactory) result;
-					log.debug("Using ModelFactory '"
-									+ result.getClass()
-									+ "' which was loaded via org.ontoware.rdf2go.impl.StaticBinding.");
+				if(result instanceof ModelFactory) {
+					modelFactory = (ModelFactory)result;
+					log.debug("Using ModelFactory '" + result.getClass()
+					        + "' which was loaded via org.ontoware.rdf2go.impl.StaticBinding.");
 				}
-			} catch (ClassNotFoundException e) {
+			} catch(ClassNotFoundException e) {
 				throw new ModelRuntimeException(e);
-			} catch (SecurityException e) {
+			} catch(SecurityException e) {
 				throw new ModelRuntimeException(e);
-			} catch (NoSuchMethodException e) {
+			} catch(NoSuchMethodException e) {
 				throw new ModelRuntimeException(e);
-			} catch (IllegalArgumentException e) {
+			} catch(IllegalArgumentException e) {
 				throw new ModelRuntimeException(e);
-			} catch (IllegalAccessException e) {
+			} catch(IllegalAccessException e) {
 				throw new ModelRuntimeException(e);
-			} catch (InvocationTargetException e) {
+			} catch(InvocationTargetException e) {
 				throw new ModelRuntimeException(e);
 			}
-
+			
 		}
-
+		
 		// if modelfactory is still null, give up
-		if (modelFactory == null) {
+		if(modelFactory == null) {
 			throw new IllegalStateException(
-					"No ModelFactoy was registered. Please register one via RDF2Go.register(ModelFactory mf)");
+			        "No ModelFactoy was registered. Please register one via RDF2Go.register(ModelFactory mf)");
 		}
 	}
-
+	
 }
