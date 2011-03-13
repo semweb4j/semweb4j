@@ -1,6 +1,7 @@
 <projectDescription>
   <name>rdf2go.impl.test</name>
-  <comment>Testing usage of multiple adapters together</comment>
+  <comment>Testing usage of multiple adapters together.
+		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de</comment>
   <projects/>
   <buildSpec>
     <buildCommand>
