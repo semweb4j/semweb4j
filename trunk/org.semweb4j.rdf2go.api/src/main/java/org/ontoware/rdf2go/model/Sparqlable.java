@@ -121,7 +121,12 @@ public interface Sparqlable {
 	QueryResultTable sparqlSelect(String queryString) throws MalformedQueryException,
 	        ModelRuntimeException;
 	
-	// TODO proposed on 2011-03-13 on SemanticOverflow
+	/**
+	 * TODO proposed on 2011-03-13 on SemanticOverflow
+	 * 
+	 * Difficult to implement in Jena 2.6. Would require using an external
+	 * parser for the SPARQL UPDATE query.
+	 */
 	
 	// /**
 	// * @param queryString
