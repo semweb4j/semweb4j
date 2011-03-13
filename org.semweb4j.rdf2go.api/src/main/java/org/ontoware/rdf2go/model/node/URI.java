@@ -1,16 +1,18 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
 package org.ontoware.rdf2go.model.node;
+
+import org.ontoware.rdf2go.exception.ModelRuntimeException;
+
 
 /**
  * Interface for URI implementations.
@@ -33,16 +35,15 @@ package org.ontoware.rdf2go.model.node;
  * 
  */
 public interface URI extends Resource, UriOrVariable {
-
+	
 	/**
 	 * Convenience method to return the URI as a java.net.URI.
 	 * 
 	 * @return this URI as a java.net.URI
-	 * @throws ModelRuntimeException
-	 *             if this URI could not be converted to a java.net.URI. This
-	 *             sounds strange, but there are so many subleties in URI syntax
-	 *             that this might (rarely) happen.
+	 * @throws ModelRuntimeException if this URI could not be converted to a
+	 *             java.net.URI. This sounds strange, but there are so many
+	 *             subleties in URI syntax that this might (rarely) happen.
 	 */
-	java.net.URI asJavaURI();
-
+	java.net.URI asJavaURI() throws ModelRuntimeException;
+	
 }

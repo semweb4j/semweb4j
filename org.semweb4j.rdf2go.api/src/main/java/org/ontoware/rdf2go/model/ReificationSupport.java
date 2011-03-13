@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -17,15 +16,15 @@ import java.util.Collection;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Resource;
 
+
 /**
- * Support for reification, as defined in {@link http
- * ://www.w3.org/TR/rdf-mt/#Reif}
+ * Support for reification, as defined in @see http://www.w3.org/TR/rdf-mt/#Reif
  * 
  * @author voelkel
  * 
  */
 public interface ReificationSupport {
-
+	
 	/**
 	 * A convenience function for addReficationOf( createBlankNode(), statement
 	 * );
@@ -35,7 +34,7 @@ public interface ReificationSupport {
 	 *         statement.
 	 */
 	BlankNode addReificationOf(Statement statement);
-
+	
 	/**
 	 * Reifies the statement, whether the statement was present in the model or
 	 * not. The statement itself is never added to the model, but it might have
@@ -43,8 +42,8 @@ public interface ReificationSupport {
 	 * triples like (resource )rdf:subject s; rdf:predicate p; rdf:object o.
 	 * Where s,p, and o are taken from the given statement.
 	 * 
-	 * Adds the following statements, as defined in {@link http
-	 * ://www.w3.org/TR/rdf-mt/#Reif}
+	 * Adds the following statements, as defined in @see
+	 * http://www.w3.org/TR/rdf-mt/#Reif
 	 * 
 	 * <code><pre>
 	 * (resource) rdf:type       rdf:Statement .
@@ -53,14 +52,12 @@ public interface ReificationSupport {
 	 * (resource) rdf:object    (statement.getObject()) .
 	 * </pre></code>
 	 * 
-	 * @param statement
-	 *            which will be reified
-	 * @param resource
-	 *            used to represent the reified statement
+	 * @param statement which will be reified
+	 * @param resource used to represent the reified statement
 	 * @return the given resource
 	 */
 	Resource addReificationOf(Statement statement, Resource resource);
-
+	
 	/**
 	 * Delete reifications made by this resource. More technically, this method
 	 * will remove the following patterns: <code><pre>
@@ -77,14 +74,14 @@ public interface ReificationSupport {
 	 * @param reificationResource
 	 */
 	void deleteReification(Resource reificationResource);
-
+	
 	/**
 	 * @param statement
 	 * @return a collection which contains all resources that are a reification
 	 *         of the given statement.
 	 */
 	Collection<Resource> getAllReificationsOf(Statement statement);
-
+	
 	/**
 	 * @param stmt
 	 * @return true if the model contains results to the query <code><pre>
@@ -95,5 +92,5 @@ public interface ReificationSupport {
 	 * </pre></code>
 	 */
 	boolean hasReifications(Statement stmt);
-
+	
 }

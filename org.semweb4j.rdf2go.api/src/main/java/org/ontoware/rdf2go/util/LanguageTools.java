@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -18,28 +17,30 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.LanguageTagLiteral;
 
-public class LanguageTools {
 
+public class LanguageTools {
+	
 	/**
 	 * Deletes all literals except the ones in the desired language.
 	 * 
-	 * Removes all languatagges literals that DO NOT start with the 'language' string.
+	 * Removes all language-tagged literals that DO NOT start with the
+	 * 'language' string.
 	 * 
-	 * @param model
-	 * @param language
+	 * @param model which should be stripped of unwanted languagetagged literals
+	 * @param language language which should be kept
 	 * @return a Model that contains only literals in the desired language
 	 */
-	public static Model selectLanguage( Model model, String language ) {
+	public static Model selectLanguage(Model model, String language) {
 		Model result = RDF2Go.getModelFactory().createModel();
 		result.open();
 		ClosableIterator<Statement> it = model.iterator();
-		while (it.hasNext()) {
+		while(it.hasNext()) {
 			Statement s = it.next();
-			if (s.getObject() instanceof LanguageTagLiteral) {
+			if(s.getObject() instanceof LanguageTagLiteral) {
 				LanguageTagLiteral lit = s.getObject().asLanguageTagLiteral();
-				if (lit.getLanguageTag().startsWith(language)) {
+				if(lit.getLanguageTag().startsWith(language)) {
 					result.addStatement(s);
-				} 
+				}
 				// else don't copy
 			} else {
 				result.addStatement(s);

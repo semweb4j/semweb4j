@@ -28,11 +28,11 @@ public class Iterators {
 	
 	/**
 	 * Adds all elements from the supplied iterator to the specified collection.
-	 * If the supplied iterator is an instance of {@link CloseableIterator} it
-	 * is automatically closed after consumption.
+	 * If the supplied iterator is an instance of {@link ClosableIterator} it is
+	 * automatically closed after consumption.
 	 * 
 	 * @param iter An iterator containing elements to add to the container. If
-	 *            the iterator is an instance of {@link CloseableIterator} it is
+	 *            the iterator is an instance of {@link ClosableIterator} it is
 	 *            automatically closed after consumption.
 	 * @param collection The collection to add the elements to.
 	 * @return The <tt>collection</tt> object that was supplied to this method.
@@ -51,7 +51,7 @@ public class Iterators {
 	
 	/**
 	 * Closes the supplied iterator if it is an instance of
-	 * {@link CloseableIterator}, otherwise the request is ignored.
+	 * {@link ClosableIterator}, otherwise the request is ignored.
 	 * 
 	 * @param iter The iterator that should be closed.
 	 */

@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -40,6 +39,7 @@ import org.ontoware.rdf2go.vocabulary.RDFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * RDFTool, a helper utility to cope with RDF in general.
  * 
@@ -53,23 +53,22 @@ import org.slf4j.LoggerFactory;
  * @author Max Völkel
  */
 public class RDFTool {
-
+	
 	@SuppressWarnings("unused")
 	private static Logger log = LoggerFactory.getLogger(RDFTool.class);
-
+	
 	/**
 	 * datetime format.
 	 */
 	private static DateFormat dateTimeFormat = null;
-
+	
 	/**
 	 * format to express dates in ISO 8601
 	 */
 	private static DateFormat dateFormat = null;
-
+	
 	/**
-	 * @param m
-	 *            the model to copy
+	 * @param m the model to copy
 	 * @return a copy of the model in a memory model
 	 */
 	public static Model copyModel(Model m) {
@@ -78,12 +77,12 @@ public class RDFTool {
 		res.addAll(m.iterator());
 		return res;
 	}
-
+	
 	/**
 	 * format the given date in a good date format: ISO 8601, using only the
 	 * date and not the T seperator example: 2003-01-22 Timezone is ignored.
 	 * 
-	 * @param date
+	 * @param date ..
 	 * @return a formatted string.
 	 * @deprecated use {@link #date2String(Date)}
 	 */
@@ -91,52 +90,45 @@ public class RDFTool {
 	public static String dateTime2DateString(Date date) {
 		return getDateTimeFormat().format(date);
 	}
-
+	
 	/**
 	 * format the given date in a good dateTime format: ISO 8601, using the T
 	 * seperator and the - and : seperators accordingly. example:
 	 * 2003-01-22T17:00:00
 	 * 
-	 * @param date
+	 * @param dateTime to be converted to string
 	 * @return a formatted string.
 	 */
-	public static String dateTime2String(Date date) {
-		return getDateTimeFormat().format(date);
+	public static String dateTime2String(Date dateTime) {
+		return getDateTimeFormat().format(dateTime);
 	}
-
+	
 	/**
 	 * format the given date in a good date format: ISO 8601, using only the
 	 * date and not the T seperator example: 2003-01-22 Timezone is ignored.
 	 * 
-	 * @param date
+	 * @param date to be converted to string
 	 * @return a formatted string.
 	 */
 	public static String date2String(Date date) {
 		return getDateFormat().format(date);
 	}
-
+	
 	/**
 	 * find the first statement that fits the passed triple pattern and return
 	 * it.
 	 * 
-	 * @param model
-	 *            the model to search on
-	 * @param subject
-	 *            subject
-	 * @param predicate
-	 *            predicate
-	 * @param object
-	 *            object
+	 * @param model the model to search on
+	 * @param subject subject
+	 * @param predicate predicate
+	 * @param object object
 	 * @return a statement (the first found) or null, if nothing matched
-	 * @throws RuntimeException
-	 *             if the model throws an exception
+	 * @throws RuntimeException if the model throws an exception
 	 */
-	public static Statement findStatement(Model model,
-			ResourceOrVariable subject, UriOrVariable predicate,
-			NodeOrVariable object) {
-		ClosableIterator<? extends Statement> i = model.findStatements(subject,
-				predicate, object);
-		if (i.hasNext()) {
+	public static Statement findStatement(Model model, ResourceOrVariable subject,
+	        UriOrVariable predicate, NodeOrVariable object) {
+		ClosableIterator<? extends Statement> i = model.findStatements(subject, predicate, object);
+		if(i.hasNext()) {
 			Statement s = i.next();
 			i.close();
 			return s;
@@ -144,7 +136,7 @@ public class RDFTool {
 		// else
 		return null;
 	}
-
+	
 	/**
 	 * format to express dates in ISO 8601. Timezone is ignored.
 	 * 
@@ -152,12 +144,12 @@ public class RDFTool {
 	 *         ISO8601.
 	 */
 	public static DateFormat getDateFormat() {
-		if (dateFormat == null) {
+		if(dateFormat == null) {
 			dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		}
 		return dateFormat;
 	}
-
+	
 	/**
 	 * get a DateFormat to format dates according to ISO 8601. This ignored
 	 * timezones.
@@ -165,75 +157,70 @@ public class RDFTool {
 	 * @return a dateformat.
 	 */
 	public static DateFormat getDateTimeFormat() {
-		if (dateTimeFormat == null) {
+		if(dateTimeFormat == null) {
 			dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		}
 		return dateTimeFormat;
 	}
-
+	
 	/**
 	 * Get the Displaylabel of a Node. For resources, the "rdfs:label" property
 	 * is returned, if there is none, the url is shortened to a localname. If it
 	 * is a Literal, return the Lexical Form. If it is null, returns null
 	 * Results may vary.
 	 * 
-	 * @param o
-	 *            the node to check
-	 * @param source
-	 *            the model to ask
+	 * @param o the node to check
+	 * @param source the model to ask
 	 * @return a string representation of the node or null.
 	 */
 	public static String getGoodLabel(Node o, Model source) {
-		if (o == null)
+		if(o == null)
 			return null;
-		if (o instanceof Resource) {
+		if(o instanceof Resource) {
 			// resource
-			Node rdfslabel = RDFTool.getSingleValue(source, (Resource) o,
-					RDFS.label);
-			if (rdfslabel != null) {
-				if (rdfslabel instanceof Literal)
-					return ((Literal) rdfslabel).getValue();
+			Node rdfslabel = RDFTool.getSingleValue(source, (Resource)o, RDFS.label);
+			if(rdfslabel != null) {
+				if(rdfslabel instanceof Literal)
+					return ((Literal)rdfslabel).getValue();
 				// else
 				return rdfslabel.toString();
 			}
 			// else
 			return RDFTool.getShortName(o.toString());
-		} else if (o instanceof Literal)
-			return ((Literal) o).getValue();
+		} else if(o instanceof Literal)
+			return ((Literal)o).getValue();
 		else
 			// else ? well, just string it
 			return o.toString();
 	}
-
+	
 	/**
 	 * Get the label of a Node. If it is a resource, return the local name (the
 	 * last part of the URI). If it is a Literal, return the Lexical Form (the
 	 * value). If it is <code>null</code>, returns <code>null</code>.
 	 * 
-	 * @param o
-	 *            the node to check
+	 * @param o the node to check
 	 * @return a string representation of the node or <code>null</code>.
 	 */
 	public static String getLabel(Node o) {
-		if (o == null)
+		if(o == null)
 			return null;
-		if (o instanceof Resource) {
+		if(o instanceof Resource) {
 			// resource
 			return getShortName(o.toString());
-		} else if (o instanceof Literal)
+		} else if(o instanceof Literal)
 			// Literal
-			return ((Literal) o).getValue();
+			return ((Literal)o).getValue();
 		// else ? well, just string it
 		return o.toString();
 	}
-
+	
 	/**
 	 * The passed uri identifies something on the web, probably a namespace. To
 	 * shorten this, parse the url for something like a localname. Returns the
 	 * last string after a '#' or a '/'.
 	 * 
-	 * @param uri
-	 *            a URI
+	 * @param uri a URI
 	 * @return a short name for it, for display.
 	 * 
 	 *         WARNING: THIS METHOD HAS BEEN REPORTED AS BUGGY
@@ -241,30 +228,26 @@ public class RDFTool {
 	 */
 	public static String getShortName(String uri) {
 		String result = uri;
-		if (result.indexOf('#') > 0)
+		if(result.indexOf('#') > 0)
 			result = result.substring(result.lastIndexOf('#') + 1);
-		else if (result.indexOf('/') > 0)
+		else if(result.indexOf('/') > 0)
 			result = result.substring(result.lastIndexOf('/') + 1);
 		return result;
 	}
-
+	
 	/**
 	 * get the property pred of the resource res. If there is none, return null.
 	 * If there are mutliple, return any.
 	 * 
-	 * @param m
-	 *            the model to read from
-	 * @param res
-	 *            the resource
-	 * @param pred
-	 *            the predicate to read
+	 * @param m the model to read from
+	 * @param res the resource
+	 * @param pred the predicate to read
 	 * @return the value or null
 	 */
 	public static Node getSingleValue(Model m, Resource res, URI pred) {
-		ClosableIterator<? extends Statement> i = m.findStatements(res, pred,
-				Variable.ANY);
+		ClosableIterator<? extends Statement> i = m.findStatements(res, pred, Variable.ANY);
 		try {
-			if (i.hasNext()) {
+			if(i.hasNext()) {
 				return i.next().getObject();
 			}
 			// else
@@ -273,12 +256,12 @@ public class RDFTool {
 			i.close();
 		}
 	}
-
+	
 	public static Node getSingleValue(ModelSet m, Resource res, URI pred) {
-		ClosableIterator<? extends Statement> i = m.findStatements(
-				Variable.ANY, res, pred, Variable.ANY);
+		ClosableIterator<? extends Statement> i = m.findStatements(Variable.ANY, res, pred,
+		        Variable.ANY);
 		try {
-			if (i.hasNext()) {
+			if(i.hasNext()) {
 				return i.next().getObject();
 			}
 			// else
@@ -287,251 +270,226 @@ public class RDFTool {
 			i.close();
 		}
 	}
-
+	
 	/**
 	 * read the values of a predicate of a resource. If a value exists, return a
 	 * string representation of it. When multiple triples with this
 	 * subject/predicate exist, choose one at random.
 	 * 
-	 * @param m
-	 *            the model to read from
-	 * @param res
-	 *            the resource
-	 * @param pred
-	 *            the predicate to read
+	 * @param m the model to read from
+	 * @param res the resource
+	 * @param pred the predicate to read
 	 * @return a string representation of the value, or null. Literals are
 	 *         returned using their Value (not toString()).
 	 */
 	public static String getSingleValueString(Model m, Resource res, URI pred) {
 		Node n = getSingleValue(m, res, pred);
-		if (n == null)
+		if(n == null)
 			return null;
-
-		if (n instanceof Literal)
+		
+		if(n instanceof Literal)
 			// Literal
-			return ((Literal) n).getValue();
+			return ((Literal)n).getValue();
 		return n.toString();
 	}
-
+	
 	/**
 	 * read the values of a predicate of a resource. If a value exists, return a
 	 * string representation of it. When multiple triples with this
 	 * subject/predicate exist, choose one at random.
 	 * 
-	 * @param modelset
-	 *            the model to read from
-	 * @param res
-	 *            the resource
-	 * @param pred
-	 *            the predicate to read
+	 * @param modelset the model to read from
+	 * @param res the resource
+	 * @param pred the predicate to read
 	 * @return a string representation of the value, or null. Literals are
 	 *         returned using their Value (not toString()).
 	 */
-	public static String getSingleValueString(ModelSet modelset, Resource res,
-			URI pred) {
+	public static String getSingleValueString(ModelSet modelset, Resource res, URI pred) {
 		Node n = getSingleValue(modelset, res, pred);
-		if (n == null)
+		if(n == null)
 			return null;
-
-		if (n instanceof Literal)
+		
+		if(n instanceof Literal)
 			// Literal
-			return ((Literal) n).getValue();
+			return ((Literal)n).getValue();
 		return n.toString();
 	}
-
+	
 	/**
 	 * guess the RDF syntax of a filename inspired by
 	 * com.hp.hpl.jena.graph.impl.FileGraph#guessLang with the addition of
 	 * toLowerCase
 	 * 
-	 * @param filenname
-	 *            the filename, we will look at the suffix after "."
+	 * @param filenname the filename, we will look at the suffix after "."
 	 * @return the guessed RDF syntax, fallback is RDF/XML
 	 */
 	public static Syntax guessSyntax(String filenname) {
 		String suffix = filenname.substring(filenname.lastIndexOf('.') + 1);
-		if (suffix != null) {
+		if(suffix != null) {
 			suffix = suffix.toLowerCase();
-
-			if (suffix.equals("n3"))
+			
+			if(suffix.equals("n3"))
 				return Syntax.Turtle;
-			else if (suffix.equals("nt"))
+			else if(suffix.equals("nt"))
 				return Syntax.Ntriples;
-			else if (suffix.equals("trig")) {
+			else if(suffix.equals("trig")) {
 				return Syntax.Trig;
-			} else if (suffix.equals("trix"))
+			} else if(suffix.equals("trix"))
 				return Syntax.Trix;
 		}
 		return Syntax.RdfXml;
 	}
-
+	
 	/**
-	 * convert a model to a string RDF/XML for serialization
+	 * Convert a model to a string RDF/XML for serialisation
 	 * 
-	 * @param model
-	 *            the model to convert
-	 * @return
+	 * @param model the model to convert
+	 * @return the model as a RDF/XML string
 	 */
 	public static String modelToString(Model model) {
 		return modelToString(model, Syntax.RdfXml);
 	}
-
+	
 	public static String modelToString(ModelSet modelset) {
 		return modelToString(modelset, Syntax.RdfXml);
 	}
-
+	
 	/**
-	 * convert a model to a string for serialization
+	 * convert a model to a string for serialisation
 	 * 
-	 * @param model
-	 *            the model to convert
-	 * @param syntax
-	 *            the syntax to use
+	 * @param model the model to convert
+	 * @param syntax the syntax to use
 	 * @return a string of this model, according to the passed syntax
 	 */
 	public static String modelToString(Model model, Syntax syntax) {
 		StringWriter buffer = new StringWriter();
 		try {
 			model.writeTo(buffer, syntax);
-		} catch (Exception e) {
+		} catch(Exception e) {
 			throw new ModelRuntimeException(e);
 		}
 		return buffer.toString();
 	}
-
+	
 	/**
 	 * convert a modelset to a string for serialization
 	 * 
-	 * @param modelset
-	 *            the model to convert
-	 * @param syntax
-	 *            the syntax to use
+	 * @param modelset the model to convert
+	 * @param syntax the syntax to use
 	 * @return a string of this model, according to the passed syntax
 	 */
 	public static String modelToString(ModelSet modelset, Syntax syntax) {
 		StringWriter buffer = new StringWriter();
 		try {
 			modelset.writeTo(buffer, syntax);
-		} catch (Exception e) {
+		} catch(Exception e) {
 			throw new ModelRuntimeException(e);
 		}
 		return buffer.toString();
 	}
-
+	
 	/**
 	 * set the property pred of the resource res. If it exists, change it. If it
 	 * not exists, create it. If the passed value is null, delete the statement
 	 * 
-	 * @param m
-	 *            the model to manipulate
-	 * @param res
-	 *            the rsource
-	 * @param pred
-	 *            the predicate to set
-	 * @param value
-	 *            a value or null
+	 * @param m the model to manipulate
+	 * @param res the rsource
+	 * @param pred the predicate to set
+	 * @param value a value or null
 	 */
-	public static void setSingleValue(Model m, Resource res, URI pred,
-			Node value) {
+	public static void setSingleValue(Model m, Resource res, URI pred, Node value) {
 		m.removeStatements(res, pred, Variable.ANY);
-		if (value != null) {
+		if(value != null) {
 			m.addStatement(res, pred, value);
 		}
 	}
-
+	
 	/**
 	 * set the property pred of the resource res. If it exists, change it. If it
 	 * not exists, create it. If value is null, delete the triple.
 	 * 
-	 * @param m
-	 *            the model to manipulate
-	 * @param res
-	 *            the rsource
-	 * @param pred
-	 *            the predicate to set
-	 * @param value
-	 *            a string or null
+	 * @param m the model to manipulate
+	 * @param res the rsource
+	 * @param pred the predicate to set
+	 * @param value a string or null
 	 */
-	public static void setSingleValue(Model m, Resource res, URI pred,
-			String value) {
+	public static void setSingleValue(Model m, Resource res, URI pred, String value) {
 		m.removeStatements(res, pred, Variable.ANY);
-		if (value != null) {
+		if(value != null) {
 			m.addStatement(res, pred, value);
 		}
 	}
-
+	
 	/**
 	 * compute the sha1sum of a string (useful for handling FOAF data).
 	 * 
-	 * @param data
-	 *            the string to parse
+	 * @param data the string to parse
 	 * @return the sha1sum as string.
 	 */
 	public static String sha1sum(String data) {
 		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance("SHA");
-		} catch (NoSuchAlgorithmException e) {
+		} catch(NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
-
+		
 		byte[] digest = md.digest(data.getBytes());
-
+		
 		StringBuffer res = new StringBuffer();
-		for (int i = 0; i < digest.length; i++) {
+		for(int i = 0; i < digest.length; i++) {
 			int digByte = digest[i] & 0xFF;
-			if (digByte < 0x10)
+			if(digByte < 0x10)
 				res.append('0');
 			res.append(Integer.toHexString(digByte));
 		}
-
+		
 		return res.toString();
 	}
-
+	
 	/**
-	 * try to get a date out of a string. If this works, return it, otherwise
-	 * return null. Btw: the namespace of dateTime is
-	 * http://www.w3.org/2001/XMLSchema#dateTime Timezone is ignored.
+	 * Try to get a date out of a string. If this works, return it, otherwise
+	 * return null.
 	 * 
-	 * @param isodate
-	 *            the XSD date as string.
-	 * @return a parsed date or null, if this breaks
-	 * @throws ParseException
+	 * Btw: the namespace of dateTime is
+	 * http://www.w3.org/2001/XMLSchema#dateTime
+	 * 
+	 * <em>Timezone is ignored.</em>
+	 * 
+	 * @param isodate the XSD date as string.
+	 * @return the parsed date
+	 * @throws ParseException if isodate could not be parsed
 	 */
 	public static Date string2Date(String isodate) throws ParseException {
 		return getDateFormat().parse(isodate);
 	}
-
+	
 	/**
 	 * format the given date in a good date format: ISO 8601, using only the
 	 * date and not the T seperator example: 2003-01-22 This ignores timezones.
 	 * 
-	 * @param date
-	 *            the date-string to parse
+	 * @param date the date-string to parse
 	 * @return a formatted string.
 	 */
 	public static Date string2DateTime(String date) throws ParseException {
 		return getDateTimeFormat().parse(date);
 	}
-
+	
 	/**
 	 * convenience function to create a memModel from an RDF/XML-ABBREV stream
 	 * 
-	 * @param rdfxml
-	 *            the serialized form of the model
+	 * @param rdfxml the serialized form of the model
 	 * @return a Model
 	 */
 	public static Model stringToModel(String rdfxml) {
 		return stringToModel(rdfxml, Syntax.RdfXml);
 	}
-
+	
 	/**
 	 * convenience function to create a memModel from a string
 	 * 
-	 * @param string
-	 *            the string with the serialized model
-	 * @param syntax
-	 *            the syntax to use
+	 * @param string the string with the serialized model
+	 * @param syntax the syntax to use
 	 * @return the model that was serialised.
 	 */
 	public static Model stringToModel(String string, Syntax syntax) {
@@ -541,7 +499,7 @@ public class RDFTool {
 		try {
 			m.readFrom(s, syntax);
 			return m;
-		} catch (Exception e) {
+		} catch(Exception e) {
 			throw new ModelRuntimeException(e);
 		} finally {
 			s.close();

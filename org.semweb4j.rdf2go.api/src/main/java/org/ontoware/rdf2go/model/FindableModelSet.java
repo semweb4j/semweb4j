@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -18,12 +17,13 @@ import org.ontoware.rdf2go.model.node.NodeOrVariable;
 import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 
+
 /**
  * 
  * @author voelkel
  */
 public interface FindableModelSet {
-
+	
 	/**
 	 * Search across all existing models
 	 * 
@@ -31,25 +31,22 @@ public interface FindableModelSet {
 	 * @param subject
 	 * @param predicate
 	 * @param object
-	 * @return
+	 * @return all matching statements in all models
 	 * @throws ModelRuntimeException
 	 */
-	ClosableIterator<Statement> findStatements(
-			UriOrVariable contextURI, ResourceOrVariable subject,
-			UriOrVariable predicate, NodeOrVariable object)
-			throws ModelRuntimeException;
-
+	ClosableIterator<Statement> findStatements(UriOrVariable contextURI,
+	        ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object)
+	        throws ModelRuntimeException;
+	
 	/**
-	 * Search across all existing models and retunrs all statements matching the
-	 * quad pattern
+	 * Search across all existing models
 	 * 
 	 * @param pattern
-	 * @return
+	 * @return all statements matching the quad pattern
 	 * @throws ModelRuntimeException
 	 */
-	ClosableIterator<Statement> findStatements(
-			QuadPattern pattern) throws ModelRuntimeException;
-
+	ClosableIterator<Statement> findStatements(QuadPattern pattern) throws ModelRuntimeException;
+	
 	/**
 	 * @param contextURI
 	 * @param subject
@@ -59,20 +56,18 @@ public interface FindableModelSet {
 	 *         (s,p,o)
 	 * @throws ModelRuntimeException
 	 */
-	boolean containsStatements(UriOrVariable contextURI,
-			ResourceOrVariable subject, UriOrVariable predicate,
-			NodeOrVariable object) throws ModelRuntimeException;
-
+	boolean containsStatements(UriOrVariable contextURI, ResourceOrVariable subject,
+	        UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException;
+	
 	/**
-	 * @param s
-	 *            a Statement
+	 * @param s a Statement
 	 * @return true if the modelset contains a model with context s.getContext()
 	 *         which contains the statement s. If the context is null, the
 	 *         default graph is checked.
 	 * @throws ModelRuntimeException
 	 */
 	boolean contains(Statement s) throws ModelRuntimeException;
-
+	
 	/**
 	 * @param pattern
 	 * @return the number of statements matchingthe pattern. This is for all
@@ -90,7 +85,7 @@ public interface FindableModelSet {
 	 * @param object
 	 * @return a QuadPattern
 	 */
-	QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject, UriOrVariable predicate,
-			NodeOrVariable object);
-
+	QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject,
+	        UriOrVariable predicate, NodeOrVariable object);
+	
 }
