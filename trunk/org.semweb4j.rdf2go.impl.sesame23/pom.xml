@@ -16,7 +16,7 @@
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame23</artifactId>
 	<!--  this must be a three-digit number for OSGI MANIFEST -->
-	<version>4.7.3</version>
+	<version>4.7.4</version>
 	<packaging>jar</packaging>
 	<name>rdf2go.impl.sesame22</name>
 	<description>

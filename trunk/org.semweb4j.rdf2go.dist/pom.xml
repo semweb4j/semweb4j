@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.dist</artifactId>
-	<version>4.7.3</version>
+	<version>4.7.4</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDF2Go distribution</name>
@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.7.3</version>
+			<version>4.7.4</version>
 		</dependency>
 
 		<dependency>
@@ -39,16 +39,14 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.7.3</version>
+			<version>4.7.4</version>
 		</dependency>
 
-<!-- Wait for Jena 2.6.2 support to be finished
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.7.2</version>
+			<artifactId>rdf2go.impl.jena26</artifactId>
+			<version>4.7.4</version>
 		</dependency>
- -->
 
 		<!-- 
 			<dependency>
