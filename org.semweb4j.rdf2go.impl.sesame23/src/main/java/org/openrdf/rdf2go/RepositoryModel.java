@@ -66,18 +66,18 @@ import org.slf4j.LoggerFactory;
  * 
  * Note that RepositoryModel and RepositoryModelSet only work well together
  * because they both keep their RepositoryConnections in auto-commit mode. This
- * cannot be changed by the user. Do mass-updates using {@link #update(Diff)},
- * {@link #addAll(Iterator)} or {@link #removeAll(Iterator)}, then the current
- * connection will be used in non-autocommit mode and commited, including a
- * rollback when it fails.
+ * cannot be changed by the user. Do mass-updates using
+ * {@link #update(DiffReader)}, {@link #addAll(Iterator)} or
+ * {@link #removeAll(Iterator)}, then the current connection will be used in
+ * non-autocommit mode and commited, including a rollback when it fails.
  */
 public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	/**
      * 
      */
-    private static final long serialVersionUID = 1466969214320765429L;
-
+	private static final long serialVersionUID = 1466969214320765429L;
+	
 	private static Logger log = LoggerFactory.getLogger(RepositoryModel.class);
 	
 	public static final String DEFAULT_CONTEXT = "urn:nullcontext";
@@ -220,14 +220,13 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			if(log.isDebugEnabled()) {
 				this.connection.commit();
 				if(!contains(subject, predicate, object)) {
-					log
-					        .warn("You just added a statement ("
-					                + subject
-					                + " "
-					                + predicate
-					                + " "
-					                + object
-					                + " ) which could not be stored. Most likely cause: http://openrdf.org/issues/browse/SES-521");
+					log.warn("You just added a statement ("
+					        + subject
+					        + " "
+					        + predicate
+					        + " "
+					        + object
+					        + " ) which could not be stored. Most likely cause: http://openrdf.org/issues/browse/SES-521");
 				}
 				
 			}

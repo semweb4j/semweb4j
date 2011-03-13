@@ -18,7 +18,7 @@ public class OpenrdfBlankNode extends AbstractBlankNodeImpl {
 	private static final long serialVersionUID = 5148665108422546165L;
 	
 	/**
-	 * @param underlyingBlankNode
+	 * @param underlyingBlankNode from OpenRDF
 	 */
 	public OpenrdfBlankNode(BNode underlyingBlankNode) {
 		super(underlyingBlankNode);

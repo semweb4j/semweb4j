@@ -95,23 +95,24 @@ public class ConversionUtil {
 	
 	public static org.openrdf.model.Literal toOpenRDF(LanguageTagLiteral literal,
 	        ValueFactory factory) {
-		return literal == null ? null : factory.createLiteral(literal.getValue(), literal
-		        .getLanguageTag());
+		return literal == null ? null : factory.createLiteral(literal.getValue(),
+		        literal.getLanguageTag());
 	}
 	
 	public static org.openrdf.model.Literal toOpenRDF(DatatypeLiteral literal, ValueFactory factory) {
-		return literal == null ? null : factory.createLiteral(literal.getValue(), toOpenRDF(literal
-		        .getDatatype(), factory));
+		return literal == null ? null : factory.createLiteral(literal.getValue(),
+		        toOpenRDF(literal.getDatatype(), factory));
 	}
 	
 	/**
-	 * Implementation note: This method does not used the {@link ValueFactory}
+	 * Implementation note: This method does not use the {@link ValueFactory}
 	 * but directly fetches the Sesame object reference from RDF2Gos wrapper
 	 * object.
 	 * 
-	 * @param node
-	 * @param factory
-	 * @return
+	 * @param node RDF2Go blank node
+	 * @param factory OpenRDF value factory
+	 * @return the OpenRDF instance wrapped in the given RDF2Go blank node or a
+	 *         new OpenRDF blank node with the same internal ID.
 	 */
 	public static BNode toOpenRDF(BlankNode node, ValueFactory factory) {
 		BNode result = null;

@@ -23,7 +23,6 @@ import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
-import org.ontoware.rdf2go.model.Diff;
 import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
@@ -64,10 +63,10 @@ import org.slf4j.LoggerFactory;
  * 
  * Note that RepositoryModel and RepositoryModelSet only work well together
  * because they both keep their RepositoryConnections in auto-commit mode. This
- * cannot be changed by the user. Do mass-updates using {@link #update(Diff)},
- * {@link #addAll(Iterator)} or {@link #removeAll(Iterator)}, then the current
- * connection will be used in non-autocommit mode and commited, including a
- * rollback when it fails.
+ * cannot be changed by the user. Do mass-updates using
+ * {@link #update(DiffReader)}, {@link #addAll(Iterator)} or
+ * {@link #removeAll(Iterator)}, then the current connection will be used in
+ * non-autocommit mode and commited, including a rollback when it fails.
  * 
  * <p>
  * Note: Every Model returned by this implementation should be explicitly closed
@@ -78,8 +77,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	/**
      * 
      */
-    private static final long serialVersionUID = 202502559337092796L;
-
+	private static final long serialVersionUID = 202502559337092796L;
+	
 	private static class ContextIterator implements ClosableIterator<URI> {
 		
 		private RepositoryResult<org.openrdf.model.Resource> idIterator;
@@ -183,8 +182,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		/**
          * 
          */
-        private static final long serialVersionUID = -2397218722246644188L;
-
+		private static final long serialVersionUID = -2397218722246644188L;
+		
 		private UriOrVariable context;
 		
 		private NodeOrVariable object;
@@ -436,8 +435,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					
 					// doesn't hurt to explicitly add them to the right context
 					for(org.openrdf.model.Statement stmt : statements.asList()) {
-						this.connection.add(this.valueFactory.createStatement(stmt.getSubject(),
-						        stmt.getPredicate(), stmt.getObject(), openrdfContextURI),
+						this.connection.add(
+						        this.valueFactory.createStatement(stmt.getSubject(),
+						                stmt.getPredicate(), stmt.getObject(), openrdfContextURI),
 						        openrdfContextURI);
 					}
 				} catch(RepositoryException e) {
@@ -546,14 +546,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	@Override
 	public boolean contains(Statement s) throws ModelRuntimeException {
-		return this.containsStatements(s.getContext(), s.getSubject(), s.getPredicate(), s
-		        .getObject());
+		return this.containsStatements(s.getContext(), s.getSubject(), s.getPredicate(),
+		        s.getObject());
 	}
 	
 	public boolean containsModel(URI contextURI) {
 		try {
-			return this.connection.hasStatement(null, null, null, false, ConversionUtil.toOpenRDF(
-			        contextURI, this.repository.getValueFactory()));
+			return this.connection.hasStatement(null, null, null, false,
+			        ConversionUtil.toOpenRDF(contextURI, this.repository.getValueFactory()));
 		} catch(RepositoryException e) {
 			throw new RuntimeException(e);
 		}
@@ -618,8 +618,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	@Override
 	public ClosableIterator<Statement> findStatements(QuadPattern pattern)
 	        throws ModelRuntimeException {
-		return this.findStatements(pattern.getContext(), pattern.getSubject(), pattern
-		        .getPredicate(), pattern.getObject());
+		return this.findStatements(pattern.getContext(), pattern.getSubject(),
+		        pattern.getPredicate(), pattern.getObject());
 	}
 	
 	@Override
