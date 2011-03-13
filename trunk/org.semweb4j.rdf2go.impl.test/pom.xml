@@ -11,22 +11,23 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.test</artifactId>
-	<version>4.7.3</version>
+	<version>4.7.4</version>
 	<packaging>jar</packaging>
 
 	<name>RDF2Go Integration Tests</name>
 	<description>
-		Testing usage of multiple adapters together
+		Testing usage of multiple adapters together.
+		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
 	</description>
 
 	<developers>
 		<developer>
 			<id>xamde</id>
 			<name>Max Völkel (Max Voelkel)</name>
-			<email>dev@xam.de</email>
-			<url>http://xam.de</url>
-			<organization>FZI</organization>
-			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<email>opensource@maxvoelkel.de</email>
+			<url>http://maxvoelkel.de</url>
+			<organization>IT Consulting Dr. Max Völkel</organization>
+			<organizationUrl>http://www.maxvoelkel.de</organizationUrl>
 			<roles>
 				<role>Manager</role>
 				<role>Architect</role>
@@ -45,7 +46,7 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.7.3</version>
+			<version>4.7.4</version>
 		</dependency>
 
 		<!-- logging dependencies -->
@@ -68,18 +69,16 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.7.3</version>
+			<version>4.7.4</version>
 			<scope>test</scope>
 		</dependency>
-		<!--  wait until jena 2.6. is fixed  -->
-<!-- 
+
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.7.0</version>
+			<artifactId>rdf2go.impl.jena26</artifactId>
+			<version>4.7.4</version>
 			<scope>test</scope>
 		</dependency>
- -->
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
