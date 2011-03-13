@@ -9,7 +9,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base.test</artifactId>
-	<version>4.7.4-SNAPSHOT</version>
+	<version>4.7.4</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.impl.base.test</name>
