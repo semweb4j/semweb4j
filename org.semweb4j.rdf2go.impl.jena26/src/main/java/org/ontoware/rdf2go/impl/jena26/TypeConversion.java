@@ -79,8 +79,8 @@ public class TypeConversion {
 		if(o instanceof LanguageTagLiteral) {
 			// langtag
 			log.debug("instanceof LanguageTagLiteral");
-			return Node.createLiteral(((LanguageTagLiteral)o).getValue(), ((LanguageTagLiteral)o)
-			        .getLanguageTag(), null);
+			return Node.createLiteral(((LanguageTagLiteral)o).getValue(),
+			        ((LanguageTagLiteral)o).getLanguageTag(), null);
 		}
 		
 		if(o instanceof BlankNode) {
@@ -145,8 +145,8 @@ public class TypeConversion {
 		if(o instanceof LanguageTagLiteral) {
 			// langtag
 			log.debug("instanceof LanguageTagLiteral");
-			return Node.createLiteral(((LanguageTagLiteral)o).getValue(), ((LanguageTagLiteral)o)
-			        .getLanguageTag(), null);
+			return Node.createLiteral(((LanguageTagLiteral)o).getValue(),
+			        ((LanguageTagLiteral)o).getLanguageTag(), null);
 		}
 		
 		if(o instanceof BlankNode) {
@@ -176,8 +176,7 @@ public class TypeConversion {
 	 * 
 	 * @param n The node to transform
 	 * @return A specific java object
-	 * @throws RuntimeException
-	 * @throws ModelRuntimeException
+	 * @throws ModelRuntimeException from the underlying model
 	 */
 	public static org.ontoware.rdf2go.model.node.Node toRDF2Go(Node n) throws ModelRuntimeException {
 		// A return of null indicates that the variable is not present in this
@@ -195,8 +194,8 @@ public class TypeConversion {
 			LiteralLabel lit = n.getLiteral();
 			// datatype
 			if(lit.getDatatypeURI() != null) {
-				return new DatatypeLiteralImpl(lit.getLexicalForm(), new URIImpl(lit
-				        .getDatatypeURI()));
+				return new DatatypeLiteralImpl(lit.getLexicalForm(), new URIImpl(
+				        lit.getDatatypeURI()));
 			}
 			
 			// language tagged

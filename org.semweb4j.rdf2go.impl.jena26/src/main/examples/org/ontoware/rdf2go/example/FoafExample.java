@@ -35,9 +35,8 @@ public class FoafExample {
 	 * Create a foaf file
 	 * 
 	 * @param args None
-	 * @throws Exception
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		
 		/*
 		 * first of all we have to instantiate a RDF2GO model with an underlying

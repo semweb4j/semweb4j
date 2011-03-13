@@ -50,8 +50,8 @@ public class DumpUtils {
 	 * 
 	 * @param options null for default. format: "n3"|"rdfxml"|"ntriple", output:
 	 *            "sysout"|"log"
-	 * @throws Exception Jena knows: "RDF/XML","RDF/XML-ABBREV", "N-TRIPLE" and
-	 *             "N3".
+	 * @throws ModelRuntimeException Jena knows: "RDF/XML","RDF/XML-ABBREV",
+	 *             "N-TRIPLE" and "N3".
 	 */
 	public static void dump(Model m, String[] options) throws ModelRuntimeException {
 		boolean n3 = false;
