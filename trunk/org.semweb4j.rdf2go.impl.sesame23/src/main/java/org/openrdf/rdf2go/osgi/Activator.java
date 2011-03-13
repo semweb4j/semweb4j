@@ -32,14 +32,13 @@ public class Activator implements BundleActivator {
 	/**
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
-	@SuppressWarnings("unchecked")
 	public void start(BundleContext context) throws Exception {
 		
 		bc = context;
 		
 		this.factory = new RepositoryModelFactory();
 		ServiceRegistration registration = bc.registerService(ModelFactory.class.getName(),
-		        this.factory, new Hashtable());
+		        this.factory, new Hashtable<Object,Object>());
 		this.reference = registration.getReference();
 	}
 	
