@@ -13,16 +13,17 @@
 	<name>rdf2go.impl.jena26</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.6
+		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
 	</description>
 
 	<developers>
 		<developer>
 			<id>xamde</id>
 			<name>Max Völkel (Max Voelkel)</name>
-			<email>dev@xam.de</email>
-			<url>http://xam.de</url>
-			<organization>FZI</organization>
-			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<email>opensource@maxvoelkel.de</email>
+			<url>http://maxvoelkel.de</url>
+			<organization>IT Consulting Dr. Max Völkel</organization>
+			<organizationUrl>http://www.maxvoelkel.de</organizationUrl>
 			<roles>
 				<role>Manager</role>
 				<role>Architect</role>
