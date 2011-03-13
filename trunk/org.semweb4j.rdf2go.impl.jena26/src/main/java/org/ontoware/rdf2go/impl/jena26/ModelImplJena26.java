@@ -57,6 +57,8 @@ import com.hp.hpl.jena.shared.BadURIException;
  * 
  */
 public class ModelImplJena26 extends AbstractModel implements Model {
+	private static final long serialVersionUID = -2993918177017878243L;
+	
 	protected static final Logger log = LoggerFactory.getLogger(ModelImplJena26.class);
 	
 	protected com.hp.hpl.jena.rdf.model.Model jenaModel;
@@ -73,11 +75,12 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	private boolean locked;
 	
 	/**
-	 * @param reasoning
+	 * @param contextURI the first part of the quad, never null
+	 * @param reasoning never null
 	 */
-	public ModelImplJena26(URI contextURI, Reasoning r) {
+	public ModelImplJena26(URI contextURI, Reasoning reasoning) {
 		this.contextURI = contextURI;
-		this.reasoning = r;
+		this.reasoning = reasoning;
 		this.jenaModel = ModelFactory.createDefaultModel();
 		applyReasoning(this.reasoning);
 	}
@@ -85,7 +88,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	/**
 	 * wraps a Jena Model in a rdf2go Model
 	 * 
-	 * @param jenaModel
+	 * @param jenaModel to be wrapped into an RDF2Go Model
 	 */
 	public ModelImplJena26(URI contextURI, com.hp.hpl.jena.rdf.model.Model jenaModel) {
 		this(contextURI, jenaModel, Reasoning.none);
@@ -450,8 +453,8 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	/**
 	 * Throws an exception if the syntax is not SPARQL
 	 * 
-	 * @throws IOException
-	 * @throws ModelRuntimeException
+	 * @throws IOException from underlying {@link OutputStream}
+	 * @throws ModelRuntimeException for errors using the model
 	 */
 	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws ModelRuntimeException, IOException {

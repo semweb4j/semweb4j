@@ -34,7 +34,7 @@ public class IOUtils {
 	 * Read the file. Assume RDF/XML, unless file extension is '.nt' (N-TRIPLES)
 	 * or '.n3' (N3).
 	 * 
-	 * @param filename
+	 * @param filename to be read
 	 * @return a Jena Model
 	 */
 	public static Model read(String filename) {
@@ -98,7 +98,7 @@ public class IOUtils {
 	/**
 	 * TODO test xml ecnoding
 	 * 
-	 * @throws IOException
+	 * @throws IOException from underlying writer
 	 */
 	public static void writeJenaModel(com.hp.hpl.jena.rdf.model.Model jm, Writer w)
 	        throws ModelRuntimeException, IOException {

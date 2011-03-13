@@ -15,6 +15,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class StatementJena24Impl extends AbstractStatement implements Statement {
 	
+	private static final long serialVersionUID = -144220629238562048L;
+	
 	private static Logger log = LoggerFactory.getLogger(StatementJena24Impl.class);
 	
 	private Node s, p, o;
