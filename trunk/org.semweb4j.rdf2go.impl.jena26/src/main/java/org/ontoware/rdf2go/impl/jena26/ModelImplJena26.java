@@ -326,8 +326,8 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	public synchronized void update(DiffReader diff) throws ModelRuntimeException {
 		assertModel();
 		lock();
-		addAll(diff.getAdded().iterator());
 		removeAll(diff.getRemoved().iterator());
+		addAll(diff.getAdded().iterator());
 		unlock();
 	}
 	
