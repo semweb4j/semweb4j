@@ -142,7 +142,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	@Override
 	public Model open() {
-		// establish a connection
+		// establish a connection only if none had been established
+	    if (isOpen()) {
+	        return this;
+	    }
 		try {
 			this.connection = this.repository.getConnection();
 			this.connection.setAutoCommit(true);
@@ -844,5 +847,4 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
 }
