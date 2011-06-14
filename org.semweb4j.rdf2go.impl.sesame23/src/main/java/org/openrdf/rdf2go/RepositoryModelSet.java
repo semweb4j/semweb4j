@@ -10,14 +10,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -146,11 +145,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 		
 		public Model next() {
-			Model model = null;
+			RepositoryModel model = null;
 			URI uri = this.contextIterator.next();
 			model = new RepositoryModel(uri, RepositoryModelSet.this.repository);
 			model.open();
-			RepositoryModelSet.this.openModels.add(new WeakReference<Model>(model));
+			RepositoryModelSet.this.openModels.put(model, null);
 			this.lastURI = uri;
 			return model;
 		}
@@ -290,7 +289,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private ValueFactory valueFactory;
 	
-	private LinkedList<WeakReference<Model>> openModels = new LinkedList<WeakReference<Model>>();
+	private WeakHashMap<RepositoryModel, Object> openModels = new WeakHashMap<RepositoryModel, Object>();
 	
 	public RepositoryModelSet(Repository repository) throws ModelRuntimeException {
 		this.init(repository);
@@ -522,8 +521,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void close() {
 		if(this.isOpen()) {
 			try {
-				for(Iterator<WeakReference<Model>> i = this.openModels.iterator(); i.hasNext();) {
-					Model m = i.next().get();
+				for(Iterator<RepositoryModel> i = this.openModels.keySet().iterator(); i.hasNext();) {
+					Model m = i.next();
 					if(m != null)
 						m.close();
 				}
@@ -656,16 +655,16 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	}
 	
 	public Model getDefaultModel() {
-		Model model = new RepositoryModel(this.repository);
+		RepositoryModel model = new RepositoryModel(this.repository);
 		model.open();
-		this.openModels.add(new WeakReference<Model>(model));
+		this.openModels.put(model,null);
 		return model;
 	}
 	
 	public Model getModel(URI contextURI) {
-		Model model = new RepositoryModel(contextURI, this.repository);
+		RepositoryModel model = new RepositoryModel(contextURI, this.repository);
 		model.open();
-		this.openModels.add(new WeakReference<Model>(model));
+		this.openModels.put(model,null);
 		return model;
 	}
 	
