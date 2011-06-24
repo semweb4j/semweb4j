@@ -44,7 +44,7 @@ public interface TriplePattern extends Serializable {
 	public NodeOrVariable getObject();
 	
 	/**
-	 * @param statement
+	 * @param statement with subject, predicated and object defined.
 	 * @return true if this pattern matches the given statement. Ignores
 	 *         context.
 	 * @since RDF2Go 4.4.2

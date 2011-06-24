@@ -61,7 +61,8 @@ public interface Statement extends Comparable<Statement>, TriplePattern, Seriali
 	/**
 	 * debug output. Lazy implementation can just do nothing.
 	 * 
-	 * @param options
+	 * @param options undocumented :-) Depends on underlying implementation. See
+	 *            source code.
 	 */
 	public void dump(String[] options);
 	
