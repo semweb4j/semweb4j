@@ -38,7 +38,8 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 		return jenaModel.asStatement(t);
 	}
 	
-	public Resource getSubject() {
+	@Override
+    public Resource getSubject() {
 		try {
 			return (Resource)TypeConversion.toRDF2Go(this.s);
 		} catch(ModelRuntimeException e) {
@@ -46,7 +47,8 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 		}
 	}
 	
-	public URI getPredicate() {
+	@Override
+    public URI getPredicate() {
 		try {
 			return (URI)TypeConversion.toRDF2Go(this.p);
 		} catch(ModelRuntimeException e) {
@@ -54,7 +56,8 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 		}
 	}
 	
-	public org.ontoware.rdf2go.model.node.Node getObject() {
+	@Override
+    public org.ontoware.rdf2go.model.node.Node getObject() {
 		try {
 			return TypeConversion.toRDF2Go(this.o);
 		} catch(ModelRuntimeException e) {
@@ -91,7 +94,8 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 		return super.hashCode();
 	}
 	
-	public URI getContext() {
+	@Override
+    public URI getContext() {
 		return this.model.getContextURI();
 	}
 	

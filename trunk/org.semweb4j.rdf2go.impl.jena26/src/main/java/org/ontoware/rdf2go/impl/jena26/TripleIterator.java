@@ -26,7 +26,8 @@ public class TripleIterator implements ClosableIterator<Statement> {
 		this.modelImplJena = jenaModel;
 	}
 	
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		assert this.modelImplJena.getModificationCount() == this.modelModificationCountAtCreationTime : "concurrent modification for iterator ("
 		        + this.modelModificationCountAtCreationTime
 		        + " but model is "
@@ -34,20 +35,23 @@ public class TripleIterator implements ClosableIterator<Statement> {
 		return this.it.hasNext();
 	}
 	
-	public Statement next() {
+	@Override
+    public Statement next() {
 		assert this.modelImplJena.getModificationCount() == this.modelModificationCountAtCreationTime;
 		Triple t = (Triple)this.it.next();
 		return new StatementJena24Impl(this.modelImplJena, t.getSubject(), t.getPredicate(), t
 		        .getObject());
 	}
 	
-	public void remove() {
+	@Override
+    public void remove() {
 		// it.remove();
 		assert this.modelImplJena.getModificationCount() == this.modelModificationCountAtCreationTime;
 		this.it.remove();
 	}
 	
-	public void close() {
+	@Override
+    public void close() {
 		this.it.close();
 	}
 	

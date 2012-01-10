@@ -22,12 +22,14 @@ public class QueryIterator implements ClosableIterator<QueryRow>
     this.table = table;
   }
 
-  public boolean hasNext()
+  @Override
+public boolean hasNext()
   {
     return this.resultSet.hasNext();
   }
 
-  @SuppressWarnings("null")
+  @Override
+@SuppressWarnings("null")
   /*
    * patch from garpinc against nulls - http://issues.semweb4j.org/browse/RTGO-65
    */
@@ -51,12 +53,14 @@ public class QueryIterator implements ClosableIterator<QueryRow>
     return row;
   }
 
-  public void remove()
+  @Override
+public void remove()
   {
     this.resultSet.remove();
   }
 
-  public void close()
+  @Override
+public void close()
   {
   }
 
