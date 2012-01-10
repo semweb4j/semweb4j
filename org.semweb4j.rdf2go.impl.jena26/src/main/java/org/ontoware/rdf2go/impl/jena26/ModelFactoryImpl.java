@@ -38,7 +38,8 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 	
 	public static final String FILENAME = "filename";
 	
-	public Model createModel(Properties p) throws ModelRuntimeException {
+	@Override
+    public Model createModel(Properties p) throws ModelRuntimeException {
 		com.hp.hpl.jena.rdf.model.Model model;
 		
 		String backend = p.getProperty(BACKEND);
@@ -107,7 +108,8 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 		
 	}
 	
-	public Model createModel(URI contextURI) throws ModelRuntimeException {
+	@Override
+    public Model createModel(URI contextURI) throws ModelRuntimeException {
 		com.hp.hpl.jena.rdf.model.Model model = com.hp.hpl.jena.rdf.model.ModelFactory
 		        .createDefaultModel();
 		return new ModelImplJena26(contextURI, model);
@@ -124,7 +126,8 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 		return com.hp.hpl.jena.rdf.model.ModelFactory.createFileModelMaker(filename);
 	}
 	
-	public ModelSet createModelSet(Properties p) throws ModelRuntimeException {
+	@Override
+    public ModelSet createModelSet(Properties p) throws ModelRuntimeException {
 		// TODO not available in Jena, TODO: implement using NG4J
 		throw new UnsupportedOperationException("not available in Jena, TODO: implement using NG4J");
 	}

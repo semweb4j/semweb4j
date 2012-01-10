@@ -36,11 +36,13 @@ public class QueryResultTableImpl implements QueryResultTable {
 		this.qexec = QueryExecutionFactory.create(query, jenaModel);
 	}
 	
-	public List<String> getVariables() {
+	@Override
+    public List<String> getVariables() {
 		return this.varnames;
 	}
 	
-	public ClosableIterator<QueryRow> iterator() {
+	@Override
+    public ClosableIterator<QueryRow> iterator() {
 		ResultSet results = this.qexec.execSelect();
 		return new QueryIterator(this, results);
 	}
