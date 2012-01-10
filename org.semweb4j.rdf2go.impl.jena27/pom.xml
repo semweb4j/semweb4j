@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -89,14 +90,14 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<!--  require any version >= 4.6 -->
+			<!-- require any version >= 4.6 -->
 			<version>4.7.4</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.base.test</artifactId>
-			<!--  require any version >= 4.6 -->
+			<!-- require any version >= 4.6 -->
 			<version>4.7.4</version>
 			<scope>test</scope>
 		</dependency>
@@ -106,19 +107,15 @@
 			<version>3.2.1.R32</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--  transcludes jena-core 2.7.0 -->
+		<!-- transcludes jena-core 2.7.0 -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
 			<version>2.9.0-incubating</version>
 		</dependency>
-		<!--  Use this dependency for Jena 2.6.2 with Database support -->
-<!-- 		<dependency>
-			<groupId>com.hp.hpl.jena</groupId>
-			<artifactId>jena</artifactId>
-			<version>2.6.2</version>
-		</dependency>
- -->		
+		<!-- Use this dependency for Jena 2.6.2 with Database support -->
+		<!-- <dependency> <groupId>com.hp.hpl.jena</groupId> <artifactId>jena</artifactId> 
+			<version>2.6.2</version> </dependency> -->
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
@@ -150,11 +147,23 @@
 
 	</dependencies>
 
-	<!--
-		for OSGi preparation we have to slightly change the final name of the
-		project-jar
-	-->
+	<!-- for OSGi preparation we have to slightly change the final name of the 
+		project-jar -->
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+			<!-- via https://wagon-svn.dev.java.net/ -->
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
+		</extensions>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -164,7 +173,10 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
 	</build>
+
+
 
 
 	<!-- to avoid folded site uris -->
