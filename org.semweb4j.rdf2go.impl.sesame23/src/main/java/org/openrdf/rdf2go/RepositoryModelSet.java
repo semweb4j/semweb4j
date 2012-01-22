@@ -289,7 +289,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private ValueFactory valueFactory;
 	
-	private WeakHashMap<RepositoryModel, Object> openModels = new WeakHashMap<RepositoryModel, Object>();
+	private WeakHashMap<RepositoryModel,Object> openModels = new WeakHashMap<RepositoryModel,Object>();
 	
 	public RepositoryModelSet(Repository repository) throws ModelRuntimeException {
 		this.init(repository);
@@ -535,6 +535,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
+	@Deprecated
 	public void commit() {
 		try {
 			this.connection.commit();
@@ -657,14 +659,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public Model getDefaultModel() {
 		RepositoryModel model = new RepositoryModel(this.repository);
 		model.open();
-		this.openModels.put(model,null);
+		this.openModels.put(model, null);
 		return model;
 	}
 	
 	public Model getModel(URI contextURI) {
 		RepositoryModel model = new RepositoryModel(contextURI, this.repository);
 		model.open();
-		this.openModels.put(model,null);
+		this.openModels.put(model, null);
 		return model;
 	}
 	
@@ -944,6 +946,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
+	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		try {
 			this.connection.setAutoCommit(autocommit);
