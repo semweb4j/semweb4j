@@ -8,13 +8,20 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.impl.AbstractModelFactory;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
+import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.node.URI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.rdf.model.ModelMaker;
 
 
 public class ModelFactoryImpl extends AbstractModelFactory implements ModelFactory {
+	
+	protected static final Logger log = LoggerFactory.getLogger(ModelFactoryImpl.class);
 	
 	public static final String BACKEND = "back-end";
 	
@@ -98,6 +105,13 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 	public ModelSet createModelSet(Properties p) throws ModelRuntimeException {
 		// TODO not available in Jena, TODO: implement using NG4J
 		throw new UnsupportedOperationException("not available in Jena, TODO: implement using NG4J");
+	}
+	
+	@Override
+	public QueryResultTable sparqlSelect(String url, String queryString) {
+		log.debug("Query " + queryString);
+		QueryExecution qe = QueryExecutionFactory.sparqlService(url, queryString);
+		return new QueryResultTableImpl(qe);
 	}
 	
 }

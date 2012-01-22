@@ -36,13 +36,25 @@ public class QueryResultTableImpl implements QueryResultTable {
 		this.qexec = QueryExecutionFactory.create(query, jenaModel);
 	}
 	
+	public QueryResultTableImpl(QueryExecution qe) {
+		if(!qe.getQuery().isSelectType()) {
+			throw new ModelRuntimeException("The given query execution is not a SELECT query");
+		}
+		
+		this.varnames = new ArrayList<String>();
+		for(Object o : qe.getQuery().getResultVars()) {
+			this.varnames.add((String)o);
+		}
+		this.qexec = qe;
+	}
+	
 	@Override
-    public List<String> getVariables() {
+	public List<String> getVariables() {
 		return this.varnames;
 	}
 	
 	@Override
-    public ClosableIterator<QueryRow> iterator() {
+	public ClosableIterator<QueryRow> iterator() {
 		ResultSet results = this.qexec.execSelect();
 		return new QueryIterator(this, results);
 	}

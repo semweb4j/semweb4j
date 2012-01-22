@@ -2,6 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+<!--  See https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide  #6
+-->
+
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
@@ -10,13 +13,15 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena27</artifactId>
-	<version>4.7.4</version>
+	<version>4.8.0</version>
+	<packaging>jar</packaging>
 	<name>rdf2go.impl.jena27</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.7
 		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de.
 		Since 2010 it is supported by Calpano, www.calpano.com.
 	</description>
+	<url>http://rdf2go.semweb4j.org</url>
 
 	<developers>
 		<developer>
@@ -90,17 +95,16 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<!-- require any version >= 4.6 -->
-			<version>4.7.4</version>
+			<version>4.8.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.base.test</artifactId>
-			<!-- require any version >= 4.6 -->
-			<version>4.7.4</version>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.8.0</version>
+			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>osgi</artifactId>
