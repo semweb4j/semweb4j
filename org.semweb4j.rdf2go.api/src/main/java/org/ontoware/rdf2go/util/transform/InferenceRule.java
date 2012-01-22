@@ -44,7 +44,8 @@ public class InferenceRule implements TransformerRule {
 		return this.add;
 	}
 
-	public void applyRule(Model model, Map<String, URI> namespaceMap) {
+	@Override
+    public void applyRule(Model model, Map<String, URI> namespaceMap) {
 
 		Model removeModel = RDF2Go.getModelFactory().createModel();
 		removeModel.open();

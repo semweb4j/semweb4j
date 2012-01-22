@@ -54,17 +54,20 @@ public class NotifyingModelSetLayer extends DelegatingModelSet implements
 
 	private Map<ModelChangedListener, QuadPattern> modelsetChangeListener = new HashMap<ModelChangedListener, QuadPattern>();
 
-	public void addModelSetChangedListener(ModelChangedListener listener) {
+	@Override
+    public void addModelSetChangedListener(ModelChangedListener listener) {
 		this.modelsetChangeListener.put(listener, new QuadPatternImpl(Variable.ANY,
 				Variable.ANY, Variable.ANY, Variable.ANY));
 	}
 
-	public void addModelSetChangedListener(ModelChangedListener listener,
+	@Override
+    public void addModelSetChangedListener(ModelChangedListener listener,
 			QuadPattern pattern) {
 		this.modelsetChangeListener.put(listener, pattern);
 	}
 
-	public void removeModelSetChangedListener(ModelChangedListener listener) {
+	@Override
+    public void removeModelSetChangedListener(ModelChangedListener listener) {
 		this.modelsetChangeListener.remove(listener);
 	}
 

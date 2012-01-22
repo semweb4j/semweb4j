@@ -49,42 +49,49 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter
 	private static Logger log = LoggerFactory
 			.getLogger(AbstractModelAddRemove.class);
 
-	public void removeStatement(String subjectURIString, URI predicate,
+	@Override
+    public void removeStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		removeStatement(new URIImpl(subjectURIString), predicate,
 				new PlainLiteralImpl(literal));
 	}
 
-	public void removeStatement(String subjectURIString, URI predicate,
+	@Override
+    public void removeStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		removeStatement(new URIImpl(subjectURIString), predicate,
 				new LanguageTagLiteralImpl(literal, languageTag));
 	}
 
-	public void removeStatement(String subjectURIString, URI predicate,
+	@Override
+    public void removeStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		removeStatement(new URIImpl(subjectURIString), predicate,
 				new DatatypeLiteralImpl(literal, datatypeURI));
 	}
 
-	public void removeStatement(Resource subject, URI predicate, String literal)
+	@Override
+    public void removeStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		removeStatement(subject, predicate, new PlainLiteralImpl(literal));
 	}
 
-	public void removeStatement(Resource subject, URI predicate,
+	@Override
+    public void removeStatement(Resource subject, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		removeStatement(subject, predicate, new LanguageTagLiteralImpl(literal,
 				languageTag));
 	}
 
-	public void removeStatement(Resource subject, URI predicate,
+	@Override
+    public void removeStatement(Resource subject, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		removeStatement(subject, predicate, new DatatypeLiteralImpl(literal,
 				datatypeURI));
 	}
 
-	public void removeStatement(Statement statement)
+	@Override
+    public void removeStatement(Statement statement)
 			throws ModelRuntimeException {
 		removeStatement(statement.getSubject(), statement.getPredicate(),
 				statement.getObject());
@@ -92,7 +99,8 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter
 
 	// bulk operations
 
-	public void removeAll(Iterator<? extends Statement> other)
+	@Override
+    public void removeAll(Iterator<? extends Statement> other)
 			throws ModelRuntimeException {
 		while (other.hasNext()) {
 			Statement stmt = other.next();
@@ -100,7 +108,8 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter
 		}
 	}
 
-	public void removeAll() throws ModelRuntimeException {
+	@Override
+    public void removeAll() throws ModelRuntimeException {
 		// fill temp
 		Collection<Statement> temp = new LinkedList<Statement>();
 		for (Statement statement : this) {
@@ -113,7 +122,8 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter
 		}
 	}
 
-	public void update(DiffReader diff) throws ModelRuntimeException {
+	@Override
+    public void update(DiffReader diff) throws ModelRuntimeException {
 		removeAll(diff.getRemoved().iterator());
 		addAll(diff.getAdded().iterator());
 	}
@@ -126,7 +136,8 @@ public abstract class AbstractModelAddRemove extends AbstractModelWriter
 	public abstract void addStatement(Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException;
 
-	public abstract void removeStatement(Resource subject, URI predicate,
+	@Override
+    public abstract void removeStatement(Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException;
 
 }

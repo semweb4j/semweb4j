@@ -39,16 +39,19 @@ public class LazyUnionModelIterator implements ClosableIterator<Statement> {
 		this.modelit = impl.getModels();
 	}
 
-	public void close() {
+	@Override
+    public void close() {
 		this.stmtit.close();
 	}
 
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		getNonEmptyStmtIterator();
 		return this.stmtit.hasNext();
 	}
 
-	public Statement next() {
+	@Override
+    public Statement next() {
 		getNonEmptyStmtIterator();
 		return this.stmtit.next();
 	}
@@ -69,7 +72,8 @@ public class LazyUnionModelIterator implements ClosableIterator<Statement> {
 		}
 	}
 
-	public void remove() {
+	@Override
+    public void remove() {
 		getNonEmptyStmtIterator();
 		this.stmtit.remove();
 	}

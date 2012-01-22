@@ -81,11 +81,13 @@ public class URIImpl extends ResourceImpl implements URI {
 		return this.uriString;
 	}
 	
-	public URI asURI() throws ClassCastException {
+	@Override
+    public URI asURI() throws ClassCastException {
 		return this;
 	}
 	
-	public BlankNode asBlankNode() throws ClassCastException {
+	@Override
+    public BlankNode asBlankNode() throws ClassCastException {
 		throw new ClassCastException("Cannot cast a URI to a BlankNode");
 	}
 	
@@ -109,7 +111,8 @@ public class URIImpl extends ResourceImpl implements URI {
 		return this.uriString.hashCode();
 	}
 	
-	public int compareTo(Node other) {
+	@Override
+    public int compareTo(Node other) {
 		if(other instanceof URI) {
 			return this.uriString.compareTo(((URI)other).toString());
 		} else {
@@ -118,11 +121,13 @@ public class URIImpl extends ResourceImpl implements URI {
 		}
 	}
 	
-	public String toSPARQL() {
+	@Override
+    public String toSPARQL() {
 		return "<" + this.uriString + ">";
 	}
 	
-	public java.net.URI asJavaURI() {
+	@Override
+    public java.net.URI asJavaURI() {
 		try {
 			return new java.net.URI(toString());
 		} catch(URISyntaxException e) {

@@ -31,7 +31,7 @@ public interface NotifyingModel {
 	
 	/**
 	 * 
-	 * @param listener to be notified on matching events
+	 * @param listener must not be null; gets notified on model change events
 	 * @param pattern all add or remove statement events matching the pattern
 	 *            will be send to the listener. Updates are always send.
 	 */

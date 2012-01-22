@@ -84,6 +84,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	private boolean open = false;
 	
 	/** subclasses should overwrite this for performance reasons */
+	@Override
 	public void addModel(Model model) {
 		ClosableIterator<Statement> it = model.iterator();
 		Set<Statement> statements = new HashSet<Statement>();
@@ -171,6 +172,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Close connection to defined, underlying implementation
 	 */
+	@Override
 	public void close() {
 		if(isOpen()) {
 			this.open = false;
@@ -179,7 +181,12 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 		}
 	}
 	
-	/** OVERWRITE ME */
+	/**
+	 * OVERWRITE ME
+	 */
+	@SuppressWarnings("deprecation")
+	@Deprecated
+	@Override
 	public void commit() {
 		// do nothing
 	}
@@ -187,6 +194,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Convenience method. Might have faster implementations. Overwrite me!
 	 */
+	@Override
 	public boolean contains(ResourceOrVariable subject, UriOrVariable predicate,
 	        NodeOrVariable object) throws ModelRuntimeException {
 		assertModel();
@@ -199,6 +207,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Convenience method.
 	 */
+	@Override
 	public boolean contains(ResourceOrVariable subject, UriOrVariable predicate, String plainLiteral)
 	        throws ModelRuntimeException {
 		assertModel();
@@ -208,6 +217,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Convenience method.
 	 */
+	@Override
 	public boolean contains(Statement s) throws ModelRuntimeException {
 		assertModel();
 		return contains(s.getSubject(), s.getPredicate(), s.getObject());
@@ -216,6 +226,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Very inefficient. Please override.
 	 */
+	@Override
 	public long countStatements(TriplePattern pattern) throws ModelRuntimeException {
 		assertModel();
 		ClosableIterator<?> it = findStatements(pattern);
@@ -228,16 +239,19 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 		return count;
 	}
 	
+	@Override
 	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
 	        throws ModelRuntimeException {
 		return new DatatypeLiteralImpl(literal, datatypeURI);
 	}
 	
+	@Override
 	public LanguageTagLiteral createLanguageTagLiteral(String literal, String languageTag)
 	        throws ModelRuntimeException {
 		return new LanguageTagLiteralImpl(literal, languageTag);
 	}
 	
+	@Override
 	public PlainLiteral createPlainLiteral(String literal) throws ModelRuntimeException {
 		return new PlainLiteralImpl(literal);
 	}
@@ -245,15 +259,18 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	// ///////////
 	// stubs
 	
+	@Override
 	public Statement createStatement(Resource subject, URI predicate, Node object) {
 		return new StatementImpl(getContextURI(), subject, predicate, object);
 	}
 	
+	@Override
 	public TriplePattern createTriplePattern(ResourceOrVariable subject, UriOrVariable predicate,
 	        NodeOrVariable object) {
 		return new TriplePatternImpl(subject, predicate, object);
 	}
 	
+	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
 		return new URIImpl(uriString);
 	}
@@ -261,6 +278,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Convenience method.
 	 */
+	@Override
 	public ClosableIterator<Statement> findStatements(TriplePattern triplepattern)
 	        throws ModelRuntimeException {
 		assertModel();
@@ -271,6 +289,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Computes a Diff by using HashSets.
 	 */
+	@Override
 	public Diff getDiff(Iterator<? extends Statement> other) throws ModelRuntimeException {
 		assertModel();
 		
@@ -307,10 +326,12 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * @param propertyURI used as a property name to get the model property
 	 * @return stored property value for this model or null
 	 */
+	@Override
 	public Object getProperty(URI propertyURI) {
 		return this.runtimeProperties.get(propertyURI);
 	}
 	
+	@Override
 	public Object getUnderlyingModelImplementation() {
 		if(!isOpen())
 			throw new ModelRuntimeException("Model is not open");
@@ -318,14 +339,17 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	}
 	
 	/** sublcasses should override this method for performance */
+	@Override
 	public boolean isEmpty() {
 		return size() == 0;
 	}
 	
+	@Override
 	public boolean isOpen() {
 		return this.open;
 	}
 	
+	@Override
 	public URI newRandomUniqueURI() {
 		return URIGenerator.createNewRandomUniqueURI();
 	}
@@ -333,6 +357,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Open connection to defined, unterlying implementation.
 	 */
+	@Override
 	public Model open() {
 		if(isOpen()) {
 			log.warn("Model is already open. Ignored.");
@@ -345,6 +370,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Throws an exception if the syntax is not SPARQL
 	 */
+	@Override
 	public ClosableIterable<Statement> queryConstruct(String query, String querylanguage)
 	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		assertModel();
@@ -357,6 +383,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Throws an exception if the syntax is not SPARQL
 	 */
+	@Override
 	public QueryResultTable querySelect(String query, String querylanguage)
 	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		assertModel();
@@ -370,6 +397,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * Throws an exception if the syntax is not RDF/XML. Subclasses are
 	 * encouraged to overwrite this.
 	 */
+	@Override
 	public void readFrom(InputStream in, Syntax syntax) throws IOException, ModelRuntimeException {
 		assertModel();
 		if(syntax == Syntax.RdfXml) {
@@ -385,6 +413,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * Throws an exception if the syntax is not RDF/XML. Sets baseURI to the
 	 * empty string.
 	 */
+	@Override
 	public void readFrom(InputStream in, Syntax syntax, String baseURI) throws IOException,
 	        ModelRuntimeException {
 		assertModel();
@@ -404,6 +433,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * @throws IOException from reader
 	 * @throws ModelRuntimeException from model
 	 */
+	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI)
 	        throws ModelRuntimeException, IOException {
 		assertModel();
@@ -490,6 +520,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Convenience method.
 	 */
+	@Override
 	public String serialize(Syntax syntax) throws SyntaxNotSupportedException {
 		StringWriter sw = new StringWriter();
 		try {
@@ -505,6 +536,9 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * 
 	 * This implementation simply ignores the request.
 	 */
+	@SuppressWarnings("deprecation")
+	@Deprecated
+	@Override
 	public void setAutocommit(boolean autocommit) {
 		// do nothing
 	}
@@ -517,6 +551,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * @param propertyURI used as a parameter name for storing a model property
 	 * @param value any java object. Only stored in memory, not in RDF.
 	 */
+	@Override
 	public void setProperty(URI propertyURI, Object value) {
 		this.runtimeProperties.put(propertyURI, value);
 	}
@@ -524,6 +559,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * This is a really slow implementation, please override.
 	 */
+	@Override
 	public long size() throws ModelRuntimeException {
 		assertModel();
 		ClosableIterator<Statement> it = iterator();
@@ -537,6 +573,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	}
 	
 	// work around Sesame not having this yet
+	@Override
 	public boolean sparqlAsk(String query) throws ModelRuntimeException, MalformedQueryException {
 		QueryResultTable table = sparqlSelect(query);
 		ClosableIterator<QueryRow> it = table.iterator();
@@ -564,6 +601,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * Throws an exception if the syntax is not known
 	 */
+	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException, ModelRuntimeException {
 		assertModel();
 		if(syntax == Syntax.RdfXml) {
@@ -574,11 +612,13 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	}
 	
 	/* fast, no need to override */
+	@Override
 	public BlankNode addReificationOf(Statement statement) {
 		BlankNode bnode = createBlankNode();
 		return (BlankNode)addReificationOf(statement, bnode);
 	}
 	
+	@Override
 	public Resource addReificationOf(Statement statement, Resource resource) {
 		Diff diff = new DiffImpl();
 		diff.addStatement(resource, RDF.type, RDF.Statement);
@@ -589,6 +629,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 		return resource;
 	}
 	
+	@Override
 	public boolean hasReifications(Statement statement) {
 		return this.sparqlAsk("ASK WHERE { " + " ?res " + RDF.type.toSPARQL() + " "
 		        + RDF.Statement.toSPARQL() + " ." + " ?res " + RDF.subject.toSPARQL() + " "
@@ -601,6 +642,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * inefficient, loads all in memory. should be OK for almost all practical
 	 * cases (when each statement has a small number of refications)
 	 */
+	@Override
 	public Collection<Resource> getAllReificationsOf(Statement statement) {
 		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { " + " ?res "
 		        + RDF.type.toSPARQL() + " " + RDF.Statement.toSPARQL() + " ." + " ?res "
@@ -618,6 +660,7 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 		return result;
 	}
 	
+	@Override
 	public void deleteReification(Resource reificationResource) {
 		Diff diff = new DiffImpl();
 		diff.removeStatement(reificationResource, RDF.type, RDF.Statement);

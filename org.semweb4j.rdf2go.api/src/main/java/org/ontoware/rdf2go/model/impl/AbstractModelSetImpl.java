@@ -59,7 +59,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
      */
     private static final long serialVersionUID = -1495547890343668419L;
 
-	public void dump() {
+	@Override
+    public void dump() {
 		Iterator<? extends Model> it = getModels();
 		while (it.hasNext()) {
 			Model m = it.next();
@@ -71,7 +72,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public void removeAll() throws ModelRuntimeException {
+	@Override
+    public void removeAll() throws ModelRuntimeException {
 		List<Model> models = new LinkedList<Model>();
 		Iterator<? extends Model> it = getModels();
 		while (it.hasNext()) {
@@ -83,7 +85,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
-	public Statement createStatement(URI context, Resource subject,
+	@Override
+    public Statement createStatement(URI context, Resource subject,
 			URI predicate, Node object) {
 		return new StatementImpl(context, subject, predicate, object);
 	}
@@ -96,22 +99,26 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 			this.iterator = modelURIs;
 		}
 
-		public boolean hasNext() {
+		@Override
+        public boolean hasNext() {
 			return this.iterator.hasNext();
 		}
 
-		public Model next() {
+		@Override
+        public Model next() {
 			return getModel(this.iterator.next());
 		}
 
-		public void remove() {
+		@Override
+        public void remove() {
 			this.iterator.next();
 		}
 
 	}
 
 	/* subclasses should overwrite this method to read any syntax besides TriX */
-	public void readFrom(Reader in, Syntax syntax) throws IOException,
+	@Override
+    public void readFrom(Reader in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
 			readFrom(in);
@@ -124,7 +131,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method to read any syntax besides TriX */
-	public void readFrom(InputStream in, Syntax syntax) throws IOException,
+	@Override
+    public void readFrom(InputStream in, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
 			readFrom(in);
@@ -137,7 +145,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method to write any syntax besides TriX */
-	public void writeTo(Writer writer, Syntax syntax) throws IOException,
+	@Override
+    public void writeTo(Writer writer, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
 			writeTo(writer);
@@ -150,7 +159,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method to write any syntax besides TriX */
-	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
+	@Override
+    public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		if (syntax == Syntax.Trix) {
 			writeTo(out);
@@ -162,7 +172,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		}
 	}
 
-	public String serialize(Syntax syntax) throws SyntaxNotSupportedException {
+	@Override
+    public String serialize(Syntax syntax) throws SyntaxNotSupportedException {
 		StringWriter sw = new StringWriter();
 		try {
 			this.writeTo(sw, syntax);
@@ -172,7 +183,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return sw.getBuffer().toString();
 	}
 
-	public boolean containsStatements(UriOrVariable contextURI,
+	@Override
+    public boolean containsStatements(UriOrVariable contextURI,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 
@@ -184,12 +196,14 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public void addStatement(URI context, Resource subject, URI predicate,
+	@Override
+    public void addStatement(URI context, Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException {
 		addStatement(createStatement(context, subject, predicate, object));
 	}
 
-	public void addAll(Iterator<? extends Statement> statement)
+	@Override
+    public void addAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException {
 		while (statement.hasNext()) {
 			addStatement(statement.next());
@@ -197,26 +211,30 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public void removeStatement(URI context, Resource subject, URI predicate,
+	@Override
+    public void removeStatement(URI context, Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException {
 		removeStatement(createStatement(context, subject, predicate, object));
 	}
 
-	public void removeAll(Iterator<? extends Statement> statement)
+	@Override
+    public void removeAll(Iterator<? extends Statement> statement)
 			throws ModelRuntimeException {
 		while (statement.hasNext()) {
 			removeStatement(statement.next());
 		}
 	}
 
-	public void removeStatements(QuadPattern quadPattern)
+	@Override
+    public void removeStatements(QuadPattern quadPattern)
 			throws ModelRuntimeException {
 		removeStatements(quadPattern.getContext(), quadPattern.getSubject(),
 				quadPattern.getPredicate(), quadPattern.getObject());
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public void removeStatements(UriOrVariable context,
+	@Override
+    public void removeStatements(UriOrVariable context,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 
@@ -236,7 +254,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	// implement value factory by delegating to default model
 
 	/* subclasses should overwrite this method for better performance */
-	public BlankNode createBlankNode() {
+	@Override
+    public BlankNode createBlankNode() {
 		// delegate to factory methods of the defaultModel
 		Model defaultModel = this.getDefaultModel();
 		BlankNode blankNode = defaultModel.createBlankNode();
@@ -245,7 +264,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public BlankNode createBlankNode(String internalID) {
+	@Override
+    public BlankNode createBlankNode(String internalID) {
 		// delegate to factory methods of the defaultModel
 		Model defaultModel = this.getDefaultModel();
 		BlankNode blankNode = defaultModel.createBlankNode(internalID);
@@ -254,7 +274,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public URI createURI(String uriString) throws ModelRuntimeException {
+	@Override
+    public URI createURI(String uriString) throws ModelRuntimeException {
 		// delegate to factory methods of the defaultModel
 		Model defaultModel = this.getDefaultModel();
 		URI uri = defaultModel.createURI(uriString);
@@ -263,7 +284,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public boolean isValidURI(String uriString) {
+	@Override
+    public boolean isValidURI(String uriString) {
 		Model defaultModel = this.getDefaultModel();
 		boolean result = defaultModel.isValidURI(uriString);
 		defaultModel.close();
@@ -271,7 +293,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public PlainLiteral createPlainLiteral(String literal) {
+	@Override
+    public PlainLiteral createPlainLiteral(String literal) {
 		Model defaultModel = this.getDefaultModel();
 		PlainLiteral result = defaultModel.createPlainLiteral(literal);
 		defaultModel.close();
@@ -279,7 +302,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public LanguageTagLiteral createLanguageTagLiteral(String literal,
+	@Override
+    public LanguageTagLiteral createLanguageTagLiteral(String literal,
 			String langugeTag) throws ModelRuntimeException {
 		Model defaultModel = this.getDefaultModel();
 		LanguageTagLiteral result = defaultModel.createLanguageTagLiteral(
@@ -290,7 +314,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
+	@Override
+    public DatatypeLiteral createDatatypeLiteral(String literal, URI datatypeURI)
 			throws ModelRuntimeException {
 		Model defaultModel = this.getDefaultModel();
 		DatatypeLiteral result = defaultModel.createDatatypeLiteral(literal,
@@ -301,7 +326,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public Statement createStatement(Resource subject, URI predicate,
+	@Override
+    public Statement createStatement(Resource subject, URI predicate,
 			Node object) {
 		Model defaultModel = this.getDefaultModel();
 		Statement statement = defaultModel.createStatement(subject, predicate,
@@ -311,7 +337,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public URI newRandomUniqueURI() {
+	@Override
+    public URI newRandomUniqueURI() {
 		Model defaultModel = this.getDefaultModel();
 		URI result = defaultModel.newRandomUniqueURI();
 		defaultModel.close();
@@ -324,25 +351,29 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	private boolean locked = false;
 
 	/* subclasses should overwrite this method for better performance */
-	public boolean isLocked() {
+	@Override
+    public boolean isLocked() {
 		return this.locked;
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public void lock() throws LockException {
+	@Override
+    public void lock() throws LockException {
 		if (isLocked())
 			throw new LockException("Already locked");
 		this.locked = true;
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public void unlock() {
+	@Override
+    public void unlock() {
 		this.locked = false;
 	}
 
 	// findable modelset
 
-	public boolean contains(Statement s) throws ModelRuntimeException {
+	@Override
+    public boolean contains(Statement s) throws ModelRuntimeException {
 		QuadPattern quadPattern = new QuadPatternImpl(s.getContext(), s
 				.getSubject(), s.getPredicate(), s.getObject());
 		ClosableIterator<? extends Statement> x = findStatements(quadPattern);
@@ -352,7 +383,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public long countStatements(QuadPattern pattern)
+	@Override
+    public long countStatements(QuadPattern pattern)
 			throws ModelRuntimeException {
 		ClosableIterator<Statement> it = findStatements(pattern);
 		long count = 0;
@@ -370,7 +402,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * part of the quad pattern.
 	 */
 	/* subclasses should overwrite this method for better performance */
-	public ClosableIterator<Statement> findStatements(QuadPattern pattern)
+	@Override
+    public ClosableIterator<Statement> findStatements(QuadPattern pattern)
 			throws ModelRuntimeException {
 		if (pattern.getContext() == Variable.ANY)
 			// match all
@@ -381,7 +414,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 		return m.findStatements(pattern);
 	}
 
-	public ClosableIterator<Statement> findStatements(UriOrVariable contextURI,
+	@Override
+    public ClosableIterator<Statement> findStatements(UriOrVariable contextURI,
 			ResourceOrVariable subject, UriOrVariable predicate,
 			NodeOrVariable object) throws ModelRuntimeException {
 		QuadPattern quadPattern = this.createQuadPattern(contextURI, subject,
@@ -390,13 +424,15 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public ClosableIterator<Statement> iterator() {
+	@Override
+    public ClosableIterator<Statement> iterator() {
 		return new LazyUnionModelIterator(this, new QuadPatternImpl(
 				Variable.ANY, Variable.ANY, Variable.ANY, Variable.ANY));
 	}
 
 	/* subclasses should overwrite this method for better performance */
-	public boolean addModel(Model model) {
+	@Override
+    public boolean addModel(Model model) {
 		for (Statement s : model) {
 			addStatement(model.getContextURI(), s.getSubject(), s
 					.getPredicate(), s.getObject());
@@ -406,7 +442,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 
 	// FIXME test this
 	/* subclasses should overwrite this method for better performance */
-	public void addModelSet(ModelSet modelSet) {
+	@Override
+    public void addModelSet(ModelSet modelSet) {
 		for (Statement s : modelSet) {
 			this.addStatement(s);
 		}
@@ -416,7 +453,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * @throws ModelRuntimeException
 	 *             if the ModelSet is locked
 	 */
-	public void update(DiffReader diff) throws ModelRuntimeException {
+	@Override
+    public void update(DiffReader diff) throws ModelRuntimeException {
 		synchronized (this) {
 			if (this.isLocked()) {
 				throw new ModelRuntimeException(
@@ -438,13 +476,15 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/** sublcasses should override this method for performance */
-	public boolean isEmpty() {
+	@Override
+    public boolean isEmpty() {
 		return size() == 0;
 	}
 
 	// work around Sesame not having this yet
 	/* subclasses should overwrite this method for better performance */
-	public boolean sparqlAsk(String query) throws ModelRuntimeException,
+	@Override
+    public boolean sparqlAsk(String query) throws ModelRuntimeException,
 			MalformedQueryException {
 		QueryResultTable table = sparqlSelect(query);
 		ClosableIterator<QueryRow> it = table.iterator();
@@ -454,13 +494,15 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* fast, no need to override */
-	public BlankNode addReificationOf(Statement statement) {
+	@Override
+    public BlankNode addReificationOf(Statement statement) {
 		BlankNode bnode = createBlankNode();
 		return (BlankNode) addReificationOf(statement, bnode);
 	}
 
 	/* reifications live in the context where the statement is */
-	public Resource addReificationOf(Statement statement, Resource resource) {
+	@Override
+    public Resource addReificationOf(Statement statement, Resource resource) {
 		Diff diff = new DiffImpl();
 		diff.addStatement(createStatement(statement.getContext(), resource,
 				RDF.type, RDF.Statement));
@@ -475,7 +517,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* ignores context */
-	public boolean hasReifications(Statement statement) {
+	@Override
+    public boolean hasReifications(Statement statement) {
 		return this.sparqlAsk("ASK WHERE { " + " ?res " + RDF.type.toSPARQL()
 				+ " " + RDF.Statement.toSPARQL() + " ." + " ?res "
 				+ RDF.subject.toSPARQL() + " "
@@ -492,7 +535,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	 * 
 	 * ignores context
 	 */
-	public Collection<Resource> getAllReificationsOf(Statement statement) {
+	@Override
+    public Collection<Resource> getAllReificationsOf(Statement statement) {
 		QueryResultTable table = this.sparqlSelect("SELECT ?res WHERE { \n"
 				+ " ?res " + RDF.type.toSPARQL() + " "
 				+ RDF.Statement.toSPARQL() + " ." + " ?res "
@@ -513,7 +557,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/* delete in ALL contexts */
-	public void deleteReification(Resource reificationResource) {
+	@Override
+    public void deleteReification(Resource reificationResource) {
 		Diff diff = new DiffImpl();
 		ClosableIterator<Statement> it;
 
@@ -545,7 +590,8 @@ public abstract class AbstractModelSetImpl implements ModelSet {
 	}
 
 	/** subclasses should overwrite this for performance reasons */
-	public void addModel(Model model, URI contextURI) {
+	@Override
+    public void addModel(Model model, URI contextURI) {
 		ClosableIterator<Statement> it = model.iterator();
 		Set<Statement> statements = new HashSet<Statement>();
 		while (it.hasNext()) {

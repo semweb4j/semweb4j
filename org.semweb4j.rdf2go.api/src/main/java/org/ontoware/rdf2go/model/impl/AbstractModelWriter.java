@@ -33,18 +33,21 @@ import org.ontoware.rdf2go.model.node.impl.URIImpl;
  */
 public abstract class AbstractModelWriter implements ModelWriter {
 
-	public void addAll(Iterator<? extends Statement> other) throws ModelRuntimeException {
+	@Override
+    public void addAll(Iterator<? extends Statement> other) throws ModelRuntimeException {
 		while (other.hasNext()) {
 			addStatement(other.next());
 		}
 	}
 
-	public void addStatement(Resource subject, URI predicate, String literal)
+	@Override
+    public void addStatement(Resource subject, URI predicate, String literal)
 			throws ModelRuntimeException {
 		addStatement(subject, predicate, new PlainLiteralImpl(literal));
 	}
 
-	public void addStatement(Resource subject, URI predicate, String literal,
+	@Override
+    public void addStatement(Resource subject, URI predicate, String literal,
 			String languageTag) throws ModelRuntimeException {
 		addStatement(subject, predicate, new LanguageTagLiteralImpl(literal,
 				languageTag));
@@ -54,37 +57,43 @@ public abstract class AbstractModelWriter implements ModelWriter {
 	 * (wth) for information on typed literals see this very good how to
 	 * http://jena.sourceforge.net/how-to/typedLiterals.html
 	 */
-	public void addStatement(Resource subject, URI predicate, String literal,
+	@Override
+    public void addStatement(Resource subject, URI predicate, String literal,
 			URI datatypeURI) throws ModelRuntimeException {
 		addStatement(subject, predicate, new DatatypeLiteralImpl(literal,
 				datatypeURI));
 	}
 
-	public void addStatement(String subjectURIString, URI predicate,
+	@Override
+    public void addStatement(String subjectURIString, URI predicate,
 			String literal) throws ModelRuntimeException {
 		addStatement(new URIImpl(subjectURIString), predicate,
 				new PlainLiteralImpl(literal));
 	}
 
-	public void addStatement(String subjectURIString, URI predicate,
+	@Override
+    public void addStatement(String subjectURIString, URI predicate,
 			String literal, String languageTag) throws ModelRuntimeException {
 		addStatement(new URIImpl(subjectURIString), predicate,
 				new LanguageTagLiteralImpl(literal, languageTag));
 	}
 
-	public void addStatement(String subjectURIString, URI predicate,
+	@Override
+    public void addStatement(String subjectURIString, URI predicate,
 			String literal, URI datatypeURI) throws ModelRuntimeException {
 		addStatement(new URIImpl(subjectURIString), predicate,
 				new DatatypeLiteralImpl(literal, datatypeURI));
 	}
 
-	public void addStatement(Statement statement) throws ModelRuntimeException {
+	@Override
+    public void addStatement(Statement statement) throws ModelRuntimeException {
 		addStatement(statement.getSubject(), statement.getPredicate(),
 				statement.getObject());
 	}
 
 	// /////////////////////////
 
-	public abstract void addStatement(Resource subject, URI predicate,
+	@Override
+    public abstract void addStatement(Resource subject, URI predicate,
 			Node object) throws ModelRuntimeException;
 }

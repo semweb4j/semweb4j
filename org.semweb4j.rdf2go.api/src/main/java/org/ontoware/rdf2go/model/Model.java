@@ -25,6 +25,7 @@ import org.ontoware.rdf2go.model.node.URI;
  * @author Benjamin Heitmann <benjamin@lauschangriff.org>
  * @author Leo Sauermann
  */
+@SuppressWarnings("deprecation")
 public interface Model extends ModelValueFactory, ModelAddRemove, ModelRemovePatterns,
         QueryableModel, ModelIO, Commitable, ReificationSupport, NamespaceSupport {
 	

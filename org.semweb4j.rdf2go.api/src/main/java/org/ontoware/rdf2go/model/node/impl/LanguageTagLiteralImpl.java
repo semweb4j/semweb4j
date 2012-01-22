@@ -51,7 +51,8 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 		return this.literalValue;
 	}
 
-	public String getLanguageTag() {
+	@Override
+    public String getLanguageTag() {
 		return this.languageTag;
 	}
 
@@ -68,12 +69,14 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 		return getValue() + "@" + getLanguageTag();
 	}
 
-	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
+	@Override
+    public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
 		throw new ClassCastException(
 				"Cannot call this on a language tagged literal");
 	}
 
-	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
+	@Override
+    public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
 		return this;
 	}
 
@@ -82,7 +85,8 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 		return this.languageTag.hashCode() + this.literalValue.hashCode();
 	}
 
-	public int compareTo(Node other) {
+	@Override
+    public int compareTo(Node other) {
 		if (other instanceof LanguageTagLiteral) {
 			LanguageTagLiteral oLit = (LanguageTagLiteral) other;
 
@@ -96,7 +100,8 @@ public class LanguageTagLiteralImpl extends LiteralImpl implements
 		return NodeUtils.compareByType(this, other);
 	}
 
-	public String toSPARQL() {
+	@Override
+    public String toSPARQL() {
 		return "'''" + sparqlEncode(this.literalValue) + "'''@"
 				+ this.languageTag;
 	}
