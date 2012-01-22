@@ -50,19 +50,23 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 		return this.set;
 	}
 
-	public void lock() throws LockException {
+	@Override
+    public void lock() throws LockException {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean isLocked() {
+	@Override
+    public boolean isLocked() {
 		throw new UnsupportedOperationException();
 	}
 
-	public void unlock() {
+	@Override
+    public void unlock() {
 		throw new UnsupportedOperationException();
 	}
 
-	public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException {
+	@Override
+    public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException {
 		ModelAddRemoveMemoryImpl other = new ModelAddRemoveMemoryImpl();
 		other.addAll(statements);
 
@@ -77,7 +81,8 @@ public class ModelAddRemoveMemoryImpl extends AbstractModelAddRemove implements 
 		return new DiffImpl(add.iterator(), removed.iterator());
 	}
 
-	public ClosableIterator<Statement> iterator() {
+	@Override
+    public ClosableIterator<Statement> iterator() {
 		Iterator<Statement> it = this.set.iterator();
 		assert it != null;
 		return new PseudoClosableIterator<Statement>( it );

@@ -61,7 +61,8 @@ public class StatementImpl extends AbstractStatement implements Statement {
 	 * 
 	 * @see org.ontoware.rdf2go.Statement#getSubject()
 	 */
-	public Resource getSubject() {
+	@Override
+    public Resource getSubject() {
 		return this.subject;
 	}
 
@@ -70,7 +71,8 @@ public class StatementImpl extends AbstractStatement implements Statement {
 	 * 
 	 * @see org.ontoware.rdf2go.Statement#getPredicate()
 	 */
-	public URI getPredicate() {
+	@Override
+    public URI getPredicate() {
 		return this.predicate;
 	}
 
@@ -79,7 +81,8 @@ public class StatementImpl extends AbstractStatement implements Statement {
 	 * 
 	 * @see org.ontoware.rdf2go.Statement#getObject()
 	 */
-	public Node getObject() {
+	@Override
+    public Node getObject() {
 		return this.object;
 	}
 
@@ -88,7 +91,8 @@ public class StatementImpl extends AbstractStatement implements Statement {
 		return getSubject() + " - " + getPredicate() + " - " + getObject();
 	}
 
-	public URI getContext() {
+	@Override
+    public URI getContext() {
 		return this.context;
 	}
 

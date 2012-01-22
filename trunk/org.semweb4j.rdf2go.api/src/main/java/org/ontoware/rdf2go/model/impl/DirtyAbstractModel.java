@@ -69,7 +69,8 @@ public abstract class DirtyAbstractModel extends AbstractModel {
 	/**
 	 * You should overrride this method!
 	 */
-	public boolean isValidURI(String uriString) {
+	@Override
+    public boolean isValidURI(String uriString) {
 		log.warn("You used method isValidURI() from DirtyAbstractModel, which always returns TRUE");
 		return true;
 	}

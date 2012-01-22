@@ -17,6 +17,7 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.ReasoningNotSupportedException;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
+import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.node.URI;
 
 
@@ -135,5 +136,15 @@ public interface ModelFactory {
 	 *             not supported.
 	 */
 	ModelSet createModelSet(Properties p) throws ModelRuntimeException;
+	
+	/**
+	 * @param url SPARQL endpoint URL, never null
+	 * @param query SPARQL query, never null
+	 * @return the result of executing the given SPARQL query against the remote
+	 *         URL.
+	 * @throws UnsupportedOperationException if this underlying implemention
+	 *             does not support asking remote SPARQL endpoiints.
+	 */
+	QueryResultTable sparqlSelect(String url, String query);
 	
 }

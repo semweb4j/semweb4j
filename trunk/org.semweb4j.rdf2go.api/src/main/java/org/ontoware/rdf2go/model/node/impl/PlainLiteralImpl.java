@@ -39,11 +39,13 @@ public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 		return this.value;
 	}
 	
-	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
+	@Override
+    public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a plain literal");
 	}
 	
-	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
+	@Override
+    public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a plain literal");
 	}
 	
@@ -63,7 +65,8 @@ public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 		return this.value.hashCode();
 	}
 	
-	public int compareTo(Node other) {
+	@Override
+    public int compareTo(Node other) {
 		if(other instanceof PlainLiteral) {
 			return this.value.compareTo(((PlainLiteral)other).getValue());
 		}
@@ -71,7 +74,8 @@ public class PlainLiteralImpl extends LiteralImpl implements PlainLiteral {
 		return NodeUtils.compareByType(this, other);
 	}
 	
-	public String toSPARQL() {
+	@Override
+    public String toSPARQL() {
 		return "'''" + sparqlEncode(this.value) + "'''";
 	}
 	

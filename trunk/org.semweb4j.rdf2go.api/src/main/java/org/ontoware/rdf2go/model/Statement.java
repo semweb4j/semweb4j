@@ -46,17 +46,20 @@ public interface Statement extends Comparable<Statement>, TriplePattern, Seriali
 	 * 
 	 * @return URI or BlankNode
 	 */
-	public Resource getSubject();
+	@Override
+    public Resource getSubject();
 	
 	/**
 	 * @return The URI representing the predicate (property)
 	 */
-	public URI getPredicate();
+	@Override
+    public URI getPredicate();
 	
 	/**
 	 * @return URI, String, TypedLiteral, LanguageTaggedLiteral or BlankNode
 	 */
-	public Node getObject();
+	@Override
+    public Node getObject();
 	
 	/**
 	 * debug output. Lazy implementation can just do nothing.
@@ -66,8 +69,10 @@ public interface Statement extends Comparable<Statement>, TriplePattern, Seriali
 	 */
 	public void dump(String[] options);
 	
-	public int hashCode();
+	@Override
+    public int hashCode();
 	
-	public boolean equals(Object other);
+	@Override
+    public boolean equals(Object other);
 	
 }

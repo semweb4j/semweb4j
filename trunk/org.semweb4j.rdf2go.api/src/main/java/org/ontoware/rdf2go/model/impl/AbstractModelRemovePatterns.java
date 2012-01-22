@@ -34,14 +34,16 @@ public abstract class AbstractModelRemovePatterns extends
      */
     private static final long serialVersionUID = 6919483551303893410L;
 
-	public void removeStatements(TriplePattern triplePattern)
+	@Override
+    public void removeStatements(TriplePattern triplePattern)
 			throws ModelRuntimeException {
 		ModelAddRemoveMemoryImpl toBeRemoved = new ModelAddRemoveMemoryImpl();
 		toBeRemoved.addAll(this.findStatements(triplePattern));
 		this.removeAll(toBeRemoved.iterator());
 	}
 
-	public void removeStatements(ResourceOrVariable subject,
+	@Override
+    public void removeStatements(ResourceOrVariable subject,
 			UriOrVariable predicate, NodeOrVariable object)
 			throws ModelRuntimeException {
 		ModelAddRemoveMemoryImpl toBeRemoved = new ModelAddRemoveMemoryImpl();

@@ -25,19 +25,23 @@ public class PseudoClosableIterator<T> implements ClosableIterator<T> {
 		this.iterator = it;
 	}
 
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		return this.iterator.hasNext();
 	}
 
-	public T next() {
+	@Override
+    public T next() {
 		return this.iterator.next();
 	}
 
-	public void remove() {
+	@Override
+    public void remove() {
 		this.iterator.remove();
 	}
 
-	public void close() {
+	@Override
+    public void close() {
 		// do nothing
 	}
 

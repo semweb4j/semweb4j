@@ -37,7 +37,8 @@ public class QuadPatternImpl extends TriplePatternImpl implements QuadPattern {
 		this.context = context;
 	}
 
-	public UriOrVariable getContext() {
+	@Override
+    public UriOrVariable getContext() {
 		return this.context;
 	}
 	

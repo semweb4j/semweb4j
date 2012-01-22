@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -54,8 +53,8 @@ public class DelegatingModel extends AbstractModel implements Model {
 	/**
      * 
      */
-    private static final long serialVersionUID = 8030119548548555034L;
-
+	private static final long serialVersionUID = 8030119548548555034L;
+	
 	private static final Logger log = LoggerFactory.getLogger(DelegatingModel.class);
 	
 	private Model delegatedModel;
@@ -129,6 +128,8 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 	
 	@Override
+	@SuppressWarnings("deprecation")
+	@Deprecated
 	public void commit() {
 		this.delegatedModel.commit();
 	}
@@ -139,10 +140,12 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.contains(subject, predicate, object);
 	}
 	
+	@Override
 	public BlankNode createBlankNode() {
 		return this.delegatedModel.createBlankNode();
 	}
 	
+	@Override
 	public BlankNode createBlankNode(String internalID) {
 		return this.delegatedModel.createBlankNode(internalID);
 	}
@@ -152,10 +155,12 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.createURI(uriString);
 	}
 	
+	@Override
 	public void dump() {
 		this.delegatedModel.dump();
 	}
 	
+	@Override
 	public ClosableIterator<Statement> findStatements(ResourceOrVariable subject,
 	        UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException {
 		return this.delegatedModel.findStatements(subject, predicate, object);
@@ -167,6 +172,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.findStatements(pattern);
 	}
 	
+	@Override
 	public URI getContextURI() {
 		return this.delegatedModel.getContextURI();
 	}
@@ -195,10 +201,12 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.isEmpty();
 	}
 	
+	@Override
 	public boolean isIsomorphicWith(Model other) {
 		return this.delegatedModel.isIsomorphicWith(other);
 	}
 	
+	@Override
 	public boolean isLocked() {
 		return this.delegatedModel.isLocked();
 	}
@@ -208,14 +216,17 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.isOpen();
 	}
 	
+	@Override
 	public boolean isValidURI(String uriString) {
 		return this.delegatedModel.isValidURI(uriString);
 	}
 	
+	@Override
 	public ClosableIterator<Statement> iterator() {
 		return this.delegatedModel.iterator();
 	}
 	
+	@Override
 	public void lock() throws LockException {
 		this.delegatedModel.lock();
 	}
@@ -242,6 +253,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return this.delegatedModel.querySelect(query, querylanguage);
 	}
 	
+	@Override
 	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
 		this.delegatedModel.readFrom(in);
 	}
@@ -252,10 +264,12 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.readFrom(reader, syntax);
 	}
 	
+	@Override
 	public void readFrom(Reader r) throws IOException, ModelRuntimeException {
 		this.delegatedModel.readFrom(r);
 	}
 	
+	@Override
 	public void readFrom(Reader reader, Syntax syntax) throws ModelRuntimeException, IOException {
 		this.delegatedModel.readFrom(reader, syntax);
 	}
@@ -324,6 +338,8 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 	
 	@Override
+	@SuppressWarnings("deprecation")
+	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		this.delegatedModel.setAutocommit(autocommit);
 	}
@@ -348,19 +364,23 @@ public class DelegatingModel extends AbstractModel implements Model {
 		return result;
 	}
 	
+	@Override
 	public ClosableIterable<Statement> sparqlConstruct(String query) throws ModelRuntimeException {
 		return this.delegatedModel.sparqlConstruct(query);
 	}
 	
+	@Override
 	public ClosableIterable<Statement> sparqlDescribe(String query) throws ModelRuntimeException {
 		return this.delegatedModel.sparqlDescribe(query);
 	}
 	
+	@Override
 	public QueryResultTable sparqlSelect(String queryString) throws ModelRuntimeException {
 		log.trace("SPARQL query: " + queryString);
 		return this.delegatedModel.sparqlSelect(queryString);
 	}
 	
+	@Override
 	public void unlock() {
 		this.delegatedModel.unlock();
 	}
@@ -370,6 +390,7 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.update(diff);
 	}
 	
+	@Override
 	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
 		this.delegatedModel.writeTo(out);
 	}
@@ -379,10 +400,12 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.writeTo(out, syntax);
 	}
 	
+	@Override
 	public void writeTo(Writer w) throws IOException, ModelRuntimeException {
 		this.delegatedModel.writeTo(w);
 	}
 	
+	@Override
 	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException, IOException {
 		this.delegatedModel.writeTo(writer, syntax);
 	}
@@ -399,18 +422,22 @@ public class DelegatingModel extends AbstractModel implements Model {
 		this.delegatedModel.readFrom(reader, syntax, baseURI);
 	}
 	
+	@Override
 	public String getNamespace(String prefix) {
 		return this.delegatedModel.getNamespace(prefix);
 	}
 	
+	@Override
 	public Map<String,String> getNamespaces() {
 		return this.delegatedModel.getNamespaces();
 	}
 	
+	@Override
 	public void removeNamespace(String prefix) {
 		this.delegatedModel.removeNamespace(prefix);
 	}
 	
+	@Override
 	public void setNamespace(String prefix, String namespaceURI) throws IllegalArgumentException {
 		this.delegatedModel.setNamespace(prefix, namespaceURI);
 	}

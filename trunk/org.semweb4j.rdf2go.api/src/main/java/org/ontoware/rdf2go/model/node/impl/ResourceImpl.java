@@ -33,19 +33,23 @@ public abstract class ResourceImpl implements Resource {
 	@Override
 	public abstract int hashCode();
 
-	public Resource asResource() throws ClassCastException {
+	@Override
+    public Resource asResource() throws ClassCastException {
 		return this;
 	}
 
-	public Literal asLiteral() throws ClassCastException {
+	@Override
+    public Literal asLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a resource");
 	}
 
-	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
+	@Override
+    public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a resource");
 	}
 
-	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
+	@Override
+    public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a resource");
 	}
 

@@ -44,12 +44,14 @@ public abstract class AbstractBlankNodeImpl extends ResourceImpl implements Blan
 		return this.underlyingBlankNode.toString();
 	}
 	
-	public URI asURI() throws ClassCastException {
+	@Override
+    public URI asURI() throws ClassCastException {
 		throw new ClassCastException("Cannot cast a BlankNode to a URI");
 		
 	}
 	
-	public BlankNode asBlankNode() throws ClassCastException {
+	@Override
+    public BlankNode asBlankNode() throws ClassCastException {
 		return this;
 	}
 	
@@ -58,7 +60,8 @@ public abstract class AbstractBlankNodeImpl extends ResourceImpl implements Blan
 		return this.underlyingBlankNode.hashCode();
 	}
 	
-	public int compareTo(Node other) {
+	@Override
+    public int compareTo(Node other) {
 		if(other instanceof BlankNode) {
 			if(this.equals(other))
 				return 0;
@@ -70,10 +73,12 @@ public abstract class AbstractBlankNodeImpl extends ResourceImpl implements Blan
 		return NodeUtils.compareByType(this, other);
 	}
 	
-	public String toSPARQL() throws UnsupportedOperationException {
+	@Override
+    public String toSPARQL() throws UnsupportedOperationException {
 		throw new UnsupportedOperationException(
 		        "Variable (Singleton) cannot be used for SPARQL queries");
 	}
 	
-	public abstract String getInternalID();
+	@Override
+    public abstract String getInternalID();
 }

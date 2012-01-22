@@ -64,7 +64,8 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	/**
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
-	public void start(BundleContext context) throws Exception {
+	@Override
+    public void start(BundleContext context) throws Exception {
 		this.bc = context;
 		this.defaultFactoryClassName = context.getProperty(DEFAULTMODELFACTORY_CFG);
 		this.bc.addServiceListener(this, MODEL_FACTORY_FILTER);
@@ -90,7 +91,8 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 *      TODO leo/antoni document why context is not needed/used for stopping
 	 *      the bundle
 	 */
-	public void stop(BundleContext context) throws Exception {
+	@Override
+    public void stop(BundleContext context) throws Exception {
 		this.bc = null;
 	}
 	
@@ -99,7 +101,8 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 * 
 	 * @see org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.ServiceEvent)
 	 */
-	public void serviceChanged(ServiceEvent event) {
+	@Override
+    public void serviceChanged(ServiceEvent event) {
 		switch(event.getType()) {
 		case ServiceEvent.REGISTERED:
 			handleRegisteredEvent(event);

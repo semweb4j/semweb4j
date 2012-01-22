@@ -33,7 +33,8 @@ public interface ClosableIterator<E> extends Iterator<E> {
 	 * 
 	 * @return <tt>true</tt> if the iterator has more elements.
 	 */
-	boolean hasNext();
+	@Override
+    boolean hasNext();
 	
 	/**
 	 * Returns the next element in the iteration. Calling this method repeatedly
@@ -43,7 +44,8 @@ public interface ClosableIterator<E> extends Iterator<E> {
 	 * @return the next element in the iteration.
 	 * @exception NoSuchElementException iteration has no more elements.
 	 */
-	E next();
+	@Override
+    E next();
 	
 	/**
 	 * 
@@ -61,7 +63,8 @@ public interface ClosableIterator<E> extends Iterator<E> {
 	 *                been called after the last call to the <tt>next</tt>
 	 *                method.
 	 */
-	void remove();
+	@Override
+    void remove();
 	
 	/**
 	 * The uderlying implementation frees resources. For some it is absolutely

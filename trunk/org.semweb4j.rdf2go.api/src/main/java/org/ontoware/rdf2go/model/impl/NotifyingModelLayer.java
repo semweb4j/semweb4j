@@ -349,15 +349,18 @@ public class NotifyingModelLayer extends DelegatingModel implements NotifyingMod
 	
 	private Map<ModelChangedListener,TriplePattern> modelChangeListener = new HashMap<ModelChangedListener,TriplePattern>();
 	
-	public void addModelChangedListener(ModelChangedListener listener, TriplePattern pattern) {
+	@Override
+    public void addModelChangedListener(ModelChangedListener listener, TriplePattern pattern) {
 		this.modelChangeListener.put(listener, pattern);
 	}
 	
-	public void addModelChangedListener(ModelChangedListener listener) {
+	@Override
+    public void addModelChangedListener(ModelChangedListener listener) {
 		this.modelChangeListener.put(listener, null);
 	}
 	
-	public void removeModelChangedListener(ModelChangedListener listener) {
+	@Override
+    public void removeModelChangedListener(ModelChangedListener listener) {
 		this.modelChangeListener.remove(listener);
 	}
 	

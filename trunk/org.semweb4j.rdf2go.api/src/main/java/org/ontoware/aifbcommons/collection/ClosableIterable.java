@@ -27,5 +27,6 @@ public interface ClosableIterable<T> extends Iterable<T>, Serializable {
 	 * 
 	 * @return an Iterator.
 	 */
-	ClosableIterator<T> iterator();
+	@Override
+    ClosableIterator<T> iterator();
 }

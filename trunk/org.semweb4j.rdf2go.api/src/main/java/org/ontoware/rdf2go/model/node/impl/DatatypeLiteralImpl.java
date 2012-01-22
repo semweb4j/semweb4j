@@ -62,7 +62,8 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 	 * 
 	 * @see org.ontoware.rdf2go.DatatypeLiteral#getDatatype()
 	 */
-	public URI getDatatype() {
+	@Override
+    public URI getDatatype() {
 		return this.datatype;
 	}
 	
@@ -109,11 +110,13 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 		return Boolean.parseBoolean(getValue());
 	}
 	
-	public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
+	@Override
+    public DatatypeLiteral asDatatypeLiteral() throws ClassCastException {
 		return this;
 	}
 	
-	public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
+	@Override
+    public LanguageTagLiteral asLanguageTagLiteral() throws ClassCastException {
 		throw new ClassCastException("Cannot call this on a DatatypeLiteral");
 	}
 	
@@ -122,7 +125,8 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 		return this.datatype.hashCode() + this.value.hashCode();
 	}
 	
-	public int compareTo(Node other) {
+	@Override
+    public int compareTo(Node other) {
 		if(other instanceof DatatypeLiteral) {
 			DatatypeLiteral oLit = (DatatypeLiteral)other;
 			
@@ -136,7 +140,8 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 		return NodeUtils.compareByType(this, other);
 	}
 	
-	public String toSPARQL() {
+	@Override
+    public String toSPARQL() {
 		return "'''" + sparqlEncode(this.value) + "'''^^<" + this.datatype + ">";
 	}
 	

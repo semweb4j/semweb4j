@@ -1,9 +1,11 @@
 LICENSE INFORMATION
 
 Copyright 2005-2008 by FZI (http://www.fzi.de).
+Copyright 2009-2012 by Max Völkel (http://www.maxvoelkel.de).
 Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
 <OWNER> = Max Völkel
-<ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
-<YEAR> = 2010
+<ORGANIZATION> = IT-Beratung Dr. Max Völkel
+<YEAR> = 2012
 
-Further project information at http://semanticweb.org/wiki/RDF2Go 
+Further project information at 
+http://www.semweb4j.org  or  http://semanticweb.org/wiki/RDF2Go 

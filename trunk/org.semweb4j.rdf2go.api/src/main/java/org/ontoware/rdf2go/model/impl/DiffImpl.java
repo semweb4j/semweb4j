@@ -67,15 +67,18 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		}
 	}
 	
-	public Diff create(Iterator<? extends Statement> added, Iterator<? extends Statement> removed) {
+	@Override
+    public Diff create(Iterator<? extends Statement> added, Iterator<? extends Statement> removed) {
 		return new DiffImpl(added, removed);
 	}
 	
-	public Iterable<Statement> getAdded() {
+	@Override
+    public Iterable<Statement> getAdded() {
 		return this.addedSet;
 	}
 	
-	public Iterable<Statement> getRemoved() {
+	@Override
+    public Iterable<Statement> getRemoved() {
 		return this.removedSet;
 	}
 	
@@ -96,7 +99,8 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		throw new UnsupportedOperationException("It doesn't make sense to 'remove all' on a Diff");
 	}
 	
-	public ClosableIterator<Statement> iterator() {
+	@Override
+    public ClosableIterator<Statement> iterator() {
 		throw new UnsupportedOperationException(
 		        "Please iterate over getAdded or getRemoved instead");
 	}
@@ -113,7 +117,8 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		}
 	}
 	
-	public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException {
+	@Override
+    public Diff getDiff(Iterator<? extends Statement> statements) throws ModelRuntimeException {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}
 	
@@ -123,15 +128,18 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		removeAll(diff.getRemoved().iterator());
 	}
 	
-	public void lock() throws LockException {
+	@Override
+    public void lock() throws LockException {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}
 	
-	public boolean isLocked() {
+	@Override
+    public boolean isLocked() {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}
 	
-	public void unlock() {
+	@Override
+    public void unlock() {
 		throw new UnsupportedOperationException("Doens't make sense for a diff");
 	}
 	
@@ -147,7 +155,8 @@ public class DiffImpl extends AbstractModelAddRemove implements Diff {
 		removeStatement(new StatementImpl(null, subject, predicate, object));
 	}
 	
-	public void dump() {
+	@Override
+    public void dump() {
 		log.trace("Dumping diff to System.out");
 		List<Statement> added = new ArrayList<Statement>();
 		for(Statement s : getAdded()) {

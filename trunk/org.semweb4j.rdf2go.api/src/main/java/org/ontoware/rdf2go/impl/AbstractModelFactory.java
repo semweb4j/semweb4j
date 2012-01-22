@@ -33,14 +33,16 @@ public abstract class AbstractModelFactory implements ModelFactory {
 	// ////////////////////////
 	// implement convenience functions by delegating to the worker methods
 	
-	public Model createModel() throws ModelRuntimeException {
+	@Override
+    public Model createModel() throws ModelRuntimeException {
 		Properties properties = new Properties();
 		properties.put(ModelFactory.REASONING, Reasoning.none.toString());
 		properties.put(ModelFactory.STORAGE, ModelFactory.STORAGE_VALUE_MEMORY);
 		return createModel(properties);
 	}
 	
-	public Model createModel(Reasoning reasoning) throws ModelRuntimeException,
+	@Override
+    public Model createModel(Reasoning reasoning) throws ModelRuntimeException,
 	        ReasoningNotSupportedException {
 		Properties properties = new Properties();
 		properties.put(ModelFactory.REASONING, reasoning.toString());
@@ -48,14 +50,16 @@ public abstract class AbstractModelFactory implements ModelFactory {
 		return createModel(properties);
 	}
 	
-	public ModelSet createModelSet() throws ModelRuntimeException {
+	@Override
+    public ModelSet createModelSet() throws ModelRuntimeException {
 		Properties properties = new Properties();
 		properties.put(ModelFactory.REASONING, Reasoning.none.toString());
 		properties.put(ModelFactory.STORAGE, ModelFactory.STORAGE_VALUE_MEMORY);
 		return createModelSet(properties);
 	}
 	
-	public ModelSet createModelSet(Reasoning reasoning) throws ModelRuntimeException,
+	@Override
+    public ModelSet createModelSet(Reasoning reasoning) throws ModelRuntimeException,
 	        ReasoningNotSupportedException {
 		Properties properties = new Properties();
 		properties.put(ModelFactory.REASONING, reasoning.toString());

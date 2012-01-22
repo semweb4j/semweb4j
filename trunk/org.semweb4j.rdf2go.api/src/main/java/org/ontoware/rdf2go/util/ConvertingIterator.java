@@ -65,14 +65,16 @@ public class ConvertingIterator<FROM, TO> implements Iterator<TO> {
 	/**
 	 * @see java.util.Iterator#hasNext()
 	 */
-	public boolean hasNext() {
+	@Override
+    public boolean hasNext() {
 		return this.wrapped.hasNext();
 	}
 
 	/**
 	 * @see java.util.Iterator#next()
 	 */
-	public TO next() {
+	@Override
+    public TO next() {
 		FROM next = this.wrapped.next();
 		return convert(next);
 	}
@@ -95,7 +97,8 @@ public class ConvertingIterator<FROM, TO> implements Iterator<TO> {
 	/**
 	 * @see java.util.Iterator#remove()
 	 */
-	public void remove() {
+	@Override
+    public void remove() {
 		this.wrapped.remove();
 	}
 

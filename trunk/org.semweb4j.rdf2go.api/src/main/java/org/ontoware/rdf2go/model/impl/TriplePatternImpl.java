@@ -76,15 +76,18 @@ public class TriplePatternImpl implements TriplePattern {
 		this.object = new PlainLiteralImpl(object);
 	}
 	
-	public NodeOrVariable getObject() {
+	@Override
+    public NodeOrVariable getObject() {
 		return this.object;
 	}
 	
-	public UriOrVariable getPredicate() {
+	@Override
+    public UriOrVariable getPredicate() {
 		return this.predicate;
 	}
 	
-	public ResourceOrVariable getSubject() {
+	@Override
+    public ResourceOrVariable getSubject() {
 		return this.subject;
 	}
 	
@@ -128,7 +131,8 @@ public class TriplePatternImpl implements TriplePattern {
 		return new TriplePatternImpl(Variable.ANY, propertyURI, objectNode, SPO.SUBJECT);
 	}
 	
-	public boolean matches(Statement statement) {
+	@Override
+    public boolean matches(Statement statement) {
 		boolean matchesSubject = statement.getSubject().equals(this.getSubject())
 		        || this.getSubject() instanceof Variable;
 		

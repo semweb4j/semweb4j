@@ -167,6 +167,7 @@ public class RDF2Go {
 					        + "' which was loaded via org.ontoware.rdf2go.impl.StaticBinding.");
 				}
 			} catch(ClassNotFoundException e) {
+				// class org.ontoware.rdf2go.impl.StaticBinding not present
 				throw new ModelRuntimeException(e);
 			} catch(SecurityException e) {
 				throw new ModelRuntimeException(e);

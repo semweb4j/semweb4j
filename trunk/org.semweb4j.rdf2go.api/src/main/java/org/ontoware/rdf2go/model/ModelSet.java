@@ -38,6 +38,7 @@ import org.ontoware.rdf2go.model.node.URI;
  * @author max
  * @author sauermann
  */
+@SuppressWarnings("deprecation")
 public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet, ModelSetAddRemove,
         ModelValueFactory, Commitable, ReificationSupport, NamespaceSupport {
 	
@@ -85,6 +86,7 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet, Mode
 	 * @throws ModelRuntimeException if URI has not a valid URI format -
 	 *             according to the adapter
 	 */
+	@Override
 	URI createURI(String uriString) throws ModelRuntimeException;
 	
 	/**

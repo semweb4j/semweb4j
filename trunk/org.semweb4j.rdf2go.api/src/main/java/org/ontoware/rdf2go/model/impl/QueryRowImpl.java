@@ -24,11 +24,13 @@ public class QueryRowImpl extends HashMap<String,Node> implements QueryRow {
 	
 	private static final long serialVersionUID = 1496910590032007736L;
 	
-	public Node getValue(String varname) {
+	@Override
+    public Node getValue(String varname) {
 		return super.get(varname);
 	}
 	
-	public String getLiteralValue(String varname) throws ModelRuntimeException {
+	@Override
+    public String getLiteralValue(String varname) throws ModelRuntimeException {
 		Node n = super.get(varname);
 		if(n instanceof Literal)
 			return ((Literal)n).getValue();
