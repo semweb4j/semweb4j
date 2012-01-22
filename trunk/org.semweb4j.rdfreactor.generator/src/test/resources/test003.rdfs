@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+	 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	 <!ENTITY kb 'http://protege.stanford.edu/kb#'>
+	 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+]>
+<rdf:RDF xmlns:rdf="&rdf;"
+	 xmlns:kb="&kb;"
+	 xmlns:rdfs="&rdfs;">
+<rdfs:Class rdf:about="&kb;A"
+	 rdfs:label="A">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&kb;B"
+	 rdfs:label="B">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&kb;C"
+	 rdfs:label="C">
+	<rdfs:subClassOf rdf:resource="&kb;A"/>
+	<rdfs:subClassOf rdf:resource="&kb;B"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&kb;valueA"
+	 rdfs:label="valueA">
+	<rdfs:domain rdf:resource="&kb;A"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&kb;valueB"
+	 rdfs:label="valueB">
+	<rdfs:domain rdf:resource="&kb;B"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&kb;valueC"
+	 rdfs:label="valueC">
+	<rdfs:domain rdf:resource="&kb;C"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+</rdf:RDF>
