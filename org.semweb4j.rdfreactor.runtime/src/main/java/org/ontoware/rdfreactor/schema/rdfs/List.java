@@ -27,7 +27,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class List extends Resource {
 
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#List */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/1999/02/22-rdf-syntax-ns#List */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#List", false);
 

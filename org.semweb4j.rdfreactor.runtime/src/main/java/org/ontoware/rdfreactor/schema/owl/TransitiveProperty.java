@@ -21,7 +21,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class TransitiveProperty extends ObjectProperty {
 
-    /** http://www.w3.org/2002/07/owl#TransitiveProperty */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2002/07/owl#TransitiveProperty */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#TransitiveProperty", false);
 

@@ -189,23 +189,18 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-
-			<!-- add OSGI specific metadata to the manifest how to do this? http://maven.apache.org/guides/mini/guide-manifest.html 
-				there may be a MVN-OSGi conformant way, but unless MVN completly integrates 
-				with OSGi and the dependencies declared in maven map directly to OSGi dependencies, 
-				I would not touch this further, and just fiddle with the options. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<finalName>
-						${pom.groupId}.${project.build.finalName}
-					</finalName>
-					<archive>
-						<manifestFile>META-INF/MANIFEST.MF</manifestFile>
-					</archive>
-				</configuration>
+            <!-- add OSGI specific metadata to the manifest how to do this? http://maven.apache.org/guides/mini/guide-manifest.html 
+                there may be a MVN-OSGi conformant way, but unless MVN completly integrates 
+                with OSGi and the dependencies declared in maven map directly to OSGi dependencies, 
+                I would not touch this further, and just fiddle with the options. -->
+                <configuration>
+                    <finalName>
+                        ${pom.groupId}.${project.build.finalName}
+                    </finalName>
+                    <archive>
+                        <manifestFile>META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
 			</plugin>
 
 			<!-- Usage: "mvn license:format" -->
@@ -332,25 +327,5 @@
 		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
 		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
 	</scm>
-
-	<profiles>
-		<profile>
-			<id>test</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.semweb4j</groupId>
-					<artifactId>rdf2go.impl.jena27</artifactId>
-					<version>4.8.0</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.jena</groupId>
-					<artifactId>jena-arq</artifactId>
-					<version>2.9.0-incubating</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 
 </project>

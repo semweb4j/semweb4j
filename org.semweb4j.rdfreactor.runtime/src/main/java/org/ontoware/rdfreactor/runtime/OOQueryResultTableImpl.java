@@ -10,6 +10,11 @@ import org.ontoware.rdf2go.model.QueryResultTable;
 
 public class OOQueryResultTableImpl implements OOQueryResultTable {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
 	private Model m;
 
 	private Map<String, Class<?>> returnTypes;

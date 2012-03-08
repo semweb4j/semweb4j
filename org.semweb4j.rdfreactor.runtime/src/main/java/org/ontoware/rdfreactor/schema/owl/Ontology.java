@@ -29,7 +29,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class Ontology extends OwlThing {
 
-    /** http://www.w3.org/2002/07/owl#Ontology */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2002/07/owl#Ontology */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Ontology", false);
 

@@ -34,7 +34,12 @@ import org.ontoware.rdfreactor.schema.rdfs.Resource;
  */
 public class OwlClass extends OwlThing {
 
-    /** http://www.w3.org/2002/07/owl#Class */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2002/07/owl#Class */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Class", false);
 

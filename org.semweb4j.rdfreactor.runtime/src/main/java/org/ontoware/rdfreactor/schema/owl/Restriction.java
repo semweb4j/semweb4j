@@ -32,7 +32,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class Restriction extends OwlClass {
 
-    /** http://www.w3.org/2002/07/owl#Restriction */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2002/07/owl#Restriction */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Restriction", false);
 

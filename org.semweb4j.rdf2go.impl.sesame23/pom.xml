@@ -100,6 +100,13 @@
 	</dependencies>
 
 	<build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh</artifactId>
+                <version>1.0-beta-6</version>
+            </extension>
+        </extensions>
 		<plugins>
 			<!--
 				add OSGI specific metadata to the manifest how to do this?
@@ -213,12 +220,24 @@
 	</issueManagement>
 
 
-	<!-- to define where to put the site for this bundle -->
-	<distributionManagement>
-		<site>
-			<id>semweb4j-site</id>
-			<name>semweb4j.org site server</name>
-			<url>scp://${semweb4j.site}/${artifactId}</url>
-		</site>
-	</distributionManagement>
+    <!-- the deploy repositories: normal/snapshot/site generation make sure 
+        the prorper rights for the given IDs are set in the user's settings.xml -->
+    <distributionManagement>
+        <!-- For frequent updates I am deploying this to FZI for a while :stuehmer -->
+        <repository>
+            <id>semweb4j-repo</id>
+            <name>FZI Maven Release Repository</name>
+            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/repo</url>
+        </repository>
+        <snapshotRepository>
+            <id>semweb4j-snapshots</id>
+            <name>FZI Maven Snapshot Repository</name>
+            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>semweb4j-site</id>
+            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/site/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
+
 </project>

@@ -125,7 +125,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 * Note: update sets the connection's autocommit to false to perform mass
 	 * updates, this can cause sideeffects.
 	 */
-
+	
 	private class ModelIterator implements ClosableIterator<Model> {
 		
 		private ClosableIterator<URI> contextIterator;
@@ -535,7 +535,6 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void commit() {
 		try {
@@ -946,7 +945,6 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		try {

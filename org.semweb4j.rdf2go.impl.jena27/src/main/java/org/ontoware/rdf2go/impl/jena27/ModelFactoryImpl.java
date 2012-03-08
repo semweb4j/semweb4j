@@ -97,7 +97,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 		return new ModelImplJena26(contextURI, model);
 	}
 	
-	private ModelMaker getFileModelMaker(String filename) {
+	private static ModelMaker getFileModelMaker(String filename) {
 		return com.hp.hpl.jena.rdf.model.ModelFactory.createFileModelMaker(filename);
 	}
 	
