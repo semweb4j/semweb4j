@@ -1107,7 +1107,6 @@ public abstract class AbstractModelTest extends TestCase {
 		assertFalse(this.model.isOpen());
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void testCommit() {
 		this.model.commit();
@@ -1321,7 +1320,6 @@ public abstract class AbstractModelTest extends TestCase {
 		m1.close();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void testSetAutocommit() {
 		this.model.setAutocommit(true);

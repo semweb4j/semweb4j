@@ -187,7 +187,7 @@ public class VocabularyWriter {
 	 * The RDF2Go interface doesn't support getting a local name from the URI. I
 	 * 'borrowed' this snippet from the Sesame LiteralImpl.
 	 */
-	private String getLocalName(URI vx) {
+	private static String getLocalName(URI vx) {
 		String fullUri = vx.toString();
 		int splitIdx = fullUri.indexOf('#');
 		
@@ -327,7 +327,7 @@ public class VocabularyWriter {
 		this.outputFile = new File(this.outputDirFile, this.outputFileName + ".java");
 	}
 	
-	private void help() {
+	private static void help() {
 		System.err
 		        .println("Syntax: java VocabularyWriter -i inputfile -o outputdir -a namespace -n classname --package package ");
 	}

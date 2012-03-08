@@ -128,7 +128,6 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void commit() {
 		this.delegatedModel.commit();
@@ -338,7 +337,6 @@ public class DelegatingModel extends AbstractModel implements Model {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		this.delegatedModel.setAutocommit(autocommit);

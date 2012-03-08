@@ -1,12 +1,11 @@
 /**
  * LICENSE INFORMATION
- *
- * Copyright 2005-2008 by FZI (http://www.fzi.de).
- * Licensed under a BSD license (http://www.opensource.org/licenses/bsd-license.php)
- * <OWNER> = Max Völkel
- * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe, Germany
- * <YEAR> = 2010
- *
+ * 
+ * Copyright 2005-2008 by FZI (http://www.fzi.de). Licensed under a BSD license
+ * (http://www.opensource.org/licenses/bsd-license.php) <OWNER> = Max Völkel
+ * <ORGANIZATION> = FZI Forschungszentrum Informatik Karlsruhe, Karlsruhe,
+ * Germany <YEAR> = 2010
+ * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
 
@@ -65,7 +64,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	@Override
-    public void start(BundleContext context) throws Exception {
+	public void start(BundleContext context) throws Exception {
 		this.bc = context;
 		this.defaultFactoryClassName = context.getProperty(DEFAULTMODELFACTORY_CFG);
 		this.bc.addServiceListener(this, MODEL_FACTORY_FILTER);
@@ -92,7 +91,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 *      the bundle
 	 */
 	@Override
-    public void stop(BundleContext context) throws Exception {
+	public void stop(BundleContext context) throws Exception {
 		this.bc = null;
 	}
 	
@@ -102,7 +101,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	 * @see org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.ServiceEvent)
 	 */
 	@Override
-    public void serviceChanged(ServiceEvent event) {
+	public void serviceChanged(ServiceEvent event) {
 		switch(event.getType()) {
 		case ServiceEvent.REGISTERED:
 			handleRegisteredEvent(event);
@@ -153,7 +152,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 		initalizeListener();
 	}
 	
-	private String getCurrentFactoryClassName() {
+	private static String getCurrentFactoryClassName() {
 		ModelFactory currFactory = null;
 		try {
 			currFactory = RDF2Go.getModelFactory();

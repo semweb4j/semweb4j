@@ -184,7 +184,6 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	/**
 	 * OVERWRITE ME
 	 */
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	@Override
 	public void commit() {
@@ -536,7 +535,6 @@ public abstract class AbstractModel extends AbstractModelRemovePatterns implemen
 	 * 
 	 * This implementation simply ignores the request.
 	 */
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	@Override
 	public void setAutocommit(boolean autocommit) {
