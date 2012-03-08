@@ -705,7 +705,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void commit() {
 		try {
@@ -716,7 +715,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		assertModel();

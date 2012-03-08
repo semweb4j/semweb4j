@@ -46,6 +46,11 @@ import org.slf4j.LoggerFactory;
  */
 public class ReactorRuntimeEntity implements Resource {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
 	private static Logger log = LoggerFactory.getLogger(ReactorRuntimeEntity.class);
 
 	/**

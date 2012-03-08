@@ -137,7 +137,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public BlankNode createBlankNode() {
+	public BlankNode createBlankNode() {
 		// this.modificationCount++;
 		// should be unique across models
 		
@@ -145,7 +145,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public BlankNode createBlankNode(String id) {
+	public BlankNode createBlankNode(String id) {
 		// this.modificationCount++;
 		// should be unique across models
 		AnonId anonid = AnonId.create(id);
@@ -213,14 +213,14 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		this.modificationCount++;
 		this.jenaModel.getGraph().delete(
 		        new Triple(
-
+		        
 		        TypeConversion.toJenaNode(subject, this.jenaModel), TypeConversion.toJenaNode(
 		                predicate, this.jenaModel), TypeConversion.toJenaNode(object,
 		                this.jenaModel)));
 	}
 	
 	@Override
-    public QueryResultTable sparqlSelect(String queryString) throws ModelRuntimeException {
+	public QueryResultTable sparqlSelect(String queryString) throws ModelRuntimeException {
 		assertModel();
 		log.debug("Query " + queryString);
 		Query query = QueryFactory.create(queryString);
@@ -228,7 +228,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public ClosableIterable<Statement> sparqlConstruct(String queryString)
+	public ClosableIterable<Statement> sparqlConstruct(String queryString)
 	        throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
@@ -299,31 +299,31 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public ClosableIterator<Statement> iterator() {
+	public ClosableIterator<Statement> iterator() {
 		assertModel();
 		return new TripleIterator(this.jenaModel.getGraph().find(Node.ANY, Node.ANY, Node.ANY),
 		        this.modificationCount, this);
 	}
 	
 	@Override
-    public URI getContextURI() {
+	public URI getContextURI() {
 		return this.contextURI;
 	}
 	
 	@Override
-    public void lock() throws LockException {
+	public void lock() throws LockException {
 		this.locked = true;
 		this.jenaModel.enterCriticalSection(true);
 		
 	}
 	
 	@Override
-    public boolean isLocked() {
+	public boolean isLocked() {
 		return this.locked;
 	}
 	
 	@Override
-    public void unlock() {
+	public void unlock() {
 		assertModel();
 		if(this.isLocked()) {
 			this.jenaModel.leaveCriticalSection();
@@ -341,7 +341,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public ClosableIterator<Statement> findStatements(ResourceOrVariable subject,
+	public ClosableIterator<Statement> findStatements(ResourceOrVariable subject,
 	        UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException {
 		assertModel();
 		
@@ -354,7 +354,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	 * @return opened result Model
 	 */
 	@Override
-    public ClosableIterable<Statement> sparqlDescribe(String queryString)
+	public ClosableIterable<Statement> sparqlDescribe(String queryString)
 	        throws ModelRuntimeException {
 		assertModel();
 		Query query = QueryFactory.create(queryString);
@@ -372,7 +372,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public void readFrom(Reader r) {
+	public void readFrom(Reader r) {
 		assertModel();
 		this.jenaModel.read(r, "", "RDF/XML");
 	}
@@ -388,7 +388,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	 * 
 	 */
 	@Override
-    public void readFrom(Reader reader, Syntax syntax) {
+	public void readFrom(Reader reader, Syntax syntax) {
 		assertModel();
 		if(syntax == Syntax.RdfXml) {
 			readFrom(reader);
@@ -425,12 +425,12 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	
 	// TODO: check valid XML output
 	@Override
-    public void writeTo(Writer w) {
+	public void writeTo(Writer w) {
 		writeTo(w, Syntax.RdfXml);
 	}
 	
 	@Override
-    public void writeTo(Writer writer, Syntax syntax) {
+	public void writeTo(Writer writer, Syntax syntax) {
 		assertModel();
 		registerNamespaces(this.jenaModel);
 		
@@ -451,19 +451,19 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public void dump() {
+	public void dump() {
 		assertModel();
 		this.jenaModel.write(System.out, "N3-PP", "");
 	}
 	
 	@Override
-    public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
+	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
 		assertModel();
 		this.jenaModel.read(in, "", "RDF/XML");
 	}
 	
 	@Override
-    public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
+	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
 		assertModel();
 		writeTo(out, Syntax.RdfXml);
 	}
@@ -493,7 +493,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		}
 	}
 	
-	private String getJenaSyntaxName(Syntax syntax) {
+	private static String getJenaSyntaxName(Syntax syntax) {
 		if(syntax == Syntax.Ntriples)
 			return "N-TRIPLE";
 		if(syntax == Syntax.Turtle)
@@ -530,7 +530,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public boolean isIsomorphicWith(Model other) {
+	public boolean isIsomorphicWith(Model other) {
 		if(other instanceof ModelImplJena26) {
 			return this.jenaModel.isIsomorphicWith(((ModelImplJena26)other).getInternalJenaModel());
 		} else {
@@ -544,7 +544,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	static IRIFactory factory = IRIFactory.jenaImplementation();
 	
 	@Override
-    public boolean isValidURI(String uriString) {
+	public boolean isValidURI(String uriString) {
 		IRI iri = factory.create(uriString);
 		if(iri.hasViolation(false)) {
 			log.debug("Only well-formed absolute URIrefs can be included in RDF/XML output: <"
@@ -555,22 +555,22 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	@Override
-    public String getNamespace(String prefix) {
+	public String getNamespace(String prefix) {
 		return this.jenaModel.getNsPrefixURI(prefix);
 	}
 	
 	@Override
-    public Map<String,String> getNamespaces() {
+	public Map<String,String> getNamespaces() {
 		return this.jenaModel.getNsPrefixMap();
 	}
 	
 	@Override
-    public void removeNamespace(String prefix) {
+	public void removeNamespace(String prefix) {
 		this.jenaModel.removeNsPrefix(prefix);
 	}
 	
 	@Override
-    public void setNamespace(String prefix, String namespaceURI) throws IllegalArgumentException {
+	public void setNamespace(String prefix, String namespaceURI) throws IllegalArgumentException {
 		this.jenaModel.setNsPrefix(prefix, namespaceURI);
 	}
 	

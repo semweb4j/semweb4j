@@ -28,7 +28,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class OwlProperty extends OwlThing {
 
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Property */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/1999/02/22-rdf-syntax-ns#Property */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#Property", false);
 

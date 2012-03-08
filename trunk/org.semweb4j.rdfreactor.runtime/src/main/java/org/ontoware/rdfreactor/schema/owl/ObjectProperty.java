@@ -26,7 +26,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class ObjectProperty extends OwlProperty {
 
-    /** http://www.w3.org/2002/07/owl#ObjectProperty */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2002/07/owl#ObjectProperty */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#ObjectProperty", false);
 

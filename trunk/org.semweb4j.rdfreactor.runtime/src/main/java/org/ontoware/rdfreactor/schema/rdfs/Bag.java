@@ -21,7 +21,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class Bag extends Container {
 
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag", false);
 

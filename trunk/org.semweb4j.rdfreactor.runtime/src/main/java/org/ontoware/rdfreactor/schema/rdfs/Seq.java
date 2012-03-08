@@ -21,7 +21,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class Seq extends Container {
 
-    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq", false);
 

@@ -33,7 +33,12 @@ import org.ontoware.rdfreactor.runtime.ReactorRuntimeEntity;
  */
 public class Resource extends ReactorRuntimeEntity {
 
-    /** http://www.w3.org/2000/01/rdf-schema#Resource */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2000/01/rdf-schema#Resource */
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2000/01/rdf-schema#Resource", false);
 
     /** http://www.w3.org/2000/01/rdf-schema#comment */

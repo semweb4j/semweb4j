@@ -21,7 +21,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class Container extends Resource {
 
-    /** http://www.w3.org/2000/01/rdf-schema#Container */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2000/01/rdf-schema#Container */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2000/01/rdf-schema#Container", false);
 

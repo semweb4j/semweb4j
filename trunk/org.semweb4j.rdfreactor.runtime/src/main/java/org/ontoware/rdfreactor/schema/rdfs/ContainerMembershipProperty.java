@@ -21,7 +21,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class ContainerMembershipProperty extends Property {
 
-    /** http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty", false);
 

@@ -38,7 +38,7 @@ public class RepositoryModelFactory extends AbstractModelFactory {
 		return new RepositoryModelSet(createRepository(properties));
 	}
 	
-	private Repository createRepository(Properties properties) throws ModelRuntimeException {
+	private static Repository createRepository(Properties properties) throws ModelRuntimeException {
 		// find out if we need reasoning
 		String reasoningProperty = properties == null ? null : properties.getProperty(REASONING);
 		boolean reasoning = Reasoning.rdfs.toString().equalsIgnoreCase(reasoningProperty);

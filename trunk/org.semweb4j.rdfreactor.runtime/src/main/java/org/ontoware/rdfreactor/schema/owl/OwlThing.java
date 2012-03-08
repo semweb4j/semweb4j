@@ -29,7 +29,12 @@ import org.ontoware.rdfreactor.runtime.ReactorResult;
  */
 public class OwlThing extends org.ontoware.rdfreactor.schema.rdfs.Resource {
 
-    /** http://www.w3.org/2002/07/owl#Thing */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+	/** http://www.w3.org/2002/07/owl#Thing */
 	@SuppressWarnings("hiding")
 	public static final URI RDFS_CLASS = new URIImpl("http://www.w3.org/2002/07/owl#Thing", false);
 
