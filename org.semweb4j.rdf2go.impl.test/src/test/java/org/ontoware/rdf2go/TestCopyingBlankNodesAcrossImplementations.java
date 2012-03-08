@@ -2,7 +2,7 @@ package org.ontoware.rdf2go;
 
 import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
-import org.ontoware.rdf2go.impl.jena26.ModelFactoryImpl;
+import org.ontoware.rdf2go.impl.jena27.ModelFactoryImpl;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.BlankNode;
