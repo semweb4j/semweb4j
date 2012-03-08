@@ -132,6 +132,14 @@
 
 
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+	</extensions>
 		<plugins>
 			<!-- build source packages for jars and test jars http://garbuz.com/sm/content.php/articles/maven2_deploying_sources/ -->
 			<plugin>
@@ -219,12 +227,20 @@
 
 	<dependencies>
 		<!-- OSGi -->
+		<!-- OLD VERSION: -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse</groupId> -->
+		<!-- <artifactId>osgi</artifactId> -->
+		<!-- <version>3.2.1.R32</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
 		<dependency>
-			<groupId>org.eclipse</groupId>
-			<artifactId>osgi</artifactId>
-			<version>3.2.1.R32</version>
+			<groupId>org.eclipse.osgi</groupId>
+			<artifactId>org.eclipse.osgi</artifactId>
 			<scope>provided</scope>
+			<version>3.6.0.v20100517</version>
 		</dependency>
+
 
 		<!-- logging dependencies -->
 		<dependency>
@@ -252,19 +268,6 @@
 					<artifactId>hamcrest-core</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena27</artifactId>
-			<version>4.8.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>2.9.0-incubating</version>
-			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -304,23 +307,24 @@
 		</dependencies>
 	</dependencyManagement>
 
+
 	<!-- the deploy repositories: normal/snapshot/site generation make sure 
 		the prorper rights for the given IDs are set in the user's settings.xml -->
 	<distributionManagement>
-		<downloadUrl>http://code.google.com/p/semweb4j/downloads/list</downloadUrl>
+		<!-- For frequent updates I am deploying this to FZI for a while :stuehmer -->
 		<repository>
-			<id>xydra-repo</id>
-			<uniqueVersion>false</uniqueVersion>
-			<url>svn:https://xydra.googlecode.com/svn/repository</url>
+			<id>semweb4j-repo</id>
+			<name>FZI Maven Release Repository</name>
+			<url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/repo</url>
 		</repository>
 		<snapshotRepository>
-			<id>xydra-snap</id>
-			<uniqueVersion>false</uniqueVersion>
-			<url>svn:https://xydra.googlecode.com/svn/snapshots</url>
+			<id>semweb4j-snapshots</id>
+			<name>FZI Maven Snapshot Repository</name>
+			<url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/snapshots</url>
 		</snapshotRepository>
 		<site>
-			<id>xydra-site</id>
-			<url>scp://${xydra.site}/${project.artifactId}</url>
+			<id>semweb4j-site</id>
+			<url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/site/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 
@@ -329,5 +333,25 @@
 		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
 		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
 	</scm>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.semweb4j</groupId>
+					<artifactId>rdf2go.impl.jena27</artifactId>
+					<version>4.8.0</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.jena</groupId>
+					<artifactId>jena-arq</artifactId>
+					<version>2.9.0-incubating</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 </project>

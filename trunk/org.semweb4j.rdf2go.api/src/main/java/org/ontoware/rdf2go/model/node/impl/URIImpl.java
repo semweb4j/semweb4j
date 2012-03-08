@@ -44,7 +44,8 @@ public class URIImpl extends ResourceImpl implements URI {
 	public URIImpl(String uriString, boolean createURIWithChecking) {
 		if(createURIWithChecking) {
 			try {
-				new java.net.URI(uriString);
+				@SuppressWarnings("unused")
+				java.net.URI u = new java.net.URI(uriString);
 			} catch(URISyntaxException e) {
 				throw new IllegalArgumentException(e);
 			}
@@ -82,12 +83,12 @@ public class URIImpl extends ResourceImpl implements URI {
 	}
 	
 	@Override
-    public URI asURI() throws ClassCastException {
+	public URI asURI() throws ClassCastException {
 		return this;
 	}
 	
 	@Override
-    public BlankNode asBlankNode() throws ClassCastException {
+	public BlankNode asBlankNode() throws ClassCastException {
 		throw new ClassCastException("Cannot cast a URI to a BlankNode");
 	}
 	
@@ -112,7 +113,7 @@ public class URIImpl extends ResourceImpl implements URI {
 	}
 	
 	@Override
-    public int compareTo(Node other) {
+	public int compareTo(Node other) {
 		if(other instanceof URI) {
 			return this.uriString.compareTo(((URI)other).toString());
 		} else {
@@ -122,12 +123,12 @@ public class URIImpl extends ResourceImpl implements URI {
 	}
 	
 	@Override
-    public String toSPARQL() {
+	public String toSPARQL() {
 		return "<" + this.uriString + ">";
 	}
 	
 	@Override
-    public java.net.URI asJavaURI() {
+	public java.net.URI asJavaURI() {
 		try {
 			return new java.net.URI(toString());
 		} catch(URISyntaxException e) {

@@ -261,14 +261,12 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements ModelSet
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void commit() {
 		this.baseModelSet.commit();
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		this.baseModelSet.setAutocommit(autocommit);

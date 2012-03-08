@@ -126,7 +126,6 @@ public class LoggingModelSet implements ModelSet {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void commit() throws ModelRuntimeException {
 		log.debug("commit");
@@ -457,7 +456,6 @@ public class LoggingModelSet implements ModelSet {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		log.debug("setAutocommit");
