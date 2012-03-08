@@ -1,25 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.semweb4j</groupId>
-		<artifactId>parent</artifactId>
-		<version>4.15.2</version>
-	</parent>
-
+	<!-- TODO: groupId, artifactId, version, packaging, name, inceptionYear, 
+		description,developers, contributors -->
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.test</artifactId>
-	<version>4.7.4</version>
+	<!-- Always use three digits for OSGI compliance -->
+	<version>4.8.0</version>
 	<packaging>jar</packaging>
-
-	<name>RDF2Go Integration Tests</name>
+	<name>rdf2go.api</name>
 	<description>
-		Testing usage of multiple adapters together.
-		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
+		This project contains base classes for implementing tests.
 	</description>
-
+	<url>http://semweb4j.org/rdf2go</url>
+	<inceptionYear>2005</inceptionYear>
 	<developers>
 		<developer>
 			<id>xamde</id>
@@ -35,30 +30,235 @@
 			</roles>
 			<timezone>+1</timezone>
 		</developer>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/sebastian_gerke/
+			</url>
+		</developer>
+		<developer>
+			<name>Benjamin Heitmann</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/benjamin_heitmann/
+			</url>
+		</developer>
+		<developer>
+			<id>wth</id>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Maven Manager</role>
+			</roles>
+		</developer>
 	</developers>
-
+	<contributors>
+		<contributor>
+			<name>Leo Sauermann</name>
+			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
+		</contributor>
+		<contributor>
+			<name>Antoni Mylka</name>
+		</contributor>
+		<contributor>
+			<name>Axel Rauschmayer</name>
+		</contributor>
+		<contributor>
+			<name>Jan-Gerrit Schettler-Köhler</name>
+		</contributor>
+	</contributors>
 	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.semweb4j.org/browse/RTGO</url>
+		<system>Google Code Issues</system>
+		<url>http://code.google.com/p/semweb4j/issues</url>
 	</issueManagement>
+	<mailingLists>
+		<mailingList>
+			<name>semweb4j-devel</name>
+			<subscribe>
+				http://groups.google.com/group/semweb4j/subscribe
+			</subscribe>
+			<post>semweb4j@googlegroups.com</post>
+			<archive>
+				http://groups.google.com/group/semweb4j
+			</archive>
+		</mailingList>
+	</mailingLists>
+	<licenses>
+		<license>
+			<name>The BSD License</name>
+			<url>
+				http://www.opensource.org/licenses/bsd-license.php
+			</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>
+		IT-Consulting Dr. Max Völkel | Project started 2005 at FZI - Forschungszentrum Informatik, www.fzi.de
+		</name>
+		<url>http://www.maxvoelkel.de</url>
+	</organization>
+
+
+	<properties>
+		<!-- tell the compiler we use 1.6 -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<!-- Set UTF8 encoding everywhere -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- user access, no trailing slash -->
+		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
+		<!-- developer access, no trailing slash -->
+		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
+		<svn.name>${groupId}.${artifactId}</svn.name>
+	</properties>
+
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<!-- build source packages for jars and test jars http://garbuz.com/sm/content.php/articles/maven2_deploying_sources/ -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- the eclipse plugin tries to integrate missing sources to the .classpath -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+				</configuration>
+			</plugin>
+
+			<!-- set encoding to UTF8 (not something platform dependent). Compiler 
+				plugin ignores project.build.sourceEncoding. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Deploy tests as a separate jar as explained at -->
+			<!-- http://maven.apache.org/guides/mini/guide-attached-tests.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Usage: "mvn license:format" -->
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<header>HEADER.txt</header>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 
 	<dependencies>
+		<!-- OSGi -->
+		<!-- OLD VERSION: -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse</groupId> -->
+		<!-- <artifactId>osgi</artifactId> -->
+		<!-- <version>3.2.1.R32</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.eclipse.osgi</groupId>
+			<artifactId>org.eclipse.osgi</artifactId>
+			<scope>provided</scope>
+			<version>3.6.0.v20100517</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.7.4</version>
+			<version>4.8.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>4.8.0</version>
+			<type>test-jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.jena27</artifactId>
+			<version>4.8.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>2.9.0-incubating</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.sesame23</artifactId>
+			<version>4.8.0</version>
 		</dependency>
 
 		<!-- logging dependencies -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.0</version>
 		</dependency>
 
 		<dependency>
@@ -66,60 +266,81 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.7.4</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena26</artifactId>
-			<version>4.7.4</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.7.2</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<!-- Due to https://github.com/KentBeck/junit/issues/332 as of 2011-11-30 -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.hamcrest</groupId>
+					<artifactId>hamcrest-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-
 
 	</dependencies>
 
-	<!-- to define where to put the site for this bundle -->
+	<!-- proposing dependencies and their versions -->
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- logging dependencies -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.6.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.6.4</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.16</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.10</version>
+				<scope>test</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+
+	<!-- the deploy repositories: normal/snapshot/site generation make sure 
+		the prorper rights for the given IDs are set in the user's settings.xml -->
 	<distributionManagement>
+		<!-- For frequent updates I am deploying this to FZI for a while :stuehmer -->
+		<repository>
+			<id>semweb4j-repo</id>
+			<name>FZI Maven Release Repository</name>
+			<url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/repo</url>
+		</repository>
+		<snapshotRepository>
+			<id>semweb4j-snapshots</id>
+			<name>FZI Maven Snapshot Repository</name>
+			<url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/snapshots</url>
+		</snapshotRepository>
 		<site>
-			<id>theoretiker-site</id>
-			<name>RDFReactor site</name>
-			<!--  mvn creates new dirs if necessary -->
-			<url>
-				scp://theoretiker.org/home/max/public_html/semweb4j.org/site/rdf2go.impl.base.test
-			</url>
+			<id>semweb4j-site</id>
+			<url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/site/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 
-	<!-- to find the parent -->
-	<repositories>
-		<repository>
-			<id>theoretiker-repo</id>
-			<name>Semweb4j.org maven repo</name>
-			<url>http://semweb4j.org/repo/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+	<scm>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/{$svn.name}</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
+	</scm>
+
 </project>
