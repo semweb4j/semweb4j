@@ -231,7 +231,7 @@
 			<version>4.8.0</version>
 			<type>test-jar</type>
 		</dependency>
-
+<!-- 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena27</artifactId>
@@ -250,6 +250,7 @@
 			<artifactId>rdf2go.impl.sesame23</artifactId>
 			<version>4.8.0</version>
 		</dependency>
+ -->
 
 		<!-- logging dependencies -->
 		<dependency>
