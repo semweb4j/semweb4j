@@ -55,9 +55,6 @@ public interface ModelSetIO {
 	/**
 	 * Reads assuming the given syntax. Encoding defaults to UTF8.
 	 * 
-	 * All Models are created with the corresponding names as defined in the
-	 * TRiX stream as needed.
-	 * 
 	 * @param in
 	 *            the input to read
 	 * @param syntax
@@ -74,9 +71,6 @@ public interface ModelSetIO {
 
 	/**
 	 * Reads assuming the given syntax. Encoding defaults to UTF8.
-	 * 
-	 * All Models are created with the corresponding names as defined in the
-	 * TRiX stream as needed.
 	 * 
 	 * @param in
 	 *            the input to read
@@ -95,7 +89,7 @@ public interface ModelSetIO {
 			ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
-	 * Read from InputStream assuming to read an RDF/XML stream.
+	 * Read from InputStream assuming to read an TRiX stream.
 	 * 
 	 * All Models are created with the corresponding names as defined in the
 	 * TRiX stream as needed.
@@ -115,9 +109,6 @@ public interface ModelSetIO {
 	/**
 	 * Reads assuming the given syntax. Encoding defaults to UTF8.
 	 * 
-	 * All Models are created with the corresponding names as defined in the
-	 * TRiX stream as needed.
-	 * 
 	 * @param in
 	 *            the input to read
 	 * @param syntax
@@ -135,9 +126,6 @@ public interface ModelSetIO {
 	/**
 	 * Reads assuming the given syntax. Encoding defaults to UTF8.
 	 * 
-	 * All Models are created with the corresponding names as defined in the
-	 * TRiX stream as needed.
-	 * 
 	 * @param in
 	 *            the input to read
 	 * @param syntax
@@ -151,7 +139,7 @@ public interface ModelSetIO {
 	 * @throws SyntaxNotSupportedException
 	 *             if adapter can't handle the given syntax
 	 */
-	void readFrom(InputStream reader, Syntax syntax, String baseURI ) throws IOException,
+	void readFrom(InputStream reader, Syntax syntax, String baseURI) throws IOException,
 	ModelRuntimeException, SyntaxNotSupportedException;
 
 	/**
@@ -220,5 +208,5 @@ public interface ModelSetIO {
 	 * @return a String, containing the ModelSet content in the given syntax.
 	 * @throws SyntaxNotSupportedException if the syntax is not supported
 	 */
-	String serialize( Syntax syntax ) throws SyntaxNotSupportedException;
+	String serialize(Syntax syntax) throws SyntaxNotSupportedException;
 }
