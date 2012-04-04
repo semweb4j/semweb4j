@@ -469,7 +469,7 @@ public abstract class AbstractModelSetTest {
 	
 	@Test
 	public void testLoadDataIntoDefaultModel() throws Exception {
-		this.modelset.readFrom(TestData.getFoafAsStream());
+		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
 		assertTrue(this.modelset.size() > 10);
 		// check default model
 		Model def = this.modelset.getDefaultModel();
@@ -535,7 +535,7 @@ public abstract class AbstractModelSetTest {
 	public void testReadFromInputStream() {
 		InputStream in = TestData.getFoafAsStream();
 		try {
-			this.modelset.readFrom(in);
+			this.modelset.readFrom(in, Syntax.RdfXml);
 		} catch(ModelRuntimeException e) {
 			fail();
 		} catch(IOException e) {
@@ -618,7 +618,7 @@ public abstract class AbstractModelSetTest {
 	public void testReadFromReader() {
 		InputStreamReader isr = new InputStreamReader(TestData.getFoafAsStream());
 		try {
-			this.modelset.readFrom(isr);
+			this.modelset.readFrom(isr, Syntax.RdfXml);
 		} catch(ModelRuntimeException e) {
 			fail();
 		} catch(IOException e) {
@@ -733,7 +733,7 @@ public abstract class AbstractModelSetTest {
 	
 	@Test
 	public void testSize() throws Exception {
-		this.modelset.readFrom(TestData.getFoafAsStream());
+		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
 		assertEquals("Size of foaf", 536, this.modelset.size());
 	}
 	
@@ -743,7 +743,7 @@ public abstract class AbstractModelSetTest {
 		assertTrue(this.modelset
 		        .sparqlAsk("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
 		                + "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-		                + "ASK {?s rdf:type ?o}"));
+		                + "ASK WHERE { GRAPH <" + graphuri1 + "> {?s rdf:type ?o} }"));
 	}
 	
 	@Test
@@ -752,16 +752,23 @@ public abstract class AbstractModelSetTest {
 		ClosableIterable<? extends Statement> i = this.modelset
 		        .sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
 		                + "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-		                + "construct {?s rdf:type ?o} where {?s rdf:type ?o}");
+		                + "construct {?s rdf:type ?o} WHERE { GRAPH ?g {?s rdf:type ?o} }");
 		int size = TestUtils.countAndClose(i);
 		assertEquals("sparql construct works getting types", 395, size);
+
+		i = this.modelset
+		        .sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
+		                + "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+		                + "construct {?s rdf:type ?o} WHERE { GRAPH <" + graphuri2 + "> {?s rdf:type ?o} }");
+		size = TestUtils.countAndClose(i);
+		assertEquals("sparql construct works getting types", 261, size);
 	}
 	
 	@Test
 	public void testSparqlDescribe() throws Exception {
 		this.addTestDataToModelSet();
 		ClosableIterable<? extends Statement> iterable = this.modelset
-		        .sparqlConstruct("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
+		        .sparqlDescribe("PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>\n "
 		                + "PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 		                + "DESCRIBE <http://xmlns.com/foaf/0.1/thumbnail>");
 		
@@ -788,7 +795,7 @@ public abstract class AbstractModelSetTest {
 		// URL foafURL = new URL("http://xmlns.com/foaf/0.1/20050603.rdf");
 		// this.modelset.readFrom( foafURL.openStream() );
 		InputStream in = TestData.getFoafAsStream();
-		this.modelset.readFrom(in);
+		this.modelset.readFrom(in, Syntax.RdfXml);
 		
 		QueryResultTable table = this.modelset.sparqlSelect("SELECT ?s ?o WHERE { ?s <"
 		        + RDFS.comment + "> ?o . }");
@@ -1092,7 +1099,7 @@ public abstract class AbstractModelSetTest {
 	@Test
 	public void testQueryConstruct() throws Exception {
 		InputStream in = TestData.getFoafAsStream();
-		this.modelset.readFrom(in);
+		this.modelset.readFrom(in, Syntax.RdfXml);
 		// count the classes in foaf
 		ClosableIterable<Statement> i = this.modelset
 		        .queryConstruct(
@@ -1107,7 +1114,7 @@ public abstract class AbstractModelSetTest {
 	@Test
 	public void testQuerySelect() throws Exception {
 		InputStream in = TestData.getFoafAsStream();
-		this.modelset.readFrom(in);
+		this.modelset.readFrom(in, Syntax.RdfXml);
 		// count the classes in foaf
 		QueryResultTable i = this.modelset.querySelect(
 		        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
@@ -1151,7 +1158,7 @@ public abstract class AbstractModelSetTest {
 	
 	@Test
 	public void testSerialize() throws Exception {
-		this.modelset.readFrom(TestData.getFoafAsStream());
+		this.modelset.readFrom(TestData.getFoafAsStream(), Syntax.RdfXml);
 		String serialize = this.modelset.serialize(Syntax.RdfXml);
 		ModelSet m1 = getModelFactory().createModelSet();
 		m1.open();
