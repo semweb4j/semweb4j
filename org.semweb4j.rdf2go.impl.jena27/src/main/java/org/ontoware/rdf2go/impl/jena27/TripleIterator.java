@@ -39,7 +39,7 @@ public class TripleIterator implements ClosableIterator<Statement> {
     public Statement next() {
 		assert this.modelImplJena.getModificationCount() == this.modelModificationCountAtCreationTime;
 		Triple t = (Triple)this.it.next();
-		return new StatementJena24Impl(this.modelImplJena, t.getSubject(), t.getPredicate(), t
+		return new StatementJena29Impl(this.modelImplJena, t.getSubject(), t.getPredicate(), t
 		        .getObject());
 	}
 	
