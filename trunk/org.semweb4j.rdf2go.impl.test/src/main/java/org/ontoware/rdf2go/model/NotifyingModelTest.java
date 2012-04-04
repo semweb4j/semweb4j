@@ -199,7 +199,6 @@ public class NotifyingModelTest extends AbstractModelTest {
 		ModelChangedListener listener = new AbstractModelChangeListener() {
 			@Override
 			public void addedStatement(Statement statement) {
-				System.out.println(statement.getObject().getClass());
 				assertEquals(new PlainLiteralImpl("Sebastian"), statement
 						.getObject());
 				assertEquals(predicate, statement.getPredicate());
