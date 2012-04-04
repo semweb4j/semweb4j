@@ -12,27 +12,58 @@ import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
 import com.hp.hpl.jena.rdf.model.Model;
 
-
-public class StatementJena24Impl extends AbstractStatement implements Statement {
+/**
+ * A Jena 2.9 implementation of the {@linkplain Statement} interface.
+ * 
+ * @version $Revision$
+ *
+ */
+public class StatementJena29Impl extends AbstractStatement implements Statement {
 	
 	private static final long serialVersionUID = -144220629238562048L;
 	
-	private static Logger log = LoggerFactory.getLogger(StatementJena24Impl.class);
+	private static Logger log = LoggerFactory.getLogger(StatementJena29Impl.class);
 	
-	private Node s, p, o;
+	private Node c, s, p, o;
 	
 	private org.ontoware.rdf2go.model.Model model;
 	
-	public StatementJena24Impl(org.ontoware.rdf2go.model.Model model, Node s, Node p, Node o) {
-		this.model = model;
+	/**
+	 * Contruct a quadruple or supply {@code null} as context.
+	 * 
+	 * @param c
+	 * @param s may not be {@code null}
+	 * @param p may not be {@code null}
+	 * @param o may not be {@code null}
+	 */
+	public StatementJena29Impl(Node c, Node s, Node p, Node o) {
 		assert s != null;
 		assert p != null;
 		assert o != null;
+		this.c = c;
 		this.s = s;
 		this.p = p;
 		this.o = o;
 	}
-	
+
+	/**
+	 * Construct a statement.
+	 * 
+	 * @param model
+	 * @param s may not be {@code null}
+	 * @param p may not be {@code null}
+	 * @param o may not be {@code null}
+	 */
+	public StatementJena29Impl(org.ontoware.rdf2go.model.Model model, Node s, Node p, Node o) {
+		assert s != null;
+		assert p != null;
+		assert o != null;
+		this.model = model;
+		this.s = s;
+		this.p = p;
+		this.o = o;
+	}
+
 	public com.hp.hpl.jena.rdf.model.Statement toJenaStatement(Model jenaModel) {
 		Triple t = new Triple(this.s, this.p, this.o);
 		return jenaModel.asStatement(t);
@@ -81,8 +112,8 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 			Statement stmt = (Statement)other;
 			boolean e = super.equals(stmt);
 			log.debug("statements are equal? " + e + " now the context");
-			if(e && stmt.getContext() != null && this.getModel().getContextURI() != null)
-				return stmt.getContext().equals(this.getModel().getContextURI());
+			if(e && stmt.getContext() != null && this.getContext() != null)
+				return stmt.getContext().equals(this.getContext());
 			else
 				return e;
 		}
@@ -96,7 +127,19 @@ public class StatementJena24Impl extends AbstractStatement implements Statement 
 	
 	@Override
     public URI getContext() {
-		return this.model.getContextURI();
+		/**
+		 * Return the graph URI or {@code null} depending on how this Statement
+		 * was contructed
+		 */
+		if (this.c != null) {
+			return (URI)TypeConversion.toRDF2Go(this.c);
+		}
+		else if (this.model != null) {
+			return this.model.getContextURI();
+		}
+		else {
+			return null;
+		}
 	}
 	
 }

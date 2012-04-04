@@ -103,8 +103,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 	
 	@Override
 	public ModelSet createModelSet(Properties p) throws ModelRuntimeException {
-		// TODO not available in Jena, TODO: implement using NG4J
-		throw new UnsupportedOperationException("not available in Jena, TODO: implement using NG4J");
+		return new ModelSetImplJena29();
 	}
 	
 	@Override
