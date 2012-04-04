@@ -23,7 +23,9 @@ import java.util.List;
  * 
  * You can chose to use a Syntax in your application without registering it.
  * 
- * @author voelkel, sauermann
+ * @author Max Völkel
+ * @author Leo Sauermann
+ * @author Roland Stühmer
  */
 public class Syntax {
 
@@ -35,32 +37,49 @@ public class Syntax {
 	private static List<Syntax> SYNTAXES = new ArrayList<Syntax>();
 
 	/**
-	 * RDF syntax RDF XML
+	 * RDF syntax RDF/XML.
+	 * 
+	 * @see <a href="http://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML syntax</a>.
 	 */
 	public static final Syntax RdfXml = new Syntax("rdfxml",
 			"application/rdf+xml", ".rdf", true);
 
 	/**
-	 * RDF syntax Turtle
+	 * RDF syntax Turtle.
+	 * 
+	 * @see <a href="http://www.w3.org/TeamSubmission/turtle/">Turtle syntax</a>
 	 */
 	public static final Syntax Turtle = new Syntax("turtle",
 			"application/x-turtle", ".ttl", true);
 
 	/**
-	 * RDF syntax NTriples
+	 * RDF syntax N-Triples.
+	 * 
+	 * @see <a href="http://www.w3.org/2001/sw/RDFCore/ntriples/">N-Triples syntax</a>.
 	 */
 	public static final Syntax Ntriples = new Syntax("ntriples", "text/plain",
 			".nt", true);
 
 	/**
-	 * RDF syntax Trix For mroe info see: http://swdev.nokia.com/trix/TriX.html
+	 * RDF syntax N-Quads.
+	 * 
+	 * @see <a href="http://sw.deri.org/2008/07/n-quads/">N-Quads syntax</a>.
+	 */
+	public static final Syntax Nquads = new Syntax("nquads", "text/x-nquads",
+			".nq", true);
+
+	/**
+	 * RDF syntax TriX.
+	 * 
+	 * @see <a href="http://www.hpl.hp.com/techreports/2004/HPL-2004-56.html">TriX syntax</a>.
 	 */
 	public static final Syntax Trix = new Syntax("trix", "application/trix",
 			".trix", true);
 
 	/**
-	 * RDF Syntax Trig For more info see
-	 * http://sites.wiwiss.fu-berlin.de/suhl/bizer/TriG/
+	 * RDF syntax TriG.
+	 * 
+	 * @see <a href="http://www4.wiwiss.fu-berlin.de/bizer/trig/">TriG syntax</a>.
 	 */
 	public static final Syntax Trig = new Syntax("trig", "application/x-trig",
 			".trig", true);
