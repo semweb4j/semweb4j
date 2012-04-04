@@ -80,14 +80,14 @@ public class SyntaxTest extends TestCase {
      */
     public void testList() {
         List<Syntax> list = Syntax.list();
-        assertEquals(5, list.size());
-        ArrayList<Syntax> l = new ArrayList<Syntax>(list.size());
+        // check overall number
+        assertEquals(6, list.size());
+        ArrayList<Syntax> l = new ArrayList<Syntax>(list);
+        // remove just a few
         l.remove(Syntax.Ntriples);
         l.remove(Syntax.RdfXml);
-        l.remove(Syntax.Trix);
-        l.remove(Syntax.Turtle);
-        l.remove(Syntax.Trig);
-        assertEquals(0, l.size());
+        l.remove(Syntax.Nquads);
+        assertTrue(0 < l.size());
     }
     
     public void testCreateList() {
