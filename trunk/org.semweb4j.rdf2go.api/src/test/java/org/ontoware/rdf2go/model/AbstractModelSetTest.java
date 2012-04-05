@@ -110,6 +110,13 @@ public abstract class AbstractModelSetTest {
 	public abstract ModelFactory getModelFactory();
 	
 	/**
+	 * @return the private {@linkplain ModelSet} for use by subclasses
+	 */
+	public ModelSet getModelSet() {
+		return this.modelset;
+	}
+	
+	/**
 	 * Subclasses can create a configured ModelSet instance.
 	 */
 	@Before

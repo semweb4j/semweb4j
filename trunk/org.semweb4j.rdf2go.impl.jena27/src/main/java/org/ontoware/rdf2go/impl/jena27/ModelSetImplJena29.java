@@ -8,6 +8,8 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.io.input.ReaderInputStream;
+import org.apache.commons.io.output.WriterOutputStream;
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.Reasoning;
@@ -17,6 +19,7 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.QuadPattern;
 import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.Statement;
@@ -46,8 +49,6 @@ import com.hp.hpl.jena.query.QueryFactory;
  * A ModelSet implementation for Jena 2.7. It relies on the Jena
  * {@linkplain com.hp.hpl.jena.query.Dataset}.
  * 
- * TODO: Implement methods writeTo() with {@linkplain Writer} and readFrom with {@linkplain Reader}.
- * 
  * @since 4.8.1
  * 
  * @author Roland Stühmer
@@ -66,9 +67,9 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	
 	private static class ContextIterator implements ClosableIterator<URI> {
 
-		private Iterator<com.hp.hpl.jena.graph.Node> underlying;
+		private Iterator<String> underlying;
 
-		public ContextIterator(Iterator<com.hp.hpl.jena.graph.Node> idIterator) {
+		public ContextIterator(Iterator<String> idIterator) {
 			this.underlying = idIterator;
 		}
 
@@ -80,7 +81,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		}
 
 		public URI next() {
-			return new URIImpl(this.underlying.next().getURI());
+			return new URIImpl(this.underlying.next());
 		}
 
 		public void remove() {
@@ -125,6 +126,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 			this.lastURI = null;
 		}
+
 	}
 
 	private class JenaQuadPattern implements QuadPattern {
@@ -292,6 +294,12 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		return new ModelImplJena26(jenaModel).open();
 	}
 
+	/**
+	 * Return all <i>named</i> models. This does not currently return the
+	 * default model because there is no usable iterator in Jena for this. Also
+	 * the default Model in Jena has no usable context URI which causes 
+	 * problems later when iterating over the models.
+	 */
 	@Override
 	public ClosableIterator<Model> getModels() {
 		return new ModelIterator(this.getModelURIs());
@@ -299,8 +307,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	@Override
 	public ClosableIterator<URI> getModelURIs() {
-		return new ContextIterator(this.dataset.asDatasetGraph()
-				.listGraphNodes());
+		return new ContextIterator(this.dataset.listNames());
 	}
 
 	@Override
@@ -405,7 +412,14 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	}
 
 	/**
-	 * Read data from an {@linkplain Reader} with RDF syntax {@link Syntax.Trix}.
+	 * Read data from an {@linkplain Reader} with RDF syntax {@link Syntax#Trix}.
+	 * 
+	 * <br />
+	 * <b>Please note:</b><br />
+	 * In this Jena implementation this will fail until a matching
+	 * {@linkplain RiotReader} is available. Please use
+	 * {@linkplain ModelSetImplJena29#readFrom(Reader, Syntax)} with an available
+	 * syntax such as {@link Syntax#Nquads} or {@link Syntax#Trig}.
 	 */
 	@Override
 	public void readFrom(Reader in) throws IOException, ModelRuntimeException {
@@ -422,14 +436,20 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	public void readFrom(Reader in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
-		// TODO stuehmer: find a nice way of dealing with Reader:
-		throw new IOException("Writing to java.io.Reader is not supported. " +
-				"Please use InputStream.");
+		ReaderInputStream is = new ReaderInputStream(in, "UTF8");
+		readFrom(is, syntax, baseURI);
 	}
 
 	/**
 	 * Read data from an {@linkplain InputStream} with RDF syntax
-	 * {@link Syntax.Trix}.
+	 * {@link Syntax#Trix}.
+	 * 
+	 * <br />
+	 * <b>Please note:</b><br />
+	 * In this Jena implementation this will fail until a matching
+	 * {@linkplain RiotReader} is available. Please use
+	 * {@linkplain ModelSetImplJena29#readFrom(Reader, Syntax)} with an available
+	 * syntax such as {@link Syntax#Nquads} or {@link Syntax#Trig}.
 	 */
 	@Override
 	public void readFrom(InputStream in) throws IOException,
@@ -451,44 +471,66 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		Lang lang = WebContent.contentTypeToLang(syntax.getMimeType());
 
 		if (lang == null) {
-			throw new SyntaxNotSupportedException(String.format(
-					"unknown RDF syntax %s", syntax));
+			throw new SyntaxNotSupportedException(
+					"unknown RDF syntax " + syntax);
 		}
 
 		RiotReader.parseQuads(in, lang, baseURI, new SinkQuadsToDataset(
 				this.dataset.asDatasetGraph()));
 	}
 
+	/**
+	 * Write data to a {@linkplain Writer} with RDF syntax
+	 * {@link Syntax#Trix}.
+	 * 
+	 * <br />
+	 * <b>Please note:</b><br />
+	 * In this Jena implementation this will fail until a matching
+	 * {@linkplain RiotWriter} is available. Please use
+	 * {@linkplain ModelSetImplJena29#writeTo(Writer, Syntax)} with an available
+	 * syntax such as {@link Syntax#Nquads}.
+	 */
 	@Override
 	public void writeTo(Writer out) throws IOException, ModelRuntimeException {
-		writeTo(out, Syntax.Nquads);
+		writeTo(out, Syntax.Trix);
 	}
 
+	/**
+	 * Write data to an {@linkplain OutputStream} with RDF syntax
+	 * {@link Syntax#Trix}.
+	 * 
+	 * <br />
+	 * <b>Please note:</b><br />
+	 * In this Jena implementation this will fail until a matching
+	 * {@linkplain RiotWriter} is available. Please use
+	 * {@linkplain ModelSetImplJena29#writeTo(OutputStream, Syntax)} with an available
+	 * syntax such as {@link Syntax#Nquads}.
+	 */
 	@Override
 	public void writeTo(OutputStream out) throws IOException,
 			ModelRuntimeException {
-		writeTo(out, Syntax.Nquads);
+		writeTo(out, Syntax.Trix);
 	}
 
 	@Override
     public void writeTo(Writer writer, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
-		// TODO stuehmer: find a nice way of dealing with Writer:
-		throw new IOException("Writing to java.io.Writer is not supported. " +
-				"Please use OutputStream.");
+		WriterOutputStream stream = new WriterOutputStream(writer, "UTF8");
+		writeTo(stream, syntax);
 	}
 
 	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
+		
 		if (syntax == Syntax.Nquads) {
 			RiotWriter.writeNQuads(out, this.dataset.asDatasetGraph());
 		}
 		// TODO stuehmer: after https://issues.apache.org/jira/browse/JENA-182
 		// is resoved, add a TriG writer here
 		else {
-			throw new SyntaxNotSupportedException("Syntax " + syntax
-					+ " not supported.");
+			throw new SyntaxNotSupportedException(String.format(
+					"Syntax %s not supported.", syntax));
 		}
 	}
 
@@ -666,10 +708,11 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	/**
 	 * Remove the specified namespace from all {@linkplain Model}s
-	 * in this {@linkplain ModelSet}.
+	 * in this {@linkplain ModelSet} including the default graph.
 	 */
 	@Override
 	public void removeNamespace(String prefix) {
+		this.dataset.getDefaultModel().removeNsPrefix(prefix);
 		Iterator<Model> it = this.getModels();
 		while (it.hasNext()) {
 			it.next().removeNamespace(prefix);
@@ -678,11 +721,12 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	/**
 	 * Set the specified namespace for all {@linkplain Model}s
-	 * in this {@linkplain ModelSet}.
+	 * in this {@linkplain ModelSet} including the default graph.
 	 */
 	@Override
 	public void setNamespace(String prefix, String namespaceURI)
 			throws IllegalArgumentException {
+		this.dataset.getDefaultModel().setNsPrefix(prefix, namespaceURI);
 		Iterator<Model> it = this.getModels();
 		while (it.hasNext()) {
 			it.next().setNamespace(prefix, namespaceURI);
