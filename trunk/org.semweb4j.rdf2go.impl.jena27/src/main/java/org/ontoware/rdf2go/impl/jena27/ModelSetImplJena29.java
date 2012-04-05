@@ -652,26 +652,41 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	@Override
 	public String getNamespace(String prefix) {
-		// TODO stuehmer: there is no prefix mapping on Dataset itself:
+		// We use the default model because there is no prefix mapping on
+		// Dataset itself:
 		return this.dataset.getDefaultModel().getNsPrefixURI(prefix);
 	}
 
 	@Override
 	public Map<String, String> getNamespaces() {
-		// TODO stuehmer: there is no prefix mapping on Dataset itself:
+		// We use the default model because there is no prefix mapping on
+		// Dataset itself:
 		return this.dataset.getDefaultModel().getNsPrefixMap();
 	}
 
+	/**
+	 * Remove the specified namespace from all {@linkplain Model}s
+	 * in this {@linkplain ModelSet}.
+	 */
 	@Override
 	public void removeNamespace(String prefix) {
-		// TODO stuehmer: there is no prefix mapping on Dataset itself:
-		this.dataset.getDefaultModel().removeNsPrefix(prefix);
+		Iterator<Model> it = this.getModels();
+		while (it.hasNext()) {
+			it.next().removeNamespace(prefix);
+		}
 	}
 
+	/**
+	 * Set the specified namespace for all {@linkplain Model}s
+	 * in this {@linkplain ModelSet}.
+	 */
 	@Override
 	public void setNamespace(String prefix, String namespaceURI)
 			throws IllegalArgumentException {
-		this.dataset.getDefaultModel().setNsPrefix(prefix, namespaceURI);
+		Iterator<Model> it = this.getModels();
+		while (it.hasNext()) {
+			it.next().setNamespace(prefix, namespaceURI);
+		}
 	}
 
 	@Override
