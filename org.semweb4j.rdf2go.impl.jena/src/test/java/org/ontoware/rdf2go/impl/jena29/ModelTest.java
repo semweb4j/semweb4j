@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena27;
+package org.ontoware.rdf2go.impl.jena29;
 
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.impl.jena29.ModelFactoryImpl;
