@@ -12,10 +12,10 @@
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
-	<artifactId>rdf2go.impl.jena29</artifactId>
+	<artifactId>rdf2go.impl.jena</artifactId>
 	<version>4.8.1</version>
 	<packaging>jar</packaging>
-	<name>rdf2go.impl.jena27</name>
+	<name>rdf2go.impl.jena</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena 2.7
 		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de.
