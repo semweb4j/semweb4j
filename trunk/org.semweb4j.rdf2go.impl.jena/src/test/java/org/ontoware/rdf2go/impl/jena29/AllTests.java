@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena27;
+package org.ontoware.rdf2go.impl.jena29;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
