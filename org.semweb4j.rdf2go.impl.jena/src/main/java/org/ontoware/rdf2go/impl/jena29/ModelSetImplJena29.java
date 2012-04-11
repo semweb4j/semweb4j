@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena27;
+package org.ontoware.rdf2go.impl.jena29;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +52,7 @@ import com.hp.hpl.jena.query.QueryFactory;
  * 
  * @since 4.8.1
  * 
- * @author Roland Stühmer
+ * @author Roland Stï¿½hmer
  * 
  * @version $Revision$
  * 

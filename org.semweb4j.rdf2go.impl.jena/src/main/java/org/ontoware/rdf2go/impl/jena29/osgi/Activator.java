@@ -8,12 +8,12 @@
  * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
-package org.ontoware.rdf2go.impl.jena27.osgi;
+package org.ontoware.rdf2go.impl.jena29.osgi;
 
 import java.util.Hashtable;
 
 import org.ontoware.rdf2go.ModelFactory;
-import org.ontoware.rdf2go.impl.jena27.ModelFactoryImpl;
+import org.ontoware.rdf2go.impl.jena29.ModelFactoryImpl;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;

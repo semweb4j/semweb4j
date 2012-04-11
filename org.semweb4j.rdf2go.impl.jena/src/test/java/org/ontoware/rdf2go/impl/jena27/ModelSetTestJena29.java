@@ -12,6 +12,7 @@ import java.io.StringWriter;
 import org.junit.Test;
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
+import org.ontoware.rdf2go.impl.jena29.ModelFactoryImpl;
 import org.ontoware.rdf2go.model.AbstractModelSetTest;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.Syntax;
