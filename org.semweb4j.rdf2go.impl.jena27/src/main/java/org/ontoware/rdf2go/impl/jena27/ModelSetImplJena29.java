@@ -34,6 +34,7 @@ import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.openjena.riot.Lang;
+import org.openjena.riot.RiotLoader;
 import org.openjena.riot.RiotReader;
 import org.openjena.riot.RiotWriter;
 import org.openjena.riot.WebContent;
@@ -297,8 +298,9 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	/**
 	 * Return all <i>named</i> models. This does not currently return the
 	 * default model because there is no usable iterator in Jena for this. Also
-	 * the default Model in Jena has no usable context URI which causes 
-	 * problems later when iterating over the models.
+	 * the default Model in Jena has no usable context URI which causes problems
+	 * later when iterating over the models e.g., using
+	 * {@linkplain ClosableIterator#remove()}
 	 */
 	@Override
 	public ClosableIterator<Model> getModels() {
@@ -475,8 +477,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 					"unknown RDF syntax " + syntax);
 		}
 
-		RiotReader.parseQuads(in, lang, baseURI, new SinkQuadsToDataset(
-				this.dataset.asDatasetGraph()));
+		RiotLoader.read(in, this.dataset.asDatasetGraph(), lang, baseURI);
 	}
 
 	/**
@@ -523,14 +524,36 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
 		
-		if (syntax == Syntax.Nquads) {
+		if (syntax == null) {
+			throw new NullPointerException("syntax may not be null");
+		}
+		
+		Lang jenaLang = WebContent.contentTypeToLang(syntax.getMimeType());
+
+		if (jenaLang == null) {
+			throw new SyntaxNotSupportedException(
+					"unknown RDF syntax " + syntax);
+		}
+		else if (jenaLang.isTriples()) {
+			/*
+			 * NB: Writing a ModelSet to a triple serialization loses the
+			 * context of any quads if present.
+			 */
+			Iterator<Model> it = this.getModels();
+			while (it.hasNext()) {
+				Model model = it.next();
+				model.writeTo(out, syntax);
+			}
+			this.getDefaultModel().writeTo(out, syntax);
+		}
+		else if (jenaLang == org.openjena.riot.Lang.NQUADS) {
 			RiotWriter.writeNQuads(out, this.dataset.asDatasetGraph());
 		}
 		// TODO stuehmer: after https://issues.apache.org/jira/browse/JENA-182
 		// is resoved, add a TriG writer here
 		else {
-			throw new SyntaxNotSupportedException(String.format(
-					"Syntax %s not supported.", syntax));
+			throw new SyntaxNotSupportedException(
+					"unknown RDF syntax " + syntax);
 		}
 	}
 
