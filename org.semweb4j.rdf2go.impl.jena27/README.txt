@@ -1,0 +1,1 @@
+From now on, the latest version of the jena driver is no longer named jenaXX but simply "jena".
