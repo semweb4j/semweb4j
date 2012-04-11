@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena27;
+package org.ontoware.rdf2go.impl.jena29;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.model.Statement;

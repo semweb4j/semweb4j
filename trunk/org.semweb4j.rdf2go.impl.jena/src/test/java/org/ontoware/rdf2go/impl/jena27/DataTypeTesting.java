@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
-import org.ontoware.rdf2go.impl.jena27.GeneralDataType;
-import org.ontoware.rdf2go.impl.jena27.TypeConversion;
+import org.ontoware.rdf2go.impl.jena29.GeneralDataType;
+import org.ontoware.rdf2go.impl.jena29.TypeConversion;
 import org.ontoware.rdf2go.model.node.DatatypeLiteral;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.DatatypeLiteralImpl;
