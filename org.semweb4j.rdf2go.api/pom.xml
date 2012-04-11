@@ -127,7 +127,7 @@
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
 		<!-- developer access, no trailing slash -->
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.name>${groupId}.${artifactId}</svn.name>
+		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
 	</properties>
 
 
@@ -144,6 +144,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
 				<executions>
 					<execution>
 						<goals>
@@ -195,7 +196,7 @@
                 I would not touch this further, and just fiddle with the options. -->
                 <configuration>
                     <finalName>
-                        ${pom.groupId}.${project.build.finalName}
+                        ${project.groupId}.${project.build.finalName}
                     </finalName>
                     <archive>
                         <manifestFile>META-INF/MANIFEST.MF</manifestFile>
