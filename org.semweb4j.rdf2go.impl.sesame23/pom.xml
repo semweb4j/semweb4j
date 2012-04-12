@@ -42,17 +42,15 @@
 
 	<dependencies>
 
+        <dependency>
+            <groupId>org.semweb4j</groupId>
+            <artifactId>rdf2go.api</artifactId>
+            <version>4.8.1</version>
+        </dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
 			<version>4.8.1</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.0</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -95,7 +93,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.base.test</artifactId>
+			<artifactId>rdf2go.impl.test</artifactId>
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>		
