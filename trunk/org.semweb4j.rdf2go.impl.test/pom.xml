@@ -224,12 +224,11 @@
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
 			<version>4.8.1</version>
-			<type>test-jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.0</version>
+			<version>4.8.1</version>
 			<type>test-jar</type>
 		</dependency>
 <!-- 
