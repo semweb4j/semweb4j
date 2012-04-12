@@ -44,10 +44,12 @@ public class SyntaxTest extends TestCase {
 	 * .
 	 */
 	public void testRegister() {
-		Syntax s = new Syntax("spargel", "application/spargel", ".spargel");
-		Syntax.register(s);
-		Syntax s1 = Syntax.forMimeType("application/spargel");
-		assertEquals(s, s1);
+    	int numSyntaxes = Syntax.list().size();
+        Syntax s = new Syntax("spargel", "application/spargel", ".spargel");
+        Syntax.register(s);
+        Syntax s1 = Syntax.forMimeType("application/spargel");
+        assertEquals("Check if the newly registered sytax can be properly retrieved.", s, s1);
+        assertEquals("After registering a new syntax, check the overall number again.", numSyntaxes + 1,  Syntax.list().size());
 	}
 	
 	/**
@@ -91,13 +93,14 @@ public class SyntaxTest extends TestCase {
 		Syntax.resetFactoryDefaults();
 		List<Syntax> list = Syntax.list();
 		// check overall number
-		assertEquals(6, list.size());
-		ArrayList<Syntax> l = new ArrayList<Syntax>(list);
-		// remove just a few
-		l.remove(Syntax.Ntriples);
-		l.remove(Syntax.RdfXml);
-		l.remove(Syntax.Nquads);
-		assertTrue(0 < l.size());
+		assertEquals("Check for the expected number of syntaxes", 6, list.size());
+        int numSyntaxes = list.size();
+        ArrayList<Syntax> l = new ArrayList<Syntax>(list);
+        // remove just a few
+        l.remove(Syntax.RdfXml);
+        l.remove(Syntax.Nquads);
+        assertEquals("After removing a number of syntaxes, check the overall number again.", numSyntaxes - 2,  l.size());
+
 	}
 	
 	public void testCreateList() {
