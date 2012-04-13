@@ -12,14 +12,17 @@
 package org.ontoware.rdf2go.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
  * Class for RDF syntaxes, and registry for them. A framework can register new
- * syntaxes by creating them with the constructor that automatically registers,
- * or by calling the {@link #register(Syntax)} method.
+ * syntaxes at runtime by creating them with the constructor that automatically
+ * registers, or by calling the {@link #register(Syntax)} method.
  * 
  * You can chose to use a Syntax in your application without registering it.
  * 
@@ -34,7 +37,7 @@ public class Syntax {
 	 * of the class, otherwise the constructor of the final Syntaxes cannot use
 	 * it.
 	 */
-	private static List<Syntax> SYNTAXES = new ArrayList<Syntax>();
+	private static Set<Syntax> SYNTAXES = new HashSet<Syntax>();
 	
 	public static void resetFactoryDefaults() {
 		SYNTAXES.clear();
@@ -144,12 +147,23 @@ public class Syntax {
 	}
 	
 	/**
+	 * list all available syntaxes. Collection is not modifyable.
+	 * 
+	 * @return a Collection of available syntaxes
+	 */
+	public static Collection<Syntax> collection() {
+		return Collections.unmodifiableCollection(SYNTAXES);
+	}
+	
+	/**
 	 * list all available syntaxes. List is not modifyable.
 	 * 
-	 * @return a list of available syntaxes
+	 * @return a Collection of available syntaxes
+	 * @deprecated Use #collection() instead
 	 */
+	@Deprecated
 	public static List<Syntax> list() {
-		return Collections.unmodifiableList(SYNTAXES);
+		return new ArrayList<Syntax>(collection());
 	}
 	
 	private final String name;
