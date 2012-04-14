@@ -38,7 +38,6 @@ import org.openjena.riot.RiotLoader;
 import org.openjena.riot.RiotReader;
 import org.openjena.riot.RiotWriter;
 import org.openjena.riot.WebContent;
-import org.openjena.riot.lang.SinkQuadsToDataset;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -216,15 +215,6 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		public void remove() {
 			this.underlying.remove();
 		}
-	}
-
-	public ModelSetImplJena29(Model model) {
-		this();
-		this.addModel(model);
-	}
-
-	public ModelSetImplJena29() {
-		this(com.hp.hpl.jena.query.DatasetFactory.createMem());
 	}
 
 	public ModelSetImplJena29(com.hp.hpl.jena.query.Dataset dataset) {

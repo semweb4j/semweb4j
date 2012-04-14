@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.query.DatasetFactory;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.rdf.model.ModelMaker;
@@ -50,8 +51,9 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 		String backend = p.getProperty(BACKEND);
 		
 		// default to in-memory model
-		if(backend == null)
+		if(backend == null) {
 			backend = MEMORY;
+		}
 		
 		Reasoning reasoning = AbstractModelFactory.getReasoning(p);
 		
@@ -69,8 +71,9 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 			}
 			ModelMaker maker = getFileModelMaker(filename);
 			model = maker.createDefaultModel();
-		} else
+		} else {
 			throw new IllegalArgumentException("Illegal back-end type: " + backend);
+		}
 		
 		// reasoning
 		
@@ -103,7 +106,46 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 	
 	@Override
 	public ModelSet createModelSet(Properties p) throws ModelRuntimeException {
-		return new ModelSetImplJena29();
+
+		com.hp.hpl.jena.query.Dataset dataset;
+		
+		String backend = p.getProperty(BACKEND);
+		
+		// default to in-memory model
+		if(backend == null) {
+			backend = MEMORY;
+		}
+		
+		Reasoning reasoning = AbstractModelFactory.getReasoning(p);
+		
+		if(backend.equalsIgnoreCase(MEMORY)) {
+			dataset = DatasetFactory.createMem();
+			assert dataset != null;
+		} else if(backend.equalsIgnoreCase(DATABASE)) {
+			throw new ModelRuntimeException(
+			        "This release of RDF2Go no longer supports Jena database backends. Use RDF2Go-Jena 2.6 or wait until we support SDB or TDB.");
+		} else if(backend.equalsIgnoreCase(FILE)) {
+			String filename = p.getProperty(FILENAME);
+			if(filename == null) {
+				throw new RuntimeException("Please specify a filename in your property file!");
+			}
+			throw new ModelRuntimeException(
+			        "This release of RDF2Go does not support ModelSets backed by files.");
+		} else {
+			throw new IllegalArgumentException("Illegal back-end type: " + backend);
+		}
+		
+		switch(reasoning) {
+		case rdfsAndOwl:
+		case owl:
+			throw new ModelRuntimeException(
+			        "This release of RDF2Go does not support ModelSets with reasoning capability.");
+		case rdfs:
+			throw new ModelRuntimeException(
+			        "This release of RDF2Go does not support ModelSets with reasoning capability.");
+		default:
+			return new ModelSetImplJena29(dataset);
+		}
 	}
 	
 	@Override
