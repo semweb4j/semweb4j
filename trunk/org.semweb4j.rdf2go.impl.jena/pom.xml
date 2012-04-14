@@ -134,7 +134,6 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.2</version>
 		</dependency>
 
 		<!-- OSGi -->
@@ -167,6 +166,7 @@
 
 		
 		<!-- This was missing from Jena :roland.stuehmer -->
+		<!-- FIXME: can be removed after https://issues.apache.org/jira/browse/JENA-177 is fixed in Jena 2.7.1 -->
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
