@@ -625,4 +625,15 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	public void removeAll() throws ModelRuntimeException {
 		this.jenaModel.removeAll();
 	}
+
+	@Override
+	public void addModel(Model model) {
+		if (model.getUnderlyingModelImplementation() instanceof com.hp.hpl.jena.rdf.model.Model) {
+			com.hp.hpl.jena.rdf.model.Model otherJenaModel = (com.hp.hpl.jena.rdf.model.Model) model
+					.getUnderlyingModelImplementation();
+			this.jenaModel.add(otherJenaModel);
+		} else {
+			super.addModel(model);
+		}
+	}
 }

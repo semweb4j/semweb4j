@@ -46,12 +46,12 @@ import com.hp.hpl.jena.query.QueryFactory;
 
 
 /**
- * A ModelSet implementation for Jena 2.7. It relies on the Jena
+ * A ModelSet implementation for Jena 2.9. It relies on the Jena
  * {@linkplain com.hp.hpl.jena.query.Dataset}.
  * 
  * @since 4.8.1
  * 
- * @author Roland Stï¿½hmer
+ * @author Roland Stühmer
  * 
  * @version $Revision$
  * 
@@ -777,5 +777,30 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	@Override
 	public String toString() {
 		return this.dataset.asDatasetGraph().toString();
+	}
+
+	@Override
+	public boolean addModel(Model model) {
+		if (model instanceof ModelImplJena26) {
+			this.dataset.getNamedModel(model.getContextURI().toString()).add(
+					((com.hp.hpl.jena.rdf.model.Model) model
+							.getUnderlyingModelImplementation()));
+			return true;
+		}
+		else {
+			return super.addModel(model);
+		}
+	}
+
+	@Override
+	public void addModel(Model model, URI contextURI) {
+		if (model instanceof ModelImplJena26) {
+			this.dataset.getNamedModel(contextURI.toString()).add(
+					((com.hp.hpl.jena.rdf.model.Model) model
+							.getUnderlyingModelImplementation()));
+		}
+		else {
+			super.addModel(model, contextURI);
+		}
 	}
 }
