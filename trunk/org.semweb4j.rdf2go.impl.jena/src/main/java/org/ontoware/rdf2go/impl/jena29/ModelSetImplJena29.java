@@ -63,7 +63,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	private com.hp.hpl.jena.query.Dataset dataset;
 	private com.hp.hpl.jena.shared.Lock lock;
 	private Query countStatementsQuery;
-	private boolean closed = false;
+	private boolean open = true;
 	
 	private static class ContextIterator implements ClosableIterator<URI> {
 
@@ -228,13 +228,12 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	@Override
 	public boolean isOpen() {
-		return !this.closed;
+		return this.open;
 	}
 
 	@Override
 	public void close() {
-		this.dataset.close();
-		this.closed = true;
+		this.open = false;
 	}
 
 	@Override
