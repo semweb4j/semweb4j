@@ -259,6 +259,27 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	}
 	
 	/**
+	 * @return opened result Model
+	 */
+	@Override
+	public ClosableIterable<Statement> sparqlDescribe(String queryString)
+	        throws ModelRuntimeException {
+		assertModel();
+		Query query = QueryFactory.create(queryString);
+		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
+		
+		if(query.isDescribeType()) {
+			com.hp.hpl.jena.rdf.model.Model m = qexec.execDescribe();
+			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			resultModel.open();
+			return resultModel;
+		} else {
+			throw new RuntimeException("Cannot handle this type of queries! Please use DESCRIBE.");
+		}
+		
+	}
+	
+	/**
 	 * handle with care, iterators based on this model might (silently!) throw
 	 * concurrent modification exceptions
 	 * 
@@ -348,27 +369,6 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		return new TripleIterator(this.jenaModel.getGraph().find(
 		        TypeConversion.toJenaNode(subject), TypeConversion.toJenaNode(predicate),
 		        TypeConversion.toJenaNode(object)), this.modificationCount, this);
-	}
-	
-	/**
-	 * @return opened result Model
-	 */
-	@Override
-	public ClosableIterable<Statement> sparqlDescribe(String queryString)
-	        throws ModelRuntimeException {
-		assertModel();
-		Query query = QueryFactory.create(queryString);
-		QueryExecution qexec = QueryExecutionFactory.create(query, this.jenaModel);
-		
-		if(query.isDescribeType()) {
-			com.hp.hpl.jena.rdf.model.Model m = qexec.execDescribe();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
-			resultModel.open();
-			return resultModel;
-		} else {
-			throw new RuntimeException("Cannot handle this type of queries! Please use DESCRIBE.");
-		}
-		
 	}
 	
 	@Override
@@ -616,4 +616,13 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		}
 	}
 	
+	@Override
+	public boolean isEmpty() {
+		return this.jenaModel.isEmpty();
+	}
+
+	@Override
+	public void removeAll() throws ModelRuntimeException {
+		this.jenaModel.removeAll();
+	}
 }
