@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -33,8 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.graph.Triple;
-import com.hp.hpl.jena.iri.IRI;
-import com.hp.hpl.jena.iri.IRIFactory;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -541,17 +540,16 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		}
 	}
 	
-	static IRIFactory factory = IRIFactory.jenaImplementation();
-	
 	@Override
 	public boolean isValidURI(String uriString) {
-		IRI iri = factory.create(uriString);
-		if(iri.hasViolation(false)) {
-			log.debug("Only well-formed absolute URIrefs can be included in RDF/XML output: <"
-			        + uriString + "> " + (iri.violations(false).next()).getLongMessage());
-			return false;
-		}
-		return true;
+	    try { 
+	        new java.net.URI(uriString);
+	        return true;
+	    } catch (URISyntaxException e) {
+	        log.debug("Only well-formed absolute URIrefs can be included in RDF/XML output: <"
+                    + uriString + "> " + e.getMessage());
+	        return false;
+	    }
 	}
 	
 	@Override
