@@ -542,8 +542,11 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	
 	@Override
 	public boolean isValidURI(String uriString) {
-	    try { 
-	        new java.net.URI(uriString);
+	    try {
+	    	java.net.URI u = new java.net.URI(uriString);
+	    	if (!u.isAbsolute()) {
+	    		throw new URISyntaxException(uriString, "URI is not absolute");
+	    	}
 	        return true;
 	    } catch (URISyntaxException e) {
 	        log.debug("Only well-formed absolute URIrefs can be included in RDF/XML output: <"
