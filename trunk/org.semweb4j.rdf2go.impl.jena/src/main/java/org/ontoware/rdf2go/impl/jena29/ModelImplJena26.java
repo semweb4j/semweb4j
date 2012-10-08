@@ -396,7 +396,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		} else if(syntax == Syntax.Turtle) {
 			this.jenaModel.read(reader, "", "N3");
 		} else if(syntax == Syntax.Trix) {
-			throw new IllegalArgumentException("Not implemented in Jena 2.4");
+			throw new IllegalArgumentException("Not implemented in Jena");
 		}
 	}
 	
@@ -410,7 +410,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		} else if(syntax == Syntax.Turtle) {
 			this.jenaModel.read(reader, baseURI, "N3");
 		} else if(syntax == Syntax.Trix) {
-			throw new IllegalArgumentException("Not implemented in Jena 2.4");
+			throw new IllegalArgumentException("Not implemented in Jena");
 		}
 	}
 	
@@ -445,7 +445,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 				this.jenaModel.write(writer, "N3", "");
 			}
 		} else {
-			throw new IllegalArgumentException(syntax + " is not implemented in Jena 2.4");
+			throw new IllegalArgumentException(syntax + " is not implemented in Jena");
 		}
 	}
 	
@@ -488,7 +488,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 				this.jenaModel.write(out, "N3", "");
 			}
 		} else {
-			throw new SyntaxNotSupportedException(syntax + " is not implemented in Jena 2.4");
+			throw new SyntaxNotSupportedException(syntax + " is not implemented in Jena");
 		}
 	}
 	
