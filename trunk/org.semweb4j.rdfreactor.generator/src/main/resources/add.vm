@@ -3,11 +3,11 @@
 ##   if(maxCard==?)
 ##     "add(Node)"
 ##     for each range R
-##       generate add(R)   
+##       generate add(R)
 ##   else
 ##     "add(Node,maxCard)"
 ##     for each range R
-##       generate add(R,maxCard)   
+##       generate add(R,maxCard)
 ##
 ## ================================================
 ##
@@ -16,7 +16,7 @@
 #if($prop.maxCardinality == $UNDEFINED)
 
     /**
-     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node 
+     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param resource an RDF2Go resource
@@ -26,9 +26,9 @@
 	public static void add${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) {
 		Base.add(model, instanceResource, #uppercase($prop.name), value);
 	}
-	
+
     /**
-     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node 
+     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node
 #comment("     " $prop)
 	 * @param value the value to be added
 #debug("add1dynamic")
@@ -40,7 +40,7 @@
 ##            | FOR each range R: GENERATE "add(R)"
 #foreach($type in $prop.types)
     /**
-     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type} 
+     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type}
 #comment("     " $type)
      * @param model an RDF2Go model
      * @param resource an RDF2Go resource
@@ -49,9 +49,9 @@
 	public static void add${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, $type value) {
 		Base.add(model, instanceResource, #uppercase($prop.name), value);
 	}
-	
+
     /**
-     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type} 
+     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type}
 #comment("     " $type)
 #debug("add4dynamic")
      */
@@ -61,34 +61,34 @@
 #end ## #foreach(type in $prop.types)
 ##     -----------------------------------------------------------------------
 ##    | END IF max cardinality == UNDEFINED
-#else 
+#else
 ##     -----------------------------------------------------------------------
 ##    | max cardinality defined
 
     /**
-     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node 
+     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param resource an RDF2Go resource
 	 * @param value the value to be added
-	 * @throws CardinalityException if adding a value would bring the number 
+	 * @throws CardinalityException if adding a value would bring the number
 	 *            of property values above the cardinality constraint.
 #debug("add5static")
      */
-	public static void add${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) 
+	public static void add${methodnameprefix}#mixedcase($prop.name )( Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value)
     throws CardinalityException {
 		Base.add(model, instanceResource, #uppercase($prop.name), value, $prop.maxCardinality);
 	}
-	
+
     /**
-     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node 
+     * Adds a value to property #mixedcase($prop.name ) as an RDF2Go node
 #comment("     " $prop)
 	 * @param value the value to be added
-	 * @throws CardinalityException if adding a value would bring the number 
+	 * @throws CardinalityException if adding a value would bring the number
 	 *            of property values above the cardinality constraint.
 #debug("add6dynamic")
      */
-	public void add${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value) 
+	public void add${methodnameprefix}#mixedcase($prop.name )( org.ontoware.rdf2go.model.node.Node value)
     throws CardinalityException {
 		Base.add(this.model, this.getResource(), #uppercase($prop.name), value, $prop.maxCardinality);
 	}
@@ -96,11 +96,11 @@
 ##            | FOR each range R: GENERATE "add(R)"
 #foreach($type in $prop.types)
     /**
-     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type} 
+     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type}
 #comment("     " $type)
      * @param model an RDF2Go model
      * @param resource an RDF2Go resource
-	 * @throws CardinalityException if adding a value would bring the number 
+	 * @throws CardinalityException if adding a value would bring the number
 	 *            of property values above the cardinality constraint.
 #debug("add7static")
      */
@@ -108,15 +108,15 @@
     throws CardinalityException {
 		Base.add(model, instanceResource, #uppercase($prop.name), value, $prop.maxCardinality);
 	}
-	
+
     /**
-     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type} 
+     * Adds a value to property #mixedcase($prop.name ) from an instance of ${type}
 #comment("     " $type)
-	 * @throws CardinalityException if adding a value would bring the number 
+	 * @throws CardinalityException if adding a value would bring the number
 	 *            of property values above the cardinality constraint.
 #debug("add8dynamic")
      */
-	public void add${methodnameprefix}#mixedcase($prop.name )($type value) 
+	public void add${methodnameprefix}#mixedcase($prop.name )($type value)
     throws CardinalityException {
 		Base.add(this.model, this.getResource(), #uppercase($prop.name), value, $prop.maxCardinality);
 	}

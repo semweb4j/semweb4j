@@ -49,13 +49,13 @@ public class ModelGenerator {
 		m.addAll(modelWithSchemaData.iterator());
 		
 		// prepare JModel
-		log.debug("add build-ins");
 		JModel jm = Semantics.getbuiltIns_RDFS();
+
 		JPackage jp = new JPackage(packagename);
 		jm.getPackages().add(jp);
 		
 		// set local ontology root
-		JClass localRoot = new JClass(jp, "Thing", RDFS.Class);
+		JClass localRoot = new JClass(jp, "Thing1", RDFS.Class);
 		localRoot
 		        .setComment("This class acts as a catch-all for all properties, for which no domain has specified.");
 		localRoot.addSuperclass(jm.getRoot());
@@ -99,9 +99,7 @@ public class ModelGenerator {
 				log.debug("CLASS " + classname + " generated for " + rc.getResource() + " ...");
 				assert rc.getResource() instanceof URI : "A Class with a blank node ID makes not much sense";
 				JClass jc = new JClass(jp, classname, (URI)rc.getResource());
-				jc.setComment(Utils.toJavaComment(rc.getAllComment_asList())); // might
-				// be
-				// null, ok.
+				jc.setComment(Utils.toJavaComment(rc.getAllComment_asList())); // might be null, ok.
 				jm.addMapping(rc.getResource(), jc);
 			}
 		}
@@ -126,7 +124,7 @@ public class ModelGenerator {
 				log.debug("Skipping built-in property " + rp.getResource().asURI().toSPARQL());
 			} else if(DeprecatedProperty.hasInstance(rp.getModel(), rp.getResource().asURI())) {
 				log.info("Skipping deprecated property " + rp
-				        + "(as indicated by owl:DeprecatedProperty)");
+				        + " (as indicated by owl:DeprecatedProperty)");
 			} else {
 				// inspect domains
 				List<Class> domains = rp.getAllDomain_asList();
@@ -156,7 +154,7 @@ public class ModelGenerator {
 			
 			jm.flattenInheritanceHierarchy(jp);
 			
-			jm.materialiseMissingProperties(jp);
+			jm.materialiseMissingProperties(jp, skipbuiltins);
 			
 		}
 		m.close();
@@ -182,11 +180,6 @@ public class ModelGenerator {
 		m.open();
 		m.addAll(schemaDataModel.iterator());
 		
-		// com.hp.hpl.jena.rdf.model.Model jenaModel = ModelFactory
-		// .createRDFSModel(schemaDataModel);
-		// Model m = new ModelImplJena24(null, jenaModel);
-		// m.open();
-		
 		log.info("Skolemisation (replacing all blank nodes with random URIs)");
 		Utils.deanonymize(m);
 		
@@ -204,8 +197,8 @@ public class ModelGenerator {
 		JPackage jp = new JPackage(packagename);
 		jm.getPackages().add(jp);
 		
-		log.info("Creating a class called 'Thing' for all properties with no given domain");
-		JClass localClass = new JClass(jp, "Thing", RDFS.Class);
+		log.info("Creating a class called 'Thing1' for all properties with no given domain");
+		JClass localClass = new JClass(jp, "Thing1", RDFS.Class);
 		localClass.addSuperclass(jm.getRoot());
 		jm.setRoot(localClass);
 		
@@ -319,7 +312,7 @@ public class ModelGenerator {
 		/**
 		 * local ontology root
 		 */
-		JClass localRoot = new JClass(jp, "Thing", OWL.Class);
+		JClass localRoot = new JClass(jp, "Thing1", OWL.Class);
 		localRoot
 		        .setComment("This class acts as a catch-all for all properties, for which no domain has specified.");
 		localRoot.addSuperclass(jm.getRoot());

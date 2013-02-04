@@ -9,16 +9,18 @@
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
 		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena</artifactId>
-	<version>4.8.1</version>
+	<version>4.8.2</version>
 	<packaging>jar</packaging>
-	<name>rdf2go.impl.jena</name>
+	
+	<name>Semweb4j RDF2Go Jena implementation</name>
 	<description>
-		An implementation of the RDF2Go API which delegates to Jena 2.7
-		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de.
+		An implementation of the RDF2Go API which delegates to Jena.
+		This project was started at FZI Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de.
 		Since 2010 it is supported by Calpano, www.calpano.com.
 	</description>
 	<url>http://rdf2go.semweb4j.org</url>
@@ -95,36 +97,26 @@
 		</contributor>
 	</contributors>
 
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.semweb4j.org/browse/RTGO</url>
-	</issueManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
         <dependency>
             <groupId>org.semweb4j</groupId>
             <artifactId>rdf2go.impl.test</artifactId>
-            <version>4.8.1</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>2.9.3</version>
-		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
@@ -172,6 +164,11 @@
 			<artifactId>icu4j</artifactId>
 			<version>4.8.1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>2.9.4</version>
+		</dependency>
 	</dependencies>
 
 	<!-- for OSGi preparation we have to slightly change the final name of the 
@@ -195,14 +192,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-					<finalName>${pom.groupId}.${project.build.finalName}</finalName>
+					<finalName>${project.groupId}.${project.build.finalName}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-
-
 
     <!-- the deploy repositories: normal/snapshot/site generation make sure 
         the prorper rights for the given IDs are set in the user's settings.xml -->
@@ -223,7 +217,6 @@
             <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/site/${project.artifactId}</url>
         </site>
     </distributionManagement>
-
 
 	<!-- to find the parent -->
 	<repositories>

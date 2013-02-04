@@ -15,7 +15,7 @@ import org.ontoware.rdfreactor.generator.java.JProperty;
 public class Semantics {
 
 	public static final String NS_XSD = "http://www.w3.org/2001/XMLSchema#";
-
+	
 	/**
 	 * Add the build-in mapping of URIs to classes.
 	 * 
@@ -72,9 +72,10 @@ public class Semantics {
 				new JProperty(_resource, "type", RDF.type));
 		_resource.getProperties().add(
 				new JProperty(_resource, "member", RDFS.member));
+		jm.addMapping(RDFS.Resource, _resource);
 
 		// owl mapping
-		String owl = "org.ontoware.rdfreactor.schema.owl";
+		final String owl = "org.ontoware.rdfreactor.schema.owl";
 
 		// TODO: shouldn't JPackage.OWL be added to jm ?
 

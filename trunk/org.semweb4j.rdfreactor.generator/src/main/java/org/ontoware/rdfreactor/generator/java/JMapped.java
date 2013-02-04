@@ -61,6 +61,11 @@ public class JMapped {
 		return plain;
 	}
 
+	@Override
+	public String toString() {
+		return getN3Name();
+	}
+	
 	/**
 	 * @return the last part of the name (starting after the last dot in the name)
 	 */
