@@ -38,10 +38,10 @@ public class Utils {
 	}
 	
 	/**
-	 * Remove all Statements with BlankNodes as Subjects or Objects from the
+	 * Replace all BlankNodes as Subjects or Objects from the Statements in the
 	 * given RDF2Go model.
 	 * 
-	 * @param m - de-anonymise this model
+	 * @param m de-anonymise this model
 	 */
 	public static void deanonymize(Model m) {
 		Iterator<Statement> it = m.iterator();

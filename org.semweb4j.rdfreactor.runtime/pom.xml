@@ -5,12 +5,15 @@
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
 		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.8.1</version>
-	<name>RDFReactor runtime library</name>
+	<version>4.8.2</version>
+	<packaging>jar</packaging>
+	
+	<name>Semweb4j RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
@@ -21,44 +24,27 @@
 	<url>http://semweb4.org/rdfreactor</url>
 	<inceptionYear>2005</inceptionYear>
 
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.semweb4j.org/browse/REAC</url>
-	</issueManagement>
-
-	<mailingLists>
-		<mailingList>
-			<subscribe>
-				http://ontoware.org/mailman/listinfo/rdfreactor-devel
-			</subscribe>
-			<post>rdfreactor-devel@ontoware.org</post>
-			<name>RDFReactor devel</name>
-			<archive>
-				http://ontoware.org/pipermail/rdfreactor-devel/
-			</archive>
-		</mailingList>
-	</mailingLists>
-<build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>1.0-beta-6</version>
-            </extension>
-        </extensions>
-</build>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+	</build>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.8.1</version>
+			<artifactId>rdf2go.impl.sesame</artifactId>
+			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 

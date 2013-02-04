@@ -120,7 +120,7 @@
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
 		<!-- developer access, no trailing slash -->
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.name>${groupId}.${artifactId}</svn.name>
+		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
 	</properties>
 
 
@@ -133,7 +133,7 @@
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.2</version>
+				<version>2.3</version>
 			</dependency>
 
 			<!-- logging dependencies -->
@@ -555,15 +555,15 @@
 		<site>
 			<id>semweb4j-site</id>
 			<name>semweb4j.org site server</name>
-			<url>scp://${semweb4j.site}/${artifactId}</url>
+			<url>scp://${semweb4j.site}/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/{$svn.name}</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/${svn.name}</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/${svn.name}</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/${svn.name}</url>
 	</scm>
 
 </project>

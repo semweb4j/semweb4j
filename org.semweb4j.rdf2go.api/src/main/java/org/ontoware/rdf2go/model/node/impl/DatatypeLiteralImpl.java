@@ -48,7 +48,7 @@ public class DatatypeLiteralImpl extends LiteralImpl implements DatatypeLiteral 
 	}
 	
 	/**
-	 * @param turtleEncoded Syntax &lt;literalValue&gt; '@' &lt;languageTag&gt;
+	 * @param turtleEncoded Syntax &lt;literalValue&gt; '^^' &lt;datatypeUri&gt;
 	 */
 	public DatatypeLiteralImpl(String turtleEncoded) {
 		assert turtleEncoded.contains("^^");

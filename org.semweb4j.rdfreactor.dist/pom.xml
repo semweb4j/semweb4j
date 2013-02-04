@@ -4,13 +4,14 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.4</version>
+		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.dist</artifactId>
-	<version>4.7.3</version>
-	<packaging>jar</packaging>
+	<version>4.8.2</version>
+	<packaging>pom</packaging>
 
 	<name>Semweb4j RDFReactor distribution</name>
 	<url>http://www.semweb4j.org/rdfreactor</url>
@@ -21,18 +22,32 @@
 		This includes all transitive dependencies too.
 	</description>
 
+	<modules>
+		<module>../org.semweb4j.rdfreactor.runtime</module>
+		<module>../org.semweb4j.rdfreactor.generator</module>
+		<module>../org.semweb4j.rdfreactor.maven-plugin</module>
+	</modules>
+
 	<dependencies>
+	
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.generator</artifactId>
-			<version>4.7.3</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.7.3</version>
+			<version>${project.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdfreactor-maven-plugin</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<!-- create a distribution -->

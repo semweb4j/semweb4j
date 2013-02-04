@@ -26,14 +26,14 @@ import org.ontoware.rdfreactor.runtime.ReactorBaseNamed;
 /**
 #if($class.getComment())
  * ${class.getComment()}
- *  
+ *
 #end
 #if ($class.properties.size() > 0)
  * This class manages access to these properties:
  * <ul>
 #foreach( $prop in $class.properties )
  *   <li> #mixedcase( $prop.name ) </li>
-#end 
+#end
  * </ul>
  *
 #end
@@ -55,12 +55,12 @@ public class $class.name extends $class.superclass {
       new URIImpl("$prop.mappedTo",false)#if (${velocityCount} < $class.properties.size()),
 #end
 #end
- 
+
     };
 
-	
+
 	// protected constructors needed for inheritance
-	
+
 	/**
 	 * Returns a Java wrapper over an RDF object, identified by URI.
 	 * Creating two wrappers for the same instanceURI is legal.
@@ -122,7 +122,7 @@ public class $class.name extends $class.superclass {
 	}
 
 	/**
-	 * Returns a Java wrapper over an RDF object, identified by 
+	 * Returns a Java wrapper over an RDF object, identified by
 	 * a randomly generated URI.
 	 * Creating two wrappers results in different URIs.
 	 * The statement (this, rdf:type, TYPE) is written to the model
@@ -157,7 +157,7 @@ public class $class.name extends $class.superclass {
 	}
 
 	/**
-	 * Returns a Java wrapper over an RDF object, identified by 
+	 * Returns a Java wrapper over an RDF object, identified by
 	 * a randomly generated URI.
 	 * Creating two wrappers results in different URIs.
 	 * @param model RDF2GO Model implementation, see http://rdf2go.ontoware.org
@@ -193,16 +193,16 @@ public class $class.name extends $class.superclass {
 	/**
 	 * @return all instances of this class
 	 */
-	public $class.name[] getAllInstances() {
-		return ($class.name[]) getAllInstances(super.model, ${class.name}.class);
+	public ${class.name}[] getAllInstances() {
+		return (${class.name}[]) getAllInstances(super.model, ${class.name}.class);
 	}
 
 	/**
 	 * @return all instances of this class in the given Model
 	 * @param model an RDF2Go model
 	 */
-	public static $class.name[] getAllInstances(Model model) {
-		return ($class.name[]) getAllInstances(model, ${class.name}.class);
+	public static ${class.name}[] getAllInstances(Model model) {
+		return (${class.name}[]) getAllInstances(model, ${class.name}.class);
 	}
 #foreach( $inverse in $class.inverseProperties )
 
@@ -279,7 +279,7 @@ public class $class.name extends $class.superclass {
 		remove(#uppercase($prop.name), value, $prop.minCardinality);
 	}
 
-#else		
+#else
 	/**
 	 * removes a value
 	 * @param value the value to be removed
@@ -333,7 +333,7 @@ public class $class.name extends $class.superclass {
 		add(#uppercase($prop.name), value, $prop.maxCardinality );
 	}
 #end ## if
-#if($prop.maxCardinality == -1) 
+#if($prop.maxCardinality == -1)
 
 	/**
 	 * adds a value
@@ -368,7 +368,7 @@ public class $class.name extends $class.superclass {
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
      * @return the only value. null if none is found
      * @throws RDFDataException, if the property has multiple values
      */
@@ -378,40 +378,40 @@ public class $class.name extends $class.superclass {
 
 	/**
 	 * removes all values and sets this one
-	 * @param value the value to be set 
+	 * @param value the value to be set
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public void set${methodnameprefix}#mixedcase( $prop.name )( ${classname} value ) {
 		set(#uppercase($prop.name), value);
 	}
-	
+
 #end ###if($prop.maxCardinality == -1 || $prop.maxCardinality == 1)
 #if($prop.minCardinality != -1)
 	/**
 	 * removes a value
-	 * @param value the value to be removed 
+	 * @param value the value to be removed
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
 	 * @throws CardinalityException if removing would change the number of
 	 * values below the minimal cardinality $prop.minCardinality
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public void remove${methodnameprefix}#mixedcase( $prop.name )( ${classname} value  )
 	throws CardinalityException {
 		remove(#uppercase($prop.name), value, $prop.minCardinality);
 	}
-#else		
+#else
 	/**
 	 * removes a value
-	 * @param value the value to be removed 
+	 * @param value the value to be removed
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public void remove${methodnameprefix}#mixedcase( $prop.name )( ${classname} value  ) {
 		remove(#uppercase($prop.name), value);
@@ -421,28 +421,28 @@ public class $class.name extends $class.superclass {
 
 	/**
 	 * adds a value
-	 * @param value the value to be added 
+	 * @param value the value to be added
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
 	 * @throws CardinalityException if adding would change the number of
 	 * values above the maximal cardinality $prop.maxCardinality
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public void add${methodnameprefix}#mixedcase( $prop.name )( ${classname} value  )
 	throws CardinalityException {
 		add(#uppercase($prop.name), value, $prop.maxCardinality );
 	}
 #end ## if
-#if($prop.maxCardinality == -1) 
+#if($prop.maxCardinality == -1)
 
 	/**
 	 * adds a value
-	 * @param value the value to be added 
+	 * @param value the value to be added
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public void add${methodnameprefix}#mixedcase( $prop.name )( ${classname} value  ) {
 		add(#uppercase($prop.name), value );
@@ -454,7 +454,7 @@ public class $class.name extends $class.superclass {
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public ${classname}[] getAll${methodnameprefix}#mixedcase( $prop.name )_as_${classname.plainName}() {
 		return (${classname}[]) getAll(#uppercase($prop.name), ${classname}.class);
@@ -467,7 +467,7 @@ public class $class.name extends $class.superclass {
 #if($prop.getComment())
      * Schema Comment: ${prop.getComment()}
 #end
-     * Technical detail: This is modeling a property with multiple ranges. 
+     * Technical detail: This is modeling a property with multiple ranges.
 	 */
 	public ${root}[] getAll${methodnameprefix}#mixedcase( $prop.name )() {
 		return (${root}[]) getAll(#uppercase($prop.name), ${root}.class);
@@ -477,5 +477,5 @@ public class $class.name extends $class.superclass {
 
 }
 
-  
-  
+
+

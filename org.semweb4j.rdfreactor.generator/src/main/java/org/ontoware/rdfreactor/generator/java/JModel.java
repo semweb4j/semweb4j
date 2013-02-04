@@ -125,24 +125,25 @@ public class JModel {
 		for(JClass jc : jp.getClasses()) {
 			// FIXME for (JClass jc : mapping.values()) {
 			switch(jc.getSuperclasses().size()) {
-			case 0:
-				log.debug("Class '" + jc + "' has no superclass --> set superclass to 'Thing'");
+			case 0: {
+				log.debug("Class '" + jc + "' has no superclass --> set superclass to 'Thing1'");
 				jc.setJavaSuperclass(this.root);
 				break;
+			}
 			case 1: {
 				JClass superclass = jc.getSuperclasses().get(0);
 				assert superclass != null;
 				if(superclass.equals(jc)) {
 					log.debug("Class '" + jc
-					        + "' has exactly one superclass: itself --> set superclass to 'Thing'");
+					        + "' has exactly one superclass: itself --> set superclass to 'Thing1'");
 					jc.setJavaSuperclass(this.root);
 				} else {
 					log.debug("Class '" + jc + "' has exactly one superclass '" + superclass + "'");
 					// use the one we have
 					jc.setJavaSuperclass(superclass);
 				}
-			}
 				break;
+			}
 			default: {
 				log.debug("Class '" + jc + "' has " + jc.getSuperclasses().size()
 				        + " superclasses. Needs pruning.... ");
@@ -194,8 +195,8 @@ public class JModel {
 					log.debug("most specific superclass of " + jc.getName() + " is root");
 					jc.setJavaSuperclass(this.root);
 				}
-			}
 				break;
+			}
 			}
 			assert jc.getSuperclass() != null;
 		}
@@ -298,16 +299,19 @@ public class JModel {
 	 * removed by flattening the hierarchy
 	 * 
 	 * @param jp
+	 * @param skipbuiltins 
 	 */
-	public void materialiseMissingProperties(JPackage jp) {
+	public void materialiseMissingProperties(JPackage jp, boolean skipbuiltins) {
 		for(JClass jc : jp.getClasses()) {
 			for(JProperty missingProp : jc.getMissingProperties()) {
-				if(!jc.hasJavaProperty(missingProp)) {
+				if (skipbuiltins && this.knownProperties.contains(missingProp.getMappedTo())) {
+					// do nothing
+				}
+				else if(!jc.hasJavaProperty(missingProp)) {
 					jc.getProperties().add(missingProp);
 				}
 			}
 		}
-		
 	}
 	
 	// TODO: implement equals() ?

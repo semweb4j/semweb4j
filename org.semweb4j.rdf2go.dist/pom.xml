@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.dist</artifactId>
-	<version>4.8.1</version>
+	<version>4.8.2</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDF2Go distribution</name>
@@ -24,11 +24,10 @@
 	</description>
 
 	<modules>
-		<module>../org.semweb4j.parent</module>
 		<module>../org.semweb4j.rdf2go.api</module>
 		<module>../org.semweb4j.rdf2go.impl.test</module>
 		<module>../org.semweb4j.rdf2go.impl.jena</module>
-		<module>../org.semweb4j.rdf2go.impl.sesame23</module>
+		<module>../org.semweb4j.rdf2go.impl.sesame</module>
 	</modules>
 
 	<dependencies>
@@ -36,19 +35,19 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.8.1</version>
+			<artifactId>rdf2go.impl.sesame</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.impl.jena</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 		</dependency>
 
 	</dependencies>

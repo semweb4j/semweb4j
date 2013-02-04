@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Random;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -131,6 +132,7 @@ public class SourceCodeWriter {
 		// for debug
 		this.velocityContext.put("now", DateFormat.getInstance().format(
 				this.now.getTime()));
+		this.velocityContext.put("serialVersionUID", Long.toString(new Random().nextLong()));
 		this.velocityContext.put("root", this.jm.getRoot());
 		this.velocityContext.put("generatorVersion",
 				CodeGenerator.GENERATOR_VERSION);
@@ -143,6 +145,9 @@ public class SourceCodeWriter {
 		log.debug("Free memory: " + Runtime.getRuntime().freeMemory());
 
 		try {
+			this.velocityEngine.setProperty("input.encoding", "UTF-8");
+			this.velocityEngine.setProperty("output.encoding", "UTF-8");
+			
 			this.velocityEngine.setProperty("resource.loader", "class");
 			this.velocityEngine
 					.setProperty("class.resource.loader.class",
@@ -230,7 +235,7 @@ public class SourceCodeWriter {
 		jp.sortClasses();
 		for (JClass jc : jp.getClasses()) {
 			assert jc != null;
-			writeClass(jp,jc, packageOutdir);
+			writeClass(jp, jc, packageOutdir);
 		}
 		// re-enable if a newer version of velocity has no longer the
 		// cache-grow bug

@@ -7,29 +7,37 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.4</version>
+		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>dist</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>4.8.2</version>
+	<packaging>pom</packaging>
 
-	<name>Semweb4j Distribution</name>
+	<name>Semweb4j distribution</name>
 	<url>http://semweb4j.org</url>
+
+	<modules>
+		<module>../org.semweb4j.rdf2go.dist</module>
+		<module>../org.semweb4j.rdfreactor.dist</module>
+	</modules>
 
 	<dependencies>
 		<!-- define which bundles belong to the distribution -->
 		<dependency>
 		 	<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.dist</artifactId>
-			<version>4.4.6</version>
+			<version>${project.version}</version>
+			<type>pom</type>
 		</dependency>
 		
 		<dependency>
 		 	<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.dist</artifactId>
-			<version>4.4.7</version>
+			<version>${project.version}</version>
+			<type>pom</type>
 		</dependency>
 		
 	</dependencies>
@@ -51,7 +59,7 @@
 						</goals>
 						<configuration>
 							<finalName>
-								site/dist/${project.name}-${version}
+								site/dist/${project.name}-${project.version}
 							</finalName>
 							<appendAssemblyId>false</appendAssemblyId>
 							<descriptors>

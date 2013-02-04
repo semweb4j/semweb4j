@@ -2,17 +2,18 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>parent</artifactId>
 		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
 		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.8.2-SNAPSHOT</version>
+	<version>4.8.2</version>
 	<packaging>jar</packaging>
 
-	<name>RDFReactor code generator</name>
+	<name>Semweb4j RDFReactor code generator</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
 		act as a view over domain-free, loosely typed RDF instances.
@@ -22,46 +23,19 @@
 	<url>http://semweb4.org/rdfreactor</url>
 	<inceptionYear>2005</inceptionYear>
 
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.semweb4j.org/browse/REAC</url>
-	</issueManagement>
-
-	<mailingLists>
-		<mailingList>
-			<subscribe>
-				http://ontoware.org/mailman/listinfo/rdfreactor-devel
-			</subscribe>
-			<post>rdfreactor-devel@ontoware.org</post>
-			<name>RDFReactor devel</name>
-			<archive>
-				http://ontoware.org/pipermail/rdfreactor-devel/
-			</archive>
-		</mailingList>
-	</mailingLists>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdfreactor.runtime</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.8.1</version>
+			<artifactId>rdf2go.impl.sesame</artifactId>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!-- 
-			<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena24</artifactId>
-			<version>4.5.4</version>
-			<scope>runtime</scope>
-			</dependency>
-		-->
 
 		<dependency>
 			<groupId>velocity</groupId>
@@ -78,7 +52,6 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -156,8 +129,7 @@
 						<Bundle-Version>4.4.10</Bundle-Version>
 						<Private-Package>
 							org.semweb4j.rdfreactor.runtime,
-							org.semweb4j.rdf2go.api,
-							org.semweb4j.rdf2go.impl.base
+							org.semweb4j.rdf2go.api
 						</Private-Package>
 						<Export-Package>
 							org.semweb4j.rdfreactor.generator*

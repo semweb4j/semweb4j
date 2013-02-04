@@ -2,19 +2,26 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- TODO: groupId, artifactId, version, packaging, name, inceptionYear, 
-		description,developers, contributors -->
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
+	</parent>
+
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.test</artifactId>
 	<!-- Always use three digits for OSGI compliance -->
-	<version>4.8.1</version>
+	<version>4.8.2</version>
 	<packaging>jar</packaging>
-	<name>rdf2go.impl.test</name>
+	
+	<name>Semweb4j RDF2Go tests</name>
 	<description>
 		This project contains base classes for implementing tests.
 	</description>
 	<url>http://semweb4j.org/rdf2go</url>
 	<inceptionYear>2005</inceptionYear>
+	
 	<developers>
 		<developer>
 			<id>xamde</id>
@@ -65,6 +72,7 @@
 			</roles>
 		</developer>
 	</developers>
+	
 	<contributors>
 		<contributor>
 			<name>Leo Sauermann</name>
@@ -80,10 +88,12 @@
 			<name>Jan-Gerrit Schettler-Köhler</name>
 		</contributor>
 	</contributors>
+	
 	<issueManagement>
 		<system>Google Code Issues</system>
 		<url>http://code.google.com/p/semweb4j/issues</url>
 	</issueManagement>
+	
 	<mailingLists>
 		<mailingList>
 			<name>semweb4j-devel</name>
@@ -96,6 +106,7 @@
 			</archive>
 		</mailingList>
 	</mailingLists>
+	
 	<licenses>
 		<license>
 			<name>The BSD License</name>
@@ -105,13 +116,13 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	
 	<organization>
 		<name>
 		IT-Consulting Dr. Max Völkel | Project started 2005 at FZI - Forschungszentrum Informatik, www.fzi.de
 		</name>
 		<url>http://www.maxvoelkel.de</url>
 	</organization>
-
 
 	<properties>
 		<!-- tell the compiler we use 1.6 -->
@@ -124,9 +135,8 @@
 		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
 		<!-- developer access, no trailing slash -->
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.name>${groupId}.${artifactId}</svn.name>
+		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
 	</properties>
-
 
 	<build>
 		<extensions>
@@ -223,34 +233,14 @@
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<version>4.8.1</version>
+			<version>${project.version}</version>
 			<type>test-jar</type>
 		</dependency>
-<!-- 
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.jena27</artifactId>
-			<version>4.8.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>2.9.0-incubating</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.semweb4j</groupId>
-			<artifactId>rdf2go.impl.sesame23</artifactId>
-			<version>4.8.0</version>
-		</dependency>
- -->
 
 		<!-- logging dependencies -->
 		<dependency>
@@ -271,6 +261,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>compile</scope>
 			<!-- Due to https://github.com/KentBeck/junit/issues/332 as of 2011-11-30 -->
 			<exclusions>
 				<exclusion>
@@ -339,9 +330,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/{$svn.name}</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/${svn.name}</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/${svn.name}</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/${svn.name}</url>
 	</scm>
 
 </project>

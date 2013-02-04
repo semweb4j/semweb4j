@@ -2,22 +2,29 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- TODO: groupId, artifactId, version, packaging, name, inceptionYear, 
-		description,developers, contributors -->
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>2011.03.13</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
+	</parent>
+
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.api</artifactId>
 	<!-- Always use three digits for OSGI compliance -->
-	<version>4.8.1</version>
+	<version>4.8.2</version>
 	<packaging>jar</packaging>
-	<name>rdf2go.api</name>
+	
+	<name>Semweb4j RDF2Go API</name>
 	<description>
 		RDF2go is an implementation-independent Java API with the design
 		goals: portability (hence the name), performance and ease of
 		implementation.
-		This project was started at FZI - Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
+		This project was started at FZI Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
 	</description>
 	<url>http://semweb4j.org/rdf2go</url>
 	<inceptionYear>2005</inceptionYear>
+	
 	<developers>
 		<developer>
 			<id>xamde</id>
@@ -68,6 +75,7 @@
 			</roles>
 		</developer>
 	</developers>
+	
 	<contributors>
 		<contributor>
 			<name>Leo Sauermann</name>
@@ -83,10 +91,12 @@
 			<name>Jan-Gerrit Schettler-Köhler</name>
 		</contributor>
 	</contributors>
+	
 	<issueManagement>
 		<system>Google Code Issues</system>
 		<url>http://code.google.com/p/semweb4j/issues</url>
 	</issueManagement>
+	
 	<mailingLists>
 		<mailingList>
 			<name>semweb4j-devel</name>
@@ -99,6 +109,7 @@
 			</archive>
 		</mailingList>
 	</mailingLists>
+	
 	<licenses>
 		<license>
 			<name>The BSD License</name>
@@ -108,13 +119,13 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	
 	<organization>
 		<name>
 		IT-Consulting Dr. Max Völkel | Project started 2005 at FZI - Forschungszentrum Informatik, www.fzi.de
 		</name>
 		<url>http://www.maxvoelkel.de</url>
 	</organization>
-
 
 	<properties>
 		<!-- tell the compiler we use 1.6 -->
@@ -324,9 +335,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/{$svn.name}</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/{$svn.name}</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/{$svn.name}</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/${svn.name}</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/${svn.name}</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/${svn.name}</url>
 	</scm>
 
 </project>

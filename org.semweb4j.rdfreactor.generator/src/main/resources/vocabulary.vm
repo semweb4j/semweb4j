@@ -31,7 +31,7 @@ import org.ontoware.rdfreactor.runtime.ReactorBaseNamed;
  * <ul>
 #foreach( $prop in $class.properties )
  *   <li> #mixedcase( $prop.name ) </li>
-#end 
+#end
  * </ul>
 #end
 #if($class.getComment())
@@ -54,10 +54,10 @@ public class $class.name extends $class.superclass {
       URIImpl.createURIWithoutChecking("$prop.mappedTo")#if (${velocityCount} < $class.properties.size()),
 #end
 #end
- 
+
     };
 
 }
 
-  
-  
+
+
