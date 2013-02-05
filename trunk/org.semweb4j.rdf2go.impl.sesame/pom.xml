@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2011.03.13</version>
+		<version>2013.02.05</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
@@ -26,11 +26,6 @@
 		This project was started at FZI Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
 	</description>
 	<url>http://rdf2go.semweb4j.org.org/</url>
-
-	<organization>
-		<name>FZI</name>
-		<url>http://www.fzi.de/</url>
-	</organization>
 
 	<licenses>
 		<license>
@@ -81,13 +76,11 @@
 			</exclusions>
 		</dependency>
 
-
 		<!--
 			If present, DEBUG logging is compiled away <dependency>
 			<groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId>
 			<version>1.3.0</version> <scope>provided</scope> </dependency>
 		-->
-
 	
 		<dependency>
 			<groupId>junit</groupId>
@@ -148,29 +141,6 @@
 				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
 		</repository>
-
-
-		<repository>
-			<id>semweb4j-repo</id>
-			<name>Semweb4j.org maven repo</name>
-			<url>http://semweb4j.org/repo/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>semweb4j-snapshots</id>
-			<name>Semweb4j.org maven snapshot repo</name>
-			<url>http://semweb4j.org/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</snapshots>
-		</repository>
 	</repositories>
 
 	<developers>
@@ -216,24 +186,12 @@
 		</developer>
 	</developers>
 
-    <!-- the deploy repositories: normal/snapshot/site generation make sure 
-        the prorper rights for the given IDs are set in the user's settings.xml -->
-    <distributionManagement>
-        <!-- For frequent updates I am deploying this to FZI for a while :stuehmer -->
-        <repository>
-            <id>semweb4j-repo</id>
-            <name>FZI Maven Release Repository</name>
-            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/repo</url>
-        </repository>
-        <snapshotRepository>
-            <id>semweb4j-snapshots</id>
-            <name>FZI Maven Snapshot Repository</name>
-            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/snapshots</url>
-        </snapshotRepository>
-        <site>
-            <id>semweb4j-site</id>
-            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/site/${project.artifactId}</url>
-        </site>
-    </distributionManagement>
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
 
 </project>

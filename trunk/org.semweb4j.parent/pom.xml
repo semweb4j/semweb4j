@@ -4,16 +4,13 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>2011.03.13</version>
+	<version>2013.02.05</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
 	<url>http://www.semweb4j.org</url>
 	<inceptionYear>2005</inceptionYear>
-	<description>
-		This is a parent maven POM which models common settings in
-		semweb4j.org projects.
-	</description>
+	<description>This is a parent maven POM which models common settings in semweb4j.org projects.</description>
 
 	<issueManagement>
 		<system>Google Code</system>
@@ -44,9 +41,7 @@
 	</licenses>
 
 	<organization>
-		<name>
-		IT-Consulting Dr. Max Völkel | Project started at FZI - Forschungszentrum Informatik, www.fzi.de
-		</name>
+		<name>IT-Consulting Dr. Max Völkel | Project started at FZI Forschungszentrum Informatik, www.fzi.de</name>
 		<url>http://www.maxvoelkel.de</url>
 	</organization>
 	<developers>
@@ -121,9 +116,15 @@
 		<!-- developer access, no trailing slash -->
 		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
 		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
+
+		<semweb4j.site>mavenrepo.fzi.de/var/www/html/semweb4j.org/site</semweb4j.site>
+		<semweb4j.repo>mavenrepo.fzi.de/var/www/html/semweb4j.org/repo</semweb4j.repo>
+		<semweb4j.snapshots>mavenrepo.fzi.de/var/www/html/semweb4j.org/snapshots</semweb4j.snapshots>
+
+		<!-- site inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<distributionManagement.site.id>semweb4j-site</distributionManagement.site.id>
+		<distributionManagement.site.url>scp://${semweb4j.site}</distributionManagement.site.url>
 	</properties>
-
-
 
 	<!-- proposing dependencies and their versions -->
 	<dependencyManagement>
@@ -476,19 +477,13 @@
 							http://semweb4j.org/site/rdf2go.api/apidocs/
 						</link>
 						<link>
-							http://semweb4j.org/site/rdf2go.impl.base/apidocs/
-						</link>
-						<link>
 							http://semweb4j.org/site/rdf2go.impl.base.test/apidocs/
 						</link>
 						<link>
-							http://semweb4j.org/site/rdf2go.impl.jena24/apidocs/
+							http://semweb4j.org/site/rdf2go.impl.jena/apidocs/
 						</link>
 						<link>
-							http://semweb4j.org/site/rdf2go.impl.sesame20/apidocs/
-						</link>
-						<link>
-							http://semweb4j.org/site/rdf2go.layer.autopersist/apidocs/
+							http://semweb4j.org/site/rdf2go.impl.sesame/apidocs/
 						</link>
 						<link>
 							http://semweb4j.org/site/rdfreactor.generator/apidocs/
@@ -533,7 +528,7 @@
 	</reporting>
 
 	<!-- the deploy repositories: normal/snapshot/site generation make sure 
-		the prorper rights for the given IDs are set in the user's settings.xml -->
+		the proper rights for the given IDs are set in the user's settings.xml -->
 	<distributionManagement>
 		<!-- normal versions -->
 		<repository>
@@ -550,12 +545,10 @@
 			<uniqueVersion>true</uniqueVersion>
 		</snapshotRepository>
 
-		<!-- Note: site url is not inherited, but effective locally So this block 
-			is copy & paste correct from now on -->
+		<!-- site inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
 		<site>
-			<id>semweb4j-site</id>
-			<name>semweb4j.org site server</name>
-			<url>scp://${semweb4j.site}/${project.artifactId}</url>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
 		</site>
 	</distributionManagement>
 
