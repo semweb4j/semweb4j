@@ -219,7 +219,5 @@ public class CodeGenerator {
 		log.info("loading from " + schemaFile.getCanonicalPath());
 		Model schemaDataModel = ModelReaderUtils.read(schemafilename);
 		return schemaDataModel;
-		
 	}
-	
 }
