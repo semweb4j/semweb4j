@@ -30,7 +30,7 @@
 		<!-- define the links (right side) for all descendants -->
 		<links>
 			<item name="FZI" href="http://www.fzi.de/" />
-			<item name="AIFB" href="http://aifb.uni-karlsruhe.de/" />
+			<item name="AIFB" href="http://www.aifb.kit.edu/" />
 			<item name="Xam.de" href="http://xam.de" />
 		</links>
 
