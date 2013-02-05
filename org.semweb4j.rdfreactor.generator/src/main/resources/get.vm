@@ -25,7 +25,7 @@
      * @return true if this property has at least one value
 #debug("get0has-static")
      */
-	public static boolean has${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static boolean has${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource) {
 		return Base.has(model, instanceResource, #uppercase($prop.name));
 	}
 
@@ -48,7 +48,7 @@
      * @return true if this property contains (maybe among other) the given value
 #debug("get0has-value-static")
      */
-	public static boolean has${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value ) {
+	public static boolean has${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource, Node value ) {
 		return Base.hasValue(model, instanceResource, #uppercase($prop.name), value);
 	}
 
@@ -59,7 +59,7 @@
      * @return true if this property contains (maybe among other) the given value
 #debug("get0has-value-dynamic")
      */
-	public boolean has${methodnameprefix}#mixedcase($prop.name)( org.ontoware.rdf2go.model.node.Node value ) {
+	public boolean has${methodnameprefix}#mixedcase($prop.name)( Node value ) {
 		return Base.hasValue(this.model, this.getResource(), #uppercase($prop.name), value);
 	}
 
@@ -67,7 +67,7 @@
 ##    | IF max cardinality == 1. GENERATE "get_asNode()"
 #if($prop.maxCardinality == 1)
     /**
-     * Get single value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Get single value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param instanceResource an RDF2Go resource
@@ -75,18 +75,18 @@
      * @throws RDFDataException at runtime, if the property has multiple values
 #debug("get1static")
      */
-	public static org.ontoware.rdf2go.model.node.Node get${methodnameprefix}#mixedcase($prop.name)_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static Node get${methodnameprefix}#mixedcase($prop.name)_asNode(Model model, Resource instanceResource) {
 		return Base.get_asNode(model, instanceResource, #uppercase($prop.name));
 	}
 
     /**
-     * Get single value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Get single value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
      * @return the single value or null if no value is found
      * @throws RDFDataException, if the property has multiple values
 #debug("get2dynamic")
      */
-	public org.ontoware.rdf2go.model.node.Node get${methodnameprefix}#mixedcase($prop.name)_asNode() {
+	public Node get${methodnameprefix}#mixedcase($prop.name)_asNode() {
 		return Base.get_asNode(this.model, this.getResource(), #uppercase($prop.name));
 	}
 ##             -----------------------------------------------------------------------
@@ -102,8 +102,8 @@
      * @throws RDFDataException, if the property has multiple values
 #debug("get3static")
      */
-	public static org.ontoware.rdf2go.model.node.Node get${methodnameprefix}#mixedcase($prop.name)_as${type.dotfree()}(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return (org.ontoware.rdf2go.model.node.Node) Base.getAs(model, instanceResource, #uppercase($prop.name), ${type}.class);
+	public static Node get${methodnameprefix}#mixedcase($prop.name)_as${type.dotfree()}(Model model, Resource instanceResource) {
+		return (Node) Base.getAs(model, instanceResource, #uppercase($prop.name), ${type}.class);
 	}
 
     /**
@@ -113,8 +113,8 @@
      * @throws RDFDataException, if the property has multiple values
 #debug("get4dynamic")
      */
-	public org.ontoware.rdf2go.model.node.Node get${methodnameprefix}#mixedcase($prop.name)_as${type.dotfree}() {
-		return (org.ontoware.rdf2go.model.node.Node) Base.getAs(this.model, this.getResource(), #uppercase($prop.name), ${type}.class);
+	public Node get${methodnameprefix}#mixedcase($prop.name)_as${type.dotfree}() {
+		return (Node) Base.getAs(this.model, this.getResource(), #uppercase($prop.name), ${type}.class);
 	}
 #end ## #foreach(${classname} in $prop.types)
 ##             -----------------------------------------------------------------------
@@ -129,7 +129,7 @@
      * @throws RDFDataException, if the property has multiple values
 #debug("get5static")
      */
-	public static ${classname} get${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static ${classname} get${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource) {
 		return (${classname}) Base.get(model, instanceResource, #uppercase($prop.name), ${classname}.class);
 	}
 
@@ -161,7 +161,7 @@
      * @return a ClosableIterator of RDF2Go Nodes
 #debug("get7static")
      */
-	public static ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static ClosableIterator<Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode(Model model, Resource instanceResource) {
 		return Base.getAll_asNode(model, instanceResource, #uppercase($prop.name));
 	}
 
@@ -173,8 +173,8 @@
      * @return a List of RDF2Go Nodes
 #debug("get7static-reactor-result")
      */
-	public static ReactorResult<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode_(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
-		return Base.getAll_as(model, instanceResource, #uppercase($prop.name), org.ontoware.rdf2go.model.node.Node.class);
+	public static ReactorResult<Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode_(Model model, Resource instanceResource) {
+		return Base.getAll_as(model, instanceResource, #uppercase($prop.name), Node.class);
 	}
 
     /**
@@ -183,7 +183,7 @@
      * @return a ClosableIterator of RDF2Go Nodes
 #debug("get8dynamic")
      */
-	public ClosableIterator<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode() {
+	public ClosableIterator<Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode() {
 		return Base.getAll_asNode(this.model, this.getResource(), #uppercase($prop.name));
 	}
 
@@ -193,8 +193,8 @@
      * @return a List of RDF2Go Nodes
 #debug("get8dynamic-reactor-result")
      */
-	public ReactorResult<org.ontoware.rdf2go.model.node.Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode_() {
-		return Base.getAll_as(this.model, this.getResource(), #uppercase($prop.name), org.ontoware.rdf2go.model.node.Node.class);
+	public ReactorResult<Node> getAll${methodnameprefix}#mixedcase($prop.name)_asNode_() {
+		return Base.getAll_as(this.model, this.getResource(), #uppercase($prop.name), Node.class);
 	}
 ##             -----------------------------------------------------------------------
 ##            | IF multirange. GENERATE "It<X> getAll_asX()", "It<Y> getAll_asY()"
@@ -208,7 +208,7 @@
      * @return a ClosableIterator of $type
 #debug("get9static")
      */
-	public static ReactorResult<${type}> getAll${methodnameprefix}#mixedcase($prop.name)_as${type.dotfree()}(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static ReactorResult<${type}> getAll${methodnameprefix}#mixedcase($prop.name)_as${type.dotfree()}(Model model, Resource instanceResource) {
 		return Base.getAll_as(model, instanceResource, #uppercase($prop.name), ${type}.class);
 	}
 
@@ -235,7 +235,7 @@
      * @return a ClosableIterator of $type
 #debug("get11static")
      */
-	public static ClosableIterator<${classname}> getAll${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static ClosableIterator<${classname}> getAll${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource) {
 		return Base.getAll(model, instanceResource, #uppercase($prop.name), ${classname}.class);
 	}
 
@@ -247,7 +247,7 @@
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 #debug("get11static-reactorresult")
      */
-	public static ReactorResult<${classname}> getAll${methodnameprefix}#mixedcase($prop.name)_as(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static ReactorResult<${classname}> getAll${methodnameprefix}#mixedcase($prop.name)_as(Model model, Resource instanceResource) {
 		return Base.getAll_as(model, instanceResource, #uppercase($prop.name), ${classname}.class);
 	}
 

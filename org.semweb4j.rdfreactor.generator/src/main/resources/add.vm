@@ -16,24 +16,24 @@
 #if($prop.maxCardinality == $UNDEFINED)
 
     /**
-     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 #debug("add1static")
      */
-	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) {
+	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, Resource instanceResource, Node value) {
 		Base.add(model, instanceResource, #uppercase(${prop.name}), value);
 	}
 
     /**
-     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
 	 * @param value the value to be added
 #debug("add1dynamic")
      */
-	public void add${methodnameprefix}#mixedcase(${prop.name})(org.ontoware.rdf2go.model.node.Node value) {
+	public void add${methodnameprefix}#mixedcase(${prop.name})(Node value) {
 		Base.add(this.model, this.getResource(), #uppercase(${prop.name}), value);
 	}
 ##             -----------------------------------------------------------------------
@@ -47,7 +47,7 @@
      * @param value
 #debug("add3static")
      */
-	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, ${type} value) {
+	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, Resource instanceResource, ${type} value) {
 		Base.add(model, instanceResource, #uppercase(${prop.name}), value);
 	}
 
@@ -67,7 +67,7 @@
 ##    | max cardinality defined
 
     /**
-     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param instanceResource an RDF2Go resource
@@ -76,20 +76,20 @@
 	 *            of property values above the cardinality constraint.
 #debug("add5static")
      */
-	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value)
+	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, Resource instanceResource, Node value)
     throws CardinalityException {
 		Base.add(model, instanceResource, #uppercase(${prop.name}), value, $prop.maxCardinality);
 	}
 
     /**
-     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Adds a value to property {@code #mixedcase(${prop.name})} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
 	 * @param value the value to be added
 	 * @throws CardinalityException if adding a value would bring the number
 	 *            of property values above the cardinality constraint.
 #debug("add6dynamic")
      */
-	public void add${methodnameprefix}#mixedcase(${prop.name})(org.ontoware.rdf2go.model.node.Node value)
+	public void add${methodnameprefix}#mixedcase(${prop.name})(Node value)
     throws CardinalityException {
 		Base.add(this.model, this.getResource(), #uppercase(${prop.name}), value, $prop.maxCardinality);
 	}
@@ -105,7 +105,7 @@
 	 *            of property values above the cardinality constraint.
 #debug("add7static")
      */
-	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, ${type} value)
+	public static void add${methodnameprefix}#mixedcase(${prop.name})(Model model, Resource instanceResource, ${type} value)
     throws CardinalityException {
 		Base.add(model, instanceResource, #uppercase(${prop.name}), value, $prop.maxCardinality);
 	}

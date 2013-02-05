@@ -11,7 +11,7 @@
      * @param instanceResource an RDF2Go resource
 #debug("removeall1static")
      */
-	public static void removeAll${methodnameprefix}#mixedcase(${prop.name})(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource) {
+	public static void removeAll${methodnameprefix}#mixedcase(${prop.name})(Model model, Resource instanceResource) {
 		Base.removeAll(model, instanceResource, #uppercase(${prop.name}));
 	}
 

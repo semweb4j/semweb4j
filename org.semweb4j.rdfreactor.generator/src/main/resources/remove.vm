@@ -16,24 +16,24 @@
 #if($prop.minCardinality == $UNDEFINED)
 
     /**
-     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 #debug("remove1static")
      */
-	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value) {
+	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource, Node value) {
 		Base.remove(model, instanceResource, #uppercase($prop.name), value);
 	}
 
     /**
-     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
 	 * @param value the value to be removed
 #debug("remove1dynamic")
      */
-	public void remove${methodnameprefix}#mixedcase($prop.name)(org.ontoware.rdf2go.model.node.Node value) {
+	public void remove${methodnameprefix}#mixedcase($prop.name)(Node value) {
 		Base.remove(this.model, this.getResource(), #uppercase($prop.name), value);
 	}
 ##             -----------------------------------------------------------------------
@@ -47,7 +47,7 @@
 	 * @param value the value to be removed
 #debug("remove3static")
      */
-	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, $type value) {
+	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource, $type value) {
 		Base.remove(model, instanceResource, #uppercase($prop.name), value);
 	}
 
@@ -68,7 +68,7 @@
 ##    | min cardinality defined
 
     /**
-     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
      * @param instanceResource an RDF2Go resource
@@ -77,20 +77,20 @@
 	 *            of property values below the cardinality constraint.
 #debug("remove5static")
      */
-	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, org.ontoware.rdf2go.model.node.Node value)
+	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource, Node value)
     throws CardinalityException {
 		Base.remove(model, instanceResource, #uppercase($prop.name), value, $prop.maxCardinality);
 	}
 
     /**
-     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain Node}.
 #comment("     " $prop)
 	 * @param value the value to be removed
 	 * @throws CardinalityException if removing a value would bring the number
 	 *            of property values below the cardinality constraint.
 #debug("remove6dynamic")
      */
-	public void remove${methodnameprefix}#mixedcase($prop.name)(org.ontoware.rdf2go.model.node.Node value)
+	public void remove${methodnameprefix}#mixedcase($prop.name)(Node value)
     throws CardinalityException {
 		Base.remove(this.model, this.getResource(), #uppercase($prop.name), value, $prop.maxCardinality);
 	}
@@ -107,7 +107,7 @@
 	 *            of property values below the cardinality constraint.
 #debug("remove7static")
      */
-	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource instanceResource, $type value)
+	public static void remove${methodnameprefix}#mixedcase($prop.name)(Model model, Resource instanceResource, $type value)
     throws CardinalityException {
 		Base.remove(model, instanceResource, #uppercase($prop.name), value, $prop.maxCardinality);
 	}
