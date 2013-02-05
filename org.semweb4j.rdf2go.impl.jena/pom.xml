@@ -2,13 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-<!--  See https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide  #6
--->
-
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2011.03.13</version>
+		<version>2013.02.05</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
@@ -156,14 +153,6 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
-		
-		<!-- This was missing from Jena :roland.stuehmer -->
-		<!-- FIXME: can be removed after https://issues.apache.org/jira/browse/JENA-177 is fixed in Jena 2.7.1 -->
-		<dependency>
-			<groupId>com.ibm.icu</groupId>
-			<artifactId>icu4j</artifactId>
-			<version>4.8.1.1</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
@@ -198,26 +187,6 @@
 		</plugins>
 	</build>
 
-    <!-- the deploy repositories: normal/snapshot/site generation make sure 
-        the prorper rights for the given IDs are set in the user's settings.xml -->
-    <distributionManagement>
-        <!-- For frequent updates I am deploying this to FZI for a while :stuehmer -->
-        <repository>
-            <id>semweb4j-repo</id>
-            <name>FZI Maven Release Repository</name>
-            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/repo</url>
-        </repository>
-        <snapshotRepository>
-            <id>semweb4j-snapshots</id>
-            <name>FZI Maven Snapshot Repository</name>
-            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/snapshots</url>
-        </snapshotRepository>
-        <site>
-            <id>semweb4j-site</id>
-            <url>scp://mavenrepo.fzi.de/var/www/html/semweb4j.org/site/${project.artifactId}</url>
-        </site>
-    </distributionManagement>
-
 	<!-- to find the parent -->
 	<repositories>
 		<repository>
@@ -234,4 +203,13 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
+
 </project>

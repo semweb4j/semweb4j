@@ -4,12 +4,13 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2011.03.13</version>
+		<version>2013.02.05</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.base.test</artifactId>
-	<version>4.7.4</version>
+	<version>4.8.2</version>
 	<packaging>jar</packaging>
 
 	<name>rdf2go.impl.base.test</name>
@@ -71,17 +72,11 @@
 		</developer>
 	</developers>
 
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.semweb4j.org/browse/RTGO</url>
-	</issueManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.semweb4j</groupId>
 			<artifactId>rdf2go.api</artifactId>
-			<!--  require any version >= 4.6 -->
-			<version>4.7.4</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!-- logging dependencies -->
@@ -107,15 +102,6 @@
 		</dependency>
 
 	</dependencies>
-
-	<!-- to define where to put the site for this bundle -->
-	<distributionManagement>
-		<site>
-			<id>semweb4j-site</id>
-			<name>semweb4j.org site server</name>
-			<url>scp://${semweb4j.site}/${artifactId}</url>
-		</site>
-	</distributionManagement>
 
 	<!-- for OSGi preparation we have to slightly change the final name of the 
 		 project-jar
@@ -148,4 +134,13 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
+
 </project>

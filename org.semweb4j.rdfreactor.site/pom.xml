@@ -7,28 +7,15 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.16.4</version>
+		<version>2013.02.05</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.site</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>org.semweb4j.rdfreactor.site</name>
-
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://issues.semweb4j.org/browse/SWR</url>
-	</issueManagement>
-
-	<!-- to define where to put the site for this maven project -->
-	<distributionManagement>
-		<site>
-			<id>semweb4j-site</id>
-			<name>semweb4j.org site server</name>
-			<url>scp://${semweb4j.site}/rdfreactor</url>
-		</site>
-	</distributionManagement>
+	<version>4.8.2</version>
+	<name>Semweb4j RDFReactor site</name>
 
 	<!-- to find the parent -->
 	<repositories>
@@ -46,4 +33,13 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
+
 </project>
