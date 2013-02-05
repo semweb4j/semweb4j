@@ -307,7 +307,7 @@ public class Resource extends ReactorRuntimeEntity {
      /**
      * Get all values of property Comment as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -319,7 +319,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Comment as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -349,7 +349,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property Comment     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -361,7 +361,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Comment as a ReactorResult of String 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -392,7 +392,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Comment as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -413,7 +413,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Comment from an instance of String 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -437,7 +437,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -464,7 +464,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -491,7 +491,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Comment as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -512,7 +512,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Comment given as an instance of String 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -533,7 +533,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property Comment     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
@@ -551,7 +551,7 @@ public class Resource extends ReactorRuntimeEntity {
       /**
      * Get all values of property IsDefinedBy as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -563,7 +563,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property IsDefinedBy as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -593,7 +593,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property IsDefinedBy     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -605,7 +605,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property IsDefinedBy as a ReactorResult of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -636,7 +636,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property IsDefinedBy as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -657,7 +657,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property IsDefinedBy from an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -681,7 +681,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -708,7 +708,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -735,7 +735,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property IsDefinedBy as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -756,7 +756,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property IsDefinedBy given as an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -777,7 +777,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property IsDefinedBy     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
@@ -795,7 +795,7 @@ public class Resource extends ReactorRuntimeEntity {
       /**
      * Get all values of property Label as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -807,7 +807,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Label as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -837,7 +837,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property Label     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -849,7 +849,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Label as a ReactorResult of String 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -880,7 +880,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Label as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -901,7 +901,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Label from an instance of String 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -925,7 +925,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -952,7 +952,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -979,7 +979,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Label as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -1000,7 +1000,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Label given as an instance of String 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -1021,7 +1021,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property Label     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
@@ -1039,7 +1039,7 @@ public class Resource extends ReactorRuntimeEntity {
       /**
      * Get all values of property Member as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -1051,7 +1051,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Member as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -1081,7 +1081,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property Member     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -1093,7 +1093,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Member as a ReactorResult of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -1124,7 +1124,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Member as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -1145,7 +1145,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Member from an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -1169,7 +1169,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -1196,7 +1196,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -1223,7 +1223,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Member as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -1244,7 +1244,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Member given as an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -1265,7 +1265,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property Member     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
@@ -1283,7 +1283,7 @@ public class Resource extends ReactorRuntimeEntity {
       /**
      * Get all values of property SeeAlso as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -1295,7 +1295,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property SeeAlso as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -1325,7 +1325,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property SeeAlso     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -1337,7 +1337,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property SeeAlso as a ReactorResult of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -1368,7 +1368,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property SeeAlso as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -1389,7 +1389,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property SeeAlso from an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -1413,7 +1413,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -1440,7 +1440,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -1467,7 +1467,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property SeeAlso as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -1488,7 +1488,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property SeeAlso given as an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -1509,7 +1509,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property SeeAlso     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
@@ -1527,7 +1527,7 @@ public class Resource extends ReactorRuntimeEntity {
       /**
      * Get all values of property Type as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -1539,7 +1539,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Type as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -1569,7 +1569,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property Type     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -1581,7 +1581,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Type as a ReactorResult of Class 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -1612,7 +1612,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Type as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -1633,7 +1633,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Type from an instance of Class 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -1657,7 +1657,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -1684,7 +1684,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -1711,7 +1711,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Type as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -1732,7 +1732,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Type given as an instance of Class 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -1753,7 +1753,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property Type     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
@@ -1771,7 +1771,7 @@ public class Resource extends ReactorRuntimeEntity {
       /**
      * Get all values of property Value as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -1783,7 +1783,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Value as a ReactorResult of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-reactor-result] 
@@ -1813,7 +1813,7 @@ public class Resource extends ReactorRuntimeEntity {
 	}
      /**
      * Get all values of property Value     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -1825,7 +1825,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Get all values of property Value as a ReactorResult of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 	 *
 	 * [Generated from RDFReactor template rule #get11static-reactorresult] 
@@ -1856,7 +1856,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Value as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -1877,7 +1877,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Adds a value to property Value from an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -1901,7 +1901,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -1928,7 +1928,7 @@ public class Resource extends ReactorRuntimeEntity {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -1955,7 +1955,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Value as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -1976,7 +1976,7 @@ public class Resource extends ReactorRuntimeEntity {
     /**
      * Removes a value of property Value given as an instance of Resource 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -1997,7 +1997,7 @@ public class Resource extends ReactorRuntimeEntity {
   
     /**
      * Removes all values of property Value     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
