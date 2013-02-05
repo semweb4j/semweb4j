@@ -119,7 +119,7 @@ public class $class.name extends $class.superclass {
      * @return the only value. null if none is found
      * @throws RDFDataException, if the property has multiple values
      */
-	public static ${classname} get${methodnameprefix}#mixedcase($prop.name )(Model model, org.ontoware.rdf2go.model.node.Resource resource) {
+	public static ${classname} get${methodnameprefix}#mixedcase($prop.name)(Model model, org.ontoware.rdf2go.model.node.Resource resource) {
 		return (org.ontoware.rdf2go.model.node.Node) Base.get(model, resource, #uppercase($prop.name), ${classname}.class);
 	}
 

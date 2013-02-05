@@ -16,10 +16,10 @@
 #if($prop.minCardinality == $UNDEFINED)
 
     /**
-     * Removes a value of property #mixedcase($prop.name) as an RDF2Go node.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 #debug("remove1static")
      */
@@ -28,7 +28,7 @@
 	}
 
     /**
-     * Removes a value of property #mixedcase($prop.name) as an RDF2Go node.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
 #comment("     " $prop)
 	 * @param value the value to be removed
 #debug("remove1dynamic")
@@ -40,10 +40,10 @@
 ##            | FOR each range R: GENERATE "remove(R)"
 #foreach($type in $prop.types)
     /**
-     * Removes a value of property #mixedcase($prop.name) given as an instance of ${type}.
+     * Removes a value of property {@code #mixedcase($prop.name)} given as an instance of {@linkplain ${type}}.
 #comment("     " $type)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 #debug("remove3static")
      */
@@ -52,7 +52,7 @@
 	}
 
     /**
-     * Removes a value of property #mixedcase($prop.name) given as an instance of ${type}.
+     * Removes a value of property {@code #mixedcase($prop.name)} given as an instance of {@linkplain ${type}}.
 #comment("     " $type)
 	 * @param value the value to be removed
 #debug("remove4dynamic")
@@ -68,10 +68,10 @@
 ##    | min cardinality defined
 
     /**
-     * Removes a value of property #mixedcase($prop.name) as an RDF2Go node.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 * @throws CardinalityException if removing a value would bring the number
 	 *            of property values below the cardinality constraint.
@@ -83,7 +83,7 @@
 	}
 
     /**
-     * Removes a value of property #mixedcase($prop.name) as an RDF2Go node.
+     * Removes a value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
 #comment("     " $prop)
 	 * @param value the value to be removed
 	 * @throws CardinalityException if removing a value would bring the number
@@ -98,10 +98,10 @@
 ##            | FOR each range R: GENERATE "add(R)"
 #foreach($type in $prop.types)
     /**
-     * Removes a value of property #mixedcase($prop.name) from an instance of ${type}.
+     * Removes a value of property {@code #mixedcase($prop.name)} from an instance of {@linkplain ${type}}.
 #comment("     " $type)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 * @throws CardinalityException if removing a value would bring the number
 	 *            of property values below the cardinality constraint.
@@ -113,7 +113,7 @@
 	}
 
     /**
-     * Removes a value of property #mixedcase($prop.name) from an instance of ${type}.
+     * Removes a value of property {@code #mixedcase($prop.name)} from an instance of {@linkplain ${type}}.
 #comment("     " $type)
 	 * @param value the value to be removed
 	 * @throws CardinalityException if removing a value would bring the number

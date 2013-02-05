@@ -18,10 +18,10 @@
 ## ================================================
 ##
     /**
-     * Check if $prop has at least one value set.
+     * Check if {@code ${prop}} has at least one value set.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return true if this property has at least one value
 #debug("get0has-static")
      */
@@ -30,7 +30,7 @@
 	}
 
     /**
-     * Check if $prop has at least one value set.
+     * Check if {@code ${prop}} has at least one value set.
 #comment("     " $prop)
      * @return true if this property has at least one value
 #debug("get0has-dynamic")
@@ -40,10 +40,10 @@
 	}
 
     /**
-     * Check if $prop has the given value (maybe among other values).
+     * Check if {@code ${prop}} has the given value (maybe among other values).
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be checked
      * @return true if this property contains (maybe among other) the given value
 #debug("get0has-value-static")
@@ -53,7 +53,7 @@
 	}
 
     /**
-     * Check if $prop has the given value (maybe among other values).
+     * Check if {@code ${prop}} has the given value (maybe among other values).
 #comment("     " $prop)
 	 * @param value the value to be checked
      * @return true if this property contains (maybe among other) the given value
@@ -67,10 +67,10 @@
 ##    | IF max cardinality == 1. GENERATE "get_asNode()"
 #if($prop.maxCardinality == 1)
     /**
-     * Get single value of property #mixedcase($prop.name) as an RDF2Go node.
+     * Get single value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return the single value or null if no value is found
      * @throws RDFDataException at runtime, if the property has multiple values
 #debug("get1static")
@@ -80,7 +80,7 @@
 	}
 
     /**
-     * Get single value of property #mixedcase($prop.name) as an RDF2Go node.
+     * Get single value of property {@code #mixedcase($prop.name)} as an RDF2Go {@linkplain org.ontoware.rdf2go.model.node.Node}.
 #comment("     " $prop)
      * @return the single value or null if no value is found
      * @throws RDFDataException, if the property has multiple values
@@ -94,10 +94,10 @@
 #if($multirange)
 #foreach($type in $prop.types)
     /**
-     * Get single value of property #mixedcase($prop.name) as ${type}.
+     * Get single value of property {@code #mixedcase($prop.name)} as {@linkplain ${type}}.
 #comment("     " $type)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return the single value or null if no value is found
      * @throws RDFDataException, if the property has multiple values
 #debug("get3static")
@@ -107,7 +107,7 @@
 	}
 
     /**
-     * Get single value of property #mixedcase($prop.name) as ${type}.
+     * Get single value of property {@code #mixedcase($prop.name)} as {@linkplain ${type}}.
 #comment("     " $type)
      * @return the single value or null if no value is found
      * @throws RDFDataException, if the property has multiple values
@@ -121,10 +121,10 @@
 ##            | ELSE: no multirange. GENERATE "R get()"
 #else ## #if($multirange)
     /**
-     * Get single value of property #mixedcase($prop.name).
+     * Get single value of property {@code #mixedcase($prop.name)}.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return the single value or null if no value is found
      * @throws RDFDataException, if the property has multiple values
 #debug("get5static")
@@ -134,7 +134,7 @@
 	}
 
     /**
-     * Get single value of property #mixedcase($prop.name).
+     * Get single value of property {@code #mixedcase($prop.name)}.
      * This property has maxCardinality=1, that means the property takes only
      * a single value.
 #comment("     " $prop)
@@ -154,10 +154,10 @@
 ##     -----------------------------------------------------------------------
 ##    | GENERATE "It<Node> getAll_asNode()"
     /**
-     * Get all values of property #mixedcase($prop.name) as an Iterator over RDF2Go nodes.
+     * Get all values of property {@code #mixedcase($prop.name)} as an Iterator over RDF2Go nodes.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 #debug("get7static")
      */
@@ -166,10 +166,10 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name) as a ReactorResult of RDF2Go nodes.
+     * Get all values of property {@code #mixedcase($prop.name)} as a ReactorResult of RDF2Go nodes.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 #debug("get7static-reactor-result")
      */
@@ -178,7 +178,7 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name) as an Iterator over RDF2Go nodes
+     * Get all values of property {@code #mixedcase($prop.name)} as an Iterator over RDF2Go nodes
 #comment("     " $prop)
      * @return a ClosableIterator of RDF2Go Nodes
 #debug("get8dynamic")
@@ -188,7 +188,7 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name) as a ReactorResult of RDF2Go nodes.
+     * Get all values of property {@code #mixedcase($prop.name)} as a ReactorResult of RDF2Go nodes.
 #comment("     " $prop)
      * @return a List of RDF2Go Nodes
 #debug("get8dynamic-reactor-result")
@@ -201,10 +201,10 @@
 #if($multirange)
 #foreach($type in $prop.types)
     /**
-     * Get all values of property #mixedcase($prop.name) as ReactorResult of ${classname}.
+     * Get all values of property {@code #mixedcase($prop.name)} as ReactorResult of {@linkplain ${classname}}.
 #comment("     " $type)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 #debug("get9static")
      */
@@ -213,7 +213,7 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name) as ReactorResult of ${type}.
+     * Get all values of property {@code #mixedcase($prop.name)} as ReactorResult of {@linkplain ${type}}.
 #comment("     " $type)
      * @return a ClosableIterator of $type
 #debug("get10dynamic")
@@ -228,10 +228,10 @@
 ##            | ELSE: no multirange. GENERATE "R getAll()"
 
     /**
-     * Get all values of property #mixedcase($prop.name).
+     * Get all values of property {@code #mixedcase($prop.name)}.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 #debug("get11static")
      */
@@ -240,10 +240,10 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name) as a ReactorResult of ${classname}.
+     * Get all values of property {@code #mixedcase($prop.name)} as a ReactorResult of {@linkplain ${classname}}.
 #comment("     " $prop)
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 #debug("get11static-reactorresult")
      */
@@ -252,7 +252,7 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name).
+     * Get all values of property {@code #mixedcase($prop.name)}.
 #comment("     " $prop)
      * @return a ClosableIterator of $type
 #debug("get12dynamic")
@@ -262,7 +262,7 @@
 	}
 
     /**
-     * Get all values of property #mixedcase($prop.name) as a ReactorResult of ${classname}.
+     * Get all values of property {@code #mixedcase($prop.name)} as a ReactorResult of {@linkplain ${classname}}.
 #comment("     " $prop)
      * @return a ReactorResult of $type which can conveniently be converted to iterator, list or array
 #debug("get12dynamic-reactorresult")
