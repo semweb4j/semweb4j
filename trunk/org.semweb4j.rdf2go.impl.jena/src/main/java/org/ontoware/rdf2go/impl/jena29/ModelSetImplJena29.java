@@ -51,7 +51,7 @@ import com.hp.hpl.jena.query.QueryFactory;
  * 
  * @since 4.8.1
  * 
- * @author Roland Stühmer
+ * @author Roland StÃ¼hmer
  * 
  * @version $Revision$
  * 
