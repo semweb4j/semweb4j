@@ -15,6 +15,20 @@
 	
 	<name>Semweb4j maven skin</name>
 	<description>A Maven2 skin, based on maven-stylus-skin.</description>
+
+	<build>
+		<plugins>
+			<!-- Don't create a site for this maven module -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	
 	<!-- to find the parent -->
 	<repositories>

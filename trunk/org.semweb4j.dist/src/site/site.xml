@@ -10,7 +10,7 @@
 
 	<bannerLeft>
 		<src>images/logos/semweb4j.png</src>
-		<href>http://semweb4j.semweb4j.org/</href>
+		<href>http://semweb4j.org/</href>
 	</bannerLeft>
 		
 	<publishDate format="yyyy-MM-dd" />
@@ -25,32 +25,12 @@
 			<script type="text/javascript">
 				_uacct = "UA-271022-2"; urchinTracker();
 			</script>
-		</head>
-		
+		</head>		
+
 		<breadcrumbs>
 			<item name="Semweb4j" href="../semweb4j/" />
 			<!-- the rest will be done by inheritance -->
 		</breadcrumbs>
-		
-		<!-- define the links (right side) for all descendants -->
-		<links>
-			<item name="FZI" href="http://www.fzi.de/" />
-			<item name="AIFB" href="http://www.aifb.kit.edu/" />
-			<item name="Xam.de" href="http://xam.de" />
-		</links>
-		
-		<!-- Inherit this menu in sub modules. -->
-		<menu name="Overview" inherit="top" >
-			<item name="Semweb4j" href="../semweb4j/" />
-			<item name="RDF2Go" href="../rdf2go/" />
-			<item name="RDFReactor" href="../rdfreactor/" />
-		</menu>
-
-		<!-- Inherit this menu in sub modules. -->
-		<menu ref="reports" inherit="top" />
-		
-		<!-- Inherit this menu in sub modules. -->
-		<menu ref="modules" inherit="bottom" />
 
 	</body>
 </project>

@@ -24,7 +24,6 @@
 	</description>
 
 	<modules>
-		<module>../org.semweb4j.rdf2go.site</module>
 		<module>../org.semweb4j.rdf2go.api</module>
 		<module>../org.semweb4j.rdf2go.impl.test</module>
 		<module>../org.semweb4j.rdf2go.impl.jena</module>
@@ -125,7 +124,7 @@
 		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
 		<site>
 			<id>${distributionManagement.site.id}</id>
-			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+			<url>${distributionManagement.site.url}/rdf2go</url>
 		</site>
 	</distributionManagement>
 

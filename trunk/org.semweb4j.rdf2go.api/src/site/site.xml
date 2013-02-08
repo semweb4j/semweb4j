@@ -5,7 +5,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
-		<version>1.2.4</version>
+		<version>4.8.2</version>
 	</skin>
 
 	<bannerLeft>
@@ -26,23 +26,5 @@
 				_uacct = "UA-271022-2"; urchinTracker();
 			</script>
 		</head>
-
-		<breadcrumbs>
-			<item name="Semweb4j" href="../semweb4j/index.html" />
-			<item name="RDF2Go" href="../rdf2go/index.html" />
-			<item name="RDF2Go API" href="../rdf2go.api/index.html" />			
-		</breadcrumbs>
-
-		<!-- the links are inherited from the parent -->
-
-		<!-- menu Semweb4j is inherited from the parent -->
-
-		<menu name="RDF2Go">
-			<item name="Homepage" href="http://www.semanticweb.org/wiki/RDF2Go" />
-		  	<item name="Reports" href="../rdf2go/index.html" />
-		</menu>
-
-		<menu ref="reports" />
-		<menu ref="modules" />
 	</body>
 </project>

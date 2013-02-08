@@ -59,10 +59,23 @@
 		<developer>
 			<name>Steffen Ryll</name>
 			<email>steffen.ryll@student.hpi.uni-potsdam.de</email>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
 			<timezone>UTC+1</timezone>
 		</developer>
+		<developer>
+			<name>Roland Stühmer</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 	</developers>
-
+	
 	<build>
 		<plugins>
 			<plugin>

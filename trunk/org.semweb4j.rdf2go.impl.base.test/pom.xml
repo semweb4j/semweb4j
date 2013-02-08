@@ -115,6 +115,16 @@
 					<finalName>${pom.groupId}.${project.build.finalName}</finalName>
 				</configuration>
 			</plugin>
+
+			<!-- Don't create a site for this maven module -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

@@ -7,7 +7,7 @@
 		<artifactId>skin</artifactId>
 		<version>4.8.2</version>
 	</skin>
-
+	
 	<bannerLeft>
 		<src>images/logos/semweb4j.png</src>
 		<href>http://semweb4j.org/</href>
