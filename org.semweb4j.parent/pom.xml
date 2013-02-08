@@ -59,6 +59,15 @@
 			</roles>
 			<timezone>+1</timezone>
 		</developer>
+		<developer>
+			<name>Roland Stühmer</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
 	</developers>
 
 	<contributors>
@@ -107,7 +116,6 @@
 
 	<!-- declare project specific properties override them in the child-poms -->
 	<properties>
-		<!-- tell the compiler we use 1.5 -->
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 
@@ -124,6 +132,10 @@
 		<!-- site inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
 		<distributionManagement.site.id>semweb4j-site</distributionManagement.site.id>
 		<distributionManagement.site.url>scp://${semweb4j.site}</distributionManagement.site.url>
+		
+		<!-- avoid warning about creating platform-dependent builds -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<!-- proposing dependencies and their versions -->
@@ -185,7 +197,6 @@
 		</extensions>
 
 		<plugins>
-
 			<!-- always use Java 1.6 while compiling -->
 			<plugin>
 				<inherited>true</inherited>
@@ -218,34 +229,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-
-			<!--
-				configure site:stage and some display parameters for site generation
-			-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<configuration>
-							<!--  convenience param to disable reports -->
-							<generateReports>true</generateReports>
-							<inputEncoding>UTF-8</inputEncoding>
-							<outputEncoding>UTF-8</outputEncoding>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<!--  convenience param to disable reports -->
-					<generateReports>true</generateReports>
-					<inputEncoding>UTF-8</inputEncoding>
-					<outputEncoding>UTF-8</outputEncoding>
-					<stagingDirectory>../www-test</stagingDirectory>
-				</configuration>
 			</plugin>
 
 			<!-- where to find the deployed sources -->
@@ -294,7 +277,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
@@ -357,15 +339,36 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
-				<version>2.4</version>
 				<configuration>
-					<tags>
-						<tag>TODO</tag>
-						<tag>IMPROVE</tag>
-						<tag>FIXME</tag>
-						<tag>XXX</tag>
-						<tag>@@</tag>
-					</tags>
+					<tagListOptions>
+						<tagClasses>
+							<tagClass>
+								<displayName>Todo Work</displayName>
+								<tags>
+									<tag>
+										<matchString>ToDo</matchString>
+										<matchType>ignoreCase</matchType>
+									</tag>
+									<tag>
+										<matchString>FIXME</matchString>
+										<matchType>exact</matchType>
+									</tag>
+									<tag>
+										<matchString>IMPROVE</matchString>
+										<matchType>exact</matchType>
+									</tag>
+									<tag>
+										<matchString>XXX</matchString>
+										<matchType>exact</matchType>
+									</tag>
+									<tag>
+										<matchString>@@</matchString>
+										<matchType>exact</matchType>
+									</tag>
+								</tags>
+							</tagClass>
+						</tagClasses>
+					</tagListOptions>
 				</configuration>
 			</plugin>
 
@@ -411,13 +414,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
-
-				<!-- for JIRA report -->
-				<!--
-					<reportSets> <reportSet> <reports> <report>jira-report</report>
-					</reports> </reportSet> </reportSets>
-				-->
-
 				<!-- for changes.xml file report-->
 				<reportSets>
 					<reportSet>
@@ -453,9 +449,9 @@
 						<link>
 							http://jakarta.apache.org/commons/pool/apidocs/
 						</link>
-						<link>http://www.junit.org/junit/javadoc/</link>
+						<link>http://junit.sourceforge.net/javadoc/</link>
 						<link>
-							http://logging.apache.org/log4j/docs/api/
+							http://logging.apache.org/log4j/1.2/apidocs/
 						</link>
 						<link>
 							http://jakarta.apache.org/velocity/api/
@@ -477,7 +473,7 @@
 							http://semweb4j.org/site/rdf2go.api/apidocs/
 						</link>
 						<link>
-							http://semweb4j.org/site/rdf2go.impl.base.test/apidocs/
+							http://semweb4j.org/site/rdf2go.impl.test/apidocs/
 						</link>
 						<link>
 							http://semweb4j.org/site/rdf2go.impl.jena/apidocs/
@@ -496,9 +492,6 @@
 						</link>
 						<link>
 							http://semweb4j.org/site/semversion/apidocs/
-						</link>
-						<link>
-							http://semweb4j.org/site/semweb4j.tutorial/apidocs/
 						</link>
 						<link>
 							http://semweb4j.org/site/swecr.core.api/apidocs/
@@ -548,7 +541,7 @@
 		<!-- site inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
 		<site>
 			<id>${distributionManagement.site.id}</id>
-			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+			<url>${distributionManagement.site.url}/semweb4j.parent</url>
 		</site>
 	</distributionManagement>
 

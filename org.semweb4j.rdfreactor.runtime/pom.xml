@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -12,7 +14,7 @@
 	<artifactId>rdfreactor.runtime</artifactId>
 	<version>4.8.2</version>
 	<packaging>jar</packaging>
-	
+
 	<name>Semweb4j RDFReactor runtime library</name>
 	<description>
 		RDFReactor creates domain-specific, type-safe Java classes which
@@ -86,7 +88,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	
+
 	<!-- configuration of reporting plugins to be displayed at the site -->
 	<reporting>
 		<plugins>
@@ -127,7 +129,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<configuration>
-					<targetJdk>1.5</targetJdk>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<targetJdk>1.6</targetJdk>
 				</configuration>
 			</plugin>
 
@@ -146,7 +149,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
 				<version>2.4</version>
-				<!--  Latest version as of 2010-08-30 -->
+				<!-- Latest version as of 2010-08-30 -->
 				<configuration>
 					<tags>
 						<tag>TODO</tag>
@@ -180,35 +183,27 @@
 					<xmlOutputDirectory>
 						target/findbugs
 					</xmlOutputDirectory>
-					<!--  High|Normal|Low|Exp|Ignore -->
+					<!-- High|Normal|Low|Exp|Ignore -->
 					<threshold>Normal</threshold>
-					<!--  Min|Default|Max -->
+					<!-- Min|Default|Max -->
 					<effort>Default</effort>
-					<!--
-						<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-						<includeFilterFile>findbugs-include.xml</includeFilterFile>
-						<visitors>FindDeadLocalStores,UnreadFields</visitors>
-						<omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-						<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
-					-->
+					<!-- <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile> <includeFilterFile>findbugs-include.xml</includeFilterFile> 
+						<visitors>FindDeadLocalStores,UnreadFields</visitors> <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors> 
+						<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList> -->
 				</configuration>
 			</plugin>
 
-			<!--
-				informs on changes between releases needs a changes.xml file or a
-				jira bugtracker
-			-->
+			<!-- informs on changes between releases needs a changes.xml file or a 
+				jira bugtracker -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
 
 				<!-- for JIRA report -->
-				<!--
-					<reportSets> <reportSet> <reports> <report>jira-report</report>
-					</reports> </reportSet> </reportSets>
-				-->
+				<!-- <reportSets> <reportSet> <reports> <report>jira-report</report> 
+					</reports> </reportSet> </reportSets> -->
 
-				<!-- for changes.xml file report-->
+				<!-- for changes.xml file report -->
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -219,12 +214,9 @@
 			</plugin>
 
 
-			<!--
-				Get really nice JavaDocs with mvn compile javadoc:javadoc Read:
-				http://code.google.com/p/apiviz/#Maven_2_Integration You need to
-				install GraphViz locally first. Then set GRAPHVIZ_HOME to the /bin
-				directory of your local GraphViz installation.
-			-->
+			<!-- Get really nice JavaDocs with mvn compile javadoc:javadoc Read: http://code.google.com/p/apiviz/#Maven_2_Integration 
+				You need to install GraphViz locally first. Then set GRAPHVIZ_HOME to the 
+				/bin directory of your local GraphViz installation. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -245,73 +237,10 @@
 					<keywords>true</keywords>
 					<additionalparam>
 						-sourceclasspath ${project.build.outputDirectory}
-          			</additionalparam>
-					<!--
-						provide links to several famous projects see: Better builds with
-						maven, p.185
-					-->
-					<!--  do not aggregate javadocs from child elements-->
-					<links>
-						<link>
-							http://java.sun.com/j2se/1.5.0/docs/api/
-						</link>
-						<link>
-							http://jakarta.apache.org/commons/collections/apidocs-COLLECTIONS_3_0/
-						</link>
-						<link>http://www.junit.org/junit/javadoc/</link>
-						<link>
-							http://jakarta.apache.org/velocity/api/
-						</link>
-						<!--
-							aggregate java doc of sub-projects and provide links to several
-							famous projects see: Better builds with maven, p.185
-						-->
-						<link>
-							http://site.xydra.org/client/
-						</link>
-						<link>
-							http://site.xydra.org/client-gwt/
-						</link>
-						<link>
-							http://site.xydra.org/core/
-						</link>
-						<link>
-							http://site.xydra.org/dev/
-						</link>
-						<link>
-							http://site.xydra.org/gaeclient/
-						</link>
-						<link>
-							http://site.xydra.org/gaemyadmin/
-						</link>
-						<link>
-							http://site.xydra.org/index/
-						</link>
-						<link>
-							http://site.xydra.org/log/
-						</link>
-						<link>
-							http://site.xydra.org/log.howto/
-						</link>
-						<link>
-							http://site.xydra.org/restless/
-						</link>
-						<link>
-							http://site.xydra.org/schema/
-						</link>
-						<link>
-							http://site.xydra.org/server/
-						</link>
-						<link>
-							http://site.xydra.org/server-gae/
-						</link>
-						<link>
-							http://site.xydra.org/textsearch/
-						</link>
-						<link>
-							http://site.xydra.org/webadmin/
-						</link>
-					</links>
+					</additionalparam>
+					<!-- provide links to several famous projects see: Better builds with 
+						maven, p.185 -->
+					<!-- do not aggregate javadocs from child elements -->
 				</configuration>
 			</plugin>
 
