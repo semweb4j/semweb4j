@@ -212,7 +212,7 @@ public class Class extends Resource {
      /**
      * Get all values of property SubClassOf as an Iterator over RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static] 
@@ -224,7 +224,7 @@ public class Class extends Resource {
     /**
      * Get all values of property SubClassOf as a List of RDF2Go nodes 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a List of RDF2Go Nodes
 	 *
 	 * [Generated from RDFReactor template rule #get7static-list] 
@@ -254,7 +254,7 @@ public class Class extends Resource {
 	}
      /**
      * Get all values of property SubClassOf     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static] 
@@ -266,7 +266,7 @@ public class Class extends Resource {
     /**
      * Get all values of property SubClassOf as a List of Class 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
      * @return a ClosableIterator of $type
 	 *
 	 * [Generated from RDFReactor template rule #get11static-list] 
@@ -297,7 +297,7 @@ public class Class extends Resource {
     /**
      * Adds a value to property SubClassOf as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #add1static] 
@@ -318,7 +318,7 @@ public class Class extends Resource {
     /**
      * Adds a value to property SubClassOf from an instance of Class 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #add3static] 
      */
@@ -342,7 +342,7 @@ public class Class extends Resource {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be set
 	 *
 	 * [Generated from RDFReactor template rule #set1static] 
@@ -369,7 +369,7 @@ public class Class extends Resource {
      * Cardinality constraints are not checked, but this method exists only for properties with
      * no minCardinality or minCardinality == 1.
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be added
 	 *
 	 * [Generated from RDFReactor template rule #set3static] 
@@ -396,7 +396,7 @@ public class Class extends Resource {
     /**
      * Removes a value of property SubClassOf as an RDF2Go node 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove1static] 
@@ -417,7 +417,7 @@ public class Class extends Resource {
     /**
      * Removes a value of property SubClassOf given as an instance of Class 
      * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 * @param value the value to be removed
 	 *
 	 * [Generated from RDFReactor template rule #remove3static] 
@@ -438,7 +438,7 @@ public class Class extends Resource {
   
     /**
      * Removes all values of property SubClassOf     * @param model an RDF2Go model
-     * @param resource an RDF2Go resource
+     * @param instanceResource an RDF2Go resource
 	 *
 	 * [Generated from RDFReactor template rule #removeall1static] 
      */
