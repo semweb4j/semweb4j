@@ -7,6 +7,7 @@ import java.util.Set;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
 import org.ontoware.rdf2go.Reasoning;
+import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.BlankNode;
@@ -170,8 +171,10 @@ public class ModelGenerator {
      * 
      * @param schemaDataModel com.hp.hpl.jena.rdf.model.Model
      * @param packagename
+     * @param skipbuiltins if true, skips the re-generation of built-ins.
+     *            Usually true.
      * @return a JModel created from a mix of RDFS and OWL
-     * @throws Exception
+     * @throws ModelRuntimeException
      */
     public static JModel createFromRDFS_AND_OWL(Model schemaDataModel, String packagename,
             boolean skipbuiltins) {
