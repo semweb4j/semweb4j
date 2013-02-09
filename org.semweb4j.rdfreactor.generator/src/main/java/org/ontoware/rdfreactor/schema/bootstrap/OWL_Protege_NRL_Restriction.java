@@ -290,7 +290,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -308,7 +308,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -351,7 +351,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -367,7 +367,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -408,7 +408,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -438,7 +438,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -466,7 +466,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -502,7 +502,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -535,7 +535,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -565,7 +565,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -595,7 +595,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
@@ -618,7 +618,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -636,7 +636,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -678,7 +678,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -694,7 +694,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -735,7 +735,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -765,7 +765,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -793,7 +793,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -829,7 +829,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -862,7 +862,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -892,7 +892,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -922,7 +922,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
@@ -945,7 +945,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -963,7 +963,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -1005,7 +1005,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -1021,7 +1021,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -1062,7 +1062,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -1092,7 +1092,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -1120,7 +1120,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -1156,7 +1156,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -1189,7 +1189,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -1219,7 +1219,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -1249,7 +1249,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
@@ -1273,7 +1273,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -1291,7 +1291,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -1335,7 +1335,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -1352,7 +1352,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -1394,7 +1394,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -1424,7 +1424,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -1452,7 +1452,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -1488,7 +1488,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -1521,7 +1521,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -1552,7 +1552,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -1583,7 +1583,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
@@ -1607,7 +1607,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -1625,7 +1625,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -1669,7 +1669,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -1686,7 +1686,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -1728,7 +1728,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -1758,7 +1758,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -1786,7 +1786,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -1822,7 +1822,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -1855,7 +1855,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -1886,7 +1886,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -1917,7 +1917,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
@@ -1940,7 +1940,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -1958,7 +1958,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -2000,7 +2000,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -2016,7 +2016,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -2057,7 +2057,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -2087,7 +2087,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -2115,7 +2115,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -2151,7 +2151,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -2184,7 +2184,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -2214,7 +2214,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -2244,7 +2244,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
@@ -2268,7 +2268,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of RDF2Go Nodes
 	 * 
@@ -2286,7 +2286,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a List of RDF2Go Nodes
 	 * 
@@ -2330,7 +2330,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -2347,7 +2347,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @return a ClosableIterator of $type
 	 * 
@@ -2389,7 +2389,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -2419,7 +2419,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #add3static]
@@ -2447,7 +2447,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be set
@@ -2483,7 +2483,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be added
@@ -2516,7 +2516,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -2546,7 +2546,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * @param value
 	 *            the value to be removed
@@ -2576,7 +2576,7 @@ public class OWL_Protege_NRL_Restriction extends OwlClass {
 	 * 
 	 * @param model
 	 *            an RDF2Go model
-	 * @param resource
+	 * @param instanceResource
 	 *            an RDF2Go resource
 	 * 
 	 * [Generated from RDFReactor template rule #removeall1static]
