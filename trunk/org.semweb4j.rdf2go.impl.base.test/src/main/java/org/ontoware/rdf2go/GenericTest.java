@@ -13,6 +13,7 @@ import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.impl.AbstractModelFactory;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
+import org.ontoware.rdf2go.model.QueryResultTable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.testdata.TestData;
 
@@ -73,6 +74,10 @@ public class GenericTest {
 		public Model createModel(URI contextURI) throws ModelRuntimeException {
 			return null;
 		}
+
+		public QueryResultTable sparqlSelect(String url, String query) {
+			return null;
+		}
 	}
 	
 	private static class RDF2GoTestAdapterTwo extends AbstractModelFactory {
@@ -86,6 +91,10 @@ public class GenericTest {
 		}
 		
 		public Model createModel(URI contextURI) throws ModelRuntimeException {
+			return null;
+		}
+
+		public QueryResultTable sparqlSelect(String url, String query) {
 			return null;
 		}
 	}
