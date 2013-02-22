@@ -13,7 +13,7 @@ package org.ontoware.rdf2go.impl.jena29.osgi;
 import java.util.Hashtable;
 
 import org.ontoware.rdf2go.ModelFactory;
-import org.ontoware.rdf2go.impl.jena29.ModelFactoryImpl;
+import org.ontoware.rdf2go.impl.jena.ModelFactoryImpl;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;

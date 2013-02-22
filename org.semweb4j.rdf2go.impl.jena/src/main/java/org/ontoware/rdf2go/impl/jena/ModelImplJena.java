@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,10 +55,10 @@ import com.hp.hpl.jena.shared.BadURIException;
  * http://jena.sourceforge.net/how-to/typedLiterals.html
  * 
  */
-public class ModelImplJena26 extends AbstractModel implements Model {
+public class ModelImplJena extends AbstractModel implements Model {
 	private static final long serialVersionUID = -2993918177017878243L;
 	
-	protected static final Logger log = LoggerFactory.getLogger(ModelImplJena26.class);
+	protected static final Logger log = LoggerFactory.getLogger(ModelImplJena.class);
 	
 	protected com.hp.hpl.jena.rdf.model.Model jenaModel;
 	
@@ -77,11 +77,12 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	 * @param contextURI the first part of the quad, never null
 	 * @param reasoning never null
 	 */
-	public ModelImplJena26(URI contextURI, Reasoning reasoning) {
+	public ModelImplJena(URI contextURI, Reasoning reasoning) {
 		this.contextURI = contextURI;
 		this.reasoning = reasoning;
 		this.jenaModel = ModelFactory.createDefaultModel();
 		applyReasoning(this.reasoning);
+		org.openjena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
 	}
 	
 	/**
@@ -89,15 +90,15 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	 * 
 	 * @param jenaModel to be wrapped into an RDF2Go Model
 	 */
-	public ModelImplJena26(URI contextURI, com.hp.hpl.jena.rdf.model.Model jenaModel) {
+	public ModelImplJena(URI contextURI, com.hp.hpl.jena.rdf.model.Model jenaModel) {
 		this(contextURI, jenaModel, Reasoning.none);
 	}
 	
-	public ModelImplJena26(com.hp.hpl.jena.rdf.model.Model jenaModel) {
+	public ModelImplJena(com.hp.hpl.jena.rdf.model.Model jenaModel) {
 		this(null, jenaModel, Reasoning.none);
 	}
 	
-	public ModelImplJena26(URI contextURI, com.hp.hpl.jena.rdf.model.Model jenaModel,
+	public ModelImplJena(URI contextURI, com.hp.hpl.jena.rdf.model.Model jenaModel,
 	        Reasoning reasoning) {
 		this.contextURI = contextURI;
 		this.reasoning = reasoning;
@@ -106,15 +107,15 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		applyReasoning(reasoning);
 	}
 	
-	public ModelImplJena26(Reasoning reasoning) {
+	public ModelImplJena(Reasoning reasoning) {
 		this(null, reasoning);
 	}
 	
 	@Override
 	public void addAll(Iterator<? extends Statement> other) throws ModelRuntimeException {
 		assertModel();
-		if(other instanceof ModelImplJena26) {
-			com.hp.hpl.jena.rdf.model.Model otherJenaModel = (com.hp.hpl.jena.rdf.model.Model)((ModelImplJena26)other)
+		if(other instanceof ModelImplJena) {
+			com.hp.hpl.jena.rdf.model.Model otherJenaModel = (com.hp.hpl.jena.rdf.model.Model)((ModelImplJena)other)
 			        .getUnderlyingModelImplementation();
 			this.jenaModel.add(otherJenaModel);
 		} else
@@ -235,7 +236,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		
 		if(query.isConstructType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			Model resultModel = new ModelImplJena(null, m, Reasoning.none);
 			resultModel.open();
 			return resultModel;
 		} else {
@@ -269,7 +270,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		
 		if(query.isDescribeType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execDescribe();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			Model resultModel = new ModelImplJena(null, m, Reasoning.none);
 			resultModel.open();
 			return resultModel;
 		} else {
@@ -432,6 +433,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	public void writeTo(Writer writer, Syntax syntax) {
 		assertModel();
 		registerNamespaces(this.jenaModel);
+		org.openjena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
 		
 		if(syntax == Syntax.RdfXml) {
 			this.jenaModel.write(writer, "RDF/XML", "");
@@ -444,6 +446,8 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 			} else {
 				this.jenaModel.write(writer, "N3", "");
 			}
+		} else if(syntax == Syntax.RdfJson) {
+			this.jenaModel.write(writer, "RDF/JSON", "");
 		} else {
 			throw new IllegalArgumentException(syntax + " is not implemented in Jena");
 		}
@@ -530,11 +534,11 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 	
 	@Override
 	public boolean isIsomorphicWith(Model other) {
-		if(other instanceof ModelImplJena26) {
-			return this.jenaModel.isIsomorphicWith(((ModelImplJena26)other).getInternalJenaModel());
+		if(other instanceof ModelImplJena) {
+			return this.jenaModel.isIsomorphicWith(((ModelImplJena)other).getInternalJenaModel());
 		} else {
 			// TODO: reasoning might be different
-			ModelImplJena26 otherJenaModel = new ModelImplJena26(Reasoning.none);
+			ModelImplJena otherJenaModel = new ModelImplJena(Reasoning.none);
 			otherJenaModel.addAll(other.iterator());
 			return this.jenaModel.isIsomorphicWith(otherJenaModel.getInternalJenaModel());
 		}
@@ -609,7 +613,7 @@ public class ModelImplJena26 extends AbstractModel implements Model {
 		
 		if(query.isConstructType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			Model resultModel = new ModelImplJena(null, m, Reasoning.none);
 			resultModel.open();
 			return resultModel;
 		} else {

@@ -2,7 +2,7 @@
 
 // This class is a good base for creating RDB support in Jena 2.7
 
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.util.Properties;
 

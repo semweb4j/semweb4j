@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.model.Statement;
@@ -17,10 +17,10 @@ public class TripleIterator implements ClosableIterator<Statement> {
 	
 	private long modelModificationCountAtCreationTime;
 	
-	private ModelImplJena26 modelImplJena;
+	private ModelImplJena modelImplJena;
 	
 	public TripleIterator(com.hp.hpl.jena.util.iterator.ClosableIterator<?> it,
-	        long modelModificationCountAtCreationTime, ModelImplJena26 jenaModel) {
+	        long modelModificationCountAtCreationTime, ModelImplJena jenaModel) {
 		this.it = it;
 		this.modelModificationCountAtCreationTime = modelModificationCountAtCreationTime;
 		this.modelImplJena = jenaModel;

@@ -5,9 +5,9 @@ Bundle-SymbolicName: org.semweb4j.rdf2go.impl.jena
 Bundle-Version: 4.8.1
 Bundle-Localization: plugin
 Export-Package: org.ontoware.rdf2go.impl,
- org.ontoware.rdf2go.impl.jena29,
- org.ontoware.rdf2go.impl.jena29.osgi
-Bundle-Activator: org.ontoware.rdf2go.impl.jena29.osgi.Activator
+ org.ontoware.rdf2go.impl.jena,
+ org.ontoware.rdf2go.impl.jena.osgi
+Bundle-Activator: org.ontoware.rdf2go.impl.jena.osgi.Activator
 Import-Package: com.hp.hpl.jena.datatypes,
  com.hp.hpl.jena.db,
  com.hp.hpl.jena.graph,

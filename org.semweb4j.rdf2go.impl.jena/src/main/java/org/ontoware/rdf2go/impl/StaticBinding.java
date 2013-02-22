@@ -12,7 +12,7 @@ import org.ontoware.rdf2go.ModelFactory;
 public class StaticBinding {
 	
 	public static ModelFactory getModelFactory() {
-		return new org.ontoware.rdf2go.impl.jena29.ModelFactoryImpl();
+		return new org.ontoware.rdf2go.impl.jena.ModelFactoryImpl();
 	}
 	
 }

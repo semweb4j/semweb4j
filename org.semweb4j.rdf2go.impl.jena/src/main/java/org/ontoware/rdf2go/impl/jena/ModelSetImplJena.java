@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +56,7 @@ import com.hp.hpl.jena.query.QueryFactory;
  * @version $Revision$
  * 
  */
-public class ModelSetImplJena29 extends AbstractModelSetImpl {
+public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	private static final long serialVersionUID = 9211877052180956697L;
 	
@@ -217,9 +217,10 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		}
 	}
 
-	public ModelSetImplJena29(com.hp.hpl.jena.query.Dataset dataset) {
+	public ModelSetImplJena(com.hp.hpl.jena.query.Dataset dataset) {
 		this.dataset = dataset;
 		this.lock = this.dataset.getLock();
+		org.openjena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
 	}
 
 	@Override
@@ -262,7 +263,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		}
 		
 		// return opened model
-		return new ModelImplJena26(contextURI, jenaModel).open();
+		return new ModelImplJena(contextURI, jenaModel).open();
 	}
 
 	@Override
@@ -281,7 +282,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 		com.hp.hpl.jena.rdf.model.Model jenaModel = this.dataset
 				.getDefaultModel();
 		// return opened model
-		return new ModelImplJena26(jenaModel).open();
+		return new ModelImplJena(jenaModel).open();
 	}
 
 	/**
@@ -317,7 +318,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 		if (jenaQuery.isConstructType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			Model resultModel = new ModelImplJena(null, m, Reasoning.none);
 			resultModel.open();
 			return resultModel;
 		} else {
@@ -351,7 +352,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 		if (jenaQuery.isConstructType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execConstruct();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			Model resultModel = new ModelImplJena(null, m, Reasoning.none);
 			resultModel.open();
 			return resultModel;
 		} else {
@@ -370,7 +371,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 		if (jenaQuery.isDescribeType()) {
 			com.hp.hpl.jena.rdf.model.Model m = qexec.execDescribe();
-			Model resultModel = new ModelImplJena26(null, m, Reasoning.none);
+			Model resultModel = new ModelImplJena(null, m, Reasoning.none);
 			resultModel.open();
 			return resultModel;
 		} else {
@@ -409,7 +410,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	 * <b>Please note:</b><br />
 	 * In this Jena implementation this will fail until a matching
 	 * {@linkplain RiotReader} is available. Please use
-	 * {@linkplain ModelSetImplJena29#readFrom(Reader, Syntax)} with an available
+	 * {@linkplain ModelSetImplJena#readFrom(Reader, Syntax)} with an available
 	 * syntax such as {@link Syntax#Nquads} or {@link Syntax#Trig}.
 	 */
 	@Override
@@ -439,7 +440,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	 * <b>Please note:</b><br />
 	 * In this Jena implementation this will fail until a matching
 	 * {@linkplain RiotReader} is available. Please use
-	 * {@linkplain ModelSetImplJena29#readFrom(Reader, Syntax)} with an available
+	 * {@linkplain ModelSetImplJena#readFrom(Reader, Syntax)} with an available
 	 * syntax such as {@link Syntax#Nquads} or {@link Syntax#Trig}.
 	 */
 	@Override
@@ -477,7 +478,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	 * <b>Please note:</b><br />
 	 * In this Jena implementation this will fail until a matching
 	 * {@linkplain RiotWriter} is available. Please use
-	 * {@linkplain ModelSetImplJena29#writeTo(Writer, Syntax)} with an available
+	 * {@linkplain ModelSetImplJena#writeTo(Writer, Syntax)} with an available
 	 * syntax such as {@link Syntax#Nquads}.
 	 */
 	@Override
@@ -493,7 +494,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 	 * <b>Please note:</b><br />
 	 * In this Jena implementation this will fail until a matching
 	 * {@linkplain RiotWriter} is available. Please use
-	 * {@linkplain ModelSetImplJena29#writeTo(OutputStream, Syntax)} with an available
+	 * {@linkplain ModelSetImplJena#writeTo(OutputStream, Syntax)} with an available
 	 * syntax such as {@link Syntax#Nquads}.
 	 */
 	@Override
@@ -781,7 +782,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	@Override
 	public boolean addModel(Model model) {
-		if (model instanceof ModelImplJena26) {
+		if (model instanceof ModelImplJena) {
 			this.dataset.getNamedModel(model.getContextURI().toString()).add(
 					((com.hp.hpl.jena.rdf.model.Model) model
 							.getUnderlyingModelImplementation()));
@@ -794,7 +795,7 @@ public class ModelSetImplJena29 extends AbstractModelSetImpl {
 
 	@Override
 	public void addModel(Model model, URI contextURI) {
-		if (model instanceof ModelImplJena26) {
+		if (model instanceof ModelImplJena) {
 			this.dataset.getNamedModel(contextURI.toString()).add(
 					((com.hp.hpl.jena.rdf.model.Model) model
 							.getUnderlyingModelImplementation()));
