@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.io.InputStream;
 

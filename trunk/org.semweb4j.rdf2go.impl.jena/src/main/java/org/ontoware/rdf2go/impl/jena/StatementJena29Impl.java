@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Statement;

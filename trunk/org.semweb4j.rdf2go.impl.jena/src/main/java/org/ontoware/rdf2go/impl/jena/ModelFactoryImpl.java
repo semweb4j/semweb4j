@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.util.Properties;
 
@@ -82,13 +82,13 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 		case owl:
 			com.hp.hpl.jena.rdf.model.Model owlModel = com.hp.hpl.jena.rdf.model.ModelFactory
 			        .createOntologyModel(OntModelSpec.OWL_DL_MEM_RDFS_INF, model);
-			return new ModelImplJena26(owlModel);
+			return new ModelImplJena(owlModel);
 		case rdfs:
 			com.hp.hpl.jena.rdf.model.Model rdfsModel = com.hp.hpl.jena.rdf.model.ModelFactory
 			        .createRDFSModel(model);
-			return new ModelImplJena26(rdfsModel);
+			return new ModelImplJena(rdfsModel);
 		default:
-			return new ModelImplJena26(model);
+			return new ModelImplJena(model);
 		}
 		
 	}
@@ -97,7 +97,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 	public Model createModel(URI contextURI) throws ModelRuntimeException {
 		com.hp.hpl.jena.rdf.model.Model model = com.hp.hpl.jena.rdf.model.ModelFactory
 		        .createDefaultModel();
-		return new ModelImplJena26(contextURI, model);
+		return new ModelImplJena(contextURI, model);
 	}
 	
 	private static ModelMaker getFileModelMaker(String filename) {
@@ -144,7 +144,7 @@ public class ModelFactoryImpl extends AbstractModelFactory implements ModelFacto
 			throw new ModelRuntimeException(
 			        "This release of RDF2Go does not support ModelSets with reasoning capability.");
 		default:
-			return new ModelSetImplJena29(dataset);
+			return new ModelSetImplJena(dataset);
 		}
 	}
 	

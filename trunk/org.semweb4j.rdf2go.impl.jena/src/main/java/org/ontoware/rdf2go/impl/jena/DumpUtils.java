@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class DumpUtils {
 	
 	public static String toN3(Model m) {
 		try {
-			ModelImplJena26 jModel = new ModelImplJena26(Reasoning.none);
+			ModelImplJena jModel = new ModelImplJena(Reasoning.none);
 			jModel.addAll(m.iterator());
 			StringWriter sw = new StringWriter();
 			addCommonPrefixesToJenaModel(jModel.getInternalJenaModel());
@@ -70,7 +70,7 @@ public class DumpUtils {
 			sysout = true;
 		
 		if(n3 | rdf | ntriples) {
-			ModelImplJena26 jModel = new ModelImplJena26(Reasoning.none);
+			ModelImplJena jModel = new ModelImplJena(Reasoning.none);
 			
 			// makes the N3 model look nicer
 			// TODO guess all namespaces automatically

@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,7 +78,7 @@ public class IOUtils {
 	public static Model read(File f) {
 		com.hp.hpl.jena.rdf.model.Model m = ModelFactory.createDefaultModel();
 		readIntoJenaModel(m, f);
-		return new ModelImplJena26(null, m);
+		return new ModelImplJena(null, m);
 	}
 	
 	public static Model read(URL url) {
@@ -86,13 +86,13 @@ public class IOUtils {
 		
 		// TODO guess language
 		m.read("" + url, "" + url, "RDF/XML");
-		return new ModelImplJena26(null, m);
+		return new ModelImplJena(null, m);
 	}
 	
 	public static Model read(Reader reader) {
 		com.hp.hpl.jena.rdf.model.Model m = ModelFactory.createDefaultModel();
 		readIntoJenaModel(m, reader);
-		return new ModelImplJena26(null, m);
+		return new ModelImplJena(null, m);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class IOUtils {
 	}
 	
 	public static void write(Model m, Writer w) throws ModelRuntimeException {
-		Model jenaModel = new ModelImplJena26(Reasoning.none);
+		Model jenaModel = new ModelImplJena(Reasoning.none);
 		jenaModel.addAll(m.iterator());
 		com.hp.hpl.jena.rdf.model.Model jm = (com.hp.hpl.jena.rdf.model.Model)jenaModel
 		        .getUnderlyingModelImplementation();
@@ -124,7 +124,7 @@ public class IOUtils {
 	}
 	
 	public static void write(Model m, String filename, String format) throws ModelRuntimeException {
-		Model jenaModel = new ModelImplJena26(Reasoning.none);
+		Model jenaModel = new ModelImplJena(Reasoning.none);
 		jenaModel.addAll(m.iterator());
 		com.hp.hpl.jena.rdf.model.Model jm = (com.hp.hpl.jena.rdf.model.Model)jenaModel
 		        .getUnderlyingModelImplementation();

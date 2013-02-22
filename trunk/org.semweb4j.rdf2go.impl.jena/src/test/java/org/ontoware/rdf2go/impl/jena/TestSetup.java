@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

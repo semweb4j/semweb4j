@@ -1,4 +1,4 @@
-package org.ontoware.rdf2go.impl.jena29;
+package org.ontoware.rdf2go.impl.jena;
 
 import com.hp.hpl.jena.datatypes.BaseDatatype;
 import com.hp.hpl.jena.graph.impl.LiteralLabel;
