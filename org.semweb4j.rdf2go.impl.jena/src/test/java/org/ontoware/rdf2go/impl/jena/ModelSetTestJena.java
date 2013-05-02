@@ -12,13 +12,12 @@ import java.io.StringWriter;
 import org.junit.Test;
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
-import org.ontoware.rdf2go.impl.jena.ModelFactoryImpl;
 import org.ontoware.rdf2go.model.AbstractModelSetTest;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.testdata.TestData;
 
-public class ModelSetTestJena29 extends AbstractModelSetTest {
+public class ModelSetTestJena extends AbstractModelSetTest {
 
 	private final ModelFactory modelFactory = new ModelFactoryImpl();
 	
@@ -45,9 +44,9 @@ public class ModelSetTestJena29 extends AbstractModelSetTest {
 				}
 			}, Syntax.Nquads);
 		} catch(ModelRuntimeException e) {
-			fail();
+			fail(e.getMessage());
 		} catch(IOException e) {
-			fail();
+			fail(e.getMessage());
 		}
 	}
 	
@@ -69,9 +68,9 @@ public class ModelSetTestJena29 extends AbstractModelSetTest {
 				}
 			}, Syntax.Nquads);
 		} catch(ModelRuntimeException e) {
-			fail();
+			fail(e.getMessage());
 		} catch(IOException e) {
-			fail();
+			fail(e.getMessage());
 		}
 	}
 
@@ -84,9 +83,9 @@ public class ModelSetTestJena29 extends AbstractModelSetTest {
 		try {
 			this.getModelSet().writeTo(sw, Syntax.Nquads);
 		} catch(ModelRuntimeException e) {
-			fail();
+			fail(e.getMessage());
 		} catch(IOException e) {
-			fail();
+			fail(e.getMessage());
 		}
 		assertTrue(sw.getBuffer().toString().length() > 1000);
 		sw.close();

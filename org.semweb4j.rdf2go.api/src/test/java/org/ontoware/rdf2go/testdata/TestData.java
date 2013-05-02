@@ -36,6 +36,8 @@ public class TestData {
 	private static Model foafBuffered = null;
 	
 	private static Model icalBuffered = null;
+
+	public static final String FOAFRESOURCE = "org/ontoware/rdf2go/testdata/foaf.rdf";
 	
 	/**
 	 * loads foaf once, and then returns the model again and again. Use this if
@@ -77,16 +79,10 @@ public class TestData {
 	}
 	
 	/**
-	 * To get this testcase to run in Eclipse, make sure to patch your compiler
-	 * settings to NOT exclude *.xml files.
-	 * 
 	 * @return as RDF/XML
 	 */
 	public static InputStream getFoafAsStream() {
-		String FOAFRESOURCE = "org/ontoware/rdf2go/testdata/foaf.xml";
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream in = cl.getResourceAsStream(FOAFRESOURCE);
-		return in;
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream(FOAFRESOURCE);
 	}
 	
 	/**

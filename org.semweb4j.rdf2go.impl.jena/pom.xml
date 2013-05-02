@@ -1,19 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2013.02.05</version>
+		<version>2013.05.02</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena</artifactId>
-	<version>4.8.2</version>
+	<version>4.8.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	
+
 	<name>Semweb4j RDF2Go Jena implementation</name>
 	<description>
 		An implementation of the RDF2Go API which delegates to Jena.
@@ -107,17 +106,21 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.semweb4j</groupId>
-            <artifactId>rdf2go.impl.test</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.impl.test</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>2.10.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
-			<version>2.7.1</version>
+			<version>2.11.0</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -128,8 +131,7 @@
 		<!-- OSGi -->
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>osgi</artifactId>
-			<version>3.2.1.R32</version>
+			<artifactId>org.eclipse.osgi</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
@@ -152,23 +154,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>2.9.4</version>
-		</dependency>
 	</dependencies>
 
-	<!-- for OSGi preparation we have to slightly change the final name of the 
-		project-jar -->
 	<build>
 		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ssh</artifactId>
-				<version>1.0-beta-6</version>
-			</extension>
 			<!-- via https://wagon-svn.dev.java.net/ -->
 			<extension>
 				<groupId>org.jvnet.wagon-svn</groupId>
@@ -176,6 +165,8 @@
 				<version>1.9</version>
 			</extension>
 		</extensions>
+		<!-- for OSGi preparation we have to slightly change the final name of the 
+			project-jar -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -202,6 +193,16 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>apache-repo-snapshots</id>
+			<url>https://repository.apache.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>		
 	</repositories>
 
 	<distributionManagement>

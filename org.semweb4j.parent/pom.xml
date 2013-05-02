@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>2013.02.05</version>
+	<version>2013.05.02</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -146,28 +145,33 @@
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.3</version>
+				<version>2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>org.eclipse.osgi</artifactId>
+				<version>3.8.0.v20120529-1548</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- logging dependencies -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.5.6</version>
+				<version>1.7.5</version>
 			</dependency>
 			<dependency>
 				<scope>runtime</scope>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
-				<version>1.5.6</version>
+				<version>1.7.5</version>
 			</dependency>
-
 			<dependency>
 				<scope>runtime</scope>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<!-- version 1.2.15 has an ill-designed POM -->
-				<version>1.2.14</version>
+				<version>1.2.17</version>
 			</dependency>
 
 			<!-- testing dependencies -->
@@ -175,7 +179,7 @@
 				<scope>test</scope>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.6</version>
+				<version>4.11</version>
 			</dependency>
 
 		</dependencies>
@@ -186,7 +190,7 @@
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-ssh</artifactId>
-				<version>1.0-beta-6</version>
+				<version>2.4</version>
 			</extension>
 			<!-- via https://wagon-svn.dev.java.net/ -->
 			<extension>

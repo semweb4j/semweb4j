@@ -8,15 +8,23 @@
  */
 package org.ontoware.rdf2go.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import junit.framework.TestCase;
 
@@ -69,6 +77,20 @@ public abstract class AbstractModelTest extends TestCase {
 	
 	public static URI dt = new URIImpl("test://somedata/dt", false);
 	
+	/**
+	 * The syntaxes to be tested for model writing. The array should be
+	 * overrwritten in subclasses (non-abstract tests) with the actually
+	 * supported syntaxes e.g. in Jena or Sesame.
+	 */
+	public Syntax[] writerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle};
+
+	/**
+	 * The syntaxes to be tested for model reading. The array should be
+	 * overrwritten in subclasses (non-abstract tests) with the actually
+	 * supported syntaxes e.g. in Jena or Sesame.
+	 */
+	public Syntax[] readerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle};
+
 	/**
 	 * the model to use in the tests, initialized by setup and teardown.
 	 * protected so that subclasses can reuse it
@@ -969,6 +991,61 @@ public abstract class AbstractModelTest extends TestCase {
 		
 		reader.close();
 		stream.close();
+	}
+	
+	/**
+	 * Test model reading from RDF files in different syntaxes. The files are found under
+	 * {@code org/ontoware/rdf2go/testdata/foaf.XYZ} where XYZ is the file extension for each
+	 * syntax defined in {@linkplain Syntax}.
+	 */
+	@Test
+	public void testReadFromSyntaxFiles() throws ModelRuntimeException, IOException {
+		// Get a model as baseline:
+		Model modelBaseline = TestData.loadFoafBuffered(getModelFactory());
+		
+		// Read from other syntaxes (inlcuding XML for completeness) and compare to baseline:
+		for (Syntax syntax : readerSyntaxes) {
+			final String FILE_EXTENSION = syntax.getFilenameExtension();
+			InputStream stream = this.getClass().getClassLoader().getResourceAsStream("org/ontoware/rdf2go/testdata/foaf" + FILE_EXTENSION);
+			Model model = getModelFactory().createModel().open();
+			model.readFrom(stream, syntax);
+			stream.close();
+			assertTrue("The model read from syntax " + syntax.getName() + " was not equal to the baseline model.", model.isIsomorphicWith(modelBaseline));
+			model.close();
+		}
+	}
+	
+	/**
+	 * Test model writing of RDF files in different syntaxes. The files are
+	 * each written in the temp directory then parsed again and checked for
+	 * unwanted differences.
+	 */
+	@Test
+	public void testWriteToSyntaxFiles() throws ModelRuntimeException, IOException {
+		// Get a model as test data:
+		Model test = TestData.loadFoafBuffered(getModelFactory());
+
+		int rand = new Random().nextInt(99999);
+		
+		// Write to temp files and parse again to compare:
+		for (Syntax syntax : writerSyntaxes) {
+			final Path FILE = Files.createTempFile("foaf." + rand, syntax.getFilenameExtension());
+			try {
+				test.writeTo(Files.newOutputStream(FILE), syntax);
+	
+				Model model = getModelFactory().createModel().open();
+				model.readFrom(Files.newInputStream(FILE), syntax);
+	
+				assertTrue("The model written with with syntax " + syntax.getName() + " was not not the same after parsing its written form from the file.", model.isIsomorphicWith(test));
+			}
+			catch (ModelRuntimeException e) {
+				throw e;
+			}
+			finally {
+				Files.delete(FILE);
+				model.close();
+			}
+		}
 	}
 	
 	@Test

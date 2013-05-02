@@ -141,8 +141,9 @@ public class DelegatingModelSet extends AbstractModelSetImpl implements ModelSet
 	}
 	
 	@Override
-	public void open() {
+	public ModelSet open() {
 		this.baseModelSet.open();
+		return this;
 	}
 	
 	@Override

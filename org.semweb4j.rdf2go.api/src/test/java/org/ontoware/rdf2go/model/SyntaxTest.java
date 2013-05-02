@@ -93,7 +93,7 @@ public class SyntaxTest extends TestCase {
 		Syntax.resetFactoryDefaults();
 		List<Syntax> list = Syntax.list();
 		// check overall number
-		assertEquals("Check for the expected number of syntaxes", 6, list.size());
+		assertEquals("Check for the expected number of syntaxes", 8, list.size());
         int numSyntaxes = list.size();
         ArrayList<Syntax> l = new ArrayList<Syntax>(list);
         // remove just a few

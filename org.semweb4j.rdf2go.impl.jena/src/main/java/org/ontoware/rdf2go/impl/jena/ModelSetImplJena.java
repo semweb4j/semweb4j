@@ -10,6 +10,12 @@ import java.util.Map;
 
 import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.commons.io.output.WriterOutputStream;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFLanguages;
+import org.apache.jena.riot.RiotException;
+import org.apache.jena.riot.RiotWriter;
+import org.apache.jena.riot.WebContent;
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.Reasoning;
@@ -33,11 +39,6 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.openjena.riot.Lang;
-import org.openjena.riot.RiotLoader;
-import org.openjena.riot.RiotReader;
-import org.openjena.riot.RiotWriter;
-import org.openjena.riot.WebContent;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -46,7 +47,7 @@ import com.hp.hpl.jena.query.QueryFactory;
 
 
 /**
- * A ModelSet implementation for Jena 2.9. It relies on the Jena
+ * A ModelSet implementation for Jena. It relies on the Jena
  * {@linkplain com.hp.hpl.jena.query.Dataset}.
  * 
  * @since 4.8.1
@@ -60,30 +61,34 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	private static final long serialVersionUID = 9211877052180956697L;
 	
-	private com.hp.hpl.jena.query.Dataset dataset;
-	private com.hp.hpl.jena.shared.Lock lock;
+	private final com.hp.hpl.jena.query.Dataset dataset;
+	private final com.hp.hpl.jena.shared.Lock lock;
 	private Query countStatementsQuery;
 	private boolean open = true;
 	
 	private static class ContextIterator implements ClosableIterator<URI> {
 
-		private Iterator<String> underlying;
+		private final Iterator<String> underlying;
 
 		public ContextIterator(Iterator<String> idIterator) {
 			this.underlying = idIterator;
 		}
 
+		@Override
 		public void close() {
 		}
 
+		@Override
 		public boolean hasNext() {
 			return this.underlying.hasNext();
 		}
 
+		@Override
 		public URI next() {
 			return new URIImpl(this.underlying.next());
 		}
 
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
@@ -91,7 +96,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	private class ModelIterator implements ClosableIterator<Model> {
 
-		private ClosableIterator<URI> underlying;
+		private final ClosableIterator<URI> underlying;
 
 		private URI lastURI;
 
@@ -99,14 +104,17 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 			this.underlying = contextIterator;
 		}
 
+		@Override
 		public void close() {
 			this.underlying.close();
 		}
 
+		@Override
 		public boolean hasNext() {
 			return this.underlying.hasNext();
 		}
 
+		@Override
 		public Model next() {
 			URI uri = this.underlying.next();
 
@@ -116,6 +124,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 			return model;
 		}
 
+		@Override
 		public void remove() {
 			// only possible when next() has been invoked at least once
 			if (this.lastURI == null) {
@@ -133,13 +142,13 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 		private static final long serialVersionUID = -2397218722246644188L;
 
-		private UriOrVariable context;
+		private final UriOrVariable context;
 
-		private NodeOrVariable object;
+		private final NodeOrVariable object;
 
-		private UriOrVariable predicate;
+		private final UriOrVariable predicate;
 
-		private ResourceOrVariable subject;
+		private final ResourceOrVariable subject;
 
 		public JenaQuadPattern(UriOrVariable context,
 				ResourceOrVariable subject, UriOrVariable predicate,
@@ -155,22 +164,27 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 			this.object = object;
 		}
 
+		@Override
 		public UriOrVariable getContext() {
 			return this.context;
 		}
 
+		@Override
 		public NodeOrVariable getObject() {
 			return this.object;
 		}
 
+		@Override
 		public UriOrVariable getPredicate() {
 			return this.predicate;
 		}
 
+		@Override
 		public ResourceOrVariable getSubject() {
 			return this.subject;
 		}
 
+		@Override
 		public boolean matches(Statement statement) {
 			return this.matches(statement.getContext(), this.context)
 					&& this.matches(statement.getSubject(), this.subject)
@@ -191,20 +205,23 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	private static class StatementIterator implements ClosableIterator<Statement> {
 		
-		private Iterator<com.hp.hpl.jena.sparql.core.Quad> underlying;
+		private final Iterator<com.hp.hpl.jena.sparql.core.Quad> underlying;
 		
 		public StatementIterator(
 				Iterator<com.hp.hpl.jena.sparql.core.Quad> jenaQuadIterator) {
 			this.underlying = jenaQuadIterator;
 		}
 
+		@Override
 		public void close() {
 		}
 
+		@Override
 		public boolean hasNext() {
 			return this.underlying.hasNext();
 		}
 
+		@Override
 		public Statement next() {
 			com.hp.hpl.jena.sparql.core.Quad quad = this.underlying
 					.next();
@@ -212,6 +229,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 					quad.getPredicate(), quad.getObject());
 		}
 
+		@Override
 		public void remove() {
 			this.underlying.remove();
 		}
@@ -220,11 +238,12 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 	public ModelSetImplJena(com.hp.hpl.jena.query.Dataset dataset) {
 		this.dataset = dataset;
 		this.lock = this.dataset.getLock();
-		org.openjena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
+		org.apache.jena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
 	}
 
 	@Override
-	public void open() {
+	public ModelSet open() {
+		return this;
 	}
 
 	@Override
@@ -405,13 +424,6 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	/**
 	 * Read data from an {@linkplain Reader} with RDF syntax {@link Syntax#Trix}.
-	 * 
-	 * <br />
-	 * <b>Please note:</b><br />
-	 * In this Jena implementation this will fail until a matching
-	 * {@linkplain RiotReader} is available. Please use
-	 * {@linkplain ModelSetImplJena#readFrom(Reader, Syntax)} with an available
-	 * syntax such as {@link Syntax#Nquads} or {@link Syntax#Trig}.
 	 */
 	@Override
 	public void readFrom(Reader in) throws IOException, ModelRuntimeException {
@@ -467,7 +479,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 					"unknown RDF syntax " + syntax);
 		}
 
-		RiotLoader.read(in, this.dataset.asDatasetGraph(), lang, baseURI);
+		RDFDataMgr.read(this.dataset.asDatasetGraph(), in, baseURI, lang);
 	}
 
 	/**
@@ -518,33 +530,35 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 			throw new NullPointerException("syntax may not be null");
 		}
 		
-		Lang jenaLang = WebContent.contentTypeToLang(syntax.getMimeType());
+		Lang jenaLang = RDFLanguages.nameToLang(syntax.getMimeType());
 
 		if (jenaLang == null) {
 			throw new SyntaxNotSupportedException(
 					"unknown RDF syntax " + syntax);
 		}
-		else if (jenaLang.isTriples()) {
-			/*
-			 * NB: Writing a ModelSet to a triple serialization loses the
-			 * context of any quads if present.
-			 */
-			Iterator<Model> it = this.getModels();
-			while (it.hasNext()) {
-				Model model = it.next();
-				model.writeTo(out, syntax);
-			}
-			this.getDefaultModel().writeTo(out, syntax);
-		}
-		else if (jenaLang == org.openjena.riot.Lang.NQUADS) {
-			RiotWriter.writeNQuads(out, this.dataset.asDatasetGraph());
-		}
-		// TODO stuehmer: after https://issues.apache.org/jira/browse/JENA-182
-		// is resoved, add a TriG writer here
+//		else if (RDFLanguages.isTriples(jenaLang)) {
+//			/*
+//			 * NB: Writing a ModelSet to a triple serialization loses the
+//			 * context of any quads if present.
+//			 */
+//			Iterator<Model> it = this.getModels();
+//			while (it.hasNext()) {
+//				Model model = it.next();
+//				model.writeTo(out, syntax);
+//			}
+//			this.getDefaultModel().writeTo(out, syntax);
+//		}
+		// FIXME stuehmer: write unit test to see if this can be removed
 		else {
-			throw new SyntaxNotSupportedException(
-					"unknown RDF syntax " + syntax);
+			try {
+				RDFDataMgr.write(out, this.dataset, jenaLang);
+			}
+			catch (RiotException e) {
+				throw new SyntaxNotSupportedException(
+						"error writing syntax " + syntax + ": " + e.getMessage());
+			}
 		}
+
 	}
 
 	@Override

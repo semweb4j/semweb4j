@@ -13,7 +13,6 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -80,12 +79,13 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private static class ContextIterator implements ClosableIterator<URI> {
 		
-		private RepositoryResult<org.openrdf.model.Resource> idIterator;
+		private final RepositoryResult<org.openrdf.model.Resource> idIterator;
 		
 		public ContextIterator(RepositoryResult<org.openrdf.model.Resource> idIterator) {
 			this.idIterator = idIterator;
 		}
 		
+		@Override
 		public void close() {
 			try {
 				this.idIterator.close();
@@ -94,6 +94,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			}
 		}
 		
+		@Override
 		public boolean hasNext() {
 			try {
 				return this.idIterator.hasNext();
@@ -102,6 +103,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			}
 		}
 		
+		@Override
 		public URI next() {
 			try {
 				return (URI)ConversionUtil.toRdf2go(this.idIterator.next());
@@ -110,6 +112,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			}
 		}
 		
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
@@ -128,7 +131,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private class ModelIterator implements ClosableIterator<Model> {
 		
-		private ClosableIterator<URI> contextIterator;
+		private final ClosableIterator<URI> contextIterator;
 		
 		private URI lastURI;
 		
@@ -136,14 +139,17 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			this.contextIterator = contextIterator;
 		}
 		
+		@Override
 		public void close() {
 			this.contextIterator.close();
 		}
 		
+		@Override
 		public boolean hasNext() {
 			return this.contextIterator.hasNext();
 		}
 		
+		@Override
 		public Model next() {
 			RepositoryModel model = null;
 			URI uri = this.contextIterator.next();
@@ -154,6 +160,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			return model;
 		}
 		
+		@Override
 		public void remove() {
 			// only possible when next() has been invoked at least once
 			if(this.lastURI == null) {
@@ -183,13 +190,13 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
          */
 		private static final long serialVersionUID = -2397218722246644188L;
 		
-		private UriOrVariable context;
+		private final UriOrVariable context;
 		
-		private NodeOrVariable object;
+		private final NodeOrVariable object;
 		
-		private UriOrVariable predicate;
+		private final UriOrVariable predicate;
 		
-		private ResourceOrVariable subject;
+		private final ResourceOrVariable subject;
 		
 		public OpenRDFQuadPattern(UriOrVariable context, ResourceOrVariable subject,
 		        UriOrVariable predicate, NodeOrVariable object) {
@@ -204,22 +211,27 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			this.object = object;
 		}
 		
+		@Override
 		public UriOrVariable getContext() {
 			return this.context;
 		}
 		
+		@Override
 		public NodeOrVariable getObject() {
 			return this.object;
 		}
 		
+		@Override
 		public UriOrVariable getPredicate() {
 			return this.predicate;
 		}
 		
+		@Override
 		public ResourceOrVariable getSubject() {
 			return this.subject;
 		}
 		
+		@Override
 		public boolean matches(Statement statement) {
 			return this.matches(statement.getContext(), this.context)
 			        && this.matches(statement.getSubject(), this.subject)
@@ -240,12 +252,13 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private static class StatementIterator implements ClosableIterator<Statement> {
 		
-		private RepositoryResult<org.openrdf.model.Statement> result;
+		private final RepositoryResult<org.openrdf.model.Statement> result;
 		
 		public StatementIterator(RepositoryResult<org.openrdf.model.Statement> result) {
 			this.result = result;
 		}
 		
+		@Override
 		public void close() {
 			try {
 				this.result.close();
@@ -254,6 +267,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			}
 		}
 		
+		@Override
 		public boolean hasNext() {
 			try {
 				return this.result.hasNext();
@@ -262,6 +276,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			}
 		}
 		
+		@Override
 		public Statement next() {
 			try {
 				org.openrdf.model.Statement statement = this.result.next();
@@ -271,6 +286,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			}
 		}
 		
+		@Override
 		public void remove() {
 			try {
 				this.result.remove();
@@ -289,7 +305,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private ValueFactory valueFactory;
 	
-	private WeakHashMap<RepositoryModel,Object> openModels = new WeakHashMap<RepositoryModel,Object>();
+	private final WeakHashMap<RepositoryModel,Object> openModels = new WeakHashMap<RepositoryModel,Object>();
 	
 	public RepositoryModelSet(Repository repository) throws ModelRuntimeException {
 		this.init(repository);
@@ -304,8 +320,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		try {
 			
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			try {
 				try {
 					// add
@@ -322,7 +337,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.setAutoCommit(autocommitBefore);
+				this.connection.commit();
 			}
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -411,8 +426,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// buffer in memory to avoid deadlocks due to mixed
 					// read/write
 					Set<org.openrdf.model.Statement> stmts = new HashSet<org.openrdf.model.Statement>();
-					for(org.openrdf.model.Statement stmt : statements.asList()) {
-						stmts.add(stmt);
+					while (statements.hasNext()) {
+						stmts.add(statements.next());
 					}
 					// now insert with a different context URI
 					for(org.openrdf.model.Statement stmt : stmts) {
@@ -433,7 +448,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					        context);
 					
 					// doesn't hurt to explicitly add them to the right context
-					for(org.openrdf.model.Statement stmt : statements.asList()) {
+					while (statements.hasNext()) {
+						org.openrdf.model.Statement stmt = statements.next();
 						this.connection.add(
 						        this.valueFactory.createStatement(stmt.getSubject(),
 						                stmt.getPredicate(), stmt.getObject(), openrdfContextURI),
@@ -504,6 +520,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		
 	}
 	
+	@Override
 	public void addStatement(Statement statement) throws ModelRuntimeException {
 		this.assertModel();
 		try {
@@ -518,6 +535,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 * Releases all resources held by the RepositoryModelSet. After this, the
 	 * effect and results of all other operations are undefined.
 	 */
+	@Override
 	public void close() {
 		if(this.isOpen()) {
 			try {
@@ -535,6 +553,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	@Deprecated
 	public void commit() {
 		try {
@@ -550,6 +569,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		        s.getObject());
 	}
 	
+	@Override
 	public boolean containsModel(URI contextURI) {
 		try {
 			return this.connection.hasStatement(null, null, null, false,
@@ -571,6 +591,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject,
 	        UriOrVariable predicate, NodeOrVariable object) {
 		return new OpenRDFQuadPattern(context, subject, predicate, object);
@@ -655,6 +676,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public Model getDefaultModel() {
 		RepositoryModel model = new RepositoryModel(this.repository);
 		model.open();
@@ -662,6 +684,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		return model;
 	}
 	
+	@Override
 	public Model getModel(URI contextURI) {
 		RepositoryModel model = new RepositoryModel(contextURI, this.repository);
 		model.open();
@@ -669,11 +692,13 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		return model;
 	}
 	
+	@Override
 	public ClosableIterator<Model> getModels() {
 		this.assertModel();
 		return new ModelIterator(this.getModelURIs());
 	}
 	
+	@Override
 	public ClosableIterator<URI> getModelURIs() {
 		this.assertModel();
 		try {
@@ -683,6 +708,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public String getNamespace(String prefix) {
 		this.assertModel();
 		try {
@@ -692,14 +718,15 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public Map<String,String> getNamespaces() {
 		this.assertModel();
 		Map<String,String> nsMap = new HashMap<String,String>();
 		try {
 			RepositoryResult<Namespace> openrdfMap = this.connection.getNamespaces();
 			openrdfMap.enableDuplicateFilter();
-			List<Namespace> openrdfList = openrdfMap.asList();
-			for(Namespace openrdfNamespace : openrdfList) {
+			while (openrdfMap.hasNext()) {
+				Namespace openrdfNamespace = openrdfMap.next();
 				nsMap.put(openrdfNamespace.getPrefix(), openrdfNamespace.getName());
 			}
 			return nsMap;
@@ -712,6 +739,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		return this.getUnderlyingModelSetImplementation();
 	}
 	
+	@Override
 	public Repository getUnderlyingModelSetImplementation() {
 		return this.repository;
 	}
@@ -719,6 +747,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	/**
 	 * Returns whether the RepositoryModelSet is currently opened.
 	 */
+	@Override
 	public boolean isOpen() {
 		return this.connection != null;
 	}
@@ -741,17 +770,19 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 * Prepares the RepositoryModelSet for operation. Before opening, the result
 	 * and effects of all other operations are undefined.
 	 */
-	public void open() {
+	@Override
+	public ModelSet open() {
 		if(!this.isOpen()) {
 			try {
 				this.connection = this.repository.getConnection();
-				this.connection.setAutoCommit(true);
 			} catch(RepositoryException e) {
 				throw new ModelRuntimeException(e);
 			}
 		}
+		return this;
 	}
 	
+	@Override
 	public ClosableIterable<Statement> queryConstruct(String queryString, String queryLanguage)
 	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		this.assertModel();
@@ -770,6 +801,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public QueryResultTable querySelect(String queryString, String queryLanguage)
 	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		this.assertModel();
@@ -777,6 +809,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		return new RepositoryQueryResultTable(queryString, language, this.connection);
 	}
 	
+	@Override
 	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
 		this.readFrom(in, Syntax.RdfXml);
 	}
@@ -796,6 +829,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public void readFrom(InputStream in, Syntax syntax, String baseURI) throws IOException,
 	        ModelRuntimeException {
 		this.assertModel();
@@ -811,6 +845,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public void readFrom(Reader reader) throws IOException, ModelRuntimeException {
 		this.readFrom(reader, Syntax.RdfXml);
 	}
@@ -830,6 +865,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI) throws IOException,
 	        ModelRuntimeException {
 		this.assertModel();
@@ -863,8 +899,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		// do not auto-commit
 		this.assertModel();
 		try {
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			try {
 				try {
 					// add
@@ -881,7 +916,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.setAutoCommit(autocommitBefore);
+				this.connection.commit();
 			}
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -889,6 +924,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	}
 	
 	// @Override
+	@Override
 	public boolean removeModel(URI contextURI) {
 		this.assertModel();
 		org.openrdf.model.Resource context = ConversionUtil
@@ -901,6 +937,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		return true;
 	}
 	
+	@Override
 	public void removeNamespace(String prefix) {
 		this.assertModel();
 		try {
@@ -910,6 +947,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
 		this.assertModel();
 		try {
@@ -945,6 +983,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		try {
@@ -954,6 +993,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public void setNamespace(String prefix, String namespaceURI) throws IllegalArgumentException {
 		this.assertModel();
 		try {
@@ -979,6 +1019,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public long size() throws ModelRuntimeException {
 		this.assertModel();
 		try {
@@ -1001,6 +1042,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public ClosableIterable<Statement> sparqlConstruct(String queryString)
 	        throws ModelRuntimeException {
 		this.assertModel();
@@ -1014,6 +1056,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public ClosableIterable<Statement> sparqlDescribe(String queryString)
 	        throws ModelRuntimeException {
 		this.assertModel();
@@ -1027,6 +1070,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
+	@Override
 	public QueryResultTable sparqlSelect(String queryString) throws ModelRuntimeException {
 		return new RepositoryQueryResultTable(queryString, this.connection);
 	}
@@ -1039,8 +1083,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		// do not auto-commit
 		this.assertModel();
 		try {
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			try {
 				try {
 					// remove
@@ -1062,7 +1105,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.setAutoCommit(autocommitBefore);
+				this.connection.commit();
 			}
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -1072,6 +1115,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	/**
 	 * Writes the whole ModelSet in TriX syntax to the OutputStream.
 	 */
+	@Override
 	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
 		this.writeTo(out, Syntax.Trix);
 	}
@@ -1090,6 +1134,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	/**
 	 * Writes the whole ModelSet in TriX syntax to the writer.
 	 */
+	@Override
 	public void writeTo(Writer writer) throws IOException, ModelRuntimeException {
 		this.writeTo(writer, Syntax.Trix);
 	}

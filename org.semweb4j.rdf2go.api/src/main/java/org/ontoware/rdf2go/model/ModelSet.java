@@ -44,8 +44,10 @@ public interface ModelSet extends Sparqlable, ModelSetIO, FindableModelSet, Mode
 	
 	/**
 	 * Open connection to the underlying implementation
+	 * 
+	 * @return the modelSet itself (now open) ready for further operations
 	 */
-	void open();
+	ModelSet open();
 	
 	/**
 	 * @return true if ModelSet is open

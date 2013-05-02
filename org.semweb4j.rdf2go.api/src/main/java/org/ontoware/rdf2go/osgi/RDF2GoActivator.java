@@ -74,7 +74,7 @@ public class RDF2GoActivator implements BundleActivator, ServiceListener {
 	private void initalizeListener() {
 		ServiceReference references[];
 		try {
-			references = this.bc.getServiceReferences(null, MODEL_FACTORY_FILTER);
+			references = this.bc.getServiceReferences((String)null, MODEL_FACTORY_FILTER);
 			for(int i = 0; references != null && i < references.length; i++) {
 				this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
 			}
