@@ -87,7 +87,7 @@ public class TestData {
 	 * @return as RDF/XML
 	 */
 	public static InputStream getFoafAsStream() {
-		String FOAFRESOURCE = "org/ontoware/rdf2go/testdata/foaf.xml";
+		String FOAFRESOURCE = "org/ontoware/rdf2go/testdata/foaf.rdf";
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		InputStream in = cl.getResourceAsStream(FOAFRESOURCE);
 		return in;

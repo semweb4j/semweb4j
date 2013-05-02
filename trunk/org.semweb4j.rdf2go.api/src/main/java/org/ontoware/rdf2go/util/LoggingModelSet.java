@@ -338,9 +338,10 @@ public class LoggingModelSet implements ModelSet {
 	}
 	
 	@Override
-	public void open() {
+	public ModelSet open() {
 		log.debug("open");
 		this.modelset.open();
+		return this;
 	}
 	
 	@Override

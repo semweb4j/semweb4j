@@ -10,14 +10,14 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2013.02.05</version>
+		<version>2013.05.02</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame</artifactId>
 	<!--  this must be a three-digit number for OSGI MANIFEST -->
-	<version>4.8.2</version>
+	<version>4.8.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
 	<name>Semweb4j RDF2Go Sesame implementation</name>
@@ -37,8 +37,11 @@
 		</license>
 	</licenses>
 
-	<dependencies>
+	<properties>
+		<sesame.version>2.7.0</sesame.version>
+	</properties>
 
+	<dependencies>
         <dependency>
             <groupId>org.semweb4j</groupId>
             <artifactId>rdf2go.api</artifactId>
@@ -55,15 +58,14 @@
 		<!-- OSGi -->
 		<dependency>
 			<groupId>org.eclipse</groupId>
-			<artifactId>osgi</artifactId>
-			<version>3.3.0-v20070530</version>
+			<artifactId>org.eclipse.osgi</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-runtime-osgi</artifactId>
-			<version>2.6.9</version>
+			<version>${sesame.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.openrdf.sesame</groupId>
@@ -75,7 +77,22 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sail-memory</artifactId>
+			<version>${sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-rdfxml</artifactId>
+			<version>${sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-rdfjson</artifactId>
+			<version>${sesame.version}</version>
+		</dependency>
+		
 		<!--
 			If present, DEBUG logging is compiled away <dependency>
 			<groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId>
@@ -91,17 +108,10 @@
 			<artifactId>rdf2go.impl.test</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>1.0-beta-6</version>
-            </extension>
-        </extensions>
 		<plugins>
 			<!--
 				add OSGI specific metadata to the manifest how to do this?
@@ -141,6 +151,17 @@
 				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>sonatype.snapshots</id>
+			<name>Sonatype snapshot repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository> 
 	</repositories>
 
 	<developers>

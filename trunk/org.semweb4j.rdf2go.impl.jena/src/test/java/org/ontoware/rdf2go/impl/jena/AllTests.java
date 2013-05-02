@@ -11,8 +11,7 @@ import org.ontoware.rdf2go.model.NotifyingModelTest;
 		// shared tests
 		GenericTest.class, ModelTest.class, NotifyingModelTest.class, 
 		// additionally local tests
-		DataTypeTesting.class, TestResourceLoading.class
-
+		DataTypeTesting.class
 })
 public class AllTests {
 	// the class remains completely empty,

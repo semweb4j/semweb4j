@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.graph.Node;
+import com.hp.hpl.jena.graph.NodeFactory;
 import com.hp.hpl.jena.graph.impl.LiteralLabel;
 import com.hp.hpl.jena.rdf.model.AnonId;
 import com.hp.hpl.jena.rdf.model.Literal;
@@ -45,19 +46,19 @@ public class TypeConversion {
 		assert o != null;
 		if(o instanceof URI) {
 			log.debug("instanceof URI");
-			return Node.createURI(((URI)o).toString());
+			return NodeFactory.createURI(((URI)o).toString());
 		}
 		
 		if(o instanceof String) {
 			// plain literal
 			log.debug("instanceof String");
-			return Node.createLiteral((String)o, null, false);
+			return NodeFactory.createLiteral((String)o, null, false);
 		}
 		
 		if(o instanceof PlainLiteral) {
 			// plain literal
 			log.debug("instanceof String");
-			return Node.createLiteral(((PlainLiteral)o).getValue(), null, false);
+			return NodeFactory.createLiteral(((PlainLiteral)o).getValue(), null, false);
 		}
 		
 		if(o instanceof DatatypeLiteral) {
@@ -79,7 +80,7 @@ public class TypeConversion {
 		if(o instanceof LanguageTagLiteral) {
 			// langtag
 			log.debug("instanceof LanguageTagLiteral");
-			return Node.createLiteral(((LanguageTagLiteral)o).getValue(),
+			return NodeFactory.createLiteral(((LanguageTagLiteral)o).getValue(),
 			        ((LanguageTagLiteral)o).getLanguageTag(), null);
 		}
 		
@@ -90,7 +91,7 @@ public class TypeConversion {
 			        + o.getClass();
 			AnonId anonId = new AnonId(((AbstractBlankNodeImpl)o).getUnderlyingBlankNode()
 			        .toString());
-			Node jenaNode = Node.createAnon(anonId);
+			Node jenaNode = NodeFactory.createAnon(anonId);
 			return jenaNode;
 		}
 		
@@ -116,19 +117,19 @@ public class TypeConversion {
 		assert o != null;
 		if(o instanceof URI) {
 			log.debug("instanceof URI");
-			return Node.createURI(((URI)o).toString());
+			return NodeFactory.createURI(((URI)o).toString());
 		}
 		
 		if(o instanceof String) {
 			// plain literal
 			log.debug("instanceof String");
-			return Node.createLiteral((String)o, null, false);
+			return NodeFactory.createLiteral((String)o, null, false);
 		}
 		
 		if(o instanceof PlainLiteral) {
 			// plain literal
 			log.debug("instanceof String");
-			return Node.createLiteral(((PlainLiteral)o).getValue(), null, false);
+			return NodeFactory.createLiteral(((PlainLiteral)o).getValue(), null, false);
 		}
 		
 		if(o instanceof DatatypeLiteral) {
@@ -138,14 +139,14 @@ public class TypeConversion {
 			// the language (middle part parameter) has to be null
 			// the RDF specification says it must not be set!
 			// (this is left in JENA because of backward compatibility)
-			return Node.createLiteral(((DatatypeLiteral)o).getValue(), null, new GeneralDataType(
+			return NodeFactory.createLiteral(((DatatypeLiteral)o).getValue(), null, new GeneralDataType(
 			        ((DatatypeLiteral)o).getDatatype() + ""));
 		}
 		
 		if(o instanceof LanguageTagLiteral) {
 			// langtag
 			log.debug("instanceof LanguageTagLiteral");
-			return Node.createLiteral(((LanguageTagLiteral)o).getValue(),
+			return NodeFactory.createLiteral(((LanguageTagLiteral)o).getValue(),
 			        ((LanguageTagLiteral)o).getLanguageTag(), null);
 		}
 		
@@ -156,7 +157,7 @@ public class TypeConversion {
 			        + o.getClass();
 			AnonId anonId = new AnonId(((AbstractBlankNodeImpl)o).getUnderlyingBlankNode()
 			        .toString());
-			Node jenaNode = Node.createAnon(anonId);
+			Node jenaNode = NodeFactory.createAnon(anonId);
 			return jenaNode;
 		}
 		

@@ -9,6 +9,9 @@ import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFLanguages;
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.Reasoning;
@@ -43,6 +46,8 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.impl.RDFReaderFImpl;
+import com.hp.hpl.jena.rdf.model.impl.RDFWriterFImpl;
 import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 import com.hp.hpl.jena.shared.BadURIException;
 
@@ -78,11 +83,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 	 * @param reasoning never null
 	 */
 	public ModelImplJena(URI contextURI, Reasoning reasoning) {
-		this.contextURI = contextURI;
-		this.reasoning = reasoning;
-		this.jenaModel = ModelFactory.createDefaultModel();
-		applyReasoning(this.reasoning);
-		org.openjena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
+		this(contextURI, ModelFactory.createDefaultModel(), reasoning);
 	}
 	
 	/**
@@ -104,6 +105,13 @@ public class ModelImplJena extends AbstractModel implements Model {
 		this.reasoning = reasoning;
 		// re-use
 		this.jenaModel = jenaModel;
+		
+		//wires RIOT readers/writers into Jena
+		org.apache.jena.riot.RIOT.init();
+		// Fix for Jena lowercase language name "N-Triples":
+        RDFReaderFImpl.setBaseReaderClassName("N-Triples", com.hp.hpl.jena.rdf.model.impl.NTripleReader.class.getName()) ;
+        RDFWriterFImpl.setBaseWriterClassName("N-Triples", com.hp.hpl.jena.rdf.model.impl.NTripleWriter.class.getName());
+        
 		applyReasoning(reasoning);
 	}
 	
@@ -141,7 +149,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 		// this.modificationCount++;
 		// should be unique across models
 		
-		return new JenaBlankNode(com.hp.hpl.jena.graph.Node.createAnon());
+		return new JenaBlankNode(com.hp.hpl.jena.graph.NodeFactory.createAnon());
 	}
 	
 	@Override
@@ -149,7 +157,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 		// this.modificationCount++;
 		// should be unique across models
 		AnonId anonid = AnonId.create(id);
-		return new JenaBlankNode(com.hp.hpl.jena.graph.Node.createAnon(anonid));
+		return new JenaBlankNode(com.hp.hpl.jena.graph.NodeFactory.createAnon(anonid));
 	}
 	
 	/*
@@ -373,11 +381,10 @@ public class ModelImplJena extends AbstractModel implements Model {
 	
 	@Override
 	public void readFrom(Reader r) {
-		assertModel();
-		this.jenaModel.read(r, "", "RDF/XML");
+		readFrom(r, Syntax.RdfXml);
 	}
 	
-	/**
+	/*
 	 * Might need this code fragment:
 	 * 
 	 * FileOutputStream fos = new FileOutputStream(tmpFile); OutputStreamWriter
@@ -389,29 +396,21 @@ public class ModelImplJena extends AbstractModel implements Model {
 	 */
 	@Override
 	public void readFrom(Reader reader, Syntax syntax) {
-		assertModel();
-		if(syntax == Syntax.RdfXml) {
-			readFrom(reader);
-		} else if(syntax == Syntax.Ntriples) {
-			this.jenaModel.read(reader, "", "N-TRIPLE");
-		} else if(syntax == Syntax.Turtle) {
-			this.jenaModel.read(reader, "", "N3");
-		} else if(syntax == Syntax.Trix) {
-			throw new IllegalArgumentException("Not implemented in Jena");
-		}
+		readFrom(reader, syntax, "");
 	}
 	
 	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI) {
 		assertModel();
-		if(syntax == Syntax.RdfXml) {
-			readFrom(reader);
-		} else if(syntax == Syntax.Ntriples) {
-			this.jenaModel.read(reader, baseURI, "N-TRIPLE");
-		} else if(syntax == Syntax.Turtle) {
-			this.jenaModel.read(reader, baseURI, "N3");
-		} else if(syntax == Syntax.Trix) {
-			throw new IllegalArgumentException("Not implemented in Jena");
+		
+		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
+
+		if (jenaLang != null) {
+			this.jenaModel.read(reader, baseURI, jenaLang.getName());
+		}
+		else {
+			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
+					+ " not implemented in Jena");
 		}
 	}
 	
@@ -433,41 +432,52 @@ public class ModelImplJena extends AbstractModel implements Model {
 	public void writeTo(Writer writer, Syntax syntax) {
 		assertModel();
 		registerNamespaces(this.jenaModel);
-		org.openjena.riot.RIOT.init(); //wires RIOT readers/writers into Jena
-		
-		if(syntax == Syntax.RdfXml) {
-			this.jenaModel.write(writer, "RDF/XML", "");
-		} else if(syntax == Syntax.Ntriples) {
-			this.jenaModel.write(writer, "N-TRIPLE", "");
-		} else if(syntax == Syntax.Turtle) {
-			if(this.jenaModel.size() < 1000) {
-				log.debug("Model is small enough for pretty-print.");
-				this.jenaModel.write(writer, "N3-PP", "");
-			} else {
-				this.jenaModel.write(writer, "N3", "");
-			}
-		} else if(syntax == Syntax.RdfJson) {
-			this.jenaModel.write(writer, "RDF/JSON", "");
-		} else {
-			throw new IllegalArgumentException(syntax + " is not implemented in Jena");
+
+		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
+
+		if (jenaLang != null) {
+			this.jenaModel.write(writer, jenaLang.getName());
+		}
+		else {
+			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
+					+ " not implemented in Jena");
 		}
 	}
 	
 	@Override
 	public void dump() {
-		assertModel();
-		this.jenaModel.write(System.out, "N3-PP", "");
+		writeTo(System.out, Syntax.Turtle);
 	}
 	
 	@Override
 	public void readFrom(InputStream in) throws IOException, ModelRuntimeException {
-		assertModel();
-		this.jenaModel.read(in, "", "RDF/XML");
+		readFrom(in, Syntax.RdfXml);
 	}
 	
 	@Override
-	public void writeTo(OutputStream out) throws IOException, ModelRuntimeException {
+	public void readFrom(InputStream in, Syntax syntax) throws IOException, ModelRuntimeException {
+		readFrom(in, syntax, "");
+	}
+
+	@Override
+	public void readFrom(InputStream in, Syntax syntax, String baseURI) throws IOException,
+	        ModelRuntimeException {
 		assertModel();
+		assert in != null;
+		
+		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
+
+		if (jenaLang != null) {
+			this.jenaModel.read(in, baseURI, jenaLang.getName());
+		}
+		else {
+			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
+					+ " not implemented in Jena");
+		}
+	}
+
+	@Override
+	public void writeTo(OutputStream out) throws ModelRuntimeException {
 		writeTo(out, Syntax.RdfXml);
 	}
 	
@@ -478,58 +488,18 @@ public class ModelImplJena extends AbstractModel implements Model {
 	 * @throws ModelRuntimeException for errors using the model
 	 */
 	@Override
-	public void writeTo(OutputStream out, Syntax syntax) throws ModelRuntimeException, IOException {
+	public void writeTo(OutputStream out, Syntax syntax) throws ModelRuntimeException {
 		assertModel();
-		if(syntax == Syntax.RdfXml) {
-			this.jenaModel.write(out, "RDF/XML", "");
-		} else if(syntax == Syntax.Ntriples) {
-			this.jenaModel.write(out, "N-TRIPLE", "");
-		} else if(syntax == Syntax.Turtle) {
-			if(this.jenaModel.size() < 1000) {
-				log.debug("Model is small enough for pretty-print.");
-				this.jenaModel.write(out, "N3-PP", "");
-			} else {
-				this.jenaModel.write(out, "N3", "");
-			}
-		} else {
-			throw new SyntaxNotSupportedException(syntax + " is not implemented in Jena");
+		
+		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
+
+		if (jenaLang != null) {
+			RDFDataMgr.write(out, this.jenaModel, jenaLang);
 		}
-	}
-	
-	private static String getJenaSyntaxName(Syntax syntax) {
-		if(syntax == Syntax.Ntriples)
-			return "N-TRIPLE";
-		if(syntax == Syntax.Turtle)
-			return "N3";
-		else if(syntax == Syntax.RdfXml)
-			return "RDF/XML";
-		else
-			return null;
-	}
-	
-	@Override
-	public void readFrom(InputStream in, Syntax syntax) throws IOException, ModelRuntimeException {
-		assertModel();
-		assert in != null;
-		String jenaSyntax = getJenaSyntaxName(syntax);
-		if(jenaSyntax == null)
-			throw new SyntaxNotSupportedException("Could not process syntax named <"
-			        + syntax.getName() + "> directly, maybe the underlying Jena can...");
-		
-		this.jenaModel.read(in, "", jenaSyntax);
-	}
-	
-	@Override
-	public void readFrom(InputStream in, Syntax syntax, String baseURI) throws IOException,
-	        ModelRuntimeException {
-		assertModel();
-		assert in != null;
-		String jenaSyntax = getJenaSyntaxName(syntax);
-		if(jenaSyntax == null)
-			throw new SyntaxNotSupportedException("Could not process syntax named <"
-			        + syntax.getName() + "> directly, maybe the underlying Jena can...");
-		
-		this.jenaModel.read(in, baseURI, jenaSyntax);
+		else {
+			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
+					+ " not implemented in Jena");
+		}
 	}
 	
 	@Override

@@ -8,7 +8,7 @@
  * 
  * Further project information at http://semanticweb.org/wiki/RDF2Go
  */
-package org.ontoware.rdf2go.impl.jena29.osgi;
+package org.ontoware.rdf2go.impl.jena.osgi;
 
 import java.util.Hashtable;
 
@@ -42,7 +42,7 @@ public class Activator implements BundleActivator {
 		
 		this.factory = new ModelFactoryImpl();
 		this.registration = bc.registerService(ModelFactory.class.getName(), this.factory,
-		        new Hashtable<Object,Object>());
+		        new Hashtable<String, Object>());
 	}
 	
 	/**

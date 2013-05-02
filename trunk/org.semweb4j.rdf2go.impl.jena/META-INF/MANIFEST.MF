@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: RDF2GO adapter for Jena 2.9
+Bundle-Name: RDF2GO adapter for Jena
 Bundle-SymbolicName: org.semweb4j.rdf2go.impl.jena
-Bundle-Version: 4.8.1
+Bundle-Version: 4.8.2
 Bundle-Localization: plugin
 Export-Package: org.ontoware.rdf2go.impl,
  org.ontoware.rdf2go.impl.jena,

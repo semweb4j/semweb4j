@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2013.02.05</version>
+		<version>2013.05.02</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.8.2</version>
+	<version>4.8.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDFReactor code generator</name>
@@ -83,13 +83,6 @@
 	</repositories>
 
 	<build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>1.0-beta-6</version>
-            </extension>
-        </extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

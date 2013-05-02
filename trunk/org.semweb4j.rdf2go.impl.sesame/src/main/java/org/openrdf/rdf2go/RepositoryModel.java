@@ -6,13 +6,12 @@
 package org.openrdf.rdf2go;
 
 import info.aduna.iteration.CloseableIteration;
+import info.aduna.iteration.Iterations;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,9 +72,6 @@ import org.slf4j.LoggerFactory;
  */
 public class RepositoryModel extends AbstractLockingModel implements Model {
 	
-	/**
-     * 
-     */
 	private static final long serialVersionUID = 1466969214320765429L;
 	
 	private static Logger log = LoggerFactory.getLogger(RepositoryModel.class);
@@ -98,8 +94,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	private org.openrdf.model.URI openRdfContext;
 	
-	private boolean autocommitBeforeLock;
-	
 	public RepositoryModel(Repository repository) throws ModelRuntimeException {
 		if(repository == null) {
 			throw new IllegalArgumentException("Repository cannot be null");
@@ -109,7 +103,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		init();
 	}
 	
-	// FIXME context URI is not used
 	public RepositoryModel(URI context, Repository repository) throws ModelRuntimeException {
 		if(repository == null) {
 			throw new IllegalArgumentException("Repository cannot be null");
@@ -138,8 +131,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		return this.openRdfContext;
 	}
 	
-	private Throwable caller;
-	
 	@Override
 	public Model open() {
 		// establish a connection only if none had been established
@@ -148,15 +139,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 		try {
 			this.connection = this.repository.getConnection();
-			this.connection.setAutoCommit(true);
-			if(log.isDebugEnabled()) {
-				try {
-					throw new RuntimeException("Opening model");
-				} catch(RuntimeException e) {
-					this.caller = e;
-					this.caller.fillInStackTrace();
-				}
-			}
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -187,14 +169,17 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public BlankNode createBlankNode() {
 		return new OpenrdfBlankNode(this.valueFactory.createBNode());
 	}
 	
+	@Override
 	public BlankNode createBlankNode(String internalID) {
 		return new OpenrdfBlankNode(this.valueFactory.createBNode(internalID));
 	}
 	
+	@Override
 	public boolean isValidURI(String uriString) {
 		boolean isValid = true;
 		try {
@@ -246,8 +231,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			try {
 				try {
 					// remove all
@@ -261,7 +245,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.setAutoCommit(autocommitBefore);
+				this.connection.commit();
 			}
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -277,11 +261,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			// remove all
 			this.connection.clear(this.openRdfContext);
-			this.connection.setAutoCommit(autocommitBefore);
+			this.connection.commit();
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
 		}
@@ -296,8 +279,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			try {
 				try {
 					// add
@@ -311,7 +293,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.setAutoCommit(autocommitBefore);
+				this.connection.commit();
 			}
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -339,6 +321,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public ClosableIterator<org.ontoware.rdf2go.model.Statement> findStatements(
 	        ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object)
 	        throws ModelRuntimeException {
@@ -380,6 +363,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public ClosableIterable<Statement> sparqlDescribe(String query) throws ModelRuntimeException {
 		assertModel();
 		try {
@@ -397,6 +381,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public ClosableIterable<Statement> sparqlConstruct(String query) throws ModelRuntimeException {
 		assertModel();
 		try {
@@ -460,11 +445,13 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public QueryResultTable sparqlSelect(String queryString) throws ModelRuntimeException {
 		assertModel();
 		return new RepositoryQueryResultTable(queryString, this.connection);
 	}
 	
+	@Override
 	public ClosableIterator<Statement> iterator() {
 		assertModel();
 		try {
@@ -495,6 +482,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public URI getContextURI() {
 		if(this.context.toString().equals(DEFAULT_CONTEXT)) {
 			return null;
@@ -503,6 +491,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public synchronized boolean isLocked() {
 		return this.locked;
 	}
@@ -511,6 +500,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	 * Locking a RepositoryModel disables auto-commit mode and starts a new
 	 * transaction, which is left open until this RepositoryModel is unlocked.
 	 */
+	@Override
 	public synchronized void lock() throws LockException {
 		if(isLocked()) {
 			return;
@@ -519,11 +509,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		try {
 			// mark this model as locked
 			this.locked = true;
-			
-			// disable auto-commit
-			this.autocommitBeforeLock = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
-			
+
 			// flush everything that has not been commited yet
 			this.connection.commit();
 		} catch(RepositoryException e) {
@@ -535,6 +521,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	 * Ends the locking status, committing all changed that have been made since
 	 * this RepositoryModel was locked and switching back to auto-commit mode.
 	 */
+	@Override
 	public synchronized void unlock() {
 		if(!isLocked()) {
 			return;
@@ -544,9 +531,6 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			
 			// commit all changes
 			this.connection.commit();
-			
-			// re-enable auto commit mode
-			this.connection.setAutoCommit(this.autocommitBeforeLock);
 			
 			// unlock this model
 			this.locked = false;
@@ -570,6 +554,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public void dump() {
 		assertModel();
 		Iterator<Statement> iterator = iterator();
@@ -581,6 +566,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public void readFrom(InputStream stream) throws IOException, ModelRuntimeException {
 		readFrom(stream, RDFFormat.RDFXML, "");
 	}
@@ -631,10 +617,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public void readFrom(Reader reader) throws IOException, ModelRuntimeException {
 		readFrom(reader, RDFFormat.RDFXML, "");
 	}
 	
+	@Override
 	public void readFrom(Reader reader, Syntax syntax) throws IOException, ModelRuntimeException {
 		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
 		if(format == null) {
@@ -658,6 +646,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public void writeTo(OutputStream stream) throws IOException, ModelRuntimeException {
 		writeTo(stream, Syntax.RdfXml);
 	}
@@ -670,10 +659,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		writeTo(rdfWriter);
 	}
 	
+	@Override
 	public void writeTo(Writer writer) throws ModelRuntimeException {
 		writeTo(writer, Syntax.RdfXml);
 	}
 	
+	@Override
 	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException {
 		assertModel();
 		RDFWriter rdfWriter = Rio.createWriter(getRDFFormat(syntax), writer);
@@ -718,10 +709,20 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		assertModel();
-		try {
-			this.connection.setAutoCommit(autocommit);
-		} catch(RepositoryException e) {
-			throw new RuntimeException(e);
+		
+		if (autocommit == false) {
+			try {
+				this.connection.begin();
+			} catch (RepositoryException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		else {
+			try {
+				this.connection.commit();
+			} catch(RepositoryException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 	
@@ -732,14 +733,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public void finalize() throws Throwable {
 		try {
 			if(this.connection.isOpen()) {
-				if(this.caller != null) {
-					StringWriter sw = new StringWriter();
-					this.caller.printStackTrace(new PrintWriter(sw));
-					this.logger.warn(this.getClass().getName() + " not closed, closing now. Cause "
-					        + sw.getBuffer().toString());
-				} else {
-					this.logger.warn(this.getClass().getName() + " not closed, closing now.");
-				}
+				this.logger.warn(this.getClass().getName() + " not closed, closing now.");
 				close();
 			}
 		} finally {
@@ -757,6 +751,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public boolean isIsomorphicWith(Model other) {
 		ClosableIterator<Statement> it = other.iterator();
 		Diff diff = this.getDiff(it);
@@ -775,8 +770,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			boolean autocommitBefore = this.connection.isAutoCommit();
-			this.connection.setAutoCommit(false);
+			this.connection.begin();
 			try {
 				try {
 					// remove
@@ -799,7 +793,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.setAutoCommit(autocommitBefore);
+				this.connection.commit();
 			}
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -807,6 +801,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		
 	}
 	
+	@Override
 	public String getNamespace(String prefix) {
 		assertModel();
 		try {
@@ -816,13 +811,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public Map<String,String> getNamespaces() {
 		assertModel();
 		Map<String,String> nsMap = new HashMap<String,String>();
 		try {
 			RepositoryResult<Namespace> openrdfMap = this.connection.getNamespaces();
 			openrdfMap.enableDuplicateFilter();
-			List<Namespace> openrdfList = openrdfMap.asList();
+			List<Namespace> openrdfList =  Iterations.asList(openrdfMap);
 			for(Namespace openrdfNamespace : openrdfList) {
 				nsMap.put(openrdfNamespace.getPrefix(), openrdfNamespace.getName());
 			}
@@ -832,6 +828,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public void removeNamespace(String prefix) {
 		assertModel();
 		try {
@@ -841,6 +838,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		}
 	}
 	
+	@Override
 	public void setNamespace(String prefix, String namespaceURI) throws IllegalArgumentException {
 		assertModel();
 		try {

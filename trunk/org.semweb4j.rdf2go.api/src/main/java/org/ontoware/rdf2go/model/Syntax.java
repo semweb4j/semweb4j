@@ -47,6 +47,8 @@ public class Syntax {
 		SYNTAXES.add(Trig);
 		SYNTAXES.add(Trix);
 		SYNTAXES.add(Turtle);
+		SYNTAXES.add(RdfJson);
+		SYNTAXES.add(JsonLd);
 	}
 	
 	/**
@@ -67,7 +69,7 @@ public class Syntax {
 	/**
 	 * RDF syntax N-Triples.
 	 * 
-	 * @see <a href="http://www.w3.org/2001/sw/RDFCore/ntriples/">N-Triples
+	 * @see <a href="http://www.w3.org/TR/rdf-testcases/#ntriples">N-Triples
 	 *      syntax</a>
 	 */
 	public static final Syntax Ntriples = new Syntax("ntriples", "text/plain", ".nt", true);
@@ -75,9 +77,9 @@ public class Syntax {
 	/**
 	 * RDF syntax N-Quads.
 	 * 
-	 * @see <a href="http://sw.deri.org/2008/07/n-quads/">N-Quads syntax</a>
+	 * @see <a href="http://www.w3.org/TR/n-quads/">N-Quads syntax</a>
 	 */
-	public static final Syntax Nquads = new Syntax("nquads", "text/x-nquads", ".nq", true);
+	public static final Syntax Nquads = new Syntax("nquads", "application/n-quads", ".nq", true);
 	
 	/**
 	 * RDF syntax TriX.
@@ -95,7 +97,28 @@ public class Syntax {
 	 *      syntax</a>
 	 */
 	public static final Syntax Trig = new Syntax("trig", "application/x-trig", ".trig", true);
-	
+
+	/**
+	 * RDF syntax RDF/JSON.
+	 * 
+	 * @see <a
+	 *      href="http://docs.api.talis.com/platform-api/output-types/rdf-json">RDF/JSON
+	 *      syntax</a>
+	 * @see <a href=
+	 *      "https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-json/index.html#>RDF/JSON
+	 *      syntax at W3C</a>
+	 */
+	public static final Syntax RdfJson = new Syntax("rdfjson", "application/rdf+json", ".rj", true);
+
+	/**
+	 * RDF syntax JSON-LD.
+	 * 
+	 * @see <a
+	 *      href="http://json-ld.org/spec/latest/json-ld-syntax/">RDF/JSON
+	 *      syntax</a>
+	 */
+	public static final Syntax JsonLd = new Syntax("jsonld", "application/ld+json", ".jsonld", true);
+
 	/**
 	 * register a new RDF Syntax you want to have available throughout your
 	 * application.

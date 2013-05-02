@@ -5,12 +5,16 @@
  */
 package org.openrdf.rdf2go;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.ModelFactory;
+import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.AbstractModelTest;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
+import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.openrdf.model.Resource;
@@ -122,6 +126,37 @@ public class RepositoryModelTest extends AbstractModelTest {
 		model1.close();
 		model2.close();
 	}
+	
+	/*
+	 * Non-Javadoc:
+	 * Overriding a parent test to set the specific set of syntaxes to be tested
+	 * with Semsame (different from Jena).
+	 */
+	@Override
+	@Test
+	public void testReadFromSyntaxFiles() throws ModelRuntimeException, IOException {
+		// Set the syntaxes to be tested specifically for Sesame:
+		// Sesame currently supports all:
+		super.readerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle, Syntax.RdfJson};
+		
+		super.testReadFromSyntaxFiles();
+	}
+
+	/*
+	 * Non-Javadoc:
+	 * Overriding a parent test to set the specific set of syntaxes to be tested
+	 * with Semsame (different from Jena).
+	 */
+	@Override
+	@Test
+	public void testWriteToSyntaxFiles() throws ModelRuntimeException, IOException {
+		// Set the syntaxes to be tested specifically for Sesame:
+		// Sesame currently supports all:
+		super.writerSyntaxes = Syntax.collection().toArray(new Syntax[Syntax.collection().size()]);
+		
+		super.testReadFromSyntaxFiles();
+	}
+	
 	// @Override
 	// public void testRdfsReasoning()
 	// throws ReasoningNotSupportedException, ModelRuntimeException
