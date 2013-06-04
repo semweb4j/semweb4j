@@ -3,7 +3,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>2013.05.02</version>
+	<version>2013.05.03-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -551,9 +551,9 @@
 
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/dist-4.8.3/org.semweb4j.parent</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/dist-4.8.3/org.semweb4j.parent</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent/tags/dist-4.8.3/org.semweb4j.parent</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent</url>
 	</scm>
 
 </project>

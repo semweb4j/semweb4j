@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2013.05.02</version>
+		<version>2013.05.03-SNAPSHOT</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.generator</artifactId>
-	<version>4.8.3</version>
+	<version>4.8.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDFReactor code generator</name>
