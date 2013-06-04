@@ -8,16 +8,11 @@
  */
 package org.ontoware.rdf2go.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -1021,7 +1016,7 @@ public abstract class AbstractModelTest extends TestCase {
 	 * unwanted differences.
 	 */
 	@Test
-	public void testWriteToSyntaxFiles() throws ModelRuntimeException, IOException {
+	public void testWriteToSyntaxFiles() throws IOException {
 		// Get a model as test data:
 		Model test = TestData.loadFoafBuffered(getModelFactory());
 
@@ -1032,14 +1027,12 @@ public abstract class AbstractModelTest extends TestCase {
 			final Path FILE = Files.createTempFile("foaf." + rand, syntax.getFilenameExtension());
 			try {
 				test.writeTo(Files.newOutputStream(FILE), syntax);
+				test.writeTo(System.out, syntax);
 	
 				Model model = getModelFactory().createModel().open();
 				model.readFrom(Files.newInputStream(FILE), syntax);
 	
 				assertTrue("The model written with with syntax " + syntax.getName() + " was not not the same after parsing its written form from the file.", model.isIsomorphicWith(test));
-			}
-			catch (ModelRuntimeException e) {
-				throw e;
 			}
 			finally {
 				Files.delete(FILE);

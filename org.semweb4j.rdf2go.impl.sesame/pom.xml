@@ -38,7 +38,7 @@
 	</licenses>
 
 	<properties>
-		<sesame.version>2.7.0</sesame.version>
+		<sesame.version>2.7.1</sesame.version>
 	</properties>
 
 	<dependencies>
@@ -92,13 +92,6 @@
 			<artifactId>sesame-rio-rdfjson</artifactId>
 			<version>${sesame.version}</version>
 		</dependency>
-		
-		<!--
-			If present, DEBUG logging is compiled away <dependency>
-			<groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId>
-			<version>1.3.0</version> <scope>provided</scope> </dependency>
-		-->
-	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
