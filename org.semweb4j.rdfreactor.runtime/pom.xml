@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.runtime</artifactId>
-	<version>4.8.3-SNAPSHOT</version>
+	<version>4.8.3</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDFReactor runtime library</name>

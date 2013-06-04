@@ -551,9 +551,9 @@
 
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/${svn.name}</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/${svn.name}</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/${svn.name}</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/dist-4.8.3/org.semweb4j.parent</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/dist-4.8.3/org.semweb4j.parent</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent/tags/dist-4.8.3/org.semweb4j.parent</url>
 	</scm>
 
 </project>

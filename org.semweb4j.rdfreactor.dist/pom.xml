@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdfreactor.dist</artifactId>
-	<version>4.8.3-SNAPSHOT</version>
+	<version>4.8.3</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j RDFReactor distribution</name>
