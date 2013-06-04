@@ -151,10 +151,11 @@ public class RepositoryModelTest extends AbstractModelTest {
 	@Test
 	public void testWriteToSyntaxFiles() throws ModelRuntimeException, IOException {
 		// Set the syntaxes to be tested specifically for Sesame:
-		// Sesame currently supports all:
-		super.writerSyntaxes = Syntax.collection().toArray(new Syntax[Syntax.collection().size()]);
+		super.writerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle, Syntax.RdfJson};
+		// FIXME sesame does not recognize our mime type for NQuads yet:
+		//super.writerSyntaxes =  Syntax.collection().toArray(new Syntax[0]);
 		
-		super.testReadFromSyntaxFiles();
+		super.testWriteToSyntaxFiles();
 	}
 	
 	// @Override
