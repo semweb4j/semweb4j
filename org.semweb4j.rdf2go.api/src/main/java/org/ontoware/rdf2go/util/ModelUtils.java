@@ -19,8 +19,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.RDF2Go;
@@ -29,9 +31,12 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
+import org.ontoware.rdf2go.model.impl.StatementImpl;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.Node;
 import org.ontoware.rdf2go.model.node.Resource;
+import org.ontoware.rdf2go.model.node.URI;
+import org.ontoware.rdf2go.model.node.impl.URIImpl;
 
 
 /**
@@ -359,5 +364,63 @@ public class ModelUtils {
 			it.close();
 		}
 		writeToFile(merged, out, outSyntax);
+	}
+	
+	/**
+	 * Replace all BlankNodes as Subjects or Objects from the Statements in the
+	 * given RDF2Go model. The process is also known as Skolemization.
+	 * 
+	 * @author Max Voelkel
+	 * 
+	 * @param m de-anonymise this model
+	 */
+	public static void deanonymize(Model m) {
+		long counter = 0;
+		Map<BlankNode,URI> replacement = new HashMap<BlankNode,URI>();
+		Set<Statement> badStatements = new HashSet<Statement>();
+		Set<Statement> goodStatements = new HashSet<Statement>();
+		for (Statement s : m) {
+			org.ontoware.rdf2go.model.node.Resource subject = s.getSubject();
+			if(s.getSubject() instanceof BlankNode) {
+				badStatements.add(s);
+				subject = bnodeToUri((BlankNode)subject, replacement, counter);
+				counter++;
+			}
+			Node object = s.getObject();
+			if(object instanceof BlankNode) {
+				badStatements.add(s);
+				object = bnodeToUri((BlankNode)object, replacement, counter);
+				counter++;
+			}
+			goodStatements.add(new StatementImpl(m.getContextURI(), subject, s.getPredicate(),
+			        object));
+		}
+		for(Statement s : badStatements)
+			m.removeStatement(s);
+		for(Statement s : goodStatements)
+			m.addStatement(s);
+		
+	}
+	
+	/**
+	 * Generate a unique URI for a BlankNode and put the BlankNode/URI pair into
+	 * the given map.
+	 * 
+	 * @author Max Voelkel
+	 * 
+	 * @param blankNode - generate a URI for this BlankNode
+	 * @param replacement - Map of BlankNode/URI pairs
+	 * @param counter
+	 * @return URI generated for the BlankNode
+	 */
+	private static URI bnodeToUri(BlankNode blankNode, Map<BlankNode,URI> replacement, long counter) {
+		URI result = replacement.get(blankNode);
+		if(result == null) {
+			result = new URIImpl("blank://" + counter);
+			// TODO BlankNode identity might be too weak
+			replacement.put(blankNode, result);
+		}
+		
+		return result;
 	}
 }
