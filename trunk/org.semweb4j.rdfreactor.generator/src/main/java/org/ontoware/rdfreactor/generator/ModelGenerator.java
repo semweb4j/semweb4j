@@ -13,6 +13,7 @@ import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.BlankNode;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.Variable;
+import org.ontoware.rdf2go.util.ModelUtils;
 import org.ontoware.rdf2go.vocabulary.OWL;
 import org.ontoware.rdf2go.vocabulary.RDF;
 import org.ontoware.rdf2go.vocabulary.RDFS;
@@ -64,7 +65,7 @@ public class ModelGenerator {
         
         // process
         log.debug("de-anonymizing (replacing bnodes with random uris");
-        Utils.deanonymize(m);
+        ModelUtils.deanonymize(m);
         
         // analysis (triggers also inferencing)
         List<? extends Class> rdfclasses = Class.getAllInstance_as(m).asList();
@@ -187,7 +188,7 @@ public class ModelGenerator {
         m.addAll(schemaDataModel.iterator());
         
         log.info("Skolemisation (replacing all blank nodes with random URIs)");
-        Utils.deanonymize(m);
+        ModelUtils.deanonymize(m);
         
         log.info("Add mapping from OWL to RDF");
         // add mapping from OWL to RDF
@@ -299,7 +300,7 @@ public class ModelGenerator {
         // Model m = new ModelImplJena24(null, jenaModel);
         
         log.debug("de-anonymizing");
-        Utils.deanonymize(m);
+        ModelUtils.deanonymize(m);
         
         log.debug("after inferencing, found " + m.size() + " statements");
         
