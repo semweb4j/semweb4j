@@ -796,6 +796,10 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	@Override
 	public boolean addModel(Model model) {
+		for (String prefix : model.getNamespaces().keySet()) {
+			this.dataset.getDefaultModel().setNsPrefix(prefix, model.getNamespace(prefix));
+		}
+			
 		if (model instanceof ModelImplJena) {
 			this.dataset.getNamedModel(model.getContextURI().toString()).add(
 					((com.hp.hpl.jena.rdf.model.Model) model
@@ -809,6 +813,10 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 
 	@Override
 	public void addModel(Model model, URI contextURI) {
+		for (String prefix : model.getNamespaces().keySet()) {
+			this.dataset.getDefaultModel().setNsPrefix(prefix, model.getNamespace(prefix));
+		}
+		
 		if (model instanceof ModelImplJena) {
 			this.dataset.getNamedModel(contextURI.toString()).add(
 					((com.hp.hpl.jena.rdf.model.Model) model
