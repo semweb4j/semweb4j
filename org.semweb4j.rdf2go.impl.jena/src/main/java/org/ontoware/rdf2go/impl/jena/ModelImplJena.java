@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFLanguages;
+import org.apache.jena.riot.RDFWriterRegistry;
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.Reasoning;
@@ -384,16 +385,6 @@ public class ModelImplJena extends AbstractModel implements Model {
 		readFrom(r, Syntax.RdfXml);
 	}
 	
-	/*
-	 * Might need this code fragment:
-	 * 
-	 * FileOutputStream fos = new FileOutputStream(tmpFile); OutputStreamWriter
-	 * osw = new OutputStreamWriter(fos, "utf8"); synchronized
-	 * (getDelegatedModel()) {
-	 * DumpUtils.addCommonPrefixesToJenaModel(jenaModel); jenaModel.write(osw,
-	 * lang, ""); } osw.close();
-	 * 
-	 */
 	@Override
 	public void readFrom(Reader reader, Syntax syntax) {
 		readFrom(reader, syntax, "");
@@ -406,7 +397,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
 
 		if (jenaLang != null) {
-			this.jenaModel.read(reader, baseURI, jenaLang.getName());
+			RDFDataMgr.read(this.jenaModel, reader, baseURI, jenaLang);
 		}
 		else {
 			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
@@ -436,7 +427,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
 
 		if (jenaLang != null) {
-			this.jenaModel.write(writer, jenaLang.getName());
+			RDFDataMgr.write(writer, this.jenaModel, RDFWriterRegistry.defaultSerialization(jenaLang));
 		}
 		else {
 			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
@@ -468,7 +459,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
 
 		if (jenaLang != null) {
-			this.jenaModel.read(in, baseURI, jenaLang.getName());
+			RDFDataMgr.read(this.jenaModel, in, baseURI, jenaLang);
 		}
 		else {
 			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
