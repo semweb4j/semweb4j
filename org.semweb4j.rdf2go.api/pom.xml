@@ -217,40 +217,11 @@
 	</build>
 
 	<dependencies>
-		<!-- OSGi -->
-		<!-- OLD VERSION: -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.eclipse</groupId> -->
-		<!-- <artifactId>osgi</artifactId> -->
-		<!-- <version>3.2.1.R32</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>org.eclipse.osgi</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- logging dependencies -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-
-		<!-- testing dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<distributionManagement>
