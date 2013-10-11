@@ -22,7 +22,7 @@ import org.ontoware.rdf2go.model.node.URI;
 
 
 /**
- * RDF2Go adapters have toi implement this interface to be able to create Models
+ * RDF2Go adapters have to implement this interface to be able to create Models
  * and ModelSets.
  * 
  * Property keys are defined in this interface (Reasoning, Storage).
@@ -69,7 +69,7 @@ public interface ModelFactory {
 	/**
 	 * Create a default in-memory ModelSet with no inferencing and the given
 	 * context URI. All statements added to this model will have this context as
-	 * the context of each statement.
+	 * the context.
 	 * 
 	 * @return a Model implementation bound to the given context URI.
 	 * @throws ModelRuntimeException if the adapter could not create the model
