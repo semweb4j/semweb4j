@@ -11,7 +11,7 @@ package org.ontoware.rdf2go.model;
 
 import java.util.Iterator;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 
 public abstract class AbstractModelChangeListener implements ModelChangedListener {

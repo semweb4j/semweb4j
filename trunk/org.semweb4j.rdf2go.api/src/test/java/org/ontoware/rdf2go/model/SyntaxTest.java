@@ -12,6 +12,7 @@
 package org.ontoware.rdf2go.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -44,12 +45,12 @@ public class SyntaxTest extends TestCase {
 	 * .
 	 */
 	public void testRegister() {
-    	int numSyntaxes = Syntax.list().size();
+    	int numSyntaxes = Syntax.collection().size();
         Syntax s = new Syntax("spargel", "application/spargel", ".spargel");
         Syntax.register(s);
         Syntax s1 = Syntax.forMimeType("application/spargel");
         assertEquals("Check if the newly registered sytax can be properly retrieved.", s, s1);
-        assertEquals("After registering a new syntax, check the overall number again.", numSyntaxes + 1,  Syntax.list().size());
+        assertEquals("After registering a new syntax, check the overall number again.", numSyntaxes + 1,  Syntax.collection().size());
 	}
 	
 	/**
@@ -91,7 +92,7 @@ public class SyntaxTest extends TestCase {
 	 */
 	public void testList() {
 		Syntax.resetFactoryDefaults();
-		List<Syntax> list = Syntax.list();
+		Collection<Syntax> list = Syntax.collection();
 		// check overall number
 		assertEquals("Check for the expected number of syntaxes", 8, list.size());
         int numSyntaxes = list.size();
