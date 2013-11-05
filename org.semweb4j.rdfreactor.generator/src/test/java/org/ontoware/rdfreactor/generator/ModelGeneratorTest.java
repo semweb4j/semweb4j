@@ -5,12 +5,12 @@ import org.ontoware.rdf2go.Reasoning;
 
 public class ModelGeneratorTest {
 
-	public static final String outdir = "./target/test-gen";
+	public static final String outdir = "target/generated-test-sources/rdfs-classes";
 
 	@Test
 	public void testGeneration() throws Exception {
-		CodeGenerator.generate("./src/test/resources/test001.n3",
-				outdir, "com.example", Reasoning.owl, true);
+		CodeGenerator.generate("src/test/resources/test001.n3",
+				outdir, "com.example.modelgeneratortest", Reasoning.owl, true);
 	}
 
 }

@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -54,10 +56,10 @@
 			<artifactId>log4j</artifactId>
 			<scope>compile</scope>
 		</dependency>
-		
+
 	</dependencies>
 
- 	<!-- to find the parent -->
+	<!-- to find the parent -->
 	<repositories>
 		<repository>
 			<id>semweb4j-repo</id>
@@ -76,6 +78,59 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdfreactor-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<configuration>
+					<schemaFile>src/test/resources/testTemplate.n3</schemaFile>
+					<packageName>com.example.templatetest</packageName>
+					<outputDirectory>${project.build.directory}/generated-test-sources/rdfs-classes</outputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>rdfs-classes</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>add-generated-test-sources</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>
+									${project.build.directory}/generated-test-sources/rdfs-classes
+								</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- To get the generated sources from RDFReactor in the compiler: Order 
+				is important, so that the build-helper gets invoked before the compiler. 
+				See bug http://jira.codehaus.org/browse/MCOMPILER-157 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-test-source</id>
+						<phase>process-test-classes</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -103,6 +158,40 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.semweb4j</groupId>
+										<artifactId>
+											rdfreactor-maven-plugin
+										</artifactId>
+										<versionRange>
+											[4.8.4-SNAPSHOT,)
+										</versionRange>
+										<goals>
+											<goal>rdfs-classes</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<distributionManagement>
