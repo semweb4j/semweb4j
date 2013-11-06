@@ -175,9 +175,7 @@
 										<artifactId>
 											rdfreactor-maven-plugin
 										</artifactId>
-										<versionRange>
-											[4.8.4-SNAPSHOT,)
-										</versionRange>
+										<versionRange>[4.8.3,)</versionRange>
 										<goals>
 											<goal>rdfs-classes</goal>
 										</goals>
