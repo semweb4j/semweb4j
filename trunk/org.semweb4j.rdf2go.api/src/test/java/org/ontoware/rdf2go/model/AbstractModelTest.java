@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -980,7 +981,7 @@ public abstract class AbstractModelTest extends TestCase {
 	public void testReadFromFileWithSyntaxArgument() throws ModelRuntimeException, IOException {
 		InputStream stream = TestData.getICALAsStream();
 		Assert.assertNotNull(stream);
-		InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+		InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
 		
 		this.model.readFrom(reader, Syntax.RdfXml);
 		

@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
@@ -51,7 +51,7 @@ public class IOUtils {
 		log.warn("reading model from " + f.getAbsoluteFile());
 		try {
 			FileInputStream fis = new FileInputStream(f);
-			Reader r = new InputStreamReader(fis, "utf8");
+			Reader r = new InputStreamReader(fis, StandardCharsets.UTF_8);
 			
 			String lang = "RDF/XML";
 			
@@ -70,8 +70,6 @@ public class IOUtils {
 		} catch(FileNotFoundException e) {
 			throw new RuntimeException("Could not find file: " + f.getAbsolutePath()
 			        + " Exception: " + e);
-		} catch(UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
 		}
 	}
 	
@@ -136,7 +134,7 @@ public class IOUtils {
 				log.error("Writing RDF/XML in UTF-8...");
 				FileOutputStream fos;
 				fos = new FileOutputStream(new File(filename));
-				OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+				OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
 				// Jena is not adding this to the XML file, when choosing UTF-8
 				// encoding
 				osw.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");

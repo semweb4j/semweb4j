@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Random;
@@ -98,17 +99,17 @@ public class SourceCodeWriter {
         sourceCodeWriter.writeModel();
     }
     
-    private JModel jm;
+    private final JModel jm;
     
-    private String methodnamePrefix;
+    private final String methodnamePrefix;
     
-    private Calendar now;
+    private final Calendar now;
     
-    private File outdir;
+    private final File outdir;
     
     private Template template;
     
-    private String templateName;
+    private final String templateName;
     
     private VelocityContext velocityContext = null;
     
@@ -140,8 +141,8 @@ public class SourceCodeWriter {
         log.debug("Free memory: " + Runtime.getRuntime().freeMemory());
         
         try {
-            this.velocityEngine.setProperty("input.encoding", "UTF-8");
-            this.velocityEngine.setProperty("output.encoding", "UTF-8");
+            this.velocityEngine.setProperty("input.encoding", StandardCharsets.UTF_8);
+            this.velocityEngine.setProperty("output.encoding", StandardCharsets.UTF_8);
             
             this.velocityEngine.setProperty("resource.loader", "class");
             this.velocityEngine.setProperty("class.resource.loader.class",
