@@ -141,8 +141,8 @@ public class SourceCodeWriter {
         log.debug("Free memory: " + Runtime.getRuntime().freeMemory());
         
         try {
-            this.velocityEngine.setProperty("input.encoding", StandardCharsets.UTF_8);
-            this.velocityEngine.setProperty("output.encoding", StandardCharsets.UTF_8);
+            this.velocityEngine.setProperty("input.encoding", StandardCharsets.UTF_8.name());
+            this.velocityEngine.setProperty("output.encoding", StandardCharsets.UTF_8.name());
             
             this.velocityEngine.setProperty("resource.loader", "class");
             this.velocityEngine.setProperty("class.resource.loader.class",
