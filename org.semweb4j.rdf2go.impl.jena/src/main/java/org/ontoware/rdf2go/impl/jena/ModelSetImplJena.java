@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -440,7 +441,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 	public void readFrom(Reader in, Syntax syntax, String baseURI)
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
-		ReaderInputStream is = new ReaderInputStream(in, "UTF8");
+		ReaderInputStream is = new ReaderInputStream(in, StandardCharsets.UTF_8);
 		readFrom(is, syntax, baseURI);
 	}
 
@@ -518,7 +519,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 	@Override
     public void writeTo(Writer writer, Syntax syntax) throws IOException,
 			ModelRuntimeException, SyntaxNotSupportedException {
-		WriterOutputStream stream = new WriterOutputStream(writer, "UTF8");
+		WriterOutputStream stream = new WriterOutputStream(writer, StandardCharsets.UTF_8);
 		writeTo(stream, syntax);
 	}
 
