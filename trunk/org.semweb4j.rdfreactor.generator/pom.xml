@@ -81,7 +81,7 @@
 			<plugin>
 				<groupId>org.semweb4j</groupId>
 				<artifactId>rdfreactor-maven-plugin</artifactId>
-				<version>${project.version}</version>
+				<version>4.8.3</version>
 				<configuration>
 					<schemaFile>src/test/resources/testTemplate.n3</schemaFile>
 					<packageName>com.example.templatetest</packageName>
