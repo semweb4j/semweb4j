@@ -81,7 +81,6 @@
 		</contributor>
 	</contributors>
 
-	<!-- to find the parent -->
 	<repositories>
 		<!-- normal versions -->
 		<repository>
@@ -112,6 +111,37 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<!-- normal versions -->
+		<pluginRepository>
+			<id>semweb4j-repo</id>
+			<name>semweb4j.org maven repository server</name>
+			<url>http://semweb4j.org/repo/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<!-- snapshots -->
+		<pluginRepository>
+			<id>semweb4j-snapshots</id>
+			<name>semweb4j.org maven SNAPSHOT repository server</name>
+			<url>http://semweb4j.org/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<!-- declare project specific properties override them in the child-poms -->
 	<properties>
