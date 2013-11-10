@@ -108,9 +108,7 @@ public class Syntax {
 	/**
 	 * RDF syntax JSON-LD.
 	 * 
-	 * @see <a
-	 *      href="http://json-ld.org/spec/latest/json-ld-syntax/">RDF/JSON
-	 *      syntax</a>
+	 * @see <a href="http://www.w3.org/TR/json-ld/">RDF/JSON syntax</a>
 	 */
 	public static final Syntax JsonLd = new Syntax("jsonld", "application/ld+json", ".jsonld", true);
 
