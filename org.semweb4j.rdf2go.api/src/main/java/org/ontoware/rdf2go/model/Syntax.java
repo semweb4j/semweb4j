@@ -101,12 +101,7 @@ public class Syntax {
 	/**
 	 * RDF syntax RDF/JSON.
 	 * 
-	 * @see <a
-	 *      href="http://docs.api.talis.com/platform-api/output-types/rdf-json">RDF/JSON
-	 *      syntax</a>
-	 * @see <a href=
-	 *      "https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-json/index.html#>RDF/JSON
-	 *      syntax at W3C</a>
+	 * @see <a href="http://www.w3.org/TR/rdf-json/">RDF/JSON syntax</a>
 	 */
 	public static final Syntax RdfJson = new Syntax("rdfjson", "application/rdf+json", ".rj", true);
 
