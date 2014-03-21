@@ -62,9 +62,9 @@ public class Syntax {
 	/**
 	 * RDF syntax Turtle.
 	 * 
-	 * @see <a href="http://www.w3.org/TeamSubmission/turtle/">Turtle syntax</a>
+	 * @see <a href="http://www.w3.org/TR/turtle/">Turtle syntax</a>
 	 */
-	public static final Syntax Turtle = new Syntax("turtle", "application/x-turtle", ".ttl", true);
+	public static final Syntax Turtle = new Syntax("turtle", "text/turtle", ".ttl", true);
 	
 	/**
 	 * RDF syntax N-Triples.
@@ -93,10 +93,10 @@ public class Syntax {
 	/**
 	 * RDF syntax TriG.
 	 * 
-	 * @see <a href="http://www4.wiwiss.fu-berlin.de/bizer/trig/">TriG
+	 * @see <a href="http://www.w3.org/TR/trig/">TriG
 	 *      syntax</a>
 	 */
-	public static final Syntax Trig = new Syntax("trig", "application/x-trig", ".trig", true);
+	public static final Syntax Trig = new Syntax("trig", "application/trig", ".trig", true);
 
 	/**
 	 * RDF syntax RDF/JSON.
