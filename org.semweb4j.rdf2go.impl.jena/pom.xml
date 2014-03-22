@@ -4,13 +4,12 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>2013.10.07-SNAPSHOT</version>
+		<version>5.0.0-SNAPSHOT</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena</artifactId>
-	<version>4.8.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Semweb4j RDF2Go Jena implementation</name>
