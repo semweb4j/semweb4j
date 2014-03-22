@@ -70,9 +70,9 @@ public class SyntaxTest extends TestCase {
 	 */
 	public void testForMimeType() {
 		Syntax.resetFactoryDefaults();
-		Syntax s = Syntax.forMimeType("application/x-turtle");
+		Syntax s = Syntax.forMimeType("text/turtle");
 		assertNotNull(s);
-		assertEquals("application/x-turtle", s.getMimeType());
+		assertEquals("text/turtle", s.getMimeType());
 	}
 	
 	/**
