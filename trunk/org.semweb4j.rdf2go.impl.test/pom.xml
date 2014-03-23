@@ -8,9 +8,7 @@
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.test</artifactId>
-	<!-- Always use three digits for OSGI compliance -->
 	<packaging>jar</packaging>
 	
 	<name>Semweb4j RDF2Go tests</name>
@@ -96,20 +94,6 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
-	<properties>
-		<!-- tell the compiler we use 1.6 -->
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
-		<!-- Set UTF8 encoding everywhere -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- user access, no trailing slash -->
-		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
-		<!-- developer access, no trailing slash -->
-		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
-	</properties>
 
 	<build>
 		<plugins>
@@ -133,18 +117,6 @@
 				<version>2.8</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
-				</configuration>
-			</plugin>
-
-			<!-- set encoding to UTF8 (not something platform dependent). Compiler 
-				plugin ignores project.build.sourceEncoding. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
 

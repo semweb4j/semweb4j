@@ -14,9 +14,7 @@
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.sesame</artifactId>
-	<!--  this must be a three-digit number for OSGI MANIFEST -->
 	<packaging>jar</packaging>
 	
 	<name>Semweb4j RDF2Go Sesame implementation</name>
