@@ -8,7 +8,6 @@
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>org.semweb4j</groupId>
 	<artifactId>rdf2go.impl.jena</artifactId>
 	<packaging>jar</packaging>
 
