@@ -5,6 +5,7 @@
 	<skin>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>skin</artifactId>
+		<version>${project.version}</version>
 	</skin>
 	
 	<bannerLeft>
