@@ -135,19 +135,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- Usage: "mvn license:format" -->
-			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.5.0</version>
-				<configuration>
-					<header>HEADER.txt</header>
-					<includes>
-						<include>**/*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
