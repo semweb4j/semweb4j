@@ -1,0 +1,191 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>5.0.0</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>rdf2go.api</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>Semweb4j RDF2Go API</name>
+	<description>
+		RDF2go is an implementation-independent Java API with the design
+		goals: portability (hence the name), performance and ease of
+		implementation.
+		This project was started at FZI Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
+	</description>
+	<url>http://semweb4j.org/rdf2go</url>
+	<inceptionYear>2005</inceptionYear>
+	
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>opensource@maxvoelkel.de</email>
+			<url>http://maxvoelkel.de</url>
+			<organization>IT Consulting Dr. Max Völkel</organization>
+			<organizationUrl>http://www.maxvoelkel.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Sebastian Gerke</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/sebastian_gerke/
+			</url>
+		</developer>
+		<developer>
+			<name>Benjamin Heitmann</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<url>
+				http://www.deri.ie/about/team/member/benjamin_heitmann/
+			</url>
+		</developer>
+		<developer>
+			<id>wth</id>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Maven Manager</role>
+			</roles>
+		</developer>
+	</developers>
+	
+	<contributors>
+		<contributor>
+			<name>Leo Sauermann</name>
+			<url>http://www.dfki.uni-kl.de/~sauermann/</url>
+		</contributor>
+		<contributor>
+			<name>Antoni Mylka</name>
+		</contributor>
+		<contributor>
+			<name>Axel Rauschmayer</name>
+		</contributor>
+		<contributor>
+			<name>Jan-Gerrit Schettler-Köhler</name>
+		</contributor>
+	</contributors>
+	
+	<mailingLists>
+		<mailingList>
+			<name>semweb4j-devel</name>
+			<subscribe>
+				http://groups.google.com/group/semweb4j/subscribe
+			</subscribe>
+			<post>semweb4j@googlegroups.com</post>
+			<archive>
+				http://groups.google.com/group/semweb4j
+			</archive>
+		</mailingList>
+	</mailingLists>
+	
+	<licenses>
+		<license>
+			<name>The BSD License</name>
+			<url>
+				http://www.opensource.org/licenses/bsd-license.php
+			</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
+	<organization>
+		<name>IT-Consulting Dr. Max Völkel | Project started 2005 at FZI Forschungszentrum Informatik, www.fzi.de</name>
+		<url>http://www.maxvoelkel.de</url>
+	</organization>
+
+	<build>
+		<plugins>
+			<!-- build source packages for jars and test jars http://garbuz.com/sm/content.php/articles/maven2_deploying_sources/ -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- the eclipse plugin tries to integrate missing sources to the .classpath -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+				</configuration>
+			</plugin>
+
+			<!-- Deploy tests as a separate jar as explained at -->
+			<!-- http://maven.apache.org/guides/mini/guide-attached-tests.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+            <!-- add OSGI specific metadata to the manifest how to do this? http://maven.apache.org/guides/mini/guide-manifest.html 
+                there may be a MVN-OSGi conformant way, but unless MVN completly integrates 
+                with OSGi and the dependencies declared in maven map directly to OSGi dependencies, 
+                I would not touch this further, and just fiddle with the options. -->
+                <configuration>
+                    <finalName>
+                        ${project.groupId}.${project.build.finalName}
+                    </finalName>
+                    <archive>
+                        <manifestFile>META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>org.eclipse.osgi</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
+
+</project>
