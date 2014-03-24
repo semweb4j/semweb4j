@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -112,8 +112,6 @@
 		<!-- avoid warning about creating platform-dependent builds -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
-		<gpg.keyname>61CE17EA</gpg.keyname>
 	</properties>
 
 	<!-- default dependencies for all packages -->
@@ -611,9 +609,9 @@
 
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.0/org.semweb4j.parent</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.0/org.semweb4j.parent</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent/tags/rootbuilder-5.0.0/org.semweb4j.parent</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent</url>
 	</scm>
 	
 </project>
