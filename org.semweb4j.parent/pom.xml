@@ -268,14 +268,6 @@
 				</executions>
 			</plugin>
 
-			<!-- where to find the deployed sources -->
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<url>http://semweb4j.org/repo</url>
-				</configuration>
-			</plugin>
-
 			<!--
 				generate a DOAP file usage:
 				http://maven.apache.org/plugins/maven-doap-plugin/generate-mojo.html

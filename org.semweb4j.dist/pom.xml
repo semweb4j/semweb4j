@@ -20,6 +20,7 @@
 		<module>../org.semweb4j.parent</module>
 		<module>../org.semweb4j.rdf2go.dist</module>
 		<module>../org.semweb4j.rdfreactor.dist</module>
+		<module>../org.semweb4j.skin</module>
 	</modules>
 
 	<dependencies>
@@ -72,23 +73,6 @@
 		</plugins>	
 	</build>
 		
-	<!-- to find the parent -->
-	<repositories>
-		<repository>
-			<id>semweb4j-repo</id>
-			<name>Semweb4j.org maven repo</name>
-			<url>http://semweb4j.org/repo/</url>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<distributionManagement>
 		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
 		<site>
