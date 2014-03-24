@@ -67,7 +67,7 @@
 						</goals>
 						<configuration>
 							<finalName>
-								dist/${project.artifactId}-${version}
+								dist/${project.artifactId}-${project.version}
 							</finalName>
 							<descriptors>
 								<descriptor>
