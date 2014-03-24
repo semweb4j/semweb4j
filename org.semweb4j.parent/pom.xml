@@ -112,8 +112,6 @@
 		<!-- avoid warning about creating platform-dependent builds -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
-		<gpg.keyname>61CE17EA</gpg.keyname>
 	</properties>
 
 	<!-- default dependencies for all packages -->

@@ -29,4 +29,10 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/</url>
+	</scm>
+
 </project>
