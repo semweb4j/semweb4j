@@ -1,1 +1,0 @@
-This project is currently being merged into RDF2Go-API and will be deleted.
