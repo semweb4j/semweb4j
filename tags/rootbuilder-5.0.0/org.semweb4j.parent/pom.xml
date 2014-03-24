@@ -1,0 +1,617 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+		<relativePath />
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>parent</artifactId>
+	<version>5.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>Semweb4j parent</name>
+	<url>http://www.semweb4j.org</url>
+	<inceptionYear>2005</inceptionYear>
+	<description>This is a parent maven POM which models common settings in semweb4j.org projects.</description>
+
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/semweb4j/issues</url>
+	</issueManagement>
+
+	<mailingLists>
+		<mailingList>
+			<name>semweb4j-devel</name>
+			<subscribe>
+				http://groups.google.com/group/semweb4j/subscribe
+			</subscribe>
+			<post>semweb4j@googlegroups.com</post>
+			<archive>
+				http://groups.google.com/group/semweb4j
+			</archive>
+		</mailingList>
+	</mailingLists>
+
+	<licenses>
+		<license>
+			<name>The BSD License</name>
+			<url>
+				http://www.opensource.org/licenses/bsd-license.php
+			</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>IT-Consulting Dr. Max Völkel | Project started at FZI Forschungszentrum Informatik, www.fzi.de</name>
+		<url>http://www.maxvoelkel.de</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>opensource@maxvoelkel.de</email>
+			<url>http://www.maxvoelkel.de</url>
+			<organization>IT-Consulting Dr. Max Völkel</organization>
+			<organizationUrl>http://www.maxvoelkel.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Roland Stühmer</name>
+			<organization>FZI</organization>
+			<organizationUrl>http://www.fzi.de/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+			<name>Werner Thiemann</name>
+			<organization>blue-age</organization>
+			<organizationUrl>http://www.blue-age.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Maven Manager</role>
+			</roles>
+		</contributor>
+	</contributors>
+
+	<!-- declare project specific properties override them in the child-poms -->
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+
+		<!-- user access, no trailing slash -->
+		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
+		<!-- developer access, no trailing slash -->
+		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
+		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
+
+		<semweb4j.site>mavenrepo.fzi.de/var/www/html/semweb4j.org/site</semweb4j.site>
+
+		<!-- site inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<distributionManagement.site.id>semweb4j-site</distributionManagement.site.id>
+		<distributionManagement.site.url>scp://${semweb4j.site}</distributionManagement.site.url>
+		
+		<!-- avoid warning about creating platform-dependent builds -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<!-- default dependencies for all packages -->
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<!-- proposing dependencies and their versions -->
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- common dependencies (useful utils) -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse</groupId>
+				<artifactId>org.eclipse.osgi</artifactId>
+				<version>3.8.0.v20120529-1548</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<!-- logging dependencies -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.7.6</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+				<scope>test</scope>
+			</dependency>
+			
+
+			<!-- testing dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.1</version>
+					<configuration>
+						<mavenExecutorId>forked-path</mavenExecutorId>
+						<useReleaseProfile>false</useReleaseProfile>
+						<arguments>${arguments} -Psonatype-oss-release</arguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.17</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.8</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.5</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<target>${maven.compiler.target}</target>
+					<source>${maven.compiler.source}</source>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--
+				generate a DOAP file usage:
+				http://maven.apache.org/plugins/maven-doap-plugin/generate-mojo.html
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-doap-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<doapFile>
+								${basedir}/src/site/resources/doap.rdf
+							</doapFile>
+							<category>semantic web</category>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--
+				bind the cobertura clean goal to the general clean goal as suggested
+				in the book: Better builds with maven, p.196
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>clean</id>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+					
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>		
+		</plugins>
+	</build>
+
+	<!-- report configuration -->
+	<!-- #################### -->
+	<!-- configuration of reporting plugins to be displayed at the site -->
+	<reporting>
+		<plugins>
+			<!-- switch on only the reports we want to see -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled> <!-- save a lot of time on site generation :stuehmer -->
+				</configuration>
+
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>summary</report>
+							<report>dependency-convergence</report>
+							<report>project-team</report>
+							<report>mailing-list</report>
+							<report>dependencies</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<!-- we don't want to use the follwing -->
+							<!-- <report>cim</report> -->
+							<!-- <report>scm</report> -->
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<!-- display surefire results on site -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+
+			<!-- generates PMD and CDP reports - java sourcecode analyzer -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<targetJdk>${maven.compiler.source}</targetJdk>
+				</configuration>
+			</plugin>
+
+			<!-- creates sources as html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<!-- interlink them with the api-doc of the project -->
+					<linkJavadoc>true</linkJavadoc>
+				</configuration>
+			</plugin>
+
+			<!-- reports the defined tags -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<configuration>
+					<tagListOptions>
+						<tagClasses>
+							<tagClass>
+								<displayName>Todo Work</displayName>
+								<tags>
+									<tag>
+										<matchString>ToDo</matchString>
+										<matchType>ignoreCase</matchType>
+									</tag>
+									<tag>
+										<matchString>FIXME</matchString>
+										<matchType>exact</matchType>
+									</tag>
+									<tag>
+										<matchString>IMPROVE</matchString>
+										<matchType>exact</matchType>
+									</tag>
+									<tag>
+										<matchString>XXX</matchString>
+										<matchType>exact</matchType>
+									</tag>
+									<tag>
+										<matchString>@@</matchString>
+										<matchType>exact</matchType>
+									</tag>
+								</tags>
+							</tagClass>
+						</tagClasses>
+					</tagListOptions>
+				</configuration>
+			</plugin>
+
+			<!-- performs a jDepend metric analysis -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- analyses test coverage of the project -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- searching for bug patterns in java bytecode -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<configuration>
+					<xmlOutput>false</xmlOutput>
+					<xmlOutputDirectory>
+						target/findbugs
+					</xmlOutputDirectory>
+					<!--  High|Normal|Low|Exp|Ignore -->
+					<threshold>Normal</threshold>
+					<!--  Min|Default|Max -->
+					<effort>Default</effort>
+					<!--
+						<excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+						<includeFilterFile>findbugs-include.xml</includeFilterFile>
+						<visitors>FindDeadLocalStores,UnreadFields</visitors>
+						<omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+						<pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
+					-->
+				</configuration>
+			</plugin>
+
+			<!--
+				informs on changes between releases needs a changes.xml file or a
+				jira bugtracker
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<!-- for changes.xml file report-->
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<!-- aggregate java doc of sub-projects and provide links to several famous 
+				projects see: Better builds with maven, p.185 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<links>
+						<link>
+							http://download.oracle.com/javase/6/docs/api/
+						</link>
+						<link>
+							http://jakarta.apache.org/commons/collections/apidocs-COLLECTIONS_3_0/
+						</link>
+						<link>
+							http://jakarta.apache.org/commons/fileupload/apidocs/
+						</link>
+						<link>
+							http://jakarta.apache.org/commons/httpclient/apidocs/
+						</link>
+						<link>
+							http://jakarta.apache.org/commons/logging/apidocs/
+						</link>
+						<link>
+							http://jakarta.apache.org/commons/pool/apidocs/
+						</link>
+						<link>http://junit.sourceforge.net/javadoc/</link>
+						<link>
+							http://logging.apache.org/log4j/1.2/apidocs/
+						</link>
+						<link>
+							http://jakarta.apache.org/velocity/api/
+						</link>
+						<!-- add our own projects: rdf2go, rdfreactor, swecr -->
+						<link>
+							http://semweb4j.org/site/swecr.model/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/binstore/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/cds/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/cds.gwt/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.api/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.test/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.jena/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdf2go.impl.sesame/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdfreactor.generator/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/rdfreactor.runtime/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/semfs/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/semversion/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.api/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.simple/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.nepomuk/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.core.search/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.model/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.model.datasource/apidocs/
+						</link>
+						<link>
+							http://semweb4j.org/site/swecr.wiki/apidocs/
+						</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<!-- site inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/semweb4j.parent</url>
+		</site>
+	</distributionManagement>
+
+
+	<scm>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.0/org.semweb4j.parent</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.0/org.semweb4j.parent</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent/tags/rootbuilder-5.0.0/org.semweb4j.parent</url>
+	</scm>
+	
+</project>

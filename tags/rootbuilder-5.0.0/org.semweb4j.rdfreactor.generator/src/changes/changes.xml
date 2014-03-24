@@ -1,0 +1,207 @@
+<document>
+	<properties>
+		<title>RDFReactor code generator</title>
+		<author email="max@xam.de">Max Völkel</author>
+	</properties>
+	<body>
+
+		<release version="4.7.3" description="Maintenance release"
+			date="2010-02-11">
+			<action dev="xamde" type="update">
+				Upgrade to RDF2Go 4.7.3.
+			</action>
+			<action type="fix" issue="REAC-32" dev="xamde">
+				Fixed hasX(model,resource,value) - was ignoring the value
+			</action>
+			
+			<action type="remove" dev="xamde">
+				Removed @SuppressWarnings, as Eclipse now complains about these unnecessary SuppressWarnings.
+			</action>
+		</release>
+
+
+		<release version="4.7.0" description="Maintenance release"
+			date="2009-01-16">
+			<action dev="xamde" type="update">
+				Upgrade to RDF2Go 4.7.0.
+			</action>
+			<action type="add" issue="REAC-21" dev="xamde">
+				Added generation of X.hasPPP( O ) to return true if
+				there is a triple (x,p,o).
+			</action>
+			<action type="remove" dev="xamde">
+				Removed unnecessary cast in generated code:
+				getPPP_asNode().
+			</action>
+		</release>
+
+		<release version="4.6.2" description="Maintenance Release"
+			date="2008-09-09">
+			<action dev="xamde" type="fix" issue="REAC-29">
+				Fixed typo in generated method name: getAllInstance_as(
+				Model m ) --> getAllInstances_as( Model m )
+			</action>
+			<action dev="xamde" type="add">
+				Generate cleaner code: Added @SuppressWarnings to
+				generated static URI fields.
+			</action>
+			<action dev="xamde" type="fix" issue="REAC-30">
+				removeAllPROP() was named addAllPROP() by accident.
+			</action>
+			<action dev="xamde" type="update">
+				Code beautification - removed all Eclipse warnings
+			</action>
+		</release>
+
+		<release version="4.6.1" description="Maintenance Release"
+			date="2008-04-16">
+			<action dev="xamde" type="add">
+				Added vocabulary classes for Protege extensions and NRL
+				cardinality
+			</action>
+			<action dev="xamde" type="add">
+				Added support to read Protege and NRL cardinality
+				constraints
+			</action>
+			<action dev="xamde" type="update">
+				Switching some old code from apache.commons.logging to
+				slf4j
+			</action>
+			<action dev="xamde" type="update">
+				Classes are now written out in alphabetical order. That
+				makes it easier to verify the output.
+			</action>
+			<action dev="xamde" type="fix" issue="REAC-27">
+				Now generated classes have a method "static T
+				getInstance( model, resource )"
+			</action>
+			<action dev="xamde" type="update">
+				Switched to Velocity 1.5 for better log handling
+			</action>
+			<action dev="xamde" type="update">
+				Worked around memory consumption of Velocity by
+				re-initialising the context for each generated class.
+				This reduced maximal memory consumption from 1.5 GB down
+				to 250 MB for our largest test ontologies.
+			</action>
+		</release>
+
+		<release version="4.6.0" description="API Update"
+			date="2008-04-16">
+			<action dev="xamde" type="update">
+				Upgraded to RDF2Go 4.6.
+			</action>
+		</release>
+
+		<release version="4.5.0" description="Refactoring"
+			date="2008-01-26">
+			<action dev="xamde" type="update">
+				Refactored heavily. Added static methods for all
+				property operations, so object creation can be avoided.
+				Maybe 5% faster.
+			</action>
+			<action dev="xamde" type="update">
+				Improved overall quality of documentation
+			</action>
+			<action dev="xamde" type="add">
+				Now uses 'name' from URNs such as 'urn:ex:name'. Was
+				using the whole URI before.
+			</action>
+		</release>
+
+		<release version="4.4.15"
+			description="Dependency Update and Bugfixes" date="2008-01-21">
+			<action dev="xamde" type="update">
+				Fixed version-Id in generated code - now it's always
+				current. By setting 'svn-keywords' to 'Id'.
+			</action>
+			<action dev="xamde" type="update">
+				Migration to RDF2Go 4.5.3 and RDFReactor.runtime 4.4.15.
+			</action>
+		</release>
+
+		<release version="4.4.12" description="Dependeny update"
+			date="2007-10-29">
+			<action dev="xamde" type="fix" issue="REAC-15">
+				Now property names are unique withing the inheritance
+				hierarchy (was only within class before)
+			</action>
+		</release>
+
+		<release version="4.4.11" description="Dependeny update"
+			date="2007-10-02">
+			<action dev="xamde" type="update">
+				Migration to rdfreactor.runtime 4.4.12
+			</action>
+		</release>
+
+		<release version="4.4.10" description="Bug fixes"
+			date="2007-09-03">
+			<action dev="xamde" type="fix" issue="REAC-13">
+				Generation from OWL had a bug.
+			</action>
+		</release>
+
+		<release version="4.4.9" description="Generated code change"
+			date="2007-08-10">
+			<action dev="xamde" type="update">
+				xsd:dateTime types now result in java.util.Calendat, not
+				Date. This ensures always tim zone information, which is
+				more precise.
+			</action>
+			<action dev="xamde" type="add">Added tests.</action>
+			<action dev="xamde" type="update">
+				Removed Jena compile time dependency - now any RDF2Go
+				store with RDFS support can be used.
+			</action>
+			<action dev="xamde" type="update">
+				Migration to RDFReactor.runtime 4.4.10
+			</action>
+		</release>
+
+		<release version="4.4.8" date="2007-07-06">
+			<action dev="xamde" type="update">
+				Switched to and adapted to runtime 4.4.8.
+			</action>
+			<action dev="xamde" type="add">Added tests.</action>
+		</release>
+
+		<release version="4.4.7" date="2007-07-02">
+			<action dev="xamde" type="update">
+				Switched to runtime 4.4.7 to propagate bugfix.
+			</action>
+		</release>
+		<release version="4.4.6" date="2007-06-29">
+			<action dev="xamde" type="update">
+				Ability to handle multiple comments
+			</action>
+			<action dev="xamde" type="add">
+				Added removeAllPROPNAME and removePROPNAME to generated
+				code
+			</action>
+		</release>
+		<release version="4.4.5" date="2007-06-03">
+			<action dev="xamde" type="update">
+				Aligned with RDF2Go/RDFReactor runtime 4.4.5 releases.
+			</action>
+		</release>
+
+		<release version="4.4.2">
+			<action dev="xamde" type="add">
+				Now ignores owl:DeprecatedProperties
+			</action>
+		</release>
+
+		<release version="4.3.1">
+			<action dev="xamde" type="add">
+				Added support for owl:cardinality
+			</action>
+		</release>
+
+		<release version="4.3" date="2006-12-30" description="Split">
+			<action dev="xamde" type="update">
+				Split RDFReactor into two OSGi bundles
+			</action>
+		</release>
+	</body>
+</document>
