@@ -3,9 +3,9 @@
 	xsi:noNamespaceSchemaLocation="http://people.apache.org/~vsiveton/doxia-decoration-model/decoration-1.0.0.xsd">
 
 	<skin>
-		<groupId>de.fzi</groupId>
-		<artifactId>maven.skin</artifactId>
-		<version>0.0.1</version>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>skin</artifactId>
+		<version>${project.version}</version>
 	</skin>
 
 	<bannerLeft>
