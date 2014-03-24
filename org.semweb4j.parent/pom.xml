@@ -18,6 +18,10 @@
 	<inceptionYear>2005</inceptionYear>
 	<description>This is a parent maven POM which models common settings in semweb4j.org projects.</description>
 
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
 	<issueManagement>
 		<system>Google Code</system>
 		<url>http://code.google.com/p/semweb4j/issues</url>
@@ -228,6 +232,16 @@
 					<artifactId>maven-site-plugin</artifactId>
 					<version>3.3</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.8</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -335,6 +349,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled> <!-- save a lot of time on site generation :stuehmer -->
+				</configuration>
+
 				<reportSets>
 					<reportSet>
 						<reports>
