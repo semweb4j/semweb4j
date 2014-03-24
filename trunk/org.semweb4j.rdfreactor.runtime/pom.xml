@@ -182,9 +182,9 @@
 					<version>true</version>
 					<author>true</author>
 					<keywords>true</keywords>
-					<additionalparam>
-						-sourceclasspath ${project.build.outputDirectory}
-					</additionalparam>
+					<!--
+					<additionalparam>-sourceclasspath ${project.build.outputDirectory}></additionalparam>
+					-->
 					<!-- provide links to several famous projects see: Better builds with 
 						maven, p.185 -->
 					<!-- do not aggregate javadocs from child elements -->
