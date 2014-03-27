@@ -73,6 +73,33 @@ public class SyntaxTest extends TestCase {
 		Syntax s = Syntax.forMimeType("text/turtle");
 		assertNotNull(s);
 		assertEquals("text/turtle", s.getMimeType());
+		
+		// Check if a syntax can be retrieved with an alternative (old) mime type:
+		Syntax t = Syntax.forMimeType("application/x-turtle");
+		assertNotNull(t);
+		
+		assertEquals(s, t);
+	}
+	
+	/**
+	 * Test method for
+	 * {@link org.ontoware.rdf2go.model.Syntax#equals(Object)}.
+	 */
+	public void testEquals() {
+		Syntax.resetFactoryDefaults();
+		Syntax s = Syntax.forMimeType("text/turtle");
+		assertNotNull(s);
+
+		Syntax t = Syntax.forMimeType("text/turtle");
+		assertNotNull(t);
+				
+		assertEquals(s, t);
+		
+		Syntax u = Syntax.forMimeType("application/n-quads");
+		assertNotNull(u);
+		
+		assertFalse(s.equals(u));
+
 	}
 	
 	/**
