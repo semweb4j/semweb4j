@@ -29,6 +29,7 @@ public class SyntaxTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		Syntax.resetFactoryDefaults();
 	}
 	
 	/**
@@ -58,7 +59,6 @@ public class SyntaxTest extends TestCase {
 	 * {@link org.ontoware.rdf2go.model.Syntax#forName(java.lang.String)}.
 	 */
 	public void testForName() {
-		Syntax.resetFactoryDefaults();
 		Syntax s = Syntax.forName("rdfxml");
 		assertNotNull(s);
 		assertEquals("rdfxml", s.getName());
@@ -69,7 +69,6 @@ public class SyntaxTest extends TestCase {
 	 * {@link org.ontoware.rdf2go.model.Syntax#forMimeType(java.lang.String)}.
 	 */
 	public void testForMimeType() {
-		Syntax.resetFactoryDefaults();
 		Syntax s = Syntax.forMimeType("text/turtle");
 		assertNotNull(s);
 		assertEquals("text/turtle", s.getMimeType());
@@ -86,7 +85,6 @@ public class SyntaxTest extends TestCase {
 	 * {@link org.ontoware.rdf2go.model.Syntax#equals(Object)}.
 	 */
 	public void testEquals() {
-		Syntax.resetFactoryDefaults();
 		Syntax s = Syntax.forMimeType("text/turtle");
 		assertNotNull(s);
 
@@ -108,7 +106,6 @@ public class SyntaxTest extends TestCase {
 	 * .
 	 */
 	public void testUnregister() {
-		Syntax.resetFactoryDefaults();
 		Syntax.unregister(Syntax.Ntriples);
 		Syntax s = Syntax.forName("ntriples");
 		assertNull(s);
@@ -118,7 +115,6 @@ public class SyntaxTest extends TestCase {
 	 * Test method for {@link org.ontoware.rdf2go.model.Syntax#list()}.
 	 */
 	public void testList() {
-		Syntax.resetFactoryDefaults();
 		Collection<Syntax> list = Syntax.collection();
 		// check overall number
 		assertEquals("Check for the expected number of syntaxes", 8, list.size());
