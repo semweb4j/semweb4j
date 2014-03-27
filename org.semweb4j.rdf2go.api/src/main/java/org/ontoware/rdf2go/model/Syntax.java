@@ -12,6 +12,7 @@
 package org.ontoware.rdf2go.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -57,14 +58,22 @@ public class Syntax {
 	 * @see <a href="http://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML
 	 *      syntax</a>
 	 */
-	public static final Syntax RdfXml = new Syntax("rdfxml", "application/rdf+xml", ".rdf", true);
+	public static final Syntax RdfXml = new Syntax(
+			"rdfxml",
+			Arrays.asList(new String[] {"application/rdf+xml", "application/xml"}),
+			Arrays.asList(new String[] { ".rdf", ".rdfs", ".owl", ".xml" }),
+			true);
 	
 	/**
 	 * RDF syntax Turtle.
 	 * 
 	 * @see <a href="http://www.w3.org/TR/turtle/">Turtle syntax</a>
 	 */
-	public static final Syntax Turtle = new Syntax("turtle", "text/turtle", ".ttl", true);
+	public static final Syntax Turtle = new Syntax(
+			"turtle",
+			Arrays.asList(new String[] {"text/turtle", "application/x-turtle"}),
+			Arrays.asList(new String[] {".ttl"}),
+			true);
 	
 	/**
 	 * RDF syntax N-Triples.
@@ -72,14 +81,22 @@ public class Syntax {
 	 * @see <a href="http://www.w3.org/TR/rdf-testcases/#ntriples">N-Triples
 	 *      syntax</a>
 	 */
-	public static final Syntax Ntriples = new Syntax("ntriples", "text/plain", ".nt", true);
+	public static final Syntax Ntriples = new Syntax(
+			"ntriples",
+			"text/plain",
+			".nt",
+			true);
 	
 	/**
 	 * RDF syntax N-Quads.
 	 * 
 	 * @see <a href="http://www.w3.org/TR/n-quads/">N-Quads syntax</a>
 	 */
-	public static final Syntax Nquads = new Syntax("nquads", "application/n-quads", ".nq", true);
+	public static final Syntax Nquads = new Syntax(
+			"nquads",
+			Arrays.asList(new String[] {"application/n-quads", "text/x-nquads"}),
+			Arrays.asList(new String[] {".nq"}),
+			true);
 	
 	/**
 	 * RDF syntax TriX.
@@ -88,7 +105,11 @@ public class Syntax {
 	 *      href="http://www.hpl.hp.com/techreports/2004/HPL-2004-56.html">TriX
 	 *      syntax</a>
 	 */
-	public static final Syntax Trix = new Syntax("trix", "application/trix", ".trix", true);
+	public static final Syntax Trix = new Syntax(
+			"trix",
+			"application/trix",
+			".trix",
+			true);
 	
 	/**
 	 * RDF syntax TriG.
@@ -96,21 +117,33 @@ public class Syntax {
 	 * @see <a href="http://www.w3.org/TR/trig/">TriG
 	 *      syntax</a>
 	 */
-	public static final Syntax Trig = new Syntax("trig", "application/trig", ".trig", true);
+	public static final Syntax Trig = new Syntax(
+			"trig",
+			Arrays.asList(new String[] {"application/trig", "application/x-trig"}),
+			Arrays.asList(new String[] {".trig"}),
+			true);
 
 	/**
 	 * RDF syntax RDF/JSON.
 	 * 
 	 * @see <a href="http://www.w3.org/TR/rdf-json/">RDF/JSON syntax</a>
 	 */
-	public static final Syntax RdfJson = new Syntax("rdfjson", "application/rdf+json", ".rj", true);
+	public static final Syntax RdfJson = new Syntax(
+			"rdfjson",
+			"application/rdf+json",
+			".rj",
+			true);
 
 	/**
 	 * RDF syntax JSON-LD.
 	 * 
 	 * @see <a href="http://www.w3.org/TR/json-ld/">RDF/JSON syntax</a>
 	 */
-	public static final Syntax JsonLd = new Syntax("jsonld", "application/ld+json", ".jsonld", true);
+	public static final Syntax JsonLd = new Syntax(
+			"jsonld",
+			"application/ld+json",
+			".jsonld",
+			true);
 
 	/**
 	 * register a new RDF Syntax you want to have available throughout your
@@ -139,12 +172,12 @@ public class Syntax {
 	/**
 	 * return the RDF syntax with the given MIME-type.
 	 * 
-	 * @param mimeType the MIME-type of the syntax to find
+	 * @param mimeTypes the MIME-type of the syntax to find
 	 * @return the syntax or <code>null</code>, if none registered
 	 */
 	public static Syntax forMimeType(String mimeType) {
 		for(Syntax x : SYNTAXES) {
-			if(x.getMimeType().equals(mimeType))
+			if(x.getMimeTypes().contains(mimeType))
 				return x;
 		}
 		return null;
@@ -184,17 +217,26 @@ public class Syntax {
 	
 	private final String name;
 	
-	private final String mimeType;
+	private final List<String> mimeTypes;
 	
-	private final String filenameExtension;
+	private final List<String> filenameExtensions;
 	
 	/**
-	 * return the MIME-type of this format.
+	 * return the default MIME-type of this format.
 	 * 
 	 * @return the MIME type
 	 */
 	public String getMimeType() {
-		return this.mimeType;
+		return this.mimeTypes.get(0);
+	}
+	
+	/**
+	 * return all MIME-typse of this format.
+	 * 
+	 * @return the MIME types
+	 */
+	public List<String> getMimeTypes() {
+		return this.mimeTypes;
 	}
 	
 	/**
@@ -208,36 +250,88 @@ public class Syntax {
 	 * @return the suggested filename-extension, including the leading '.'
 	 */
 	public String getFilenameExtension() {
-		return this.filenameExtension;
+		return this.filenameExtensions.get(0);
 	}
 	
 	/**
 	 * Generate a new Syntax
 	 * 
-	 * @param name the name of the RDF syntax
-	 * @param mimeType the MIMEtype of the RDF syntax
-	 * @param filenameExtension including the dot
+	 * @param name
+	 *            the name of the RDF syntax
+	 * @param mimeTypes
+	 *            the MIMEtype of the RDF syntax
+	 * @param filenameExtensions
+	 *            including the dot
 	 */
 	public Syntax(final String name, final String mimeType, final String filenameExtension) {
-		super();
-		this.name = name;
-		this.mimeType = mimeType;
-		this.filenameExtension = filenameExtension;
+		this(name, Arrays.asList(new String[] { mimeType }), Arrays
+				.asList(new String[] { filenameExtension }), false);
 	}
 	
 	/**
 	 * Generate a new Syntax and register it
 	 * 
-	 * @param name the name of the RDF syntax
-	 * @param mimeType the MIMEtype of the RDF syntax
-	 * @param registerItNow register the new Syntax now.
-	 * @param filenameExtension including the dot
+	 * @param name
+	 *            the name of the RDF syntax
+	 * @param mimeTypes
+	 *            the MIMEtypes of the RDF syntax
+	 * @param filenameExtensions
+	 *            including the dot
+	 * @param registerItNow
+	 *            register the new Syntax now.
 	 */
 	public Syntax(final String name, final String mimeType, final String filenameExtension,
 	        boolean registerItNow) {
-		this(name, mimeType, filenameExtension);
-		if(registerItNow)
+		this(name, Arrays.asList(new String[] { mimeType }), Arrays
+				.asList(new String[] { filenameExtension }), registerItNow);
+	}
+	
+	/**
+	 * Generate a new Syntax
+	 * 
+	 * @param name
+	 *            the name of the RDF syntax
+	 * @param mimeTypes
+	 *            the MIMEtypes of the RDF syntax, the first type in the ordered
+	 *            list will be used as the default
+	 * @param filenameExtensions
+	 *            including the dot, the first type in the ordered list will be
+	 *            used as the default
+	 */
+	public Syntax(final String name, final List<String> mimeTypes, final List<String> filenameExtensions) {
+		this(name, mimeTypes, filenameExtensions, false);
+	}
+	
+	/**
+	 * Generate a new Syntax and register it
+	 * 
+	 * @param name
+	 *            the name of the RDF syntax
+	 * @param mimeTypes
+	 *            the MIMEtypes of the RDF syntax, the first type in the ordered
+	 *            list will be used as the default
+	 * @param filenameExtensions
+	 *            including the dot, the first type in the ordered list will be
+	 *            used as the default
+	 * @param registerItNow
+	 *            register the new Syntax now.
+	 */
+	public Syntax(final String name, final List<String> mimeTypes, final List<String> filenameExtensions, final boolean registerItNow) {
+		
+		if (mimeTypes.size() < 1) {
+			throw new IllegalArgumentException("At least one mimeTypes must be specified.");
+		}
+		if (filenameExtensions.size() < 1) {
+			throw new IllegalArgumentException("At least one filenameExtensions must be specified.");
+		}
+		
+		this.name = name;
+		this.mimeTypes = mimeTypes;
+		this.filenameExtensions = filenameExtensions;
+		
+		if(registerItNow) {
 			register(this);
+		}
 	}
 	
 	/**
@@ -246,7 +340,7 @@ public class Syntax {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Syntax) {
-			return this.mimeType.equals(((Syntax)obj).mimeType);
+			return this.mimeTypes.equals(((Syntax)obj).mimeTypes);
 		}
 		return false;
 	}
@@ -256,7 +350,7 @@ public class Syntax {
 	 */
 	@Override
 	public int hashCode() {
-		return this.mimeType.hashCode();
+		return this.mimeTypes.hashCode();
 	}
 	
 	/**
@@ -264,7 +358,7 @@ public class Syntax {
 	 */
 	@Override
 	public String toString() {
-		return "RDF Syntax '" + this.name + "' MIME-type=" + this.mimeType;
+		return "RDF Syntax '" + this.name + "' MIME-type=" + this.getMimeType();
 	}
 	
 }
