@@ -184,6 +184,23 @@ public class Syntax {
 	}
 	
 	/**
+	 * return the RDF syntax for the given filename by looking at its file
+	 * extension.
+	 * 
+	 * @param fileName
+	 *            a file name to determine the file extension
+	 * @return the syntax or <code>null</code>, if none registered
+	 */
+	public static Syntax forFileName(String fileName) {
+		String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+		for(Syntax x : SYNTAXES) {
+			if(x.getFilenameExtensions().contains(fileExtension))
+				return x;
+		}
+		return null;
+	}
+	
+	/**
 	 * unregister an RDF Syntax from which you know that your application will
 	 * never ever support it. This may help you to build user interfaces where
 	 * users can select RDF syntaxes. If the syntax was unknown, returns false
@@ -251,6 +268,13 @@ public class Syntax {
 	 */
 	public String getFilenameExtension() {
 		return this.filenameExtensions.get(0);
+	}
+
+	/**
+	 * @return all suggested filename-extensions, including the leading dots
+	 */
+	public List<String> getFilenameExtensions() {
+		return this.filenameExtensions;
 	}
 	
 	/**

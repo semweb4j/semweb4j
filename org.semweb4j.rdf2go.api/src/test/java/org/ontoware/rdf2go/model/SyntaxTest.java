@@ -79,6 +79,21 @@ public class SyntaxTest extends TestCase {
 		
 		assertEquals(s, t);
 	}
+
+	/**
+	 * Test method for
+	 * {@link org.ontoware.rdf2go.model.Syntax#forFileName(String)}.
+	 */
+	public void testForFileName() {
+		Syntax s = Syntax.forFileName("something.xml");
+		assertNotNull(s);
+		assertEquals(s, Syntax.RdfXml);
+
+		Syntax t = Syntax.forFileName("something.rdf");
+		assertNotNull(t);
+		assertEquals(s, t);
+
+	}
 	
 	/**
 	 * Test method for
