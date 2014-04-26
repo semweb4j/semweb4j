@@ -5,6 +5,8 @@
  */
 package org.openrdf.rdf2go;
 
+import static org.openrdf.rdf2go.RepositoryModel.getRDFFormat;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -49,12 +51,10 @@ import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.RepositoryResult;
-import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 /**
  * A ModelSet implementation for the OpenRDF (Sesame) 2.0.1 API.
@@ -817,15 +817,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	@Override
 	public void readFrom(InputStream in, Syntax syntax) throws IOException, ModelRuntimeException {
 		this.assertModel();
-		RDFFormat rdfformat = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(rdfformat == null) {
-			throw new ModelRuntimeException("unknown Syntax: " + syntax.toString());
-		} else {
-			try {
-				this.connection.add(in, "", rdfformat);
-			} catch(OpenRDFException e) {
-				throw new ModelRuntimeException(e);
-			}
+
+		try {
+			this.connection.add(in, "", getRDFFormat(syntax));
+		} catch(OpenRDFException e) {
+			throw new ModelRuntimeException(e);
 		}
 	}
 	
@@ -833,15 +829,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void readFrom(InputStream in, Syntax syntax, String baseURI) throws IOException,
 	        ModelRuntimeException {
 		this.assertModel();
-		RDFFormat rdfformat = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(rdfformat == null) {
-			throw new ModelRuntimeException("unknown Syntax: " + syntax.toString());
-		} else {
-			try {
-				this.connection.add(in, baseURI, rdfformat);
-			} catch(OpenRDFException e) {
-				throw new ModelRuntimeException(e);
-			}
+
+		try {
+			this.connection.add(in, baseURI, getRDFFormat(syntax));
+		} catch(OpenRDFException e) {
+			throw new ModelRuntimeException(e);
 		}
 	}
 	
@@ -853,15 +845,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	@Override
 	public void readFrom(Reader reader, Syntax syntax) throws IOException, ModelRuntimeException {
 		this.assertModel();
-		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(format == null) {
-			throw new ModelRuntimeException("unknown RDF syntax: " + syntax.toString());
-		} else {
-			try {
-				this.connection.add(reader, "", format);
-			} catch(OpenRDFException e) {
-				throw new ModelRuntimeException(e);
-			}
+
+		try {
+			this.connection.add(reader, "", getRDFFormat(syntax));
+		} catch(OpenRDFException e) {
+			throw new ModelRuntimeException(e);
 		}
 	}
 	
@@ -869,15 +857,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void readFrom(Reader reader, Syntax syntax, String baseURI) throws IOException,
 	        ModelRuntimeException {
 		this.assertModel();
-		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(format == null) {
-			throw new ModelRuntimeException("unknown RDF syntax: " + syntax.toString());
-		} else {
-			try {
-				this.connection.add(reader, baseURI, format);
-			} catch(OpenRDFException e) {
-				throw new ModelRuntimeException(e);
-			}
+
+		try {
+			this.connection.add(reader, baseURI, getRDFFormat(syntax));
+		} catch(OpenRDFException e) {
+			throw new ModelRuntimeException(e);
 		}
 	}
 	
@@ -1127,7 +1111,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 */
 	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws IOException, ModelRuntimeException {
-		RDFWriter rdfWriter = Rio.createWriter(RepositoryModel.getRDFFormat(syntax), out);
+		RDFWriter rdfWriter = Rio.createWriter(getRDFFormat(syntax), out);
 		this.writeTo(rdfWriter);
 	}
 	
@@ -1146,7 +1130,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	 */
 	@Override
 	public void writeTo(Writer writer, Syntax syntax) throws IOException, ModelRuntimeException {
-		RDFWriter rdfWriter = Rio.createWriter(RepositoryModel.getRDFFormat(syntax), writer);
+		RDFWriter rdfWriter = Rio.createWriter(getRDFFormat(syntax), writer);
 		this.writeTo(rdfWriter);
 	}
 	

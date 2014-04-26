@@ -575,34 +575,22 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	@Override
 	public void readFrom(InputStream stream, Syntax syntax) throws IOException,
 	        ModelRuntimeException {
-		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(format == null) {
-			throw new ModelRuntimeException("unknown syntax: " + syntax);
-		}
 		
-		readFrom(stream, format, "");
+		readFrom(stream, getRDFFormat(syntax), "");
 	}
 	
 	@Override
-	public void readFrom(InputStream stream, Syntax syntax, String baseURI) throws IOException,
-	        ModelRuntimeException {
-		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(format == null) {
-			throw new ModelRuntimeException("unknown syntax: " + syntax);
-		}
-		
-		readFrom(stream, format, baseURI);
+    public void readFrom(InputStream stream, Syntax syntax, String baseURI) throws IOException,
+            ModelRuntimeException {
+
+		readFrom(stream, getRDFFormat(syntax), baseURI);
 	}
 	
 	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI)
 	        throws ModelRuntimeException, IOException {
-		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(format == null) {
-			throw new ModelRuntimeException("unknown syntax: " + syntax);
-		}
-		
-		readFrom(reader, format, baseURI);
+
+		readFrom(reader, getRDFFormat(syntax), baseURI);
 		
 	}
 	
@@ -625,12 +613,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	@Override
 	public void readFrom(Reader reader, Syntax syntax) throws IOException, ModelRuntimeException {
-		RDFFormat format = RDFFormat.forMIMEType(syntax.getMimeType());
-		if(format == null) {
-			throw new ModelRuntimeException("unknown syntax: " + format);
-		}
 		
-		readFrom(reader, format, "");
+		readFrom(reader, getRDFFormat(syntax), "");
 	}
 	
 	public void readFrom(Reader reader, RDFFormat format, String baseURL) throws IOException,
