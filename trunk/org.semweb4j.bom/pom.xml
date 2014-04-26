@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>5.0.1-SNAPSHOT</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
+	</parent>
+
+	<groupId>org.semweb4j</groupId>
+	<artifactId>bom</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Semweb4j bill of materials (BOM)</name>
+	<url>http://semweb4j.org</url>
+
+
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdf2go.api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdf2go.impl.jena</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdf2go.impl.sesame</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdf2go.impl.test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdfreactor.generator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
+				<artifactId>rdfreactor.runtime</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.semweb4j</groupId>
+					<artifactId>rdfreactor-maven-plugin</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
