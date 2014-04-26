@@ -1,5 +1,7 @@
 package org.ontoware.rdf2go.impl.jena;
 
+import static org.ontoware.rdf2go.impl.jena.ModelImplJena.getJenaLang;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,10 +15,8 @@ import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.RDFLanguages;
 import org.apache.jena.riot.RiotException;
 import org.apache.jena.riot.RiotWriter;
-import org.apache.jena.riot.WebContent;
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.Reasoning;
@@ -473,14 +473,7 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 			throws IOException, ModelRuntimeException,
 			SyntaxNotSupportedException {
 
-		Lang lang = WebContent.contentTypeToLang(syntax.getMimeType());
-
-		if (lang == null) {
-			throw new SyntaxNotSupportedException(
-					"unknown RDF syntax " + syntax);
-		}
-
-		RDFDataMgr.read(this.dataset.asDatasetGraph(), in, baseURI, lang);
+		RDFDataMgr.read(this.dataset.asDatasetGraph(), in, baseURI, getJenaLang(syntax));
 	}
 
 	/**
@@ -531,13 +524,9 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 			throw new NullPointerException("syntax may not be null");
 		}
 		
-		Lang jenaLang = RDFLanguages.nameToLang(syntax.getMimeType());
+		Lang jenaLang = getJenaLang(syntax);
 
-		if (jenaLang == null) {
-			throw new SyntaxNotSupportedException(
-					"unknown RDF syntax " + syntax);
-		}
-//		else if (RDFLanguages.isTriples(jenaLang)) {
+//		if (RDFLanguages.isTriples(jenaLang)) {
 //			/*
 //			 * NB: Writing a ModelSet to a triple serialization loses the
 //			 * context of any quads if present.
@@ -549,17 +538,15 @@ public class ModelSetImplJena extends AbstractModelSetImpl {
 //			}
 //			this.getDefaultModel().writeTo(out, syntax);
 //		}
-		// FIXME stuehmer: write unit test to see if this can be removed
-		else {
-			try {
-				RDFDataMgr.write(out, this.dataset, jenaLang);
-			}
-			catch (RiotException e) {
-				throw new SyntaxNotSupportedException(
-						"error writing syntax " + syntax + ": " + e.getMessage());
-			}
+// FIXME stuehmer: write unit test to see if this can be removed
+//		else {
+		try {
+			RDFDataMgr.write(out, this.dataset, jenaLang);
 		}
-
+		catch (RiotException e) {
+			throw new SyntaxNotSupportedException(
+					"error writing syntax " + syntax + ": " + e.getMessage());
+		}
 	}
 
 	@Override
