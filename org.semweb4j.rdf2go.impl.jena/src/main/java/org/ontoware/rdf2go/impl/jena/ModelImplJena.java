@@ -393,16 +393,8 @@ public class ModelImplJena extends AbstractModel implements Model {
 	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI) {
 		assertModel();
-		
-		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
 
-		if (jenaLang != null) {
-			RDFDataMgr.read(this.jenaModel, reader, baseURI, jenaLang);
-		}
-		else {
-			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
-					+ " not implemented in Jena");
-		}
+		RDFDataMgr.read(this.jenaModel, reader, baseURI, getJenaLang(syntax));
 	}
 	
 	private static void registerNamespaces(com.hp.hpl.jena.rdf.model.Model jenaModel) {
@@ -424,15 +416,7 @@ public class ModelImplJena extends AbstractModel implements Model {
 		assertModel();
 		registerNamespaces(this.jenaModel);
 
-		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
-
-		if (jenaLang != null) {
-			RDFDataMgr.write(writer, this.jenaModel, RDFWriterRegistry.defaultSerialization(jenaLang));
-		}
-		else {
-			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
-					+ " not implemented in Jena");
-		}
+		RDFDataMgr.write(writer, this.jenaModel, RDFWriterRegistry.defaultSerialization(getJenaLang(syntax)));
 	}
 	
 	@Override
@@ -455,16 +439,9 @@ public class ModelImplJena extends AbstractModel implements Model {
 	        ModelRuntimeException {
 		assertModel();
 		assert in != null;
-		
-		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
 
-		if (jenaLang != null) {
-			RDFDataMgr.read(this.jenaModel, in, baseURI, jenaLang);
-		}
-		else {
-			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
-					+ " not implemented in Jena");
-		}
+		RDFDataMgr.read(this.jenaModel, in, baseURI, getJenaLang(syntax));
+
 	}
 
 	@Override
@@ -481,17 +458,30 @@ public class ModelImplJena extends AbstractModel implements Model {
 	@Override
 	public void writeTo(OutputStream out, Syntax syntax) throws ModelRuntimeException {
 		assertModel();
-		
-		Lang jenaLang = RDFLanguages.contentTypeToLang(syntax.getMimeType());
 
-		if (jenaLang != null) {
-			RDFDataMgr.write(out, this.jenaModel, jenaLang);
-		}
-		else {
-			throw new SyntaxNotSupportedException("Syntax " + syntax.getName()
-					+ " not implemented in Jena");
-		}
+		RDFDataMgr.write(out, this.jenaModel, getJenaLang(syntax));
 	}
+	
+    /**
+     * Resolves an RDF2Go {@Link Syntax} to a Jena {@link Lang}.
+     * 
+     * @param syntax
+     *            The RDF2Go Syntax to resolve.
+     * @return A {@link Lang} for the specified syntax.
+     * @throws SyntaxNotSupportedException
+     *             When the Syntax could not be resolved to a {@link Lang}.
+     */
+    public static Lang getJenaLang(Syntax syntax) throws SyntaxNotSupportedException {
+        for (String mimeType : syntax.getMimeTypes()) {
+            Lang lang = RDFLanguages.contentTypeToLang(mimeType);
+            if (lang != null) {
+                return lang;
+            }
+        }
+        throw new SyntaxNotSupportedException("This version of Jena seems to have no "
+                + "support for " + syntax);
+    }
+
 	
 	@Override
 	public boolean isIsomorphicWith(Model other) {

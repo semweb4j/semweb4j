@@ -23,6 +23,7 @@ import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.LockException;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
+import org.ontoware.rdf2go.exception.SyntaxNotSupportedException;
 import org.ontoware.rdf2go.model.Diff;
 import org.ontoware.rdf2go.model.DiffReader;
 import org.ontoware.rdf2go.model.Model;
@@ -672,16 +673,22 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	}
 	
 	/**
-	 * Resolves a RDF2Go Syntax to an OpenRDF RDFFormat.
+	 * Resolves an RDF2Go {@link Syntax} to an OpenRDF {@link RDFFormat}.
 	 * 
 	 * @param syntax The RDF2Go Syntax to resolve.
 	 * @return A RDFFormat for the specified syntax.
-	 * @throws ModelRuntimeException When the Syntax could not be resolved to a
+	 * @throws SyntaxNotSupportedException When the Syntax could not be resolved to a
 	 *             RDFFormat.
 	 */
-	public static RDFFormat getRDFFormat(Syntax syntax) throws ModelRuntimeException {
-		String mimeType = syntax.getMimeType();
-		return RDFFormat.forMIMEType(mimeType);
+	public static RDFFormat getRDFFormat(Syntax syntax) throws SyntaxNotSupportedException {
+	    for (String mimeType : syntax.getMimeTypes()) {
+	        RDFFormat format = RDFFormat.forMIMEType(mimeType);
+	        if (format != null) {
+	            return format;
+	        }
+	    }
+		throw new SyntaxNotSupportedException("This version of Sesame seems to have no "
+		        + "support for " + syntax);
 	}
 	
 	public void writeTo(RDFWriter writer) throws ModelRuntimeException {
