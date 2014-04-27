@@ -13,6 +13,7 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.github.jsonldjava.jena.JenaJSONLD;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.DatasetFactory;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -22,6 +23,10 @@ import com.hp.hpl.jena.rdf.model.ModelMaker;
 
 public class ModelFactoryImpl extends AbstractModelFactory implements ModelFactory {
 	
+    static {
+        JenaJSONLD.init();
+    }
+    
 	protected static final Logger log = LoggerFactory.getLogger(ModelFactoryImpl.class);
 	
 	public static final String BACKEND = "back-end";
