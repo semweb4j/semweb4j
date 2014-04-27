@@ -17,7 +17,7 @@ import org.ontoware.rdf2go.model.ModelSet;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.testdata.TestData;
 
-public class ModelSetTestJena extends AbstractModelSetTest {
+public class ModelSetTest extends AbstractModelSetTest {
 
 	private final ModelFactory modelFactory = new ModelFactoryImpl();
 	

@@ -23,7 +23,6 @@
 
 	<modules>
 		<module>../org.semweb4j.rdf2go.api</module>
-		<module>../org.semweb4j.rdf2go.impl.test</module>
 		<module>../org.semweb4j.rdf2go.impl.jena</module>
 		<module>../org.semweb4j.rdf2go.impl.sesame</module>
 	</modules>
