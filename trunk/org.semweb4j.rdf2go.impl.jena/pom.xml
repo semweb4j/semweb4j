@@ -121,6 +121,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Jena will have builtin JsonLD when 2.11.2 is out, then this can be removed  -->
+		<dependency>
+		    <groupId>com.github.jsonld-java</groupId>
+		    <artifactId>jsonld-java-jena</artifactId>
+		    <version>0.3</version>
+		</dependency>
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>

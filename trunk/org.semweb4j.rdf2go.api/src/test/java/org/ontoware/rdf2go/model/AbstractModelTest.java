@@ -17,10 +17,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -78,14 +81,15 @@ public abstract class AbstractModelTest extends TestCase {
 	 * overrwritten in subclasses (non-abstract tests) with the actually
 	 * supported syntaxes e.g. in Jena or Sesame.
 	 */
-	public Syntax[] writerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle};
-
+	public Set<Syntax> writerSyntaxes = new HashSet<Syntax>(Syntax.collection());
+	
 	/**
 	 * The syntaxes to be tested for model reading. The array should be
 	 * overrwritten in subclasses (non-abstract tests) with the actually
-	 * supported syntaxes e.g. in Jena or Sesame.
+	 * supported syntaxes e.g. in Jena or Sesame where there is a testfile
+	 * available in {@code src/test/resources/org/ontoware/rdf2go/testdata/foaf.*}.
 	 */
-	public Syntax[] readerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle};
+	public Set<Syntax> readerSyntaxes = new HashSet<Syntax>(Arrays.asList(Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle, Syntax.RdfJson, Syntax.JsonLd));
 
 	/**
 	 * the model to use in the tests, initialized by setup and teardown.
@@ -1037,7 +1041,6 @@ public abstract class AbstractModelTest extends TestCase {
 			}
 			finally {
 				Files.delete(FILE);
-				model.close();
 			}
 		}
 	}

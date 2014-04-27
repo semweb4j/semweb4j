@@ -24,7 +24,8 @@ public class ModelTest extends AbstractModelTest {
 	@Test
 	public void testReadFromSyntaxFiles() throws ModelRuntimeException, IOException {
 		// Set the syntaxes to be tested specifically for Jena:
-		super.readerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle, Syntax.RdfJson};
+	    // Don't overwrite, use all from parent Test:
+		//super.readerSyntaxes = new Syntax[] {Syntax.RdfXml, ...};
 		
 		super.testReadFromSyntaxFiles();
 	}
@@ -38,7 +39,8 @@ public class ModelTest extends AbstractModelTest {
 	@Test
 	public void testWriteToSyntaxFiles() throws ModelRuntimeException, IOException {
 		// Set the syntaxes to be tested specifically for Jena:
-		super.writerSyntaxes = new Syntax[] {Syntax.RdfXml, Syntax.Ntriples, Syntax.Turtle, Syntax.RdfJson};
+	    // FIXME Jena supports all except for TriX
+		super.writerSyntaxes.remove(Syntax.Trix);
 		
 		super.testWriteToSyntaxFiles();
 	}
