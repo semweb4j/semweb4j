@@ -16,9 +16,7 @@ import java.io.Serializable;
 
 /**
  * This variable models wild-cards in triple pattern queries. Only onw instance
- * of this class if allows: ANY. This allows type-safe methods.
- * 
- * 
+ * of this class if allowed: ANY. This allows type-safe methods.
  * 
  * @author voelkel
  */
