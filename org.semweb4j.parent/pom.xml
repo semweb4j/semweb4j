@@ -10,7 +10,7 @@
 
 	<groupId>org.semweb4j</groupId>
 	<artifactId>parent</artifactId>
-	<version>5.0.1</version>
+	<version>5.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Semweb4j parent</name>
@@ -609,9 +609,9 @@
 
 
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.1/org.semweb4j.parent</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.1/org.semweb4j.parent</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent/tags/rootbuilder-5.0.1/org.semweb4j.parent</url>
+		<connection>scm:svn:http://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</connection>
+		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/trunk/org.semweb4j.parent</developerConnection>
+		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent</url>
 	</scm>
 	
 </project>
