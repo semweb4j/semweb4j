@@ -35,7 +35,7 @@
 	</licenses>
 
 	<properties>
-		<sesame.version>2.7.12-SNAPSHOT</sesame.version>
+		<sesame.version>2.7.13</sesame.version>
 	</properties>
 
 	<dependencyManagement>
@@ -143,20 +143,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>sonatype.snapshots</id>
-			<name>Sonatype snapshot repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository> 
-	</repositories>
 
 	<developers>
 		<developer>
