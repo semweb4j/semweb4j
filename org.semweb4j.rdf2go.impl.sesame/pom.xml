@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.semweb4j</groupId>
 		<artifactId>parent</artifactId>
-		<version>5.0.1-SNAPSHOT</version>
+		<version>5.0.1</version>
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
