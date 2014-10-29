@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.ontoware.rdf2go.Reasoning;
 import org.ontoware.rdf2go.model.Model;
+import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdfreactor.generator.java.JModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +58,9 @@ public class CodeGenerator {
     /**
      * Generate a Java class model from the given RDFS/OWL schema file
      * 
-     * @param schemafilename a path to an rdf or owl file in N3, NT or XML
-     *            syntax. File extension determines parsing.
+     * @param schemafilename a path to an rdf or owl file.
+     *            File extension determines parsing according to known syntaxes
+     *            in {@linkplain Syntax}.
      * @param packagename - e.g. 'org.ontoware.myname.reactor'
      * @param semantics - 'rdfs', 'owl' or 'rdfs+owl' (experimental)
      * @param skipbuiltins if false, internal helper classes are re-generated.
