@@ -72,7 +72,7 @@ public class Syntax {
 	public static final Syntax Turtle = new Syntax(
 			"turtle",
 			Arrays.asList(new String[] {"text/turtle", "application/x-turtle"}),
-			Arrays.asList(new String[] {".ttl"}),
+			Arrays.asList(new String[] {".ttl", ".n3"}),
 			true);
 	
 	/**

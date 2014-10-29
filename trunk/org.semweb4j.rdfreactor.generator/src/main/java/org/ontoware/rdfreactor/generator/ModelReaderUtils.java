@@ -34,13 +34,8 @@ public class ModelReaderUtils {
 		try {
 			fis = new FileInputStream(f);
 
-			Syntax syntax = Syntax.RdfXml;
-
-			if (filename.endsWith(".n3"))
-				syntax = Syntax.Turtle;
-			else if (filename.endsWith(".nt"))
-				syntax = Syntax.Ntriples;
-
+			Syntax syntax = Syntax.forFileName(filename);
+		
 			try {
 				m.readFrom(fis, syntax);
 			} catch (ModelRuntimeException e) {
