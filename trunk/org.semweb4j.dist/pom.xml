@@ -17,12 +17,11 @@
 	<url>http://semweb4j.org</url>
 
 	<modules>
+		<module>../org.semweb4j.skin</module>
 		<module>../org.semweb4j.bom</module>
 		<module>../org.semweb4j.parent</module>
 		<module>../org.semweb4j.rdf2go.dist</module>
 		<module>../org.semweb4j.rdfreactor.dist</module>
-		<!-- The site skin cannot be in the reactor because files will be locked when accessing the skin :stuehmer -->
-		<!--<module>../org.semweb4j.skin</module>-->
 	</modules>
 
 	<dependencies>
@@ -72,7 +71,7 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>	
+		</plugins>
 	</build>
 		
 	<distributionManagement>
