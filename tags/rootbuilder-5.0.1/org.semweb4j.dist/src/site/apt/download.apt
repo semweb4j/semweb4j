@@ -1,0 +1,21 @@
+                         --------
+                   download distribution
+                         --------
+                        06.07.2007
+                         --------
+                     Werner Thiemann
+                         --------
+
+Release
+  
+  By now there is no releases available. At the moment you can get a
+  RDFReactor release which automatically contains all needed files
+  
+  * {{{../rdfreactor/download.html} RDFReactor download section}}
+  
+Changelog
+
+  The change logs can be found in the report section of each package.
+  {{{../rdfreactor/changes-report.html} Top level changes (not available yet)}}
+    
+~~ http://maven.apache.org/guides/mini/guide-apt-format.html
