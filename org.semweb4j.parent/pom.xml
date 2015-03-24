@@ -23,20 +23,16 @@
 	</prerequisites>
 
 	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/semweb4j/issues</url>
+		<system>GitHub Issues</system>
+		<url>https://github.com/semweb4j/semweb4j/issues</url>
 	</issueManagement>
 
 	<mailingLists>
 		<mailingList>
 			<name>semweb4j-devel</name>
-			<subscribe>
-				http://groups.google.com/group/semweb4j/subscribe
-			</subscribe>
+			<subscribe>https://groups.google.com/forum/#!forum/semweb4j/join</subscribe>
 			<post>semweb4j@googlegroups.com</post>
-			<archive>
-				http://groups.google.com/group/semweb4j
-			</archive>
+			<archive>https://groups.google.com/forum/#!forum/semweb4j</archive>
 		</mailingList>
 	</mailingLists>
 
@@ -96,12 +92,6 @@
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-
-		<!-- user access, no trailing slash -->
-		<svn.user>http://semweb4j.googlecode.com/svn</svn.user>
-		<!-- developer access, no trailing slash -->
-		<svn.dev>https://semweb4j.googlecode.com/svn</svn.dev>
-		<svn.name>${project.groupId}.${project.artifactId}</svn.name>
 
 		<semweb4j.site>mavenrepo.fzi.de/var/www/html/semweb4j.org/site</semweb4j.site>
 
@@ -621,11 +611,10 @@
 		</site>
 	</distributionManagement>
 
-
 	<scm>
-		<connection>scm:svn:http://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.1/svn/trunk/org.semweb4j.parent</connection>
-		<developerConnection>scm:svn:https://semweb4j.googlecode.com/svn/tags/rootbuilder-5.0.1/svn/trunk/org.semweb4j.parent</developerConnection>
-		<url>http://semweb4j.googlecode.com/svn/org.semweb4j.parent/tags/rootbuilder-5.0.1/semweb4j.googlecode.com/svn/org.semweb4j.parent</url>
+		<url>https://github.com/semweb4j/semweb4j</url>
+		<connection>scm:git:git://github.com/semweb4j/semweb4j.git</connection>
+		<developerConnection>scm:git:https://github.com/semweb4j/semweb4j.git</developerConnection>
 	</scm>
 	
 </project>

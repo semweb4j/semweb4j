@@ -27,21 +27,8 @@ Architecture
 
   Generate convenient Java classed from a RDF Schema.
 
-  * <<{{{../jrest/index.html}jREST (not available)}}>>  
-
-  Build a simple web application in minutes without ever seeing servlet source code.
-
 More Information
 
-  * <<{{{http://www.ontoworld.org/wiki/semweb4j}Wiki}}>> 
-  
-  The wiki page of semweb4j can be found at {{http://www.ontoworld.org/wiki/semweb4j}}. 
-  
-  * <<{{{../semweb4j.tutorial/index.html}Tutorial}}>>
-
-  A tutorial covering RDF2Go, RDFReactor and jREST is currently
-  developed in the {{{tutorial/index.html}tutorial project}}.
-  
   * <<{{{../semweb4j/doap.rdf}DOAP File}}>>
   
   Get the {{{../semweb4j/doap.rdf}Description of a Project (DOAP) file}} for semweb4j.
