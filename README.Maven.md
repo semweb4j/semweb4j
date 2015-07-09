@@ -1,7 +1,7 @@
-Using semweb4j with Maven
-=========================
+How to use semweb4j with Maven
+==============================
 
-Semweb4j contains many optional packages. To avoid keeping their version numbers in sync in your POM, include the following BOM (bill of materials) using Maven's `<dependencyManagement>` replacing or assigning `${semweb4j.version}` with the number from Maven Central you would like to use:
+Semweb4j contains many optional packages. To avoid keeping their version numbers in sync in your POM, include the following BOM (bill of materials) using Maven's `<dependencyManagement>` replacing or assigning `${semweb4j.version}` with the number from Maven Central you would like to use. This information is inherited so it can also be provided in any parent POM of your project.
 
 ```xml
 	<dependencyManagement>
@@ -17,7 +17,7 @@ Semweb4j contains many optional packages. To avoid keeping their version numbers
 	</dependencyManagement>
 ```
 
-Afterwards include the needed packages using `<dependencies>` without worrying about matching versions:
+Afterwards include the needed packages using `<dependencies>` in your POM without worrying about matching versions:
 
 ```xml
 	<dependencies>
