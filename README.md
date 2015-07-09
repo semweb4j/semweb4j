@@ -3,10 +3,11 @@ semweb4j - Home of RDF2Go and RDFReactor
 
 Binaries
 --------
-* Please find [Semweb4j in Maven Central](http://search.maven.org/#search|ga|1|org.semweb4j)
+* Please find [semweb4j in Maven Central](http://search.maven.org/#search|ga|1|org.semweb4j)
 
 Documentation
 -------------
+* [How to use semweb4j with Maven](README.Maven.md)
 * [How to write an RDF2GO adapter for your triple store](README.WriteYourOwnRDF2GoAdapter.md)
 
 Other
