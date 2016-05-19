@@ -450,11 +450,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public Object getUnderlyingModelImplementation() {
 		return this.repository;
 	}
-	
-	public void setUnderlyingModelImplementation(Object object) {
-		this.repository = (Repository)object;
-	}
-	
+
 	@Override
 	public long size() throws ModelRuntimeException {
 		assertModel();
