@@ -207,7 +207,12 @@ public class ConversionUtil {
 		if(language.isPresent()) {
 			return new LanguageTagLiteralImpl(label, language.get());
 		} else if(dataType != null) {
-			return new DatatypeLiteralImpl(label, new URIImpl(dataType.toString(), false));
+			if ("http://www.w3.org/2001/XMLSchema#string".equals(dataType.toString())) {
+				// RDF2go treats String-Typed literals as plain.
+				return new PlainLiteralImpl(label);
+			} else {
+				return new DatatypeLiteralImpl(label, new URIImpl(dataType.toString(), false));
+			}
 		} else {
 			return new PlainLiteralImpl(label);
 		}
