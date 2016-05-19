@@ -52,7 +52,7 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 	}
 
 	public QueryRow next() {
-		BindingSet nextBindingSet = null;
+		BindingSet nextBindingSet;
 
 		try {
 			nextBindingSet = this.queryResult.next();
