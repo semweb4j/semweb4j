@@ -95,7 +95,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	protected URI context;
 	
-	private org.eclipse.rdf4j.model.IRI openRdfContext;
+	private org.eclipse.rdf4j.model.IRI rdf4jContext;
 	
 	public RepositoryModel(Repository repository) throws ModelRuntimeException {
 		if(repository == null) {
@@ -121,9 +121,9 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		
 		if(this.context == null) {
 			this.context = new URIImpl(DEFAULT_CONTEXT, false);
-			this.openRdfContext = DEFAULT_OPENRDF_CONTEXT;
+			this.rdf4jContext = DEFAULT_OPENRDF_CONTEXT;
 		} else {
-			this.openRdfContext = this.valueFactory.createIRI(this.context.toString());
+			this.rdf4jContext = this.valueFactory.createIRI(this.context.toString());
 		}
 	}
 	
@@ -131,7 +131,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	 * Returns the context as a OpenRDF URI.
 	 */
 	public org.eclipse.rdf4j.model.IRI getOpenRDFContextURI() {
-		return this.openRdfContext;
+		return this.rdf4jContext;
 	}
 	
 	@Override
@@ -241,7 +241,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					while(iterator.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
 						        this.valueFactory);
-						this.connection.remove(s, this.openRdfContext);
+						this.connection.remove(s, this.rdf4jContext);
 					}
 					this.connection.commit();
 				} catch(RepositoryException x) {
@@ -266,7 +266,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		try {
 			this.connection.begin();
 			// remove all
-			this.connection.clear(this.openRdfContext);
+			this.connection.clear(this.rdf4jContext);
 			this.connection.commit();
 		} catch(RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -289,7 +289,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					while(iterator.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
 						        this.valueFactory);
-						this.connection.add(s, this.openRdfContext);
+						this.connection.add(s, this.rdf4jContext);
 					}
 					this.connection.commit();
 				} catch(RepositoryException x) {
@@ -317,7 +317,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			
 			// remove the statement
 			this.connection.remove(openRdfSubject, openRdfPredicate, openRdfObject,
-			        this.openRdfContext);
+			        this.rdf4jContext);
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
 			
@@ -340,7 +340,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			// find the matching statements
 			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,? extends OpenRDFException> statements = this.connection
 			        .getStatements(openRdfSubject, openRdfPredicate, openRdfObject, true,
-			                this.openRdfContext);
+			                this.rdf4jContext);
 			// wrap them in a StatementIterable
 			return new StatementIterator(statements, this);
 		} catch(RepositoryException e) {
@@ -459,7 +459,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		try {
 			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,RepositoryException> statements = this.connection
-			        .getStatements(null, null, null, true, this.openRdfContext);
+			        .getStatements(null, null, null, true, this.rdf4jContext);
 			return new StatementIterator(statements, this);
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
@@ -479,7 +479,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public long size() throws ModelRuntimeException {
 		assertModel();
 		try {
-			return this.connection.size(this.openRdfContext);
+			return this.connection.size(this.rdf4jContext);
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -600,7 +600,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	        ModelRuntimeException {
 		assertModel();
 		try {
-			this.connection.add(stream, baseURI, format, this.openRdfContext);
+			this.connection.add(stream, baseURI, format, this.rdf4jContext);
 		} catch(RDFParseException e) {
 			throw new ModelRuntimeException(e);
 		} catch(RepositoryException e) {
@@ -623,7 +623,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	        ModelRuntimeException {
 		assertModel();
 		try {
-			this.connection.add(reader, baseURL, format, this.openRdfContext);
+			this.connection.add(reader, baseURL, format, this.rdf4jContext);
 		} catch(RDFParseException e) {
 			IOException ioe = new IOException();
 			ioe.initCause(e);
@@ -681,7 +681,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public void writeTo(RDFWriter writer) throws ModelRuntimeException {
 		assertModel();
 		try {
-			this.connection.exportStatements(null, null, null, false, writer, this.openRdfContext);
+			this.connection.exportStatements(null, null, null, false, writer, this.rdf4jContext);
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		} catch(RDFHandlerException e) {
@@ -772,14 +772,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					while(it.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
 						        this.valueFactory);
-						this.connection.remove(s, this.openRdfContext);
+						this.connection.remove(s, this.rdf4jContext);
 					}
 					// add
 					it = diff.getAdded().iterator();
 					while(it.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
 						        this.valueFactory);
-						this.connection.add(s, this.openRdfContext);
+						this.connection.add(s, this.rdf4jContext);
 					}
 					this.connection.commit();
 				} catch(RepositoryException x) {
