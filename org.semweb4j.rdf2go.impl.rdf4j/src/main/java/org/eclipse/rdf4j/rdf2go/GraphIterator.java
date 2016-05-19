@@ -36,14 +36,12 @@ public class GraphIterator implements ClosableIterator<Statement> {
 	}
 
 	public Statement next() {
-		org.eclipse.rdf4j.model.Statement statement = null;
 		try {
-			statement = this.iterator.next();
+			return new StatementWrapper(this.model, this.iterator.next());
 		}
 		catch (QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
 		}
-		return new StatementWrapper(this.model, statement);
 	}
 
 	public void remove() {
