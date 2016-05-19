@@ -57,7 +57,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A ModelSet implementation for the OpenRDF (Sesame) 2.0.1 API.
+ * A ModelSet implementation for the RDF4J 2.0 (Sesame 4.1.2) API.
  * 
  * Note that RepositoryModel and RepositoryModelSet only work well together
  * because they both keep their RepositoryConnections in auto-commit mode. This
@@ -603,7 +603,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		try {
 			this.valueFactory.createIRI(uriString);
 		} catch(IllegalArgumentException e) {
-			throw new ModelRuntimeException("Wrong URI format for Sesame", e);
+			throw new ModelRuntimeException("Wrong URI format for RDF4J", e);
 		}
 		
 		// return an URI if no error occured
@@ -642,26 +642,32 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	        throws ModelRuntimeException {
 		this.assertModel();
 		// convert parameters to OpenRDF data types
-		org.eclipse.rdf4j.model.Resource sesameSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-		        .toOpenRDF(subject, this.valueFactory);
-		org.eclipse.rdf4j.model.IRI sesamePredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
-		        predicate, this.valueFactory);
-		Value sesameObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
-		org.eclipse.rdf4j.model.IRI sesameContext = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
-		        contextURI, this.valueFactory);
-		
+		org.eclipse.rdf4j.model.Resource targetSubject =
+				(org.eclipse.rdf4j.model.Resource)ConversionUtil.toOpenRDF(
+					subject, this.valueFactory
+				);
+		org.eclipse.rdf4j.model.IRI targetPredicate =
+				(org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+					predicate, this.valueFactory
+				);
+		Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+		org.eclipse.rdf4j.model.IRI targetContext =
+				(org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+					contextURI, this.valueFactory
+				);
+
 		try {
 			// find the matching OpenRDF Statements
 			RepositoryResult<org.eclipse.rdf4j.model.Statement> statements;
 			// had some null-pointer exceptions here, checking contextUri
 			if((contextURI != null) && !contextURI.equals(Variable.ANY)) {
-				statements = this.connection.getStatements(sesameSubject, sesamePredicate,
-				        sesameObject, true, sesameContext);
+				statements = this.connection.getStatements(targetSubject, targetPredicate,
+				        targetObject, true, targetContext);
 			} else {
-				statements = this.connection.getStatements(sesameSubject, sesamePredicate,
-				        sesameObject, true);
+				statements = this.connection.getStatements(targetSubject, targetPredicate,
+				        targetObject, true);
 			}
-			
+
 			// wrap them in an iterator that converts them to RDF2Go Statements
 			return new StatementIterator(statements);
 		} catch(RepositoryException e) {
