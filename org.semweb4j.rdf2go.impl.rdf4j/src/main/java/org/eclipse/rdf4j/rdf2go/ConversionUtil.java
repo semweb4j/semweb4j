@@ -61,7 +61,8 @@ public class ConversionUtil {
 		} else if(object instanceof BlankNode) {
 			return toRDF4J((BlankNode)object, factory);
 		} else if(object instanceof Variable) {
-			return toRDF4J((Variable)object, factory);
+			// variables are represented as null
+			return null;
 		} else
 		// fix for RDFReactor compatibility
 		if(object instanceof org.ontoware.rdf2go.model.node.Resource) {
@@ -124,17 +125,6 @@ public class ConversionUtil {
 		return result;
 	}
 
-	/**
-	 * Variables in Sesame are represented by <code>null</code>.
-	 * 
-	 * @param variable - not used
-	 * @param factory - not used
-	 * @return always null
-	 */
-	public static Value toRDF4J(Variable variable, ValueFactory factory) {
-		return null;
-	}
-
 	public static org.eclipse.rdf4j.model.Statement toRDF4J(Statement statement, ValueFactory factory) {
 		Resource subject = (Resource) toRDF4J(statement.getSubject(), factory);
 		org.eclipse.rdf4j.model.IRI predicate = toRDF4J(statement.getPredicate(), factory);
@@ -146,15 +136,16 @@ public class ConversionUtil {
 
 	public static QueryLanguage toRDF4JQueryLanguage(String queryLanguage) {
 		String queryLanguageLowerCase = queryLanguage.toLowerCase();
-		
-		if(queryLanguageLowerCase.equals("sparql")) {
-			return QueryLanguage.SPARQL;
-		} else if(queryLanguageLowerCase.equals("serql")) {
-			return QueryLanguage.SERQL;
-		} else {
-			throw new QueryLanguageNotSupportedException("Query language '"
-			        + queryLanguageLowerCase
-			        + "' not supported. Valid values are \"sparql\" and \"serql\".");
+
+		switch (queryLanguageLowerCase) {
+			case "sparql":
+				return QueryLanguage.SPARQL;
+			case "serql":
+				return QueryLanguage.SERQL;
+			default:
+				throw new QueryLanguageNotSupportedException("Query language '"
+						+ queryLanguageLowerCase
+						+ "' not supported. Valid values are \"sparql\" and \"serql\".");
 		}
 	}
 
