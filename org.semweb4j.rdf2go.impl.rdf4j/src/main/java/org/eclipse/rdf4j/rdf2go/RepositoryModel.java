@@ -217,7 +217,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					        + predicate
 					        + " "
 					        + object
-					        + " ) which could not be stored. Most likely cause: http://openrdf.org/issues/browse/SES-521");
+					        + " ) which could not be stored.");
 				}
 				
 			}
