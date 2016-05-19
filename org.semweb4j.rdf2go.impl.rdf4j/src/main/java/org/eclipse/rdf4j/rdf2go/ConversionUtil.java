@@ -5,6 +5,7 @@
  */
 package org.eclipse.rdf4j.rdf2go;
 
+import java.util.Optional;
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.BlankNode;
@@ -200,11 +201,11 @@ public class ConversionUtil {
 		}
 		
 		String label = literal.getLabel();
-		String language = literal.getLanguage();
+		Optional<String> language = literal.getLanguage();
 		Object dataType = literal.getDatatype();
 		
-		if(language != null) {
-			return new LanguageTagLiteralImpl(label, language);
+		if(language.isPresent()) {
+			return new LanguageTagLiteralImpl(label, language.get());
 		} else if(dataType != null) {
 			return new DatatypeLiteralImpl(label, new URIImpl(dataType.toString(), false));
 		} else {
