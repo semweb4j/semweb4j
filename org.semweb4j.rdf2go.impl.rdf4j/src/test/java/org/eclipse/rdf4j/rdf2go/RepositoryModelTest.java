@@ -56,10 +56,10 @@ public class RepositoryModelTest extends AbstractModelTest {
 		model.addStatement(subject, predicate, object);
 
 		// convert the statement parts to OpenRDF data types
-		Resource openRdfSubject = ConversionUtil.toOpenRDF(subject, factory);
-		org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toOpenRDF(
+		Resource openRdfSubject = ConversionUtil.toRDF4J(subject, factory);
+		org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toRDF4J(
 				predicate, factory);
-		Value openRdfObject = ConversionUtil.toOpenRDF(object, factory);
+		Value openRdfObject = ConversionUtil.toRDF4J(object, factory);
 		org.eclipse.rdf4j.model.IRI context = RepositoryModel.DEFAULT_RDF4J_CONTEXT;
 
 		// make sure this statement is contained in this model

@@ -46,34 +46,34 @@ public class ConversionUtil {
 	 * @throws IllegalArgumentException when the specified Object is of an
 	 *             unrecognized type.
 	 */
-	public static Value toOpenRDF(Object object, ValueFactory factory) {
+	public static Value toRDF4J(Object object, ValueFactory factory) {
 		if(object == null) {
 			return null;
 		} else if(object instanceof URI) {
-			return toOpenRDF((URI)object, factory);
+			return toRDF4J((URI)object, factory);
 		} else if(object instanceof String) {
-			return toOpenRDF((String)object, factory);
+			return toRDF4J((String)object, factory);
 		} else if(object instanceof PlainLiteral) {
-			return toOpenRDF((PlainLiteral)object, factory);
+			return toRDF4J((PlainLiteral)object, factory);
 		} else if(object instanceof LanguageTagLiteral) {
-			return toOpenRDF((LanguageTagLiteral)object, factory);
+			return toRDF4J((LanguageTagLiteral)object, factory);
 		} else if(object instanceof DatatypeLiteral) {
-			return toOpenRDF((DatatypeLiteral)object, factory);
+			return toRDF4J((DatatypeLiteral)object, factory);
 		} else if(object instanceof BlankNode) {
-			return toOpenRDF((BlankNode)object, factory);
+			return toRDF4J((BlankNode)object, factory);
 		} else if(object instanceof Variable) {
-			return toOpenRDF((Variable)object, factory);
+			return toRDF4J((Variable)object, factory);
 		} else
 		// fix for RDFReactor compatibility
 		if(object instanceof org.ontoware.rdf2go.model.node.Resource) {
 			try {
 				URI uri = ((org.ontoware.rdf2go.model.node.Resource)object).asURI();
-				return toOpenRDF(uri, factory);
+				return toRDF4J(uri, factory);
 			} catch(ClassCastException e) {
 				// if a resource is not a URI it must be a blank node
 				BlankNode blankNode = ((org.ontoware.rdf2go.model.node.Resource)object)
 				        .asBlankNode();
-				return toOpenRDF(blankNode, factory);
+				return toRDF4J(blankNode, factory);
 			}
 		} else {
 			throw new IllegalArgumentException("Unexpected object type: "
@@ -81,27 +81,27 @@ public class ConversionUtil {
 		}
 	}
 	
-	public static org.eclipse.rdf4j.model.IRI toOpenRDF(URI uri, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.IRI toRDF4J(URI uri, ValueFactory factory) {
 		return uri == null ? null : factory.createIRI(uri.toString());
 	}
 	
-	public static org.eclipse.rdf4j.model.Literal toOpenRDF(String string, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toRDF4J(String string, ValueFactory factory) {
 		return string == null ? null : factory.createLiteral(string);
 	}
 	
-	public static org.eclipse.rdf4j.model.Literal toOpenRDF(PlainLiteral literal, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toRDF4J(PlainLiteral literal, ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue());
 	}
 	
-	public static org.eclipse.rdf4j.model.Literal toOpenRDF(LanguageTagLiteral literal,
-	        ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toRDF4J(LanguageTagLiteral literal,
+														  ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue(),
 		        literal.getLanguageTag());
 	}
 	
-	public static org.eclipse.rdf4j.model.Literal toOpenRDF(DatatypeLiteral literal, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toRDF4J(DatatypeLiteral literal, ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue(),
-		        toOpenRDF(literal.getDatatype(), factory));
+		        toRDF4J(literal.getDatatype(), factory));
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class ConversionUtil {
 	 * @return the OpenRDF instance wrapped in the given RDF2Go blank node or a
 	 *         new OpenRDF blank node with the same internal ID.
 	 */
-	public static BNode toOpenRDF(BlankNode node, ValueFactory factory) {
+	public static BNode toRDF4J(BlankNode node, ValueFactory factory) {
 		BNode result = null;
 		
 		if(node != null) {
@@ -137,15 +137,15 @@ public class ConversionUtil {
 	 * @param factory - not used
 	 * @return always null
 	 */
-	public static Value toOpenRDF(Variable variable, ValueFactory factory) {
+	public static Value toRDF4J(Variable variable, ValueFactory factory) {
 		return null;
 	}
 	
-	public static org.eclipse.rdf4j.model.Statement toOpenRDF(Statement statement, ValueFactory factory) {
-		Resource subject = (Resource)toOpenRDF(statement.getSubject(), factory);
-		org.eclipse.rdf4j.model.IRI predicate = toOpenRDF(statement.getPredicate(), factory);
-		Value object = toOpenRDF(statement.getObject(), factory);
-		org.eclipse.rdf4j.model.IRI context = toOpenRDF(statement.getContext(), factory);
+	public static org.eclipse.rdf4j.model.Statement toRDF4J(Statement statement, ValueFactory factory) {
+		Resource subject = (Resource) toRDF4J(statement.getSubject(), factory);
+		org.eclipse.rdf4j.model.IRI predicate = toRDF4J(statement.getPredicate(), factory);
+		Value object = toRDF4J(statement.getObject(), factory);
+		org.eclipse.rdf4j.model.IRI context = toRDF4J(statement.getContext(), factory);
 		
 		return factory.createStatement(subject, predicate, object, context);
 	}

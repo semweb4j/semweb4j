@@ -326,9 +326,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// add
 					while(iterator.hasNext()) {
 						Statement s = iterator.next();
-						org.eclipse.rdf4j.model.IRI context = ConversionUtil.toOpenRDF(s.getContext(),
+						org.eclipse.rdf4j.model.IRI context = ConversionUtil.toRDF4J(s.getContext(),
 						        this.valueFactory);
-						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toOpenRDF(s,
+						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toRDF4J(s,
 						        this.valueFactory);
 						this.connection.add(sd, context);
 					}
@@ -412,7 +412,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		if(model instanceof RepositoryModel) {
 			RepositoryModel repositoryModel = (RepositoryModel)model;
 			
-			org.eclipse.rdf4j.model.IRI openrdfContextURI = ConversionUtil.toOpenRDF(contextURI,
+			org.eclipse.rdf4j.model.IRI openrdfContextURI = ConversionUtil.toRDF4J(contextURI,
 			        this.valueFactory);
 			
 			if(repositoryModel.repository == this.repository) {
@@ -524,7 +524,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void addStatement(Statement statement) throws ModelRuntimeException {
 		this.assertModel();
 		try {
-			org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(statement, this.valueFactory);
+			org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(statement, this.valueFactory);
 			this.connection.add(s, s.getContext());
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
@@ -573,7 +573,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public boolean containsModel(URI contextURI) {
 		try {
 			return this.connection.hasStatement(null, null, null, false,
-			        ConversionUtil.toOpenRDF(contextURI, this.repository.getValueFactory()));
+			        ConversionUtil.toRDF4J(contextURI, this.repository.getValueFactory()));
 		} catch(RepositoryException e) {
 			throw new RuntimeException(e);
 		}
@@ -643,16 +643,16 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		// convert parameters to OpenRDF data types
 		org.eclipse.rdf4j.model.Resource targetSubject =
-				(org.eclipse.rdf4j.model.Resource)ConversionUtil.toOpenRDF(
+				(org.eclipse.rdf4j.model.Resource)ConversionUtil.toRDF4J(
 					subject, this.valueFactory
 				);
 		org.eclipse.rdf4j.model.IRI targetPredicate =
-				(org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+				(org.eclipse.rdf4j.model.IRI)ConversionUtil.toRDF4J(
 					predicate, this.valueFactory
 				);
-		Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+		Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
 		org.eclipse.rdf4j.model.IRI targetContext =
-				(org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+				(org.eclipse.rdf4j.model.IRI)ConversionUtil.toRDF4J(
 					contextURI, this.valueFactory
 				);
 
@@ -888,9 +888,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// add
 					while(iterator.hasNext()) {
 						Statement s = iterator.next();
-						org.eclipse.rdf4j.model.IRI context = ConversionUtil.toOpenRDF(s.getContext(),
+						org.eclipse.rdf4j.model.IRI context = ConversionUtil.toRDF4J(s.getContext(),
 						        this.valueFactory);
-						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toOpenRDF(s,
+						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toRDF4J(s,
 						        this.valueFactory);
 						this.connection.remove(sd, context);
 					}
@@ -911,7 +911,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public boolean removeModel(URI contextURI) {
 		this.assertModel();
 		org.eclipse.rdf4j.model.Resource context = ConversionUtil
-		        .toOpenRDF(contextURI, this.valueFactory);
+		        .toRDF4J(contextURI, this.valueFactory);
 		try {
 			this.connection.clear(context);
 		} catch(RepositoryException e) {
@@ -934,7 +934,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
 		this.assertModel();
 		try {
-			org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(statement, this.valueFactory);
+			org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(statement, this.valueFactory);
 			this.connection.remove(s, s.getContext());
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
@@ -952,14 +952,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	        UriOrVariable predicate, NodeOrVariable object) throws ModelRuntimeException {
 		this.assertModel();
 		try {
-			Resource s = (Resource)ConversionUtil.toOpenRDF(subject, this.valueFactory);
+			Resource s = (Resource)ConversionUtil.toRDF4J(subject, this.valueFactory);
 			org.eclipse.rdf4j.model.IRI p =
-					(org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+					(org.eclipse.rdf4j.model.IRI)ConversionUtil.toRDF4J(
 						predicate,
 						this.valueFactory
 					);
-			Value o = ConversionUtil.toOpenRDF(object, this.valueFactory);
-			Resource c = (Resource)ConversionUtil.toOpenRDF(context, this.valueFactory);
+			Value o = ConversionUtil.toRDF4J(object, this.valueFactory);
+			Resource c = (Resource)ConversionUtil.toRDF4J(context, this.valueFactory);
 			if(c != null)
 				this.connection.remove(s, p, o, c);
 			else
@@ -1075,14 +1075,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// remove
 					Iterator<? extends Statement> it = diff.getRemoved().iterator();
 					while(it.hasNext()) {
-						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(it.next(),
 						        this.valueFactory);
 						this.connection.remove(s, s.getContext());
 					}
 					// add
 					it = diff.getAdded().iterator();
 					while(it.hasNext()) {
-						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(it.next(),
 						        this.valueFactory);
 						this.connection.add(s, s.getContext());
 					}

@@ -200,10 +200,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		try {
 			// convert parameters to RDF4J data types
 			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-			        .toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toOpenRDF(predicate,
+			        .toRDF4J(subject, this.valueFactory);
+			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toRDF4J(predicate,
 			        this.valueFactory);
-			Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+			Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
 			
 			// add the statement
 			this.connection.add(targetSubject, targetPredicate, targetObject,
@@ -239,7 +239,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				try {
 					// remove all
 					while(iterator.hasNext()) {
-						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(iterator.next(),
 						        this.valueFactory);
 						this.connection.remove(s, this.rdf4jContext);
 					}
@@ -287,7 +287,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				try {
 					// add
 					while(iterator.hasNext()) {
-						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(iterator.next(),
 						        this.valueFactory);
 						this.connection.add(s, this.rdf4jContext);
 					}
@@ -310,10 +310,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		try {
 			// convert parameters to RDF4J data types
 			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-			        .toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toOpenRDF(predicate,
+			        .toRDF4J(subject, this.valueFactory);
+			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toRDF4J(predicate,
 			        this.valueFactory);
-			Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+			Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
 			
 			// remove the statement
 			this.connection.remove(targetSubject, targetPredicate, targetObject,
@@ -331,10 +331,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		// convert parameters to RDF4J data types
 		org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-		        .toOpenRDF(subject, this.valueFactory);
-		org.eclipse.rdf4j.model.IRI targetPredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+		        .toRDF4J(subject, this.valueFactory);
+		org.eclipse.rdf4j.model.IRI targetPredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toRDF4J(
 		        predicate, this.valueFactory);
-		Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+		Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
 		
 		try {
 			// find the matching statements
@@ -770,14 +770,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					// remove
 					Iterator<? extends Statement> it = diff.getRemoved().iterator();
 					while(it.hasNext()) {
-						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(it.next(),
 						        this.valueFactory);
 						this.connection.remove(s, this.rdf4jContext);
 					}
 					// add
 					it = diff.getAdded().iterator();
 					while(it.hasNext()) {
-						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(it.next(),
 						        this.valueFactory);
 						this.connection.add(s, this.rdf4jContext);
 					}
