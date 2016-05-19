@@ -412,14 +412,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		if(model instanceof RepositoryModel) {
 			RepositoryModel repositoryModel = (RepositoryModel)model;
 			
-			org.eclipse.rdf4j.model.IRI openrdfContextURI = ConversionUtil.toRDF4J(contextURI,
+			org.eclipse.rdf4j.model.IRI targetContext = ConversionUtil.toRDF4J(contextURI,
 			        this.valueFactory);
 			
 			if(repositoryModel.repository == this.repository) {
 				// When both instances use the same Repository instance, we need
 				// to copy
 				
-				// find the matching OpenRDF Statements
+				// find the matching RDF4J Statements
 				try {
 					RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = repositoryModel.connection
 					        .getStatements(null, null, null, true);
@@ -432,7 +432,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// now insert with a different context URI
 					for(org.eclipse.rdf4j.model.Statement stmt : stmts) {
 						this.valueFactory.createStatement(stmt.getSubject(), stmt.getPredicate(),
-						        stmt.getObject(), openrdfContextURI);
+						        stmt.getObject(), targetContext);
 					}
 				} catch(RepositoryException e) {
 					throw new ModelRuntimeException(e);
@@ -452,8 +452,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 						org.eclipse.rdf4j.model.Statement stmt = statements.next();
 						this.connection.add(
 						        this.valueFactory.createStatement(stmt.getSubject(),
-						                stmt.getPredicate(), stmt.getObject(), openrdfContextURI),
-						        openrdfContextURI);
+						                stmt.getPredicate(), stmt.getObject(), targetContext),
+						        targetContext);
 					}
 				} catch(RepositoryException e) {
 					throw new ModelRuntimeException(e);
@@ -641,7 +641,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	        ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object)
 	        throws ModelRuntimeException {
 		this.assertModel();
-		// convert parameters to OpenRDF data types
+		// convert parameters to RDF4J data types
 		org.eclipse.rdf4j.model.Resource targetSubject =
 				(org.eclipse.rdf4j.model.Resource)ConversionUtil.toRDF4J(
 					subject, this.valueFactory
@@ -657,7 +657,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 				);
 
 		try {
-			// find the matching OpenRDF Statements
+			// find the matching RDF4J Statements
 			RepositoryResult<org.eclipse.rdf4j.model.Statement> statements;
 			// had some null-pointer exceptions here, checking contextUri
 			if((contextURI != null) && !contextURI.equals(Variable.ANY)) {
@@ -755,7 +755,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public ClosableIterator<Statement> iterator() {
 		this.assertModel();
 		try {
-			// find the matching OpenRDF Statements
+			// find the matching RDF4J Statements
 			RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = this.connection
 			        .getStatements(null, null, null, true);
 			// wrap them in an iterator that converts them to RDF2Go Statements
