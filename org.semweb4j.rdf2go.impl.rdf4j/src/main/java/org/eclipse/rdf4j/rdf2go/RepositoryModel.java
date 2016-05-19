@@ -728,8 +728,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		it.close();
 		Iterator<Statement> addIt = diff.getAdded().iterator();
 		Iterator<Statement> removeIt = diff.getAdded().iterator();
-		boolean result = !addIt.hasNext() && !removeIt.hasNext();
-		return result;
+		return !addIt.hasNext() && !removeIt.hasNext();
 	}
 	
 	@Override
