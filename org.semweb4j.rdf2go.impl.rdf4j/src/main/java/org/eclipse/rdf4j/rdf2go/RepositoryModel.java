@@ -198,16 +198,16 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	        throws ModelRuntimeException {
 		assertModel();
 		try {
-			// convert parameters to OpenRDF data types
-			org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
+			// convert parameters to RDF4J data types
+			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 			        .toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
-			Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+			Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			
 			// add the statement
-			this.connection.add(openRdfSubject, openRdfPredicate, openRdfObject,
-			        this.openRdfContext);
+			this.connection.add(targetSubject, targetPredicate, targetObject,
+			        this.rdf4jContext);
 			if(log.isDebugEnabled()) {
 				this.connection.commit();
 				if(!contains(subject, predicate, object)) {
