@@ -130,7 +130,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	/**
 	 * Returns the context as a RDF4J IRI.
 	 */
-	public org.eclipse.rdf4j.model.IRI getOpenRDFContextURI() {
+	public org.eclipse.rdf4j.model.IRI getRDF4JContextURI() {
 		return this.rdf4jContext;
 	}
 	

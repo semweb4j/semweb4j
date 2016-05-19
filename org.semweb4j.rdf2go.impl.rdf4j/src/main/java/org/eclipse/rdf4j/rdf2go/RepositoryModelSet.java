@@ -369,7 +369,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				org.eclipse.rdf4j.model.IRI context = repositoryModel.getOpenRDFContextURI();
+				org.eclipse.rdf4j.model.IRI context = repositoryModel.getRDF4JContextURI();
 				
 				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
@@ -440,7 +440,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				org.eclipse.rdf4j.model.IRI context = repositoryModel.getOpenRDFContextURI();
+				org.eclipse.rdf4j.model.IRI context = repositoryModel.getRDF4JContextURI();
 				
 				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
