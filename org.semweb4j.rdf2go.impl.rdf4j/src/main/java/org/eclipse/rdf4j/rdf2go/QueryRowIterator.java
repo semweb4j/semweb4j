@@ -35,9 +35,8 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 	public boolean hasNext() {
 		if (this.closed) {
 			return false;
-		}
-		else {
-			boolean hasNext = false;
+		} else {
+			boolean hasNext;
 			try {
 				hasNext = this.queryResult.hasNext();
 			}
@@ -88,8 +87,7 @@ public class QueryRowIterator implements ClosableIterator<QueryRow> {
 	}
 
 	@Override
-	protected void finalize()
-		throws Throwable
+	protected void finalize() throws Throwable
 	{
 		try {
 			if (!this.closed) {
