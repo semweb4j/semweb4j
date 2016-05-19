@@ -812,8 +812,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		try {
 			RepositoryResult<Namespace> namespaces = this.connection.getNamespaces();
 			namespaces.enableDuplicateFilter();
-			List<Namespace> namespaceList =  Iterations.asList(namespaces);
-			for(Namespace namespace : namespaceList) {
+			while (namespaces.hasNext()) {
+				Namespace namespace = namespaces.next();
 				nsMap.put(namespace.getPrefix(), namespace.getName());
 			}
 			return nsMap;

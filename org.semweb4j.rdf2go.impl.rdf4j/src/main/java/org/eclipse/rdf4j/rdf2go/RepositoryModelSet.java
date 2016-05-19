@@ -722,11 +722,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		Map<String,String> nsMap = new HashMap<String,String>();
 		try {
-			RepositoryResult<Namespace> openrdfMap = this.connection.getNamespaces();
-			openrdfMap.enableDuplicateFilter();
-			while (openrdfMap.hasNext()) {
-				Namespace openrdfNamespace = openrdfMap.next();
-				nsMap.put(openrdfNamespace.getPrefix(), openrdfNamespace.getName());
+			RepositoryResult<Namespace> namespaces = this.connection.getNamespaces();
+			namespaces.enableDuplicateFilter();
+			while (namespaces.hasNext()) {
+				Namespace namespace = namespaces.next();
+				nsMap.put(namespace.getPrefix(), namespace.getName());
 			}
 			return nsMap;
 		} catch(RepositoryException e) {
