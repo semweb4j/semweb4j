@@ -618,13 +618,6 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		} catch(IOException e) {
 			throw new ModelRuntimeException(e);
 		}
-		// RDFWriter sesameWriter = new RDFXMLPrettyWriter(System.out);
-		// try {
-		// connection.export(sesameWriter);
-		// }
-		// catch (Exception se) {
-		// throw new ModelRuntimeException("Couldn't dump a model", se);
-		// }
 	}
 	
 	@Override
