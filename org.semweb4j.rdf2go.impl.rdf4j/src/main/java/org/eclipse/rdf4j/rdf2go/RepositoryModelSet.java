@@ -786,7 +786,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		this.assertModel();
 		// resolve the query language String to a QueryLanguage
-		QueryLanguage language = ConversionUtil.toOpenRDFQueryLanguage(queryLanguage);
+		QueryLanguage language = ConversionUtil.toRDF4JQueryLanguage(queryLanguage);
 		
 		try {
 			// determine query result
@@ -804,7 +804,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public QueryResultTable querySelect(String queryString, String queryLanguage)
 	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
 		this.assertModel();
-		QueryLanguage language = ConversionUtil.toOpenRDFQueryLanguage(queryLanguage);
+		QueryLanguage language = ConversionUtil.toRDF4JQueryLanguage(queryLanguage);
 		return new RepositoryQueryResultTable(queryString, language, this.connection);
 	}
 	

@@ -98,12 +98,12 @@ public class ConversionUtil {
 		return literal == null ? null : factory.createLiteral(literal.getValue(),
 		        literal.getLanguageTag());
 	}
-	
+
 	public static org.eclipse.rdf4j.model.Literal toRDF4J(DatatypeLiteral literal, ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue(),
 		        toRDF4J(literal.getDatatype(), factory));
 	}
-	
+
 	/**
 	 * Implementation note: This method does not use the {@link ValueFactory}
 	 * but directly fetches the Sesame object reference from RDF2Gos wrapper
@@ -150,19 +150,17 @@ public class ConversionUtil {
 		return factory.createStatement(subject, predicate, object, context);
 	}
 	
-	public static QueryLanguage toOpenRDFQueryLanguage(String queryLanguage) {
+	public static QueryLanguage toRDF4JQueryLanguage(String queryLanguage) {
 		String queryLanguageLowerCase = queryLanguage.toLowerCase();
 		
 		if(queryLanguageLowerCase.equals("sparql")) {
 			return QueryLanguage.SPARQL;
 		} else if(queryLanguageLowerCase.equals("serql")) {
 			return QueryLanguage.SERQL;
-		} else if(queryLanguageLowerCase.equals("serqo")) {
-			return QueryLanguage.SERQO;
 		} else {
 			throw new QueryLanguageNotSupportedException("Query language '"
 			        + queryLanguageLowerCase
-			        + "' not supported. Valid values are \"sparql\", \"serql\" and \"serqo\".");
+			        + "' not supported. Valid values are \"sparql\" and \"serql\".");
 		}
 	}
 	
