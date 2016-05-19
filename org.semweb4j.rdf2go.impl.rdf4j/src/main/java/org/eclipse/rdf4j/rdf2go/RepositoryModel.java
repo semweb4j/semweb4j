@@ -355,13 +355,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			boolean result = this.connection.prepareBooleanQuery(QueryLanguage.SPARQL, query)
 			        .evaluate();
 			return result;
-		} catch(MalformedQueryException e) {
-			throw new ModelRuntimeException(e);
-		} catch(UnsupportedQueryLanguageException e) {
-			throw new ModelRuntimeException(e);
-		} catch(QueryEvaluationException e) {
-			throw new ModelRuntimeException(e);
-		} catch(RepositoryException e) {
+		} catch (MalformedQueryException | RepositoryException |
+				UnsupportedQueryLanguageException | QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -373,13 +368,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
 			        QueryLanguage.SPARQL, query).evaluate();
 			return new GraphIterable(graphQueryResult, this);
-		} catch(MalformedQueryException e) {
-			throw new ModelRuntimeException(e);
-		} catch(UnsupportedQueryLanguageException e) {
-			throw new ModelRuntimeException(e);
-		} catch(QueryEvaluationException e) {
-			throw new ModelRuntimeException(e);
-		} catch(RepositoryException e) {
+		} catch (MalformedQueryException | RepositoryException |
+				UnsupportedQueryLanguageException | QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -391,13 +381,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
 			        QueryLanguage.SPARQL, query).evaluate();
 			return new GraphIterable(graphQueryResult, this);
-		} catch(MalformedQueryException e) {
-			throw new ModelRuntimeException(e);
-		} catch(UnsupportedQueryLanguageException e) {
-			throw new ModelRuntimeException(e);
-		} catch(QueryEvaluationException e) {
-			throw new ModelRuntimeException(e);
-		} catch(RepositoryException e) {
+		} catch (MalformedQueryException | RepositoryException |
+				UnsupportedQueryLanguageException | QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -436,13 +421,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(ql, query)
 				        .evaluate();
 				return new GraphIterable(graphQueryResult, this);
-			} catch(MalformedQueryException e) {
-				throw new ModelRuntimeException(e);
-			} catch(UnsupportedQueryLanguageException e) {
-				throw new ModelRuntimeException(e);
-			} catch(QueryEvaluationException e) {
-				throw new ModelRuntimeException(e);
-			} catch(RepositoryException e) {
+			} catch (MalformedQueryException | RepositoryException |
+					UnsupportedQueryLanguageException | QueryEvaluationException e) {
 				throw new ModelRuntimeException(e);
 			}
 		}
@@ -601,9 +581,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		try {
 			this.connection.add(stream, baseURI, format, this.rdf4jContext);
-		} catch(RDFParseException e) {
-			throw new ModelRuntimeException(e);
-		} catch(RepositoryException e) {
+		} catch (RDFParseException | RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -682,9 +660,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		try {
 			this.connection.exportStatements(null, null, null, false, writer, this.rdf4jContext);
-		} catch(RepositoryException e) {
-			throw new ModelRuntimeException(e);
-		} catch(RDFHandlerException e) {
+		} catch (RepositoryException | RDFHandlerException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
