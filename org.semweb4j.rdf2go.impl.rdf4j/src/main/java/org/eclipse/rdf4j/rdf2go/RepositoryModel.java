@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of the RDF2Go model interface for an RDF4J Repository.
- * 
+ * <p>
  * Note that RepositoryModel and RepositoryModelSet only work well together
  * because they both keep their RepositoryConnections in auto-commit mode. This
  * cannot be changed by the user. Do mass-updates using
@@ -74,161 +74,161 @@ import org.slf4j.LoggerFactory;
  * non-autocommit mode and commited, including a rollback when it fails.
  */
 public class RepositoryModel extends AbstractLockingModel implements Model {
-	
+
 	private static final long serialVersionUID = 1466969214320765429L;
-	
+
 	private static Logger log = LoggerFactory.getLogger(RepositoryModel.class);
-	
+
 	public static final String DEFAULT_CONTEXT = "urn:nullcontext";
-	
+
 	public static final org.eclipse.rdf4j.model.IRI DEFAULT_RDF4J_CONTEXT = null;
-	
+
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	protected Repository repository;
-	
+
 	protected RepositoryConnection connection;
-	
+
 	protected ValueFactory valueFactory;
-	
+
 	private boolean locked = false;
-	
+
 	protected URI context;
-	
+
 	private org.eclipse.rdf4j.model.IRI rdf4jContext;
-	
+
 	public RepositoryModel(Repository repository) throws ModelRuntimeException {
-		if(repository == null) {
+		if (repository == null) {
 			throw new IllegalArgumentException("Repository cannot be null");
 		}
-		
+
 		this.repository = repository;
 		init();
 	}
-	
+
 	public RepositoryModel(URI context, Repository repository) throws ModelRuntimeException {
-		if(repository == null) {
+		if (repository == null) {
 			throw new IllegalArgumentException("Repository cannot be null");
 		}
-		
+
 		this.repository = repository;
 		this.context = context;
 		init();
 	}
-	
+
 	private void init() {
 		this.valueFactory = this.repository.getValueFactory();
-		
-		if(this.context == null) {
+
+		if (this.context == null) {
 			this.context = new URIImpl(DEFAULT_CONTEXT, false);
 			this.rdf4jContext = DEFAULT_RDF4J_CONTEXT;
 		} else {
 			this.rdf4jContext = this.valueFactory.createIRI(this.context.toString());
 		}
 	}
-	
+
 	/**
 	 * Returns the context as a RDF4J IRI.
 	 */
 	public org.eclipse.rdf4j.model.IRI getRDF4JContextURI() {
 		return this.rdf4jContext;
 	}
-	
+
 	@Override
 	public Model open() {
 		// establish a connection only if none had been established
-		if(isOpen()) {
+		if (isOpen()) {
 			return this;
 		}
 		try {
 			this.connection = this.repository.getConnection();
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 		return this;
 	}
-	
+
 	@Override
 	public boolean isOpen() throws ModelRuntimeException {
 		try {
 			return this.connection != null && this.connection.isOpen();
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * Closes the Connection to the wrapper Repository.
 	 */
 	@Override
 	public void close() {
 		try {
-			if(isOpen()) {
+			if (isOpen()) {
 				this.connection.close();
 				this.connection = null;
 			}
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public BlankNode createBlankNode() {
 		return new RDF4JBlankNode(this.valueFactory.createBNode());
 	}
-	
+
 	@Override
 	public BlankNode createBlankNode(String internalID) {
 		return new RDF4JBlankNode(this.valueFactory.createBNode(internalID));
 	}
-	
+
 	@Override
 	public boolean isValidURI(String uriString) {
 		boolean isValid = true;
 		try {
 			this.valueFactory.createIRI(uriString);
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			isValid = false;
 		}
 		return isValid;
 	}
-	
+
 	@Override
 	public void addStatement(Resource subject, URI predicate, Node object)
-	        throws ModelRuntimeException {
+			throws ModelRuntimeException {
 		assertModel();
 		try {
 			// convert parameters to RDF4J data types
-			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-			        .toRDF4J(subject, this.valueFactory);
+			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource) ConversionUtil
+					.toRDF4J(subject, this.valueFactory);
 			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toRDF4J(predicate,
-			        this.valueFactory);
+					this.valueFactory);
 			Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
-			
+
 			// add the statement
 			this.connection.add(targetSubject, targetPredicate, targetObject,
-			        this.rdf4jContext);
-			if(log.isDebugEnabled()) {
+					this.rdf4jContext);
+			if (log.isDebugEnabled()) {
 				this.connection.commit();
-				if(!contains(subject, predicate, object)) {
+				if (!contains(subject, predicate, object)) {
 					log.warn("You just added a statement ("
-					        + subject
-					        + " "
-					        + predicate
-					        + " "
-					        + object
-					        + " ) which could not be stored.");
+							+ subject
+							+ " "
+							+ predicate
+							+ " "
+							+ object
+							+ " ) which could not be stored.");
 				}
-				
+
 			}
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public void removeAll(Iterator<? extends Statement> iterator) throws ModelRuntimeException {
-		if(this.isLocked()) {
+		if (this.isLocked()) {
 			throw new ModelRuntimeException("Model is locked, cannot perform an update.");
 		}
 		// do not auto-commit
@@ -238,27 +238,27 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			try {
 				try {
 					// remove all
-					while(iterator.hasNext()) {
+					while (iterator.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(iterator.next(),
-						        this.valueFactory);
+								this.valueFactory);
 						this.connection.remove(s, this.rdf4jContext);
 					}
 					this.connection.commit();
-				} catch(RepositoryException x) {
+				} catch (RepositoryException x) {
 					this.connection.rollback();
 				}
 			} finally {
 				this.connection.commit();
 			}
-		} catch(RepositoryException x) {
+		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
 		}
 	}
-	
+
 	/* for performance reasons */
 	@Override
 	public void removeAll() throws ModelRuntimeException {
-		if(this.isLocked()) {
+		if (this.isLocked()) {
 			throw new ModelRuntimeException("Model is locked, cannot perform an update.");
 		}
 		// do not auto-commit
@@ -268,15 +268,15 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			// remove all
 			this.connection.clear(this.rdf4jContext);
 			this.connection.commit();
-		} catch(RepositoryException x) {
+		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
 		}
-		
+
 	}
-	
+
 	@Override
 	public void addAll(Iterator<? extends Statement> iterator) throws ModelRuntimeException {
-		if(this.isLocked()) {
+		if (this.isLocked()) {
 			throw new ModelRuntimeException("Model is locked, cannot perform an update.");
 		}
 		// do not auto-commit
@@ -286,68 +286,68 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			try {
 				try {
 					// add
-					while(iterator.hasNext()) {
+					while (iterator.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(iterator.next(),
-						        this.valueFactory);
+								this.valueFactory);
 						this.connection.add(s, this.rdf4jContext);
 					}
 					this.connection.commit();
-				} catch(RepositoryException x) {
+				} catch (RepositoryException x) {
 					this.connection.rollback();
 				}
 			} finally {
 				this.connection.commit();
 			}
-		} catch(RepositoryException x) {
+		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
 		}
 	}
-	
+
 	@Override
 	public void removeStatement(Resource subject, URI predicate, Node object)
-	        throws ModelRuntimeException {
+			throws ModelRuntimeException {
 		assertModel();
 		try {
 			// convert parameters to RDF4J data types
-			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-			        .toRDF4J(subject, this.valueFactory);
+			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource) ConversionUtil
+					.toRDF4J(subject, this.valueFactory);
 			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toRDF4J(predicate,
-			        this.valueFactory);
+					this.valueFactory);
 			Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
-			
+
 			// remove the statement
 			this.connection.remove(targetSubject, targetPredicate, targetObject,
-			        this.rdf4jContext);
-		} catch(RepositoryException e) {
+					this.rdf4jContext);
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
-			
+
 		}
 	}
-	
+
 	@Override
 	public ClosableIterator<org.ontoware.rdf2go.model.Statement> findStatements(
-	        ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object)
-	        throws ModelRuntimeException {
+			ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object)
+			throws ModelRuntimeException {
 		assertModel();
 		// convert parameters to RDF4J data types
-		org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
-		        .toRDF4J(subject, this.valueFactory);
-		org.eclipse.rdf4j.model.IRI targetPredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toRDF4J(
-		        predicate, this.valueFactory);
+		org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource) ConversionUtil
+				.toRDF4J(subject, this.valueFactory);
+		org.eclipse.rdf4j.model.IRI targetPredicate = (org.eclipse.rdf4j.model.IRI) ConversionUtil.toRDF4J(
+				predicate, this.valueFactory);
 		Value targetObject = ConversionUtil.toRDF4J(object, this.valueFactory);
-		
+
 		try {
 			// find the matching statements
-			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,? extends RDF4JException> statements = this.connection
-			        .getStatements(targetSubject, targetPredicate, targetObject, true,
-			                this.rdf4jContext);
+			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement, ? extends RDF4JException> statements = this.connection
+					.getStatements(targetSubject, targetPredicate, targetObject, true,
+							this.rdf4jContext);
 			// wrap them in a StatementIterable
 			return new StatementIterator(statements, this);
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
 		assertModel();
@@ -359,7 +359,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public ClosableIterable<Statement> sparqlDescribe(String query) throws ModelRuntimeException {
 		assertModel();
@@ -372,7 +372,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public ClosableIterable<Statement> sparqlConstruct(String query) throws ModelRuntimeException {
 		assertModel();
@@ -385,15 +385,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	/* enable SeRQL queries, too */
 	@Override
-	public QueryResultTable querySelect(String query, String querylanguage)
-	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
+	public QueryResultTable querySelect(String query, String queryLanguage) throws QueryLanguageNotSupportedException {
 		assertModel();
-		if(querylanguage.equalsIgnoreCase("SPARQL"))
+		if (queryLanguage.equalsIgnoreCase("SPARQL")) {
 			return sparqlSelect(query);
-		else {
+		} else {
 			QueryLanguage ql = QueryLanguage.valueOf(queryLanguage);
 			if (ql == null) {
 				throw new QueryLanguageNotSupportedException("Unsupported query language: '" + queryLanguage + "'");
@@ -401,19 +400,19 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			return new RepositoryQueryResultTable(query, ql, this.connection);
 		}
 	}
-	
+
 	/* enable SeRQL queries, too */
 	@Override
 	public ClosableIterable<Statement> queryConstruct(String query, String querylanguage)
-	        throws QueryLanguageNotSupportedException, ModelRuntimeException {
+			throws QueryLanguageNotSupportedException {
 		assertModel();
-		if(querylanguage.equalsIgnoreCase("SPARQL"))
+		if (querylanguage.equalsIgnoreCase("SPARQL"))
 			return sparqlConstruct(query);
 		else {
 			QueryLanguage ql = QueryLanguage.valueOf(querylanguage);
-			if(ql == null) {
+			if (ql == null) {
 				throw new QueryLanguageNotSupportedException("Unsupported query language: '"
-				        + querylanguage + "'");
+						+ querylanguage + "'");
 			}
 			try {
 				GraphQuery prepared = this.connection.prepareGraphQuery(ql, query);
@@ -425,25 +424,25 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			}
 		}
 	}
-	
+
 	@Override
 	public QueryResultTable sparqlSelect(String queryString) throws ModelRuntimeException {
 		assertModel();
 		return new RepositoryQueryResultTable(queryString, this.connection);
 	}
-	
+
 	@Override
 	public ClosableIterator<Statement> iterator() {
 		assertModel();
 		try {
-			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,RepositoryException> statements = this.connection
-			        .getStatements(null, null, null, true, this.rdf4jContext);
+			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement, RepositoryException> statements = this.connection
+					.getStatements(null, null, null, true, this.rdf4jContext);
 			return new StatementIterator(statements, this);
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public Object getUnderlyingModelImplementation() {
 		return this.repository;
@@ -454,124 +453,124 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		try {
 			return this.connection.size(this.rdf4jContext);
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public URI getContextURI() {
-		if(this.context.toString().equals(DEFAULT_CONTEXT)) {
+		if (this.context.toString().equals(DEFAULT_CONTEXT)) {
 			return null;
 		} else {
 			return this.context;
 		}
 	}
-	
+
 	@Override
 	public synchronized boolean isLocked() {
 		return this.locked;
 	}
-	
+
 	/**
 	 * Locking a RepositoryModel disables auto-commit mode and starts a new
 	 * transaction, which is left open until this RepositoryModel is unlocked.
 	 */
 	@Override
 	public synchronized void lock() throws LockException {
-		if(isLocked()) {
+		if (isLocked()) {
 			return;
 		}
-		
+
 		try {
 			// mark this model as locked
 			this.locked = true;
 
 			// flush everything that has not been commited yet
 			this.connection.commit();
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new LockException(e);
 		}
 	}
-	
+
 	/**
 	 * Ends the locking status, committing all changed that have been made since
 	 * this RepositoryModel was locked and switching back to auto-commit mode.
 	 */
 	@Override
 	public synchronized void unlock() {
-		if(!isLocked()) {
+		if (!isLocked()) {
 			return;
 		}
-		
+
 		try {
-			
+
 			// commit all changes
 			this.connection.commit();
-			
+
 			// unlock this model
 			this.locked = false;
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			// TODO: a LockException would be more appropriate IMHO but this
 			// requires a change to the RDF2Go API
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	public synchronized void rollback() {
-		if(!isLocked()) {
+		if (!isLocked()) {
 			return;
 		}
-		
+
 		assertModel();
 		try {
 			this.connection.rollback();
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public void dump() {
 		assertModel();
 		Iterator<Statement> iterator = iterator();
 		System.out
-		        .println("Dumping Repository contents ----------------------------------------------");
-		
-		while(iterator.hasNext()) {
+				.println("Dumping Repository contents ----------------------------------------------");
+
+		while (iterator.hasNext()) {
 			iterator.next().dump(null);
 		}
 	}
-	
+
 	@Override
 	public void readFrom(InputStream stream) throws IOException, ModelRuntimeException {
 		readFrom(stream, RDFFormat.RDFXML, "");
 	}
-	
+
 	@Override
 	public void readFrom(InputStream stream, Syntax syntax) throws IOException,
-	        ModelRuntimeException {
-		
+			ModelRuntimeException {
+
 		readFrom(stream, getRDFFormat(syntax), "");
 	}
-	
+
 	@Override
-    public void readFrom(InputStream stream, Syntax syntax, String baseURI) throws IOException,
-            ModelRuntimeException {
+	public void readFrom(InputStream stream, Syntax syntax, String baseURI) throws IOException,
+			ModelRuntimeException {
 
 		readFrom(stream, getRDFFormat(syntax), baseURI);
 	}
-	
+
 	@Override
 	public void readFrom(Reader reader, Syntax syntax, String baseURI)
-	        throws ModelRuntimeException, IOException {
+			throws ModelRuntimeException, IOException {
 
 		readFrom(reader, getRDFFormat(syntax), baseURI);
-		
+
 	}
-	
+
 	public void readFrom(InputStream stream, RDFFormat format, String baseURI) throws IOException,
-	        ModelRuntimeException {
+			ModelRuntimeException {
 		assertModel();
 		try {
 			this.connection.add(stream, baseURI, format, this.rdf4jContext);
@@ -579,64 +578,62 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public void readFrom(Reader reader) throws IOException, ModelRuntimeException {
 		readFrom(reader, RDFFormat.RDFXML, "");
 	}
-	
+
 	@Override
 	public void readFrom(Reader reader, Syntax syntax) throws IOException, ModelRuntimeException {
-		
+
 		readFrom(reader, getRDFFormat(syntax), "");
 	}
-	
+
 	public void readFrom(Reader reader, RDFFormat format, String baseURL) throws IOException,
-	        ModelRuntimeException {
+			ModelRuntimeException {
 		assertModel();
 		try {
 			this.connection.add(reader, baseURL, format, this.rdf4jContext);
-		} catch(RDFParseException e) {
-			IOException ioe = new IOException();
-			ioe.initCause(e);
-			throw ioe;
-		} catch(RepositoryException e) {
+		} catch (RDFParseException e) {
+			throw new IOException(e);
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public void writeTo(OutputStream stream) throws IOException, ModelRuntimeException {
 		writeTo(stream, Syntax.RdfXml);
 	}
-	
+
 	@Override
 	public void writeTo(OutputStream stream, Syntax syntax) throws
-	// interface allows it
-	        IOException, ModelRuntimeException {
+			// interface allows it
+			IOException, ModelRuntimeException {
 		RDFWriter rdfWriter = Rio.createWriter(getRDFFormat(syntax), stream);
 		writeTo(rdfWriter);
 	}
-	
+
 	@Override
 	public void writeTo(Writer writer) throws ModelRuntimeException {
 		writeTo(writer, Syntax.RdfXml);
 	}
-	
+
 	@Override
 	public void writeTo(Writer writer, Syntax syntax) throws ModelRuntimeException {
 		assertModel();
 		RDFWriter rdfWriter = Rio.createWriter(getRDFFormat(syntax), writer);
 		writeTo(rdfWriter);
 	}
-	
+
 	/**
 	 * Resolves an RDF2Go {@link Syntax} to an RDF4J {@link RDFFormat}.
-	 * 
+	 *
 	 * @param syntax The RDF2Go Syntax to resolve.
 	 * @return A RDFFormat for the specified syntax.
 	 * @throws SyntaxNotSupportedException When the Syntax could not be resolved to a
-	 *             RDFFormat.
+	 *                                     RDFFormat.
 	 */
 	public static RDFFormat getRDFFormat(Syntax syntax) throws SyntaxNotSupportedException {
 		RDFWriterRegistry registry = RDFWriterRegistry.getInstance();
@@ -649,7 +646,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		throw new SyntaxNotSupportedException("This version of Sesame seems to have no "
 				+ "support for " + syntax);
 	}
-	
+
 	public void writeTo(RDFWriter writer) throws ModelRuntimeException {
 		assertModel();
 		try {
@@ -658,45 +655,44 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	@Deprecated
 	public void commit() {
 		try {
 			this.connection.commit();
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	@Deprecated
 	public void setAutocommit(boolean autocommit) {
 		assertModel();
-		
+
 		if (autocommit == false) {
 			try {
 				this.connection.begin();
 			} catch (RepositoryException e) {
 				throw new RuntimeException(e);
 			}
-		}
-		else {
+		} else {
 			try {
 				this.connection.commit();
-			} catch(RepositoryException e) {
+			} catch (RepositoryException e) {
 				throw new RuntimeException(e);
 			}
 		}
 	}
-	
+
 	/**
 	 * Makes sure that the Connection to the wrapped Repository has been closed.
 	 */
 	@Override
 	public void finalize() throws Throwable {
 		try {
-			if(this.connection.isOpen()) {
+			if (this.connection.isOpen()) {
 				this.logger.warn(this.getClass().getName() + " not closed, closing now.");
 				close();
 			}
@@ -704,17 +700,17 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			super.finalize();
 		}
 	}
-	
+
 	@Override
 	protected void assertModel() {
-		if(this.repository == null) {
+		if (this.repository == null) {
 			throw new ModelRuntimeException("Repository is null");
 		}
-		if(this.connection == null) {
+		if (this.connection == null) {
 			throw new ModelRuntimeException("Connection is null");
 		}
 	}
-	
+
 	@Override
 	public boolean isIsomorphicWith(Model other) {
 		ClosableIterator<Statement> it = other.iterator();
@@ -724,10 +720,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		Iterator<Statement> removeIt = diff.getAdded().iterator();
 		return !addIt.hasNext() && !removeIt.hasNext();
 	}
-	
+
 	@Override
 	public synchronized void update(DiffReader diff) throws ModelRuntimeException {
-		if(this.isLocked()) {
+		if (this.isLocked()) {
 			throw new ModelRuntimeException("Model is locked, cannot perform an update.");
 		}
 		// do not auto-commit
@@ -738,46 +734,46 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				try {
 					// remove
 					Iterator<? extends Statement> it = diff.getRemoved().iterator();
-					while(it.hasNext()) {
+					while (it.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(it.next(),
-						        this.valueFactory);
+								this.valueFactory);
 						this.connection.remove(s, this.rdf4jContext);
 					}
 					// add
 					it = diff.getAdded().iterator();
-					while(it.hasNext()) {
+					while (it.hasNext()) {
 						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toRDF4J(it.next(),
-						        this.valueFactory);
+								this.valueFactory);
 						this.connection.add(s, this.rdf4jContext);
 					}
 					this.connection.commit();
-				} catch(RepositoryException x) {
+				} catch (RepositoryException x) {
 					this.logger.warn("Could not commit, rolling back.", x);
 					this.connection.rollback();
 				}
 			} finally {
 				this.connection.commit();
 			}
-		} catch(RepositoryException x) {
+		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
 		}
-		
+
 	}
-	
+
 	@Override
 	public String getNamespace(String prefix) {
 		assertModel();
 		try {
 			return this.connection.getNamespace(prefix);
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
-	public Map<String,String> getNamespaces() {
+	public Map<String, String> getNamespaces() {
 		assertModel();
-		Map<String,String> nsMap = new HashMap<String,String>();
+		Map<String, String> nsMap = new HashMap<>();
 		try {
 			RepositoryResult<Namespace> namespaces = this.connection.getNamespaces();
 			namespaces.enableDuplicateFilter();
@@ -786,27 +782,27 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				nsMap.put(namespace.getPrefix(), namespace.getName());
 			}
 			return nsMap;
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public void removeNamespace(String prefix) {
 		assertModel();
 		try {
 			this.connection.removeNamespace(prefix);
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public void setNamespace(String prefix, String namespaceURI) throws IllegalArgumentException {
 		assertModel();
 		try {
 			this.connection.setNamespace(prefix, namespaceURI);
-		} catch(RepositoryException e) {
+		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
