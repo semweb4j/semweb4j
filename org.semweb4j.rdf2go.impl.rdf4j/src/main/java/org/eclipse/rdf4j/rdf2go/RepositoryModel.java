@@ -44,6 +44,8 @@ import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.query.BooleanQuery;
+import org.eclipse.rdf4j.query.GraphQuery;
 import org.eclipse.rdf4j.query.GraphQueryResult;
 import org.eclipse.rdf4j.query.MalformedQueryException;
 import org.eclipse.rdf4j.query.QueryEvaluationException;
@@ -352,9 +354,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public boolean sparqlAsk(String query) throws ModelRuntimeException {
 		assertModel();
 		try {
-			boolean result = this.connection.prepareBooleanQuery(QueryLanguage.SPARQL, query)
-			        .evaluate();
-			return result;
+			BooleanQuery prepared = this.connection.prepareBooleanQuery(QueryLanguage.SPARQL, query);
+			return prepared.evaluate();
 		} catch (MalformedQueryException | RepositoryException |
 				UnsupportedQueryLanguageException | QueryEvaluationException e) {
 			throw new ModelRuntimeException(e);
@@ -365,8 +366,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public ClosableIterable<Statement> sparqlDescribe(String query) throws ModelRuntimeException {
 		assertModel();
 		try {
-			GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
-			        QueryLanguage.SPARQL, query).evaluate();
+			GraphQuery prepared = this.connection.prepareGraphQuery(QueryLanguage.SPARQL, query);
+			GraphQueryResult graphQueryResult = prepared.evaluate();
 			return new GraphIterable(graphQueryResult, this);
 		} catch (MalformedQueryException | RepositoryException |
 				UnsupportedQueryLanguageException | QueryEvaluationException e) {
@@ -378,8 +379,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public ClosableIterable<Statement> sparqlConstruct(String query) throws ModelRuntimeException {
 		assertModel();
 		try {
-			GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(
-			        QueryLanguage.SPARQL, query).evaluate();
+			GraphQuery prepared = this.connection.prepareGraphQuery(QueryLanguage.SPARQL, query);
+			GraphQueryResult graphQueryResult = prepared.evaluate();
 			return new GraphIterable(graphQueryResult, this);
 		} catch (MalformedQueryException | RepositoryException |
 				UnsupportedQueryLanguageException | QueryEvaluationException e) {
@@ -395,10 +396,9 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		if(querylanguage.equalsIgnoreCase("SPARQL"))
 			return sparqlSelect(query);
 		else {
-			QueryLanguage ql = QueryLanguage.valueOf(querylanguage);
-			if(ql == null) {
-				throw new QueryLanguageNotSupportedException("Unsupported query language: '"
-				        + querylanguage + "'");
+			QueryLanguage ql = QueryLanguage.valueOf(queryLanguage);
+			if (ql == null) {
+				throw new QueryLanguageNotSupportedException("Unsupported query language: '" + queryLanguage + "'");
 			}
 			return new RepositoryQueryResultTable(query, ql, this.connection);
 		}
@@ -418,8 +418,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				        + querylanguage + "'");
 			}
 			try {
-				GraphQueryResult graphQueryResult = this.connection.prepareGraphQuery(ql, query)
-				        .evaluate();
+				GraphQuery prepared = this.connection.prepareGraphQuery(ql, query);
+				GraphQueryResult graphQueryResult = prepared.evaluate();
 				return new GraphIterable(graphQueryResult, this);
 			} catch (MalformedQueryException | RepositoryException |
 					UnsupportedQueryLanguageException | QueryEvaluationException e) {
