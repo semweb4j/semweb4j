@@ -14,12 +14,12 @@
 		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>rdf2go.impl.sesame</artifactId>
+	<artifactId>rdf2go.impl.rdf4j</artifactId>
 	<packaging>jar</packaging>
 	
-	<name>Semweb4j RDF2Go Sesame implementation</name>
+	<name>Semweb4j RDF2Go RDF4J implementation</name>
 	<description>
-		RDF2Go driver for OpenRDF Sesame.
+		RDF2Go driver for Eclipse RDF4J (formerly Sesame).
 		This project was started at FZI Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
 	</description>
 	<url>http://rdf2go.semweb4j.org.org/</url>
@@ -162,6 +162,16 @@
 		<developer>
 			<id>leo</id>
 			<name>Leo Sauermann</name>
+			<organization>DFKI</organization>
+			<organizationUrl>http://www.dfki.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>wolfgang</id>
+			<name>Wolfgang Herget</name>
 			<organization>DFKI</organization>
 			<organizationUrl>http://www.dfki.de</organizationUrl>
 			<timezone>+1</timezone>
