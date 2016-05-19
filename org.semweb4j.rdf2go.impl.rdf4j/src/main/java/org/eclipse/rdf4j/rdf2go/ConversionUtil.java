@@ -1,6 +1,6 @@
 /*
  * Copyright Aduna (http://www.aduna-software.com/) (c) 1997-2007.
- * 
+ *
  * Licensed under the Aduna BSD-style license.
  */
 package org.eclipse.rdf4j.rdf2go;
@@ -33,7 +33,6 @@ import org.eclipse.rdf4j.query.QueryLanguage;
  * in any direction.
  */
 public class ConversionUtil {
-	
 	/**
 	 * Converts an RDF2Go data type into its corresponding RDF4J
 	 * representation.
@@ -80,7 +79,7 @@ public class ConversionUtil {
 			        + object.getClass().getName());
 		}
 	}
-	
+
 	public static org.eclipse.rdf4j.model.IRI toRDF4J(URI uri, ValueFactory factory) {
 		return uri == null ? null : factory.createIRI(uri.toString());
 	}
@@ -93,10 +92,8 @@ public class ConversionUtil {
 		return literal == null ? null : factory.createLiteral(literal.getValue());
 	}
 	
-	public static org.eclipse.rdf4j.model.Literal toRDF4J(LanguageTagLiteral literal,
-														  ValueFactory factory) {
-		return literal == null ? null : factory.createLiteral(literal.getValue(),
-		        literal.getLanguageTag());
+	public static org.eclipse.rdf4j.model.Literal toRDF4J(LanguageTagLiteral literal, ValueFactory factory) {
+		return literal == null ? null : factory.createLiteral(literal.getValue(), literal.getLanguageTag());
 	}
 
 	public static org.eclipse.rdf4j.model.Literal toRDF4J(DatatypeLiteral literal, ValueFactory factory) {
@@ -116,20 +113,17 @@ public class ConversionUtil {
 	 */
 	public static BNode toRDF4J(BlankNode node, ValueFactory factory) {
 		BNode result = null;
-		
 		if(node != null) {
 			Object underlyingBlankNode = ((AbstractBlankNodeImpl)node).getUnderlyingBlankNode();
-			
 			if(underlyingBlankNode instanceof BNode) {
 				result = (BNode)underlyingBlankNode;
 			} else {
 				result = factory.createBNode(String.valueOf(underlyingBlankNode));
 			}
 		}
-		
 		return result;
 	}
-	
+
 	/**
 	 * Variables in Sesame are represented by <code>null</code>.
 	 * 
@@ -140,7 +134,7 @@ public class ConversionUtil {
 	public static Value toRDF4J(Variable variable, ValueFactory factory) {
 		return null;
 	}
-	
+
 	public static org.eclipse.rdf4j.model.Statement toRDF4J(Statement statement, ValueFactory factory) {
 		Resource subject = (Resource) toRDF4J(statement.getSubject(), factory);
 		org.eclipse.rdf4j.model.IRI predicate = toRDF4J(statement.getPredicate(), factory);
@@ -149,7 +143,7 @@ public class ConversionUtil {
 		
 		return factory.createStatement(subject, predicate, object, context);
 	}
-	
+
 	public static QueryLanguage toRDF4JQueryLanguage(String queryLanguage) {
 		String queryLanguageLowerCase = queryLanguage.toLowerCase();
 		
@@ -163,7 +157,7 @@ public class ConversionUtil {
 			        + "' not supported. Valid values are \"sparql\" and \"serql\".");
 		}
 	}
-	
+
 	/**
 	 * Converts an RDF4J Value instance into its corresponding RDF2Go
 	 * representation.
@@ -188,20 +182,20 @@ public class ConversionUtil {
 			        + value.getClass().getName());
 		}
 	}
-	
+
 	public static URI toRdf2go(org.eclipse.rdf4j.model.IRI iri) {
 		return iri == null ? null : new URIImpl(iri.toString(), false);
 	}
-	
+
 	public static Literal toRdf2go(org.eclipse.rdf4j.model.Literal literal) {
 		if(literal == null) {
 			return null;
 		}
-		
+
 		String label = literal.getLabel();
 		Optional<String> language = literal.getLanguage();
 		Object dataType = literal.getDatatype();
-		
+
 		if(language.isPresent()) {
 			return new LanguageTagLiteralImpl(label, language.get());
 		} else if(dataType != null) {
@@ -215,7 +209,7 @@ public class ConversionUtil {
 			return new PlainLiteralImpl(label);
 		}
 	}
-	
+
 	public static BlankNode toRdf2go(BNode node) {
 		return node == null ? null : new RDF4JBlankNode(node);
 	}
