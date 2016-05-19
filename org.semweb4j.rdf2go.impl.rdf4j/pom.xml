@@ -98,6 +98,7 @@
 			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-repository-sail</artifactId>
 		</dependency>
+
 		<!-- all of the data formats for export round-trip test -->
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>
@@ -111,7 +112,24 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-trix</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-nquads</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-rio-trig</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-jsonld</artifactId>
+			<!-- apparently missing in the RDF4j BOM -->
+			<version>${rdf4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
