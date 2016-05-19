@@ -11,7 +11,7 @@ import org.ontoware.rdf2go.model.Statement;
 
 import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 
-import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.RDF4JException;
 
 /**
  * Iterable over OpenRDF Statements that converts them to R2Go Statements on
@@ -24,12 +24,12 @@ public class StatementIterable implements ClosableIterable<Statement> {
      */
     private static final long serialVersionUID = -8172286299886107501L;
 
-	private final CloseableIteration<? extends org.eclipse.rdf4j.model.Statement, ? extends OpenRDFException> cit;
+	private final CloseableIteration<? extends org.eclipse.rdf4j.model.Statement, ? extends RDF4JException> cit;
 
 	private RepositoryModel model;
 
 	public StatementIterable(
-			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement, ? extends OpenRDFException> cit,
+			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement, ? extends RDF4JException> cit,
 			RepositoryModel model)
 	{
 		this.cit = cit;

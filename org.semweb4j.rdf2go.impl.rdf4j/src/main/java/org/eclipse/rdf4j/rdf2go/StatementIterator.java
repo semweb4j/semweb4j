@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 
-import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.model.Statement;
 
 /**
@@ -24,13 +24,13 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private final CloseableIteration<? extends Statement, ? extends OpenRDFException> cit;
+	private final CloseableIteration<? extends Statement, ? extends RDF4JException> cit;
 
 	private boolean closed = false;
 
 	private RepositoryModel model;
 
-	public StatementIterator(CloseableIteration<? extends Statement, ? extends OpenRDFException> cit,
+	public StatementIterator(CloseableIteration<? extends Statement, ? extends RDF4JException> cit,
 			RepositoryModel model)
 	{
 		this.cit = cit;
@@ -46,7 +46,7 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 			try {
 				hasNext = this.cit.hasNext();
 			}
-			catch (OpenRDFException e) {
+			catch (RDF4JException e) {
 				throw new ModelRuntimeException(e);
 			}
 			if (!hasNext) {
@@ -66,7 +66,7 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 				close();
 			}
 		}
-		catch (OpenRDFException e) {
+		catch (RDF4JException e) {
 			throw new ModelRuntimeException(e);
 
 		}
@@ -82,7 +82,7 @@ public class StatementIterator implements ClosableIterator<org.ontoware.rdf2go.m
 		try {
 			this.cit.close();
 		}
-		catch (OpenRDFException e) {
+		catch (RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 		this.closed = true;

@@ -38,7 +38,7 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Value;
@@ -795,7 +795,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			
 			// wrap it in a GraphIterable
 			return new GraphIterable(queryResult, null);
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -819,7 +819,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 
 		try {
 			this.connection.add(in, "", getRDFFormat(syntax));
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -831,7 +831,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 
 		try {
 			this.connection.add(in, baseURI, getRDFFormat(syntax));
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -847,7 +847,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 
 		try {
 			this.connection.add(reader, "", getRDFFormat(syntax));
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -859,7 +859,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 
 		try {
 			this.connection.add(reader, baseURI, getRDFFormat(syntax));
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -1023,7 +1023,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			booleanQuery = this.connection.prepareBooleanQuery(QueryLanguage.SPARQL, queryString);
 			boolean result = booleanQuery.evaluate();
 			return result;
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -1037,7 +1037,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			query = this.connection.prepareGraphQuery(QueryLanguage.SPARQL, queryString);
 			GraphQueryResult graphQueryResult = query.evaluate();
 			return new StatementIterable(graphQueryResult, null);
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -1051,7 +1051,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			query = this.connection.prepareGraphQuery(QueryLanguage.SPARQL, queryString);
 			GraphQueryResult graphQueryResult = query.evaluate();
 			return new StatementIterable(graphQueryResult, null);
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}
@@ -1158,7 +1158,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		try {
 			this.connection.export(writer);
-		} catch(OpenRDFException e) {
+		} catch(RDF4JException e) {
 			throw new ModelRuntimeException(e);
 		}
 	}

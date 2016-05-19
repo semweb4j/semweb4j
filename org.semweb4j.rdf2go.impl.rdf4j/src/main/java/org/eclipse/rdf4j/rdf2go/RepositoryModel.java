@@ -40,7 +40,7 @@ import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.model.Namespace;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
@@ -338,7 +338,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		
 		try {
 			// find the matching statements
-			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,? extends OpenRDFException> statements = this.connection
+			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,? extends RDF4JException> statements = this.connection
 			        .getStatements(targetSubject, targetPredicate, targetObject, true,
 			                this.rdf4jContext);
 			// wrap them in a StatementIterable
