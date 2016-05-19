@@ -405,7 +405,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		// optimise adding statements.
 		//
 		// We use an explicit check for RepositoryModel instances rather than
-		// checking the type of Model.getUnderlyingetc. as other
+		// checking the type of Model.getUnderlyingXXX as other
 		// Repository-based Models may use the Repository in a different way
 		// (think handling of null contexts, etc.)
 		
@@ -480,7 +480,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		// optimise adding statements.
 		//
 		// We use an explicit check for RepositoryModel instances rather than
-		// checking the type of Model.getUnderlyingetc. as other
+		// checking the type of Model.getUnderlyingXXX as other
 		// Repository-based Models may use the Repository in a different way
 		// (think handling of null contexts, etc.)
 		//
