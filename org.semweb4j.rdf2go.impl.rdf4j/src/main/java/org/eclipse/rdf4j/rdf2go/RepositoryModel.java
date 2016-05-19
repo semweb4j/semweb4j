@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
@@ -56,6 +57,7 @@ import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.eclipse.rdf4j.rio.RDFParseException;
 import org.eclipse.rdf4j.rio.RDFWriter;
+import org.eclipse.rdf4j.rio.RDFWriterRegistry;
 import org.eclipse.rdf4j.rio.Rio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -665,14 +667,15 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	 *             RDFFormat.
 	 */
 	public static RDFFormat getRDFFormat(Syntax syntax) throws SyntaxNotSupportedException {
-	    for (String mimeType : syntax.getMimeTypes()) {
-	        RDFFormat format = RDFFormat.forMIMEType(mimeType);
-	        if (format != null) {
-	            return format;
-	        }
-	    }
+		RDFWriterRegistry registry = RDFWriterRegistry.getInstance();
+		for (String mimeType : syntax.getMimeTypes()) {
+			Optional<RDFFormat> format = registry.getFileFormatForMIMEType(mimeType);
+			if (format.isPresent()) {
+				return format.get();
+			}
+		}
 		throw new SyntaxNotSupportedException("This version of Sesame seems to have no "
-		        + "support for " + syntax);
+				+ "support for " + syntax);
 	}
 	
 	public void writeTo(RDFWriter writer) throws ModelRuntimeException {
