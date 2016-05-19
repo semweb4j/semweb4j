@@ -217,6 +217,6 @@ public class ConversionUtil {
 	}
 	
 	public static BlankNode toRdf2go(BNode node) {
-		return node == null ? null : new OpenrdfBlankNode(node);
+		return node == null ? null : new RDF4JBlankNode(node);
 	}
 }

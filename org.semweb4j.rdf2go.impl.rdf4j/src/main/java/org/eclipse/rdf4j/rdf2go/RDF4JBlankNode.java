@@ -13,14 +13,14 @@ import org.eclipse.rdf4j.model.BNode;
  * 
  * @author voelkel
  */
-public class OpenrdfBlankNode extends AbstractBlankNodeImpl {
+public class RDF4JBlankNode extends AbstractBlankNodeImpl {
 	
 	private static final long serialVersionUID = 5148665108422546165L;
 	
 	/**
 	 * @param underlyingBlankNode from OpenRDF
 	 */
-	public OpenrdfBlankNode(BNode underlyingBlankNode) {
+	public RDF4JBlankNode(BNode underlyingBlankNode) {
 		super(underlyingBlankNode);
 	}
 	

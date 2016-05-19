@@ -174,12 +174,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	@Override
 	public BlankNode createBlankNode() {
-		return new OpenrdfBlankNode(this.valueFactory.createBNode());
+		return new RDF4JBlankNode(this.valueFactory.createBNode());
 	}
 	
 	@Override
 	public BlankNode createBlankNode(String internalID) {
-		return new OpenrdfBlankNode(this.valueFactory.createBNode(internalID));
+		return new RDF4JBlankNode(this.valueFactory.createBNode(internalID));
 	}
 	
 	@Override
