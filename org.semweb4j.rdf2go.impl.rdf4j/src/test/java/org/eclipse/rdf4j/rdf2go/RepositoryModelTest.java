@@ -55,16 +55,16 @@ public class RepositoryModelTest extends AbstractModelTest {
 		// add a statement
 		model.addStatement(subject, predicate, object);
 
-		// convert the statement parts to OpenRDF data types
-		Resource openRdfSubject = ConversionUtil.toRDF4J(subject, factory);
-		org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toRDF4J(
+		// convert the statement parts to RDF4J data types
+		Resource targetSubject = ConversionUtil.toRDF4J(subject, factory);
+		org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toRDF4J(
 				predicate, factory);
-		Value openRdfObject = ConversionUtil.toRDF4J(object, factory);
+		Value targetObject = ConversionUtil.toRDF4J(object, factory);
 		org.eclipse.rdf4j.model.IRI context = RepositoryModel.DEFAULT_RDF4J_CONTEXT;
 
 		// make sure this statement is contained in this model
-		assertTrue(connection.hasStatement(openRdfSubject, openRdfPredicate,
-				openRdfObject, false, context));
+		assertTrue(connection.hasStatement(targetSubject, targetPredicate,
+				targetObject, false, context));
 
 		// make sure this statement can also be found through the Model API
 		ClosableIterator<? extends Statement> sit = model.findStatements(
