@@ -3,7 +3,7 @@
  * 
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.impl.AbstractStatement;
@@ -19,11 +19,11 @@ public class StatementWrapper extends AbstractStatement {
 	
 	private static final long serialVersionUID = -1796668851117512578L;
 	
-	private org.openrdf.model.Statement statement;
+	private org.eclipse.rdf4j.model.Statement statement;
 	
 	private RepositoryModel model;
 	
-	public StatementWrapper(RepositoryModel model, org.openrdf.model.Statement statement) {
+	public StatementWrapper(RepositoryModel model, org.eclipse.rdf4j.model.Statement statement) {
 		this.statement = statement;
 		this.model = model;
 	}

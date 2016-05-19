@@ -3,23 +3,23 @@
  *
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.Statement;
 
-import info.aduna.iteration.CloseableIteration;
+import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 
-import org.openrdf.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
 
 public class GraphIterator implements ClosableIterator<Statement> {
 
-	private CloseableIteration<org.openrdf.model.Statement, QueryEvaluationException> iterator;
+	private CloseableIteration<org.eclipse.rdf4j.model.Statement, QueryEvaluationException> iterator;
 
 	private RepositoryModel model;
 
-	public GraphIterator(CloseableIteration<org.openrdf.model.Statement, QueryEvaluationException> iterator,
+	public GraphIterator(CloseableIteration<org.eclipse.rdf4j.model.Statement, QueryEvaluationException> iterator,
 			RepositoryModel model)
 	{
 		this.iterator = iterator;
@@ -36,7 +36,7 @@ public class GraphIterator implements ClosableIterator<Statement> {
 	}
 
 	public Statement next() {
-		org.openrdf.model.Statement statement = null;
+		org.eclipse.rdf4j.model.Statement statement = null;
 		try {
 			statement = this.iterator.next();
 		}

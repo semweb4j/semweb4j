@@ -3,15 +3,15 @@
  *
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.QueryRow;
 import org.ontoware.rdf2go.model.node.Literal;
 import org.ontoware.rdf2go.model.node.Node;
 
-import org.openrdf.model.Value;
-import org.openrdf.query.BindingSet;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.query.BindingSet;
 
 /**
  * Wrapper that takes an OpenRDF BindingSet and converts it to a RDF2Go

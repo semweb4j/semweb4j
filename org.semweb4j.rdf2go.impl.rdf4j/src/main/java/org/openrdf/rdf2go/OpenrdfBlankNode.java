@@ -3,10 +3,10 @@
  * 
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.rdf2go.model.node.impl.AbstractBlankNodeImpl;
-import org.openrdf.model.BNode;
+import org.eclipse.rdf4j.model.BNode;
 
 
 /**

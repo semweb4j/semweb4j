@@ -3,7 +3,7 @@
  * 
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.rdf2go.exception.QueryLanguageNotSupportedException;
 import org.ontoware.rdf2go.model.Statement;
@@ -20,12 +20,12 @@ import org.ontoware.rdf2go.model.node.impl.DatatypeLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.LanguageTagLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.PlainLiteralImpl;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.openrdf.model.BNode;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Value;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.BNodeImpl;
-import org.openrdf.query.QueryLanguage;
+import org.eclipse.rdf4j.model.BNode;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.model.impl.BNodeImpl;
+import org.eclipse.rdf4j.query.QueryLanguage;
 
 
 /**
@@ -81,25 +81,25 @@ public class ConversionUtil {
 		}
 	}
 	
-	public static org.openrdf.model.URI toOpenRDF(URI uri, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.URI toOpenRDF(URI uri, ValueFactory factory) {
 		return uri == null ? null : factory.createURI(uri.toString());
 	}
 	
-	public static org.openrdf.model.Literal toOpenRDF(String string, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toOpenRDF(String string, ValueFactory factory) {
 		return string == null ? null : factory.createLiteral(string);
 	}
 	
-	public static org.openrdf.model.Literal toOpenRDF(PlainLiteral literal, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toOpenRDF(PlainLiteral literal, ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue());
 	}
 	
-	public static org.openrdf.model.Literal toOpenRDF(LanguageTagLiteral literal,
+	public static org.eclipse.rdf4j.model.Literal toOpenRDF(LanguageTagLiteral literal,
 	        ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue(),
 		        literal.getLanguageTag());
 	}
 	
-	public static org.openrdf.model.Literal toOpenRDF(DatatypeLiteral literal, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Literal toOpenRDF(DatatypeLiteral literal, ValueFactory factory) {
 		return literal == null ? null : factory.createLiteral(literal.getValue(),
 		        toOpenRDF(literal.getDatatype(), factory));
 	}
@@ -141,11 +141,11 @@ public class ConversionUtil {
 		return null;
 	}
 	
-	public static org.openrdf.model.Statement toOpenRDF(Statement statement, ValueFactory factory) {
+	public static org.eclipse.rdf4j.model.Statement toOpenRDF(Statement statement, ValueFactory factory) {
 		Resource subject = (Resource)toOpenRDF(statement.getSubject(), factory);
-		org.openrdf.model.URI predicate = toOpenRDF(statement.getPredicate(), factory);
+		org.eclipse.rdf4j.model.URI predicate = toOpenRDF(statement.getPredicate(), factory);
 		Value object = toOpenRDF(statement.getObject(), factory);
-		org.openrdf.model.URI context = toOpenRDF(statement.getContext(), factory);
+		org.eclipse.rdf4j.model.URI context = toOpenRDF(statement.getContext(), factory);
 		
 		return factory.createStatement(subject, predicate, object, context);
 	}
@@ -179,10 +179,10 @@ public class ConversionUtil {
 	public static Node toRdf2go(Value value) {
 		if(value == null) {
 			return null;
-		} else if(value instanceof org.openrdf.model.URI) {
-			return toRdf2go((org.openrdf.model.URI)value);
-		} else if(value instanceof org.openrdf.model.Literal) {
-			return toRdf2go((org.openrdf.model.Literal)value);
+		} else if(value instanceof org.eclipse.rdf4j.model.URI) {
+			return toRdf2go((org.eclipse.rdf4j.model.URI)value);
+		} else if(value instanceof org.eclipse.rdf4j.model.Literal) {
+			return toRdf2go((org.eclipse.rdf4j.model.Literal)value);
 		} else if(value instanceof BNode) {
 			return toRdf2go((BNode)value);
 		} else {
@@ -191,11 +191,11 @@ public class ConversionUtil {
 		}
 	}
 	
-	public static URI toRdf2go(org.openrdf.model.URI uri) {
+	public static URI toRdf2go(org.eclipse.rdf4j.model.URI uri) {
 		return uri == null ? null : new URIImpl(uri.toString(), false);
 	}
 	
-	public static Literal toRdf2go(org.openrdf.model.Literal literal) {
+	public static Literal toRdf2go(org.eclipse.rdf4j.model.Literal literal) {
 		if(literal == null) {
 			return null;
 		}

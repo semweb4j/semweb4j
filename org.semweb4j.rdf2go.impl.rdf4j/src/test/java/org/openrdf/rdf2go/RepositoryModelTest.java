@@ -3,7 +3,7 @@
  *
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import java.io.IOException;
 
@@ -17,13 +17,13 @@ import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Value;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.repository.Repository;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.sail.SailRepository;
-import org.openrdf.sail.memory.MemoryStore;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.sail.SailRepository;
+import org.eclipse.rdf4j.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,10 +60,10 @@ public class RepositoryModelTest extends AbstractModelTest {
 
 		// convert the statement parts to OpenRDF data types
 		Resource openRdfSubject = ConversionUtil.toOpenRDF(subject, factory);
-		org.openrdf.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(
 				predicate, factory);
 		Value openRdfObject = ConversionUtil.toOpenRDF(object, factory);
-		org.openrdf.model.URI context = RepositoryModel.DEFAULT_OPENRDF_CONTEXT;
+		org.eclipse.rdf4j.model.URI context = RepositoryModel.DEFAULT_OPENRDF_CONTEXT;
 
 		// make sure this statement is contained in this model
 		assertTrue(connection.hasStatement(openRdfSubject, openRdfPredicate,

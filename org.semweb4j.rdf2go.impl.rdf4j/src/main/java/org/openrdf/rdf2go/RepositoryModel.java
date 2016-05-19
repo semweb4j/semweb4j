@@ -3,10 +3,10 @@
  * 
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
-import info.aduna.iteration.CloseableIteration;
-import info.aduna.iteration.Iterations;
+import org.eclipse.rdf4j.common.iteration.CloseableIteration;
+import org.eclipse.rdf4j.common.iteration.Iterations;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,24 +39,24 @@ import org.ontoware.rdf2go.model.node.ResourceOrVariable;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.openrdf.OpenRDFException;
-import org.openrdf.model.Namespace;
-import org.openrdf.model.Value;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.query.GraphQueryResult;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.query.UnsupportedQueryLanguageException;
-import org.openrdf.repository.Repository;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.repository.RepositoryResult;
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
-import org.openrdf.rio.RDFWriter;
-import org.openrdf.rio.Rio;
+import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.model.Namespace;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.query.GraphQueryResult;
+import org.eclipse.rdf4j.query.MalformedQueryException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.QueryLanguage;
+import org.eclipse.rdf4j.query.UnsupportedQueryLanguageException;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryException;
+import org.eclipse.rdf4j.repository.RepositoryResult;
+import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
+import org.eclipse.rdf4j.rio.RDFWriter;
+import org.eclipse.rdf4j.rio.Rio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +79,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	public static final String DEFAULT_CONTEXT = "urn:nullcontext";
 	
-	public static final org.openrdf.model.URI DEFAULT_OPENRDF_CONTEXT = null;
+	public static final org.eclipse.rdf4j.model.URI DEFAULT_OPENRDF_CONTEXT = null;
 	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -93,7 +93,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	protected URI context;
 	
-	private org.openrdf.model.URI openRdfContext;
+	private org.eclipse.rdf4j.model.URI openRdfContext;
 	
 	public RepositoryModel(Repository repository) throws ModelRuntimeException {
 		if(repository == null) {
@@ -128,7 +128,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	/**
 	 * Returns the context as a OpenRDF URI.
 	 */
-	public org.openrdf.model.URI getOpenRDFContextURI() {
+	public org.eclipse.rdf4j.model.URI getOpenRDFContextURI() {
 		return this.openRdfContext;
 	}
 	
@@ -197,9 +197,9 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		try {
 			// convert parameters to OpenRDF data types
-			org.openrdf.model.Resource openRdfSubject = (org.openrdf.model.Resource)ConversionUtil
+			org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 			        .toOpenRDF(subject, this.valueFactory);
-			org.openrdf.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
 			Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			
@@ -237,7 +237,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				try {
 					// remove all
 					while(iterator.hasNext()) {
-						org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
 						        this.valueFactory);
 						this.connection.remove(s, this.openRdfContext);
 					}
@@ -285,7 +285,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 				try {
 					// add
 					while(iterator.hasNext()) {
-						org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(iterator.next(),
 						        this.valueFactory);
 						this.connection.add(s, this.openRdfContext);
 					}
@@ -307,9 +307,9 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		try {
 			// convert parameters to OpenRDF data types
-			org.openrdf.model.Resource openRdfSubject = (org.openrdf.model.Resource)ConversionUtil
+			org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 			        .toOpenRDF(subject, this.valueFactory);
-			org.openrdf.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
 			Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			
@@ -328,15 +328,15 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	        throws ModelRuntimeException {
 		assertModel();
 		// convert parameters to OpenRDF data types
-		org.openrdf.model.Resource openRdfSubject = (org.openrdf.model.Resource)ConversionUtil
+		org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 		        .toOpenRDF(subject, this.valueFactory);
-		org.openrdf.model.URI openRdfPredicate = (org.openrdf.model.URI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.URI openRdfPredicate = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(
 		        predicate, this.valueFactory);
 		Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 		
 		try {
 			// find the matching statements
-			CloseableIteration<? extends org.openrdf.model.Statement,? extends OpenRDFException> statements = this.connection
+			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,? extends OpenRDFException> statements = this.connection
 			        .getStatements(openRdfSubject, openRdfPredicate, openRdfObject, true,
 			                this.openRdfContext);
 			// wrap them in a StatementIterable
@@ -456,7 +456,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public ClosableIterator<Statement> iterator() {
 		assertModel();
 		try {
-			CloseableIteration<? extends org.openrdf.model.Statement,RepositoryException> statements = this.connection
+			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,RepositoryException> statements = this.connection
 			        .getStatements(null, null, null, true, this.openRdfContext);
 			return new StatementIterator(statements, this);
 		} catch(RepositoryException e) {
@@ -767,14 +767,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 					// remove
 					Iterator<? extends Statement> it = diff.getRemoved().iterator();
 					while(it.hasNext()) {
-						org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
 						        this.valueFactory);
 						this.connection.remove(s, this.openRdfContext);
 					}
 					// add
 					it = diff.getAdded().iterator();
 					while(it.hasNext()) {
-						org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
 						        this.valueFactory);
 						this.connection.add(s, this.openRdfContext);
 					}

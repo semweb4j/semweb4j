@@ -3,13 +3,13 @@
  *
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.aifbcommons.collection.ClosableIterable;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.model.Statement;
 
-import org.openrdf.query.GraphQueryResult;
+import org.eclipse.rdf4j.query.GraphQueryResult;
 
 public class GraphIterable implements ClosableIterable<Statement> {
 

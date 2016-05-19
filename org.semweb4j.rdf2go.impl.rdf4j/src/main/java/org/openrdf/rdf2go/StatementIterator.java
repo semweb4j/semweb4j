@@ -3,17 +3,17 @@
  *
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.aduna.iteration.CloseableIteration;
+import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 
-import org.openrdf.OpenRDFException;
-import org.openrdf.model.Statement;
+import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.model.Statement;
 
 /**
  * Closable iterator over OpenRDF Statements that converts them to RDF2Go

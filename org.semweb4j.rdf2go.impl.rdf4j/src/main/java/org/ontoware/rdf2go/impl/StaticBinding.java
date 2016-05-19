@@ -7,7 +7,7 @@ package org.ontoware.rdf2go.impl;
 
 import org.ontoware.rdf2go.ModelFactory;
 
-import org.openrdf.rdf2go.RepositoryModelFactory;
+import org.eclipse.rdf4j.rdf2go.RepositoryModelFactory;
 
 /**
  * Static binding for RDF2Go.

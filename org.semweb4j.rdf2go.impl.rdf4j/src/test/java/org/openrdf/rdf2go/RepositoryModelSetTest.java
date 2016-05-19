@@ -3,7 +3,7 @@
  *
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
 import org.ontoware.rdf2go.ModelFactory;
 import org.ontoware.rdf2go.model.AbstractModelSetTest;

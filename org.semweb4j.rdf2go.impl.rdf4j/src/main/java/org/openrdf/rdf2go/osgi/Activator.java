@@ -4,12 +4,12 @@
  * 
  * Licensed under the Academic Free License version 3.0.
  */
-package org.openrdf.rdf2go.osgi;
+package org.eclipse.rdf4j.rdf2go.osgi;
 
 import java.util.Hashtable;
 
 import org.ontoware.rdf2go.ModelFactory;
-import org.openrdf.rdf2go.RepositoryModelFactory;
+import org.eclipse.rdf4j.rdf2go.RepositoryModelFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

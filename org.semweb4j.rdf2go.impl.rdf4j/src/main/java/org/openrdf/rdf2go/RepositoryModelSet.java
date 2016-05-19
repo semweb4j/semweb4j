@@ -3,9 +3,9 @@
  * 
  * Licensed under the Aduna BSD-style license.
  */
-package org.openrdf.rdf2go;
+package org.eclipse.rdf4j.rdf2go;
 
-import static org.openrdf.rdf2go.RepositoryModel.getRDFFormat;
+import static org.eclipse.rdf4j.rdf2go.RepositoryModel.getRDFFormat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,21 +38,21 @@ import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.UriOrVariable;
 import org.ontoware.rdf2go.model.node.Variable;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
-import org.openrdf.OpenRDFException;
-import org.openrdf.model.Namespace;
-import org.openrdf.model.Resource;
-import org.openrdf.model.Value;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.query.BooleanQuery;
-import org.openrdf.query.GraphQuery;
-import org.openrdf.query.GraphQueryResult;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.repository.Repository;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.repository.RepositoryResult;
-import org.openrdf.rio.RDFWriter;
-import org.openrdf.rio.Rio;
+import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.model.Namespace;
+import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.model.ValueFactory;
+import org.eclipse.rdf4j.query.BooleanQuery;
+import org.eclipse.rdf4j.query.GraphQuery;
+import org.eclipse.rdf4j.query.GraphQueryResult;
+import org.eclipse.rdf4j.query.QueryLanguage;
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryException;
+import org.eclipse.rdf4j.repository.RepositoryResult;
+import org.eclipse.rdf4j.rio.RDFWriter;
+import org.eclipse.rdf4j.rio.Rio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,9 +79,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private static class ContextIterator implements ClosableIterator<URI> {
 		
-		private final RepositoryResult<org.openrdf.model.Resource> idIterator;
+		private final RepositoryResult<org.eclipse.rdf4j.model.Resource> idIterator;
 		
-		public ContextIterator(RepositoryResult<org.openrdf.model.Resource> idIterator) {
+		public ContextIterator(RepositoryResult<org.eclipse.rdf4j.model.Resource> idIterator) {
 			this.idIterator = idIterator;
 		}
 		
@@ -252,9 +252,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	private static class StatementIterator implements ClosableIterator<Statement> {
 		
-		private final RepositoryResult<org.openrdf.model.Statement> result;
+		private final RepositoryResult<org.eclipse.rdf4j.model.Statement> result;
 		
-		public StatementIterator(RepositoryResult<org.openrdf.model.Statement> result) {
+		public StatementIterator(RepositoryResult<org.eclipse.rdf4j.model.Statement> result) {
 			this.result = result;
 		}
 		
@@ -279,7 +279,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		@Override
 		public Statement next() {
 			try {
-				org.openrdf.model.Statement statement = this.result.next();
+				org.eclipse.rdf4j.model.Statement statement = this.result.next();
 				return new StatementWrapper(null, statement);
 			} catch(RepositoryException e) {
 				throw new ModelRuntimeException(e);
@@ -326,9 +326,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// add
 					while(iterator.hasNext()) {
 						Statement s = iterator.next();
-						org.openrdf.model.URI context = ConversionUtil.toOpenRDF(s.getContext(),
+						org.eclipse.rdf4j.model.URI context = ConversionUtil.toOpenRDF(s.getContext(),
 						        this.valueFactory);
-						org.openrdf.model.Statement sd = ConversionUtil.toOpenRDF(s,
+						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toOpenRDF(s,
 						        this.valueFactory);
 						this.connection.add(sd, context);
 					}
@@ -369,9 +369,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				org.openrdf.model.URI context = repositoryModel.getOpenRDFContextURI();
+				org.eclipse.rdf4j.model.URI context = repositoryModel.getOpenRDFContextURI();
 				
-				RepositoryResult<org.openrdf.model.Statement> statements = null;
+				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
 					statements = repositoryModel.connection.getStatements(null, null, null, false,
 					        context);
@@ -412,7 +412,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		if(model instanceof RepositoryModel) {
 			RepositoryModel repositoryModel = (RepositoryModel)model;
 			
-			org.openrdf.model.URI openrdfContextURI = ConversionUtil.toOpenRDF(contextURI,
+			org.eclipse.rdf4j.model.URI openrdfContextURI = ConversionUtil.toOpenRDF(contextURI,
 			        this.valueFactory);
 			
 			if(repositoryModel.repository == this.repository) {
@@ -421,16 +421,16 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 				
 				// find the matching OpenRDF Statements
 				try {
-					RepositoryResult<org.openrdf.model.Statement> statements = repositoryModel.connection
+					RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = repositoryModel.connection
 					        .getStatements(null, null, null, true);
 					// buffer in memory to avoid deadlocks due to mixed
 					// read/write
-					Set<org.openrdf.model.Statement> stmts = new HashSet<org.openrdf.model.Statement>();
+					Set<org.eclipse.rdf4j.model.Statement> stmts = new HashSet<org.eclipse.rdf4j.model.Statement>();
 					while (statements.hasNext()) {
 						stmts.add(statements.next());
 					}
 					// now insert with a different context URI
-					for(org.openrdf.model.Statement stmt : stmts) {
+					for(org.eclipse.rdf4j.model.Statement stmt : stmts) {
 						this.valueFactory.createStatement(stmt.getSubject(), stmt.getPredicate(),
 						        stmt.getObject(), openrdfContextURI);
 					}
@@ -440,16 +440,16 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				org.openrdf.model.URI context = repositoryModel.getOpenRDFContextURI();
+				org.eclipse.rdf4j.model.URI context = repositoryModel.getOpenRDFContextURI();
 				
-				RepositoryResult<org.openrdf.model.Statement> statements = null;
+				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
 					statements = repositoryModel.connection.getStatements(null, null, null, false,
 					        context);
 					
 					// doesn't hurt to explicitly add them to the right context
 					while (statements.hasNext()) {
-						org.openrdf.model.Statement stmt = statements.next();
+						org.eclipse.rdf4j.model.Statement stmt = statements.next();
 						this.connection.add(
 						        this.valueFactory.createStatement(stmt.getSubject(),
 						                stmt.getPredicate(), stmt.getObject(), openrdfContextURI),
@@ -496,7 +496,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				RepositoryResult<org.openrdf.model.Statement> statements = null;
+				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
 					statements = repositoryModel.connection.getStatements(null, null, null, false,
 					        new Resource[0]);
@@ -524,7 +524,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void addStatement(Statement statement) throws ModelRuntimeException {
 		this.assertModel();
 		try {
-			org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(statement, this.valueFactory);
+			org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(statement, this.valueFactory);
 			this.connection.add(s, s.getContext());
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
@@ -649,17 +649,17 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	        throws ModelRuntimeException {
 		this.assertModel();
 		// convert parameters to OpenRDF data types
-		org.openrdf.model.Resource sesameSubject = (org.openrdf.model.Resource)ConversionUtil
+		org.eclipse.rdf4j.model.Resource sesameSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 		        .toOpenRDF(subject, this.valueFactory);
-		org.openrdf.model.URI sesamePredicate = (org.openrdf.model.URI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.URI sesamePredicate = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(
 		        predicate, this.valueFactory);
 		Value sesameObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
-		org.openrdf.model.URI sesameContext = (org.openrdf.model.URI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.URI sesameContext = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(
 		        contextURI, this.valueFactory);
 		
 		try {
 			// find the matching OpenRDF Statements
-			RepositoryResult<org.openrdf.model.Statement> statements;
+			RepositoryResult<org.eclipse.rdf4j.model.Statement> statements;
 			// had some null-pointer exceptions here, checking contextUri
 			if((contextURI != null) && !contextURI.equals(Variable.ANY)) {
 				statements = this.connection.getStatements(sesameSubject, sesamePredicate,
@@ -757,7 +757,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		try {
 			// find the matching OpenRDF Statements
-			RepositoryResult<org.openrdf.model.Statement> statements = this.connection
+			RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = this.connection
 			        .getStatements(null, null, null, true);
 			// wrap them in an iterator that converts them to RDF2Go Statements
 			return new StatementIterator(statements);
@@ -889,9 +889,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// add
 					while(iterator.hasNext()) {
 						Statement s = iterator.next();
-						org.openrdf.model.URI context = ConversionUtil.toOpenRDF(s.getContext(),
+						org.eclipse.rdf4j.model.URI context = ConversionUtil.toOpenRDF(s.getContext(),
 						        this.valueFactory);
-						org.openrdf.model.Statement sd = ConversionUtil.toOpenRDF(s,
+						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toOpenRDF(s,
 						        this.valueFactory);
 						this.connection.remove(sd, context);
 					}
@@ -911,7 +911,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	@Override
 	public boolean removeModel(URI contextURI) {
 		this.assertModel();
-		org.openrdf.model.Resource context = ConversionUtil
+		org.eclipse.rdf4j.model.Resource context = ConversionUtil
 		        .toOpenRDF(contextURI, this.valueFactory);
 		try {
 			this.connection.clear(context);
@@ -935,7 +935,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	public void removeStatement(Statement statement) throws ModelRuntimeException {
 		this.assertModel();
 		try {
-			org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(statement, this.valueFactory);
+			org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(statement, this.valueFactory);
 			this.connection.remove(s, s.getContext());
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
@@ -954,7 +954,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		try {
 			Resource s = (Resource)ConversionUtil.toOpenRDF(subject, this.valueFactory);
-			org.openrdf.model.URI p = (org.openrdf.model.URI)ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.URI p = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
 			Value o = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			Resource c = (Resource)ConversionUtil.toOpenRDF(context, this.valueFactory);
@@ -1073,14 +1073,14 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// remove
 					Iterator<? extends Statement> it = diff.getRemoved().iterator();
 					while(it.hasNext()) {
-						org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
 						        this.valueFactory);
 						this.connection.remove(s, s.getContext());
 					}
 					// add
 					it = diff.getAdded().iterator();
 					while(it.hasNext()) {
-						org.openrdf.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
+						org.eclipse.rdf4j.model.Statement s = ConversionUtil.toOpenRDF(it.next(),
 						        this.valueFactory);
 						this.connection.add(s, s.getContext());
 					}
