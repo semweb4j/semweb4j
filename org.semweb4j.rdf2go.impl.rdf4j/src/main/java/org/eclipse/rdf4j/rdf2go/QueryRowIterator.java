@@ -16,7 +16,7 @@ import org.eclipse.rdf4j.query.QueryEvaluationException;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 
 /**
- * Iterator over an OpenRDF TupleQueryResult that converts its BindingSets to
+ * Iterator over an RDF4J TupleQueryResult that converts its BindingSets to
  * RDF2Go QueryRows on demand. This iterator closes automatically after
  * returning the last QueryRow.
  */

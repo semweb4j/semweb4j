@@ -16,7 +16,7 @@ import org.eclipse.rdf4j.RDF4JException;
 import org.eclipse.rdf4j.model.Statement;
 
 /**
- * Closable iterator over OpenRDF Statements that converts them to RDF2Go
+ * Closable iterator over RDF4J Statements that converts them to RDF2Go
  * Statements on demand. This iterator closes itself automatically after having
  * returned the last statement.
  */

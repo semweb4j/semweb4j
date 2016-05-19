@@ -13,7 +13,7 @@ import org.ontoware.rdf2go.model.node.URI;
 
 
 /**
- * Wrapper for OpenRDF Statements that implements the RDF2Go Statement API.
+ * Wrapper for RDF4J Statements that implements the RDF2Go Statement API.
  */
 public class StatementWrapper extends AbstractStatement {
 	

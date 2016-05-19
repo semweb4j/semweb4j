@@ -14,7 +14,7 @@ import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.query.BindingSet;
 
 /**
- * Wrapper that takes an OpenRDF BindingSet and converts it to a RDF2Go
+ * Wrapper that takes an RDF4J BindingSet and converts it to a RDF2Go
  * QueryRow.
  */
 public class QueryRowWrapper implements QueryRow {

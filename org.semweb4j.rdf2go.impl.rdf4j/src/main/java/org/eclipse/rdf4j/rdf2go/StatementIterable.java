@@ -14,7 +14,7 @@ import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 import org.eclipse.rdf4j.RDF4JException;
 
 /**
- * Iterable over OpenRDF Statements that converts them to R2Go Statements on
+ * Iterable over RDF4J Statements that converts them to R2Go Statements on
  * demand.
  */
 public class StatementIterable implements ClosableIterable<Statement> {

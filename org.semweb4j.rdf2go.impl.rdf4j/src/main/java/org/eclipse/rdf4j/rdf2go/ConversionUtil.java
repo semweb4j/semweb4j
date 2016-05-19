@@ -29,19 +29,19 @@ import org.eclipse.rdf4j.query.QueryLanguage;
 
 
 /**
- * Converts RDF2Go types to OpenRDF types and vice versa. Null converts to null,
+ * Converts RDF2Go types to RDF4J types and vice versa. Null converts to null,
  * in any direction.
  */
 public class ConversionUtil {
 	
 	/**
-	 * Converts an RDF2Go data type into its corresponding OpenRDF
+	 * Converts an RDF2Go data type into its corresponding RDF4J
 	 * representation.
 	 * 
 	 * @param object The RDF2Go object to transform.
-	 * @param factory The OpenRDF ValueFactory to use for creating the OpenRDF
+	 * @param factory The RDF4J ValueFactory to use for creating the RDF4J
 	 *            representation.
-	 * @return An instance of an OpenRDF data type representing the specified
+	 * @return An instance of an RDF4J data type representing the specified
 	 *         Object. Returns 'null' when the specified object is null.
 	 * @throws IllegalArgumentException when the specified Object is of an
 	 *             unrecognized type.
@@ -110,9 +110,9 @@ public class ConversionUtil {
 	 * object.
 	 * 
 	 * @param node RDF2Go blank node
-	 * @param factory OpenRDF value factory
-	 * @return the OpenRDF instance wrapped in the given RDF2Go blank node or a
-	 *         new OpenRDF blank node with the same internal ID.
+	 * @param factory RDF4J value factory
+	 * @return the RDF4J instance wrapped in the given RDF2Go blank node or a
+	 *         new RDF4J blank node with the same internal ID.
 	 */
 	public static BNode toRDF4J(BlankNode node, ValueFactory factory) {
 		BNode result = null;
@@ -165,7 +165,7 @@ public class ConversionUtil {
 	}
 	
 	/**
-	 * Converts an OpenRDF Value instance into its corresponding RDF2Go
+	 * Converts an RDF4J Value instance into its corresponding RDF2Go
 	 * representation.
 	 * 
 	 * @param value The Value to transform.
