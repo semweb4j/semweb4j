@@ -64,7 +64,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * Implementation of the RDF2Go model interface for an OpenRDF Repository.
+ * Implementation of the RDF2Go model interface for an RDF4J Repository.
  * 
  * Note that RepositoryModel and RepositoryModelSet only work well together
  * because they both keep their RepositoryConnections in auto-commit mode. This
@@ -81,7 +81,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	public static final String DEFAULT_CONTEXT = "urn:nullcontext";
 	
-	public static final org.eclipse.rdf4j.model.IRI DEFAULT_OPENRDF_CONTEXT = null;
+	public static final org.eclipse.rdf4j.model.IRI DEFAULT_RDF4J_CONTEXT = null;
 	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -121,14 +121,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		
 		if(this.context == null) {
 			this.context = new URIImpl(DEFAULT_CONTEXT, false);
-			this.rdf4jContext = DEFAULT_OPENRDF_CONTEXT;
+			this.rdf4jContext = DEFAULT_RDF4J_CONTEXT;
 		} else {
 			this.rdf4jContext = this.valueFactory.createIRI(this.context.toString());
 		}
 	}
 	
 	/**
-	 * Returns the context as a OpenRDF URI.
+	 * Returns the context as a RDF4J IRI.
 	 */
 	public org.eclipse.rdf4j.model.IRI getOpenRDFContextURI() {
 		return this.rdf4jContext;
@@ -308,15 +308,15 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	        throws ModelRuntimeException {
 		assertModel();
 		try {
-			// convert parameters to OpenRDF data types
-			org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
+			// convert parameters to RDF4J data types
+			org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 			        .toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
-			Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+			Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			
 			// remove the statement
-			this.connection.remove(openRdfSubject, openRdfPredicate, openRdfObject,
+			this.connection.remove(targetSubject, targetPredicate, targetObject,
 			        this.rdf4jContext);
 		} catch(RepositoryException e) {
 			throw new ModelRuntimeException(e);
@@ -329,17 +329,17 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	        ResourceOrVariable subject, UriOrVariable predicate, NodeOrVariable object)
 	        throws ModelRuntimeException {
 		assertModel();
-		// convert parameters to OpenRDF data types
-		org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
+		// convert parameters to RDF4J data types
+		org.eclipse.rdf4j.model.Resource targetSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 		        .toOpenRDF(subject, this.valueFactory);
-		org.eclipse.rdf4j.model.IRI openRdfPredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.IRI targetPredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
 		        predicate, this.valueFactory);
-		Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
+		Value targetObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 		
 		try {
 			// find the matching statements
 			CloseableIteration<? extends org.eclipse.rdf4j.model.Statement,? extends OpenRDFException> statements = this.connection
-			        .getStatements(openRdfSubject, openRdfPredicate, openRdfObject, true,
+			        .getStatements(targetSubject, targetPredicate, targetObject, true,
 			                this.rdf4jContext);
 			// wrap them in a StatementIterable
 			return new StatementIterator(statements, this);
@@ -659,7 +659,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	}
 	
 	/**
-	 * Resolves an RDF2Go {@link Syntax} to an OpenRDF {@link RDFFormat}.
+	 * Resolves an RDF2Go {@link Syntax} to an RDF4J {@link RDFFormat}.
 	 * 
 	 * @param syntax The RDF2Go Syntax to resolve.
 	 * @return A RDFFormat for the specified syntax.
@@ -810,11 +810,11 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		assertModel();
 		Map<String,String> nsMap = new HashMap<String,String>();
 		try {
-			RepositoryResult<Namespace> openrdfMap = this.connection.getNamespaces();
-			openrdfMap.enableDuplicateFilter();
-			List<Namespace> openrdfList =  Iterations.asList(openrdfMap);
-			for(Namespace openrdfNamespace : openrdfList) {
-				nsMap.put(openrdfNamespace.getPrefix(), openrdfNamespace.getName());
+			RepositoryResult<Namespace> namespaces = this.connection.getNamespaces();
+			namespaces.enableDuplicateFilter();
+			List<Namespace> namespaceList =  Iterations.asList(namespaces);
+			for(Namespace namespace : namespaceList) {
+				nsMap.put(namespace.getPrefix(), namespace.getName());
 			}
 			return nsMap;
 		} catch(RepositoryException e) {
