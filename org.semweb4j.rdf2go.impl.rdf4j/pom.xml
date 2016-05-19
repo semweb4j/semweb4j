@@ -47,11 +47,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>2.3.1</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -100,20 +95,8 @@
 			<artifactId>rdf4j-rio-rdfxml</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java-sesame</artifactId>
-			<version>0.3</version>
-		</dependency>
-		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-rio-rdfjson</artifactId>
-			<exclusions>
-				<!-- Must be excluded to give precedence to other version in jsonld-java-sesame  -->
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>
