@@ -14,6 +14,7 @@ import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
+import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
@@ -57,10 +58,9 @@ public class RepositoryModelTest extends AbstractModelTest {
 
 		// convert the statement parts to RDF4J data types
 		Resource targetSubject = ConversionUtil.toRDF4J(subject, factory);
-		org.eclipse.rdf4j.model.IRI targetPredicate = ConversionUtil.toRDF4J(
-				predicate, factory);
+		IRI targetPredicate = ConversionUtil.toRDF4J(predicate, factory);
 		Value targetObject = ConversionUtil.toRDF4J(object, factory);
-		org.eclipse.rdf4j.model.IRI context = RepositoryModel.DEFAULT_RDF4J_CONTEXT;
+		IRI context = RepositoryModel.DEFAULT_RDF4J_CONTEXT;
 
 		// make sure this statement is contained in this model
 		assertTrue(connection.hasStatement(targetSubject, targetPredicate,
