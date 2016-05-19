@@ -60,10 +60,10 @@ public class RepositoryModelTest extends AbstractModelTest {
 
 		// convert the statement parts to OpenRDF data types
 		Resource openRdfSubject = ConversionUtil.toOpenRDF(subject, factory);
-		org.eclipse.rdf4j.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toOpenRDF(
 				predicate, factory);
 		Value openRdfObject = ConversionUtil.toOpenRDF(object, factory);
-		org.eclipse.rdf4j.model.URI context = RepositoryModel.DEFAULT_OPENRDF_CONTEXT;
+		org.eclipse.rdf4j.model.IRI context = RepositoryModel.DEFAULT_OPENRDF_CONTEXT;
 
 		// make sure this statement is contained in this model
 		assertTrue(connection.hasStatement(openRdfSubject, openRdfPredicate,

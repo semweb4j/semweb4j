@@ -81,8 +81,8 @@ public class ConversionUtil {
 		}
 	}
 	
-	public static org.eclipse.rdf4j.model.URI toOpenRDF(URI uri, ValueFactory factory) {
-		return uri == null ? null : factory.createURI(uri.toString());
+	public static org.eclipse.rdf4j.model.IRI toOpenRDF(URI uri, ValueFactory factory) {
+		return uri == null ? null : factory.createIRI(uri.toString());
 	}
 	
 	public static org.eclipse.rdf4j.model.Literal toOpenRDF(String string, ValueFactory factory) {
@@ -143,9 +143,9 @@ public class ConversionUtil {
 	
 	public static org.eclipse.rdf4j.model.Statement toOpenRDF(Statement statement, ValueFactory factory) {
 		Resource subject = (Resource)toOpenRDF(statement.getSubject(), factory);
-		org.eclipse.rdf4j.model.URI predicate = toOpenRDF(statement.getPredicate(), factory);
+		org.eclipse.rdf4j.model.IRI predicate = toOpenRDF(statement.getPredicate(), factory);
 		Value object = toOpenRDF(statement.getObject(), factory);
-		org.eclipse.rdf4j.model.URI context = toOpenRDF(statement.getContext(), factory);
+		org.eclipse.rdf4j.model.IRI context = toOpenRDF(statement.getContext(), factory);
 		
 		return factory.createStatement(subject, predicate, object, context);
 	}
@@ -179,8 +179,8 @@ public class ConversionUtil {
 	public static Node toRdf2go(Value value) {
 		if(value == null) {
 			return null;
-		} else if(value instanceof org.eclipse.rdf4j.model.URI) {
-			return toRdf2go((org.eclipse.rdf4j.model.URI)value);
+		} else if(value instanceof org.eclipse.rdf4j.model.IRI) {
+			return toRdf2go((org.eclipse.rdf4j.model.IRI)value);
 		} else if(value instanceof org.eclipse.rdf4j.model.Literal) {
 			return toRdf2go((org.eclipse.rdf4j.model.Literal)value);
 		} else if(value instanceof BNode) {
@@ -191,8 +191,8 @@ public class ConversionUtil {
 		}
 	}
 	
-	public static URI toRdf2go(org.eclipse.rdf4j.model.URI uri) {
-		return uri == null ? null : new URIImpl(uri.toString(), false);
+	public static URI toRdf2go(org.eclipse.rdf4j.model.IRI iri) {
+		return iri == null ? null : new URIImpl(iri.toString(), false);
 	}
 	
 	public static Literal toRdf2go(org.eclipse.rdf4j.model.Literal literal) {

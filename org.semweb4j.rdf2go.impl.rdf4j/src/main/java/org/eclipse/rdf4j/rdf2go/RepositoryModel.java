@@ -79,7 +79,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	public static final String DEFAULT_CONTEXT = "urn:nullcontext";
 	
-	public static final org.eclipse.rdf4j.model.URI DEFAULT_OPENRDF_CONTEXT = null;
+	public static final org.eclipse.rdf4j.model.IRI DEFAULT_OPENRDF_CONTEXT = null;
 	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -93,7 +93,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	
 	protected URI context;
 	
-	private org.eclipse.rdf4j.model.URI openRdfContext;
+	private org.eclipse.rdf4j.model.IRI openRdfContext;
 	
 	public RepositoryModel(Repository repository) throws ModelRuntimeException {
 		if(repository == null) {
@@ -121,14 +121,14 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			this.context = new URIImpl(DEFAULT_CONTEXT, false);
 			this.openRdfContext = DEFAULT_OPENRDF_CONTEXT;
 		} else {
-			this.openRdfContext = this.valueFactory.createURI(this.context.toString());
+			this.openRdfContext = this.valueFactory.createIRI(this.context.toString());
 		}
 	}
 	
 	/**
 	 * Returns the context as a OpenRDF URI.
 	 */
-	public org.eclipse.rdf4j.model.URI getOpenRDFContextURI() {
+	public org.eclipse.rdf4j.model.IRI getOpenRDFContextURI() {
 		return this.openRdfContext;
 	}
 	
@@ -184,7 +184,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public boolean isValidURI(String uriString) {
 		boolean isValid = true;
 		try {
-			this.valueFactory.createURI(uriString);
+			this.valueFactory.createIRI(uriString);
 		} catch(IllegalArgumentException e) {
 			isValid = false;
 		}
@@ -199,7 +199,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			// convert parameters to OpenRDF data types
 			org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 			        .toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
 			Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			
@@ -309,7 +309,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			// convert parameters to OpenRDF data types
 			org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 			        .toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.URI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
+			org.eclipse.rdf4j.model.IRI openRdfPredicate = ConversionUtil.toOpenRDF(predicate,
 			        this.valueFactory);
 			Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			
@@ -330,7 +330,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// convert parameters to OpenRDF data types
 		org.eclipse.rdf4j.model.Resource openRdfSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 		        .toOpenRDF(subject, this.valueFactory);
-		org.eclipse.rdf4j.model.URI openRdfPredicate = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.IRI openRdfPredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
 		        predicate, this.valueFactory);
 		Value openRdfObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
 		

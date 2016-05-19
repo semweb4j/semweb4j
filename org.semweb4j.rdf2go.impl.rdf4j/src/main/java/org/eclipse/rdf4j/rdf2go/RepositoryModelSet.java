@@ -326,7 +326,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// add
 					while(iterator.hasNext()) {
 						Statement s = iterator.next();
-						org.eclipse.rdf4j.model.URI context = ConversionUtil.toOpenRDF(s.getContext(),
+						org.eclipse.rdf4j.model.IRI context = ConversionUtil.toOpenRDF(s.getContext(),
 						        this.valueFactory);
 						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toOpenRDF(s,
 						        this.valueFactory);
@@ -369,7 +369,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				org.eclipse.rdf4j.model.URI context = repositoryModel.getOpenRDFContextURI();
+				org.eclipse.rdf4j.model.IRI context = repositoryModel.getOpenRDFContextURI();
 				
 				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
@@ -412,7 +412,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		if(model instanceof RepositoryModel) {
 			RepositoryModel repositoryModel = (RepositoryModel)model;
 			
-			org.eclipse.rdf4j.model.URI openrdfContextURI = ConversionUtil.toOpenRDF(contextURI,
+			org.eclipse.rdf4j.model.IRI openrdfContextURI = ConversionUtil.toOpenRDF(contextURI,
 			        this.valueFactory);
 			
 			if(repositoryModel.repository == this.repository) {
@@ -440,7 +440,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 			} else {
 				// copy statements directly from Repository to Repository,
 				// without using RDF2Go-specific wrappers
-				org.eclipse.rdf4j.model.URI context = repositoryModel.getOpenRDFContextURI();
+				org.eclipse.rdf4j.model.IRI context = repositoryModel.getOpenRDFContextURI();
 				
 				RepositoryResult<org.eclipse.rdf4j.model.Statement> statements = null;
 				try {
@@ -599,9 +599,9 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	
 	@Override
 	public URI createURI(String uriString) throws ModelRuntimeException {
-		// check if Sesame accepts this URI
+		// check if RDF4J accepts this URI
 		try {
-			this.valueFactory.createURI(uriString);
+			this.valueFactory.createIRI(uriString);
 		} catch(IllegalArgumentException e) {
 			throw new ModelRuntimeException("Wrong URI format for Sesame", e);
 		}
@@ -651,10 +651,10 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		// convert parameters to OpenRDF data types
 		org.eclipse.rdf4j.model.Resource sesameSubject = (org.eclipse.rdf4j.model.Resource)ConversionUtil
 		        .toOpenRDF(subject, this.valueFactory);
-		org.eclipse.rdf4j.model.URI sesamePredicate = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.IRI sesamePredicate = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
 		        predicate, this.valueFactory);
 		Value sesameObject = ConversionUtil.toOpenRDF(object, this.valueFactory);
-		org.eclipse.rdf4j.model.URI sesameContext = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(
+		org.eclipse.rdf4j.model.IRI sesameContext = (org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
 		        contextURI, this.valueFactory);
 		
 		try {
@@ -889,7 +889,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 					// add
 					while(iterator.hasNext()) {
 						Statement s = iterator.next();
-						org.eclipse.rdf4j.model.URI context = ConversionUtil.toOpenRDF(s.getContext(),
+						org.eclipse.rdf4j.model.IRI context = ConversionUtil.toOpenRDF(s.getContext(),
 						        this.valueFactory);
 						org.eclipse.rdf4j.model.Statement sd = ConversionUtil.toOpenRDF(s,
 						        this.valueFactory);
@@ -954,8 +954,11 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		this.assertModel();
 		try {
 			Resource s = (Resource)ConversionUtil.toOpenRDF(subject, this.valueFactory);
-			org.eclipse.rdf4j.model.URI p = (org.eclipse.rdf4j.model.URI)ConversionUtil.toOpenRDF(predicate,
-			        this.valueFactory);
+			org.eclipse.rdf4j.model.IRI p =
+					(org.eclipse.rdf4j.model.IRI)ConversionUtil.toOpenRDF(
+						predicate,
+						this.valueFactory
+					);
 			Value o = ConversionUtil.toOpenRDF(object, this.valueFactory);
 			Resource c = (Resource)ConversionUtil.toOpenRDF(context, this.valueFactory);
 			if(c != null)
