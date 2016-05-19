@@ -24,7 +24,6 @@ import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
-import org.eclipse.rdf4j.model.impl.BNodeImpl;
 import org.eclipse.rdf4j.query.QueryLanguage;
 
 
@@ -123,7 +122,7 @@ public class ConversionUtil {
 			if(underlyingBlankNode instanceof BNode) {
 				result = (BNode)underlyingBlankNode;
 			} else {
-				result = new BNodeImpl(String.valueOf(underlyingBlankNode));
+				result = factory.createBNode(String.valueOf(underlyingBlankNode));
 			}
 		}
 		
