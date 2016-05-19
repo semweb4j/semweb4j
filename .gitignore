@@ -9,6 +9,8 @@ target/
 .classpath
 .project
 .wtpmodules
+.idea
+*.iml
 hs_err_pid*.log
 release.properties
 server.pid
