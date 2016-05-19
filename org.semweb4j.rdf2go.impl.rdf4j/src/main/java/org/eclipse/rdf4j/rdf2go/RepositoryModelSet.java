@@ -183,7 +183,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		}
 	}
 	
-	private class OpenRDFQuadPattern implements QuadPattern {
+	private class RDF4JQuadPattern implements QuadPattern {
 		
 		/**
          * 
@@ -198,8 +198,8 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 		
 		private final ResourceOrVariable subject;
 		
-		public OpenRDFQuadPattern(UriOrVariable context, ResourceOrVariable subject,
-		        UriOrVariable predicate, NodeOrVariable object) {
+		public RDF4JQuadPattern(UriOrVariable context, ResourceOrVariable subject,
+								UriOrVariable predicate, NodeOrVariable object) {
 			this.checkNonNull(context);
 			this.checkNonNull(subject);
 			this.checkNonNull(predicate);
@@ -594,7 +594,7 @@ public class RepositoryModelSet extends AbstractModelSetImpl {
 	@Override
 	public QuadPattern createQuadPattern(UriOrVariable context, ResourceOrVariable subject,
 	        UriOrVariable predicate, NodeOrVariable object) {
-		return new OpenRDFQuadPattern(context, subject, predicate, object);
+		return new RDF4JQuadPattern(context, subject, predicate, object);
 	}
 	
 	@Override
