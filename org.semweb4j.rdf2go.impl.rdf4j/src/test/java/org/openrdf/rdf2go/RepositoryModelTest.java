@@ -5,16 +5,13 @@
  */
 package org.eclipse.rdf4j.rdf2go;
 
-import java.io.IOException;
 
 import org.junit.Test;
 import org.ontoware.aifbcommons.collection.ClosableIterator;
 import org.ontoware.rdf2go.ModelFactory;
-import org.ontoware.rdf2go.exception.ModelRuntimeException;
 import org.ontoware.rdf2go.model.AbstractModelTest;
 import org.ontoware.rdf2go.model.Model;
 import org.ontoware.rdf2go.model.Statement;
-import org.ontoware.rdf2go.model.Syntax;
 import org.ontoware.rdf2go.model.node.URI;
 import org.ontoware.rdf2go.model.node.impl.URIImpl;
 import org.eclipse.rdf4j.model.Resource;
@@ -126,37 +123,7 @@ public class RepositoryModelTest extends AbstractModelTest {
 		model1.close();
 		model2.close();
 	}
-	
-	/*
-	 * Non-Javadoc:
-	 * Overriding a parent test to set the specific set of syntaxes to be tested
-	 * with Semsame (different from Jena).
-	 */
-	@Override
-	@Test
-	public void testReadFromSyntaxFiles() throws ModelRuntimeException, IOException {
-		// Set the syntaxes to be tested specifically for Sesame:
-		// FIXME Sesame currently supports all but makes some changes while reading JsonLD
-		super.readerSyntaxes.remove(Syntax.JsonLd);
-		
-		super.testReadFromSyntaxFiles();
-	}
 
-	/*
-	 * Non-Javadoc:
-	 * Overriding a parent test to set the specific set of syntaxes to be tested
-	 * with Semsame (different from Jena).
-	 */
-	@Override
-	@Test
-	public void testWriteToSyntaxFiles() throws ModelRuntimeException, IOException {
-		// Set the syntaxes to be tested specifically for Sesame:
-		// FIXME JsonLD adds some datatypes to literals which makes the re-read model different
-		super.writerSyntaxes.remove(Syntax.JsonLd);
-		
-		super.testWriteToSyntaxFiles();
-	}
-	
 	// @Override
 	// public void testRdfsReasoning()
 	// throws ReasoningNotSupportedException, ModelRuntimeException
