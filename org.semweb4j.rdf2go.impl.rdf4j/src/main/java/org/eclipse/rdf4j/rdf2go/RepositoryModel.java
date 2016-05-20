@@ -97,6 +97,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 
 	private org.eclipse.rdf4j.model.IRI rdf4jContext;
 
+	private boolean autoCommit = true;
+
 	public RepositoryModel(Repository repository) throws ModelRuntimeException {
 		if (repository == null) {
 			throw new IllegalArgumentException("Repository cannot be null");
@@ -209,7 +211,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			this.connection.add(targetSubject, targetPredicate, targetObject,
 					this.rdf4jContext);
 			if (log.isDebugEnabled()) {
-				this.connection.commit();
+				ensureAutoCommitted();
 				if (!contains(subject, predicate, object)) {
 					log.warn("You just added a statement ("
 							+ subject
@@ -234,7 +236,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			this.connection.begin();
+			ensureTransaction();
 			try {
 				try {
 					// remove all
@@ -243,12 +245,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 								this.valueFactory);
 						this.connection.remove(s, this.rdf4jContext);
 					}
-					this.connection.commit();
+					ensureAutoCommitted();
 				} catch (RepositoryException x) {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.commit();
+				ensureAutoCommitted();
 			}
 		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -264,10 +266,10 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			this.connection.begin();
+			ensureTransaction();
 			// remove all
 			this.connection.clear(this.rdf4jContext);
-			this.connection.commit();
+			ensureAutoCommitted();
 		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
 		}
@@ -282,7 +284,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			this.connection.begin();
+			ensureTransaction();
 			try {
 				try {
 					// add
@@ -291,12 +293,12 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 								this.valueFactory);
 						this.connection.add(s, this.rdf4jContext);
 					}
-					this.connection.commit();
+					ensureAutoCommitted();
 				} catch (RepositoryException x) {
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.commit();
+				ensureAutoCommitted();
 			}
 		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -487,7 +489,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			this.locked = true;
 
 			// flush everything that has not been commited yet
-			this.connection.commit();
+			commit();
+			setAutocommit(false);
 		} catch (RepositoryException e) {
 			throw new LockException(e);
 		}
@@ -506,7 +509,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		try {
 
 			// commit all changes
-			this.connection.commit();
+			setAutocommit(true);
 
 			// unlock this model
 			this.locked = false;
@@ -660,7 +663,8 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	@Deprecated
 	public void commit() {
 		try {
-			this.connection.commit();
+			if (this.connection.isActive())
+				this.connection.commit();
 		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
 		}
@@ -671,19 +675,18 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 	public void setAutocommit(boolean autocommit) {
 		assertModel();
 
-		if (autocommit == false) {
-			try {
-				this.connection.begin();
-			} catch (RepositoryException e) {
-				throw new RuntimeException(e);
+		try {
+			if (!autocommit) {
+				ensureTransaction();
+				autoCommit = false;
+			} else {
+				autoCommit = true;
+				ensureAutoCommitted();
 			}
-		} else {
-			try {
-				this.connection.commit();
-			} catch (RepositoryException e) {
-				throw new RuntimeException(e);
-			}
+		} catch (RepositoryException e) {
+			throw new RuntimeException(e);
 		}
+
 	}
 
 	/**
@@ -729,7 +732,7 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 		// do not auto-commit
 		assertModel();
 		try {
-			this.connection.begin();
+			ensureTransaction();
 			try {
 				try {
 					// remove
@@ -746,13 +749,13 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 								this.valueFactory);
 						this.connection.add(s, this.rdf4jContext);
 					}
-					this.connection.commit();
+					ensureAutoCommitted();
 				} catch (RepositoryException x) {
 					this.logger.warn("Could not commit, rolling back.", x);
 					this.connection.rollback();
 				}
 			} finally {
-				this.connection.commit();
+				ensureAutoCommitted();
 			}
 		} catch (RepositoryException x) {
 			throw new ModelRuntimeException(x);
@@ -804,6 +807,18 @@ public class RepositoryModel extends AbstractLockingModel implements Model {
 			this.connection.setNamespace(prefix, namespaceURI);
 		} catch (RepositoryException e) {
 			throw new ModelRuntimeException(e);
+		}
+	}
+
+	protected void ensureTransaction() {
+		if (!connection.isActive()) {
+			connection.begin();
+		}
+	}
+
+	private void ensureAutoCommitted() {
+		if (autoCommit && connection.isActive()) {
+			connection.commit();
 		}
 	}
 }
