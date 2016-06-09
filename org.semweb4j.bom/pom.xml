@@ -44,6 +44,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.semweb4j</groupId>
+				<artifactId>rdf2go.impl.rdf4j</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.semweb4j</groupId>
 				<artifactId>rdf2go.impl.test</artifactId>
 				<version>${project.version}</version>
 			</dependency>

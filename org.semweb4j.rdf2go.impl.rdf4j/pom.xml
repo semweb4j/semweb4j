@@ -1,0 +1,230 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!--
+
+		/!\ WARNING /!\ Do not ever use Eclipses Format-Sourcecode here. It
+		destroys the formatting of the manifest-entries. They must remain on a
+		single line!
+	-->
+
+	<parent>
+		<groupId>org.semweb4j</groupId>
+		<artifactId>parent</artifactId>
+		<version>5.0.2-SNAPSHOT</version>
+		<relativePath>../org.semweb4j.parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>rdf2go.impl.rdf4j</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>Semweb4j RDF2Go RDF4J implementation</name>
+	<description>
+		RDF2Go driver for Eclipse RDF4J (formerly Sesame).
+		This project was started at FZI Forschungszentrum Informatik Karlsruhe, Germany - www.fzi.de
+	</description>
+	<url>http://rdf2go.semweb4j.org.org/</url>
+
+	<licenses>
+		<license>
+			<name>BSD license</name>
+			<url>
+				http://www.opensource.org/licenses/bsd-license.php
+			</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<properties>
+		<rdf4j.version>2.0M1</rdf4j.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.eclipse.rdf4j</groupId>
+				<artifactId>rdf4j-bom</artifactId>
+				<version>${rdf4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+        <dependency>
+            <groupId>org.semweb4j</groupId>
+            <artifactId>rdf2go.api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>org.semweb4j</groupId>
+			<artifactId>rdf2go.api</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- OSGi -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>org.eclipse.osgi</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- RDF4J -->
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-runtime-osgi</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.rdf4j</groupId>
+					<artifactId>rdf4j-http-client</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.rdf4j</groupId>
+					<artifactId>rdf4j-http-server-spring</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-sail-memory</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-repository-http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-repository-sail</artifactId>
+		</dependency>
+
+		<!-- all of the data formats for export round-trip test -->
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-rdfxml</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-rdfjson</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-trix</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-nquads</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-trig</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-jsonld</artifactId>
+			<!-- apparently missing in the RDF4j BOM -->
+			<version>${rdf4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!--
+				add OSGI specific metadata to the manifest how to do this?
+				http://maven.apache.org/guides/mini/guide-manifest.html there may be
+				a MVN-OSGi conformant way, but unless MVN completly integrates with
+				OSGi and the dependencies declared in maven map directly to OSGi
+				dependencies, I would not touch this further, and just fiddle with
+				the options.
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<finalName>${project.groupId}.${project.build.finalName}</finalName>
+					<archive>
+						<manifestFile>META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<developers>
+		<developer>
+			<id>xamde</id>
+			<name>Max Völkel (Max Voelkel)</name>
+			<email>opensource@maxvoelkel.de</email>
+			<url>http://maxvoelkel.de</url>
+			<organization>IT Consulting Dr. Max Völkel</organization>
+			<organizationUrl>http://www.maxvoelkel.de</organizationUrl>
+			<roles>
+				<role>Manager</role>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>leo</id>
+			<name>Leo Sauermann</name>
+			<organization>DFKI</organization>
+			<organizationUrl>http://www.dfki.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>wolfgang</id>
+			<name>Wolfgang Herget</name>
+			<organization>DFKI</organization>
+			<organizationUrl>http://www.dfki.de</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>aduna</id>
+			<name>Aduna Team</name>
+			<organization>Aduna</organization>
+			<organizationUrl>http://www.aduna-software.com</organizationUrl>
+			<timezone>+1</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Antoni Mylka</name>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<!-- repositories inherited after description in http://jira.codehaus.org/browse/MNG-3244?focusedCommentId=281645&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-281645 -->
+		<site>
+			<id>${distributionManagement.site.id}</id>
+			<url>${distributionManagement.site.url}/${project.artifactId}</url>
+		</site>
+	</distributionManagement>
+
+</project>
